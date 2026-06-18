@@ -94,9 +94,28 @@ infrastructure, all ∅-axiom:
 - `isSquare_iff` (`IsSquare n ↔ v2 n even ∧ IsSquare(oddPart n)`),
   `sq_or_twice_iff` (`(n square ∨ n twice-square) ↔ IsSquare(oddPart n)`).
 
+## 8. σ_m at a prime power, and divisor-sum multiplicativity for any completely-multiplicative weight
+
+`SigmaPrimePowGeom` + `SigmaDivisorClosed` close the **general power-sum-of-divisors** `σ_m(n) =
+Σ_{d∣n} dᵐ` (the `σ`/`τ` of §2 are `m=1`/`m=0`), all ∅-axiom:
+
+- `sigma_prime_pow_divisor_geom`: `(pᵐ − 1)·σ_m(pᵏ) = p^{m(k+1)} − 1` — the genuine divisor sum
+  over a prime power collapses (via the prime-power reindex `Σ_{d∣pᵏ} = Σ_{i≤k}` on `d=pⁱ`) onto
+  the geometric series of ratio `pᵐ`, whose cleared closed form is the right-hand side.  Built on
+  the cast-power bridge `↑(pⁱ) = (↑p)ⁱ` (`ofNat_pow_eq_ipow`) + `ipow_mul`.
+- `divisorSumZ_mul_of_completely_mult`: **the reusable general law** — if `g(uv)=g(u)g(v)` for all
+  `u,v`, then `divisorSumZ(ab) g = divisorSumZ a g · divisorSumZ b g` for coprime `a,b>0`.  This
+  generalizes both `muStruct_divisorSum_mul` and the `σ`/`τ` multiplicativity of §2; `sigma_m_mul`
+  (σ_m multiplicative) is a one-line corollary, since `d ↦ dᵐ` is completely multiplicative.
+
+Closed form (§8.1) + multiplicativity (§8.2) together determine `σ_m` on every `n` from its
+prime factorization, for every `m`.
+
 ## Promotion record
 
 Promoted from the closed frontiers `gauss_totient_general`,
 `mobius_divisor_sum_general`, `sigma_parity_general` (all ✅ closed;
 archived under `research-notes/archive/numbertheory/`). The framework is
-PURE end-to-end; this chapter is the permanent-tier narrative.
+PURE end-to-end; this chapter is the permanent-tier narrative.  §8 (σ_m
+closed form + general completely-multiplicative divisor-sum law) added
+2026-06-18 from the `SigmaDivisorClosed` closure.
