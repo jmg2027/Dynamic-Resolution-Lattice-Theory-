@@ -48,4 +48,12 @@ theorem nicomachus : ∀ n,
           ← ih, htri]
       ring_nat
 
+/-- ★★ **Sum of the first `n` squares**: `6·Σ_{i≤n} i² = n(n+1)(2n+1)` (division-free). -/
+theorem six_sumTo_sq : ∀ n, 6 * sumTo (n + 1) (fun i => i * i) = n * (n + 1) * (2 * n + 1)
+  | 0     => rfl
+  | n + 1 => by
+      show 6 * (sumTo (n + 1) (fun i => i * i) + (n + 1) * (n + 1))
+          = (n + 1) * (n + 1 + 1) * (2 * (n + 1) + 1)
+      rw [Nat.mul_add, six_sumTo_sq n]; ring_nat
+
 end E213.Lib.Math.Combinatorics.SumIdentities
