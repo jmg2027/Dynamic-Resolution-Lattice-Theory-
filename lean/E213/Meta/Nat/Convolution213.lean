@@ -377,4 +377,32 @@ theorem conv_deriv_leibniz (f g : Nat → Nat) (n : Nat) :
     deriv (conv f g) n = conv (deriv f) g n + conv f (deriv g) n :=
   conv_leibniz f g n
 
+/-! ## The derivation's algebraic laws (additive, scalar-linear, kills the unit) -/
+
+/-- `D` is additive: `D(f + g) = Df + Dg`. -/
+theorem deriv_addSeq (f g : Nat → Nat) (n : Nat) :
+    deriv (addSeq f g) n = addSeq (deriv f) (deriv g) n := by
+  show (n + 1) * (f (n + 1) + g (n + 1)) = (n + 1) * f (n + 1) + (n + 1) * g (n + 1)
+  rw [Nat.mul_add]
+
+/-- `D` kills the unit: `D δ = 0` (the constant `1` has zero derivative). -/
+theorem deriv_delta (n : Nat) : deriv delta n = 0 := by
+  show (n + 1) * delta (n + 1) = 0
+  rw [show delta (n + 1) = 0 from rfl, Nat.mul_zero]
+
+/-- `D` is scalar-linear: `D(c·f) = c·Df`. -/
+theorem deriv_smul (c : Nat) (f : Nat → Nat) (n : Nat) :
+    deriv (fun i => c * f i) n = c * deriv f n := by
+  show (n + 1) * (c * f (n + 1)) = c * ((n + 1) * f (n + 1))
+  rw [E213.Tactic.NatHelper.mul_left_comm]
+
+/-- ★★ The formal derivative `D` is a **derivation** of the convolution semiring: additive,
+    scalar-linear, kills the unit `δ`, and satisfies the Leibniz product rule (`conv_leibniz`).
+    `(ℕ→ℕ, addSeq, conv, δ, D)` is a differential semiring, ∅-axiom. -/
+theorem deriv_is_derivation (f g : Nat → Nat) (n : Nat) :
+    deriv (addSeq f g) n = addSeq (deriv f) (deriv g) n
+    ∧ deriv delta n = 0
+    ∧ (n + 1) * conv f g (n + 1) = conv (deriv f) g n + conv f (deriv g) n :=
+  ⟨deriv_addSeq f g n, deriv_delta n, conv_leibniz f g n⟩
+
 end E213.Meta.Nat.Convolution213
