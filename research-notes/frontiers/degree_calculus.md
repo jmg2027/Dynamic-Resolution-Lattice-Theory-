@@ -17,6 +17,17 @@ from `RateArithmetic` (sum), `RateProduct` (product), `RateAffine` (affine + rec
 | reciprocal `1/x` | `−W^x` (magnitude `W^x`) | numerator `Δa` | **preserved** (if `a ≍ d`) | `RateAffine.recip_*` |
 | translate `x+m` | **invariant** `W^x` | same `Δd` | **preserved** (no cost) | `RateAffine.trans_*` |
 | scale `q·x` | `q·W^x` (constant `q`) | same `Δd` | **preserved** (class) | `RateAffine.scale_*` |
+| power `xⁿ` | `W^x · h_{n−1}(p,q)` | `d(i+1)ⁿ−d_iⁿ` | **loses `[n−1, 2(n−1)]`** | `RatePower.pow_*` |
+
+The **power law** (`RatePower`) is the iterate of the product and the unifying identity of the
+calculus: the cross-determinant of `xⁿ` factors as `W^x` times the **complete homogeneous
+symmetric polynomial** `h_{n−1}(p,q) = Σ_{j<n} p^{n−1−j}q^j` of the two adjacent
+convergent-products `p=a_{i+1}d_i`, `q=a_id_{i+1}` (`pow_cross_det`, via the additive
+telescoping `pow_factor` — `pⁿ−qⁿ=(p−q)h_{n−1}` over `Nat`, no subtraction).  It recovers `n=1`
+(`W·1`) and the product `n=2` (`W·(p+q)`).  The degree loss is honestly **bracketed
+`[n−1, 2(n−1)]`** (`pow_cross_det_bound`, `geomH_le`): the carry `(d_id_{i+1})^{n−1}` lives at
+denominator-degree `2(n−1)` while the `dⁿ` increment supplies only `n−1` — exactly `n−1` on a
+denominator-flat (degree-1-saturated) pointing, strictly worse off it.
 
 **The structural reading.**  Reciprocal (`J = [[0,1],[1,0]]`, `det −1`) and integer
 translation (`T = [[1,m],[0,1]]`, `det +1`) are the two `GL₂(ℤ)` generators; the degree is

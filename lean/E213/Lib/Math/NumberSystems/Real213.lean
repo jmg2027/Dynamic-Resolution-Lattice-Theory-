@@ -75,6 +75,7 @@ import E213.Lib.Math.NumberSystems.Real213.Modulus.DegreeCriterion
 import E213.Lib.Math.NumberSystems.Real213.Modulus.RateArithmetic
 import E213.Lib.Math.NumberSystems.Real213.Modulus.RateProduct
 import E213.Lib.Math.NumberSystems.Real213.Modulus.RateAffine
+import E213.Lib.Math.NumberSystems.Real213.Modulus.RatePower
 import E213.Lib.Math.NumberSystems.Real213.Modulus.PointingLimit
 import E213.Lib.Math.NumberSystems.Real213.Modulus.BestApproximation
 import E213.Lib.Math.NumberSystems.Real213.Modulus.BracketModulus
