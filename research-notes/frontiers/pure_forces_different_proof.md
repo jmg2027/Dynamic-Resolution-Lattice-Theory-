@@ -617,6 +617,17 @@ with a manifestly non-negative remainder* — each `(…)² ≥ 0` (`int_sq_nonn
 not asserted via positivity of a quadratic.** (17 PURE; reuses `Int213.int_sq_nonneg`,
 `ring_intZ`.)
 
+### A/B — FTA uniqueness as valuation-count invariance (★ fundamental)
+`NumberTheory/FTAUniqueness`. `factorization_unique : (all-prime l1) → (all-prime l2) →
+prodL l1 = prodL l2 → ∀ q prime, countOcc q l1 = countOcc q l2` — any two prime factorizations
+of n have the same multiset. Classically "lift to ℤ, ℤ is a UFD" or a multiset-permutation
+argument. ∅-axiom forces it as **valuation-count invariance**: `vp_prodL_eq_countOcc` shows the
+multiplicity of `q` in ANY factorization is the *computed* `vp q n` (Euclid's lemma fires once
+per prime inside `vp_mul`; `vp_prime_single`: `vp q p = [p=q]`). So the factorization multiset
+is read off `n` — no abstract UFD, no permutation bookkeeping; the uniqueness is the computed
+valuation at each prime. (6 PURE; reuses `vp_mul`, `prime_dvd_mul`/`prime_not_dvd_prime`,
+`prodL`.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
