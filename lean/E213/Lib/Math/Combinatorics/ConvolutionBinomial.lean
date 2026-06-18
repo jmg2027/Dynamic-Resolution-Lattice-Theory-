@@ -23,7 +23,7 @@ All zero-axiom.
 
 namespace E213.Lib.Math.Combinatorics.ConvolutionBinomial
 
-open E213.Meta.Nat.Convolution213 (conv natSplits sumMap sumMap_map)
+open E213.Meta.Nat.Convolution213 (conv natSplits sumMap sumMap_map delta conv_congr_left)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Vandermonde (vand vandermonde)
@@ -94,5 +94,29 @@ theorem conv_brow (a b k : Nat) : conv (brow a) (brow b) k = choose (a + b) k :=
         = sumTo (k + 1) (fun j => choose a j * choose b (k - j))
       from sumMap_natSplits_eq_sumTo (fun i j => choose a i * choose b j) k]
   exact vandermonde a b k
+
+/-! ## §4 — the binomial theorem: (1+x)^n by iterated split-then-reglue is Pascal -/
+
+/-- `δ` is the `0`-th binomial row: `δ = C(0,·)`. -/
+theorem delta_eq_choose0 : ∀ m, delta m = choose 0 m
+  | 0     => rfl
+  | _ + 1 => rfl
+
+/-- Iterated convolution power: `convPow f 0 = δ`, `convPow f (n+1) = conv (convPow f n) f`. -/
+def convPow (f : Nat → Nat) : Nat → (Nat → Nat)
+  | 0     => delta
+  | n + 1 => conv (convPow f n) f
+
+/-- ★★★ **The binomial theorem as a convolution power.**  `convPow (brow 1) n k = C(n,k)` —
+    the `n`-fold cut-product of the `(1+x)` row `brow 1 = [1,1,0,…]` is the binomial row
+    `C(n,·)`.  `(1+x)^n` computed by repeated split-then-reglue equals Pascal, by induction
+    through `conv_brow` (Vandermonde): `conv (brow n)(brow 1) = brow (n+1)`. -/
+theorem convPow_brow1 : ∀ (n k : Nat), convPow (brow 1) n k = choose n k
+  | 0,     k => delta_eq_choose0 k
+  | n + 1, k => by
+      show conv (convPow (brow 1) n) (brow 1) k = choose (n + 1) k
+      rw [conv_congr_left (f1 := convPow (brow 1) n) (f2 := brow n) (g := brow 1)
+            (fun m => convPow_brow1 n m) k,
+          conv_brow n 1]
 
 end E213.Lib.Math.Combinatorics.ConvolutionBinomial
