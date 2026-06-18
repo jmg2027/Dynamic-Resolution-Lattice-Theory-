@@ -97,6 +97,7 @@ import E213.Lib.Math.NumberTheory.UnitsOfZn
 import E213.Lib.Math.NumberTheory.WilsonGeneralization
 import E213.Lib.Math.NumberTheory.DividesPairPigeonhole
 import E213.Lib.Math.NumberTheory.TwoSquareTheorem
+import E213.Lib.Math.NumberTheory.EisensteinRepresentation
 import E213.Lib.Math.NumberTheory.SumTwoSquaresCharacterization
 import E213.Lib.Math.NumberTheory.InertPrimeThreeMod4
 import E213.Lib.Math.NumberTheory.SumTwoSquaresOddPower

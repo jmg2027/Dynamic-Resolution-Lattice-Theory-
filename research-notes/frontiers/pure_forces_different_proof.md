@@ -628,6 +628,20 @@ is read off `n` — no abstract UFD, no permutation bookkeeping; the uniqueness 
 valuation at each prime. (6 PURE; reuses `vp_mul`, `prime_dvd_mul`/`prime_not_dvd_prime`,
 `prodL`.)
 
+### B — the disc-(-3) Eisenstein representation `p≡1mod3 ⟹ p=x²+xy+y²` (★ two-square's twin, 7th exists_collision)
+`NumberTheory/EisensteinRepresentation`. `eisenstein_repr : p prime → p%3=1 → ∃ a b : Nat, p =
+a²+ab+b²` (and the Int form), with the full `=p` descent. The disc-`−3` analogue of Fermat's
+two-square theorem, classically riding on the Eisenstein integers `ℤ[ω]` being a PID/UFD.
+∅-axiom forces the **computed Thue witness** with no `ℤ[ω]`: the cube-root gate
+`∃x, p∣x²+x+1` (corpus `EisensteinConverse`, unconditional for p≡1mod3) feeds the Thue box
+(`exists_collision_lt` — the 7th distinct reuse, sharing TwoSquareTheorem's `thue_collision`/
+`boxVal`), signed differences `(a,b)`; the modular core `dvd_eis_form` (identity
+`A²+AB+B² = (A−XB)(A+XB+B) + B²(X²+X+1)`) gives `p∣a²+ab+b²`; positive-definiteness
+(`4N=(2A+B)²+3B²`) + the bound `N<3p` + ruling out `2p` (the form is never `≡2 mod 4`) force
+`N=p`. Reveals: **the same Thue construction that gives two-square gives the Eisenstein form —
+the disc only changes the modular core identity and the descent bound; no Eisenstein-integer
+ring, the witness computed.** (27 PURE.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
