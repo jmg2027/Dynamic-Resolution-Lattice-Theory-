@@ -34,8 +34,9 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberSystems.Real213.Modulus.RateAffine
 
 open E213.Lib.Math.NumberSystems.Real213.Modulus.RateStratification (DominatesS)
-open E213.Lib.Math.NumberSystems.Real213.Modulus.DegreeCriterion (degree_le_of_increment)
-open E213.Meta.Nat.RootFloor (rootFloor)
+open E213.Lib.Math.NumberSystems.Real213.Modulus.DegreeCriterion
+  (degree_le_of_increment dominatesS_of_scheduled_increment)
+open E213.Meta.Nat.RootFloor (rootFloor rootFloor_mono)
 
 /-! ## §1 — integer translation: the cross-determinant is invariant -/
 
@@ -87,5 +88,47 @@ theorem scale_dominatesS (d Wx : Nat → Nat) (q s : Nat)
     (hbudget : ∀ i, rootFloor s i * (q * Wx i) + d i ≤ d (i + 1)) (i : Nat) :
     DominatesS (fun j => q * Wx j) d (rootFloor s) i :=
   degree_le_of_increment s (fun j => q * Wx j) d hbudget i
+
+/-! ## §3 — reciprocal: the inversion `J` generator (magnitude preserved, sign flipped) -/
+
+/-- ★★★ **Reciprocal preserves the cross-determinant magnitude.**  `1/x` has convergents
+    `d/a` (swap); the swapped pointing's cross-determinant has the *same magnitude* `W^x`
+    with the sign flipped — `d_i·a_{i+1} = d_{i+1}·a_i + W^x_i` (the `GL₂(ℤ)` generator
+    `J = [[0,1],[1,0]]`, `det J = −1`: adjacent-convergent minors flip sign, preserve
+    magnitude).  The negative sign means `1/x`'s convergents *decrease* (`x ↦ 1/x` is
+    order-reversing); the magnitude `W^x` drives its width companion. -/
+theorem recip_cross_det (a d Wx : Nat → Nat)
+    (hW : ∀ i, a (i + 1) * d i = a i * d (i + 1) + Wx i) (i : Nat) :
+    d i * a (i + 1) = d (i + 1) * a i + Wx i := by
+  rw [Nat.mul_comm (d i) (a (i + 1)), hW i, Nat.mul_comm (a i) (d (i + 1))]
+
+/-- ★★ **Reciprocal degree law (per layer).**  With the *same* cross-determinant `W^x`, the
+    reciprocal pointing `d/a` is degree-`s` dominated when `W^x` fits the **numerator**
+    increment `a_{i+1} − a_i` (the old numerator `a` is now the racing denominator).  Only
+    the racing increment changes from `Δd` to `Δa`. -/
+theorem recip_dominatesS_of_budget (a Wx : Nat → Nat) (s i : Nat)
+    (hbudget : rootFloor s i * Wx i + a i ≤ a (i + 1)) :
+    DominatesS Wx a (rootFloor s) i :=
+  dominatesS_of_scheduled_increment Wx a (rootFloor s) i
+    (rootFloor_mono s (Nat.le_succ i)) hbudget
+
+/-- ★★★ **Reciprocal preserves degree under the numerator-growth normalization.**  If `x` is
+    bounded away from `0` so the numerator grows at least a constant fraction of the
+    denominator (`c·Δd_i ≤ Δa_i`, `c ≥ 1`, with `a` monotone), then `x` degree-`s` ⟹ `1/x`
+    degree-`s`: the reciprocal is **degree-neutral** — the honest dual of product's degree
+    loss.  (As `x → 0` the numerator stalls, `Δa → 0`, and reciprocal can lose rate; the
+    normalization removes exactly that boundary case.) -/
+theorem recip_preserves_degree (a d Wx : Nat → Nat) (s c i : Nat) (hc : 1 ≤ c)
+    (hmono_a : a i ≤ a (i + 1))
+    (hnorm : c * (d (i + 1) - d i) ≤ a (i + 1) - a i)
+    (horig : rootFloor s i * Wx i + d i ≤ d (i + 1)) :
+    DominatesS Wx a (rootFloor s) i := by
+  apply recip_dominatesS_of_budget a Wx s i
+  have h1 : rootFloor s i * Wx i ≤ d (i + 1) - d i :=
+    E213.Tactic.NatHelper.le_sub_of_add_le horig
+  have h2 : d (i + 1) - d i ≤ a (i + 1) - a i :=
+    Nat.le_trans (Nat.le_mul_of_pos_left (d (i + 1) - d i) hc) hnorm
+  exact Nat.le_trans (Nat.add_le_add_right (Nat.le_trans h1 h2) (a i))
+    (Nat.le_of_eq (E213.Tactic.NatHelper.sub_add_cancel hmono_a))
 
 end E213.Lib.Math.NumberSystems.Real213.Modulus.RateAffine
