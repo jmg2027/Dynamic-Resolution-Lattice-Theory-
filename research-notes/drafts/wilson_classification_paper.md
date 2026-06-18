@@ -12,9 +12,18 @@ formalization. Target venues: expository (*American Mathematical Monthly*,
 > that `|S| = 2^m`; and **(ii)** a complete formalization in Lean 4 that depends on
 > **zero axioms** (no `propext`, `Classical.choice`, `Quot.sound`, function
 > extensionality, or quotient types — verified by `#print axioms`), which is
-> unusual for a result of this depth. A literature check is still owed for (i)'s
-> exact prior art (the `P = t^{|S|/2}` move is plausibly folklore; the *packaging*
-> — group-free + axiom-free + machine-checked — is the contribution).
+> unusual for a result of this depth.
+>
+> **Literature check (done, 2026-06-18; see `publishability_audit.md`).** The `+1`
+> theorem is Miller's 1903 result (*Ann. Math.* 4(4):188–190): the product of all
+> elements of a finite abelian group is the unique involution if one exists, else the
+> identity. The `P ≡ t^{|S|/2}` pairing move is *that result de-grouped* — known
+> folklore (the standard fixed-point-free-involution device), not a new idea; the
+> mainstream expositions (Sury, walker) deliberately keep the group language because
+> it is cleaner. So contribution (i) is **expository at best** (a *Monthly/Math-Mag*
+> note), and referees will cite Miller 1903. The only durable artifact is **(ii)**, the
+> ∅-axiom / Mathlib-free / `Classical`-free formalization — and that too is a
+> *formalization*-paper contribution (ITP/CPP/JAR), not new mathematics.
 
 ## 1. Statement
 
@@ -129,8 +138,12 @@ having no abstract finite-group library to lean on) forced the elementary
 paper's mathematical kernel.
 
 ## Status / next steps
-- [ ] Literature check on the `P = t^{|S|/2}` / "no Lagrange" Wilson `+1` argument
-      (owe a search; `deep-research` can do this).
+- [x] Literature check on the `P = t^{|S|/2}` / "no Lagrange" Wilson `+1` argument —
+      **done** (`publishability_audit.md`). Verdict: Miller 1903; folklore device; the
+      math is not new. Only the formalization angle survives.
 - [ ] Tighten §4's `⇒` exposition (the uniform `minFac(oddpart n)` split).
-- [ ] Decide framing: *Monthly*-style elementary note vs. ITP/CPP formalization paper
-      (the two contributions can be split or combined).
+- [ ] Framing decision (informed by the audit): fold this into the *single* viable
+      paper — the repo-wide **∅-axiom Lean-4-without-Mathlib formalization** paper
+      (ITP/CPP/JAR), where group-free Wilson is one worked example of "forcing"
+      (no abstract finite-group library → the elementary route is forced). A standalone
+      *Monthly* note is possible but low-odds (referees → Miller 1903).
