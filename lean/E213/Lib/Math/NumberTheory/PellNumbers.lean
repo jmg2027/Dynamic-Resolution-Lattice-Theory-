@@ -302,4 +302,30 @@ theorem sumHalf_eq (n : Nat) :
     rw [hr, Nat.mul_add, ih']
     ring_nat
 
+
+/-! ## Fundamental-unit minimality: (3,2) is the least nontrivial Pell solution -/
+
+/-- No natural number squares to . -/
+theorem not_sq_three : ∀ x : Nat, x * x ≠ 3
+  | 0     => by decide
+  | 1     => by decide
+  | x + 2 => by
+      intro hc
+      have h4 : 4 ≤ (x + 2) * (x + 2) :=
+        Nat.mul_le_mul (Nat.le_add_left 2 x) (Nat.le_add_left 2 x)
+      rw [hc] at h4
+      exact absurd h4 (by decide)
+
+/-- ★★ **Pell fundamental-unit minimality**: every solution of  has 
+    (the trivial ) or ; there is **no** solution with .  So the least
+    nontrivial solution is  — the fundamental unit of . -/
+theorem pell_min (x y : Nat) (h : x * x = 2 * y * y + 1) : y = 0 ∨ 2 ≤ y := by
+  match y, h with
+  | 0,     _ => exact Or.inl rfl
+  | 1,     h => exact absurd h (not_sq_three x)
+  | y + 2, _ => exact Or.inr (Nat.le_add_left 2 y)
+
+/-- The fundamental solution  realizes  (, ). -/
+theorem pell_fundamental : H 2 * H 2 = 2 * (P 2) * (P 2) + 1 := by decide
+
 end E213.Lib.Math.NumberTheory.PellNumbers
