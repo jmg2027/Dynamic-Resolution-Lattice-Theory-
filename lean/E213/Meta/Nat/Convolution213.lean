@@ -31,8 +31,9 @@ order is the cut `(n, 0)` of the other (the reverse-a-cut symmetry of
 `conv g f` and the recursion folds the rest, no full sum-permutation lemma
 needed.  This is the same "commutativity from a swap symmetry" as `+`
 (append) and `×` (grid transpose), one rung up on **sequences**.
-Associativity (`conv (conv f g) h = conv f (conv g h)`, the triple split)
-remains the open continuation.
+Associativity (`conv_assoc`, the triple split) descends from the **coassociativity**
+of the same cut comultiplication `natSplits` — `+`/`×`/`conv` are the three rungs of
+"comm/assoc are shadows of a comultiplication swap symmetry".
 
 All ∅-axiom; bare recursion / `List.Mem` with PURE `List213` helpers, and
 `rfl` computation on the concrete witnesses.
@@ -196,9 +197,8 @@ theorem conv_cube_3 : conv (conv onePlusX onePlusX) onePlusX 3 = 1 := rfl
 
 /-- ★ **Associativity holds concretely**: the left- and right-nested triple
     convolutions of `(1+x)` agree coefficient-by-coefficient — both compute
-    the `(1+x)³` coefficients `[1,3,3,1]` (`rfl`).  The general law
-    `conv (conv f g) h = conv f (conv g h)` (the triple-split reindex) is the
-    open continuation; this is its concrete witness. -/
+    the `(1+x)³` coefficients `[1,3,3,1]` (`rfl`).  The general law is `conv_assoc`
+    (the triple-split reindex); these are its concrete witnesses. -/
 theorem conv_assoc_0 :
     conv (conv onePlusX onePlusX) onePlusX 0 = conv onePlusX (conv onePlusX onePlusX) 0 := rfl
 theorem conv_assoc_1 :
@@ -207,5 +207,66 @@ theorem conv_assoc_2 :
     conv (conv onePlusX onePlusX) onePlusX 2 = conv onePlusX (conv onePlusX onePlusX) 2 := rfl
 theorem conv_assoc_3 :
     conv (conv onePlusX onePlusX) onePlusX 3 = conv onePlusX (conv onePlusX onePlusX) 3 := rfl
+
+/-! ## Associativity — the triple split, from coassociativity of the cut comultiplication
+
+`conv_comm` came from the cut-reversal swap symmetry; associativity comes from the
+**coassociativity** of `natSplits` — cutting `n` into three pieces two ways enumerates the
+same `{(i,j,k) : i+j+k = n}`.  Proven in the same end-peel style (no full sum-permutation
+lemma), via a scalar pull-out and a pointwise congruence under the reglue. -/
+
+/-- `sumMap` respects pointwise equality (no `funext`). -/
+theorem sumMap_congr {h1 h2 : Nat × Nat → Nat} (he : ∀ p, h1 p = h2 p) :
+    ∀ l : List (Nat × Nat), sumMap h1 l = sumMap h2 l
+  | []     => rfl
+  | p :: l => by
+      show h1 p + sumMap h1 l = h2 p + sumMap h2 l
+      rw [he p, sumMap_congr he l]
+
+/-- Scalar pulls out of the reglue: `Σ c·h = c·Σ h`. -/
+theorem sumMap_smul (c : Nat) (h : Nat × Nat → Nat) :
+    ∀ l : List (Nat × Nat), sumMap (fun p => c * h p) l = c * sumMap h l
+  | []     => by show (0 : Nat) = c * 0; rw [Nat.mul_zero]
+  | p :: l => by
+      show c * h p + sumMap (fun q => c * h q) l = c * (h p + sumMap h l)
+      rw [sumMap_smul c h l, Nat.mul_add]
+
+/-- ★ **Scalar linearity** of `conv` in the first argument:
+    `conv (c·f) g = c · conv f g`. -/
+theorem conv_smul_left (c : Nat) (f g : Nat → Nat) (n : Nat) :
+    conv (fun i => c * f i) g n = c * conv f g n := by
+  show sumMap (fun p => (c * f p.1) * g p.2) (natSplits n)
+      = c * sumMap (fun p => f p.1 * g p.2) (natSplits n)
+  rw [← sumMap_smul c (fun p => f p.1 * g p.2) (natSplits n)]
+  exact sumMap_congr (fun p => E213.Meta.Nat.PureNat.mul_assoc c (f p.1) (g p.2)) (natSplits n)
+
+/-- `conv` respects pointwise equality in the first argument (no `funext`). -/
+theorem conv_congr_left {f1 f2 g : Nat → Nat} (he : ∀ i, f1 i = f2 i) (n : Nat) :
+    conv f1 g n = conv f2 g n :=
+  sumMap_congr (fun p => by rw [he p.1]) (natSplits n)
+
+/-- ★★★ **Convolution associates** — `conv (conv f g) h n = conv f (conv g h) n`.  The triple
+    split reindexes: peel the outer-left cut on both sides; the left nest's shifted head
+    `shiftL (conv f g) = f0·(shiftL g) + conv (shiftL f) g` splits by bilinearity
+    (`conv_add_left`) and scalar linearity (`conv_smul_left`), the inner block folds by
+    induction, and the heads agree by `mul_assoc`.  This is the **coassociativity** of the cut
+    comultiplication `natSplits` — the sequence-scale rung of "comm/assoc are shadows of a
+    comultiplication swap symmetry", alongside `+` (`UnitList.append_comm`) and `×`
+    (`UnitGrid.mul_comm_from_grid`). -/
+theorem conv_assoc : ∀ (f g h : Nat → Nat) (n : Nat),
+    conv (conv f g) h n = conv f (conv g h) n
+  | f, g, h, 0     => by
+      show conv f g 0 * h 0 = f 0 * conv g h 0
+      rw [conv_zero, conv_zero]
+      exact E213.Meta.Nat.PureNat.mul_assoc (f 0) (g 0) (h 0)
+  | f, g, h, n + 1 => by
+      rw [conv_peelL (conv f g) h n,
+          conv_congr_left (f1 := shiftL (conv f g))
+            (f2 := addSeq (fun i => f 0 * shiftL g i) (conv (shiftL f) g))
+            (g := h) (fun i => conv_peelL f g i) n,
+          conv_add_left, conv_smul_left, conv_assoc (shiftL f) g h, conv_zero,
+          conv_peelL f (conv g h) n, conv_peelL g h n, Nat.mul_add,
+          E213.Meta.Nat.PureNat.mul_assoc (f 0) (g 0) (h (n + 1))]
+      exact (Nat.add_assoc _ _ _).symm
 
 end E213.Meta.Nat.Convolution213
