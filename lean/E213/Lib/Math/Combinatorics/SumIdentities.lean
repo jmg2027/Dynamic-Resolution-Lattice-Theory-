@@ -63,4 +63,14 @@ theorem hexagonal_triangular (n : Nat) :
     2 * ((n + 1) * (2 * n + 1)) = (2 * n + 1) * (2 * n + 1 + 1) := by
   ring_nat
 
+/-- ★★ **Tetrahedral numbers** (sum of consecutive products, division-free):
+    `3·Σ_{i≤n} i(i+1) = n(n+1)(n+2)` — equivalently `Σ T_i = n(n+1)(n+2)/6`. -/
+theorem three_sumTo_consec : ∀ n,
+    3 * sumTo (n + 1) (fun i => i * (i + 1)) = n * (n + 1) * (n + 2)
+  | 0     => rfl
+  | n + 1 => by
+      show 3 * (sumTo (n + 1) (fun i => i * (i + 1)) + (n + 1) * (n + 1 + 1))
+          = (n + 1) * (n + 1 + 1) * (n + 1 + 2)
+      rw [Nat.mul_add, three_sumTo_consec n]; ring_nat
+
 end E213.Lib.Math.Combinatorics.SumIdentities
