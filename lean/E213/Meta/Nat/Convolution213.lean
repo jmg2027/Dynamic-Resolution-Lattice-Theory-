@@ -269,4 +269,49 @@ theorem conv_assoc : ∀ (f g h : Nat → Nat) (n : Nat),
           E213.Meta.Nat.PureNat.mul_assoc (f 0) (g 0) (h (n + 1))]
       exact (Nat.add_assoc _ _ _).symm
 
+/-! ## The generating-function semiring — unit `δ` and right-bilinearity -/
+
+/-- `sumMap` of the zero function is `0`. -/
+theorem sumMap_zero : ∀ l : List (Nat × Nat), sumMap (fun _ => 0) l = 0
+  | []     => rfl
+  | _ :: l => by show 0 + sumMap (fun _ => 0) l = 0; rw [Nat.zero_add, sumMap_zero l]
+
+/-- The unit sequence `δ = [1, 0, 0, …]` (the constant-`1` generating function). -/
+def delta : Nat → Nat := nth [1]
+
+/-- ★★ **`δ` is a left unit for `conv`**: `conv δ f = f`.  Only the cut `(0, n)` survives
+    (`δ 0 = 1`); every cut with first part `≥ 1` is killed by `δ (i+1) = 0`. -/
+theorem conv_delta_left (f : Nat → Nat) : ∀ n, conv delta f n = f n
+  | 0     => by
+      show delta 0 * f 0 = f 0
+      rw [show delta 0 = 1 from rfl, Nat.one_mul]
+  | n + 1 => by
+      show delta 0 * f (n + 1)
+          + sumMap (fun p => delta p.1 * f p.2) ((natSplits n).map (fun p => (p.1 + 1, p.2)))
+        = f (n + 1)
+      rw [sumMap_map,
+          sumMap_congr (h2 := fun _ => 0)
+            (fun p => by
+              show delta (p.1 + 1) * f p.2 = 0
+              rw [show delta (p.1 + 1) = 0 from rfl, Nat.zero_mul]) (natSplits n),
+          sumMap_zero, show delta 0 = 1 from rfl, Nat.one_mul, Nat.add_zero]
+
+/-- ★ **`δ` is a right unit**: `conv f δ = f` (by commutativity). -/
+theorem conv_delta_right (f : Nat → Nat) (n : Nat) : conv f delta n = f n := by
+  rw [conv_comm f delta, conv_delta_left]
+
+/-- ★ **Right-additivity** (the other half of bilinearity), via commutativity. -/
+theorem conv_add_right (f g1 g2 : Nat → Nat) (n : Nat) :
+    conv f (addSeq g1 g2) n = conv f g1 n + conv f g2 n := by
+  rw [conv_comm f (addSeq g1 g2), conv_add_left, conv_comm g1 f, conv_comm g2 f]
+
+/-- ★★★ **`conv` is a commutative-monoid product with unit `δ`, bilinear over `addSeq`.**
+    Together with `conv_assoc`/`conv_comm`/`conv_add_left`/`conv_add_right` and the unit laws,
+    `(Nat → Nat, addSeq, conv, δ)` is the **generating-function commutative semiring** — the
+    split-then-reglue product completed to its algebraic structure, ∅-axiom. -/
+theorem conv_unit_comm_assoc (f : Nat → Nat) (n : Nat) :
+    conv delta f n = f n ∧ conv f delta n = f n
+    ∧ (∀ g, conv f g n = conv g f n) :=
+  ⟨conv_delta_left f n, conv_delta_right f n, fun g => conv_comm f g n⟩
+
 end E213.Meta.Nat.Convolution213
