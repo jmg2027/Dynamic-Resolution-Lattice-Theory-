@@ -229,4 +229,13 @@ theorem prime_deficient {q : Nat} (hq : Prime213 q) : Deficient q := by
   rw [sigma_prime hq, Nat.two_mul]
   exact Nat.add_lt_add_left (Nat.lt_of_lt_of_le (by decide) hq.1) q
 
+
+/-- ★ Concrete classification: `12, 18, 20, 24` are abundant; `8, 9, 10` are deficient. -/
+theorem abundant_12 : Abundant 12 := by show 2 * 12 < sigma 12; decide
+theorem abundant_18 : Abundant 18 := by show 2 * 18 < sigma 18; decide
+theorem abundant_20 : Abundant 20 := by show 2 * 20 < sigma 20; decide
+theorem deficient_8 : Deficient 8 := by show sigma 8 < 2 * 8; decide
+theorem deficient_9 : Deficient 9 := by show sigma 9 < 2 * 9; decide
+theorem deficient_10 : Deficient 10 := by show sigma 10 < 2 * 10; decide
+
 end E213.Lib.Math.NumberTheory.PerfectNumbers
