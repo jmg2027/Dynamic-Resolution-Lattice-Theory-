@@ -2,15 +2,13 @@ import E213.Meta.Int213.PolyIntMTactic
 import E213.Meta.Int213.Core
 
 /-!
-# Lefschetz (1,1) / Hodge divisor case on the abelian surface `T⁴` (genuine)
+# Lefschetz (1,1) / Hodge divisor case on the abelian surface `T⁴`
 
-This is the **genuine rebuild** of the Hodge-conjecture content, replacing the
-deleted `HodgeConjecture/Foundation/*` layer — which was stereotype-matching
-(`IsLensHodgeClass := True`, proof `⟨σ, rfl⟩`) on the `K_{3,2}^{(c=2)}` graph
-1-complex, where the real (p,p) conjecture is *vacuous* (a 1-complex has no
-H^{p,p} for `p ≥ 1`).
+This carries the Hodge-conjecture content on an object where the conjecture has
+teeth.  A graph 1-complex (e.g. `K_{3,2}^{(c=2)}`) is the wrong carrier — it has
+no `H^{p,p}` for `p ≥ 1`, so the `(p,p)` conjecture there is *vacuous*.
 
-Here the object is a **non-trivial** one: the abelian surface `T⁴ = ℝ⁴/ℤ⁴`
+The object here is **non-trivial**: the abelian surface `T⁴ = ℝ⁴/ℤ⁴`
 with a complex structure, whose `H²` is the 6-dimensional lattice carried by
 the kept `Surfaces/` intersection-form seam (`h^{2,0}=1, h^{1,1}=4, h^{0,2}=1`,
 signature `(3,3)`).  On it the Hodge conjecture has teeth — `H^{1,1} ⊊ H²`.
