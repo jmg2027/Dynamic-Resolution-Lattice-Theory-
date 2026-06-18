@@ -17,9 +17,15 @@ product +1. Reuses `units_prod_eq_selfinv_prod` + a count/structure of √1 mod 
 QR/CRT-structure heavy; do interactively.
 
 
-## Residual (after WilsonValue)
+## Progress (after SqrtOnePrimePower)
+`NumberTheory/SqrtOnePrimePower` (7 PURE): `sqrt_one_prime_power` — for odd prime p,
+the only square roots of 1 mod pᵏ are ±1 (vp argument: vp_p((x−1)(x+1)) ≥ k with min = 0
+since p∤2 ⟹ pᵏ divides one factor); hence `wilson_neg_one_prime_power : ∏(units of ℤ/pᵏ)
+≡ −1`. The `n = pᵏ` (odd) case of the −1 classification is DONE.
+
+## Residual (after WilsonValue + SqrtOnePrimePower)
 1. **+1 direction**: `#√1 ≥ 4 ⟹ ∏ units ≡ +1` (the √1 form an elementary-abelian
    2-group; product of all elements = identity when rank ≥ 2).
-2. **CRT count**: `#√1 mod n = 2 ⟺ n ∈ {1,2,4,pᵏ,2pᵏ}` (√1-count via CRT over the
+2. **CRT count**: `#√1 mod n = 2 ⟺ n ∈ {1,2,4,pᵏ,2pᵏ}` (odd pᵏ DONE; remaining: 2pᵏ via CRT(2,pᵏ), n=4, and the composite/2ᵃ a≥3 → ≥4 roots side) (√1-count via CRT over the
    prime-power factorization). Together these discharge `htriv`/its negation from n's
    factorization, completing the ⟺.
