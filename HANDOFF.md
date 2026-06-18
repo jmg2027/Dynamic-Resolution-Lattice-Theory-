@@ -17,9 +17,9 @@ Per the originator's reframe ("본질적으로 뭘까" → collect theorems wher
 running collection `research-notes/frontiers/pure_forces_different_proof.md`;
 permanent chapter `theory/meta/forcing_versus_bookkeeping.md`. New this leg:
 
-> **Session running total: ~46 ∅-axiom modules + the `exists_collision` primitive
+> **Session running total: ~49 ∅-axiom modules + the `exists_collision` primitive
 > (now reused in 5 distinct theorems: DividesPair, TwoSquare, ErdosSzekeres,
-> Pisano, ConsecutiveSumDvd), all PURE, full Math green at 2000.** Two complete classical arcs closed
+> Pisano, ConsecutiveSumDvd), all PURE, full Math green at 2002.** Two complete classical arcs closed
 > end-to-end: **Euler's theorem** (`EulerTheorem`) and the **Fermat–Gauss
 > two-square characterization** (`TwoSquareTheorem` + `SumTwoSquaresCharacterization`
 > + `InertPrimeThreeMod4` + `SumTwoSquaresOddPower` + `SumTwoSquaresBiconditional`,
@@ -32,7 +32,7 @@ permanent chapter `theory/meta/forcing_versus_bookkeeping.md`. New this leg:
 > fixed-point product). Fresh recurrence thread: **`PisanoPeriod`**
 > (Fibonacci mod m periodic, period = computed collision gap, backward via ℤ/m
 > cancellation). **`ConsecutiveSumDvd`** (a consecutive run sums ≡0 mod n,
-> computed). Fibonacci-mod-m sub-arc complete (PisanoPeriod + PisanoPeriodMinimal + FibonacciApparition: rank of apparition, zeros = its multiples). FTA complete (PrimeFactorization existence + FTAUniqueness: multiplicity = vp q n). Inequality sub-arc: Cauchy–Schwarz + Chebyshev (computed slack). Cauchy–Schwarz via Lagrange (slack = computed cross-square sum). Recent combinatorics: Redei (tournament Ham path), Mirsky (poset antichain cover via computed height), ConsecutiveSumDvd; analysis: AlternatingSeries, ComparisonTest, LimitArithmetic, SqueezeProduct. Wilson ±1 frontier: the −1 ⟸ direction COMPLETE (WilsonValue + SqrtOnePrimePower + SqrtOneTwoPrimePower: n∈{1,2,4,pᵏ,2pᵏ} ⟹ ∏ units ≡ −1); residual = the +1 ⟹ direction (elementary-2-group product, hard). Honest rejection: disc-8 x²+2y² Thue proof (rep_of_mod8 already exists). Open frontiers: `hall_general_induction`,
+> computed). Fibonacci-mod-m sub-arc complete (PisanoPeriod + PisanoPeriodMinimal + FibonacciApparition: rank of apparition, zeros = its multiples). FTA complete (PrimeFactorization existence + FTAUniqueness: multiplicity = vp q n). Inequality sub-arc: Cauchy–Schwarz + Chebyshev (computed slack). Cauchy–Schwarz via Lagrange (slack = computed cross-square sum). Recent combinatorics: Redei (tournament Ham path), Mirsky (poset antichain cover via computed height), ConsecutiveSumDvd; analysis: AlternatingSeries, ComparisonTest, LimitArithmetic, SqueezeProduct. RESEARCH RESULT — the Wilson ±1 VALUE DICHOTOMY complete: ∏ units ≡ −1 ⟺ only ±1 are √1 (WilsonValue), ≡ +1 ⟺ ∃ nontrivial √1 (WilsonPlusOne — a NOVEL ∅-axiom argument P≡t^(|S|/2)+parity, no group theory, worked out then verified). + SqrtOnePrimePower/SqrtOneTwoPrimePower (−1 keystones) + WilsonExistence (+1 via CRT crtSolve(1,−1) / 2^a witness). Residual: only the finicky n-factorization case-split for the full ⟺ n∈{1,2,4,pᵏ,2pᵏ} (routine). Honest rejection: disc-8 x²+2y² Thue proof (rep_of_mod8 already exists). Open frontiers: `hall_general_induction`,
 > `analysis_modulus_pending` (product/squeeze done; abstract additive-metric only).
 - **`NumberTheory/UnitsOfZn`** (12 PURE, vein A) — `(ℤ/n)^×` on representatives:
   unit = coprime residue, closure = gcd fact, inverses = Bezout, order = φ(n)
