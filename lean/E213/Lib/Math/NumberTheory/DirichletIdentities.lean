@@ -3,6 +3,8 @@ import E213.Lib.Math.NumberTheory.MobiusBridge
 import E213.Lib.Math.NumberTheory.GaussTotient
 import E213.Lib.Math.NumberTheory.SumOfDivisors
 import E213.Lib.Math.NumberTheory.GeneralizedDivisorSum
+import E213.Lib.Math.NumberTheory.DirichletMultiplicative
+import E213.Meta.Nat.Iterate213
 
 /-!
 # Named Dirichlet-convolution identities (∅-axiom)
@@ -323,5 +325,31 @@ theorem idk_eq_mu_conv_sigmaK (k n : Nat) (hn : 0 < n) :
             * ((E213.Lib.Math.NumberTheory.GeneralizedDivisorSum.sigmaK k (n / (j + 1)) : Nat) : Int)))
   exact sumZ_congr n _ _ (fun j _ => by
     rw [E213.Lib.Math.NumberTheory.MobiusBridge.muStruct_eq_mu (j + 1) (Nat.succ_pos j)])
+
+
+/-! ## §11 — Jordan totient is multiplicative -/
+
+/-- ★★ **`J_k` is multiplicative**: `gcd(a,b)=1 ⟹ J_k(ab) = J_k(a)·J_k(b)`.  Via `dconv_mul`
+    applied to `μ` (multiplicative) and `id^k` (completely multiplicative) — the first
+    application of the Dirichlet-convolution multiplicativity theorem. -/
+theorem jordan_mul (k : Nat) {a b : Nat}
+    (hab : E213.Tactic.NatHelper.gcd213 a b = 1) (ha : 0 < a) (hb : 0 < b) :
+    jordanK k (a * b) = jordanK k a * jordanK k b := by
+  have hmu : ∀ a b, E213.Tactic.NatHelper.gcd213 a b = 1 → mu (a * b) = mu a * mu b := by
+    intro a b hcop
+    rcases Nat.eq_zero_or_pos a with rfl | ha'
+    · rw [E213.Meta.Nat.Gcd213.gcd213_zero_left] at hcop
+      subst hcop; decide
+    · rcases Nat.eq_zero_or_pos b with rfl | hb'
+      · rw [E213.Meta.Nat.Gcd213.gcd213_comm, E213.Meta.Nat.Gcd213.gcd213_zero_left] at hcop
+        subst hcop; decide
+      · exact E213.Lib.Math.NumberTheory.MobiusBridge.mu_mul ha' hb' hcop
+  show dconv mu (fun d => ((d ^ k : Nat) : Int)) (a * b)
+      = dconv mu (fun d => ((d ^ k : Nat) : Int)) a * dconv mu (fun d => ((d ^ k : Nat) : Int)) b
+  exact E213.Lib.Math.NumberTheory.DirichletMultiplicative.dconv_mul
+    mu (fun d => ((d ^ k : Nat) : Int)) hmu
+    (fun a b _ => by
+      show (((a * b) ^ k : Nat) : Int) = ((a ^ k : Nat) : Int) * ((b ^ k : Nat) : Int)
+      rw [E213.Meta.Nat.Iterate213.mul_pow_pure a b k, Int.ofNat_mul]) hab ha hb
 
 end E213.Lib.Math.NumberTheory.DirichletIdentities
