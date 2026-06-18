@@ -23,7 +23,7 @@ All zero-axiom.
 
 namespace E213.Lib.Math.Combinatorics.ConvolutionBinomial
 
-open E213.Meta.Nat.Convolution213 (conv natSplits sumMap sumMap_map delta conv_congr_left)
+open E213.Meta.Nat.Convolution213 (conv natSplits sumMap sumMap_map delta conv_congr_left conv_comm)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Vandermonde (vand vandermonde)
@@ -118,5 +118,20 @@ theorem convPow_brow1 : ∀ (n k : Nat), convPow (brow 1) n k = choose n k
       rw [conv_congr_left (f1 := convPow (brow 1) n) (f2 := brow n) (g := brow 1)
             (fun m => convPow_brow1 n m) k,
           conv_brow n 1]
+
+/-- ★★ **The exponential law / monoid homomorphism** `(ℕ,+) → (conv)`:
+    `convPow (brow 1) (m+n) = conv (convPow (brow 1) m) (convPow (brow 1) n)` — i.e.
+    `(1+x)^{m+n} = (1+x)^m · (1+x)^n` at the cut-product level.  `n ↦ (1+x)^n` is a monoid
+    homomorphism from addition to convolution, via `conv_brow` (Vandermonde). -/
+theorem convPow_add (m n k : Nat) :
+    convPow (brow 1) (m + n) k
+      = conv (convPow (brow 1) m) (convPow (brow 1) n) k := by
+  rw [convPow_brow1,
+      conv_congr_left (f1 := convPow (brow 1) m) (f2 := brow m) (g := convPow (brow 1) n)
+        (fun i => convPow_brow1 m i) k,
+      conv_comm (brow m) (convPow (brow 1) n),
+      conv_congr_left (f1 := convPow (brow 1) n) (f2 := brow n) (g := brow m)
+        (fun i => convPow_brow1 n i) k,
+      conv_brow n m, Nat.add_comm n m]
 
 end E213.Lib.Math.Combinatorics.ConvolutionBinomial
