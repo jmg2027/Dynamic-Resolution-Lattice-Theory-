@@ -2,6 +2,7 @@ import E213.Lib.Math.NumberTheory.DirichletConvolution
 import E213.Lib.Math.NumberTheory.MobiusBridge
 import E213.Lib.Math.NumberTheory.GaussTotient
 import E213.Lib.Math.NumberTheory.SumOfDivisors
+import E213.Lib.Math.NumberTheory.GeneralizedDivisorSum
 
 /-!
 # Named Dirichlet-convolution identities (∅-axiom)
@@ -262,5 +263,24 @@ theorem jordan_one_eq_totient (n : Nat) (hn : 0 < n) :
   rw [dconv_congr_right mu (fun d => ((d ^ 1 : Nat) : Int)) (fun d => (d : Int))
         (fun m => by show ((m ^ 1 : Nat) : Int) = (m : Int); rw [Nat.pow_one]) n]
   exact phi_eq_mu_conv_id n hn
+
+
+/-! ## §9 — `σ_k = id^k ∗ 1` (the divisor-power sum in the Dirichlet ring) -/
+
+/-- ★ **`σ_k = id^k ∗ 1`**: the `k`-th divisor-power sum is `id^k` convolved with `1`:
+    `dconv (fun d => d^k) (fun _=>1) n = σ_k(n) = Σ_{d∣n} d^k`.  Links the existing `sigmaK`
+    to the Dirichlet ring; the Möbius dual of the Jordan totient (`J_k = μ ∗ id^k`,
+    `σ_k = id^k ∗ 1`).  Generalizes `σ = id ∗ 1` (`k=1`) and `τ = 1 ∗ 1` (`k=0`). -/
+theorem sigmaK_eq_idk_conv_one (k n : Nat) (_hn : 0 < n) :
+    dconv (fun d => ((d ^ k : Nat) : Int)) (fun _ => (1 : Int)) n
+      = (E213.Lib.Math.NumberTheory.GeneralizedDivisorSum.sigmaK k n : Int) := by
+  rw [dconv_one_right (fun d => ((d ^ k : Nat) : Int)) n]
+  show sumZ n (fun j => (dvdInd j n : Int) * (((j + 1) ^ k : Nat) : Int))
+      = (E213.Lib.Math.NumberTheory.GeneralizedDivisorSum.sigmaK k n : Int)
+  show sumZ n (fun j => (dvdInd j n : Int) * (((j + 1) ^ k : Nat) : Int))
+      = (E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum.sumTo n
+          (fun j => dvdInd j n * (j + 1) ^ k) : Int)
+  rw [castSumTo n (fun j => dvdInd j n * (j + 1) ^ k)]
+  exact sumZ_congr n _ _ (fun j _ => by rw [Int.ofNat_mul])
 
 end E213.Lib.Math.NumberTheory.DirichletIdentities
