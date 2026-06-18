@@ -238,4 +238,15 @@ theorem deficient_8 : Deficient 8 := by show sigma 8 < 2 * 8; decide
 theorem deficient_9 : Deficient 9 := by show sigma 9 < 2 * 9; decide
 theorem deficient_10 : Deficient 10 := by show sigma 10 < 2 * 10; decide
 
+
+/-- ★★ **Euclid perfect numbers are triangular**: `2 · N = m·(m+1)` with `m = 2^{k+1}−1`,
+    i.e. `N = 2^k·(2^{k+1}−1)` is the `m`-th triangular number `T_m = m(m+1)/2`.  (Every even
+    perfect number is triangular.) -/
+theorem even_perfect_triangular (k : Nat) :
+    2 * (2 ^ k * (2 ^ (k + 1) - 1)) = (2 ^ (k + 1) - 1) * ((2 ^ (k + 1) - 1) + 1) := by
+  have hm1 : (2 ^ (k + 1) - 1) + 1 = 2 ^ (k + 1) :=
+    E213.Tactic.NatHelper.sub_one_add_one (Nat.ne_of_gt (Nat.pos_pow_of_pos _ (by decide)))
+  rw [hm1, ← E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm 2 (2 ^ k), ← Nat.pow_succ,
+      Nat.mul_comm (2 ^ (k + 1)) (2 ^ (k + 1) - 1)]
+
 end E213.Lib.Math.NumberTheory.PerfectNumbers
