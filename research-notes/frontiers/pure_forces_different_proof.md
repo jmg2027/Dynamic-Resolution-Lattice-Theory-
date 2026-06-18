@@ -642,6 +642,25 @@ two-square theorem, classically riding on the Eisenstein integers `ℤ[ω]` bein
 the disc only changes the modular core identity and the descent bound; no Eisenstein-integer
 ring, the witness computed.** (27 PURE.)
 
+### Honest rejection + the forms-via-Thue vein's limit (disc-(-8) and beyond)
+The Thue-box template (disc −4 `TwoSquareTheorem`, disc −3 `EisensteinRepresentation`)
+extends mechanically to further discriminants — a `disc-(-8)` agent closed
+`p≡1,3 mod8 ⟹ p=x²+2y²` (27 PURE, the 8th `exists_collision_lt` reuse, with a new
+`2p`-*fold-back* descent). **But it was NOT landed: the theorem already exists** as
+`ModArith` `ZSqrtNegTwoSquare.rep_of_mod8` (`p=a²+2b² ⟺ p≡1,3 mod8`), proved ∅-axiom
+via the norm-Euclidean `ℤ[√−2]` descent. So the Thue version is a *different PURE proof
+of an already-PURE theorem* — not a forcing case (∅-axiom does not *force* the Thue
+route; the existing `ℤ[√−2]` proof is also ∅-axiom). Per the honest-rejection discipline
+(cf. the √2-valuation row) and CLAUDE.md "same-topic → one file, not separate", it is
+not collected. **The vein's limit:** beyond the genuinely-new two-square hard direction
+(disc −4, which the corpus lacked), the binary-quadratic-form representations are already
+present via quadratic-integer-ring descent — the Thue template reproduces them as
+alternative proofs, valuable pedagogically (one uniform construction across discriminants)
+but not new forcing evidence. (The disc −3 `EisensteinRepresentation` was landed because
+the corpus had only the *converse* `eisenstein_split_converse`, not the forward `x²+xy+y²`
+representation with the `=p` descent — a borderline-but-distinct artifact; recorded here
+for honesty.)
+
 ## Forward hunt (targets selected by the criterion)
 
 - **A**: a theorem classically a *quotient-ring isomorphism* (CRT `ℤ/mn ≅
