@@ -264,6 +264,18 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   "same count, different curvature" unifier.  Only bridge 2 had a genuine
   shared mechanism.
 
+- `convolution_comultiplication_crossdomain` — **the convolution branch ↔ merged main**
+  (2026-06-18): this branch built ℕ's **two comultiplications** — the additive Cauchy cut
+  `natSplits` (`conv`, `theory/math/combinatorics/convolution_generating_functions.md`) and
+  the multiplicative Dirichlet divisor-cut (`dconv`, divisor-theory §9) — which are the
+  object-level home of main's two count-Lens essays (`addition_and_multiplication…`,
+  `multiplicativity_is_the_x_count_lens`): a function is multiplicative ⟺ it is a
+  `Δ_×`-coalgebra morphism, and `vp` intertwines the two cuts.  **Open**: (F1) the
+  bialgebra distributivity compatibility between `Δ_+` and `Δ_×`; (F2 — the sharper target)
+  **binomial inversion (additive) and Möbius inversion (multiplicative) as one antipode
+  under the two cuts** — both sides already closed in the corpus, only the unifying
+  statement unwritten.
+
 - `modulus_degree_crossdomain` — **the modulus-degree branch ↔ merged main**: (1)
   modulus degree IS certificate depth one layer up (proof-layer SOS fold-depth ↔
   completeness-layer receipt count; both Lens-properties of the pointing, object
