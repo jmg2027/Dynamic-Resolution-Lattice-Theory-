@@ -5,43 +5,28 @@
 Authoritative build `cd lean && lake build E213.Lib` → **green (1972 modules)**.
 Strict ∅-axiom intact: every theorem added is `#print axioms`-empty.
 
-## LTE (lifting-the-exponent) — status + roadmap (2026-06-17)
+## LTE (lifting-the-exponent) — ✅ **FULLY CLOSED ∅-axiom (2026-06-18)**
 
-Driving toward `v_p(aⁿ−bⁿ) = v_p(a−b) + v_p(n)` (p odd prime, p∣a−b, p∤a,b).  **Algebraic core
-of the `p∤n` case is CLOSED ∅-axiom**; the rest is a precisely-scoped grind.
+**`LiftingExponentGeneral.lte`** : `v_p(aⁿ − bⁿ) = v_p(a−b) + v_p(n)` for an odd prime `p` (`3 ≤ p`),
+`p ∣ (a−b)`, `p ∤ b`, `b < a`, `n ≥ 1`.  All PURE.  Proof architecture (bottom-up):
 
-- ✅ **`PowSubPowFactor.pow_sub_pow_factor`** — `aⁿ⁺¹−bⁿ⁺¹ = (a−b)·geomTwo a b n` (ℤ, the explicit
-  cofactor `geomTwo = Σaⁱbⁿ⁻ⁱ`).
-- ✅ **`LiftingExponent.cofactor_sub_dvd`** — `(a−b) ∣ (geomTwo a b n − (n+1)·bⁿ)` (cofactor
-  congruence — the crux).
-- ✅ **`LiftingExponent.cofactor_not_dvd`** — `q∣(a−b), q∤(n+1)·bⁿ ⟹ q∤geomTwo` — i.e. `aⁿ⁺¹−bⁿ⁺¹`
-  carries the **same power of p** as `a−b` (the `p∤exp` case, ℤ-divisibility form — the substantive
-  content).
-- ⏳ **vp-form of the `p∤n` case** (`v_p(aⁿ−bⁿ)=v_p(a−b)` over ℕ): needs (a) the **ℕ** factorization
-  `a^(n+1)−b^(n+1)=(a−b)·geomTwoN` (addition-form induction; pure pieces ready:
-  `NatRing213.nat_sub_add_cancel`, `PureNat.{add_mul,mul_assoc}`, `Nat.{mul_comm,mul_add,pow_succ}`),
-  (b) the `Int.ofNat`-bridge `geomTwoN ↦ geomTwo` + ofNat-dvd transfer (avoid `Int.ofNat_sub` —
-  **propext-dirty**; instead use `a = b + p·k` from `nat_sub_add_cancel`), (c) `vp_mul` + Euclid
-  (`p∤(n+1)·bⁿ`).  ~120 lines, mechanical, no new ideas.
-- 🔨 **prime-power lifting** `v_p(aᵖ−bᵖ)=v_p(a−b)+1` (the gate to the *full* LTE) — **IN PROGRESS**,
-  binomial route in `LiftingExponentPP.lean`.  Plan: `aᵖ−bᵖ = (b+d)ᵖ−bᵖ = p·b^{p−1}·d + R`,
-  `R = Σ_{k≥2} C(p,k) b^{p−k} dᵏ`; first term has `v_p = v_p(d)+1`, every tail term `v_p ≥ v_p(d)+2`
-  (uses `p∣C(p,k)`), so `vp_add_eq_min` pins `v_p(aᵖ−bᵖ) = v_p(d)+1`.
-  - ✅ **`vp_add_eq_min`** (strict-minimum / ultrametric law) — the assembly tool.
-  - ✅ **`dvd_sumTo` / `le_vp_sumTo`** — the tail-bound tool (`pᵐ∣each term ⟹ m ≤ v_p(Σ)`).
-  - ✅ reusable: `prime_dvd_choose` (`ModArith/LucasTheorem`, `p∣C(p,k)` for `0<k<p`) already exists.
-  - ✅ **`BinomialTwoVar.add_pow`** — the **two-variable binomial theorem** `(b+d)ⁿ = Σ_k C(n,k) b^{n−k} dᵏ`
-    over ℕ (was the big missing rung; repo had only the `b=1` `binomSum`).  Done, PURE.
-  - ⏳ **NEXT — the final assembly** (all tools now in hand): `aᵖ−bᵖ = binom2 b d p − bᵖ`
-    `= p·b^{p−1}·d + R`, `R = Σ_{k=2}^{p} C(p,k) b^{p−k} dᵏ` (extract the `k=0` term `bᵖ` and the
-    `k=1` term `p·b^{p−1}·d` from `binom2`).  Then `v_p(p·b^{p−1}·d) = v_p(d)+1` (`vp_mul`+`vp_pow`+`p∤b`),
-    and `v_p(R) ≥ v_p(d)+2` (each term: `p∣C(p,k)` for `2≤k≤p−1` ⟹ `v_p ≥ 1+2v_p(d) ≥ v_p(d)+2`;
-    `k=p` term `dᵖ` ⟹ `v_p = p·v_p(d) ≥ v_p(d)+2`; via `le_vp_sumTo`).  Finally `vp_add_eq_min` pins
-    `v_p(aᵖ−bᵖ) = v_p(d)+1 = v_p(a−b)+1`.  ~150 lines (sum-restructuring + per-term bounds), no new ideas.
+- **`BinomialTwoVar.add_pow`** — two-variable binomial theorem `(b+d)ⁿ = Σ_k C(n,k) b^{n−k} dᵏ`
+  (was the big missing infra; repo had only the `b=1` `binomSum`).
+- **`LiftingExponentPP.{vp_add_eq_min, dvd_sumTo, le_vp_sumTo}`** — ultrametric package
+  (strict-minimum valuation law + sum-divisibility lower bound).
+- **`LiftingExponentMain.lifting_prime_power`** : `v_p(aᵖ−bᵖ) = v_p(a−b)+1` — the hard kernel
+  (binomial: `(b+d)ᵖ−bᵖ = p·b^{p−1}·d + R`; middle `v_p = v_p(d)+1`, tail `v_p ≥ v_p(d)+2` via
+  `p∣C(p,k)` + the `k=p` term `dᵖ` using `p≥3`; `vp_add_eq_min` pins it).
+- **`LiftingExponentCoprime.lifting_coprime`** : `v_p(aᵐ−bᵐ) = v_p(a−b)` for `p∤m` (same decomp,
+  middle `v_p = v_p(d)` since `p∤m`, no `p∣C` needed).
+- **`LiftingExponentGeneral.{vp_pow_pk, lte}`** — Step A iterates the kernel `k` times
+  (`v_p(a^{pᵏ}−b^{pᵏ}) = v_p(a−b)+k`); Step B factors `n = pᵏ·m` (`k=v_p n`, `p∤m`) and applies
+  the coprime case.  Pure `sub_pos_pure` replaces propext-dirty `Nat.sub_pos_of_lt`.
 
-Honest verdict: the `p∤exp` case is mathematically done (ℤ form); the prime-power lifting now has
-**all its tools** (ultrametric laws + two-variable binomial theorem + `p∣C(p,k)`), with only the
-mechanical final assembly remaining.  The full general LTE is within one more focused session.
+Also landed: `LiftingExponent.{cofactor_sub_dvd, cofactor_not_dvd}` (ℤ cofactor congruence — the
+original `p∤exp` algebraic core) + `PowSubPowFactor.pow_sub_pow_factor` (explicit ℤ factorization).
+Craft: well-founded-recursion trap — calling the theorem under induction recursively (instead of
+`ih`) silently pulls `propext`; always use `ih`.
 
 ## Continuation (2026-06-17) — closures landed PURE this segment
 
