@@ -31,6 +31,7 @@ import E213.Lib.Math.Analysis.Cauchy.GoldenPiFaces
 import E213.Lib.Math.Analysis.Cauchy.ZeroInfinityHole
 import E213.Lib.Math.Analysis.Cauchy.QuasiPolyBound
 import E213.Lib.Math.Analysis.Cauchy.HolonomicInterleave
+import E213.Lib.Math.Analysis.Cauchy.FoldSignatureSeparation
 import E213.Lib.Math.Analysis.Cauchy.FiniteDepthAlgebra
 import E213.Lib.Math.Analysis.Cauchy.BinomialTransform
 import E213.Lib.Math.Analysis.Cauchy.WallisDepthProduct
