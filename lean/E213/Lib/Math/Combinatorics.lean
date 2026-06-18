@@ -11,6 +11,7 @@ import E213.Lib.Math.Combinatorics.Vandermonde
 import E213.Lib.Math.Combinatorics.ConvolutionPrefixSum
 import E213.Lib.Math.Combinatorics.ConvolutionBinomial
 import E213.Lib.Math.Combinatorics.CatalanSegner
+import E213.Lib.Math.Combinatorics.SumIdentities
 import E213.Lib.Math.Combinatorics.VandermondeDeterminant
 import E213.Lib.Math.Combinatorics.FactorialSum
 import E213.Lib.Math.Combinatorics.PascalDiagonalFib
