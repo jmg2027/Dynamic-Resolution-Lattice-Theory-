@@ -208,4 +208,59 @@ theorem phi_eq_mu_conv_id (n : Nat) (hn : 0 < n) :
   exact sumZ_congr n _ _ (fun j _ => by
     rw [E213.Lib.Math.NumberTheory.MobiusBridge.muStruct_eq_mu (j + 1) (Nat.succ_pos j)])
 
+
+/-! ## §8 — Dirichlet congruence helpers and the Jordan totient `J_k` -/
+
+/-- `dconv` respects pointwise equality of the first argument (funext-free). -/
+theorem dconv_congr_left (F1 F2 g : Nat → Int) (h : ∀ m, F1 m = F2 m) (n : Nat) :
+    dconv F1 g n = dconv F2 g n := by
+  show sumZ n (fun j => (dvdInd j n : Int) * (F1 (j + 1) * g (n / (j + 1))))
+      = sumZ n (fun j => (dvdInd j n : Int) * (F2 (j + 1) * g (n / (j + 1))))
+  exact sumZ_congr n _ _ (fun j _ => by rw [h (j + 1)])
+
+/-- `dconv` respects pointwise equality of the second argument (funext-free). -/
+theorem dconv_congr_right (f g1 g2 : Nat → Int) (h : ∀ m, g1 m = g2 m) (n : Nat) :
+    dconv f g1 n = dconv f g2 n := by
+  show sumZ n (fun j => (dvdInd j n : Int) * (f (j + 1) * g1 (n / (j + 1))))
+      = sumZ n (fun j => (dvdInd j n : Int) * (f (j + 1) * g2 (n / (j + 1))))
+  exact sumZ_congr n _ _ (fun j _ => by rw [h (n / (j + 1))])
+
+/-- **Jordan totient** `J_k(n) = Σ_{d∣n} μ(d)·(n/d)^k = (μ ∗ id^k)(n)`. -/
+def jordanK (k n : Nat) : Int := dconv mu (fun d => ((d ^ k : Nat) : Int)) n
+
+/-- ★★★ **`J_k ∗ 1 = id^k`**: the Jordan totient's defining divisor-sum,
+    `Σ_{d∣n} J_k(d) = n^k`.  Via the ring laws `(μ ∗ id^k) ∗ 1 = id^k ∗ (μ ∗ 1) = id^k ∗ ε
+    = id^k` (commute, associate, `μ∗1=ε`, `ε` unit). -/
+theorem jordan_conv_one (k n : Nat) (hn : 0 < n) :
+    dconv (jordanK k) (fun _ => (1 : Int)) n = ((n ^ k : Nat) : Int) := by
+  have comm_all : ∀ m, dconv mu (fun d => ((d ^ k : Nat) : Int)) m
+      = dconv (fun d => ((d ^ k : Nat) : Int)) mu m := by
+    intro m
+    rcases Nat.eq_zero_or_pos m with h0 | hm
+    · subst h0; rfl
+    · exact E213.Lib.Math.NumberTheory.DirichletConvolution.dirichlet_comm
+        mu (fun d => ((d ^ k : Nat) : Int)) m hm
+  have mu_one_all : ∀ m, dconv mu (fun _ => (1 : Int)) m = eps m := by
+    intro m
+    rcases Nat.eq_zero_or_pos m with h0 | hm
+    · subst h0; rfl
+    · exact mu_conv_one m hm
+  show dconv (dconv mu (fun d => ((d ^ k : Nat) : Int))) (fun _ => (1 : Int)) n
+      = ((n ^ k : Nat) : Int)
+  rw [dconv_congr_left (dconv mu (fun d => ((d ^ k : Nat) : Int)))
+        (dconv (fun d => ((d ^ k : Nat) : Int)) mu) (fun _ => (1 : Int)) comm_all n,
+      E213.Lib.Math.NumberTheory.DirichletConvolution.dirichlet_assoc
+        (fun d => ((d ^ k : Nat) : Int)) mu (fun _ => (1 : Int)) n hn,
+      dconv_congr_right (fun d => ((d ^ k : Nat) : Int)) (dconv mu (fun _ => (1 : Int))) eps
+        mu_one_all n,
+      dconv_one_eps (fun d => ((d ^ k : Nat) : Int)) n hn]
+
+/-- ★ **`J_1 = φ`**: the Jordan totient at `k=1` is Euler's totient (via `φ = μ ∗ id`). -/
+theorem jordan_one_eq_totient (n : Nat) (hn : 0 < n) :
+    jordanK 1 n = (totient n : Int) := by
+  show dconv mu (fun d => ((d ^ 1 : Nat) : Int)) n = (totient n : Int)
+  rw [dconv_congr_right mu (fun d => ((d ^ 1 : Nat) : Int)) (fun d => (d : Int))
+        (fun m => by show ((m ^ 1 : Nat) : Int) = (m : Int); rw [Nat.pow_one]) n]
+  exact phi_eq_mu_conv_id n hn
+
 end E213.Lib.Math.NumberTheory.DirichletIdentities
