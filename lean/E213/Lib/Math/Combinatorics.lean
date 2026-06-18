@@ -8,6 +8,7 @@ import E213.Lib.Math.Combinatorics.FibonacciGcd
 import E213.Lib.Math.Combinatorics.LucasFibonacci
 import E213.Lib.Math.Combinatorics.FibBinomialConvolution
 import E213.Lib.Math.Combinatorics.Vandermonde
+import E213.Lib.Math.Combinatorics.ConvolutionPrefixSum
 import E213.Lib.Math.Combinatorics.VandermondeDeterminant
 import E213.Lib.Math.Combinatorics.FactorialSum
 import E213.Lib.Math.Combinatorics.PascalDiagonalFib
