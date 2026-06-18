@@ -38,4 +38,17 @@ theorem conv_ones_prefixSum (f : Nat → Nat) : ∀ n, conv ones f n = sumTo (n 
       show (1 : Nat) * f (n + 1) + sumTo (n + 1) f = sumTo (n + 1) f + f (n + 1)
       rw [Nat.one_mul, Nat.add_comm]
 
+
+/-- `sumTo m (fun _ => 1) = m` — summing `m` ones. -/
+theorem sumTo_ones : ∀ m, sumTo m (fun _ => 1) = m
+  | 0     => rfl
+  | m + 1 => by show sumTo m (fun _ => 1) + 1 = m + 1; rw [sumTo_ones m]
+
+/-- ★ **`conv ones ones n = n + 1`** — convolving the two constant-`1` sequences counts the
+    cuts of `n` (there are `n+1` of them, `length_natSplits`): the generating-function
+    `1/(1−x)² = Σ (n+1) xⁿ`.  A prefix-sum of ones. -/
+theorem conv_ones_ones (n : Nat) : conv ones ones n = n + 1 := by
+  rw [conv_ones_prefixSum]
+  exact sumTo_ones (n + 1)
+
 end E213.Lib.Math.Combinatorics.ConvolutionPrefixSum
