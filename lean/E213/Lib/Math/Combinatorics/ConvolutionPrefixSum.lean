@@ -51,4 +51,18 @@ theorem conv_ones_ones (n : Nat) : conv ones ones n = n + 1 := by
   rw [conv_ones_prefixSum]
   exact sumTo_ones (n + 1)
 
+
+/-- `sumTo` respects pointwise equality (local copy). -/
+theorem sumTo_congr {g1 g2 : Nat → Nat} (h : ∀ j, g1 j = g2 j) : ∀ m, sumTo m g1 = sumTo m g2
+  | 0     => rfl
+  | m + 1 => by show sumTo m g1 + g1 m = sumTo m g2 + g2 m; rw [sumTo_congr h m, h m]
+
+/-- ★ **Iterated integration**: convolving twice with `ones` is the double prefix-sum.
+    `conv ones (conv ones f) n = Σ_{m≤n} Σ_{j≤m} f j` — the discrete antiderivative applied
+    twice (the `1/(1−x)²` operator), pairing with the second derivative. -/
+theorem conv_ones_ones_prefixSum (f : Nat → Nat) (n : Nat) :
+    conv ones (conv ones f) n = sumTo (n + 1) (fun m => sumTo (m + 1) f) := by
+  rw [conv_ones_prefixSum]
+  exact sumTo_congr (fun m => conv_ones_prefixSum f m) (n + 1)
+
 end E213.Lib.Math.Combinatorics.ConvolutionPrefixSum
