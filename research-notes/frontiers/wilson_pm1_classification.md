@@ -21,7 +21,10 @@ QR/CRT-structure heavy; do interactively.
 `NumberTheory/SqrtOnePrimePower` (7 PURE): `sqrt_one_prime_power` — for odd prime p,
 the only square roots of 1 mod pᵏ are ±1 (vp argument: vp_p((x−1)(x+1)) ≥ k with min = 0
 since p∤2 ⟹ pᵏ divides one factor); hence `wilson_neg_one_prime_power : ∏(units of ℤ/pᵏ)
-≡ −1`. The `n = pᵏ` (odd) case of the −1 classification is DONE.
+≡ −1`. The `n = pᵏ` (odd) case of the −1 classification is DONE. `NumberTheory/SqrtOneTwoPrimePower`
+(9 PURE): `sqrt_one_two_prime_power` (n=2pᵏ via CRT/parity ⟹ only ±1) + `wilson_neg_one_four`
++ `sqrt_one_coprime`. **The −1 ⟸ direction is now complete: n ∈ {1,2,4,pᵏ,2pᵏ} ⟹ ∏ units ≡ −1**
+(pᵏ, 2pᵏ via the keystones; 1,2,4 trivial/decide).
 
 ## Residual (after WilsonValue + SqrtOnePrimePower)
 1. **+1 direction**: `#√1 ≥ 4 ⟹ ∏ units ≡ +1` (the √1 form an elementary-abelian
