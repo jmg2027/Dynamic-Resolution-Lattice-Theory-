@@ -7,8 +7,8 @@ proof* or merely *removed the ambient library's incidental axiom use*.
 
 ## Breadth of the collection (the §7.1 data-point)
 
-The running collection (`research-notes/frontiers/pure_forces_different_proof.md`)
-now spans, all ∅-axiom PURE, the standard undergraduate-to-graduate canon — each
+The running collection now spans, all ∅-axiom PURE, the standard
+undergraduate-to-graduate canon — each
 case revealing the *computed* content the classical proof hid:
 
 - **Number theory**: Euler's theorem (permutation-invariance, not Lagrange); the
@@ -266,4 +266,4 @@ theorems whose textbook proof is non-constructive, re-derived ∅-axiom. That th
 corpus's math contains zero "needs-an-axiom" theorems is itself a §7.1
 data-point: nothing mathematical here imported an exterior.
 
-Active running list: `research-notes/frontiers/pure_forces_different_proof.md`.
+The active running list of cases lives in the frontier tier (`research-notes/frontiers/`).

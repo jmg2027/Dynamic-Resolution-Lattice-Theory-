@@ -25,7 +25,7 @@ this is the **destination-variant** form of Pattern 1.
 | [`multiplicity_doctrine.md`](multiplicity_doctrine.md) | Patterns #17 + #20 + four canonical instances (Real213, Derivative, Cup, Modulus) |
 | [`pure_lean_patterns.md`](pure_lean_patterns.md) | PURE Lean funext-avoidance pattern catalog (State Accumulator, Bundled Subtype, Setoid Category, Residual Induction) |
 | [`boundary_discipline.md`](boundary_discipline.md) | The residue/Lens boundary behind unification, equality, and error: the α/β split + shared-generator criterion, the 2-polarity failure structure, the matched pair of instruments, and the ℤ-uniqueness corollary (`vp_eq_zero_of_gt` vs `cut`/`zpseq_no_finite_certificate`).  Working log: the meta-analysis program in `research-notes/frontiers/`. |
-| [`forcing_versus_bookkeeping.md`](forcing_versus_bookkeeping.md) | When ∅-axiom *forces* a structurally different (revealing) proof vs. bookkeeping; the three veins (Quot.sound/Classical-LEM/non-effective) with cases (CRTReconstruction, FieldIffPrime, EulerTheorem); the DIRTY-set finding (no math theorem needs an axiom). Working list: research-notes/frontiers/pure_forces_different_proof.md. |
+| [`forcing_versus_bookkeeping.md`](forcing_versus_bookkeeping.md) | When ∅-axiom *forces* a structurally different (revealing) proof vs. bookkeeping; the three veins (Quot.sound/Classical-LEM/non-effective) with cases (CRTReconstruction, FieldIffPrime, EulerTheorem); the DIRTY-set finding (no math theorem needs an axiom). Working list lives in the frontier tier. |
 
 ## Action-items registry
 
