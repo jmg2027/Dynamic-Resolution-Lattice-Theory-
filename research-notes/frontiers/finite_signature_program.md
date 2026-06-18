@@ -63,9 +63,11 @@ ladder, already conceded in `degree_calculus.md`); **heights/regulators** (Weil,
 
 ## Next frontier starting points
 
-- **depth × order full strict containment** `finiteDepth ⊊ {C-finite}`: package the
-  containment direction (`polyDepth_diff_recurrence`: `Δ^{d+1}` is constant-coefficient) with
-  the `2ⁿ` properness witness into one `⊊` theorem.
+- ~~**depth × order full strict containment** `finiteDepth ⊊ {C-finite}`~~ **DONE**
+  (`OrbitDimension.finiteDepth_ssubset_cfinite`, PURE): containment (`polyDepthZ_cfiniteZ`,
+  `Δ^{d+1}` constant-coefficient) + the `2ⁿ` properness witness (`cfiniteZ_twoPow` ∧
+  `twoPow_not_polyDepthZ`) — the additive-fold ⊊ multiplicative-fold inclusion, `2ⁿ` the
+  constructive strictness witness.
 - **valuation (×-signature) vs Δ-depth (+-signature)** as the §6.7 readout twin
   (`multiplicative_carry_residue.md` item 4, still soft-open in Lean) — the `^`-wall as
   ×-atom distinguishability.

@@ -345,4 +345,17 @@ theorem cassini_fibZ_step (n : Nat) :
       show fibZ (n+2) = fibZ (n+1) + fibZ n from rfl]
   ring_intZ
 
+/-- ★★★ **The difference-depth class is a strict subclass of the C-finite class.**
+    `finiteDepth ⊊ Cfinite`: every finite-difference-depth (discrete-polynomial) sequence is
+    C-finite (`polyDepthZ_cfiniteZ`, annihilator `Δ^{d+1}`), and `2ⁿ` is C-finite (annihilator
+    `Δ−1`, orbit dimension 1) yet has **no** finite difference-depth (`twoPow_not_polyDepthZ`,
+    infinite divergence depth).  The containment is the additive-fold ⊆ multiplicative-fold
+    inclusion; `2ⁿ` is the constructive witness that it is **strict** — the founding `G188`
+    invert-twin (`order_does_not_bound_depth`'s `⊊` upgrade), ∅-axiom, no cardinality shortcut. -/
+theorem finiteDepth_ssubset_cfinite :
+    (∀ (d : Nat) (s : Nat → Int), polyDepthZ d s → CFiniteZ s)
+  ∧ (CFiniteZ twoPowZ ∧ ¬ ∃ d, polyDepthZ d twoPowZ) :=
+  ⟨fun _ _ h => polyDepthZ_cfiniteZ h,
+   cfiniteZ_twoPow, fun ⟨d, hd⟩ => twoPow_not_polyDepthZ d hd⟩
+
 end E213.Lib.Math.Analysis.Cauchy.OrbitDimension
