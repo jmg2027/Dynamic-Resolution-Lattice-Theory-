@@ -164,4 +164,22 @@ theorem sigma_eq_id_conv_one (n : Nat) (_hn : 0 < n) :
   exact sumZ_congr n _ _ (fun j _ => by
     rw [Int.ofNat_mul])
 
+
+/-! ## §6 — `τ = 1 ∗ 1` -/
+
+/-- ★ **`τ = 1 ∗ 1`**: the number-of-divisors function is the Dirichlet square of the
+    constant `1`: `dconv (fun _=>1) (fun _=>1) n = τ(n) = Σ_{d∣n} 1`.  Mirrors `σ = id ∗ 1`. -/
+theorem tau_eq_one_conv_one (n : Nat) (_hn : 0 < n) :
+    dconv (fun _ => (1 : Int)) (fun _ => (1 : Int)) n
+      = (E213.Lib.Math.NumberTheory.SumOfDivisors.tau n : Int) := by
+  rw [dconv_one_right (fun _ => (1 : Int)) n]
+  show sumZ n (fun j => (dvdInd j n : Int) * (1 : Int))
+      = (E213.Lib.Math.NumberTheory.SumOfDivisors.tau n : Int)
+  show sumZ n (fun j => (dvdInd j n : Int) * (1 : Int))
+      = (E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum.sumTo n
+          (fun j => dvdInd j n * 1) : Int)
+  rw [castSumTo n (fun j => dvdInd j n * 1)]
+  exact sumZ_congr n _ _ (fun j _ => by
+    rw [Nat.mul_one]; exact E213.Meta.Int213.mul_one _)
+
 end E213.Lib.Math.NumberTheory.DirichletIdentities
