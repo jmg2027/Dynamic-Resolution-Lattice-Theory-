@@ -45,8 +45,33 @@ on a *shared* denominator the cross-determinants **add** (`W^{x+y}=W^x+W^y`, no
 inflation), and `x+y` is degree ≤ s exactly when the probed cross-determinants
 *jointly* fit the shared increment `⌊i^{1/s}⌋(W^x+W^y)+d_i ≤ d_{i+1}` — "each at
 degree s" is a factor of 2 short, so degree is set by `W^x+W^y`, not the max.
-(Product on shared denominators still inflates — `prod_cross_det` carries the
-numerators — so a clean product closure remains open.)
+The **product closure is now closed** (`RateProduct`, 8 PURE).  On a shared
+denominator `xy = (a·b)/d²`, the cross-determinant
+`W^{xy} = a_i d_{i+1} W^b + b_i d_{i+1} W^a + W^a W^b` (`prod_cross_det_sh`)
+carries the numerators, but under the proper-fraction normalisation `a_i ≤ d_i`,
+`b_i ≤ d_i` it collapses to `W^{xy} ≤ d_i d_{i+1}(W^a+W^b) + W^a W^b`
+(`prod_cross_det_bound`).  The degree law (`prod_dominatesS_of_budget`,
+`prod_graded_modulus`): `xy` is degree ≤ s through the `d²` pointing when the probe
+of that bound fits the **squared** increment `d_{i+1}²−d_i² = (d_{i+1}−d_i)(d_{i+1}+d_i)`,
+with total modulus `N(m,k)=k^s+1`.  **Structural finding — the product loses a
+degree**: where the matched *sum*'s cross-determinants add against the *same*
+increment, the matched *product*'s add only after a `d_i d_{i+1}` carry against the
+*squared* increment, so "each factor degree s" does **not** give "product degree s".
+Degree is a property of the pointing; the `d²` presentation of a product is coarser
+than the factors'.  This is the honest counterpart to matched-sum additivity — the
+arithmetic-closure triple (naive-sum fails / matched-sum clean-adds /
+matched-product adds-with-a-carry) is complete.
+
+**Novelty (adversarial web check, recorded in `research-notes/drafts/publishability_audit.md`).**
+The graded-modulus *framing* (degree = growth class of `N`, strict hierarchy,
+degree-value = irrationality measure μ / Mahler class) is a faithful ∅-axiom
+re-derivation of the Zheng–Rettinger divergence-bounded computable reals + Liouville–Roth
+μ — concede it.  The genuinely-unwritten micro-structure: grading by the **non-unimodular
+adjacent cross-determinant `W_i` against the denominator increment** (classical theory
+sees only the unimodular `±1` det and grades a gap against `q^μ`), and the **degree
+algebra under arithmetic** (non-additive naive / additive matched-sum / product-loses-a-degree)
+— a presentation-relative degree calculus with no match in the μ or computable-analysis
+literature (which proves only field-closure of the classes, not a per-pointing cross-det law).
 
 ## Closed (the algebraic pillar)
 
