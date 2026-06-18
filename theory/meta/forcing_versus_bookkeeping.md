@@ -5,6 +5,38 @@ a classical theorem actually shows. Not every ∅-axiom proof carries the same
 evidential weight; the difference is whether the constraint *forced a different
 proof* or merely *removed the ambient library's incidental axiom use*.
 
+## Breadth of the collection (the §7.1 data-point)
+
+The running collection (`research-notes/frontiers/pure_forces_different_proof.md`)
+now spans, all ∅-axiom PURE, the standard undergraduate-to-graduate canon — each
+case revealing the *computed* content the classical proof hid:
+
+- **Number theory**: Euler's theorem (permutation-invariance, not Lagrange); the
+  Fermat–Gauss two-square characterization *both directions*
+  (`isSumTwoSqNat_iff_even_vp` — Thue box + Brahmagupta product + the inert-prime
+  valuation descent, no ℤ[i]); `x⁴+y⁴≠z²` (explicit descent constructor);
+  infinitely many primes ≡3 mod 4 (computed Euclid witness); CRT/field/cyclic/
+  additive-subgroup on representatives; totient multiplicativity (CRT counting
+  bijection); FTA **uniqueness** as valuation-count invariance (multiplicity =
+  `vp q n`); the Gauss–Wilson ±1 as the inverse-involution fixed-point product;
+  the Fibonacci-mod-m sub-arc (Pisano period, minimal period, rank of apparition).
+- **Analysis** (the reverse-math ledger): *force-the-modulus* (EVT, uniform-limit,
+  Banach, Riemann, Cesàro, alternating series, comparison test, limit arithmetic)
+  and *name-the-import* calibrations (BW→LPO, Heine–Cantor/Dini→fan, the
+  real-decision quartet sign/equality/apartness/comparability ↔ LLPO/WLPO/MP);
+  plus the ordering inequalities Cauchy–Schwarz, Chebyshev, rearrangement (slack =
+  computed sum-of-squares / product-of-differences).
+- **Combinatorics**: the constructive pigeonhole `exists_collision` and its
+  reuses (divides-pair, Erdős–Szekeres, consecutive-sum-divisible, Pisano, Mirsky);
+  Redei (tournament Hamiltonian path by insertion); Mirsky (poset antichain cover
+  by the computed height).
+
+That a *single* primitive (`exists_collision`) and a handful of computed-witness
+patterns (descent constructors, valuation counts, involution pairings, modulus
+extraction) reproduce this breadth ∅-axiom is the strong §7.1 signal: the
+residue's constructive content is *shared structure across domains*, not a
+per-theorem coincidence.
+
 ## The two kinds of PURE proof
 
 A classical theorem (Euler, CRT, De Morgan, …) exists in standard libraries
