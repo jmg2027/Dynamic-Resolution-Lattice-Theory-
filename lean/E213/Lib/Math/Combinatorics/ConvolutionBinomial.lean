@@ -134,4 +134,19 @@ theorem convPow_add (m n k : Nat) :
         (fun i => convPow_brow1 n i) k,
       conv_brow n m, Nat.add_comm n m]
 
+/-- ★★ **Generalized binomial power**: `convPow (brow a) n k = C(a·n, k)` — the `n`-fold
+    cut-product of the `(1+x)^a` row is the `(a·n)` binomial row, `((1+x)^a)^n = (1+x)^{a·n}`.
+    Generalizes `convPow_brow1` (`a=1`); together with `convPow_add` this makes
+    `(a,n) ↦ brow(a·n)` respect the bimonoid structure. -/
+theorem convPow_brow_gen : ∀ (a n k : Nat), convPow (brow a) n k = choose (a * n) k
+  | a, 0,     k => by
+      show delta k = choose (a * 0) k
+      rw [Nat.mul_zero]; exact delta_eq_choose0 k
+  | a, n + 1, k => by
+      show conv (convPow (brow a) n) (brow a) k = choose (a * (n + 1)) k
+      rw [conv_congr_left (f1 := convPow (brow a) n) (f2 := brow (a * n)) (g := brow a)
+            (fun m => convPow_brow_gen a n m) k,
+          conv_brow (a * n) a,
+          show a * n + a = a * (n + 1) from by rw [Nat.mul_succ]]
+
 end E213.Lib.Math.Combinatorics.ConvolutionBinomial
