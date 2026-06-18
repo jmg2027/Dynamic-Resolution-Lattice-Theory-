@@ -107,6 +107,7 @@ import E213.Lib.Math.NumberTheory.LiftingExponent
 import E213.Lib.Math.NumberTheory.LiftingExponentPP
 import E213.Lib.Math.NumberTheory.BinomialTwoVar
 import E213.Lib.Math.NumberTheory.LiftingExponentMain
+import E213.Lib.Math.NumberTheory.LiftingExponentCoprime
 import E213.Lib.Math.NumberTheory.OddCentralBinom
 import E213.Lib.Math.NumberTheory.Primorial
 import E213.Lib.Math.NumberTheory.Zeta3Numerator
