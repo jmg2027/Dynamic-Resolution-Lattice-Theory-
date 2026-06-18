@@ -23,7 +23,7 @@ All zero-axiom.
 
 namespace E213.Lib.Math.Combinatorics.ConvolutionBinomial
 
-open E213.Meta.Nat.Convolution213 (conv natSplits sumMap sumMap_map delta conv_congr_left conv_comm)
+open E213.Meta.Nat.Convolution213 (conv natSplits sumMap sumMap_map delta conv_congr_left conv_comm conv_delta_left conv_delta_right)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Vandermonde (vand vandermonde)
@@ -148,5 +148,20 @@ theorem convPow_brow_gen : ∀ (a n k : Nat), convPow (brow a) n k = choose (a *
             (fun m => convPow_brow_gen a n m) k,
           conv_brow (a * n) a,
           show a * n + a = a * (n + 1) from by rw [Nat.mul_succ]]
+
+/-- `convPow f 1 = f` (the first power is the sequence itself, `δ ∗ f = f`). -/
+theorem convPow_one (f : Nat → Nat) (k : Nat) : convPow f 1 k = f k := by
+  show conv (convPow f 0) f k = f k
+  exact conv_delta_left f k
+
+/-- ★ `convPow δ n = δ`: the unit is idempotent under the convolution power
+    (`δ ∗ δ ∗ ⋯ = δ`). -/
+theorem convPow_delta : ∀ (n k : Nat), convPow delta n k = delta k
+  | 0,     k => rfl
+  | n + 1, k => by
+      show conv (convPow delta n) delta k = delta k
+      rw [conv_congr_left (f1 := convPow delta n) (f2 := delta) (g := delta)
+            (fun m => convPow_delta n m) k,
+          conv_delta_right delta k]
 
 end E213.Lib.Math.Combinatorics.ConvolutionBinomial
