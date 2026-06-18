@@ -149,6 +149,24 @@ denominator `n+1`, far below `2^{n+1}`.  The exponential price attaches *only* t
 separating a value approaching `1` from below by a sub-threshold rational — there
 is no symmetric mirror.
 
+### The quantitative ledger — interior vs boundary threshold
+
+`ApartnessCostSharp` completes the picture with the **boundary** mirror.  In the
+apartness/MP encoding (`RealApartnessMP`) the threshold is `0`, which always lies on the
+*cheap* side of a positive value (`0 = 0/k` already separates):
+
+> **`apart_min_sep_denom`** — for a single fire at `n` (`n ≥ 1`), the least denominator
+> separating `x_f` from `0` is exactly **`n`** (numerator `0`): linear, not exponential.
+
+Unifying mechanism: the certifying cost is `Θ(2^{n})` exactly when the value approaches an
+**interior** threshold from its excluded side (a sub-threshold rational squeezed into a gap of
+width `2^{-(n+1)}`), and `Θ(n)` when the threshold sits on the **cheap** side (`0`, or `1`
+from below).  `omniscience_cost_ledger` puts both on one bit-stream `f`: read as the LLPO real
+the cost is `2^{n+1}`, read as the apartness real it is `n`, and `n < 2^{n+1}` (the same
+`lt_two_pow` that gives LLPO's one-sidedness).  A sharp, two-sided, ∅-axiom **resource
+annotation** refining the located reading of the omniscience principles by threshold position
+— not a new separation or a Weihrauch result.
+
 ## Open frontier
 
 By design external (named and isolated, not "to fix"):

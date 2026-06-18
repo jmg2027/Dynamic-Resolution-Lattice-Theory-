@@ -13,6 +13,7 @@ import E213.Lib.Math.Logic.HeineCantor
 import E213.Lib.Math.Logic.Dini
 import E213.Lib.Math.Logic.RealDichotomyLLPO
 import E213.Lib.Math.Logic.OmniscienceCostSharp
+import E213.Lib.Math.Logic.ApartnessCostSharp
 import E213.Lib.Math.Logic.RealComparabilityLLPO
 import E213.Lib.Math.Logic.RealEqualityWLPO
 import E213.Lib.Math.Logic.RealApartnessMP
