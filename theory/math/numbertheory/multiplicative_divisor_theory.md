@@ -140,6 +140,44 @@ infrastructure, all ∅-axiom:
 Closed form (§8.1) + multiplicativity (§8.2) together determine `σ_m` on every `n` from its
 prime factorization, for every `m`.
 
+## 9. The Dirichlet ring and the Jordan totient family
+
+`DirichletIdentities` closes the **Dirichlet-convolution ring** view, with the divisor
+identities stated as ring equations against the convolution unit `ε(n) = [n=1]` (`eps`,
+`eps_one`, `eps_ne_one`) and the constant `1`:
+
+- **Möbius is the inverse of `1`**: `μ ∗ 1 = ε` (`mu_conv_one`), with `ε` the two-sided unit
+  (`dconv_one_eps`, `dconv_eps_one`).
+- **The classical identities as convolutions**: `φ ∗ 1 = id` (`phi_conv_one`),
+  `σ = id ∗ 1` (`sigma_eq_id_conv_one`), `τ = 1 ∗ 1` (`tau_eq_one_conv_one`), and their
+  **Möbius duals** `φ = μ ∗ id` (`phi_eq_mu_conv_id`), `σ_k = id^k ∗ 1`
+  (`sigmaK_eq_idk_conv_one`), `id^k = μ ∗ σ_k` (`idk_eq_mu_conv_sigmaK`) — each obtained by
+  convolving with `μ` and collapsing via `mu_conv_one`. Pointwise congruence under the
+  convolution is `dconv_congr_left/right` (no `funext`).
+- **The Jordan totient** `J_k(n) = (μ ∗ id^k)(n)` (`jordanK`): `J_k ∗ 1 = id^k`
+  (`jordan_conv_one`), `J_1 = φ` (`jordan_one_eq_totient`), `J_0 = ε` (`jordan_zero_eq_eps`,
+  the base of the family), and **`J_k` is multiplicative** (`jordan_mul`, via `mu_mul` on the
+  coprime split + `mul_pow_pure`). The Jordan totient was absent from the corpus before this
+  cluster — the genuinely new object, slotted as the `id^k`-graded refinement of `φ`.
+
+## 10. Perfect, abundant, deficient — Euclid's theorem and the trichotomy
+
+`PerfectNumbers` closes the elementary perfect-number theory ∅-axiom, on `Perfect n :=
+σ(n) = 2n`:
+
+- **σ at a power of two**: `σ(2^{k+1}) = 2^{k+2} − 1` (`sigma_two_pow_succ`, the Mersenne
+  numerator) and `σ(q) = q+1` for prime `q` (`sigma_prime`).
+- **Euclid's even-perfect theorem**: if `q = 2^{k+1} − 1` is (Mersenne) prime then
+  `2^k · q` is perfect (`euclid_perfect`), via the coprime split `gcd(2^k, q)=1`
+  (`coprime_two_pow_mersenne`) + σ-multiplicativity. Concrete: `6, 28, 496`
+  (`perfect_6/28/496`).
+- **Even perfect ⟹ triangular**: every even perfect number `2^k·q` is the triangular
+  number `T_q` (`even_perfect_triangular`) — fusing the divisor theory with the figurate
+  identities of `convolution_generating_functions.md`.
+- **The trichotomy**: `perfect_abundant_deficient_trichotomy` (every `n` is exactly one of
+  perfect / abundant `2n<σ(n)` / deficient `σ(n)<2n`), and **primes are deficient**
+  (`prime_deficient`). Concrete witnesses `abundant_12/18/20`, `deficient_8/9/10`.
+
 ## Promotion record
 
 Promoted from the closed frontiers `gauss_totient_general`,

@@ -47,7 +47,7 @@ sandwich-first, the commuting square, layer constants),
 
 ### `probability/` — `probability`, `information`.
 
-### `combinatorics/` — `combinatorics`, `logic`, `graph_connectivity`, `bool_enumeration`, `inclusion_exclusion_set_partitions`.
+### `combinatorics/` — `combinatorics`, `logic`, `graph_connectivity`, `bool_enumeration`, `inclusion_exclusion_set_partitions`, `convolution_generating_functions` (the cut comultiplication, conv semiring + derivation, Vandermonde/binomial/Catalan, figurate sums).
 
 ### `order/` — `order_theory` (Galois connections, Boolean algebra, Knaster-Tarski).
 
