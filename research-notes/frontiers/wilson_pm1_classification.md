@@ -32,3 +32,7 @@ since p∤2 ⟹ pᵏ divides one factor); hence `wilson_neg_one_prime_power : �
 2. **CRT count**: `#√1 mod n = 2 ⟺ n ∈ {1,2,4,pᵏ,2pᵏ}` (odd pᵏ DONE; remaining: 2pᵏ via CRT(2,pᵏ), n=4, and the composite/2ᵃ a≥3 → ≥4 roots side) (√1-count via CRT over the
    prime-power factorization). Together these discharge `htriv`/its negation from n's
    factorization, completing the ⟺.
+
+
+## +1 existence side DONE (WilsonPlusOne + WilsonExistence)
+`NumberTheory/WilsonPlusOne` (17 PURE, the research-verified argument `∏√1 ≡ 1` when |S|≥4, via `P ≡ t^(|S|/2)` + parity, no group theory) + `NumberTheory/WilsonExistence` (13 PURE): a nontrivial √1 exists via `crtSolve(1,−1)` for any coprime split n=a·b (a,b>2), and via `2^(a−1)−1` for n=2^a (a≥3) ⟹ `∏(units) ≡ +1`. **The value dichotomy is complete** (`∏ units ≡ −1 ⟺ only ±1 are √1` / `≡ +1 ⟺ ∃ nontrivial √1`). **Residual for the full `⟺ n∈{1,2,4,pᵏ,2pᵏ}`:** only the finicky `n`-factorization case-split (every n∉{1,2,4,pᵏ,2pᵏ} is a coprime split with both factors >2, or 2^a a≥3) — routine assembly, not research.
