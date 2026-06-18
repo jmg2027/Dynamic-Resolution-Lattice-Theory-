@@ -76,8 +76,7 @@ private theorem pow_three_eq (x : Nat) : x ^ 3 = x * x * x := by
     chaining step that turns the abstract cleared-harmonic recurrence into the concrete
     one over the real Apéry clearing factor `lcm(1..N)³` — so `HL (lcm N ³) ·` is the
     genuine integral `lcm³·H₃`, the `H₃`-part contribution to `(n!)³ ∣ 2·lcm³·zeta3Num n`.
-    (The remaining open half is the *kernel* recurrence, which has no clean WZ certificate;
-    see `research-notes/frontiers/zeta3_wz/numerator_plan.md`.) -/
+    (The remaining open half is the *kernel* recurrence, which has no clean WZ certificate.) -/
 theorem harmonic_recurrence_lcm (j N : Nat) (hjN : j + 2 ≤ N) :
     (j + 2) * (j + 2) * (j + 2) * HL (lcmUpTo N ^ 3) (j + 2) * B (j + 2)
       + ((j + 1) * (j + 1) * (j + 1) * HL (lcmUpTo N ^ 3) j * B j + lcmUpTo N ^ 3 * B j)

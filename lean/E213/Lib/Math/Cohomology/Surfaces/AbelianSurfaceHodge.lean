@@ -37,7 +37,7 @@ All PURE (∅-axiom): the proofs exhibit actual divisor coefficients / field equ
 not tautologies.  This is the complete Lefschetz (1,1) on a *fixed rational* `T⁴`, a
 classical theorem made ∅-axiom-decidable; the general Hodge conjecture (continuous
 variation of `J`, the `(2,2)`-on-4-folds torsion regime, rational-vs-integral
-transcendence) is the genuine frontier — `research-notes/frontiers/genuine_hodge_rebuild.md`.
+transcendence) is the genuine frontier.
 -/
 
 namespace E213.Lib.Math.Cohomology.Surfaces.AbelianSurfaceHodge
@@ -127,7 +127,7 @@ theorem nsComb_injective {a b c d a' b' c' d' : Int}
     A classical theorem (Lefschetz (1,1) on a fixed `T⁴`) made ∅-axiom-decidable, because
     `J` here is a fixed rational operator.  NOT the general Hodge conjecture — continuous
     variation of `J`, the `(2,2)`-on-4-folds torsion regime, and rational-vs-integral
-    transcendence are the genuine walls (`research-notes/frontiers/genuine_hodge_rebuild.md`). -/
+    transcendence are the genuine walls. -/
 theorem neron_severi_T4 :
     (∀ F : Form, IsHodge11 F ↔ IsAlgebraic F)
     ∧ (∀ a b c d : Int, IsHodge11 (nsComb a b c d))

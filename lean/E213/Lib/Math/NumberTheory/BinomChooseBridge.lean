@@ -10,8 +10,8 @@ via the `Lens.Number` umbrella) and `DyadicFSM.FLT.Binomial.choose` (the Lib-lay
 binomial-theorem / `binomSum` / `pascal_row_sum` / `choose_symm` machinery).  They coincide,
 so the two toolboxes compose.
 
-Unblocks the **primorial bound** `∏_{p≤N} p ≤ 4ⁿ` (the keystone of Bertrand's postulate,
-`research-notes/frontiers/bertrand_postulate.md`): `odd_central_binom_le` applies the Lib-side
+Unblocks the **primorial bound** `∏_{p≤N} p ≤ 4ⁿ` (the keystone of Bertrand's postulate):
+`odd_central_binom_le` applies the Lib-side
 `choose_symm` + row-sum `pascal_row_sum` to the Lens-side central binomial `binom (2m+1) m`.
 -/
 

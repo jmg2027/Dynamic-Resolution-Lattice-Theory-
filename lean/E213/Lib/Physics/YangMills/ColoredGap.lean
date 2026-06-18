@@ -40,7 +40,7 @@ This is the **spectral** face of confinement: colored modes are gapped, the sing
 vacuum is the unique zero-energy state.  It is *not* a continuum area law `⟨W⟩ ∼
 exp(−σ·Area)` — on the abstract bipartite complex `K_{3,2}` there is no embedding, hence
 no enclosed "area" and no absolute string tension to state (§5.1).  The area-law face
-stays genuinely open (`research-notes/frontiers/yang_mills_confinement.md`); honestly,
+stays genuinely open; honestly,
 no internal handle on it has been found.  All theorems here are ∅-axiom.
 -/
 

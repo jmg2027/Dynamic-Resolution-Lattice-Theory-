@@ -210,3 +210,21 @@ as *witness-at* (specific functions), not general Rolle — a heavy Real213 buil
 - **m_p/m_e**: `6π⁵` is a ~19 ppm coincidence; pinning it needs a fast (Machin/arctan)
   π cut that does not exist, and even then certifies a coincidence, not a derivation.
 - **RH**: no ∅-axiom shadow at all (the signed-cancellation wall above).
+
+## Open frontier — general Rolle / MVT (deferred, 2026-06-18)
+
+`v_p`-LTE closed this segment (see below), but the **analysis** layer's mean-value theorem
+remains *witness-at* only: `FluxMVT.DyadicMVTWitness` exhibits the explicit midpoint witness for
+specific polynomial functions (square, cube), not a **general Rolle** "`f(a)=f(b) ⟹ ∃c, f'(c)=0`
+for arbitrary differentiable `f`".  The obstruction is the extreme-value theorem over `Real213`
+(a compactness/completeness argument on the cut algebra) — a heavy multi-file build, no new
+∅-axiom *ingredient* missing, just substantial assembly.  Open; not started.
+
+## Closed this arc — Lifting-the-Exponent (2026-06-18)
+
+**`LiftingExponentGeneral.lte`** : `v_p(aⁿ−bⁿ) = v_p(a−b) + v_p(n)` (odd prime `p`, `p∣a−b`,
+`p∤b`, `b<a`, `n≥1`) — **fully closed ∅-axiom**.  Stack: two-variable binomial theorem
+(`BinomialTwoVar.add_pow`) → ultrametric strict-min law (`LiftingExponentPP.vp_add_eq_min`) →
+prime-power kernel (`LiftingExponentMain.lifting_prime_power`, `v_p(aᵖ−bᵖ)=v_p(a−b)+1`) +
+coprime case (`LiftingExponentCoprime.lifting_coprime`) → iterate + factor `n=pᵏm`
+(`LiftingExponentGeneral.{vp_pow_pk,lte}`).  Promotion candidate (see `theory/`).
