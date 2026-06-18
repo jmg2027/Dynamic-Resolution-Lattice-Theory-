@@ -205,4 +205,28 @@ set_option maxRecDepth 8000 in
 theorem perfect_sigma_table :
     sigma 6 = 12 ∧ sigma 28 = 56 ∧ sigma 496 = 992 := by decide
 
+
+/-! ## Abundant / deficient classification -/
+
+/-- `n` is **abundant** if `σ(n) > 2n` (its proper divisors exceed it). -/
+def Abundant (n : Nat) : Prop := 2 * n < sigma n
+/-- `n` is **deficient** if `σ(n) < 2n`. -/
+def Deficient (n : Nat) : Prop := sigma n < 2 * n
+
+/-- ★★ **Perfect/abundant/deficient trichotomy**: every `n` is exactly one of perfect
+    (`σ=2n`), abundant (`σ>2n`), or deficient (`σ<2n`).  Completes the classification around
+    the Euclid/Euler perfect-number work. -/
+theorem perfect_abundant_deficient_trichotomy (n : Nat) :
+    Perfect n ∨ Abundant n ∨ Deficient n := by
+  rcases Nat.lt_trichotomy (sigma n) (2 * n) with h | h | h
+  · exact Or.inr (Or.inr h)
+  · exact Or.inl h
+  · exact Or.inr (Or.inl h)
+
+/-- ★ **Primes are deficient**: `σ(q) = q+1 < 2q` for a prime `q` (`q ≥ 2`). -/
+theorem prime_deficient {q : Nat} (hq : Prime213 q) : Deficient q := by
+  show sigma q < 2 * q
+  rw [sigma_prime hq, Nat.two_mul]
+  exact Nat.add_lt_add_left (Nat.lt_of_lt_of_le (by decide) hq.1) q
+
 end E213.Lib.Math.NumberTheory.PerfectNumbers
