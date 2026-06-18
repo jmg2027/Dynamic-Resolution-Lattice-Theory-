@@ -1,3 +1,20 @@
+# Frontier: Gauss–Wilson ±1 classification — CLOSED (full closed-form ⟺)
+
+**COMPLETE (2026-06-18).** `NumberTheory/WilsonClassification` (16 PURE):
+`prod_units_neg_one_iff (n) (2<n) : ∏(units of ℤ/n) ≡ −1 ⟺ PrimitiveRootModulus n`,
+where `PrimitiveRootModulus n := n∈{1,2,4} ∨ (∃ odd prime p,k≥1, n=pᵏ) ∨ (∃ …, n=2pᵏ)`.
+Full classification `∏(units of ℤ/n) ≡ −1 ⟺ n ∈ {1,2,4,pᵏ,2pᵏ}` (else `≡ +1`).
+
+The arc, all ∅-axiom: `WilsonGeneralization` (∏ units = ∏ √1) → `WilsonValue` (−1 ⟺
+only ±1 √1) + `WilsonPlusOne` (+1 ⟺ ∃ nontrivial √1 — the NOVEL `P≡t^(|S|/2)`+parity
+argument, no group theory) → `SqrtOnePrimePower`/`SqrtOneTwoPrimePower` (−1 keystones)
++ `WilsonExistence` (+1 via CRT/2^a) → `WilsonClassification` (the capstone iff, via a
+uniform `minFac(oddPart n)` coprime split + a constructive `classify` dichotomy avoiding
+`by_cases` on the undecidable predicate).
+
+---
+(original frontier note follows)
+
 # Frontier: Gauss-Wilson ±1 value classification
 
 `NumberTheory/WilsonGeneralization` (29 PURE) closed the **inverse-pairing core**:
