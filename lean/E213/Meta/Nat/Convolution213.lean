@@ -1,4 +1,5 @@
 import E213.Meta.Nat.PureNat
+import E213.Meta.Nat.PolyNatMTactic
 import E213.Meta.Tactic.List213
 
 /-!
@@ -313,5 +314,67 @@ theorem conv_unit_comm_assoc (f : Nat → Nat) (n : Nat) :
     conv delta f n = f n ∧ conv f delta n = f n
     ∧ (∀ g, conv f g n = conv g f n) :=
   ⟨conv_delta_left f n, conv_delta_right f n, fun g => conv_comm f g n⟩
+
+/-! ## The formal derivative is a derivation — the differential-ring structure -/
+
+/-- Congruence under the reglue, **for members only** (the cuts of `n`). -/
+theorem sumMap_congr_mem {h1 h2 : Nat × Nat → Nat} :
+    ∀ l : List (Nat × Nat), (∀ p, p ∈ l → h1 p = h2 p) → sumMap h1 l = sumMap h2 l
+  | [],     _  => rfl
+  | p :: l, he => by
+      show h1 p + sumMap h1 l = h2 p + sumMap h2 l
+      rw [he p (List.Mem.head _),
+          sumMap_congr_mem l (fun q hq => he q (List.Mem.tail _ hq))]
+
+/-- Pointwise sum splits the reglue. -/
+theorem sumMap_add (a b : Nat × Nat → Nat) :
+    ∀ l : List (Nat × Nat), sumMap (fun p => a p + b p) l = sumMap a l + sumMap b l
+  | []     => rfl
+  | p :: l => by
+      show (a p + b p) + sumMap (fun q => a q + b q) l
+         = (a p + sumMap a l) + (b p + sumMap b l)
+      rw [sumMap_add a b l, add4comm]
+
+/-- The formal derivative of a generating function: `D(f)_n = (n+1)·f_{n+1}`. -/
+def deriv (f : Nat → Nat) : Nat → Nat := fun n => (n + 1) * f (n + 1)
+
+/-- Multiply-by-index `(idxMul f)_n = n·f_n`; note `shiftL (idxMul f) = deriv f`. -/
+def idxMul (f : Nat → Nat) : Nat → Nat := fun n => n * f n
+
+/-- ★★★ **Leibniz rule** — the formal derivative is a *derivation* of the convolution
+    semiring: `D(conv f g) = conv (Df) g + conv f (Dg)`, i.e.
+    `(n+1)·conv f g (n+1) = conv (deriv f) g n + conv f (deriv g) n`.  Each cut `(i,j)` of
+    `n+1` carries weight `i+j = n+1`, split onto the two factors (`idxMul` each); the
+    `i`-weight peels **left** to `Df`, the `j`-weight peels **right** to `Dg`.  The
+    generating-function semiring is a **differential ring**, ∅-axiom. -/
+theorem conv_leibniz (f g : Nat → Nat) (n : Nat) :
+    (n + 1) * conv f g (n + 1) = conv (deriv f) g n + conv f (deriv g) n := by
+  have hsplit :
+      (n + 1) * conv f g (n + 1)
+        = sumMap (fun p => idxMul f p.1 * g p.2) (natSplits (n + 1))
+          + sumMap (fun p => f p.1 * idxMul g p.2) (natSplits (n + 1)) := by
+    show (n + 1) * sumMap (fun p => f p.1 * g p.2) (natSplits (n + 1)) = _
+    rw [← sumMap_smul (n + 1) (fun p => f p.1 * g p.2) (natSplits (n + 1)),
+        sumMap_congr_mem (h2 := fun p => idxMul f p.1 * g p.2 + f p.1 * idxMul g p.2)
+          (natSplits (n + 1))
+          (fun p hp => by
+            have hsum : p.1 + p.2 = n + 1 := natSplits_sound (n + 1) p hp
+            show (n + 1) * (f p.1 * g p.2)
+                = p.1 * f p.1 * g p.2 + f p.1 * (p.2 * g p.2)
+            rw [← hsum]; ring_nat),
+        sumMap_add]
+  rw [hsplit]
+  show conv (idxMul f) g (n + 1) + conv f (idxMul g) (n + 1)
+      = conv (deriv f) g n + conv f (deriv g) n
+  rw [conv_peelL (idxMul f) g n, conv_peelR f (idxMul g) n]
+  show (0 * f 0 * g (n + 1) + conv (deriv f) g n)
+      + (f (n + 1) * (0 * g 0) + conv f (deriv g) n)
+      = conv (deriv f) g n + conv f (deriv g) n
+  rw [Nat.zero_mul, Nat.zero_mul, Nat.zero_mul, Nat.mul_zero, Nat.zero_add, Nat.zero_add]
+
+/-- The Leibniz rule in derivation form: `D(conv f g) = conv (Df) g + conv f (Dg)`. -/
+theorem conv_deriv_leibniz (f g : Nat → Nat) (n : Nat) :
+    deriv (conv f g) n = conv (deriv f) g n + conv f (deriv g) n :=
+  conv_leibniz f g n
 
 end E213.Meta.Nat.Convolution213
