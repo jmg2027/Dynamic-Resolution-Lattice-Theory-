@@ -105,6 +105,10 @@ proven; a single shared Lean term for both is the open refinement.
     (`derange_eq_binomial_inverse_fact`), so inclusion–exclusion for derangements is the
     Boolean-lattice antipode on `(ℕ,≤)`, a direct instance of the engine, not a separate
     technique.
+  - **Falling factorials** (`Combinatorics.StirlingFallingInversion`): the partition-lattice
+    counterpart — `(x)_n = Σ_k s(n,k)·x^k` is the Stirling inverse of `x^n = Σ_k S₂(n,k)·(x)_k`
+    (`falling_eq_signed_stirling_pow`), the two Stirling expansions as the two faces of the
+    antipode on `Π_n`.
 
 ## Constructive accessibility
 

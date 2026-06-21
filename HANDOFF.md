@@ -73,6 +73,13 @@ incidence unifications at their root. Essay `synthesis/incidence_fubini_one_engi
 NOTE: Int additive laws must be the PURE `E213.Meta.Int213.{add_comm,add_assoc,zero_add}`;
 core `Int.add_*` carry `propext` (would turn it DIRTY). Wired into `Combinatorics.lean`.
 
+## Closed (Line A — falling factorials = signed-Stirling expansion of monomials)
+`lean/E213/Lib/Math/Combinatorics/StirlingFallingInversion.lean` (2 PURE). `(x)_n =
+Σ_k s(n,k)·x^k` is the partition-lattice inversion (`stirling_inversion_via_engine`) of the
+forward `x^n = Σ_k S₂(n,k)·(x)_k` (`StirlingFalling.stirling_falling_sum`, bridged
+sumTo→sumZ). The partition counterpart of the derangement (binomial) corollary — the two
+Stirling expansions as the two faces of the antipode on `Π_n`. Wired into `Combinatorics.lean`.
+
 ## Closed (Line A — derangements = binomial inverse of factorial)
 `lean/E213/Lib/Math/Combinatorics/DerangementInversion.lean` (2 PURE). The classical
 `D(n) = Σ_k (−1)^{n−k}C(n,k)·k!` is a direct instance of `binomial_inversion_via_engine`
