@@ -66,6 +66,19 @@ F2 is the sharper target: **binomial inversion (additive) and Möbius inversion
 (multiplicative) as one antipode under the two cuts** — a clean ∅-axiom cross-relation, both
 sides already closed in the corpus, only the unifying statement unwritten.
 
+**F2 — CLOSED.**  `lean/E213/Lib/Math/IncidenceInversion.lean` (6/6 PURE) gives the shared
+engine `inversion_from_orthogonality` (one Fubini swap + the orthogonality collapse
+`Σ_k S(n,k)·M(k,i) = δ(n,i)`, the incidence-algebra inversion of a locally finite poset),
+instantiated on the **additive** cut for binomial inversion (`binomial_inversion_via_engine`,
+Pascal poset `(ℕ,≤)`, antipode the signed binomial) and on the **multiplicative** cut for
+Möbius inversion (`mobius_inversion_via_ring`, divisibility poset `(ℕ,∣)`, antipode `μ`, the
+inverse-element computation `μ∗(1∗f)=(μ∗1)∗f=ε∗f=f`).  Capstone
+`incidence_inversion_two_cuts`; essay `theory/essays/proof_isa/incidence_inversion.md`.
+Remaining refinement (open): a *single* Lean engine covering both faces over one index
+convention (the divisor poset re-expressed as a triangular matrix over `[0,n]`); the
+conceptual unification is proven, the single shared Lean term is the rung.
+F1 (the bialgebra distributivity of `Δ_+`/`Δ_×`) remains open.
+
 ## Provenance / pointers
 
 - Additive cut: `Meta/Nat/Convolution213.lean` (`natSplits`, `conv`, `conv_assoc`),

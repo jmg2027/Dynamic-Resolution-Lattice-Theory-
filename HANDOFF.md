@@ -47,11 +47,24 @@ carries both faces. Converts the corpus's narrated "two faces, one matrix"
 - Wired into `lean/E213/Lib/Math/Combinatorics.lean`; umbrella build green.
 - `tools/scan_axioms.py E213.Lib.Math.Combinatorics.CountDuality` → 7 pure / 0 dirty.
 
+## Closed this session (Line A, second deposit)
+**Two-cut antipode** — `lean/E213/Lib/Math/IncidenceInversion.lean` (6/6 PURE). Binomial
+inversion (additive cut, Pascal poset `(ℕ,≤)`, signed-binomial antipode) and Möbius
+inversion (multiplicative cut, divisibility poset `(ℕ,∣)`, antipode `μ`) are exhibited as
+the **same incidence-algebra antipode**: a shared engine `inversion_from_orthogonality`
+(one Fubini swap + the orthogonality collapse `S·M=δ`) instantiated on the additive cut, and
+the inverse-element computation `μ∗(1∗f)=(μ∗1)∗f=ε∗f=f` on the multiplicative cut
+(`incidence_inversion_two_cuts`). Closes frontier F2 of
+`convolution_comultiplication_crossdomain.md`. Essay
+`theory/essays/proof_isa/incidence_inversion.md` (+ INDEX). Wired into `Lib/Math.lean`.
+`scan_axioms.py E213.Lib.Math.IncidenceInversion` → 6 pure / 0 dirty. The antipode partner
+of COUNT-duality's Fubini: inversion vs double-count on the incidence matrix.
+Open refinement: a *single* Lean engine covering both faces over one index convention
+(divisor poset as triangular matrix over `[0,n]`); conceptual unification proven, single
+shared term is the rung. F1 (bialgebra distributivity of `Δ_+`/`Δ_×`) still open.
+
 ## Next (priority order, Line A)
-1. **Two-cut antipode**: binomial inversion ↔ Möbius inversion as one antipode under
-   `Δ_+`/`Δ_×` — both sides PURE, only the bridge unwritten
-   (`research-notes/frontiers/convolution_comultiplication_crossdomain.md`).
-2. **`e`'s two homes** (factorial `Σ1/k!` and `lcm(1..N)~eᴺ`) as one prime-power
+1. **`e`'s two homes** (factorial `Σ1/k!` and `lcm(1..N)~eᴺ`) as one prime-power
    identity — `NumberTheory.FactorialLcmIdentity.vp_factorial_eq_sum_vp_lcm` exists;
    state it as the cross-domain identity it is.
 3. **A cross-domain `LensIso` + transport** via `lensIso_iff_kernel_eq`

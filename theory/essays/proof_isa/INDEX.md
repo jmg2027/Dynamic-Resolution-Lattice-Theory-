@@ -121,6 +121,18 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     it solves nothing new; it closes the gap between the corpus's prose and its
     proof-state — the correct unit of breadth/primacy progress.
 
+  · [`incidence_inversion.md`](incidence_inversion.md) — **binomial inversion and Möbius
+    inversion are one antipode**, under the two cuts of ℕ.  Both are inversion in the
+    incidence algebra of a locally finite poset (Rota): the **additive** cut gives the
+    Pascal poset `(ℕ,≤)` (antipode the signed binomial), the **multiplicative** cut gives
+    the divisibility poset `(ℕ,∣)` (antipode `μ`).  The shared engine
+    `inversion_from_orthogonality` (one Fubini swap + the orthogonality collapse `S·M=δ`)
+    is instantiated on the additive cut for binomial inversion; the same incidence inverse
+    `μ∗(1∗f)=(μ∗1)∗f=ε∗f=f` gives Möbius inversion on the multiplicative cut
+    (`incidence_inversion_two_cuts`, 6/6 PURE).  Closes the two-cut antipode frontier (F2).
+    The antipode partner of `count_duality` (Fubini): inversion vs double-count on the
+    incidence matrix.
+
   · [`konig_boundary.md`](konig_boundary.md) — König's lemma (infinite tree ⟹
     infinite path).  The first reproduction that **stalls**: compiles to
     **LOOP ∘ ⟦DECIDE InfBelow⟧**, the path-construction internal (∅-axiom

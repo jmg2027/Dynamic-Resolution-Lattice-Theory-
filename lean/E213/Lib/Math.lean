@@ -51,6 +51,7 @@ import E213.Lib.Math.Probability
 import E213.Lib.Math.Probability.Information
 import E213.Lib.Math.Combinatorics.Logic
 import E213.Lib.Math.Combinatorics
+import E213.Lib.Math.IncidenceInversion
 import E213.Lib.Math.Foundations.CrossDomainUnification
 import E213.Lib.Math.Foundations.DualCollapseCapstone
 import E213.Lib.Math.Algebra.SelfSimilarityBridge

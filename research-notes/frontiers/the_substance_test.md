@@ -93,10 +93,18 @@ previously bypassed (`union_bound_via_balance`), and `count_duality` carries bot
 Narrated unity (`PROOF_ISA.md`, `counting_as_cardinality.md`) → proven unity. Essay:
 `theory/essays/proof_isa/count_duality.md`.
 
+Second instance, closed: **the two-cut antipode**
+(`lean/E213/Lib/Math/IncidenceInversion.lean`, 6/6 PURE). Binomial inversion (additive cut,
+Pascal poset `(ℕ,≤)`) and Möbius inversion (multiplicative cut, divisibility poset `(ℕ,∣)`)
+are exhibited as the *same* incidence-algebra antipode: a shared engine
+`inversion_from_orthogonality` (one Fubini swap + the orthogonality collapse `S·M=δ`)
+instantiated on the additive cut, and the same inverse-element computation
+`μ∗(1∗f)=(μ∗1)∗f=ε∗f=f` on the multiplicative cut (`incidence_inversion_two_cuts`). Closes
+frontier F2 of `convolution_comultiplication_crossdomain.md`. Essay:
+`theory/essays/proof_isa/incidence_inversion.md`. This is the antipode partner of
+COUNT-duality's Fubini: inversion vs double-count on the incidence matrix.
+
 Next candidates (each must end in a proven map, or be flagged "candidate, no map"):
-  - the additive/multiplicative **two-cut antipode** (binomial inversion ↔ Möbius
-    inversion as one antipode under `Δ_+`/`Δ_×`) — both sides PURE, only the bridge
-    unwritten (carried in `convolution_comultiplication_crossdomain.md`).
   - `e`'s two homes (factorial `Σ1/k!` and `lcm(1..N) ~ eᴺ`) as one prime-power
     structure (`vp_factorial_eq_sum_vp_lcm` already exists — state it as the
     cross-domain identity it is).
