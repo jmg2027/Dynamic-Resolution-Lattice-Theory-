@@ -108,6 +108,19 @@ ISA, so the "why" is checkable against a known answer, and grounded in the
     Deepest frame: the quantitative `GAP` (deficit) and the qualitative one
     (Cantor's diagonal) are one move at two resolutions.
 
+  · [`count_duality.md`](count_duality.md) — **the union bound and LYM are one
+    incidence double-count**, proven (not narrated).  The prose claim "COUNT's two
+    faces are one `sumOver_swap` read by rows vs columns" was discharged by two
+    *different* proofs (subadditivity for the union bound, the swap for LYM); this
+    essay's `CountDuality` re-derives the union bound *through* the swap, so both
+    bounds are literally the two marginals of one `incidence_balance`
+    (`union_bound_via_balance` = row read, `lym_via_balance` = column read,
+    `count_duality` = both).  A genuine cross-domain unification — Erdős/Ramsey over
+    `allBoolLists` and Sperner over `perms` shown to be one residue under two
+    Lenses, the bridge a theorem rather than a sentence (7/7 PURE).  Honest scope:
+    it solves nothing new; it closes the gap between the corpus's prose and its
+    proof-state — the correct unit of breadth/primacy progress.
+
   · [`konig_boundary.md`](konig_boundary.md) — König's lemma (infinite tree ⟹
     infinite path).  The first reproduction that **stalls**: compiles to
     **LOOP ∘ ⟦DECIDE InfBelow⟧**, the path-construction internal (∅-axiom

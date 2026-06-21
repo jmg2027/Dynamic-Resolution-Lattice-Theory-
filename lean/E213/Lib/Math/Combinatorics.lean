@@ -61,6 +61,7 @@ import E213.Lib.Math.Combinatorics.RamseyNamedBound
 import E213.Lib.Math.Combinatorics.Sperner
 import E213.Lib.Math.Combinatorics.SpernerChains
 import E213.Lib.Math.Combinatorics.LymInequality
+import E213.Lib.Math.Combinatorics.CountDuality
 import E213.Lib.Math.Combinatorics.BollobasSetPair
 import E213.Lib.Math.Combinatorics.MultinomialTheorem
 import E213.Lib.Math.Combinatorics.BollobasCount
@@ -88,6 +89,8 @@ Atomic counting on the 213 substrate.  Builds on existing
 Adds: Catalan, Stirling, Bell, formal generating functions; the `Pigeonhole`
 primitive; and the proof-ISA reproductions — `CountExistence` /
 `RamseyLowerBound` (COUNT, union bound), `Sperner` (COUNT, the dual —
-double-counting / LYM), `LinearDependence` (dimension = COUNT),
-`ParityInvariant` (READ ∘ SEPARATE), `KonigConditional` (the boundary).
+double-counting / LYM), `CountDuality` (the two faces proven to be **one**
+incidence double-count — `union_bound` and LYM from a single `sumOver_swap`),
+`LinearDependence` (dimension = COUNT), `ParityInvariant` (READ ∘ SEPARATE),
+`KonigConditional` (the boundary).
 -/
