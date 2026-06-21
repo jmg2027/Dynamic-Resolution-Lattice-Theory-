@@ -128,11 +128,12 @@ Scouted candidates (3 parallel agents; for future sessions, each must end in a p
     sign conventions → `BinomialInversion.sb`). Same additive cut — extends, not new poset.
   - **Bell/Dobinski via the partition antipode** (Scout B #4, MED): `Bell n = Σ_k S₂(n,k)`
     inverts against falling factorials through the new Stirling engine.
-  - **Abstract Fubini synthesis** (Scout A, MED): generalize `sumOver_swap`/`sumZ_swap` to one
-    carrier-`R` `incidence_fubini`, so both COUNT-duality (R=Nat) and the inversion engine
-    (R=Int) factor through one swap. WARNING (Scout A): a bare `⟨count_duality, incidence_*⟩`
-    pairing is a forbidden `:True`-adjacent juxtaposition — only the shared-engine factoring
-    counts. List-vs-range bridging is the friction.
+  - **Abstract Fubini synthesis** (Scout A) — **CLOSED**: `Combinatorics.IncidenceFubini`
+    (`genSwap`, carrier-general; 9/9 PURE) with bridges `sumOver_eq_genSum` (Nat / COUNT-duality)
+    and `sumZ_eq_genSum` (Int / inversion engine, over `rangeL`), capstone
+    `incidence_fubini_one_engine` — both families' Fubini are one `genSwap`, two carriers.
+    Essay `synthesis/incidence_fubini_one_engine.md`. (Int laws use PURE `Int213.*`; core
+    `Int.add_*` carry propext.) The list-vs-range friction was handled by `genSum_append`.
   - `e`'s two homes (factorial `Σ1/k!` and `lcm(1..N) ~ eᴺ`) as one prime-power
     structure (`vp_factorial_eq_sum_vp_lcm` already exists — state it as the
     cross-domain identity it is).

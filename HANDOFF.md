@@ -62,6 +62,17 @@ same invariant to continuant (`ContinuantMarkov`) + Minkowski cocycle (`Minkowsk
 readings. NOTE: essay-count INDEX rows for the 3 new essays still need a doc-sync table pass
 (headline counts updated to 101/251).
 
+## Closed (Line A — the two incidence families share ONE Fubini engine)
+`lean/E213/Lib/Math/Combinatorics/IncidenceFubini.lean` (9/9 PURE). `genSwap` is a
+carrier-general Fubini swap (any commutative-monoid carrier, proven once). Bridges:
+`sumOver_eq_genSum` (Sperner.sumOver = genSum@Nat — COUNT-duality's engine) and
+`sumZ_eq_genSum` (BinomialInversion.sumZ = genSum@Int over `rangeL` — the inversion engine).
+Capstone `incidence_fubini_one_engine`: both COUNT-duality (Nat) and the inversion engine
+(Int) are the two carrier-specializations of one `genSwap`. Synthesises the session's two
+incidence unifications at their root. Essay `synthesis/incidence_fubini_one_engine.md`.
+NOTE: Int additive laws must be the PURE `E213.Meta.Int213.{add_comm,add_assoc,zero_add}`;
+core `Int.add_*` carry `propext` (would turn it DIRTY). Wired into `Combinatorics.lean`.
+
 ## Closed (Line A — derangements = binomial inverse of factorial)
 `lean/E213/Lib/Math/Combinatorics/DerangementInversion.lean` (2 PURE). The classical
 `D(n) = Σ_k (−1)^{n−k}C(n,k)·k!` is a direct instance of `binomial_inversion_via_engine`
