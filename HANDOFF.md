@@ -47,6 +47,21 @@ carries both faces. Converts the corpus's narrated "two faces, one matrix"
 - Wired into `lean/E213/Lib/Math/Combinatorics.lean`; umbrella build green.
 - `tools/scan_axioms.py E213.Lib.Math.Combinatorics.CountDuality` → 7 pure / 0 dirty.
 
+## Closed (Line A, fourth deposit — unimodular invariant, a SECOND unification family)
+**One `det₂ = 1` drives the Stern-Brocot tree and the Markov recurrence** —
+`lean/E213/Lib/Math/NumberSystems/Real213/Markov/UnimodularSynthesis.lean` (1 PURE,
+reused lemmas PURE). The multiplicative law `det2_mul` (det(MN)=detM·detN, `ring_intZ`)
+propagates `det=1` over the whole Stern-Brocot tree (`mNode_det1`) AND supplies the `det=1`
+hypothesis that forces Frobenius monotonicity (`markoff_frobenius`, slope-injectivity engine)
+and the Vieta jump `m'=3m₁m₂−m₃` (`markoff_vieta`). Capstone
+`unimodular_drives_tree_and_markov` (genuine derivation chain, not a pairing). This
+diversifies Line A beyond the incidence-algebra family — a second proven cross-domain family
+(SL₂(ℤ) unimodularity). Essay `theory/essays/synthesis/unimodular_invariant.md`; wired into
+`Real213.lean`. Selected by Scout C (HIGH genuineness × buildability). Next rung: extend the
+same invariant to continuant (`ContinuantMarkov`) + Minkowski cocycle (`MinkowskiCocycle`)
+readings. NOTE: essay-count INDEX rows for the 3 new essays still need a doc-sync table pass
+(headline counts updated to 101/251).
+
 ## Closed (Line A, third deposit — incidence-algebra inversion, three posets)
 **Stirling inversion = the same engine on the partition lattice** — extends
 `IncidenceInversion.lean` to **9/9 PURE**. `inversion_from_orthogonality` now has three

@@ -111,12 +111,13 @@ divisibility `(ℕ,∣)` Möbius, partition lattice `Π_n` Stirling both directi
 third domain through one law.
 
 Scouted candidates (3 parallel agents; for future sessions, each must end in a proven map):
-  - **Unimodular `det2_mul` bundle** (Scout C, HIGH genuineness × HIGH buildability): one
-    proven multiplicative invariant `det2(MN)=det2 M·det2 N` (`SternBrocotMarkov.det2_mul`,
-    by `ring_intZ` not `decide`) drives Stern-Brocot tree (`mNode_det1`), Markov triples
-    (`markoff_frobenius`/`markoff_vieta` derived from det=1), continuants, Minkowski cocycle.
-    Capstone "one unimodular invariant, four readings" is build-ready (lemmas exist, only
-    bundling missing). NOTE: avoid the "shared unit `1=NS−NT=det P`" — Scout C confirms it is
+  - **Unimodular `det2_mul` bundle** (Scout C) — **CLOSED (partial)**: one proven invariant
+    `det2(MN)=det2 M·det2 N` drives the Stern-Brocot tree (`mNode_det1`) and the Markov
+    recurrence (`markoff_frobenius`/`markoff_vieta`), bundled in
+    `UnimodularSynthesis.unimodular_drives_tree_and_markov` (essay
+    `synthesis/unimodular_invariant.md`). A second cross-domain unification family beside the
+    incidence-algebra one. Next rung: extend the same invariant to continuant + Minkowski
+    cocycle readings (a "four readings" capstone). NOTE: avoid the "shared unit `1=NS−NT=det P`" — Scout C confirms it is
     the repo's own retracted-triviality pattern (`decide` byte-identity across 3 files), NOT a
     proven map; and "P(φ)=φ over reals" is overstated (only the integer recurrence + uniqueness
     exist). The genuine φ engine is `CassiniUnimodular.det_step`/`det_closed` (`D(n)=qⁿ·D(0)`,

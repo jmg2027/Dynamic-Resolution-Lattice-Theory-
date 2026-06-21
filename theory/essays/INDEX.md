@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 98 essays are grouped into ten thematic sub-directories — distinct
+The 101 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
