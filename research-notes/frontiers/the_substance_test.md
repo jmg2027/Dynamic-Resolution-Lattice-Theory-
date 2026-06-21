@@ -104,7 +104,34 @@ frontier F2 of `convolution_comultiplication_crossdomain.md`. Essay:
 `theory/essays/proof_isa/incidence_inversion.md`. This is the antipode partner of
 COUNT-duality's Fubini: inversion vs double-count on the incidence matrix.
 
-Next candidates (each must end in a proven map, or be flagged "candidate, no map"):
+Third instance, closed: **Stirling inversion on the partition lattice** — the same engine
+`inversion_from_orthogonality` now spans three classical posets (chain `(ℕ,≤)` binomial,
+divisibility `(ℕ,∣)` Möbius, partition lattice `Π_n` Stirling both directions),
+`incidence_inversion_three_posets`, 9/9 PURE. Demonstrates the engine is a genuine engine, a
+third domain through one law.
+
+Scouted candidates (3 parallel agents; for future sessions, each must end in a proven map):
+  - **Unimodular `det2_mul` bundle** (Scout C, HIGH genuineness × HIGH buildability): one
+    proven multiplicative invariant `det2(MN)=det2 M·det2 N` (`SternBrocotMarkov.det2_mul`,
+    by `ring_intZ` not `decide`) drives Stern-Brocot tree (`mNode_det1`), Markov triples
+    (`markoff_frobenius`/`markoff_vieta` derived from det=1), continuants, Minkowski cocycle.
+    Capstone "one unimodular invariant, four readings" is build-ready (lemmas exist, only
+    bundling missing). NOTE: avoid the "shared unit `1=NS−NT=det P`" — Scout C confirms it is
+    the repo's own retracted-triviality pattern (`decide` byte-identity across 3 files), NOT a
+    proven map; and "P(φ)=φ over reals" is overstated (only the integer recurrence + uniqueness
+    exist). The genuine φ engine is `CassiniUnimodular.det_step`/`det_closed` (`D(n)=qⁿ·D(0)`,
+    one parametric law, golden `q=1` + swap `q=−1` instances).
+  - **Inclusion-exclusion = Boolean-lattice additive antipode** (Scout B #2, MED): `surj`/
+    derangement I-E is `sb` (signed binomial) applied; Boolean-lattice Möbius `(−1)^{|T\S|}`
+    collapses on rank to `sb`. Bridge ~30-50 lines (`SurjectionCount.A`/`AlternatingBinomial`
+    sign conventions → `BinomialInversion.sb`). Same additive cut — extends, not new poset.
+  - **Bell/Dobinski via the partition antipode** (Scout B #4, MED): `Bell n = Σ_k S₂(n,k)`
+    inverts against falling factorials through the new Stirling engine.
+  - **Abstract Fubini synthesis** (Scout A, MED): generalize `sumOver_swap`/`sumZ_swap` to one
+    carrier-`R` `incidence_fubini`, so both COUNT-duality (R=Nat) and the inversion engine
+    (R=Int) factor through one swap. WARNING (Scout A): a bare `⟨count_duality, incidence_*⟩`
+    pairing is a forbidden `:True`-adjacent juxtaposition — only the shared-engine factoring
+    counts. List-vs-range bridging is the friction.
   - `e`'s two homes (factorial `Σ1/k!` and `lcm(1..N) ~ eᴺ`) as one prime-power
     structure (`vp_factorial_eq_sum_vp_lcm` already exists — state it as the
     cross-domain identity it is).

@@ -1,17 +1,20 @@
 # Incidence-algebra inversion — one antipode under the two cuts of ℕ
 
-**Reproduced result.** Two inversion theorems, each long-closed and ∅-axiom:
+**Reproduced result.** Three inversion theorems, each long-closed and ∅-axiom:
 
   - **binomial inversion** — `g(n) = Σ_{k≤n} C(n,k)·f(k) ⟹ f(n) = Σ_{k≤n} (−1)^{n−k}C(n,k)·g(k)`
     (`Combinatorics.BinomialInversion.binomial_inversion`);
   - **Möbius inversion** — `g(n) = Σ_{d∣n} f(n/d) ⟹ f(n) = Σ_{d∣n} μ(d)·g(n/d)`
-    (`NumberTheory.MobiusInversion.mobius_inversion`).
+    (`NumberTheory.MobiusInversion.mobius_inversion`);
+  - **Stirling inversion** — `g(n) = Σ_{k≤n} S₂(n,k)·f(k) ⟹ f(n) = Σ_{k≤n} s(n,k)·g(k)`
+    (second-kind / signed-first-kind Stirling numbers, `Combinatorics.StirlingOrthogonality`).
 
-The new content is not either inversion — it is the **proof that they are one antipode**:
-both are inversion in the incidence algebra of a locally finite poset (Rota 1964), read
-through the two comultiplications (cuts) of ℕ. `IncidenceInversion.incidence_inversion_two_cuts`
-carries both as one object. All declarations `#print axioms`-empty
-(`lean/E213/Lib/Math/IncidenceInversion.lean`, 6/6 PURE).
+The new content is not any one inversion — it is the **proof that they are one antipode**:
+each is inversion in the incidence algebra of a locally finite poset (Rota 1964), read
+through a different poset of ℕ. `IncidenceInversion.inversion_from_orthogonality` is the
+single engine; `incidence_inversion_three_posets` carries the three triangular instances as
+one object, `incidence_inversion_two_cuts` the additive/multiplicative pair. All
+declarations `#print axioms`-empty (`lean/E213/Lib/Math/IncidenceInversion.lean`, 9/9 PURE).
 
 ## Why we picked it — the two cuts, one antipode
 
@@ -52,9 +55,18 @@ i.e. associativity (`dirichlet_assoc`), the antipode law (`mu_conv_one`), and th
 the divisibility poset replacing `(ℕ, ≤)` and the Dirichlet convolution replacing the
 triangular matrix product.
 
-So the two inversions are one antipode: the cut chooses the poset (linear order vs
-divisibility), the antipode is that poset's Möbius function, and inversion is its defining
-orthogonality `S ∗ M = δ`.
+**Partition lattice → Stirling** (`stirling_inversion_via_engine`, and its dual). The third
+classical poset is the partition lattice `Π_n`. Its zeta is the Stirling number of the
+second kind `S₂(n,k)` (lower-triangular: `S₂(k,i) = 0` for `i > k`), its antipode the signed
+Stirling number of the first kind `s(n,k)`, and the orthogonality `Σ_k s(n,k)·S₂(k,i) =
+δ(n,i)` is `stirling_orthogonality`. So Stirling inversion is `inversion_from_orthogonality`
+on `Π_n` — the *same* engine as binomial, a third poset; and the pair being two-sided
+(`stirling_orthogonality2`), both directions `S₂ → s` and `s → S₂` are instances
+(`incidence_inversion_three_posets`).
+
+So the inversions are one antipode: the poset is chosen (linear order, divisibility, or
+partition lattice), the antipode is that poset's Möbius function, and inversion is its
+defining orthogonality `S ∗ M = δ`.
 
 ## Dual function — what the unification buys
 
@@ -92,8 +104,11 @@ proven; a single shared Lean term for both is the open refinement.
 ## Constructive accessibility
 
 Point at it. The shared engine: `IncidenceInversion.inversion_from_orthogonality` (with
-`sumZ_extend_tri`). Additive instance: `binomial_inversion_via_engine` (via
-`binomial_orthogonality`). Multiplicative instance: `mobius_inversion_via_ring` (via
-`mu_conv_one`, `dirichlet_assoc`, `dconv_eps_one`; the antipode law `mu_conv_one_all`). The
-capstone pairing both cuts: `incidence_inversion_two_cuts`. All ∅-axiom (`#print axioms`
-empty), 6 PURE / 0 DIRTY by `tools/scan_axioms.py`.
+`sumZ_extend_tri`). Chain poset (additive): `binomial_inversion_via_engine` (via
+`binomial_orthogonality`). Partition lattice: `stirling_inversion_via_engine` and
+`stirling_inversion_via_engine_dual` (via `stirling_orthogonality`/`stirling_orthogonality2`).
+Divisibility poset (multiplicative): `mobius_inversion_via_ring` (via `mu_conv_one`,
+`dirichlet_assoc`, `dconv_eps_one`; the antipode law `mu_conv_one_all`). Capstones:
+`incidence_inversion_three_posets` (the three triangular instances of one engine) and
+`incidence_inversion_two_cuts` (the additive/multiplicative pair). All ∅-axiom
+(`#print axioms` empty), 9 PURE / 0 DIRTY by `tools/scan_axioms.py`.

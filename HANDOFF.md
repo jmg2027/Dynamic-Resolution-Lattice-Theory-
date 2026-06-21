@@ -47,8 +47,18 @@ carries both faces. Converts the corpus's narrated "two faces, one matrix"
 - Wired into `lean/E213/Lib/Math/Combinatorics.lean`; umbrella build green.
 - `tools/scan_axioms.py E213.Lib.Math.Combinatorics.CountDuality` → 7 pure / 0 dirty.
 
-## Closed this session (Line A, second deposit)
-**Two-cut antipode** — `lean/E213/Lib/Math/IncidenceInversion.lean` (6/6 PURE). Binomial
+## Closed (Line A, third deposit — incidence-algebra inversion, three posets)
+**Stirling inversion = the same engine on the partition lattice** — extends
+`IncidenceInversion.lean` to **9/9 PURE**. `inversion_from_orthogonality` now has three
+literal triangular instances: chain `(ℕ,≤)` (binomial), partition lattice `Π_n` (Stirling
+both directions, via `stirling_orthogonality`/`stirling_orthogonality2` bridged to the
+engine's `sumZ`/`delta`), plus the divisibility poset `(ℕ,∣)` (Möbius, ring route).
+Capstone `incidence_inversion_three_posets`. Scouted by 3 parallel agents; Stirling was the
+LOW-risk highest-value pick (a genuine third domain through one engine). Essay
+`incidence_inversion.md` + INDEX updated to "three posets". `scan_axioms` → 9 pure / 0 dirty.
+
+## Closed (Line A, second deposit)
+**Two-cut antipode** — `lean/E213/Lib/Math/IncidenceInversion.lean`. Binomial
 inversion (additive cut, Pascal poset `(ℕ,≤)`, signed-binomial antipode) and Möbius
 inversion (multiplicative cut, divisibility poset `(ℕ,∣)`, antipode `μ`) are exhibited as
 the **same incidence-algebra antipode**: a shared engine `inversion_from_orthogonality`
