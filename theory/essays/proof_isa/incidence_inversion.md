@@ -100,6 +100,11 @@ proven; a single shared Lean term for both is the open refinement.
     inverse) is the binomial side's structural home.
   - **The two cuts** (`research-notes/frontiers/convolution_comultiplication_crossdomain.md`):
     this closes that note's F2 — the antipode as one construction read through `Δ_+`/`Δ_×`.
+  - **Derangements** (`Combinatorics.DerangementInversion`): a worked corollary —
+    `D(n) = Σ_k (−1)^{n−k}C(n,k)·k!` is the binomial inverse of `n! = Σ_k C(n,k)·D(k)`
+    (`derange_eq_binomial_inverse_fact`), so inclusion–exclusion for derangements is the
+    Boolean-lattice antipode on `(ℕ,≤)`, a direct instance of the engine, not a separate
+    technique.
 
 ## Constructive accessibility
 

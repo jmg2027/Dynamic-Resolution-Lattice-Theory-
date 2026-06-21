@@ -62,6 +62,14 @@ same invariant to continuant (`ContinuantMarkov`) + Minkowski cocycle (`Minkowsk
 readings. NOTE: essay-count INDEX rows for the 3 new essays still need a doc-sync table pass
 (headline counts updated to 101/251).
 
+## Closed (Line A — derangements = binomial inverse of factorial)
+`lean/E213/Lib/Math/Combinatorics/DerangementInversion.lean` (2 PURE). The classical
+`D(n) = Σ_k (−1)^{n−k}C(n,k)·k!` is a direct instance of `binomial_inversion_via_engine`
+applied to the forward identity `n! = Σ_k C(n,k)·D(k)` (`DerangementConvolution.TZ_eq_fact`,
+bridged to the engine's `sumZ`). Inclusion–exclusion for derangements = the Boolean-lattice
+antipode on `(ℕ,≤)`, not a separate technique. Wired into `Combinatorics.lean`; essay
+`incidence_inversion.md` cross-frame updated.
+
 ## Closed (Line A, third deposit — incidence-algebra inversion, three posets)
 **Stirling inversion = the same engine on the partition lattice** — extends
 `IncidenceInversion.lean` to **9/9 PURE**. `inversion_from_orthogonality` now has three
