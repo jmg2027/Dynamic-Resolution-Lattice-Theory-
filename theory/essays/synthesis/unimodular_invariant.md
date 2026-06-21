@@ -67,12 +67,18 @@ incidence-algebra one (`count_duality.md`, `incidence_inversion.md`): there the 
 was a Fubini/antipode on an incidence matrix; here it is determinant multiplicativity on
 `SL₂(ℤ)`.
 
-Honest scope (`§8` falsifiability discipline). Both domains were already closed; this adds no
-new tree or recurrence. It converts "both are unimodular phenomena" from prose into a single
-theorem rooted in `det2_mul`. The wider reach of the same invariant — the continuant matrices
-(`ContinuantMarkov`), the Minkowski cocycle (`MinkowskiCocycle`), modular symbols — is the
-natural extension: each reuses `det2`/`det2_mul`, so each is another reading of the one
-invariant; bundling those is the next rung.
+The invariant reaches further still, and that reach is also a theorem
+(`unimodular_four_readings`): the *same* `det₂ = 1` is carried by four independent matrix
+constructions — the Stern-Brocot mediant node, the **continuant** node (distinct matrices
+`contMatProd`, unimodular by `det2_mul` from the det-1 continuant bounds `cInterval_det`), and
+the **Minkowski `?`-cocycle** bounds (`minkowski_is_markov_valued_cocycle`, the
+Eichler–Shimura-flavoured 1-cocycle valued in `SL₂(ℤ)`). Four constructions — Farey
+approximation, continued fractions, the modular cocycle — one `det2_mul`.
+
+Honest scope (`§8` falsifiability discipline). Each domain was already closed; this adds no
+new tree, recurrence, or cocycle. It converts "these are all unimodular phenomena" from prose
+into single theorems rooted in `det2_mul`. The open extension is the *period-polynomial* /
+`H¹(SL₂(ℤ), V)` identification the Minkowski cocycle points at (an open frontier).
 
 ## Cross-frame connections
 
@@ -93,4 +99,6 @@ invariant; bundling those is the next rung.
 Point at it. The root law: `SternBrocotMarkov.det2_mul`. The tree propagation:
 `mInterval_det`, `mNode_det1`. The two Markov readings: `markoff_frobenius`, `markoff_vieta`.
 The capstone bundling all three from the one invariant:
-`UnimodularSynthesis.unimodular_drives_tree_and_markov`. All ∅-axiom (`#print axioms` empty).
+`UnimodularSynthesis.unimodular_drives_tree_and_markov`. The four-construction reach:
+`UnimodularSynthesis.unimodular_four_readings` (Stern-Brocot, continuant, Minkowski cocycle).
+All ∅-axiom (`#print axioms` empty).

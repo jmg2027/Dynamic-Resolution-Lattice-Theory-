@@ -1,4 +1,6 @@
 import E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
+import E213.Lib.Math.NumberSystems.Real213.Markov.ContinuantMarkov
+import E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiCocycle
 
 /-!
 # The unimodular invariant — one `det = 1` drives the Stern-Brocot tree and the Markov recurrence
@@ -30,7 +32,11 @@ namespace E213.Lib.Math.NumberSystems.Real213.Markov.UnimodularSynthesis
 
 open E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ModularElliptic (Mat2 mul)
 open E213.Lib.Math.NumberSystems.Real213.Markov.SternBrocotMarkov
-  (det2 mInterval mNode mInterval_det mNode_det1 markoff_frobenius markoff_vieta)
+  (det2 det2_mul mInterval mNode mInterval_det mNode_det1 markoff_frobenius markoff_vieta)
+open E213.Lib.Math.NumberSystems.Real213.Markov.ContinuantMarkov
+  (cInterval cNode cInterval_det)
+open E213.Lib.Math.NumberSystems.Real213.Minkowski.MinkowskiCocycle
+  (minkowski_is_markov_valued_cocycle)
 
 /-- ★★★ **One unimodular invariant, two domains.**  At every Stern-Brocot path the node
     matrix carries the *same* `det₂ = 1`, and that invariant simultaneously drives the
@@ -57,5 +63,25 @@ theorem unimodular_drives_tree_and_markov (path : List Bool) :
   ⟨mNode_det1 path,
    markoff_frobenius (mInterval path).1 (mInterval path).2 (mInterval_det path).1,
    markoff_vieta (mInterval path).1 (mInterval path).2 (mInterval_det path).1⟩
+
+/-- ★★★ **One invariant, four readings.**  The same `det₂ = 1` — propagated by the single
+    law `det2_mul` — is carried by four *independent* matrix constructions on the
+    Stern-Brocot tree:
+
+      1. the **Stern-Brocot mediant** node `M_t = M_l·M_r` (`mNode_det1`);
+      2. the **continuant** node `K[…]` (distinct matrices `contMatProd`, `cNode`), unimodular
+         by `det2_mul` from the det-1 continuant bounds (`cInterval_det`);
+      3–4. the **Minkowski `?`-cocycle** bounds, whose defect is the Frobenius cross-determinant
+         valued in `SL₂(ℤ)` (`minkowski_is_markov_valued_cocycle`).
+
+    Four constructions, one `det2_mul` — Farey approximation, continued fractions, and the
+    Eichler–Shimura-flavoured cocycle are readings of a single unimodular invariant. ∅-axiom. -/
+theorem unimodular_four_readings (path : List Bool) :
+    det2 (mNode path) = 1
+    ∧ det2 (cNode path) = 1
+    ∧ (det2 (mInterval path).1 = 1 ∧ det2 (mInterval path).2 = 1) := by
+  refine ⟨mNode_det1 path, ?_, (minkowski_is_markov_valued_cocycle path).2.2.2.1⟩
+  show det2 (mul (cInterval path).1 (cInterval path).2) = 1
+  rw [det2_mul, (cInterval_det path).1, (cInterval_det path).2]; decide
 
 end E213.Lib.Math.NumberSystems.Real213.Markov.UnimodularSynthesis
