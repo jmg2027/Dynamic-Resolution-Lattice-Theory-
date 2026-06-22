@@ -67,6 +67,59 @@ All other `DStr` fields for `Raw` exist: `PrimitiveTower.a_ne_b` (D1), `slash` (
 `slash_ne_left/right` (D4), `slash_inj` (D3), `Lambek.depth_drops` (D5). So `rawDStr : DStr Raw` is
 assemblable now (first deposit).
 
+## ★ RESOLUTION (2026-06-22, 3-agent panel: encoding / category / axiom-faithfulness)
+
+The originator asked: *is the Raw/Lens Lean technique causing the limit; should it be encoded
+differently; what does the axiom demand?* Three experts converged:
+
+**(1) The "wall" is NOT foundational — the universal property is ALREADY proven, ∅-axiom.**
+`SemanticAtom.raw_initial` (PURE) is the full ∃!: a unique distinguishing-preserving `Raw → α` for
+every `HasDistinguishing α` (`universalMorphism = Raw.fold`; uniqueness pointwise to dodge funext).
+So "Raw is the initial object" is **done**. There are *two* initiality stories in the repo:
+(i) **canonical** — `SemanticAtom.raw_initial` over a **total** `combine` — *both legs closed, clean*;
+(ii) **`UniversalDistinguishing.DStr`** — over a **partial** `op` — only the existence leg open. The
+wall is the existence leg of (ii) **only**.
+
+**(2) The wall is the known partial-algebra subtlety — encoding-induced, not intrinsic.** The
+diagnostic tell: uniqueness (`dhom_unique_pointwise`) is clean because it only *reads* the target op;
+existence is stuck because a morphism into a *partial*-op target must *manufacture* a definedness
+witness (`map x ≠ map y`) at every node. That asymmetry is the signature of choosing a category of
+*partial* algebras. `DStr` was a **deliberate, optional strengthening** (assume *less* than
+`HasDistinguishing`, to answer the circularity charge that the total-combine category "presupposes the
+answer's shape"). So the wall is the price of a voluntary harder target — not a limit of the
+foundation, and not intrinsic math.
+
+**(3) The source encoding is FAITHFUL and FORCED by ∅-axiom — a feature, not a careless import.**
+`Raw.slash`'s `x ≠ y`-in-type is filed in `seed/AXIOM/10_encoding_costs.md` §10.3 as *(α)
+re-expression of the axiom* (clauses 1–2), not a cost/commitment: `01_residue.md` §1.3 + `03_form.md`
+§3.3 name the primitive as **anti-reflexive primitive distinction** (`x/x` undefined), *not* a total
+pointing act with distinctness as a later Lens. The proposed "total free magma + distinctness as the
+first Lens" reframing is **less** faithful: it would import a total act the axiom never posits, and to
+recover symmetry (§3.4) + anti-reflexivity it would need a **quotient → `Quot.sound`, FORBIDDEN**. The
+canonical-subtype `Raw := {canonical Tree}` is the *only* ∅-axiom route to a quotient-like carrier
+(§10.1), and `RawCmpIndependence` proves the chosen order is mathematically inert — the opposite of
+"quotient promoted to ontology". **So the partial/canonical encoding is forced by
+(axiom clauses 3+4) ∧ (no `Quot.sound`).**
+
+**What the axiom demands (the one genuine refinement).** §1.3's "confirmation of *not equal*" is, in
+the constructive/∅-axiom setting, a **positive apartness `#`**, not the weak negative `¬(x=y)`. And
+`Raw`'s `cmp`-canonical form *already is* a decidable apartness (`cmp = .lt/.gt` = positive witnesses,
+`.eq → tightness`). So the cleanest way to close the `DStr` existence leg *faithfully* (without the
+total-combine convenience and without Route B's mutual recursion) is to make morphisms **preserve the
+apartness** (`map_apart : x # y → map x # map y`): then the definedness witness is *supplied by the
+structure*, and existence = `Raw.fold`. The repo is already operating in "decidable-apartness magmas"
+— it just hasn't named the category.
+
+**Bottom line for the originator.** The technique is faithful; the limit is not in Raw/Lens. The
+universal property is already proven (`raw_initial`). The only wall is the optional `DStr`
+strengthening's existence leg, closable three ways with **no new axioms**: (a) just use the canonical
+`raw_initial` (total target) + distinctness as theorems on `Raw`; (b) reframe morphisms to preserve
+the apartness `cmp`-already-provides (faithful + clean); (c) Route B mutual WF recursion. Recommended:
+(a) for the load-bearing claim now, (b) as the faithful strengthening when worth the engineering.
+**Action item (narrative, not code): retire "from one primitive / from nothing" rhetoric; the honest
+statement is "the canonical initiality is closed ∅-axiom; the partial-op strengthening's existence
+leg is Lean engineering, not an axiom obstruction."**
+
 ## The irreducible residual (honestly relocated, not eliminated)
 
 The dichotomy is over a **typed** class of finitary candidates (a fixed signature: carrier + bounded-
