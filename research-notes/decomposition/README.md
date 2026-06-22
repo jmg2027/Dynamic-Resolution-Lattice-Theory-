@@ -537,10 +537,11 @@ multiplier `λ`); φ is literally the dominant eigenvalue of the Fibonacci/Möbi
 the two elementary symmetric functions of *one* spectrum — the two coefficients of the characteristic
 quadratic the matrix obeys by **Cayley–Hamilton** (`Mat2CayleyHamilton.cayley_hamilton`, 4/0 PURE, committed;
 `char_poly_discriminant`/`dial_is_char_discriminant`). The det/tr "opposition" was degree-1-vs-degree-2 of
-one Vieta factorization. Residue: eigenvalue *existence* = the `Real213`/ℂ residue, stratified by
-`disc=(μ−ν)²` — real spectrum = `q=+1` (hyperbolic/φ), complex = `q=−1` escape (elliptic). (The explicit
-Vieta `tr=e₁`/`det=e₂` lemmas in `Mat2Spectrum.lean` are being built concurrently; the dissolution rests on
-the committed order-2 dial regardless.)
+one Vieta factorization — **now a Lean theorem** (`Mat2Spectrum.lean`, 9/0 PURE): `tr_eq_e1`, `det_eq_e2`,
+`disc_eq_gap_squared`, `det_tr_split_is_e1_e2`. Residue: eigenvalue *existence* = the `Real213`/ℂ residue,
+stratified by `disc=(μ−ν)²` — real spectrum = `q=+1` (hyperbolic/φ), complex = `q=−1` escape (elliptic);
+the theorem is the conditional "*if* the spectrum exists *then* tr=e₁ ∧ det=e₂", exactly what makes the
+split a non-split.
 
 ### Lie theory / the bracket (`lie_theory.md`) — bracket = the q=±1 antisymmetry; Jacobi = the graded-Leibniz pole
 
@@ -556,10 +557,12 @@ but no tangent space; the `h→0` residue (`derivative.md`), same cap `ordinals.
 
 **Count.** 38 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
-is now **dissolved** (spectral: both = elementary symmetric functions of the spectrum); **thirteen**
-predictions, **ten Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
+is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
+predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
 dyadic completion-limit, discrete Noether-iff, the modulated Banach engine/wall defeat, Carathéodory-as-`clo`,
-the formal `q=±1` tag, and `continuous_iff_preimage_dyadicopen`) + QR already-closed. The `q=+1` contraction
-residue spans φ/Gaussian/ODE; the formal `q=±1` tag unites Cantor/Gödel/measure (escape) with φ/Gaussian/ODE
-(converge); compactness is the `q=+1` finiteness corner; the spectrum dissolves det/tr; the Lie bracket is
-the `q=−1` antisymmetry; the Banach-engine "wall" is **defeated** (`wall_synthesis.md`).
+the formal `q=±1` tag, `continuous_iff_preimage_dyadicopen`, the **det/tr=e₁/e₂ Vieta resolution**, and the
+**formal power-series semiring** `PowerSeriesSemiring` — GF-product = convolution with `mass`/`momentDeg`
+the two characters, pointwise/funext-free) + QR already-closed. The `q=+1` contraction residue spans
+φ/Gaussian/ODE; the formal `q=±1` tag unites Cantor/Gödel/measure (escape) with φ/Gaussian/ODE (converge);
+compactness is the `q=+1` finiteness corner; the spectrum dissolves det/tr; the Lie bracket is the `q=−1`
+antisymmetry; the Banach-engine "wall" is **defeated** (`wall_synthesis.md`).

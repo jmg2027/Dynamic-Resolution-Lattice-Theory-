@@ -230,20 +230,25 @@ two characters are ring homomorphisms. That is the precise missing leg (below).
 were re-checked this session via `#print axioms` → all "does not depend on any axioms". The
 `ConvolveProfile` module builds clean (`lake build` succeeds).
 
-## Conceptual-only / honest gaps (the precise missing leg: the formal x-variable power-series RING)
+## The formal power-series semiring — NOW CLOSED (pointwise, funext-free, ∅-axiom)
 
-- **A general formal-power-series RING with the `x`-variable as grading generator, on which GF product
-  multiplicativity is a homomorphism — PARTIALLY ABSENT, the precise missing leg.** The pieces exist but
-  are *not welded*: (a) `GeneratingFunction.convolution` (the Cauchy product on `CoeffSeq`) is built but
-  proves only `(1·f)₀=f₀` — **no associativity, commutativity, or distributivity**, no semiring
-  instance, no homomorphism on a readout. (b) `ConvolveProfile.conv`/`⋆` (the *same* Cauchy product on
-  `Profile`) carries the **proven** product law (`mass_conv`/`momentNum_conv`) but on `List Nat`, not on
-  `CoeffSeq`, and not assembled into a ring. So the load-bearing claim "GF multiplication = convolution
-  with multiplicative total-character" **is** an ∅-axiom theorem (`mass_conv`), but the **general formal
-  power-series ring** — `(CoeffSeq, +, ⋆, 0, one)` a commutative semiring with `xVar` the degree-1
-  generator and `mass`/`momentNum` ring homomorphisms — is **not built**. *This is the named promotion
-  target the calculus predicts*: weld the two `conv` definitions, lift `mass_conv` to a semiring
-  homomorphism, and the GF ring is closed. (The `Catalan C(x)=1+x·C²` relation is asserted only as a
+- **The formal-power-series semiring + the weld is now BUILT** (`Combinatorics/PowerSeriesSemiring.lean`,
+  33/0 PURE, `#print axioms` → no axioms). Two findings: (i) `Meta/Nat/Convolution213.lean` *already*
+  carried the pointwise GF semiring on `Nat→Nat` (`conv_comm`/`conv_assoc`/distributivity/two-sided unit
+  `delta`/Leibniz), so the real work was the **weld**, not re-proving a semiring; (ii) the weld pivot is
+  that *both* Cauchy products are the **same partial sum**: `conv_eq_cauchy` / `convolution_eq_cauchy`
+  (`= Σ_{i≤n} fᵢ·g_{n-i}`), giving `gfConv_eq_conv` (the `GeneratingFunction.convolution` = the
+  `Convolution213.conv`) and the transported semiring laws `conv_comm'`/`conv_assoc'`/`conv_one_*`/
+  `conv_add_distrib_*` + the bundle `power_series_semiring` (`xVar` = the degree-1 grading generator). The
+  **character homomorphisms** are proved: `massN_addSeq`/`momentDeg_addSeq` (additive), and ★
+  `massN_toCoeffSeq_conv` — the **multiplicative `×↦·` character on the welded product**, transported from
+  `ConvolveProfile.mass_conv` with no re-derivation; the list→sequence weld is `toCoeffSeq_conv`
+  (`toCoeffSeq (f⋆g) = conv (toCoeffSeq f) (toCoeffSeq g)`, unifying `List Nat` and `Nat→Nat`). So "GF
+  multiplication = convolution, with `mass` the multiplicative and `momentDeg` the additive character" is
+  now a closed ∅-axiom semiring fact. **Honest residual:** the semiring is *pointwise* (`∀n, (f⋆g) n =
+  (g⋆f) n`), not extensional function equality — extensional ring equality on `Nat→Nat` needs `funext` =
+  `Quot.sound` (forbidden), so pointwise is the honest ∅-axiom carrier (and all downstream coefficient
+  computation uses exactly that). (The `Catalan C(x)=1+x·C²` relation is asserted only as a
   *table* `catalanGF_table`, not proven as a `convolution` identity — a concrete witness of the missing
   associativity/distributivity.)
 
