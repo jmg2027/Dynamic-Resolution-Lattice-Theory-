@@ -34,7 +34,7 @@ open E213.Theory (Raw)
 open E213.Theory.Raw.Lambek (IsPart IsAtom IsTerminal isPart_wf no_infinite_descent
   terminal_iff_atom part_depth_succ_le)
 open E213.Theory.Raw.PrimitiveTower (rawTower rawTower_depth depth_and_ne)
-open E213.Theory.Raw.Endomorphic (slashOrSelf_of_ne)
+open E213.Theory.Raw.Endomorphic (slashOrSelf slashOrSelf_of_ne)
 
 /-! ## §1 — `depth` is cofinal over Raw -/
 
@@ -68,6 +68,19 @@ theorem tower_no_cycle {m n : Nat} (h : m ≠ n) : rawTower m ≠ rawTower n := 
   calc m = (rawTower m).depth := (rawTower_depth m).symm
     _ = (rawTower n).depth := congrArg Raw.depth e
     _ = n := rawTower_depth n
+
+/-- ★ **The successor (growing) reading is non-idempotent** — `S r := slashOrSelf a r`
+    (the ascent step, `rawTower (n+1) = S (rawTower n)`) satisfies `S (S r) ≠ S r` on the
+    tower: applying it twice strictly raises depth, so it never settles.  This is the exact
+    **mirror of the closure monad's idempotence** (`Order.GaloisConnection.clo_idempotent`,
+    `T² = T`): the distinguishing's ascent is the *growing* (free-flavoured) endo-reading the
+    *converging* (closure) corner lacks — the two values of the decomposition calculus's
+    **iteration-character** axis, orthogonal to the `q = ±1` residue tag (the same ascent is
+    growing here yet `q=+1`-converging as a residue, `ordinals.md`).  ∅-axiom. -/
+theorem succ_not_idempotent (n : Nat) :
+    slashOrSelf Raw.a (slashOrSelf Raw.a (rawTower n)) ≠ slashOrSelf Raw.a (rawTower n) := by
+  show rawTower (n + 2) ≠ rawTower (n + 1)
+  exact tower_no_cycle (Nat.succ_ne_self (n + 1))
 
 /-! ## §3 — the ascent is an explicit total `IsPart`-stream -/
 

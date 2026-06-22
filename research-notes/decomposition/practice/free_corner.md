@@ -105,9 +105,12 @@ The corrected honest edge (replacing `adjunction.md`'s flat "free corner un-buil
 - **Built:** the growing endofunctor `T : Raw → Raw` (the ascent) — non-idempotent, strictly
   height-raising, unbounded, never-cycling. *Grounded.*
 - **Open Lean target (small, clean, within reach):** *the successor endo-reading is non-idempotent* —
-  the explicit dual of `clo_idempotent`. Concretely:
-  `theorem succ_not_idempotent (n) : (slashOrSelf a (slashOrSelf a (rawTower n))) ≠ slashOrSelf a (rawTower n)`
-  — provable from `ascent_adds_unit` + `tower_no_cycle` (depth `n+2 ≠ n+1`), no new machinery. This would
+  the explicit dual of `clo_idempotent`. **★ DONE — proved ∅-axiom PURE:**
+  `E213.Theory.Raw.MuNuMirror.succ_not_idempotent (n) : slashOrSelf a (slashOrSelf a (rawTower n)) ≠
+  slashOrSelf a (rawTower n)` (via `tower_no_cycle (Nat.succ_ne_self (n+1))`, `show rawTower (n+2) ≠
+  rawTower (n+1)`). The growing corner now has a machine-checked witness, the literal mirror of
+  `clo_idempotent`. Originally provable from `ascent_adds_unit` + `tower_no_cycle` (depth `n+2 ≠ n+1`),
+  no new machinery. This would
   be the q=+1-corner's mirror law stated as a theorem, closing the structural claim of finding 1.
 - **Open (genuine, possibly blocked):** the free *monad* `μ : T∘T → T` / Kleisli `bind` — still absent;
   its completed-object home (νF) is flagged un-buildable Mathlib-free. Record as the residual miss.
