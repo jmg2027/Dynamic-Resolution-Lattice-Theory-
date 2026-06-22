@@ -75,9 +75,14 @@ in the two q=±1 poles, only the q=+1 closure corner built.
 
 ### Open Lean faithfulness-targets (would certify a current prose-only collapse)
 - `continuous_iff_preimage_dyadicopen` (`continuity.md` flags the open-set/preimage leg as prose).
-- a formal **`q = ±1` residue tag** uniting `object1_not_surjective` (escape, `q=−1`) and the φ Cassini
-  law `cassini_law_one_at_two_multipliers` (converge, `q=+1`) — the calculus's deepest collapse, not
-  yet one theorem.
+- ✅ CLOSED — a formal **`q = ±1` residue tag** uniting `object1_not_surjective` (escape, `q=−1`) and
+  the φ Cassini law `cassini_law_one_at_two_multipliers` (converge, `q=+1`):
+  `Lib/Math/Foundations/ResidueTag.lean` (55/0) — `ResidueTag` (`escape | converge`) + `multiplier` (∓1,
+  unimodular) + `TaggedResidue`, capstone `residue_tag_two_poles`. q=−1 ⟹ `escape_residue_outside`
+  (⟵ `no_surjection_of_fixedpointfree`); q=+1 ⟹ `converge_residue_fixed` (⟵ `banach_fixed_point_modulated`),
+  `golden_is_converge` ties +1 to the Cassini multiplier. Honest shape: one tag + one consequence *per
+  pole* (NOT one biconditional — the poles are asymmetric: universal-negation vs existence; a single `Eq`
+  would need excluded middle). The deepest collapse, now one ∅-axiom construct.
 - `exp/log` continuous inverse `cutExp ∘ cutLog = id` (`exponential.md` flags it open; discrete side
   certified via `vp_self_pow`/`pow_eq_pow_iff_vp`).
 

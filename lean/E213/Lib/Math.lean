@@ -54,6 +54,7 @@ import E213.Lib.Math.Combinatorics
 import E213.Lib.Math.IncidenceInversion
 import E213.Lib.Math.Foundations.CrossDomainUnification
 import E213.Lib.Math.Foundations.DualCollapseCapstone
+import E213.Lib.Math.Foundations.ResidueTag
 import E213.Lib.Math.Algebra.SelfSimilarityBridge
 import E213.Lib.Math.Foundations.ParadigmDomain
 import E213.Lib.Math.Foundations.ParadigmDomainGraded

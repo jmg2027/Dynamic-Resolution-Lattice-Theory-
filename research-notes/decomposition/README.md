@@ -463,12 +463,43 @@ the *same* diagonal as Cantor and Gödel). So the repo's finite-`List` measurabl
 corner where the diagonal cannot arise** — "no Choice" = "stay at `q=+1`", and the design decision becomes
 a **structural prediction, not a taboo**. The `q=±1` residue tag now unifies Cantor/φ/Gödel/homology AND
 constructive-vs-non-measurable. Located break: `Lp` full `∀S` additivity leaks `Quot.sound` via `funext`
-(the propext/funext wall, `category_theory.md`) — only the pointwise version is PURE; Carathéodory's
-outer-measure has its predicted `clo` shape but is not instantiated (named open target).
+(the propext/funext wall, `category_theory.md`) — only the pointwise version is PURE. **Carathéodory's
+outer-measure NOW CLOSED** (`Analysis/Measure/OuterMeasure.lean`, 29/0): instantiated AS the predicted
+`clo` closure — a genuine Galois connection `cara_gc`, `caraClosure_idempotent` (`T²=T`), conservative
+extension; the conservative-degenerate form (every finite set Carathéodory-measurable) is the *predicted*
+`q=+1`-corner content, the countable-cover infimum being the omitted `q=−1` half.
 
-**Count.** 33 worked decompositions + the `two_cells.md` meta-decomposition; one located partial-break
-(knots, refined to two precise missing primitives) + the `det`/`tr` edge + the `Lp`/funext wall; **eight**
-predictions, **five Lean-closed** (orthogonality 2/3/6, growing-corner, convolve-rescale contraction +
-dyadic completion-limit, discrete Noether-iff). The `q=+1` contraction residue spans φ/Gaussian/ODE; the
-`q=±1` residue tag spans Cantor/φ/Gödel/homology/measure; the Banach-engine "wall" has a converged ∅-axiom
-defeat plan (`research-notes/frontiers/wall_synthesis.md`, implementation in progress).
+### Quadratic reciprocity (`quadratic_reciprocity.md`) — a deep theorem ALREADY ∅-axiom; parity collapse on the Legendre symbol
+
+A fresh decomposition that found the rare result: **quadratic reciprocity is already fully proved ∅-axiom**
+in the repo — `QuadraticReciprocity.quadratic_reciprocity` (11/0 PURE), by exactly the Eisenstein
+lattice-double-count the calculus predicts. The single permutation `σ_a` carries **five readouts** —
+inversion-`psign` / matrix-`det` / Legendre-QR (`zolotarev_mu : psign σ_a = (a/p)`, `ZolotarevMuBridge`,
+14/0) / Gauss least-residue sign-product / Eisenstein floor-count — all one number: `parity.md`'s "parity =
+permutation-sign = `det=±1`" collapse realized *on the Legendre symbol itself*. The two symbols `(q/p)`,
+`(p/q)` are the order-2 `×↦{±1}` character read in two directions, bound by one grid count `m·n`
+(`floor_sum_rectangle`); `parity_sum_iff` forces their signs to agree iff `m·n` is even — the `q=±1` parity
+residue, the "miracle" being the empty diagonal (`elem_tri`: no `q·x=p·y` for coprime primes). Verdict
+**PREDICTION, fully Lean-closed** — the rare entry with no open deep leg. The `(−1)^…` stays a parity bit
+(no `Real213` cyclotomic cut needed — the order-2 character lives in `{±1}`).
+
+### The `q=±1` residue tag, formalized (`Lib/Math/Foundations/ResidueTag.lean`, 55/0) — the deepest collapse, ∅-axiom
+
+The notebook's deepest open collapse is now ONE formal object: `ResidueTag` (inductive `escape | converge`)
++ `multiplier : ResidueTag → Int` (∓1, with `multiplier_unimodular`) + `TaggedResidue`, with the capstone
+`residue_tag_two_poles` bundling both poles. q=−1/`escape` ⟹ `escape_residue_outside` (delegating to
+`OneDiagonal.no_surjection_of_fixedpointfree` — Cantor/Gödel/measure); q=+1/`converge` ⟹
+`converge_residue_fixed` (delegating to `banach_fixed_point_modulated` — φ/Gaussian/ODE), with
+`golden_is_converge` tying `+1` to the literal φ Cassini multiplier. **Honest shape:** one tag, one ±1
+reading, one consequence theorem *per pole* — NOT one biconditional, because the poles are genuinely
+asymmetric in type (q=−1 = a universal-negation hypothesis → a *negative* theorem; q=+1 = a contraction
+hypothesis → a *positive existence* theorem; collapsing them to one `Eq` would need excluded middle). The
+`±1` tag is the "shared column", the asymmetry named precisely — closing the frontier's stated target.
+
+**Count.** 34 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+located partial-break (knots → two precise missing primitives) + the `det`/`tr` edge + the `Lp`/funext wall;
+**nine** predictions, **eight Lean-closed** (orthogonality 2/3/6, growing-corner, convolve-rescale
+contraction + dyadic completion-limit, discrete Noether-iff, the modulated Banach engine/wall defeat,
+Carathéodory-as-`clo`, and the formal `q=±1` tag) + QR already-closed. The `q=+1` contraction residue spans
+φ/Gaussian/ODE; the formal `q=±1` tag unites Cantor/Gödel/measure (escape) with φ/Gaussian/ODE (converge) in
+one ∅-axiom construct; the Banach-engine "wall" is **defeated** (`wall_synthesis.md`).
