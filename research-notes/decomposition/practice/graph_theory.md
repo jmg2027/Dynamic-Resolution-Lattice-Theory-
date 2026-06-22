@@ -204,7 +204,16 @@ kernel* hosts the `q=+1` connectivity collapse but not the constructed `ℤ`-Lap
 spectrum λ₁ is the `q=−1` value-residue. Not a break of the model (no new axis) — a located
 promotion target.
 
-### Is a small (2–3 vertex / Mat2) Laplacian case Lean-groundable as a promotion target? — YES.
+### A small (2-vertex / Mat2) Laplacian case — NOW BUILT ∅-axiom.
+
+**DONE** (`Mat2/GraphLaplacian.lean`, 16/0 PURE): the K₂ Laplacian `pathLaplacian := ⟨1,−1,−1,1⟩` is a
+literal `Mat2` with `pathLaplacian_symmetric`, `pathLaplacian_tr` (=2), `pathLaplacian_det` (=0),
+`pathLaplacian_disc` (=4, `≥0` via `disc_symmetric_nonneg`), `pathLaplacian_charPoly_factors`
+(`= (λ−0)(λ−2)`, spectrum {0,2}) with `tr_eq_e1`/`det_eq_e2`/`spectrum_roots` instantiated,
+`pathLaplacian_const_kernel` (`apply L (1,1) = (0,0)` — the all-ones vector in ker L, the q=+1 constant),
+and `pathLaplacian_connected` (`0 < disc` via `disc_symmetric_pos_of_nonscalar` — Fiedler λ₁=2>0, 0 simple).
+This welds `Mat2SymmetricSpectrum` + `Mat2Spectrum` to a concrete graph, no new construction. The general
+n-vertex (d×d) Laplacian with a *derived* spectrum stays the open d>1 matrix gap. Original framing kept:
 
 **Strongly promotable.** A 2-vertex single-edge graph has `L = [[1,−1],[−1,1]]`, which is a `Mat2`
 with `tr = 2`, `det = 0`, `disc = (a−d)² + (2b)² = 0 + 4 = 4 ≥ 0` — it is `IsSymmetric` (b = c = −1),
