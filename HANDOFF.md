@@ -19,12 +19,22 @@ README.md = the spec: `OBJECT = ⟨Construction | Reading⟩`, Residue, the 4-st
 **revelation rule** = every decomposition must *reveal* (collapse / forcing / residue-surfaced), never
 just re-skin — the design constraint that kept CT from being "abstract nonsense"). Key grounding: the
 calculus is the **positive form of CLAUDE.md's failure-mode catalog** (each failure = a missed
-decomposition). First practice (`practice/`, scattered repo decompositions crystallized into one
-procedure, Lean-certified): `parity.md` (parity/congruence/perm-sign/det=±1 = one
-construction-preserving finite reading, Zolotarev), `integers.md` (ℤ = difference-reading of a
-directed count-pair; "negative" not a substance), `equivalence.md` (동치/동형/준동형 = one
-Lens-arrow). **Next: FRESH decompositions** (math the repo hasn't pre-chewed) — where the technique
-must *generate* the seeing, the real test. Lean is demoted to faithfulness-check.
+decomposition). **Six worked decompositions** in `practice/` (all Lean-certified citations):
+crystallized-from-repo — `parity.md` (parity/congruence/perm-sign/det=±1 = one construction-preserving
+finite reading, Zolotarev), `integers.md` (ℤ = difference-reading of a directed count-pair),
+`equivalence.md` (동치/동형/준동형 = one Lens-arrow); and **four FRESH** (4-agent parallel panel) —
+`prime_factorization.md` (×↦+ collapse, `vp_mul`; exp/log wall = ×-atom distinguishability),
+`cardinality.md` (finite + uncountable = count-reading + its forced residue, `object1_not_surjective`),
+`dimension.md` (dimension/degree/pole-order = one height-reading, forced), `derivative.md` (derivative
+= the ℤ difference-Lens at residue resolution; Δ/d, Σ/∫ one reading across resolution).
+
+**The technique was refined BY the practice** (README "Refinements from the first practice batch"):
+`C` carries optional read-off sub-structures {direction→sign, fold-height→dimension/degree,
+atom-distinguishability→×/+ split}; `L` carries {resolution, character/logarithmic mode}; Residue is
+first-class and stratifies (`⟨C|L⟩ ⊕ Residue(L,C)`). **Next: more FRESH decompositions** to break/extend
+this map (candidates: matrices/det, continued fractions/φ, the exponential, topology/continuity,
+probability); Lean stays a faithfulness-check. Minor tooling: `scan_axioms.py` has a probe-path write
+bug when run from a non-root cwd (one agent hit it) — fix when convenient.
 
 ## The directive (진의) — re-inferred this session (4-agent panel) + the originator's question
 The originator asked, via `/goal`: infer the repository's ultimate purpose by multi-agent debate and
