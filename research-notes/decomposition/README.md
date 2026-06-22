@@ -1819,7 +1819,21 @@ Theorem-90-vs-Brauer pattern as galois_cohomology. Named Virasoro/CFT/OPE/centra
 conformal hits are differential-geometry curvature, false-friend); located break = the bootstrap crossing
 equation (the graded-relation slot) + the infinite-mode Virasoro tower vs finite Mat2 (inherited from lie_theory).
 
-**Count.** 129 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Gauge theory / Yang–Mills (`gauge_theory.md`) — curvature + Chern character, instantons = Hodge q±1
+
+EXTEND. Yang–Mills = curvature's loop-residue (connection/holonomy `HolonomyLattice` 26/0) + noether's
+Aut-invariant det character (gauge invariance) + de_rham's d²=0 (Bianchi) + characteristic_classes' Chern
+character (∫tr(F∧F)=c₂=`det=e₂`). ★ New datum: **instantons (F=±⋆F) = the q±1 eigenspaces of the Hodge star
+involution** (`SignedHodgeStar.star_sq_pos_one_grade2`:98 ⋆²=+1 at grade 2 = the curvature-2-form seat on a
+4-manifold ⟹ F=F⁺⊕F⁻, the same q±1 split as symmetric/antisymmetric, 12/0); the gauge field = the antisymmetric/
+q−1 cup half of `gram_hermitian_gravity_gauge_split` (gravity=symmetric metric, gauge=cup). ★★ The surprise: the
+YM **mass gap is already BUILT ∅-axiom** — `YangMills/Gap.mass_gap_master`:168 (24/0: exact spectrum {0,4,4,6,10},
+unique vacuum, gap = c·min(NS,NT) = 4>0, eigenbasis-independent), and the spectral confinement face
+`ColoredGap.colored_confinement_master` (4/0) — far stronger than a prediction. Named connection/instanton/
+WilsonLoop objects absent (Wilson = Wilson's theorem number-theory false-friend); the Wilson-loop area law is
+the honest open wall (no embedding on abstract K_{3,2}); smooth G-bundle/instanton moduli = the Real213 break.
+
+**Count.** 130 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
