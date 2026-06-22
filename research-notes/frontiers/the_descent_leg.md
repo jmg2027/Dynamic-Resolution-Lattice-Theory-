@@ -161,6 +161,19 @@ a·c ⟹ c < p`, from `lt_right_mul`), then the finite `(a,c)` grid refuted by s
 capstone (M1→M6). Next: M2 (factorization existence, needs native well-founded recursion on
 `Order.lt`) → M3 (Euclid + uniqueness via native descent gcd).
 
+**M2 advance scouting (two pins, to avoid known traps next session):**
+- *Native well-foundedness is in hand* — `Acc lt` is provable over `Nat213` with **no `toNat`**, by
+  structural recursion:
+  `acc_lt : ∀ n, Acc lt n | one => Acc.intro _ (fun y h => absurd h (not_lt_one y)) | succ n =>
+  Acc.intro _ (fun y h => (lt_succ_iff.mp h).elim (· ▸ acc_lt n) ((acc_lt n).inv ·))`.
+  So `WellFounded lt := ⟨acc_lt⟩` is ∅-axiom — the descent recursion needs no `Nat` measure.
+- *The case split must be CONSTRUCTIVE, not `by_cases (Irreducible n)`.* `Classical.em` is forbidden,
+  and `Irreducible n` (a `∀` over `Nat213 × Nat213`) is not obviously decidable. Branch instead on a
+  **bounded divisor search**: `Decidable (∃ a, lt one a ∧ lt a n ∧ Dvd a n)` via enumeration of
+  `a < n` (with `Dvd a n` decidable through the cofactor bound `c < n`). Build that bounded
+  decidability first; then the WF recursion splits on its result (proper divisor → recurse on the two
+  `< n` factors and append; none → `n` irreducible).
+
 **Honest residual (the next bet, not yet run).** Peano still has a `toNat`-laundered
 `mul_left_cancel`/`mul_right_cancel` — retained because the **ℚ₊ Tower** cone
 (`Tower/NatPairToQPos`, `Tower/PairCompletion`) still consumes them. That cone is the next
