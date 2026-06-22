@@ -111,4 +111,17 @@ theorem dhom_unique_pointwise {β : Type} (N : DStr β) (f g : DHom rawDStr N) :
         _ = N.op (g.map x) (g.map y) (g.map_ne h) := op_congr N ihx ihy (f.map_ne h) (g.map_ne h)
         _ = g.map (Raw.slash x y h) := (g.map_op x y h).symm
 
+/-! ## §2 — the dichotomy's negative branch (schema-level rival exclusion) -/
+
+/-- ★★★ **A subsingleton carrier admits NO distinguishing-structure** — the schema-level form of
+    `OneDiagonal.no_distinguishing_on_subsingleton`.  A carrier that draws no distinction
+    (`∀ x y, x = y`) cannot satisfy D1 (`e_ne`), so it is not even a `DStr`.  This is the *negative
+    branch* of the classification done once, at the schema level: the degenerate rival is excluded by
+    failing a *named clause* (D1), not by an enumeration.  (Unary / non-distinctness rivals fail D2 by
+    *signature* — their op is not a partial pairing on distinct pairs — completing the negative
+    branch; the positive branch is `raw_initial`, the existence leg.) -/
+theorem no_DStr_on_subsingleton {α : Type} (hsub : ∀ x y : α, x = y) :
+    ¬ Nonempty (DStr α) :=
+  fun ⟨N⟩ => N.e_ne (hsub N.e₁ N.e₂)
+
 end E213.Lens.UniversalDistinguishing
