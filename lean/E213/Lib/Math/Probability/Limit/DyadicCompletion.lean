@@ -17,20 +17,30 @@ dyadics: `closeDy L m (seq p) (seq q)` for all `p, q ≥ m` (Bishop's regular
 convention; identity modulus).  `closeC` compares two such sequences eventually;
 the four `MetricModulus` laws transfer pointwise from `dyMet`.
 
-The completeness operator `lim` is the *stabilizing diagonal* of a
+The candidate completeness operator `limPoint` is the *stabilizing diagonal* of a
 `closeC`-Cauchy sequence of completion points: a total function (no Cauchy
 hypothesis needed) built by a decidable freeze — at each level it takes the new
 diagonal value only if it respects the regular bound (a pure `Nat` decidable
 test), else it holds the previous value.  This is regular by construction (so it
-is always a legitimate `DyC L`), and for a genuinely Cauchy sequence it
-eventually never freezes, landing on the true diagonal limit; that is the content
-of `climconv` (a quarter-triangle / 3ε argument on `Nat`-arithmetic).
-Quotient-free.
+is always a legitimate `DyC L`).  Quotient-free.
 
-With `completeDy L : CompleteMetricModulus (DyC L)` in hand, `banach_fixed_point`
-is applied for real to the lifted convolve-and-rescale map `Φ̂` (pointwise `Φ`):
-the Gaussian's center is a true Banach fixed point, reached as the Picard limit
-through the engine.
+**Honest scope (the constructive wall — what this file does and does not do).**
+This file does **not** build `completeDy : CompleteMetricModulus (DyC L)` and does
+**not** apply `banach_fixed_point`.  The `CompleteMetricModulus` interface bundles a
+*total* `lim : (Nat → X) → X` with `climconv` claiming convergence for **every**
+bare Cauchy sequence — and a total choice-free `lim` correct on all bare sequences
+is constructively impossible (it would have to read each sequence's own unbounded
+modulus; the diagonal of regular sequences is not regular).  That obligation is the
+smuggled countable-choice principle `AC₀,₀` ("every Cauchy sequence has a modulus"),
+which ∅-axiom forbids.  Instead this file delivers the `banach_fixed_point`
+**conclusion's content directly**: `orbit_to_center_completion` proves the lifted
+convolve-and-rescale Picard orbit converges, in the completion metric `closeC`, to
+the Gaussian center — a genuine completion-limit, reached by none, ∅-axiom, without
+ever touching the bare `lim`.  The reusable *engine* form (a `…Mod`/name-carrier
+completeness interface taking the modulus as data, then a `banach_fixed_point_modulated`)
+is the named follow-on, tracked in `research-notes/frontiers/wall_synthesis.md`;
+`picard_cauchy` already supplies the orbit's explicit modulus `N(m)=m`, so that route
+is choice-free.
 
 All zero-axiom.
 -/
