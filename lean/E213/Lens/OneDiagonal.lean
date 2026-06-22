@@ -104,4 +104,24 @@ theorem one_diagonal_generates {A : Type} :
     ∧ (¬ Function.Surjective Object1) :=
   ⟨cantor_via_lawvere, russell_liar_no_surjection, residue_is_lawvere_diagonal⟩
 
+/-! ## §5 — the residue is born of the distinguishing -/
+
+/-- ★★★ **The residue requires the distinguishing.**  On a *subsingleton* value type `B` — one that
+    draws no distinction, `∀ x y, x = y` — every modifier `t : B → B` already has a fixed point
+    (`t b = b`, since all elements are equal).  So `lawvere_fixed_point`'s contrapositive
+    (`no_surjection_of_fixedpointfree`) fires for *nothing*: there is **no diagonal escape, no
+    residue**.  The residue exists only where the value space itself *distinguishes*.  Complements
+    `Nat213.Generation.distinguishing_necessary` (the arithmetic level) at the diagonal level: no
+    distinguishing, no residue. -/
+theorem residue_needs_distinguishing {B : Type} (hsub : ∀ x y : B, x = y) (t : B → B) :
+    ∀ b : B, t b = b := fun b => hsub (t b) b
+
+/-- The value-space distinguishing that *powers* the residue: `Bool` distinguishes (`true ≠ false`),
+    so its negation `not` is **fixed-point-free** (`bnot_self_ne`) — exactly the modifier that makes
+    the Cantor/residue diagonal escape exist.  With `residue_needs_distinguishing`, this brackets it:
+    the residue is born of the distinguishing — present where the value space distinguishes, absent
+    where it does not. -/
+theorem distinguishing_powers_residue : ∃ t : Bool → Bool, ∀ b, t b ≠ b :=
+  ⟨fun b => !b, bnot_self_ne⟩
+
 end E213.Lens.OneDiagonal
