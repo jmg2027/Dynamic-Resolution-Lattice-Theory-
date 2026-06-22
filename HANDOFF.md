@@ -1,8 +1,27 @@
-# Session Handoff — 2026-06-22 (multi-agent marathon: 진의 + descent-leg FTA capstone)
+# Session Handoff — 2026-06-22 (multi-agent marathon: 진의 + decomposition calculus v7)
 
 ## Branch
-`claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean **446/446**, all new
-modules ∅-axiom PURE.
+`claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean, all new modules ∅-axiom
+PURE. Latest commits: `Φ_contraction` (ConvolveRescaleContraction, 20/0), model-v7 doc synthesis.
+
+## ★ LATEST (batch-8 wave, model v7) — read this before the dense block below
+**30 worked decompositions, model v7, four predictions Lean-closed.** Batch-8 six-agent wave:
+- **Gödel** (PREDICTION) = same `q=−1` escaping diagonal as Cantor/`object1_not_surjective`; predicts
+  *where* incompleteness vanishes.
+- **surreals** (EXTEND) = Conway's `{L|R}` IS the directed iterated distinguishing, term-for-term.
+- **knots** (★ FIRST partial-break) = braid *group* EXTENDS, knot *invariant* BREAKS at two located
+  missing primitives: skein = relation-among-distinct-constructions; knot = ambient-isotopy quotient.
+  This **locates the calculus's boundary** — the normal form covers neither.
+- **p-adics** (PREDICTION) = new reading slot: resolution carries a **`base`** (which valuation is
+  "adjacent"); predicts the family of completions; Ostrowski exhaustiveness = open leg.
+- Two leverage closures: **orthogonality orders 3/6** (`RootOfUnityOrthogonality`, 23 PURE) extends
+  `fourier.md` order-2; **`Φ_contraction`** (`ConvolveRescaleContraction`, 20 PURE) closes
+  `gaussian_clt.md`'s keystone leg (honest residual: no `CompleteMetricModulus Dy`, profile open).
+**Model v7** = v6 + {resolution carries a `base` (padic); the boundary is located (knots break:
+skein + isotopy-quotient are named missing primitives)}. Open frontier targets:
+`research-notes/frontiers/decomposition_calculus.md` — continuous Noether current, general-χ
+orthogonality (needs `Real213` ζ), `CompleteMetricModulus Dy` + convolution-on-profiles, the native
+free-monad/νF carrier, Ostrowski exhaustiveness.
 
 ## ★ DIRECTION RECALIBRATION (2026-06-22, from the originator directly — READ FIRST)
 The originator course-corrected the whole approach: **the Lean files are scaffolding, not the body —
