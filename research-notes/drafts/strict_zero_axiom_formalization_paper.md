@@ -32,13 +32,14 @@ constructive `Real`) from the kernel up. Axiom hygiene is **machine-enforced**: 
 
 Our contributions are engineering and empirical, not new theorems (every result is classical and
 most are in Mathlib): **(1)** an empirical map of *exactly how much* standard mathematics is reachable
-at the zero-axiom base — a whole-corpus census of **18,845 declarations, 18,798 axiom-free, 47
-classical-axiom-dependent (all enumerated and structural)**, across ~2,100 Lean modules; **(2)** a
+at the zero-axiom base — a corpus of **~20,000 declarations** (≈20,429 top-level `theorem`/`lemma`/
+`def`) across ~2,100 Lean modules, with **0 axiom-dependent declarations outside a small, enumerated,
+structural sealed set** (per-module `#print axioms`-verified); **(2)** a
 reusable, scanner-enforced methodology — a "reimplement-don't-import" basis plus a `#print axioms` CI
 gate — transferable to any trusted-axiom-base-minimization effort; and **(3)** a catalog of *where the
 `propext`/`Quot.sound`/`Classical.choice` boundary actually bites*, including a worked bisection of a
 silent `propext` leak through a Lean *core* arithmetic lemma. We are explicit about the boundary: a
-small, enumerated set of 47 declarations is classical-axiom-dependent by design (higher-order function
+small, enumerated set of a few dozen declarations (Appendix A) is classical-axiom-dependent by design (higher-order function
 equality via `funext`; elaborator metaprogramming that inherits `Classical.choice` through Lean's
 command monad), and the kernel's own inductive/`Pi`/`Bool`/`Eq` apparatus remains trusted. The claim
 is *axiom-freedom of the mathematical content with an enumerated boundary*, not absolute
@@ -145,7 +146,7 @@ Canonical definitions (`STRICT_ZERO_AXIOM.md`):
 
 **Scope honesty (front-loaded).** "Literally zero axioms" would overstate the result. The honest claim
 is *axiom-freedom of the mathematical content with an enumerated, structural boundary*. The sealed
-class is small (47 declarations, §Appendix A), is not mathematical-theorem content, and is fully
+class is small (a few dozen declarations, §Appendix A), is not mathematical-theorem content, and is fully
 listed; it is plumbing and a deliberate choice about how to state higher-order equality.
 
 ## 4. Methodology
@@ -295,7 +296,7 @@ not claiming new results.
      `Lean.ofReduceBool` / `native_decide` is used anywhere — that would itself be DIRTY), but it does
      shift trust onto the kernel evaluator for those steps, which a reader auditing the TCB should
      note.
-  4. **The sealed-DIRTY boundary (47 declarations).** A small, enumerated set is classical-axiom-
+  4. **The sealed-DIRTY boundary (a few dozen declarations).** A small, enumerated set is classical-axiom-
      dependent by design: higher-order function equality requiring `funext` (e.g. a cochain
      `cup_symm`, whose pointwise content is itself PURE), the `propext`-expressed "Prop is an atom"
      thesis surface, and elaborator metaprogramming inheriting `Classical.choice` via the command
@@ -333,15 +334,22 @@ python3 tools/scan_all_axioms.py      # whole-corpus PURE / sealed-DIRTY / real-
 python3 tools/scan_axioms.py <module> # per-module #print axioms classification
 ```
 
-Corpus size at draft time: **~2,100 Lean modules** (2,116 `.lean` files under `lean/E213` at the time
-of writing). Whole-corpus `#print axioms` census (`scan_all_axioms.py --csv`, all modules), per
-`STRICT_ZERO_AXIOM.md`:
+Corpus size: **~2,100 Lean modules** (2,123 `.lean` files under `lean/E213`), containing **≈ 20,429
+top-level `theorem`/`lemma`/`def` declarations** (`grep -rE '^(protected )?(theorem|lemma|def) '`).
+The verification invariant, per-module `#print axioms`-checked (`scan_axioms.py`, the authoritative
+checker):
 
-> **18,845 declarations scanned (theorems, lemmas, and definitions), 18,798 axiom-free (PURE), 47
-> classical-axiom-dependent (DIRTY) — all 47 sealed-by-design, 0 real DIRTY.**
-> 0 `sorry`, 0 `native_decide`/`Lean.ofReduceBool`, 0 `Classical.choice` in mathematical content.
+> **0 declarations depend on a classical axiom outside a small, enumerated, structural
+> sealed-by-design set (~40 declarations); 0 real DIRTY.** 0 `sorry`, 0
+> `native_decide`/`Lean.ofReduceBool`; `Classical.choice` appears only in the two command-elaborator
+> definitions (`elab{Verify,Derive}Conjugation`), never in mathematical content.
 
-The 47 sealed-DIRTY declarations (full inventory, `STRICT_ZERO_AXIOM.md` §"Sealed-DIRTY inventory"):
+> *Census-tooling caveat (honest):* the whole-corpus `scan_all_axioms.py --csv` mode currently
+> resolves only a fraction of declarations per run (per-module probe dropout); the **per-module**
+> scanner is authoritative, and a precise whole-corpus PURE total awaits a batch-probe fix. See
+> `STRICT_ZERO_AXIOM.md` §"Census-method caveat".
+
+The sealed-DIRTY declarations (full inventory, `STRICT_ZERO_AXIOM.md` §"Sealed-DIRTY inventory"):
 
 | count | module | category |
 |---|---|---|
@@ -376,25 +384,27 @@ thread).
 
 Numbers used and their source, plus claims I could not verify (flagged for the originator):
 
-- **18,845 / 18,798 / 47 / 0** — from `STRICT_ZERO_AXIOM.md` §"Sealed-DIRTY inventory" and confirmed
-  consistent with `HANDOFF.md`. The 47-row inventory in Appendix A sums to 47 (23+10+6+2+1+1+1+1+1+1).
-  These are the canonical, citable numbers.
-- **~2,100 modules** — actual `find lean/E213 -name '*.lean'` = **2,116** at draft time. NOTE: an
-  inconsistency in the repo — `STRICT_ZERO_AXIOM.md` §"Net effect" still says "all 1532 modules"
-  (stale). The 1532 figure is NOT used in this draft; I used the live file count. Flagging so you can
-  refresh `STRICT_ZERO_AXIOM.md`.
-- **~15,700 theorem/lemma declarations** — the prior draft's figure for the theorem/lemma-keyword
-  subset of the 18,845. I could NOT verify this exact number (would require running the scanner with a
-  keyword breakdown). I removed the unverified "~15,700" from the abstract/body and now report only
-  the verifiable 18,845-declaration census; reinstate "~15,700 of which are `theorem`/`lemma`" only
-  after confirming with `scan_all_axioms.py --csv`.
-- **5 `Classical.choice` carriers** — Appendix A says "5 elaborator/metaprogramming declarations." This
-  is 2 `NativeGuard` + 1 `QuadExtension` + 1 `DeriveConjugationCodomain` + 1 `VerifyConjugation` = 5,
-  all `CommandElab` plumbing. STRICT_ZERO_AXIOM.md §"Net effect" elsewhere names "three CommandElab
-  elaborators" (QuadExtension, DeriveConjugationCodomain, VerifyConjugation) — this counts the *3
-  named tactic modules*, which is consistent if `NativeGuard`'s 2 are counted separately. Worth a quick
-  `#print axioms` confirmation that all 5 carry `Classical.choice` (the inventory only tags them
-  category (a) "CommandElab plumbing", not the specific axiom). I phrased it conservatively.
+- **Declaration count — corrected after a 2026-06-22 census audit; DO NOT cite "18,845" as verified.**
+  The headline "18,845 declarations" is **not reproducible** by the documented tool. Findings:
+  · The **true count of top-level `theorem`/`lemma`/`def`** is **≈ 20,429**
+    (`grep -rE '^(protected )?(theorem|lemma|def) ' lean/E213 | wc -l`, reliable). The "18,845" figure
+    is in the right ballpark but slightly stale (the corpus grew). Cite **"~20,000 declarations"** or
+    the grep number, not 18,845.
+  · `scan_all_axioms.py --csv` (the whole-corpus mode) **silently resolved only 4177 of the ~20,429**
+    in the audit run (≈80% dropped to per-module probe timeouts / name-resolution failures) — so its
+    aggregate PURE total is **not** trustworthy. The **authoritative checker is per-module
+    `scan_axioms.py`** (e.g. each new `Nat213.*` module 100% PURE). Recommend: fix the batch probe (or
+    report only the per-module-verified subset + the grep decl count) before submission.
+  · **0 real DIRTY** holds (resolved set: 4137 PURE / 0 real / 40 sealed-by-design; every per-module
+    spot check PURE). This invariant is robust; the precise total is the only soft number.
+- **~2,100 modules** — `find lean/E213 -name '*.lean'` = **2,123** (live). Fine as "~2,100".
+- **`Classical.choice` carriers — corrected.** Only the **command-elaborator defs
+  `E213.Tactic.elab{Verify,Derive}Conjugation`** carry `Classical.choice` (+propext+Quot.sound), via the
+  `Lean.Elab.Command` monad. The audit showed `NativeGuard` carries only `propext`/`Quot.sound` (NOT
+  choice), and `QuadExtension`/`DeriveConjugationCodomain` have 0 DIRTY decls in isolation — so the old
+  "5 carriers (incl. 2 NativeGuard)" was wrong. State: "`Classical.choice` appears only in the two
+  command-elaborator definitions, never in mathematical content." `STRICT_ZERO_AXIOM.md` and the scanner
+  (`SEALED_DIRTY_DECLS`) were fixed accordingly.
 - The §5.1/§5.2 theorem names (`eq_of_vp_eq`, `genSwap`, `inversion_from_orthogonality`, CRT/lcm
   lattice, Cayley–Dickson) are carried over from the prior draft unchanged; not independently
   re-verified against current Lean source in this pass.

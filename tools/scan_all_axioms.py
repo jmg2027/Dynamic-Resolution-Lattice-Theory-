@@ -173,12 +173,30 @@ def is_sealed_dirty(module: str) -> bool:
     return any(module.startswith(p) for p in SEALED_DIRTY_PREFIXES)
 
 
+# Sealed-by-design DECL prefixes (checked on the declaration name, not the
+# module).  The command-elaborator defs (`elabVerifyConjugation`,
+# `elabDeriveConjugation`, …) live in `E213.Tactic.*` but get *attributed to the
+# module that invokes the command macro* (e.g. a `Cauchy.*` file using
+# `derive_conjugation`), so module-based sealing misses them and they show up as
+# false "real DIRTY".  They are the same CommandElab plumbing as the
+# `Meta.Tactic.*` entries above (category (a)); seal them by decl name.
+SEALED_DIRTY_DECLS = (
+    "E213.Tactic.elab",
+)
+
+
+def is_sealed_decl(decl: str) -> bool:
+    return any(decl.startswith(p) for p in SEALED_DIRTY_DECLS)
+
+
 def summarize(results):
     pure = [r for r in results if r[2] == 'PURE']
     dirty_real = [r for r in results
-                  if r[2] == 'DIRTY' and not is_sealed_dirty(r[1])]
+                  if r[2] == 'DIRTY' and not is_sealed_dirty(r[1])
+                     and not is_sealed_decl(r[0])]
     dirty_sealed = [r for r in results
-                    if r[2] == 'DIRTY' and is_sealed_dirty(r[1])]
+                    if r[2] == 'DIRTY' and (is_sealed_dirty(r[1])
+                       or is_sealed_decl(r[0]))]
     print(f'\n# {len(pure)} PURE / {len(dirty_real)} DIRTY '
           f'+ {len(dirty_sealed)} sealed-DIRTY-by-design '
           f'({len(results)} total)')
