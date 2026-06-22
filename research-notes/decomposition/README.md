@@ -1101,7 +1101,48 @@ non-constructive boundary** — large-cardinal/Choice-strength, located where th
 signature, analogous to non-standard analysis's ultrafilter at LLPO. Named Borel/analytic/Suslin/Wadge
 objects absent (Borel hits are all Heine–Borel compactness).
 
-**Count.** 78 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Hodge theory (`hodge_theory.md`) — the fold-height refined to a (p,q) bigrading + the signed q=±1 star
+
+PREDICTION + PARTIAL + genuine refinement (the `HodgeConjecture/` tree is *substantially built*). Hodge
+theory = de_rham's `H*` with the single fold-height grade `n` **refined into a (p,q) bigrading** (height read
+through the complex-structure Lens `J`, `J²=−1`, splitting `H^n` by the `J`-eigenvalue `i^{p−q}`) + the
+**Hodge star = the q=±1 duality involution, SIGNED**: `⋆²=(−1)^{k(n−k)}` (`SignedHodgeStar.star_star_eq_sign`
+12/0, `Hodge/SignedStarC4.signed_star_sq_neg_I` 10/0) — `+1`/involution on even grades = Poincaré duality
+(`PoincareDuality.poincare_duality_delta4` 2/0), `−1`/complex-structure `C₄≅ℤ[i]` on odd grades
+(`signed_star_ring_is_gaussian`, `cp_i_is_hodge_complex_structure`). Harmonic = q=+1 Laplacian-kernel fixed
+point; unique harmonic representative = the q=+1 fold-to-normal-form. New datum: the signed `⋆` SHARPENS
+homology's q=±1 two-pole story — the involutive `⋆`-pole is *itself* q=±1-graded (`⋆²=±1`), the `−1` half
+being where the complex structure / CP `i` lives (`hodge_involution_universal_delta4` 5/0, `J_is_Q_isometry`/
+`hodge_index_master_theorem` 5/0). Located break: no harmonic-projection iso `H^n≅ker Δ` (needs the
+Real213/smooth-metric residue), and Lefschetz `sl₂`/Hard-Lefschetz absent (grep-confirmed).
+
+### ★ Free probability (`free_probability.md`) — the R-transform = the ×↦+ character for free convolution
+
+EXTEND + PREDICTION. Free probability = gaussian_clt's CLT structure with three substitutions, all inside
+the Reading `L` (none in `C`): `⊞` for `⋆`, the R-transform (the *free log*) for `log`, the semicircle for the
+Gaussian — driven by one swapped slot: the moment↔cumulant lattice restricted from ALL partitions (classical)
+to **NON-CROSSING partitions = Catalan** (free). New datum: the R-transform is the ×↦+ additive linearizer of
+`⊞` (`R_{μ⊞ν}=R_μ+R_ν`, the same arrow as `vp_mul`/log, the **8th field** it runs through), and
+`R_μ=G_μ⁻¹−1/z` is exponential.md's `+↦×` toggle, so the R-transform is the free log by the *same arrow
+structure*, not analogy. ★ Sharpest grounding: the free moment↔cumulant relation over non-crossing partitions
+is literally a convolution self-square — `CatalanSegner.catSeg_succ` (`catSeg(n+1)=conv catSeg catSeg n`, 7/0;
+"Catalan = the conv self-square fixed point"), `Catalan.catalan` (17/0, non-crossing chord diagrams),
+`MotzkinNumbers.motzkin_catalan_table` (9/0). Semicircle = the free-CLT q=+1 fixed point = random_matrix's
+spectrum. Named freeConvolution/Rtransform/semicircle/freeCumulant absent.
+
+### ★ Percolation (`percolation.md`) — p_c as the q=±1 phase-transition point (thin / honest PREDICTION)
+
+PREDICTION (thin — honestly the weakest of the connectivity cluster, mostly analogy). The grounded collapse:
+the infinite cluster = the q=−1 escape residue (literally random_walks's transience, the same
+`OneDiagonal.no_surjection_of_fixedpointfree` diagonal as Cantor/Gödel/measure; subcritical = q=+1 converge),
+on top of graph_theory's static connectivity = dim-ker reading (`GraphConnectivity.closed_const` 8/0,
+`KernelConstancyUniversal.bipAdj_connected` 20/0). The new element — reading the q=±1 pole *as a function of
+edge-probability p*, with `p_c` the pole-transition and `θ(p)` the residue size — has **no direct Lean
+witness**: the entire `p`-dependent transition layer (`p_c`/θ/infinite-cluster/FKG/Kesten self-duality/RSW) is
+unbuilt (sits on the Real213 value-cut + measure.md's Choice-flavoured residual). Recorded honestly as weaker
+than its neighbours: the static legs + q=±1 tag are PURE, the transition itself is analogy.
+
+**Count.** 81 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
