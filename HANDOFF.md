@@ -15,7 +15,12 @@ census, recurring breaks, the self-description: PURE/DIRTY = Heyting/Boolean = w
 `DerivedSeries` (S₃ solvable), `FenchelMoreau` (f**=clo), `CyclicErgodic`, `BanachFixedPointModulated` +
 `DyadicCompletion` (the constructive-wall defeat), `NoetherCurrent`, `OuterMeasure`, `ContinuityOpenSet`,
 `PowerSeriesSemiring`, `GaussianOrthogonality` + `CyclicCharacterOrthogonality` (orthogonality all orders mod p),
-`ConvolveRescaleContraction`/`ConvolveProfile`. Process note: `scan_axioms` can read a freshly-registered
+`ConvolveRescaleContraction`/`ConvolveProfile`, `CyclicErgodic`, `A5Perfect` (A₅ perfect, the quintic q=−1
+pole — with `DerivedSeries.solvable_S3` the q=+1 pole). **★ Two wall-style results:** (1) the constructive
+wall DEFEATED (modulated Banach engine, wave 3); (2) the colimit/ambient-quotient corner SPLIT (wave 14,
+`colimit_quotient_synthesis.md`) — Side A interface-defect (buildable ∅-axiom via the verified `LensImage`
+Σ-pattern: braids/free π₁/Jones state-sum) vs Side B theorem-grade obstruction (Novikov–Boone undecidability).
+Process note: `scan_axioms` can read a freshly-registered
 module's stale `.olean` as false-DIRTY — `#print axioms` on a clean rebuild is authoritative (verified this
 session). The 12 per-wave sections below are superseded by SYNTHESIS.md (kept for provenance; a `/handoff`
 regeneration would prune them).
