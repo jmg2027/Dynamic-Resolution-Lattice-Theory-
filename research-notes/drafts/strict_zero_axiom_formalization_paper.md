@@ -148,6 +148,36 @@ Two patterns recur and are worth reporting as practitioner guidance:
     development, even core associativity lemmas must be audited and twinned. (This is exactly the
     kind of leak a Mathlib-based "it's constructive" claim never surfaces.)
 
+The bisection workflow (Figure 1) is the reusable practitioner artifact, not the specific lemma:
+
+```
+  Figure 1 — localizing a silent propext leak
+
+  eq_of_vp_eq                       #print axioms  →  { propext }      (DIRTY)
+    every CITED lemma               #print axioms  →  ∅               (all PURE)
+        └─ leak is in the assembly, not a citation
+                              │
+            bisect the proof term ─ disable branches, re-scan
+                              ▼
+    ┌──────────────┬────────────────┬─────────────────┐
+    │ by_cases →   │ eqn-compiler → │ le_vp_iff /      │
+    │ cases decEq  │ induction      │ sandwich lemmas  │  ← each re-scanned ∅
+    └──────────────┴────────────────┴─────────────────┘
+                              │ leak persists after all three
+                              ▼
+            remaining core call:  Nat.mul_assoc   #print axioms → { propext }
+                              │
+                  replace with pure twin: ring_nat
+                              ▼
+  eq_of_vp_eq                       #print axioms  →  ∅               (PURE)
+```
+
+The general procedure: when an assembly is DIRTY but every cited lemma is PURE, the leak is a
+*core* call the elaborator inserted silently (associativity, a `Decidable` instance, a `Quotient`
+lift). Bisect by progressively replacing tactic blocks with pure twins and re-scanning; the
+scanner (`#print axioms`) is the oracle at each step. The cost is `O(log n)` re-scans, not a manual
+proof-term audit.
+
 ### 4.4 Forcing vs. bookkeeping — grading an axiom-free re-derivation
 
 Not every PURE re-derivation carries the same evidential weight. We distinguish:
