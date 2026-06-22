@@ -1230,7 +1230,50 @@ continuous Brouwer/Kakutani existence on a compact convex Real213 simplex (Brouw
 SYNTHESIS §5) — only the discrete Lawvere + contraction-Banach fixed points are built. Named Nash/minimax/
 strategy/payoff objects absent. Buildable witness: a 2×2 zero-sum minimax instance via OllivierRicci's LP saddle.
 
-**Count.** 87 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ Motives (`motives.md`) — the calculus recognizing its OWN engine (the deepest reflexive consolidation)
+
+PREDICTION + the deepest reflexive consolidation. Motives ARE the calculus's **universal-factorization
+mechanism** (`Lens.view = Raw.fold`, `raw_initial`) named in cohomology. Grothendieck's motive = "the universal
+cohomology theory through which every Weil cohomology factors uniquely" — which is EXACTLY `raw_initial`/
+`dhom_unique_pointwise` (6/0): `Lens.view = Raw.fold` is the unique arrow out of `Raw`. So the category of
+motives = the universal construction `C`/`Raw` (initial object); each Weil cohomology (Betti/de Rham/ℓ-adic) =
+a Lens `L` factoring through it (`view_factors_through_morphism` 3/0 — literally the realizations are different
+Lenses on the SAME `C`, the same "homology/de Rham/sheaf = three outputs of one machine" as homological_algebra);
+the motivic Galois group = the `Aut` of the universal Lens (`det_holonomy_eq_one`); the Tate twist/weight = the
+fold-height grading (`isPart_wf`); the standard conjectures = the q=±1 **faithful** (`object1_injective`,
+PROVABLE) / **total** (`object1_not_surjective`, the escape residue, CONJECTURAL) split. ★ The framing that
+keeps it from re-skinning homological_algebra: that note named the `Residue(L,C)` half of the normal form;
+**motives names the `⟨C|L⟩` half** — they are the two reflexive halves of `⟨C|L⟩ ⊕ Residue(L,C)`, the calculus
+recognizing its own engine. Named Motive/WeilCohomology/realization/motivicGalois objects absent (the
+universal-property *mechanism* is, conversely, the most-built thing in the repo — it IS the Lens framework).
+
+### ★ Tannakian duality (`tannakian_duality.md`) — "object = its readings" promoted to a reconstruction
+
+PREDICTION. Tannakian duality = the founding sentence `OBJECT = ⟨C|L⟩` ("an object IS its readings", yoneda)
+promoted to a **reconstruction**: the group is the `Aut` of its forgetful monoidal Lens, `G ≅ Aut^⊗(ω)`. The
+fiber functor ω:Rep(G)→Vect = the forgetful `Lens.view`:42; `G=Aut^⊗(ω)` = the `Aut`-invariant q=+1 character
+reading (`det_holonomy_eq_one` 26/0, `AutKGroup_capstone`:210); the ⊗-structure = the monoidal grading
+character (`GRA/Monoidal.product_NT_NT_grade` 13/0, tqft's anchor). Pontryagin duality = the abelian/1-dim
+special case (fourier's self-dual cyclic Ĝ); neutral⟺affine-group-scheme lands on hopf_algebras. Ties motives'
+motivic Galois (= Aut of the universal Lens) and the `raw_initial` universality. Named Tannakian/fiberFunctor/
+Pontryagin objects absent (the located break); buildable witness: recover `Aut_K` as the ⊗-Aut of its
+forgetful Lens.
+
+### ★ Combinatorial species (`species.md`) — the EGF categorified (the count reading before cardinality)
+
+PREDICTION (EXTEND by categorification). A combinatorial species = generating_functions' family count-reading
+stopped one step *before* cardinality — a Σₙ-set `F[n]` per label-size, with cardinality (`|F[n]|/n!`) the Lens
+recovering the EGF. The four species operations are the four EGF operations seen *upstream* of the count and
+descend because the cardinality Lens is a functor commuting with them: species-product ↦ EGF-product = the
+convolution character (`ConvolveProfile.mass_conv` 20/0, `Convolution213` 49/0); the exp formula = exponential's
+`+↦×` (`vp_mul`). New datum: the **categorification (vertical) axis** on the count-reading — every cardinality-
+style reading (cardinality/generating_functions/probability) has an un-counted functor above it. ★ Grounded
+Burnside/cycle-index: `Sym3OctetOrbits` (28/0) is a real orbit/cycle-index instance (`sym3_burnside_arithmetic`,
+`suborbit_decomposition` `60=4+0·2+28·3+28·6`), the relabel Σₙ-action via `PermGroup` (19/0). Named Species/
+cycleIndex/molecular objects absent; buildable witness: a finite-label Species as a List/subtype Σₙ-set
+generalizing the octet, with speciesProduct welded to `Convolution213.conv`.
+
+**Count.** 90 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
