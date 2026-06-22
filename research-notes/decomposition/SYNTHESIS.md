@@ -113,6 +113,19 @@ forgetful-Lens fiber functor, "object = its readings" promoted to a reconstructi
 *mechanism* is the most-built thing in the repo (it IS the Lens framework); only the *named* motivic/Tannakian
 objects are absent.
 
+**And the engine is closed under its own DUAL — the μ/ν closure (coalgebra).** The core operation
+`Lens.view = Raw.fold` is the initial-algebra catamorphism (μ); its categorical **dual**, the final-coalgebra
+anamorphism (ν), is **also built ∅-axiom** — `Theory/Raw/CoResidue.lean` (140/0) builds the final coalgebra
+`SlashNu`, the anamorphism `ana`, and finality `slashNu_final` by finite-path induction (no coinduction
+primitive), the literal dual of `raw_initial`/`dhom_unique_pointwise`. So the calculus is **closed under the μ/ν
+duality** (the mirror is named: `MuNuMirror`): fold a construction *down* to a readout (catamorphism, the
+`⟨C|L⟩` of every decomposition) and unfold a seed *up* into a (coinductive) structure (anamorphism = streams =
+the modulus/residue as a coinductive object, `spineL_escapes` the q−1 escaping stream; bisimulation =
+`StateMachine.traceEq_iff_not_distinct` = `Lens.refines` as a greatest fixed point, the dual of domain theory's
+lfp `KnasterTarski.gfp_greatest`). Combined with the inverse-limit object built as the meet of a Lens-family
+(`IndexedJoin.iProdLens`, profinite/Stone), the calculus's own categorical apparatus — initiality, finality,
+limits — is self-hosted, not borrowed.
+
 ### The frame — the read-off axes (`C`) and the `L`-parameters
 These are not extra invariants; they are the coordinates the invariants are read across. Each pays by
 collapse + forcing, and each is grounded.
