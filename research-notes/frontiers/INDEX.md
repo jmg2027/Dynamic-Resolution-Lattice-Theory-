@@ -31,6 +31,24 @@ existing mathematics into it. Spec + 11 worked decompositions in
 fresh decompositions (groups, probability, homology, Galois), and Lean targets that
 would certify current prose-only collapses (`continuous_iff_preimage_dyadicopen`, a
 formal `q=±1` residue tag uniting Cantor-escape and φ-convergence). See the note.
+**Update**: 32 decompositions + the `two_cells` meta (model v7.1: readings form a
+2-category); the `q=+1` contraction residue spans φ/Gaussian/ODE; five predictions Lean-closed.
+
+---
+
+## Defeating the Banach-engine constructive wall  (`wall_synthesis.md`)
+
+**Open, converged plan (2026-06-22).** The generic `banach_fixed_point` engine cannot be
+instantiated ∅-axiom on the dyadic completion `DyC L`, because `CompleteMetricModulus`'s
+bare `lim : (Nat→X)→X` + universal `climconv` smuggles countable choice `AC₀,₀` ("every
+Cauchy sequence has a modulus"). A three-school panel (Bishop constructive, computable-analysis/
+domain-theory, reverse-math) converged: the wall is an **interface defect**, not a math hole —
+the fixed-point theorem is ∅-axiom once the modulus is *data*, not a chosen existential, and
+`picard_cauchy` already supplies the orbit's explicit modulus `N(m)=m`. The repo's own
+`CauchyCutSeq` already does modulated limits. Plan: (1) discharge `climconv` for `limPoint`
+(finite Nat-arithmetic), (2) add a modulated/name completeness engine + `banach_fixed_point_modulated`,
+(3) instantiate with `Φhat_contraction`. Memos: `wall_constructive.md`, `wall_computable.md`,
+`wall_reverse_math.md`. Implementation in progress.
 
 ---
 
