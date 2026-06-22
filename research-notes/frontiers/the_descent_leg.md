@@ -34,6 +34,25 @@ with the chain load-bearing *in the proof*, not just the prose:
    reading that happens to match (skeptic's Attack 2: the primitive must be shown non-interchangeable
    with rivals — negation-first, relation-first).
 
+## UPDATE (2026-06-22, later): generation headline closed; leg-2 discipline progressing
+
+- **Generation headline — CLOSED** (`Lens/Number/Nat213/Generation.lean`, 4 PURE): ℕ₊ is the
+  *canonical* leaves-Lens reading of iterated distinguishing, as theorems (not comments):
+  `value_eq_leaves` (`value = Lens.leaves.view`, the `⟨1,1,(·+·)⟩` catamorphism),
+  `succ_is_distinguishing` (`succ n = slashOrSelf n Raw.b` — `+1` IS a slash event),
+  `generation_capstone` (`Lens.leaves.view (numeral n) = n+1`). So "ℕ₊ = the count-Lens reading of
+  iterated self-distinguishing" is now a theorem routed through the canonical Lens — leg-1 is closed
+  for ℕ₊ (the "ergonomic parallel" caveat is dissolved: the count is the canonical Lens).
+- **Leg-2 discipline — progressing** (`Divisibility.lean`, 13 PURE, all over `Nat213`): divisibility
+  is a **partial order** (`dvd_antisymm` + `mul_eq_one`), **order-refining** (`dvd_imp_eq_or_lt`:
+  divisor ≤ dividend), **bounded below** (`one_dvd`) and **open above** (`dvd_no_top` — no top,
+  forced by the primitive's non-closure). A discipline computed entirely on the distinguishing's ℕ₊.
+- **Remaining (the genuinely hard part):** leg-2 *depth* — route a deeper discipline (primality /
+  unique factorisation, or a figurate identity) over `Nat213`; and leg-3 *forcing/uniqueness* — show
+  the distinguishing primitive is **non-interchangeable** with rivals (negation-first, relation-first),
+  i.e. strengthen `Lens/Initiality` so the classical structure is the *unique* distinguishing-preserving
+  reading. The latter is the skeptic's Attack-2 target and the deepest open work.
+
 ## CORRECTION (2026-06-22): leg 1 is ~80% done — the gap is leg 2
 
 A direct read of `Lens/Number/Nat213/` revises Agent B's import-count diagnosis. The Raw-native ℕ
