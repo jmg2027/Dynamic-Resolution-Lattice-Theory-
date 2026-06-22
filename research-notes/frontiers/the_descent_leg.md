@@ -34,15 +34,46 @@ with the chain load-bearing *in the proof*, not just the prose:
    reading that happens to match (skeptic's Attack 2: the primitive must be shown non-interchangeable
    with rivals — negation-first, relation-first).
 
-## Existing partial material (the seeds)
+## CORRECTION (2026-06-22): leg 1 is ~80% done — the gap is leg 2
 
-- `Lib/Math/Foundations/UniverseChain/RawRecurrence.lean` — the **one** genuine `Raw → count`
-  generation (`|S_n| = 2 + C(|S_{n-1}|,2)`); consumed by exactly one file
-  (`Algebra/SelfSimilarityBridge.lean`). Essentially isolated — the seed of leg 1.
-- `Lens/Number/Nat213/*` — a `Raw`-native numeral reading (`numeral`, `numeral_ne_b`); check how far
-  it already is a usable `Nat₂₁₃` vs. a thin wrapper.
-- `Lens/Initiality.lean`, `Theory/Raw/Lambek.lean`, `Theory/Raw/MuNuMirror.lean` — the
-  initiality/μF-νF apparatus for leg 3.
+A direct read of `Lens/Number/Nat213/` revises Agent B's import-count diagnosis. The Raw-native ℕ
+**already exists with its own arithmetic**, not as a thin wrapper:
+
+- `Nat213/Raw.lean` — the Method-A Raw chain: **`one := Raw.a`, `succ n := slashOrSelf n Raw.b`**
+  (the successor *is* a `slash`/distinguishing operation against `b`). So ℕ₊ is literally the
+  iterated self-distinguishing of the atom. `numeral_succ`, `value_succ_of_ne` PURE.
+- `Nat213/Peano.lean` — an inductive ℕ₊ (`| one | succ`) with its **own** `add`/`mul` (defined on
+  `Nat213`, *not* Lean's `Nat`) and the full commutative-semiring-minus-zero law set proven by
+  induction over `Nat213`, ∅-axiom: `add_comm/assoc`, `mul_comm/assoc`, `add_mul`/`mul_add`,
+  `add_left_cancel`, `mul_left_cancel`. **Plus the forcing theorems** — `no_additive_identity_at_one`,
+  `no_closed_subtraction`, `no_absorbing_element`: the no-zero / no-subtraction / no-absorption shape
+  is *forced* by the primitive (Raw has ≥1 atom), not chosen. **This is the "distinguishing forces the
+  structure" content the skeptic (Attack 2) demanded** — a rival "ℕ-with-0" primitive is provably
+  foreign here.
+- `Nat213/Bridge.lean` — the iso: `toRaw : Peano → Raw`, `value_toRaw`, `toRaw_injective` (PURE).
+
+So leg 1 (ℕ generated from the distinguishing, with forced structure) is **substantially present**.
+What remains:
+
+- **The real gap (leg 2):** per the Bridge's "Option C", the *abstract number-theoretic operations
+  live on Lean `Nat`*; the Raw side "carries only the chart representative." So every **discipline**
+  (φ=μ∗id, σ_m, LTE, …) is proven over Lean `Nat` and bridged — **none is computed over
+  `Nat213.Peano` using its own `add`/`mul`.** The first genuine descent-leg deposit: take one
+  classical theorem and prove it **over `Nat213.Peano`** (its operations), ∅-axiom, with no detour
+  through Lean `Nat` in the statement. Candidates that fit a zero-free ℕ₊: a distributive/factoring
+  identity, a divisibility fact, or a figurate identity rephrased without 0.
+- **Leg 3 (forcing/uniqueness):** the Peano file is still flagged "ergonomic parallel, not
+  lens-derived" though `Bridge` makes it iso to the lens-derived chain. Upgrade: show the `Peano`
+  `succ`/`add` *are* the Lens-readings of the `Raw` `slash`-operations (not merely iso at the
+  `value`/`toNat` level), and strengthen `Lens/Initiality` so this reading is the **unique**
+  distinguishing-preserving one (rules out rival primitives).
+
+## Other seeds
+
+- `Lib/Math/Foundations/UniverseChain/RawRecurrence.lean` — the `Raw → count` recurrence
+  (`|S_n| = 2 + C(|S_{n-1}|,2)`, → 2,3,5,12,68); consumed by one file. The combinatorial spine.
+- `Lens/Initiality.lean`, `Theory/Raw/Lambek.lean`, `Theory/Raw/MuNuMirror.lean` — initiality/μF-νF
+  apparatus for leg 3.
 
 ## Why this is the central frontier (not peripheral)
 

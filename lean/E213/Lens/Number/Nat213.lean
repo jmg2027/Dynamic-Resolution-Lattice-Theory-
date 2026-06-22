@@ -10,6 +10,7 @@ import E213.Lens.Number.Nat213.MultSystemValue
 import E213.Lens.Number.Nat213.ChebyshevLower
 import E213.Lens.Number.Nat213.NumberingSystem
 import E213.Lens.Number.Nat213.Peano
+import E213.Lens.Number.Nat213.Divisibility
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.Number.Nat213.RawCut
 import E213.Lens.Number.Nat213.Order
