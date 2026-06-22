@@ -135,13 +135,27 @@ skein + isotopy-quotient are named missing primitives)}.
 - **Model theory (`model_theory.md`)** — completeness ⊢φ⟺⊨φ = view=fold initiality; logical compactness =
   topology's q=+1 finiteness corner (same `heineBorel`). The q=+1 companion of godel.md.
 
-**Tally:** 43 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
-Lean-closed** + Lean **groundings** of spectral (`Mat2SymmetricSpectrum`), Lie (`Mat2Bracket`), and
-representation (`Mat2Killing`) notes. The `det`/`tr` edge dissolved + the `d>1` trace grounded; Stokes = the
-telescope; logical = topological compactness. `lake build E213` clean. Open frontier: the 2-vertex Laplacian
-weld, the Legendre transform object (weld `clo` at `Fix=Inv=(·)*`), continuous Noether current, arbitrary-n
-orthogonality (`ℤ[ζ_n]`), the symmetric eigenvalue √-cut value (Real213), the full Gaussian density profile,
-KL functional + Fisher metric, the smooth-manifold form complex, FOL object, the νF/free-monad carrier. Open frontier
+## ★ NINTH WAVE — K₂ Laplacian welded, quantum mechanics, Yoneda (self-capstone), Galois correspondence
+- **K₂ Laplacian as a Mat2** (`Mat2/GraphLaplacian.lean`, 16/0): `pathLaplacian=⟨1,−1,−1,1⟩`, spectrum {0,2},
+  ker=span(1,1) (q=+1 constant), `pathLaplacian_connected` (λ₁=2>0) — welds `Mat2SymmetricSpectrum`+`Mat2Spectrum`
+  to a concrete graph (grounds graph_theory.md).
+- **Quantum mechanics (`quantum_mechanics.md`)** — measurement = q=+1 symmetric real eigenvalue; uncertainty =
+  the q=−1 commutator bracket-residue; unitary = det_holonomy=1. Honest ceiling: finite Mat2 can't host
+  [X,P]=iℏI (commutators traceless) — trace-free antisymmetry residue, not iℏ.
+- **Yoneda (`yoneda.md`)** — the self-describing capstone: Yoneda = the calculus's own OBJECT=⟨C|L⟩; ★
+  `self_covering_closure` (injective ∧ ¬surjective) = Yoneda ⊕ its residue in ONE ∅-axiom theorem (q=+1 faithful
+  / q=−1 un-pointable).
+- **Galois correspondence (`galois_correspondence.md`)** — subfield↔subgroup anti-iso = the order-reversing
+  closure (f**=clo(f)); field content partially grounded (`CyclotomicFive.galois_group_is_C4`, golden subfield,
+  A₅ built); solvability = the commutator tower q=+1 (terminating) vs quintic's A₅-escape q=−1 (iteration = open leg).
+
+**Tally:** 46 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
+Lean-closed** + Lean **groundings** of spectral (`Mat2SymmetricSpectrum`), Lie (`Mat2Bracket`), representation
+(`Mat2Killing`), and graph (`GraphLaplacian`) notes. `lake build E213` clean. Open frontier: the solvability
+tower (derived series + A₅-simplicity), the Legendre transform object (weld `clo` at `Fix=Inv=(·)*`), continuous
+Noether current, arbitrary-n orthogonality (`ℤ[ζ_n]`), the symmetric eigenvalue √-cut value, the full Gaussian
+density profile, KL functional + Fisher metric, the smooth-manifold form complex, FOL object, Hilbert/Born,
+the νF/free-monad carrier, isotopy/colimit. Open frontier
 (`decomposition_calculus.md` + `wall_synthesis.md` residual): variational Noether current, general-χ
 orthogonality at arbitrary n (needs `ℤ[ζ_n]`), the `tr`-character / `Rep(G)`-Maschke at `d>1`, the full
 Gaussian *density* profile (continuous L¹ metric), a formal-power-series semiring (weld the two `conv`
