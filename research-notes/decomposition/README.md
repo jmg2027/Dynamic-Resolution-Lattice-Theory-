@@ -1023,7 +1023,45 @@ q=+1 closure corner where `clo` settles). Named `Matroid`/`independentSet`/`circ
 (grep-confirmed; the "greedy" hits are the unrelated GRA cell-depth minimization). Buildable witness: the
 matroid-closure `clo` on the 𝔽₂ span (`cl S = {v | r(S∪{v})=r(S)}`, idempotent via `clo_idempotent`).
 
-**Count.** 72 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Differential Galois / Picard–Vessiot (`differential_galois.md`) — galois's q=±1 solvability on the ∫-axis
+
+PREDICTION. Differential Galois theory = `galois.md`'s **derived-series q=±1 solvability tag run on the
+resolution/∫ axis** instead of the radical axis, with exactly two slot-swaps (field extension →
+Picard–Vessiot differential extension; radicals → quadratures) and no new primitive. New datum: the
+`Solvable.lean` derived-series operator is `step`-parametric (`hcong`-hypothesised), hence **axis-agnostic** —
+it applies verbatim to the differential Galois group (`isSolvable`/`solvable_S3'` q+1 / `a5_not_solvable'` q−1
+/ `solvability_two_poles`, 65/0). Liouville's `∫e^{-x²}`-not-elementary = the **q=−1 antiderivative escape**
+(the same `object1_not_surjective`/`no_surjection_of_fixedpointfree` diagonal as Cantor/Gödel, on the
+∫-reading; FTC anchor `gauss_conservation_telescope`). Named `PicardVessiot`/`Kolchin`/`quadrature` absent
+(⚠ false-friend flagged: in-repo `Liouville` is the Liouville *number* of Diophantine approximation, unrelated).
+
+### ★ Operator algebras / C*-algebras (`operator_algebras.md`) — the C*-axiom promotes spectral.md's q=+1 theorem to an axiom
+
+PREDICTION + PARTIAL. A C*-algebra adds no construction — it consolidates spectral + representation + quantum
++ probability under the two invariants. New datum: the C*-axiom **promotes** `spectral.md`'s q=+1
+`disc_symmetric_nonneg` (symmetric ⟹ real spectrum, the d=2 witness) from a *theorem* to a *defining axiom*,
+and the Gelfand transform (commutative C* ≅ C(σ(A))) is the ×↦· character arrow's **eighth field** — "the
+algebra IS its characters" (`det2_mul` 130/0, `legendre_mul`). The *-involution = the q=±1 conjugation bit
+(`CDConjugation.cdConj_involutive` 7/0, `FoldKlein.klein_four_group`); states+GNS = the weight axis
+(`mass_conv`/`momentNum_conv`, `CDNorm.cdNormSq` positivity 6/0). Located break: the C*-norm identity
+`‖x*x‖=‖x‖²` is un-built (no `normSq_mul`), and `CstarAlgebra`/`GNS`/`Gelfand`/`HilbertSpace` absent — the
+Hilbert/completion primitive shared with the analysis cluster. Buildable witness: a d=2 commutative C*-toy
+(symmetric Mat2 sub-*-algebra, two-point spectrum, Gelfand via two evaluation characters).
+
+### ★ Toric geometry / Newton polytopes (`toric_geometry.md`) — the multi-variable ×↦+ valuation made geometric
+
+PREDICTION + PARTIAL (EXTEND by weld). Toric geometry = the **multi-variable ×↦+ valuation character**: the
+Newton polytope IS the image of `prime_factorization.md`'s `vp` made multi-variable (monomial-multiply ↦
+exponent-add, `vp_mul`/`vp_pow` 10/0, `vp_separation` faithful); the fan↔variety correspondence = `tropical.md`'s
+(max,+) residue (`max_idem`, `Iterate213` 17/0); Bernstein's mixed volume = `cardinality`'s count-readout
+(`countTrue_append`); the moment map = `convex_duality`'s f**=clo dual (`clo_idempotent`/`biconj_idempotent`).
+New datum: the Newton polytope and the fan are the *same* valuation reading at two resolutions (full image vs
+tropical residue) — the first object where the `vp` character and the (max,+) residue meet geometrically.
+Named `ToricVariety`/`NewtonPolytope`/`fan`/`mixedVolume`/`momentMap` absent (grep-confirmed; "Newton" hits are
+the unrelated NewtonGregory/NewtonInequalities). Buildable witness: `monVal : Monomial n → ℤⁿ` (per-axis
+vp-vector) + the Newton polytope as its image.
+
+**Count.** 75 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
