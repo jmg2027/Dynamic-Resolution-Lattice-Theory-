@@ -950,7 +950,52 @@ formulas/cut-rank/subformula/ordinal. Predicted-not-built: a `Formula`/`Sequent`
 formula-induction Hauptsatz + subformula theorem (the buildable witness = `cutRank` dropping via
 `part_depth_succ_le`, the formula-graded analogue of `FreeReduction.proj_val_eq_iff`).
 
-**Count.** 67 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Itô / stochastic calculus (`ito_calculus.md`) — the second-order residue made load-bearing by √h
+
+PREDICTION + PARTIAL. Itô calculus = `derivative.md`'s difference-reading with the **second-order residue
+revived by the √h Brownian resolution scaling**. New datum (sharpens the model): the resolution axis carries
+a **scaling** parameter (h for smooth, √h for Brownian) that decides whether the O(h²) second-order residue
+vanishes below the floor or is **promoted to a primary term** — the Itô correction ½f''dt is literally
+`derivative.md`'s dropped O(h²) residue, revived. Grounded by `NewtonGregory` (41/0):
+`obstruction_int_constant` (second forward difference `liftKZ 2` is non-trivial) + `obstruction_nat` (the
+first-order Lens cannot see it) = the second-order-residue-invisible-to-first-order shape; the Taylor/½f''[dB]²
+shape = `leibniz_universal_delta4`/`dsq_zero_universal_delta4`. The Brownian increment = the q=+1 Gaussian
+(`orbit_to_center`/`gaussian_center_fixed_via_engine`, `variance_master`, [B]_t=t = `CLT_fair_variance_marker`);
+the Itô integral = the q=+1 martingale (martingales.md, `banach_fixed_point_modulated`); the Itô isometry =
+the second-moment character (`mass_conv`/`momentNum_conv`). Named `BrownianMotion`/`ItoIntegral`/
+`quadraticVariation` absent (grep-confirmed 0 hits).
+
+### ★ Class field theory / Artin reciprocity (`class_field_theory.md`) — the ×↦· character at maximal abelian extent
+
+PREDICTION + located BREAK (EXTEND by consolidation). CFT = `quadratic_reciprocity.md`'s ×↦· character
+pushed to its maximal abelian extent: the Artin map = QR's character with codomain widened from `{±1}` to
+`Gal^{ab}` (`legendre_mul`, `zolotarev_mu`:229, `quadratic_reciprocity`:461 = the order-2 case); Artin
+reciprocity = `galois_correspondence`'s `Fix⊣Inv` closure restricted to abelian subextensions
+(`clo_idempotent`); `Frob_p` = the per-prime q=±1 local character (`FP2SqrtD.fp2dFrob_involution`:220 +
+`fp2dFrob_mul`/`add`, the local quadratic Frobenius as ring-hom+involution, 32/0; `zpsd_frob` the ℤ_p lift);
+Kronecker–Weber = the cyclotomic-character maximality the orthogonality corpus grounds
+(`cyclic_orthogonality_modp`:254 all orders mod p, `galois_group_is_C4` concrete cyclotomic abelian group).
+Located break: the global `ArtinMap`/`idele`/`adele`/`RayClass`/Kronecker–Weber bundle is absent (grep 0 hits;
+⚠ false-friend flagged — `ModArith/Frobenius.lean` is the Chicken-McNugget Frobenius *number*, not the Galois
+Frobenius). Buildable witness: the idele/ray-class group as a product of local `(ℤ/p)^×` + a general ArtinMap.
+
+### ★ Non-standard analysis / hyperreals (`nonstandard_analysis.md`) — a CALIBRATED located boundary (the no-exterior axiom under test)
+
+LOCATED BOUNDARY (calibrated, not fatal) — the first since knots, and it tests the **no-exterior axiom
+(§5.1) directly**. Decisive find: the repo already ships `Hyper213` (7/0), built on **cofinite ("eventually
+equal") equivalence, NOT an ultrafilter** (self-described as "weaker than ZFC's free ultrafilter but
+framework-internal"). This splits the field at the quotient reading: **INTERNAL horn** — the
+infinitesimal-as-sequence (`Nat→Raw`, no modulus) under cofinite quotient is ∅-axiom PURE, the same
+"number = approximant sequence" `C` as padic/continued_fractions, with `const_equiv_iff` the faithful ℝ↪ℝ*
+embedding. **BREAK horn** — the non-principal ultrafilter `𝒰`'s *maximality* (deciding every `S⊆ℕ`) does two
+forbidden jobs: totalizes the order AND reifies the reached-by-none residue (`object1_not_surjective`); it has
+no ∅-axiom witness. ★ Crucially it is **calibrated, not asserted**: the totalization is *exactly* the
+LLPO-strength sign-decision the corpus PROVES non-constructive (`comparability_imp_llpo`:33 →
+`llpo_of_realDichotomy`:525, 31/0), on the same omniscience ledger as `lpo_of_bw`. So §5.1 survives as a claim
+under test: internal handle found and built; the irreducible remainder *measured at LLPO*, not posited as a
+wall. Transfer/Łoś/`st`/`𝒰` all absent (require `𝒰`'s maximality).
+
+**Count.** 70 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
