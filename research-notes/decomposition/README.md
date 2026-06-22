@@ -1859,7 +1859,49 @@ becomes a **per-class** object (the barcode), not one global bracket. Named pers
 objects absent; buildable witness: a two-step filtration (hollow triangle b₁=1 ⊂ filled Δ² b₁=0 = one q−1 short
 bar [1,2)), both endpoints' Betti data already PURE (NonzeroBetti 56/0, BettiKernel 11/0).
 
-**Count.** 132 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ Symmetric functions / λ-rings (`symmetric_functions.md`) — Λ = the universal home of the `eᵢ`
+
+EXTEND (consolidating capstone). The ring of symmetric functions Λ is the **universal home of the elementary-symmetric
+`eᵢ`** the corpus keeps independently rediscovering: `det/tr = e₁/e₂` of a 2×2 spectrum (`Mat2Spectrum.det_tr_split_is_e1_e2`
+9/0), the 3-var `e₁=a+b+c, e₂=ab+bc+ca, e₃=abc` named in `NewtonInequalities` with Newton's log-concavity inequalities
+proved ∅-axiom (`newton1`/`newton2` 5/0), Chern `cᵢ=eᵢ` (curvature), signature/discriminant. The `eᵢ` = the coefficients of
+`∏(1+xⱼt)` = the ×↦· character's coefficient ring (universal `det`/char-poly). Newton's identities = the ×↦·↔×↦+ character
+bridge (`eᵢ` det-reading ↔ `p_k` trace-power additive twin). Schur `s_λ` = `representation.md`'s `d>1` trace-character on the
+`q=±1` alternant ratio; Hopf structure = `hopf_algebras.md`'s built `conv`/Δ/antipode (20/0). New datum: Λ is the field that
+NAMES the scattered `eᵢ` as ONE universal object. ABSENT (grep-confirmed): named Λ, the `e/h/p/m/s_λ` bases, Jacobi–Trudi, the
+alternant `∏(xᵢ−xⱼ)` (Schur denominator), λ-ring — the same `d>1`-character break `representation.md` located. Flagged name-collisions
+NOT cited: `Combinatorics/PowerSums` (Faulhaber, not `p_k`), `Combinatorics/Vandermonde` (binomial convolution, not the alternant),
+`Foundations/SchurInequality` (Schur's *inequality*, not Schur *functions*). Buildable witness: the 3-var Newton identity
+`p_3 = e₁p_2 − e₂p_1 + 3e₃` as one `ring_intZ` lemma in `NewtonInequalities` (degree-3 ×↦+/×↦· bridge).
+
+### ★ Optimal control / Bellman (`optimal_control.md`) — the value function = the q+1 Bellman-contraction fixed point
+
+EXTEND (consolidation) + PREDICTION. No new primitive. The Bellman operator `T[V]=min_u[c+γ·V∘f]` is a `BanachFixedPoint.Contraction`
+(discount `γ` = the modulus), `V` = its q+1 converging fixed point (the SAME engine as φ/Gaussian/ODE/stationary-π,
+`converge_residue_fixed` 55/0, `banach_fixed_point`/`banach_unique` 12/0), value iteration = the Picard orbit (`orbit_eq_iter` 1/0,
+`PicardIterate` 8/0), the principle of optimality = the recursive fold self-reference, HJB = the Bellman equation at residue
+resolution (`IsResolutionShift`), Pontryagin = the conserved Hamiltonian character (`NoetherCurrent` `noether_local`/`density_conserved_of_det_one`
+14/0; `det_holonomy_eq_one` 26/0), the optimal-transport leg via `OllivierRicci.kantorovich_weak_duality`/`ollivier_plan_optimal` 60/0.
+A weld of the Banach-engine family with the Noether family that no single neighbour carries. ABSENT (grep-confirmed, zero hits):
+`Bellman`, `valueFunction`, `dynamic_programming`, `HJB`, `Pontryagin`, `value_iteration`, `policy_iteration`, `costate`. Buildable
+witness: a discrete-state Bellman operator on a finite value vector shown to be a `Contraction` with modulus `γ`, then
+`banach_fixed_point`+`banach_unique` ⇒ `value_iteration_converges` (the fifth Banach-engine instantiation after φ/Gaussian/ODE/Markov-π).
+
+### ★ Quantum information (`quantum_information.md`) — no-cloning = the q−1 diagonal, ⊗ = the monoidal grade
+
+EXTEND + PREDICTION (consolidation), no break. No new construction — consolidates the tensor `⊗` (monoidal/Hopf,
+`GRA/Monoidal.product`/`product_NT_NT_grade` 13/0, grade adds), the q−1 diagonal (no-cloning = a forbidden point-surjection, the SAME
+Cantor/Lawvere obstruction `no_surjection_of_fixedpointfree`/`cantor_via_lawvere` 11/0 as cardinality/Gödel/measure;
+`object1_not_surjective` 7/0), the ±1 parity (Bell/CHSH `chsh_bound_value : chsh_bound = 12` 5/0), the ×↦+ character
+(von Neumann entropy = additivity, `Entropy.entropy_additive`/`surprise_additive` 14/0), the qubit atomic count (`Qubit` `NT=2` 4/0),
+and the unimodular tag (`multiplier_unimodular`/`residue_tag_two_poles` 55/0; `det_holonomy_eq_one` 26/0). New datum (re-skin guard
+passes): no-cloning = the q−1 no-surjection; entanglement = the ⊗-reading's non-factorizability residue (same residue as prime
+non-factoring) — not a re-description of `quantum_mechanics.md` (operator algebra). ABSENT (grep-confirmed): named `noCloning`,
+`entanglement`/Schmidt, `densityMatrix`, `vonNeumannEntropy`, `teleportation`; the Tsirelson `2√2` is a `Real213`-cut distinct from
+the built atomic integer 12; the complex Hilbert amplitude `|·|²` ABSENT (inherited from `quantum_mechanics.md`). Buildable witness:
+`no_universal_qubit_copier` — a one-line ∅-axiom corollary of `no_surjection_of_fixedpointfree` at `Qubit := Bool`, mirroring `cantor_via_lawvere`.
+
+**Count.** 135 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
