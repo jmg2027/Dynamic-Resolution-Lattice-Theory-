@@ -1477,7 +1477,22 @@ greatest fixed point (`KnasterTarski.gfp_greatest`:148, the dual of domain_theor
 comultiplication (`CoAppend213`/`Convolution213`). Named Coalgebra/Bisimulation *structure bundles* absent
 (apparatus is path-function emulation, not a typeclass record); buildable witness: weld `TraceEq = gfp Φ`.
 
-**Count.** 104 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Profinite groups / inverse limits (`profinite_groups.md`) — the resolution-tower limit, ALREADY BUILT (abelian)
+
+PREDICTION + a BUILT surprise + a located boundary (LLPO). A profinite group = the resolution-tower inverse
+limit = the modulus of finite approximations, on the Stone/ultrafilter boundary. ★ Grounded harder than padic/
+iwasawa: the repo **already builds an abelian profinite inverse limit**. (1) The inverse-limit OBJECT = the
+**meet of the finite-quotient Lens-family**, universal property = the meet's glb (`IndexedJoin.iProdLens`:97,
+`iProdLens_is_greatest_pw`:168, 8/0; agreement `Lens/Instances/Cauchy.pointwise_limit_match`:124, 15/0). (2)
+ℤ̂=lim ℤ/m is BUILT as a family-Cauchy limit (`ProfiniteSeq.factorial_seq_limit_all_zero`:131, 9/0 = the
+profinite zero); ℤ₂=lim ℤ/2ᵏ quantitatively (`OdometerValue.bval_odo`:74, 16/0 = the +1 mod 2ᵏ profinite
+successor); `GenericFamily` unifies profinite ↔ archimedean as two Lens-family choices. (3) The profinite=Stone
+tie calibrates the **non-abelian/uncountable** boundary at LLPO (stone_duality, `comparability_imp_llpo`→
+`llpo_of_realDichotomy`). Named ProfiniteGroup/inverseLimit/absoluteGalois/Krull objects absent (the non-abelian
+group law on the limit, the Krull topology, the absolute-Galois tower = the located boundary); buildable
+witness: a two-quotient thread `iProdLens {ℤ/2, ℤ/3}≅ℤ/6` as a worked finite-stage universal-property instance.
+
+**Count.** 105 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
