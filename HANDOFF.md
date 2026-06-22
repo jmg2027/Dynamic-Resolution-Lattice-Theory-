@@ -126,21 +126,22 @@ Open refinement: a *single* Lean engine covering both faces over one index conve
 shared term is the rung. F1 (bialgebra distributivity of `Δ_+`/`Δ_×`) still open.
 
 ## Next (priority order, Line A) — with this session's feasibility assessments
-1. **`e`'s two homes — product form** `N! = Π_{i=1}^{N} lcm(1..⌊N/i⌋)`. The per-prime
-   exponent bridge `FactorialLcmIdentity.vp_factorial_eq_sum_vp_lcm` already exists (the
-   genuine cross-domain identity; stating it alone is thin). The product form is the
-   substantive follow-up but needs **infrastructure the corpus lacks** — this is a dedicated
-   sub-task (≈150–250 lines), best given a fresh session:
-   - `eq_of_vp_eq (a b)(0<a)(0<b)(∀p prime, vp p a = vp p b) → a = b`. Two routes, both need
-     new vp lemmas (none of `vp_div*`, perm, "all-vp-0⟹1" exist — checked this session):
-     (a) **prime-division strong induction**: `p∣n→ vp p (n/p)+1 = vp p n`, `q≠p→ vp q (n/p)=vp q n`,
-     `(0<n)(∀p prime, vp p n=0)→ n=1`, induct on `n` dividing out `minFac`; or
-     (b) **countOcc⟹perm**: `factorize_prod` + `vp_prodL_eq_countOcc` (both exist,
-     `PrimeFactorization`/`FTAUniqueness`) give equal `countOcc` at every prime; then
-     `equal-countOcc ⟹ Perm` + `prodL` perm-invariance (× comm/assoc). Needs list-Perm infra.
-   - `prodTo` (range product) + `vp_prod` (vp of product = Σ vp, induction via `vp_mul` which exists).
-   - then `N! = Π lcm` is a clean `eq_of_vp_eq` corollary from `vp_factorial_eq_sum_vp_lcm`.
-   `vp` is `vpSearch`-based (`E213.Meta.Nat.Valuation`); `pow_vp_dvd` exists as a starting handle.
+1. **`e`'s two homes — product form** `N! = Π_{i=1}^{N} lcm(1..⌊N/i⌋)`. Progress this session:
+   - **DONE (PURE)**: the genuinely-missing `vp`-under-division infra is built —
+     `FTAEquality.{div_pos_of_dvd, vp_div_self (vp p b = vp p (b/p)+1), vp_div_other
+     (vp q b = vp q (b/p))}` (from `vp_mul`+`vp_prime_single`). 3/3 PURE, wired into `ModArith`.
+   - **REMAINING (next session)**:
+     (i) `eq_of_vp_eq (a b)(0<a)(0<b)(∀p prime, vp p a = vp p b) → a = b` via
+         `dvd_of_countOcc_le_vp` (`prodL L ∣ b` from `countOcc q L ≤ vp q b`, peel-a-prime
+         induction using the vp_div lemmas) + dvd-antisymmetry. **NOTE**: a draft of this
+         assembled cleanly (builds) but leaked **`propext`** (all *cited* lemmas are PURE —
+         `le_vp_iff`, `vp_div_*`, `mul_div_of_dvd`, `prodL_cons`, `countOcc_cons`, `pow_*` all
+         scan PURE; the leak is in `dvd_of_countOcc_le_vp`'s assembly itself, source not yet
+         localized — was NOT `by_cases` (→`cases Nat.decEq`), NOT the eqn-compiler (→`induction`),
+         NOT `le_vp_iff`). Next: bisect the propext (suspect a core `Nat`/`Dvd`/`if` lemma used
+         only in the assembly; replace with a PURE corpus twin).
+     (ii) `prodTo` (range product) + `vp_prod` (vp of product = Σ vp, induction via `vp_mul`).
+     (iii) `N! = Π lcm` = clean `eq_of_vp_eq` corollary from `vp_factorial_eq_sum_vp_lcm`.
 2. **Cassini ↔ Markov unimodular bridge** — **CLOSED** (`MarkovCassiniUnimodular`, 6 PURE):
    `det₂=1` is the Cassini multiplier `q=1`, so the Markov orbit's Cassini determinant is
    conserved (same law as golden Cassini). Family II's two sub-domains unified.
