@@ -784,7 +784,21 @@ fixed across 4 notes** (lie_theory: `no jacobi/Jacobi object` → `Mat2Bracket`+
 tropical semiring, Hilbert space, divergence functional, σ-additive measure, …). Top shared residual: a smooth
 `Real213`-cut metric (geometry cluster), A₅-perfectness + general `isSolvable`, the de Rham comparison iso.
 
-**Count.** 56 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Homological algebra / derived functors (`homological_algebra.md`) — the calculus names its own residue operation
+
+PREDICTION+PARTIAL, possibly the deepest consolidation: homological algebra doesn't add a field — it **names
+the residue-taking operation itself**. A derived functor `Ext^n`/`Tor_n` = the calculus's `Residue(L,C)`
+recipe with `L` = a non-exact functor ∘ the resolution dial, graded by `n`, tagged `q=±1`. **`Ext^{>0}`/
+`Tor_{>0}` = the obstruction residue = de_rham's `H*_dR` = sheaf's `H^{>0}` = `ker δ/im δ`** (one Lean
+residue, `reduced_betti_d4_contractible`); the connecting `δ`/long-exact-sequence/`δ²=0` = homology's `q=±1`
+sign-propagation (`dsq_zero_universal_delta4`); proj/inj resolution = the resolution dial at chain level
+(`IsResolutionShift`); `Ext⁰=Hom`/`Tor₀=⊗` = the `q=+1` exact part, `Ext¹` = extensions-mod-split (the
+split-q=+1/non-split-q=−1 residue, `clo_idempotent`). So derived functors are the *systematic, graded* name
+for the calculus's residue-of-a-reading construction — unifying homology + de_rham + sheaf under one machine.
+Missing leg: the named `Ext`/`Tor`/resolution/exact-sequence objects (grep-confirmed absent); buildable
+witness named — a nonzero `Ext¹` via `kerSizeDelta` on a non-exact resolution (mirroring the exact zero case).
+
+**Count.** 57 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
