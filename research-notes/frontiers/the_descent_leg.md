@@ -67,10 +67,17 @@ with the chain load-bearing *in the proof*, not just the prose:
       `2 + C(·,2)` recurrence (`rawCount_ge`: `n+2 ≤ rawCount n` ∀n; `binary_non_interchangeable_with_unary`:
       constant `+1` step vs `C(·,2)` step, strict domination). A negation-first rival cannot
       reproduce 213's graded structure — too slow, no branching.
-    - *remaining open middle*: **relation-first** and other *structured* binary rivals (e.g. a binary
-      op *without* the distinctness constraint, allowing `op x x`) — show they generate a
-      different/degenerate structure. The non-distinctness rival is the natural next target (it has
-      strictly *more* terms — the self-combinations 213 forbids — so a different graded count).
+    - *relation-first / non-distinctness corner* (`RivalArity` §2, 12 PURE total): a binary op
+      *without* distinctness (allowing `op x x`) counts pairs *with repetition*
+      (`relCount`, step `2 + choose2(·) + (·)`), so it **strictly exceeds** 213's distinct-only count
+      at every level ≥ 1 (`nondistinct_rival_exceeds`); `distinctness_removes_self_combination` is the
+      capstone — **213's distinguishing = the unrestricted binary rival minus the self-combinations**,
+      the unique primitive forbidding `op x x`.
+    - **All three formalized rival corners are now closed** (degenerate / unary / non-distinctness):
+      the distinguishing primitive is non-interchangeable with each, ∅-axiom. *Honest residual*: no
+      *finite* enumeration of rival classes is exhaustive — "the distinguishing is THE primitive
+      against ALL conceivable rivals" is not a finitely-checkable statement (it would itself be a
+      §5.1 universality claim). The three corners are strong evidence, not a closed totality.
 
 ## CORRECTION (2026-06-22): leg 1 is ~80% done — the gap is leg 2
 
