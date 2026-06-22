@@ -1898,8 +1898,9 @@ and the unimodular tag (`multiplier_unimodular`/`residue_tag_two_poles` 55/0; `d
 passes): no-cloning = the q−1 no-surjection; entanglement = the ⊗-reading's non-factorizability residue (same residue as prime
 non-factoring) — not a re-description of `quantum_mechanics.md` (operator algebra). ABSENT (grep-confirmed): named `noCloning`,
 `entanglement`/Schmidt, `densityMatrix`, `vonNeumannEntropy`, `teleportation`; the Tsirelson `2√2` is a `Real213`-cut distinct from
-the built atomic integer 12; the complex Hilbert amplitude `|·|²` ABSENT (inherited from `quantum_mechanics.md`). Buildable witness:
-`no_universal_qubit_copier` — a one-line ∅-axiom corollary of `no_surjection_of_fixedpointfree` at `Qubit := Bool`, mirroring `cantor_via_lawvere`.
+the built atomic integer 12; the complex Hilbert amplitude `|·|²` ABSENT (inherited from `quantum_mechanics.md`). Witness caveat: the Cantor
+diagonal at `Qubit := Bool` is buildable but is a *no-universal-realizer* fact (= Cantor), NOT no-cloning —
+basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the amplitude residue and stays predicted-not-built.
 
 **Count.** 135 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge

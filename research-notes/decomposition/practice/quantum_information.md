@@ -241,16 +241,21 @@ where the calculus stops — the genuinely-physics/named objects, all at the `Re
 - **A complex Hilbert inner product `⟨ψ|φ⟩` and the amplitude `|·|²`** — ABSENT (inherited from
   `quantum_mechanics.md`); the Cayley–Dickson `CDNorm` is the nearest, not welded. Flagged CONCEPTUAL.
 
-## Verified buildable witness (the new datum, ready to promote)
+## Buildable witness — with a false-friend caveat (the honesty pass)
 
-The **no-cloning = `q=−1` diagonal** collapse is the cleanest buildable witness: a one-line corollary
-that a *universal qubit copier* (a point-surjective `f : State → (State → State)` realizing "copy every
-state") cannot exist, instantiating `no_surjection_of_fixedpointfree` at the qubit state type with the
-fixed-point-free flip — the **exact** shape of `cantor_via_lawvere` (`OneDiagonal.lean:61`,
-`no_surjection_of_fixedpointfree (fun b => !b) bnot_self_ne`). The engine is already ∅-axiom (11/0); the
-witness needs only the qubit `Bool`-state type (`Qubit := Bool`, built) — a single ∅-axiom corollary
-`no_universal_qubit_copier` would promote the new datum from prose to a machine-checked theorem, on the
-same diagonal as Cantor. (Flagged as a promotion target, NOT claimed built this session.)
+A one-line corollary of `no_surjection_of_fixedpointfree` at `Qubit := Bool` IS buildable: no point-surjective
+`f : Bool → (Bool → Bool)` exists (the engine is `cantor_via_lawvere`, `OneDiagonal.lean:61`, 11/0). But it
+must **NOT** be named `no_universal_qubit_copier` or called no-cloning — that would be a **false-friend
+witness**. The Cantor-diagonal theorem says "no single device, indexed by one control bit, realizes *every*
+state-transformation `Bool → Bool`" — a cardinality fact (2 < 2² = 4). Genuine **no-cloning is a different
+theorem**: it is about *linearity/superposition*, and at the basis-state (Bool) level cloning is in fact
+**possible** — the reversible **CNOT** `U(b,c) = (b, b⊕c)` satisfies `U(b,0) = (b,b)`, i.e. it copies every
+basis state. No-cloning forbids copying *non-orthogonal superpositions*, which needs the complex amplitude
+`|·|²` (ABSENT, inherited from `quantum_mechanics.md`). So the q−1-diagonal ↔ no-cloning link is a legitimate
+*analogy at the thesis level*, not an identity promotable to a named Lean theorem: the faithful witness here is
+a *no-universal-realizer* corollary (real, but it is Cantor, not no-cloning), and the genuinely-quantum
+no-cloning theorem remains the predicted-not-built leg (it requires the amplitude residue). Recorded so a
+later wave does not ship the mis-named theorem. (Cross-ref the false-friend discipline: `FRONTIER_AUDIT.md`.)
 
 ## Touches model v7.1?
 
@@ -271,6 +276,7 @@ note for the README's batch log:
 > atomic count `Bell.chsh_bound = 12` 5/0, orthogonal to the `Real213` Tsirelson `2√2`). Von Neumann
 > entropy = the `×↦+` character (`entropy_additive` 14/0). Located breaks: the complex Hilbert
 > inner-product / amplitude `|·|²`, and the named `noCloning`/`entanglement`/`densityMatrix`/`teleportation`
-> objects — the `Real213`/ℂ + Hilbert residue (engines built, named objects absent). Buildable witness:
-> a ∅-axiom `no_universal_qubit_copier` corollary of `no_surjection_of_fixedpointfree` at `Qubit := Bool`.
+> objects — the `Real213`/ℂ + Hilbert residue (engines built, named objects absent). The Cantor diagonal at
+> `Qubit := Bool` is buildable but is a *no-universal-realizer* fact (= Cantor), NOT no-cloning — basis states
+> ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the amplitude residue, so it stays predicted-not-built.
 > PHYSICS-branch: a math-structure decomposition, no validation claim.
