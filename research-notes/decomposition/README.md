@@ -905,7 +905,52 @@ unrelated field). Buildable witness: the **discrete Morse weak inequality** `b_k
 (`kerSizeDelta 5 2 = 16 > 10`; `kerSizeDelta` is the cocycle cardinality `2^(dim ker)`), so it needs the
 dim-extraction, not a one-line decide; the proven Euler equality `Σ(−1)^k c_k = χ` (`simplex_face_euler_zero`) is the clean count-form companion.
 
-**Count.** 64 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Continued fractions / Diophantine approximation (`continued_fractions.md`) — the purest residue-doctrine instance
+
+EXTEND (the deepest confirmation of the "infinity is the residue's shape" doctrine). A continued fraction
+IS the calculus's **approximant-sequence pointing at an irrational**: the convergents `pₙ/qₙ` = the
+computable *modulus* (the residue's finite signature), the irrational = the residue, *reached by none,
+pointed at by all* (`object1_not_surjective`). The CF recurrence `pₙ=aₙpₙ₋₁+pₙ₋₂` = the SAME 2-term linear
+fold as Fibonacci/golden (`ContinuedFractionConvergents` 23/0: `cfP_rec`/`cfQ_rec`/`cf_determinant`
+`pₙ₊₁qₙ−pₙqₙ₊₁=(−1)ⁿ`, the q=±1 tag; φ=[1;1,1,…] the slowest=deepest-modulus q=+1 pole). Best-approximation
+= the optimal pointing at each resolution (`BestApproximation.unimodular_best_approximation`); the modulus is
+*literally built* (`ContinuedFractionModulus.cf_universal_total_modulus`/`cfCauchySeq`, 23/0 — the convergents
+packaged as a `CauchyCutSeq`). Stern–Brocot/mediant = the modular-forms period contour (`Mediant` 11/0,
+`manin_unimodular_decomposition`); √2=[1;2,2,…]=Pell (`Sqrt2ContinuedFraction` 12/0). Lagrange (quadratic
+irrational ⟺ eventually periodic) = the q=±1 periodic/aperiodic dichotomy (`golden_aperiodic` disc>0 q−1 vs
+`finite_order_divides_twelve` disc<0 q+1); the named periodicity theorem is the one predicted-not-built leg.
+
+### ★ Optimal transport / Wasserstein (`optimal_transport.md`) — the FOURTH f**=clo instance
+
+EXTEND + PARTIAL. Optimal transport = the **weight axis** read through the **f**=clo order-reversing
+closure**, bound by the q=±1 duality-gap tag. New datum (not a re-skin of convex_duality): the
+Kantorovich–Rubinstein W₁-duality `sup_f = inf_π` IS the same `f**=clo` biconjugation
+(`FenchelMoreau.biconj_idempotent`/`closed_iff_fixed`) on the transport cost — the c-transform = the
+c-Fenchel conjugate, c-concavity = the closed/fixed points — making OT the **fourth instance of the
+order-reversing-closure family** (after Galois/Legendre/Nullstellensatz), now on the weight axis. ★ The
+finite Kantorovich LP is *built* ∅-axiom: `OllivierRicci` (60/0) — `kantorovich_weak_duality` (weak duality
+= adjoint inequality), `ollivier_plan_optimal` (zero-gap strong duality = the q=+1 tight optimum),
+`transportCost`/`rowMarg`/`colMarg`. Located gap (PARTIAL): the coupling is built only as the finite-ℤ
+instance; a coupling of two general `DyadicMeasure`s with marginal projection, and the named
+`Wasserstein`/`Monge`/`cTransform`/`Brenier` objects, are absent.
+
+### ★ Proof theory / cut-elimination (`cut_elimination.md`) — the calculus's own normalization in logic's clothing
+
+EXTEND + PREDICTION. Cut-elimination IS the calculus's **fold-to-normal-form** (`raw_initial`/`view=fold`,
+`dhom_unique_pointwise`) read on sequent proofs. New vs curry_howard: the cut rule = the 2-category's
+**composition** (`refines_trans`/`view_factors_through_morphism`); cut-elimination = **admissibility of
+composition** = arrow-normalization (`dhom_unique_pointwise` IS the admissibility); the **subformula
+property** = the fold's no-new-atoms structural-recursion law (`Raw.fold_slash`); strong normalization = the
+q=+1 terminating descent (`Lambek.no_infinite_descent`:273/`part_depth_succ_le`:245, the cut-rank measure),
+and the proof-theoretic ordinal ε₀ = the **q=−1 height-escape** (`DepthHeightDiagonal.height_diagonal_escapes`/
+`epsilon_direction`, tying ordinals.md's ceiling + godel.md's diagonal). ★ The repo even ships a *toy*
+cut-elimination (`Combinatorics/Logic/CutElimination.lean` 10/0: proof=`List Bool`, cut=`++`, eliminate
+adjacent unequal bits) — genuinely "cut=composition, cancel inverse pairs, length drops," but with no
+formulas/cut-rank/subformula/ordinal. Predicted-not-built: a `Formula`/`Sequent` calculus with a
+formula-induction Hauptsatz + subformula theorem (the buildable witness = `cutRank` dropping via
+`part_depth_succ_le`, the formula-graded analogue of `FreeReduction.proj_val_eq_iff`).
+
+**Count.** 67 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
