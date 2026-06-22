@@ -1833,7 +1833,33 @@ unique vacuum, gap = c·min(NS,NT) = 4>0, eigenbasis-independent), and the spect
 WilsonLoop objects absent (Wilson = Wilson's theorem number-theory false-friend); the Wilson-loop area law is
 the honest open wall (no embedding on abstract K_{3,2}); smooth G-bundle/instanton moduli = the Real213 break.
 
-**Count.** 130 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Floer homology (`floer_homology.md`) — Morse's residue machine on an ∞-dim functional
+
+PREDICTION + the deepest homology-cluster consolidation. Floer homology = morse_theory's residue machine lifted
+verbatim to an infinite-dimensional functional (the symplectic action / Chern–Simons), fused with symplectic's
+q+1 conserved-orbit sector. Every leg is a prior ∅-axiom theorem reused: CZ/Maslov index = Morse index =
+`Raw.depth` (relative-not-absolute, absorbed by the finite-signature rule); ∂𝒜²=0 = `dsq_zero`; HF≅singular =
+the two-readings-one-residue; Arnold conjecture = HF≅singular + the Morse weak inequality c_i≥b_i; critical
+points = periodic orbits / flat connections = symplectic's conserved sector (`GradientFlow.gradient_descent_monotone`
+9/0, `MonovariantFlow.flow_reaches` 19/0). ★ New datum: the first field where the Morse + symplectic
+consolidations meet on one ∞-dim object. Located break: the ∞-dim moduli ℳ(x,y) of J-holomorphic curves/ASD
+instantons (Banach/Fredholm = the Real213-cut corner); the finite count #ℳ is the operand, the moduli
+reached-by-none. Named Floer/Arnold/Maslov/JHolomorphic objects absent.
+
+### ★ Persistent homology / TDA (`persistent_homology.md`) — the homology residue across the resolution axis
+
+PREDICTION + PARTIAL. Persistent homology = the homology residue ker∂/im∂ read as a **function of the resolution
+axis** (the filtration = `IsResolutionShift`, the inclusion maps = the shift, grades add `IsResolutionShift_compose`
+17/0). The barcode = each residue-class's lifetime-modulus (long bars = q+1 stable features, short = q−1 noise);
+the structure theorem = the residue splitting into interval modules (semisimple over the resolution line); stability
+= the q+1 continuity in scale (`ContinuityOpenSet` 11/0). ★ New datum: where spectral_sequences iterates the
+residue on its OWN output (page recursion), persistent homology reads the SAME residue across an **external scale
+parameter** — two distinct uses of the resolution dial on the homology residue, both q±1-tagged; and the modulus
+becomes a **per-class** object (the barcode), not one global bracket. Named persistence/barcode/filtration
+objects absent; buildable witness: a two-step filtration (hollow triangle b₁=1 ⊂ filled Δ² b₁=0 = one q−1 short
+bar [1,2)), both endpoints' Betti data already PURE (NonzeroBetti 56/0, BettiKernel 11/0).
+
+**Count.** 132 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
