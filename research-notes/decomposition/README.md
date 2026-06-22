@@ -1344,7 +1344,22 @@ verbatim recurrence** of the isotopy/colimit break Side B (knots/fundamental_gro
 q=+1 corner IS built (FreeReduction), Side B (Novikov–Boone-grade) theorem-grade absent. Named ModelCategory/
 fibration/weakEquivalence/Quillen objects absent.
 
-**Count.** 95 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Iwasawa theory (`iwasawa_theory.md`) — the p-adic resolution TOWER + the modulus as a power series
+
+PREDICTION + located gap (the p-adic L-function). Iwasawa theory = padic's p-adic resolution **tower** (`base`=p
+ascended) + the power-series modulus **Λ=ℤ_p[[T]]** + the class-number **per-level residue** + the **Main
+Conjecture as the deepest character=residue tie** (the ×↦· L-function = the q=±1 residue's characteristic
+signature). ★ Stronger-than-predicted at two legs: the *tower shape* is BUILT (`CompletionTower` 7/0 —
+completion-of-completions returns home by rfl, modulus the only ascending datum, `tower_is_single_inner`/
+`completion_idempotent`; `IsResolutionShift_compose` — level grades add (ℕ,+)), and *Λ as a power-series
+semiring* is BUILT (`power_series_semiring` 33/0). The class number has a real ∅-axiom toy at the q=+1
+empty-residue pole (`EisensteinClassNumber.reduced_disc_neg3_unique` h(−3)=1, 1/0). The Main Conjecture is
+prose-only and the **p-adic L-function is the located gap** (the Real213-cut residue, same boundary as
+modular_forms/zeta_euler/padic). All named Iwasawa objects (Iwasawa/characteristicIdeal/mainConjecture/μ,λ/
+pAdicL/Λ-as-group-ring) grep-confirmed absent; buildable witness: a two-rung class-number-growth toy
+(h(−3)=1 p⁰ q+1 vs a class-number-p discriminant q−1, tagged via ResidueTag, exhibiting p^(λn) with λ=1).
+
+**Count.** 96 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
