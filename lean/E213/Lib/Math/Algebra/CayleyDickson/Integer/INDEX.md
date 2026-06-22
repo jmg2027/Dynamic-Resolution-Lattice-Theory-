@@ -26,6 +26,9 @@ These are the **first non-trivial witnesses** for the
 ### ZOmega = ℤ[ω] (cyclotomic / Eisenstein)
   - `ZOmega.lean`              — base type
   - `ZOmegaDomain.lean`        — domain
+  - `RootOfUnityOrthogonality.lean` — additive-character orthogonality `Σ ζᵏ = 0` for the
+    cyclotomic roots `ω` (order 3) and `ζ₆` (order 6) in `ℤ[ω]`, via the geometric telescope
+    `(ζ−1)·Σ_{k<n} ζᵏ = ζⁿ−1`.  The order-`>2` leg of fourier.md's character-orthogonality target
   - `ZOmegaInstance.lean`      — Conjugation instance
   - `ZOmegaDouble.lean`,
     `ZOmegaDoubleOrderDist.lean` — Cayley-Dickson double-stage

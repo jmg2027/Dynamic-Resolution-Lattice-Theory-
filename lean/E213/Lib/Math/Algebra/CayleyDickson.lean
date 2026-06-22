@@ -46,6 +46,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZIUnits
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZIHom
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaDomain
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSignature
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCrossDet
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCompletion

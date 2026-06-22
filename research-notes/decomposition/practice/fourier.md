@@ -171,3 +171,30 @@ each summand is the Legendre symbol (`altSign k = 1 ⟺ g^k` is a QR), via `altS
 Bool `n%2==0` parity instead of `Decidable (2∣n)`. This turns this entry's prediction into a verified
 derivation. Open: general order-`>2` χ needs a `Real213` cyclotomic root-of-unity `ζ` (the
 transcendental-cut residue this note already located).
+
+## ★ Update 2 — order-`>2` orthogonality CLOSED at the cyclotomic orders realised in `ℤ[ω]`
+
+The "general order-`>2` χ needs a `Real213` cyclotomic `ζ`" boundary is **partially relocated**,
+not absolute. The Eisenstein integers `ℤ[ω]` (`CayleyDickson/Integer/ZOmega`, a concrete,
+decidable, ∅-axiom `CommRing213`) already **contain** roots of unity of orders 3 and 6 — so for
+those `n` the additive-character orthogonality `Σ_{k=0}^{n−1} ζᵏ = 0` is a finite integer identity,
+no transcendental cut. New module `CayleyDickson/Integer/RootOfUnityOrthogonality.lean` (23 PURE,
+`#print axioms` clean):
+
+- ★★★ `geomSum_telescope` — `(ζ−1)·Σ_{k<n} ζᵏ = ζⁿ − 1`, **generic over the ring**, by induction.
+  This is the single algebraic engine the note predicted — the order-`d` generalisation of the
+  order-2 `+1,−1` pair-cancellation, now a real symbolic telescope (`ZOmega` `add_mul`/`mul_add`/
+  `mul_assoc`), not a per-order trick.
+- ★★★ `omega_orthogonality` — `1 + ω + ω² = 0` (order-3 character sum, `ω = ⟨0,1⟩` primitive cube root).
+- ★★★ `zeta6_orthogonality` — `Σ_{k=0}^{5} ζ₆ᵏ = 0` (order-6, `ζ₆ = 1+ω = ⟨1,1⟩` primitive 6th root).
+- ★★★★ `root_orthogonality` — for *any* `ζ : ZOmega` with `ζⁿ = 1`, `(ζ−1)·Σ_{k<n} ζᵏ = 0`: the
+  whole orthogonality defect is carried by the factor `ζ − 1`; a primitive root (`ζ ≠ 1`) in the
+  integral domain `ℤ[ω]` forces `Σ = 0`.
+
+**Verdict refinement: PARTIAL → fuller partial.** The character-orthogonality leg now holds at
+orders `2` (Legendre, `quadratic_orthogonality`) AND `3, 6` (cyclotomic, `ℤ[ω]`) — three concrete
+orders via two rings, with the geometric telescope as the common forced mechanism. It does **NOT**
+close the *arbitrary*-`n` case: a primitive `n`-th root for `n ∉ {1,2,3,4,6}` (e.g. `n = 5, 7`) is
+not an Eisenstein/Gaussian integer (`ℤ[ω]^×` has only orders `1,2,3,6`; `ℤ[i]^×` adds `4`), so those
+`ζ` genuinely remain `Real213` cuts — the honest residue boundary this note located still holds for
+non-quadratic-cyclotomic orders. Inversion / Plancherel remain THIN.
