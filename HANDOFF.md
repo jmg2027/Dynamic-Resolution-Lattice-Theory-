@@ -35,6 +35,29 @@ type-mismatched to the primacy claim). Two lines instead:
   the formalization paper (already scoped in the publishability audit) and run one
   pre-registered, time-boxed ISA attack on a recognized open problem.
 
+## Closed (Integrity — whole-corpus census; 0 real DIRTY; registry reconciled)
+Ran `scan_all_axioms.py --csv` over the whole corpus (the paper's checked primary datum):
+**18,845 declarations, 18,798 PURE, 47 DIRTY (all sealed-by-design), 0 real DIRTY.**
+The census surfaced `SEALED_DIRTY_PREFIXES` drift: 5 DIRTY-by-design modules were unlisted
+(`Bridges.Funext`/`Bridges.QuotSound` — axiom-exhibiting lenses; `Foundations.Choice.
+CanonicalTruthChar` — Prop-as-distinguishing propext; `Meta.Tactic.NativeGuard` — CommandElab
+plumbing; `T2Minimal.CupPairing` — funext toll), now added with documented justifications; and
+the entire Lens-funext family it DID list (`DepthJoin`/`QuotLens`/`IndexedJoin`/`Cauchy` 1005
+decls/`FunctionSpace`) is now fully PURE (sealed class only shrank). Strengthened
+`CupPairing` with `cup_symm_pointwise` (PURE — the graded-commutativity content); `cup_symm` is
+its funext wrapper (sealed). Updated `STRICT_ZERO_AXIOM.md` inventory + the paper (§4.2, App. A)
+with checked figures. This is the "checked not asserted" ethic delivering: machine census caught
+registry drift a manual claim never would.
+
+## Closed (Line B(b) — pre-registered Markov reframe probe; NULL, reported)
+Executed the time-boxed open-problem attack: pre-registered a falsifiable bet on the residual
+Markov-uniqueness kernel (`markov_lagrange/G204`), ran it, **rejected** it. No universal
+prime-power linear reframe `αc+β` separates the residual root-fiber (33 cases to `c ≤ 10⁹`);
+neither order nor single-step neighbour reframe separates either. Confirms `G202`/`G204`
+class-number verdict computationally. Reported as a NULL result — the substance test working as
+designed (§5.1 blind spot: an external falsifiable test the framework could have passed and did
+not). New: `markov_lagrange/G206_preregistered_reframe_probe.md`.
+
 ## Closed (Line A — the Lens lattice mirrors the divisibility lattice; meet = lcm)
 `lean/E213/Lib/Math/NumberTheory/ModArith/LensLcmMeet.lean` (4/4 PURE). The general lattice
 statement behind CRT: for **all** positive `m,k` (no coprimality),
