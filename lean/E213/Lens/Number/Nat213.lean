@@ -17,6 +17,7 @@ import E213.Lens.Number.Nat213.EuclidUnique
 import E213.Lens.Number.Nat213.FTA
 import E213.Lens.Number.Nat213.Forcing
 import E213.Lens.Number.Nat213.Infinitude
+import E213.Lens.Number.Nat213.Prime
 import E213.Lens.Number.Nat213.Generation
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.Number.Nat213.RawCut
@@ -88,6 +89,9 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            no finite list of irreducibles is complete.  Generated
                            over `Nat213` from the FTA — a second discipline-defining
                            theorem after the FTA itself.
+    * `Prime`            — **irreducible ⟺ prime** (`irreducible_iff_prime`): the
+                           UFD-defining coincidence over `Nat213` (Euclid + the
+                           cancellation direction).
 
   ## Tower/
 

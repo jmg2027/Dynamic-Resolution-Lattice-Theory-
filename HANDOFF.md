@@ -1,7 +1,7 @@
 # Session Handoff — 2026-06-22 (multi-agent marathon: 진의 + descent-leg FTA capstone)
 
 ## Branch
-`claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean **445/445**, all new
+`claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean **446/446**, all new
 modules ∅-axiom PURE.
 
 ## The directive (진의) — re-inferred this session (4-agent panel) + the originator's question
@@ -62,6 +62,8 @@ codebases." Closed for arithmetic, over `Nat213` (Peano's Raw-generated ℕ₊),
 - **Applied — Euclid's theorem** — `Infinitude.lean` (3 PURE): `infinitude_of_irreducibles` (no finite
   list of irreducibles is complete), generated over `Nat213` from the FTA. A *second*
   discipline-defining theorem after the FTA — primacy as breadth.
+- **Applied — irreducible ⟺ prime** — `Prime.lean` (4 PURE): `irreducible_iff_prime`, the UFD-defining
+  coincidence over `Nat213` (Euclid `→` + cancellation `←`). The structural reason FTA uniqueness holds.
 
 ### Line B (external exposure)
 - `research-notes/drafts/strict_zero_axiom_formalization_paper.md` rewritten as an
@@ -88,6 +90,7 @@ lean/E213/Lens/Number/Nat213/EuclidUnique.lean   ← M3 Euclid / subtractive gcd
 lean/E213/Lens/Number/Nat213/FTA.lean            ← M4 FTA capstone (existence + uniqueness)
 lean/E213/Lens/Number/Nat213/Forcing.lean        ← M5/M6 forcing: FTA tied to the distinguishing
 lean/E213/Lens/Number/Nat213/Infinitude.lean     ← Euclid's theorem (infinitude) over Nat213
+lean/E213/Lens/Number/Nat213/Prime.lean          ← irreducible ⟺ prime (UFD coincidence)
 lean/E213/Lens/Number/Nat213.lean                ← aggregate (registers all six)
 research-notes/frontiers/the_purpose_and_the_marathon.md  ← the inference + marathon spine + Line B template
 research-notes/frontiers/the_descent_leg.md               ← M0–M4 record + M5/M6 + honest walls
