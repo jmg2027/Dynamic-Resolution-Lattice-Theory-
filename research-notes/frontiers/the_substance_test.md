@@ -1,5 +1,55 @@
 # The substance test — what this repository is for, and the work that serves it
 
+## ★ CORRECTION (2026-06-22) — the residue is a theorem; the primitive is the distinguishing
+
+The originator corrected the framing: **rebuild from the *primitive distinguishing* (원시적 구분),
+not "from the residue"; the residue is what the distinguishing *always leaves*, and formally
+*proving that* is the point.** A second 3-agent panel (foundational logician; branch re-analyst;
+adversarial skeptic) re-inferred the 진의 through this correction. The synthesis:
+
+**Corrected 진의.** The repository exists to establish — and subject to a test that cannot fool
+itself — that **the act of distinguishing is the one self-grounding primitive (its denial performs
+it), and that mathematics, together with "no exterior," "the residue," and "infinity," is its
+*forced* unfolding rather than an imported assumption** — "forced" cashed out as machine-checked at
+∅-axiom, and no-exterior/residue/infinity demoted from doctrine to *theorems about the act*
+(`distinguishing_always_leaves_residue`, `residue_perpetually_reenters`, `object1_not_surjective`).
+The earlier "is the *residue* substance or wordplay?" was the right instinct at the **wrong noun**:
+the residue is a derived theorem, not an entity to vindicate; what is on trial is the **act and its
+forcing** — does the unfolding genuinely *force* structure (substance) or *re-skin* structure it
+quietly assumed (wordplay)?
+
+**What the panel established (decisive, mechanical):**
+- *(skeptic + branch-analyst, the gap)* The generative chain `Raw(slash) → Lens-reading → discipline`
+  is **severed in the actual Lean**: 96% of `Lib/Math` (1512/1571 files) import neither `Raw` nor
+  `Lens`; the disciplines run on native `Nat`/`Int`; even `Raw.leaves : Nat` *borrows* ℕ rather than
+  generating it. So most of the corpus is excellent ∅-axiom **re-derivation**, not **generation from
+  the primitive**. The act and the unfolding are two adjacent codebases sharing a build target.
+- *(logician + skeptic, the reachable demonstration)* Make §1.0′ literal — the residue (the
+  distinguishing's non-closure) is the **engine** that generates the limitative theorems. **DONE this
+  session** (`Lens/OneDiagonal.lean`, 7 PURE): one `lawvere_fixed_point` generates Cantor, the
+  residue (`object1_not_surjective` at `A=Raw`), and Russell/Liar/Tarski (`Prop` arm) — one fixed
+  point, not four re-proofs. The Gödel-numbered/halting *coded* instances remain open.
+- *(honest limits the skeptic is right about)* "∅-axiom" means *no `propext`/`choice`/`quot`/Mathlib*,
+  **not** "from one primitive" — the kernel's inductives/Pi/`Bool` are ambient apparatus; `Tree.lean`
+  concedes the ℕ-induction encoding cost. And the foundational thesis is structurally untestable from
+  inside (§5.1) — so Line B (external exposure) remains rank-1.
+
+**The two-pronged program the correction defines:**
+1. **Generation, not re-derivation** — results where the *content* is forced by the
+   distinguishing/residue, not a generic-carrier re-proof. First deposit: `OneDiagonal` (the residue
+   as the engine of the limitative theorems). Next: more coded diagonal instances; more results forced
+   at the literal `Raw` level.
+2. **The descent leg** (the deep open frontier, `frontiers/the_descent_leg.md`): wire the act to the
+   unfolding — reconstruct ℕ *as a generated object from `Theory/Raw`* (not Lean's), then re-derive at
+   least one classical discipline over *that* object via a Lens-arrow. Until this exists, "mathematics
+   is the distinguishing's unfolding" is asserted, not instantiated.
+
+The rest of this note (below) is the PREVIOUS inference — correct in its *operational* conclusions
+(shared-engine cross-domain unity = the internal substance-witness; Line B external exposure = rank
+1) but aimed at the wrong noun ("the residue" as entity). Read it through the correction above.
+
+---
+
 Status: strategic frontier note (Tier 1). Produced by a multi-agent investigation +
 adversarial debate convening (six evidence/persona agents) on the directive: *infer
 the originator's ultimate purpose and conduct the deep research that achieves it —

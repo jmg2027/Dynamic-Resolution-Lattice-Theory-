@@ -192,6 +192,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `the_descent_leg` — **THE central open frontier (2026-06-22 panel).** Wire the act to the
+  unfolding: the chain `Raw(slash) → Lens-reading → discipline` is *severed in the Lean* (96% of
+  `Lib/Math` imports neither `Raw` nor `Lens`; `Raw.leaves` borrows ℕ, doesn't generate it). To make
+  the corrected 진의 ("mathematics is the distinguishing's unfolding") a demonstrated theorem-chain
+  rather than a slogan: generate ℕ *from* `Raw` (`Nat₂₁₃`, not Lean's), re-derive one discipline over
+  it via a Lens-arrow, and strengthen initiality to *forcing* (unique distinguishing-preserving
+  reading). Large, high-risk; the honest fallback is a precise generated-vs-borrowed accounting.
 - `the_substance_test` — **the strategic frame** (substance vs wordplay, without
   self-deception): genuine cross-domain unity = shared-engine / shared-kernel
   theorems, not isolated re-derivations.  **State of Line A:** internal complete —
