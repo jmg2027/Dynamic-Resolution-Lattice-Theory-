@@ -1706,7 +1706,39 @@ convolution multiplicativity 20/0); Szemerédi = Ramsey q+1 density-unavoidabili
 twin of `sperner_theorem`:534 (50/0). Named sumset/Freiman/Plünnecke/Szemerédi objects absent (the only AP hit
 is the Lambert-poly coefficient list, false-friend); predicted-buildable on existing infra.
 
-**Count.** 121 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Noncommutative geometry / spectral triples (`noncommutative_geometry.md`) — geometry = its spectral readings
+
+EXTEND (decisive). NCG = "geometry = its spectral readings" — operator_algebras' Gelfand ("the commutative
+algebra IS its characters/spectrum") **pushed past commutativity** (`markovGen_noncommutative`:2433 a built
+witness that mul is noncommutative; `det2_mul`/`legendre_mul` = the Gelfand ×↦· character). ★ New datum: the
+Dirac operator D = the resolution/metric reading, and the distance formula d(p,q)=sup{|f(p)−f(q)|:‖[D,f]‖≤1}
+reads the metric **off the q−1 commutator [D,f]** — the same antisymmetric bracket as `Mat2Bracket.bracket_antisymm`
+(10/0), which is a derivation (`bracket_leibniz`:135, so [D,f]=df, ‖[D,f]‖≤1 = unit gradient). So the NC metric =
+the q=±1 bracket + the resolution dial (`IsResolutionShift_compose`). Cyclic cohomology = the NC de Rham residue
+(`dsq_zero_universal_delta4`); the local index formula = index_theory's analytic=topological collapse in the NC
+setting; NC tori = the deformation-q (`qbinom`, the *other* q, q=1 = commutative limit). Named SpectralTriple/
+Dirac/Connes/cyclicCohomology objects absent (the Hilbert-space/C*-norm completion = the Real213 break, shared
+with operator_algebras); buildable witness: a d=2 discrete commutator-metric toy (traceless symmetric D, [D,M]
+via bracket, two characters χᵢ(M)=Mᵢᵢ, a finite Connes distance).
+
+### ★★ Homotopy type theory / univalence (`homotopy_type_theory.md`) — univalence is the calculus's proven faithfulness
+
+EXTEND + PREDICTION. ★ The striking new datum: **univalence-the-axiom (A≃B)≃(A=B) IS the calculus's PROVEN
+faithfulness** `object1_injective`/`lensIso_iff_kernel_eq` — where HoTT must *posit* univalence (independent of
+MLTT, needing the simplicial model), the calculus *derives* the same "equivalent-under-all-readings ⟹ equal"
+content as an ∅-axiom theorem (`object1_injective` 8/0, proof uses `of_decide_eq_true` avoiding propext;
+`lensIso_iff_kernel_eq` Unified 14/0). The calculus already HAS univalence — it is the type-theoretic face of
+the whole reflexive "object = its readings" framework. Honest caveat: at the 1-categorical/setoid altitude
+(kernel coincidence), not higher-coherent propositional univalence (the propext/funext ceiling). The rest:
+Id_A(x,y) = the refinement/equality reading (equivalence's one Lens-arrow as paths); refl/·/⁻¹ = the `LensIso`
+groupoid; types-as-∞-groupoids = infinity_categories' cell-dimension tower; transport = the Lens 2-cell
+`view_factors_through_morphism`; path-induction J = refl + `dhom_unique_pointwise` initiality; the truncation
+hierarchy = the fold-height with its (-1)-floor = the PURE Bool/decide propext corner; HITs = the Quot-free
+`LensImage`/`FreeReduction` quotient-with-paths. Named univalence/IdentityType/HIT objects absent (GRA/HoTT.lean
+is the numerical (2,3)-grade false-friend, flagged); buildable witness: `univalence_setoid` wiring
+lensIso_iff_kernel_eq to object1_injective ("(A≃B)⟺(Id_A=Id_B)" at the 1-categorical altitude).
+
+**Count.** 123 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
