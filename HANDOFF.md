@@ -20,6 +20,12 @@ pole — with `DerivedSeries.solvable_S3` the q=+1 pole). **★ Two wall-style r
 wall DEFEATED (modulated Banach engine, wave 3); (2) the colimit/ambient-quotient corner SPLIT (wave 14,
 `colimit_quotient_synthesis.md`) — Side A interface-defect (buildable ∅-axiom via the verified `LensImage`
 Σ-pattern: braids/free π₁/Jones state-sum) vs Side B theorem-grade obstruction (Novikov–Boone undecidability).
+`FreeReduction` (the Side-A colimit witness — free group as a normal-form Σ-quotient, `proj_val_eq_iff` =
+`Quot.sound`'s content axiom-free, the decidable word problem, NO `Quot`), `Solvable` (general
+`isSolvable`/`isPerfect` + `perfect_nontrivial_not_solvable`, unifying S₃ q=+1 / A₅ q=−1). **★ The colimit
+corner is now SPLIT *and* its Side A BUILT** (`FreeReduction`), the second "impossible corner" addressed the
+way the wall was (diagnose → build the buildable side). 57 decompositions; latest fresh fields: algebraic
+geometry, modular forms (E–S period side built), homological algebra (= the residue-taking operation named).
 Process note: `scan_axioms` can read a freshly-registered
 module's stale `.olean` as false-DIRTY — `#print axioms` on a clean rebuild is authoritative (verified this
 session). The 12 per-wave sections below are superseded by SYNTHESIS.md (kept for provenance; a `/handoff`
