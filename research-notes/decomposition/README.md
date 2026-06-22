@@ -900,8 +900,10 @@ the residue at both poles: `GradientFlow.gradient_descent_monotone`/`Monovariant
 `Raw.depth` grade (dimension/degree/pole-order/nesting/index), read at gradient flat-spots; `∂` is
 read-agnostic (face-peel vs flow-line count, same q=±1 operator); Morse=singular = de_rham's "two complexes,
 one residue." Named `criticalPoint`/`morseIndex`/`MorseComplex` absent (only Morse–Hedlund/Thue–Morse, an
-unrelated field). ★ Buildable witness: the **discrete Morse weak inequality on Δ⁴**
-(`kerSizeDelta 5 k ≤ binom 5 k`, both sides already PURE) — pairs with the proven Euler equality.
+unrelated field). Buildable witness: the **discrete Morse weak inequality** `b_k ≤ c_k`, which is
+**dimension-level** — the naive count form `kerSizeDelta 5 k ≤ binom 5 k` is false for k≥2
+(`kerSizeDelta 5 2 = 16 > 10`; `kerSizeDelta` is the cocycle cardinality `2^(dim ker)`), so it needs the
+dim-extraction, not a one-line decide; the proven Euler equality `Σ(−1)^k c_k = χ` (`simplex_face_euler_zero`) is the clean count-form companion.
 
 **Count.** 64 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge

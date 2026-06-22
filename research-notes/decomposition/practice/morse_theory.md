@@ -143,12 +143,14 @@ alternating sign-fold that `lefschetz_degree.md` grounds as `L(id) = Σ(−1)^i 
 count `Σ(−1)^i c_i` equals it because `c_i` (critical points of index `i`) and `b_i` (Betti numbers) are
 two readings whose alternating sum is reading-invariant — the alternating fold cancels the
 non-homological surplus (`c_i − b_i` pairs off, exactly the `dsq_zero` cancellation one degree up). The
-**weak Morse inequality** `c_i ≥ b_i` is the residue-size bound: `b_i = |ker ∂f / im ∂f|` at grade `i`
-cannot exceed `c_i = |generators|` at grade `i` — the residue is a *sub*quotient of the count, so the
-count dominates the residue. (This is the `kerSizeDelta n k ≤ binom n k` shape: the kernel is a subset of
-the cochains; `BettiKernel`/`FaceTerms` make both sides concrete on Δ⁴.) Both the equality (Euler) and
-the inequality (count ≥ residue) are direct consequences of the SAME `(−1)^i` orientation bit — no new
-machinery.
+**weak Morse inequality** `c_i ≥ b_i` is the residue-**dimension** bound: `b_i = dim(ker ∂f / im ∂f)` at
+grade `i` cannot exceed `c_i = #generators` at grade `i` — the residue is a *sub*quotient of the
+cochain space, so the cell count dominates the Betti number. (Note the inequality is **dimension-level**,
+not count-level: `kerSizeDelta n k` is the cocycle-space *cardinality* `2^(dim ker δ_k)`, an exponential,
+so `kerSizeDelta 5 k ≤ binom 5 k` is **false** for `k≥2` — e.g. `kerSizeDelta 5 2 = 16 > binom 5 2 = 10`;
+the correct count-form of `dim ker δ_k ≤ c_k` is `kerSizeDelta 5 k ≤ 2^(binom 5 k)`, and `b_i ≤ dim ker δ_i
+≤ c_i`. `BettiKernel`/`FaceTerms` carry the data on Δ⁴.) Both the equality (Euler) and the inequality
+(count ≥ residue dimension) are consequences of the SAME `(−1)^i` orientation bit — no new machinery.
 
 **(5) ★ A critical point IS the residue of the gradient (distinguishing-direction) reading — GROUNDED at
 both `q=±1` poles.** A critical point is where `∇f = 0` — the direction-reading (which way does the
@@ -260,12 +262,15 @@ absence — the named graded `Morse`/`criticalPoint`/`MorseComplex` bundle — i
   read-offs.
 
 - **The Morse inequalities make the `c_i ≥ b_i` "count dominates residue" bound explicit — a frontier
-  target the calculus predicts.** The weak inequality `c_i ≥ b_i` is the statement
-  `|ker ∂f / im ∂f| ≤ |generators at grade i|` — the residue is a subquotient of the count. The repo has
-  `kerSizeDelta n k` (the residue size) and `binom n k` (the generator count, the `simplex_face_counts`
-  table) on Δ⁴ as concrete ∅-axiom data; a **named buildable witness** is the per-grade inequality
-  `kerSizeDelta 5 k ≤ binom 5 k` over `k = 0..5` (proved by `decide` on Δ⁴, both sides already
-  PURE) — the discrete Morse weak inequality, the count-dominates-residue bound made a theorem. The
+  target the calculus predicts.** The weak inequality `c_i ≥ b_i` is the **dimension** statement
+  `dim(ker ∂f / im ∂f) ≤ #generators at grade i` — the residue is a subquotient of the cochain space.
+  The repo has `kerSizeDelta n k` (the cocycle-space *cardinality* `2^(dim ker δ_k)`) and `binom n k`
+  (the generator count, the `simplex_face_counts` table) on Δ⁴ as concrete ∅-axiom data. **Caveat (a
+  category error to avoid):** the bound is dimension-level, so the *count* comparison
+  `kerSizeDelta 5 k ≤ binom 5 k` is **false** for `k≥2` (`kerSizeDelta 5 2 = 16 > binom 5 2 = 10`); the
+  faithful count-form of `dim ker δ_k ≤ c_k` is `kerSizeDelta 5 k ≤ 2^(binom 5 k)`, with `b_i ≤ dim ker δ_i
+  ≤ c_i`. A clean witness therefore needs the dimension (the `log₂` of the cocycle count), not the raw
+  count — buildable but requiring the dim-extraction, not a one-line `decide`. The
   *strong* Morse inequalities (`Σ_{i≤j}(−1)^{j−i}c_i ≥ Σ_{i≤j}(−1)^{j−i}b_i`) and the `f`-graded
   comparison `HM ≅ H^sing` are the open extensions, the height-function twin of `lefschetz_degree.md`'s
   trace-weighted-Lawvere frontier.
@@ -324,23 +329,25 @@ absence — the named graded `Morse`/`criticalPoint`/`MorseComplex` bundle — i
 
 ### Named buildable witness (for the orchestrator)
 
-**The discrete Morse weak inequality `c_i ≥ b_i` on Δ⁴**, as a ∅-axiom `decide` theorem:
+**The discrete Morse weak inequality `c_i ≥ b_i` on Δ⁴** — but stated at the **dimension** level, not the
+count level. ⚠ The naive count form `kerSizeDelta 5 k ≤ binom 5 k` is **FALSE** for `k≥2`
+(`kerSizeDelta 5 2 = 16 > binom 5 2 = 10`): `kerSizeDelta` is the cocycle *cardinality* `2^(dim ker δ_k)`,
+an exponential, while `binom 5 k` is the *cell count* `c_k`. The faithful statement is `dim ker δ_k ≤ c_k`,
+whose count form is
 
 ```
--- one decidable conjunction over the six grades k = 0..5 of Δ⁴
-theorem morse_weak_inequality_delta4 :
-    BettiKernel.kerSizeDelta 5 0 ≤ binom 5 0 ∧ BettiKernel.kerSizeDelta 5 1 ≤ binom 5 1
-    ∧ BettiKernel.kerSizeDelta 5 2 ≤ binom 5 2 ∧ BettiKernel.kerSizeDelta 5 3 ≤ binom 5 3
-    ∧ BettiKernel.kerSizeDelta 5 4 ≤ binom 5 4 ∧ BettiKernel.kerSizeDelta 5 5 ≤ binom 5 5 := by decide
+-- the cocycle SPACE sits inside the cochain space:  dim ker δ_k ≤ c_k
+--   (count form; b_k ≤ dim ker δ_k ≤ c_k = binom 5 k)
+theorem cocycle_dim_le_cells (k : Nat) :   -- k = 0..5 conjunction
+    kerSizeDelta 5 k ≤ 2 ^ (binom 5 k) := ...
 ```
 
-Both sides are already built and PURE: `kerSizeDelta n k` in `BettiKernel.lean` (11/0) is the residue
-size, and `binom d k` in `FaceTerms.lean` (10/0, the `binom 5 k = 1,5,10,10,5,1` table of
-`simplex_face_counts`) is the generator count. The residue (`ker δ` size) cannot exceed the generator
-count (the face/cell count at grade `k`) — the count-dominates-residue bound that IS the weak Morse
-inequality, provable by `decide` over the finite Δ⁴ (a single conjunction over the six grades, both
-`kerSizeDelta` and `binom` already `decide`-computable). Pairs with the **Morse equality** already in hand
-(`simplex_face_euler_zero` = `Σ(−1)^k c_k = χ`). Together they would give the discrete Morse
-inequalities (weak + Euler) entirely ∅-axiom, the height-function reading's own statement of the field's
-central theorem. (The strong Morse inequalities and the `HM ≅ H^sing` comparison remain open, the named
-graded-bundle leg.)
+This is TRUE (`16 ≤ 2^10` at `k=2`) but `decide` overflows the `2^10` filter, so it needs the structural
+`ker δ_k ⊆ Cᵏ ⟹ |ker| ≤ |Cᵏ|` argument (or a `Nat.pow`-monotone bound on `dim ker`), not a one-line
+`decide`. A cleaner witness is the **genuine `b_k ≤ c_k` on the hollow triangle** (`NonzeroBetti`, where
+`b_1 = 1 ≠ 0`): `b_0 = 1 ≤ c_0 = 3` (vertices), `b_1 = 1 ≤ c_1 = 3` (edges) — but this too is dimension-
+level, requiring `b_k` from the `log₂` of `kerSize`/`imSize`. Both sides' *data* are already PURE
+(`BettiKernel` 11/0, `NonzeroBetti` 56/0, `FaceTerms` 10/0); the missing piece is the dimension extraction,
+not the bound. Pairs with the **Morse equality** already in hand (`simplex_face_euler_zero` =
+`Σ(−1)^k c_k = χ`, the count form, which IS clean `decide`). The strong Morse inequalities and the
+`HM ≅ H^sing` comparison remain open, the named graded-bundle leg.
