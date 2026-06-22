@@ -1,8 +1,24 @@
 # Session Handoff — 2026-06-22 (multi-agent marathon: 진의 + decomposition calculus v7)
 
 ## Branch
-`claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean, all new modules ∅-axiom
-PURE. Latest commits: `Φ_contraction` (ConvolveRescaleContraction, 20/0), model-v7 doc synthesis.
+`claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean, all new modules ∅-axiom PURE.
+
+## ★★ CURRENT STATE (2026-06-22, 13-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
+The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
+now spans **56 worked decompositions** of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
+`ResidueTag.lean`). Canonical indices: **`SYNTHESIS.md`** (the capstone map — invariants, q=±1 spine, Lean
+census, recurring breaks, the self-description: PURE/DIRTY = Heyting/Boolean = why 213 is constructive),
+`README.md` (the technique + per-field entries), `FRONTIER_AUDIT.md` (honesty pass — 7 stale claims fixed,
+~22 gaps confirmed honest). **~18 ∅-axiom Lean modules** ground the invariants: `ResidueTag`, `Mat2Spectrum`
+(det/tr=e₁/e₂), `Mat2Bracket`, `Mat2Killing` (d>1 trace), `Mat2SymmetricSpectrum`, `GraphLaplacian`,
+`DerivedSeries` (S₃ solvable), `FenchelMoreau` (f**=clo), `CyclicErgodic`, `BanachFixedPointModulated` +
+`DyadicCompletion` (the constructive-wall defeat), `NoetherCurrent`, `OuterMeasure`, `ContinuityOpenSet`,
+`PowerSeriesSemiring`, `GaussianOrthogonality` + `CyclicCharacterOrthogonality` (orthogonality all orders mod p),
+`ConvolveRescaleContraction`/`ConvolveProfile`. Process note: `scan_axioms` can read a freshly-registered
+module's stale `.olean` as false-DIRTY — `#print axioms` on a clean rebuild is authoritative (verified this
+session). The 12 per-wave sections below are superseded by SYNTHESIS.md (kept for provenance; a `/handoff`
+regeneration would prune them).
 
 ## ★ LATEST (batch-8 wave, model v7) — read this before the dense block below
 **30 worked decompositions, model v7, four predictions Lean-closed.** Batch-8 six-agent wave:
