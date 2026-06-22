@@ -4,6 +4,28 @@
 `claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean **446/446**, all new
 modules ∅-axiom PURE.
 
+## ★ DIRECTION RECALIBRATION (2026-06-22, from the originator directly — READ FIRST)
+The originator course-corrected the whole approach: **the Lean files are scaffolding, not the body —
+he never wrote them, delegated all to AI.** The body is **the idea in the opening axiom docs: to *see
+mathematics cleanly* through the single act of distinguishing.** Raw/Lens are the *Lean encoding*
+(machine verifier); 0-axiom is just the discipline the purpose forces. His stated direction (verbatim
+intent): *first **create a way of doing/describing mathematics** — like category theory / type theory /
+topos created theirs — then **decompose & rewrite existing mathematics** into it.* Re-deriving
+classical theorems in Lean (e.g. the FTA marathon below) is **scaffolding-exercise, not research of
+his idea** — honestly acknowledged. New central program started:
+
+**`research-notes/decomposition/` — the 213 Decomposition Calculus** (human-facing technique;
+README.md = the spec: `OBJECT = ⟨Construction | Reading⟩`, Residue, the 4-step procedure, and the
+**revelation rule** = every decomposition must *reveal* (collapse / forcing / residue-surfaced), never
+just re-skin — the design constraint that kept CT from being "abstract nonsense"). Key grounding: the
+calculus is the **positive form of CLAUDE.md's failure-mode catalog** (each failure = a missed
+decomposition). First practice (`practice/`, scattered repo decompositions crystallized into one
+procedure, Lean-certified): `parity.md` (parity/congruence/perm-sign/det=±1 = one
+construction-preserving finite reading, Zolotarev), `integers.md` (ℤ = difference-reading of a
+directed count-pair; "negative" not a substance), `equivalence.md` (동치/동형/준동형 = one
+Lens-arrow). **Next: FRESH decompositions** (math the repo hasn't pre-chewed) — where the technique
+must *generate* the seeing, the real test. Lean is demoted to faithfulness-check.
+
 ## The directive (진의) — re-inferred this session (4-agent panel) + the originator's question
 The originator asked, via `/goal`: infer the repository's ultimate purpose by multi-agent debate and
 *conduct* deep multi-session autonomous research toward it — and "is the goal to make the axiom into
