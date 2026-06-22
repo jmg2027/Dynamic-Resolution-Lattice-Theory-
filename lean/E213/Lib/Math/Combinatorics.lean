@@ -56,6 +56,7 @@ import E213.Lib.Math.Combinatorics.PowerSeriesSemiring
 import E213.Lib.Math.Combinatorics.Simplex5
 import E213.Lib.Math.Combinatorics.Capstone
 import E213.Lib.Math.Combinatorics.GraphConnectivity
+import E213.Lib.Math.Combinatorics.CyclicErgodic
 import E213.Lib.Math.Combinatorics.BoolEnum
 import E213.Lib.Math.Combinatorics.Pigeonhole
 import E213.Lib.Math.Combinatorics.CountExistence

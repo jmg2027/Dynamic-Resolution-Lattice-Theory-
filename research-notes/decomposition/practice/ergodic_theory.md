@@ -328,18 +328,37 @@ not from measure-theoretic analysis added on top.
 | measure = weight, Choice-free `q=+1` corner (the measure side, from `measure.md`) | `Lib/Math/Analysis/Measure/DyadicMeasure.lean : measureNum` (`:41`), `measure_union_additive` (`:69`); `q=−1` escape `Lens/Foundations/FlatOntologyClosure.lean : object1_not_surjective` (`:61`) | ∅-axiom PURE ✓ (prior, `measure.md`) |
 | flow = the reading iterated by the count (`orbit = iter`) | `Meta/OrbitIsIter.lean : orbit_eq_iter` (`:42`) | ∅-axiom ✓ (prior, `differential_equations.md`) |
 
-**Conceptual-only / absent legs (honest — predicted, NOT built; the precise missing leg):**
-- **No measure-preserving-transformation object** — no `T` with a proof `measureNum (T S) = measureNum S`,
-  and no push-forward `T_*` instantiated as a `Contraction`. The `Aut`-groupoid (`LensIso`), the weight
-  (`measureNum`), and the conserved character (`det_holonomy_eq_one`) exist *separately*; the weld is the
-  unbuilt leg (the analogue of `differential_equations.md`'s unbuilt continuous Picard operator).
-- **No Birkhoff-average object** — no `Aₙf := (1/n)Σ f∘Tⁱ` *along an orbit of `T`*, and no theorem
-  "`Aₙf → ∫f dμ`". The LLN sample-mean (`countTrue_append`) + modulus (`balanced_LLN_modulus`) are the
-  structurally identical objects but run over a `List`/balanced sequence, not over `f∘Tⁱ`. The Birkhoff
-  theorem as one statement is the named missing leg.
-- **No `Ergodic` predicate / no Koopman/transfer operator object** — "ergodic ⟺ invariant subspace =
-  constants" is grounded *by the graph-Laplacian analogy* (`closed_const`/`pathLaplacian_const_kernel`),
-  but there is no `Ergodic T`/`Koopman U f := f∘T`/eigenvalue-1-eigenspace object.
+**Update — the finite measure-preserving / Birkhoff / ergodicity=constant-kernel leg is now BUILT
+(∅-axiom, `Lib/Math/Combinatorics/CyclicErgodic.lean`, 26 pure / 0 dirty).** The cleanest closable
+instance is grounded: the cyclic shift `rot n i := (i+1) % n` on the residue set `{0,…,n-1}` (a single
+`n`-cycle = a permutation = a measure-preserving map of the counting measure), the Birkhoff sum along its
+orbit, the period time=space identity as the `q=+1` fixed point reached *exactly* at the period, and
+ergodicity = invariant functions constant *via* the cycle's graph connectivity (`closed_const`). All
+`Nat`/`Int`-indexed, no `Fin`/`omega`/`Decidable`, so `#print axioms` on every headline = "does not depend
+on any axioms":
+- `birkhoffSum f T n x := sumInt ((orbit T x n).map f)` — the orbit-sum `Σ_{i<n} f (Tⁱ x)`;
+  `orbit T x (k+1) = x :: orbit T (T x) k`.
+- `birkhoff_period_eq_space : birkhoffSum f (rot n) n 0 = spaceSum f n` — **time-average = space-average,
+  the `q=+1` fixed point reached exactly at the period** (the full orbit `orbit (rot n) 0 n = natRange n`
+  visits every point once, `orbit_rot_full_period`); `measure_preserving` is its corollary (`Σ_orbit f =
+  Σ_space f`, the `Aut`-of-counting-measure fact).
+- `rotInvariant_is_constant : IsConnectedFrom (CycleAdj n) root → (∀ i, σ (rot n i) = σ i) → ∀ u v, σ u =
+  σ v` — **ergodicity = invariant ⟹ constant = the dim-1 `q=+1` constant kernel**, proved by
+  `GraphConnectivity.closed_const` on the `n`-cycle adjacency `CycleAdj n i j := j = rot n i`. This is
+  *literally* `graph_theory.md`'s Laplacian `λ₀=0` constant kernel (`pathLaplacian_const_kernel`,
+  `closed_const`, `closed_root_determines`) transported onto the Koopman-invariant subspace; the cycle is
+  connected from `0` (`cycle_reach_lt`, the reachability witness = the orbit).
+- `nonergodic_invariant_not_constant` — the `q=−1` contrast: for `idT` (every singleton its own orbit,
+  `n` components) there is an invariant non-constant reading (`σ 0 = true ≠ false = σ 1`); dim ker =
+  #components > 1 = `graph_theory.md`'s disconnected graph.
+
+**Still conceptual-only / absent legs (the residual — the general/infinite ergodic theorem):**
+- **No push-forward `T_*` instantiated as a `Contraction`** — the invariant *measure* as
+  `lim(picard T_* μ0)` (vs. the finite counting measure already preserved) and the convergent (non-periodic)
+  Birkhoff theorem `Aₙf → ∫f dμ` *with modulus* `balanced_LLN_modulus` remain welds; the finite version
+  reaches the `q=+1` fixed point exactly at the period instead of by a limit.
+- **No Koopman operator as a named linear object** — `rotInvariant_is_constant` characterises its
+  eigenvalue-1 eigenspace = the constants directly (without an explicit `Koopman U f := f∘T` declaration).
 - **No ergodic-decomposition simplex object** — `convex_duality.md`'s extreme-point `q=±1` simplex,
   un-instantiated for invariant measures.
 - **No Markov-chain `stationary` distribution** — `MarkovTree` (`MarkovTree.lean:30`) is the *Diophantine*
