@@ -435,6 +435,22 @@ through **seven** fields (parity, valuation, det, entropy, Noether, Fourier, rep
 the live edge is pinned: **the `det`/`tr` split** — where the multiplicative character ends and the
 additive trace-character (un-closed at `d>1`) begins. EXTEND by consolidation; interior unchanged.
 
-**Count.** 31 worked decompositions + the `two_cells.md` meta-decomposition; one located partial-break
-(knots, refined to two precise missing primitives) + the `det`/`tr` edge; six predictions, four Lean-closed
-(orthogonality 2/3/6, growing-corner, convolve-rescale contraction, and now the discrete Noether-iff).
+### Differential equations / dynamical systems (`differential_equations.md`) — the Banach engine's third field
+
+A fresh decomposition tied to the fixed-point work: **Picard–Lindelöf existence IS `banach_fixed_point`
+applied to the integral operator**, so a flow `φ_t` = the evolution reading iterated at residue resolution
+(the `dt→0` dial), and the solution = the `q=+1` converging contraction residue — reached by none, narrowed
+by `picard_cauchy`'s modulus. Verdict **PREDICTION**: the same `banach_fixed_point` engine now provably
+spans **three fields** — φ (`golden_ratio.md`), the Gaussian (`gaussian_clt.md`), ODE flows — one object
+read across a number-pair, a probability weight, and a vector field. The repo has a real discrete ODE
+corpus (`Analysis/ODE/`: `picardIterate`, `picard_exp` y'=y→y0·2ⁿ, `LinearODE`; `Foundations/MonovariantFlow`
+`flow_reaches` = Lyapunov descent to an equilibrium; `Optimization/GradientFlow` `d/dt F = −‖∇F‖²≤0`). Same
+honest gap as the Gaussian *profile*: the continuous integral operator `(Tf)(t)=x0+∫f` is not welded to
+`banach_fixed_point` as a `Contraction` (the discrete Euler-Picard step and the engine live separately) —
+a named promotion target, EXTEND only.
+
+**Count.** 32 worked decompositions + the `two_cells.md` meta-decomposition; one located partial-break
+(knots, refined to two precise missing primitives) + the `det`/`tr` edge; **seven** predictions, **five
+Lean-closed** (orthogonality 2/3/6, growing-corner, convolve-rescale contraction + dyadic completion-limit,
+discrete Noether-iff). The `q=+1` contraction residue spans φ/Gaussian/ODE; the Banach-engine "wall" has a
+converged ∅-axiom defeat plan (`research-notes/frontiers/wall_synthesis.md`).
