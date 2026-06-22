@@ -1806,7 +1806,20 @@ detects what decategorification cancels" (nonzero H¹: cycle=escape vs contracti
 deformation dial; functoriality = the 2-cell. Named Khovanov/Jones/Kauffman/Frobenius objects absent; the break
 is INHERITED from knots (the isotopy/Reidemeister-invariance Side B), not new.
 
-**Count.** 128 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Conformal field theory / VOAs (`conformal_field_theory.md`) — fusion + modular + the centrally-extended bracket
+
+EXTEND + PREDICTION + located BREAK. 2d CFT = lie_theory's Aut-family read three ways: the centrally-extended
+q±1 bracket (Virasoro = Witt + a central term, `Mat2Bracket.bracket_antisymm` 10/0), the fusion product (OPE =
+fusion_categories/hopf convolution, `Convolution213` 49/0), and the SL(2,ℤ)-invariant character (partition
+function = a modular form, `ModularElliptic.modular_generator_orders`:58 7/0, `manin_unimodular_decomposition`).
+★ New datum: the central charge c = the conformal anomaly = the **unique q±1 2-cocycle = galois_cohomology's H²
+obstruction class** on the Witt algebra (`MinkowskiCocycle` 6/0 the cocycle, `OmegaH2Trace.omega_h2_trace_master`:113
+7/0 the unique nontrivial 2-cocycle b₂=1) — c=0 the q+1 exact pole, c≠0 the q−1 anomaly residue, the same
+Theorem-90-vs-Brauer pattern as galois_cohomology. Named Virasoro/CFT/OPE/centralCharge objects absent (the
+conformal hits are differential-geometry curvature, false-friend); located break = the bootstrap crossing
+equation (the graded-relation slot) + the infinite-mode Virasoro tower vs finite Mat2 (inherited from lie_theory).
+
+**Count.** 129 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
