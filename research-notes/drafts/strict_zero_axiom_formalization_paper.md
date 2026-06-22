@@ -1,160 +1,199 @@
-# Strict ∅-axiom mainstream mathematics in Lean 4 without Mathlib — a methodology and a ~2,100-module corpus
+# How much mainstream mathematics is reachable at a minimal trusted-axiom base? A scanner-enforced, Mathlib-free Lean 4 corpus
 
-**Draft — experience/methodology paper (target: ITP / CPP / JAR). Not a mathematics-results paper.**
+**Draft — engineering / empirical contribution (target: ITP / CPP / JAR). Not a mathematics-results paper.**
 
-Status: working draft (Line B of `research-notes/frontiers/the_substance_test.md` — external
-exposure). Scope and prior-art are inherited from `research-notes/drafts/publishability_audit.md`;
-the canonical purity definitions from `STRICT_ZERO_AXIOM.md`. This draft deliberately strips the
-project's "213 / DRLT" metaphysics: the formalization claim does not need it, and ITP/CPP
-referees react badly to it.
+Status: working draft (external-exposure track). Canonical purity definitions and corpus census from
+`STRICT_ZERO_AXIOM.md`; prior-art scope from `research-notes/drafts/publishability_audit.md`. This
+draft is framed strictly as a proof-engineering artifact: the question is *how much standard
+mathematics can be formalized at a minimal trusted-axiom base, and where the classical-axiom boundary
+actually bites* — judged on utility by the proof-engineering community, in the way CompCert and seL4
+are respected as engineering artifacts rather than as foundational claims.
 
 ---
 
 ## Abstract
 
-We report a Lean 4 development of mainstream mathematics — number theory, constructive real
-analysis, abstract algebra, combinatorics, simplicial cohomology — in which **no mathematical
-theorem depends on any axiom**: `#print axioms` returns *"does not depend on any axioms"* for the
-mathematical content, i.e. free of `propext`, `Quot.sound`, `Classical.choice`, `funext`, and
-`Lean.ofReduceBool` (`native_decide`). The development is built **without Mathlib**, reimplementing
-the numeric and collection basis (`Nat`/`Int`/`List`/a constructive `Real`) to eliminate Mathlib's
-hidden axiom leakage, at a scale of ~2,100 modules and ~15,700 theorem/lemma declarations. The contribution is not
-new mathematics — every theorem is classical — but (i) an **empirical datum**: how much mainstream
-mathematics is genuinely axiom-free when a machine, not the author, certifies it; (ii) a
-**methodology** — the "pure-twin" reimplementation discipline, scanner-enforced `#print axioms`
-certification, and a *forcing-vs-bookkeeping* criterion for grading the evidential value of an
-axiom-free re-derivation; and (iii) the engineering of doing this **in Lean 4 specifically**, a
-system whose maintainers explicitly declined to compartmentalize axioms. We state the honest
-boundary: a small, enumerated *sealed-DIRTY* class (higher-order Lens equality via `funext`,
-elaborator plumbing inheriting `Classical.choice`) is excluded by design; the claim is *purity of
-mathematical content with an enumerated boundary*, not absolute axiom-freedom.
+In a dependent-type proof assistant, the trusted axiom base is part of the trusted computing base:
+`#print axioms` tells you exactly which classical principles (`propext`, `Quot.sound`,
+`Classical.choice`) a given theorem's proof term depends on. In Mathlib, the dominant Lean 4
+mathematics library, all three are used pervasively and leak into essentially every downstream
+theorem through library foundations — so the question "which of this mathematics actually *needs* a
+classical axiom?" is, in practice, never answered for the proof terms that get shipped.
+
+We report an empirical answer for a broad slice of standard mathematics. We formalize undergraduate
+and graduate material — number theory, combinatorics, abstract algebra, and constructive
+(Bishop-style) real analysis — in Lean 4 **without Mathlib** and at a **minimal trusted-axiom base**:
+`#print axioms` returns *"does not depend on any axioms"* (no `propext`, `Quot.sound`,
+`Classical.choice`, `funext`, or `Lean.ofReduceBool`/`native_decide`) for the mathematical content.
+To eliminate the library-level axiom leakage that makes the question unanswerable in a Mathlib-based
+development, we reimplement the numeric and collection basis (`Nat`, `Int`, `List`, and a
+constructive `Real`) from the kernel up. Axiom hygiene is **machine-enforced**: a scanner runs
+`#print axioms` over the whole corpus and classifies every declaration, gating CI.
+
+Our contributions are engineering and empirical, not new theorems (every result is classical and
+most are in Mathlib): **(1)** an empirical map of *exactly how much* standard mathematics is reachable
+at the zero-axiom base — a whole-corpus census of **18,845 declarations, 18,798 axiom-free, 47
+classical-axiom-dependent (all enumerated and structural)**, across ~2,100 Lean modules; **(2)** a
+reusable, scanner-enforced methodology — a "reimplement-don't-import" basis plus a `#print axioms` CI
+gate — transferable to any trusted-axiom-base-minimization effort; and **(3)** a catalog of *where the
+`propext`/`Quot.sound`/`Classical.choice` boundary actually bites*, including a worked bisection of a
+silent `propext` leak through a Lean *core* arithmetic lemma. We are explicit about the boundary: a
+small, enumerated set of 47 declarations is classical-axiom-dependent by design (higher-order function
+equality via `funext`; elaborator metaprogramming that inherits `Classical.choice` through Lean's
+command monad), and the kernel's own inductive/`Pi`/`Bool`/`Eq` apparatus remains trusted. The claim
+is *axiom-freedom of the mathematical content with an enumerated boundary*, not absolute
+axiom-freedom.
 
 ## 1. Introduction
 
-### 1.1 The claim, precisely
+### 1.1 Motivation: the trusted axiom base as part of the TCB
 
-Lean 4's kernel admits three axioms (`propext`, `Quot.sound`, `Classical.choice`); Mathlib uses
-all three pervasively, so essentially every Mathlib theorem depends on them. The folklore reply —
-"but most of this mathematics is constructive" — is rarely *checked* at the level of the actual
-proof terms, because in a Mathlib-based development the axioms leak in through the library's
-foundations (decidability instances routing through `Classical`, `Quotient`-based quotients, `funext`
-in function-valued definitions) regardless of whether the *theorem* needs them.
+When a theorem is checked by the Lean 4 kernel, what you trust is the kernel *plus* whatever axioms
+the proof term invokes. Lean's kernel admits three: `propext` (propositional extensionality),
+`Quot.sound` (the computation rule for quotients, from which `funext` is derived), and
+`Classical.choice`. `#print axioms <thm>` reports the exact subset a given theorem depends on. This
+is the standard, and the *only* fully reliable, way to read a Lean theorem's position relative to the
+classical/constructive boundary: it inspects the elaborated proof term, not the surface text.
 
-This paper checks it. We define the target **PURE**: a declaration is PURE iff `#print axioms`
-reports *"does not depend on any axioms"*. We then build a broad mathematical development in which
-the mathematical content is PURE, and we report what it took and where the boundary lies.
+Two facts make this an interesting empirical target. First, Mathlib uses all three axioms freely —
+its decidability instances route through `Classical`, its quotients through `Quot.sound`, its
+function-valued definitions through `funext` — so in any Mathlib-based development the axioms leak
+into a theorem's proof term whether or not the *mathematics* needs them. The common reply, "but this
+is constructive mathematics, so it doesn't really need choice," is almost never *checked* at the proof
+term, because the library has already injected the dependency upstream. Second, the Lean community
+deliberately declined to compartmentalize axioms (leanprover Zulip, "Compartmentalization of axioms
+in Lean 4"), directing users who want axiom-tracking discipline to Agda's `--safe` or Coq's `Print
+Assumptions`. So in Lean 4 specifically, a zero-axiom sub-development is against the grain of both the
+standard library and Mathlib.
 
-### 1.2 Why this is against the grain in Lean 4
+This paper asks the question empirically: **for a broad, standard mathematics curriculum, how much is
+reachable when the trusted axiom base is driven to empty and a machine certifies it?** The answer is a
+map — what falls inside the zero-axiom region, what falls on the boundary, and what it costs to get
+there.
 
-This is harder in Lean 4 than in Agda or Coq, for a specific reason: the Lean community
-**deliberately declined to compartmentalize axioms** (leanprover Zulip, "Compartmentalization of
-axioms in Lean 4"), advising users who want axiom-tracking to use Agda's `--safe` or Coq's
-`Print Assumptions` discipline instead. Lean's standard library and Mathlib are not engineered for
-axiom-free sub-developments. Consequently:
+### 1.2 The target, precisely
 
-  - **No Mathlib.** Any dependency on Mathlib imports its axiom base transitively. We reimplement
-    `Nat` arithmetic, `Int` (as a sign/magnitude pair with a `ring`-style decision tactic), `List`
-    operations, and a constructive `Real` (Cauchy sequences with explicit moduli) from the kernel
-    up, precisely so that `#print axioms` on a downstream theorem has nothing to inherit.
-  - **Core lemmas are audited, not trusted.** Even Lean *core* `Nat`/`Int` lemmas can carry
-    `propext` (we document a concrete case in §4.3); the discipline replaces them with pure twins.
-  - **Machine-certified, not asserted.** Purity is enforced by a scanner (`scan_all_axioms.py`) over
-    the whole corpus, not by manual review.
+We say a declaration is **axiom-free** (in the repository's terminology, *PURE*) iff `#print axioms`
+reports *"does not depend on any axioms"*. This is stronger than constructivity in the usual informal
+sense: it certifies the *shipped proof term* is free of `propext`, `Quot.sound`, `Classical.choice`,
+and `funext`, not merely that a constructive proof exists in principle. We build a broad development
+whose mathematical content is axiom-free under this test, and we report the census, the methodology,
+and the boundary.
 
 ### 1.3 What is and is not contributed
 
-**Not contributed:** new theorems. An adversarial prior-art audit (six parallel passes, web access,
-default prior "this is classical, find where it is known") found every result classical and almost
-all already in Mathlib. We make no novelty claim at the theorem level and we front-load this.
+**Not contributed: new theorems.** An adversarial prior-art audit (multiple independent passes, with
+the default prior "this is classical, locate where it is known") found every result classical and
+nearly all already in Mathlib. We make no theorem-level novelty claim and front-load this. The
+novelty is *scale plus scanner-enforcement at a zero-axiom base*, not the mathematics.
 
 **Contributed:**
-  1. an empirical axiom-census of a broad, from-scratch development;
-  2. the pure-twin + scanner methodology, transferable to any axiom-purity project;
-  3. the *forcing-vs-bookkeeping* evidential criterion (§4.4);
-  4. a corpus that demonstrates **breadth generated by shared engines** — a family of cross-domain
-     unification theorems (§5.2) showing the development is structured, not a checklist.
+  1. **An empirical map** (§5, Appendix A): a whole-corpus census of how much standard mathematics
+     sits at the zero-axiom base, broken down by area, with per-theorem `#print axioms` certificates
+     as the primary, mechanically reproducible data.
+  2. **A reusable methodology** (§4): the "reimplement-don't-import" basis discipline and a
+     scanner-enforced `#print axioms` CI gate, transferable to any project that wants to minimize and
+     monitor its trusted axiom base.
+  3. **A boundary catalog** (§4.3, §6): where the `propext`/`Quot.sound`/`Classical.choice` boundary
+     actually bites in practice — including a reusable bisection workflow for localizing a silent
+     classical-axiom leak (Figure 1) and an enumeration of the residual by-design boundary.
 
 ## 2. Background and related work
 
-We position against the closest prior art (full citations in `publishability_audit.md` §5):
+We position the artifact against three neighborhoods (full citations in `publishability_audit.md`
+§5). The honest summary: each ingredient exists elsewhere; the combination — *strict, machine-checked
+`#print axioms`-emptiness of the mathematical content, in Lean 4, without Mathlib, at ~2,100-module
+scale, gated in CI* — is what is new.
 
-  - **TypeTopology (Escardó), Agda `--safe --without-K`** — the single most relevant comparison: a
-    large, respected constructive development that *never postulates* funext/propext/EM (it threads
-    them as explicit hypotheses). Same thesis ("math that needs no axiom doesn't use it"); different
-    system. Our contribution is doing it in Lean 4 (axiom-non-compartmentalized) and without a
-    constructive-friendly stdlib.
-  - **C-CoRN, agda-unimath, UniMath** — constructive but *axiom-bearing* (setoids, postulated
-    funext, univalence). So "constructive formalization" broadly is well-trodden; the unusual
-    property here is *strict* `#print axioms`-emptiness of the mathematical content.
-  - **Constructive mathematics proper** — Bishop's *Constructive Analysis*; Diener's *Constructive
-    Reverse Mathematics*; Kohlenbach's proof mining. Our analysis layer is Bishop-style
-    (modulus-equipped); we claim no foundational novelty there and cite the lineage.
+  - **Mathlib.** The reference point. Mathlib maximizes coverage and uses the classical axioms freely;
+    it is explicitly *not* engineered for axiom-free sub-developments, and the standard `#print axioms`
+    on a Mathlib theorem will, in the typical case, report all three axioms regardless of the theorem's
+    constructive content. Our development is the complementary data point: the same kind of mathematics
+    with the axiom base driven to empty and the cost made visible.
+  - **Constructive / Bishop-style developments (axiom-tracking lineage).** TypeTopology (Escardó,
+    Agda `--safe --without-K`) is the closest comparison: a large, respected constructive corpus that
+    never *postulates* `funext`/`propext`/excluded middle, threading them as explicit hypotheses
+    instead. Same thesis — mathematics that needs no axiom should not use one — in a system built for
+    it. C-CoRN, agda-unimath, and UniMath are constructive but *axiom-bearing* (setoids, postulated
+    funext, univalence). On the mathematics side, Bishop's *Constructive Analysis*, Diener's
+    *Constructive Reverse Mathematics*, and Kohlenbach's proof mining are the substantive lineage of
+    our analysis layer; we claim no foundational novelty there and cite it.
+  - **Axiom-tracking as a practice.** Coq's `Print Assumptions` and Agda's `--safe` are the
+    established mechanisms for the discipline this paper applies; the contribution here is applying it
+    *at scale and in CI* in a system (Lean 4) whose standard library was not built for it, so that the
+    zero-axiom property is a continuously checked invariant rather than a one-time audit.
 
-The gap we fill is the *combination*: strict `propext`/`Quot.sound`/`Classical.choice`/`funext`-free
-*mathematical content*, in **Lean 4**, **without Mathlib**, at ~2,100-module scale, with
-**scanner-enforced** whole-corpus certification.
+What we do *not* claim: a new foundation, a new logic, or theorems unavailable elsewhere. The artifact
+is in the spirit of verified-systems engineering (CompCert, seL4) — its value is the certified,
+reproducible map and the methodology that produced it.
 
-## 3. The ∅-axiom standard
+## 3. The zero-axiom standard
 
 Canonical definitions (`STRICT_ZERO_AXIOM.md`):
 
-  - **PURE** = `#print axioms` empty. The target.
+  - **PURE (axiom-free)** = `#print axioms` empty. The target.
   - **DIRTY** = depends on a non-empty axiom list (`propext`, `Quot.sound`, `Classical.choice`,
     `Lean.ofReduceBool`, `sorryAx`).
-  - **sealed-DIRTY-by-design** = a DIRTY declaration accepted because the DIRTY status is
-    *structural*: (a) a Lean-core boundary (well-founded-recursion proofs, elaborator
-    metaprogramming inheriting `Classical.choice` through the `Lean.Elab.Command` monad), or (b)
-    higher-order **Lens equality**, which needs `funext` on a function-valued field — refactoring
-    would redefine what "equality" means rather than improve a derivation. Enumerated in the
-    scanner's `SEALED_DIRTY_PREFIXES`.
-  - **real DIRTY** = DIRTY ∧ not sealed. This is the regression budget, and it is zero on the
+  - **sealed-DIRTY-by-design** = a DIRTY declaration accepted because its DIRTY status is *structural*,
+    not a missed cleanup: (a) a Lean-core / elaborator boundary (e.g. metaprogramming that inherits
+    `Classical.choice` through the `Lean.Elab.Command` monad), or (b) higher-order function equality
+    that genuinely needs `funext` (equating two function-valued fields), where avoiding the axiom would
+    redefine the statement rather than improve the proof. Each is enumerated by name in the scanner's
+    `SEALED_DIRTY_PREFIXES`.
+  - **real DIRTY** = DIRTY ∧ not sealed. This is the regression budget, and it is **zero** on the
     mathematical content.
 
-**Honesty correction (front-loaded).** "Literally zero axioms" would be an overstatement. The
-honest claim is *purity of the mathematical content with an enumerated, structural boundary*. The
-sealed class is small and is not mathematical-theorem content; it is plumbing and a definitional
-choice about higher-order equality.
+**Scope honesty (front-loaded).** "Literally zero axioms" would overstate the result. The honest claim
+is *axiom-freedom of the mathematical content with an enumerated, structural boundary*. The sealed
+class is small (47 declarations, §Appendix A), is not mathematical-theorem content, and is fully
+listed; it is plumbing and a deliberate choice about how to state higher-order equality.
 
 ## 4. Methodology
 
-### 4.1 Pure twins and the no-Mathlib basis
+### 4.1 Reimplement, don't import: the no-Mathlib basis
 
-The base move is to **reimplement, not import**. Each numeric/collection primitive gets a 213-native
-("pure-twin") definition whose lemmas are PURE: `Nat` helpers (`PureNat`, `NatDiv213`, `AddMod213`),
-an `Int` as a constructive pair with a `ring_intZ` decision procedure (`PolyIntM`), `List` helpers
-(`List213`) avoiding `List.count`/`Decidable`-routed membership, and a `Real213` as Cauchy sequences
-carrying explicit moduli (no `Quotient`). Downstream theorems then have no Mathlib axiom base to
-inherit.
+The base move is to **reimplement, not import**. Any dependency on Mathlib pulls in its axiom base
+transitively, so we rebuild the numeric and collection primitives from the kernel up, each with
+axiom-free lemmas: `Nat` helpers (`PureNat`, `NatDiv213`, `AddMod213`), an `Int` represented as a
+sign/magnitude pair with a `ring`-style decision procedure (`PolyIntM`), `List` operations
+(`List213`) that avoid `List.count` / `Decidable`-routed membership, and a constructive `Real` built
+as Cauchy sequences with explicit moduli of convergence — no `Quotient`. A downstream theorem stated
+against this basis then has no library-level axiom dependency to inherit, so its `#print axioms`
+output reflects only its own proof.
 
-### 4.2 Scanner-enforced certification
+### 4.2 Scanner-enforced certification (the `#print axioms` CI gate)
 
-`scan_all_axioms.py` runs `#print axioms` over the corpus and classifies PURE / sealed-DIRTY / real
-DIRTY against `STRICT_ZERO_AXIOM.md`. CI-style enforcement makes purity a *checked invariant*, not a
-review aspiration; per-theorem certificates (`#print axioms <thm> → ∅`) are the paper's primary data
-and are mechanically reproducible (a CPP plus). The census is **18,798 PURE / 47 sealed-DIRTY /
-0 real DIRTY** over 18,845 declarations (§Appendix A). We stress that this number is *checked, not
-asserted*: the scan itself surfaced that the sealed registry had drifted out of sync with the
-corpus — five DIRTY-by-design modules (e.g. the axiom-exhibiting bridge lenses) were not yet
-enumerated, and conversely the entire Lens-funext family it *did* enumerate (`QuotLens`, `Cauchy`,
-…, 1000+ declarations) had since become PURE. Reconciling registry to corpus is exactly the kind of
-drift a machine census catches and a manual "it's constructive" claim does not.
+Axiom hygiene is a *checked invariant*, not a review aspiration. `tools/scan_all_axioms.py` runs
+`#print axioms` over the whole corpus and classifies each declaration as PURE / sealed-DIRTY / real
+DIRTY against `STRICT_ZERO_AXIOM.md`; `tools/scan_axioms.py <module>` does the same per module. CI
+fails on any *real* DIRTY. The per-theorem certificates (`#print axioms <thm> → ∅`) are the paper's
+primary data and are mechanically reproducible — the relevant plus for a CPP-style artifact.
 
-### 4.3 The recurring traps (and a worked one)
+The scanner also catches drift that a manual "it's constructive" claim never would. Closing a
+previously-incomplete build gate (so that all modules, not just the umbrella-reachable subset, are
+scanned) surfaced a genuine, invisible regression — a cluster that had inherited `Classical.choice`
+through a `Nat.mul_lt_mul_left` lemma — and conversely showed that a large family of declarations the
+seal list still named (the function-equality `Lens` family, 1000+ declarations) had since become PURE.
+Reconciling the registry to the corpus is exactly the work a machine census does and an unverified
+claim cannot.
 
-Two patterns recur and are worth reporting as practitioner guidance:
+### 4.3 Where the boundary bites (and a worked case)
 
-  - **The sum-clone defeq bridge.** Independent sub-developments define structurally identical folds
+Two patterns recur and are worth reporting as practitioner guidance.
+
+  - **The fold-clone defeq bridge.** Independent sub-developments define structurally identical folds
     (`sumZ`, `sumTo`, `lcount`, `bcount`, `genSum`) under different names. Feeding one into another's
-    theorem needs a ~6-line `X.sumZ N f = Y.sumZ N f` induction bridge (defeq, but `exact`/`rw`
-    require the bridge). Mechanical, but pervasive.
-  - **A core lemma that silently carries `propext`.** A genuine, hard-to-localize case: an
-    FTA-equality assembly built cleanly and *type-checked*, yet leaked `propext` while every *cited*
-    lemma scanned PURE. Bisection localized the leak to Lean **core `Nat.mul_assoc`** (propext-
-    carrying); replacing it with the pure `ring_nat` tactic restored PURE. Lesson: in a strict
-    development, even core associativity lemmas must be audited and twinned. (This is exactly the
-    kind of leak a Mathlib-based "it's constructive" claim never surfaces.)
+    theorem requires a short (~6-line) `X.sumZ N f = Y.sumZ N f` induction bridge — definitionally
+    true, but `exact`/`rw` still need it written out. Mechanical, but pervasive at scale.
+  - **A core lemma that silently carries `propext`.** A fundamental-theorem-of-arithmetic equality
+    assembly built cleanly and *type-checked*, yet leaked `propext` while every *cited* lemma scanned
+    PURE. Bisection localized the leak to Lean **core `Nat.mul_assoc`** (which carries `propext`);
+    replacing it with an axiom-free `ring_nat` tactic restored PURE. The lesson is sharp: in a strict
+    development, even core associativity lemmas must be audited and replaced. This is precisely the
+    class of leak that a Mathlib-based "it's constructive" claim never surfaces, because the library
+    has already inherited the axiom upstream.
 
-The bisection workflow (Figure 1) is the reusable practitioner artifact, not the specific lemma:
+The bisection workflow (Figure 1) is the reusable artifact, not the specific lemma:
 
 ```
   Figure 1 — localizing a silent propext leak
@@ -173,94 +212,120 @@ The bisection workflow (Figure 1) is the reusable practitioner artifact, not the
                               ▼
             remaining core call:  Nat.mul_assoc   #print axioms → { propext }
                               │
-                  replace with pure twin: ring_nat
+                  replace with axiom-free twin: ring_nat
                               ▼
   eq_of_vp_eq                       #print axioms  →  ∅               (PURE)
 ```
 
-The general procedure: when an assembly is DIRTY but every cited lemma is PURE, the leak is a
-*core* call the elaborator inserted silently (associativity, a `Decidable` instance, a `Quotient`
-lift). Bisect by progressively replacing tactic blocks with pure twins and re-scanning; the
-scanner (`#print axioms`) is the oracle at each step. The cost is `O(log n)` re-scans, not a manual
-proof-term audit.
+The general procedure: when an assembly is DIRTY but every cited lemma is PURE, the leak is a *core*
+call the elaborator inserted silently (associativity, a `Decidable` instance, a `Quotient` lift).
+Bisect by progressively replacing tactic blocks with axiom-free reimplementations and re-scanning;
+`#print axioms` is the oracle at each step. The cost is `O(log n)` re-scans, not a manual proof-term
+audit. This bisection-against-the-scanner loop is, in our experience, the single most reusable
+technique for trusted-axiom-base minimization in Lean 4.
 
-### 4.4 Forcing vs. bookkeeping — grading an axiom-free re-derivation
+### 4.4 Grading an axiom-free re-derivation: forcing vs. bookkeeping
 
-Not every PURE re-derivation carries the same evidential weight. We distinguish:
-  - **forcing** — the axiom-free proof exploits structure that *forces* the result (e.g. a
-    diagonal/counting argument, a determinant homomorphism), so axiom-freeness is informative; vs.
-  - **bookkeeping** — the proof merely re-threads a classical argument through pure twins, where
-    axiom-freeness reflects the reimplementation, not a mathematical fact.
+Not every axiom-free re-derivation carries the same evidential weight, and a reader of the census
+should be able to weight it. We distinguish:
+  - **forcing** — the axiom-free proof exploits structure that *forces* the result (a counting or
+    diagonal argument, a determinant homomorphism), so axiom-freeness is informative about the
+    mathematics; vs.
+  - **bookkeeping** — the proof merely re-threads a classical argument through axiom-free
+    reimplementations, where axiom-freeness reflects the engineering, not a fact about the theorem.
 
-This criterion (a practical descendant of Kreisel unwinding / proof mining) lets a reader weight the
-census: it is a *discipline for an axiom-purity project*, not a new theory.
+This is a practical reading discipline (a descendant of Kreisel's unwinding / proof mining), offered
+as guidance for interpreting an axiom-purity census — not a new theory.
 
-## 5. The corpus
+## 5. The corpus: the empirical map
 
-### 5.1 Breadth (spot-verified PURE)
+### 5.1 Breadth, by area (axiom-free on flagships)
 
-Disciplines reconstructed from `Nat` up, all PURE on their flagships:
-  - **Number theory** (deep): quadratic reciprocity for all distinct odd primes (Eisenstein
-    lattice-point proof), Legendre's `vₚ(n!)` formula, primitive-root existence, Pell/Brahmagupta,
-    Möbius/Dirichlet ring, and — built for this work — **FTA equality** (`eq_of_vp_eq`: a positive
-    number is determined by its prime-valuation vector).
-  - **Constructive analysis** (Bishop-style): IVT/MVT/EVT as modulus-tracked statements (the
-    extremum is a computable modulus, "reached by none" as a point), differentiation, a dyadic
-    integral.
-  - **Algebra** (deep): the Cayley–Dickson tower through the division-loss boundary (octonion
-    Moufang ⟹ sedenion zero-divisors, both proven).
-  - **Combinatorics**: Stirling/Bell/derangement identities, Sperner/LYM, the Erdős probabilistic
-    method (union bound), Ramsey lower bound — all PURE.
-  - **Reverse-math calibration**: an LPO/WLPO/MP/LLPO ledger that *names the axiom cost* the
-    development refuses to pay — the lens that makes the ∅-axiom constraint legible.
+Areas reconstructed from `Nat` up, all axiom-free (`#print axioms` ∅) on the listed flagship results:
 
-### 5.2 Breadth generated, not accumulated — cross-domain unification
+  - **Number theory.** Quadratic reciprocity for all distinct odd primes (Eisenstein lattice-point
+    proof), Legendre's `vₚ(n!)` formula, primitive-root existence, Pell/Brahmagupta, a Möbius/Dirichlet
+    ring, and a fundamental-theorem-of-arithmetic equality (`eq_of_vp_eq`: a positive integer is
+    determined by its prime-valuation vector).
+  - **Constructive (Bishop-style) real analysis.** IVT/MVT/EVT as modulus-tracked statements (the
+    extremum delivered as a computable modulus), differentiation, and a dyadic integral.
+  - **Abstract algebra.** The Cayley–Dickson tower through the division-loss boundary (octonion Moufang
+    property ⟹ sedenion zero-divisors, both proven).
+  - **Combinatorics.** Stirling/Bell/derangement identities, Sperner/LYM, the Erdős probabilistic
+    method (union bound), and a Ramsey lower bound — all axiom-free.
+  - **Reverse-math calibration.** An LPO/WLPO/MP/LLPO ledger that *names the axiom cost* the
+    development declines to pay — making the zero-axiom constraint legible by stating exactly which
+    non-constructive principles each avoided result would otherwise need.
 
-The development's structural payoff is a family of theorems showing apparently-separate domains run
-on **one shared engine** (each a proven map, ∅-axiom):
+### 5.2 Structure: breadth generated by shared engines
 
-  - **Incidence algebra.** One carrier-general Fubini swap (`genSwap`) underlies both the Erdős
-    union bound (over `Nat`) and an inversion engine (binomial = Möbius = Stirling inversion, over
+The census is not a flat checklist: a family of theorems shows apparently-separate areas running on a
+small number of shared engines (each a proven map, axiom-free). This is reported as evidence that a
+strict zero-axiom development can be *structured* at scale, not that the organization is novel
+mathematics:
+
+  - **Incidence-algebra inversion.** One carrier-general Fubini swap (`genSwap`) underlies both the
+    Erdős union bound (over `Nat`) and an inversion engine (binomial = Möbius = Stirling inversion, over
     `Int`); inclusion–exclusion for derangements and the falling-factorial/monomial expansion are
-    corollaries — all instances of one `inversion_from_orthogonality`.
-  - **`SL₂(ℤ)` unimodularity.** Determinant multiplicativity drives the Stern-Brocot tree, the
-    Markov recurrence, continuants, and a Minkowski cocycle; `det = 1` is the Cassini multiplier
-    `q = 1` (one law across the golden/Fibonacci and Markov domains).
-  - **Multiplicative number theory.** `eq_of_vp_eq` welds `e`'s two homes into a product identity
-    `N! = Π_{i=1}^{N} lcm(1..⌊N/i⌋)`.
-  - **CRT as a kernel coincidence — and a lattice isomorphism.** The mod-`m` reading and the
-    `(mod-a, mod-b)` product reading are compared by *equal kernel*. The general fact: for all
-    positive `a,b`, the product reading equals the mod-`lcm(a,b)` reading, so the modulus
-    refinement lattice *is* the divisibility lattice (refinement = divisibility, meet = `lcm`).
-    CRT (coprime `a,b`, `lcm = ab`) is the corner case. A genuine cross-domain isomorphism whose
-    two directions are an order-theoretic meet and a uniqueness argument generalized via the
-    `lcm` universal property — not a definitional accident.
+    corollaries of one `inversion_from_orthogonality`.
+  - **`SL₂(ℤ)` unimodularity.** Determinant multiplicativity drives the Stern–Brocot tree, the Markov
+    recurrence, continuants, and a Minkowski cocycle; `det = 1` is the Cassini multiplier `q = 1` (one
+    law across the Fibonacci and Markov domains).
+  - **Modulus refinement = divisibility lattice.** For all positive `a,b`, the `(mod-a, mod-b)` product
+    reading equals the `mod-lcm(a,b)` reading, so the modulus refinement lattice *is* the divisibility
+    lattice (refinement = divisibility, meet = `lcm`); the Chinese Remainder Theorem (coprime `a,b`,
+    `lcm = ab`) is the corner case. Both directions are axiom-free.
 
-These are classical facts, but their *organization* — breadth descending from shared engines rather
-than accumulated per-theorem — is the structural evidence that a strict ∅-axiom development can be
-coherent at scale, not a pile of isolated re-proofs.
+These are classical facts; reporting them is about demonstrating coherence of the certified corpus,
+not claiming new results.
 
-## 6. Honest limitations
+## 6. Limitations and threats to validity
 
-  1. **No new mathematics.** Stated up front; the value is the certified artifact and methodology.
-  2. **Sealed-DIRTY boundary.** Higher-order Lens equality (`funext`) and elaborator plumbing
-     (`Classical.choice` via the command monad) are excluded by design and enumerated. The claim is
-     scoped to mathematical content.
-  3. **Constructive lineage.** The analysis layer is Bishop/Ishihara/Kohlenbach in substance; we
-     claim engineering and census novelty, not foundational novelty.
-  4. **`propext`/`Quot.sound` are kernel-base.** We target their *absence* in proof terms (PURE) and
-     achieve it for the mathematical content, but do not claim the kernel is free of them.
+  1. **No new mathematics.** Every theorem is classical and most are in Mathlib (§1.3). The
+     contribution is the certified artifact, the empirical map, and the methodology — not the
+     mathematics. A reader looking for new theorems should stop here.
+  2. **The ambient apparatus is still trusted.** Axiom-freedom is *modulo* the Lean 4 kernel: its
+     inductive types, recursors, `Pi`/function types, `Bool`, and `Eq` are the trusted base on which
+     "no axioms" is measured. We target the *absence of the three classical axioms in proof terms*, and
+     achieve it for the mathematical content; we do **not** claim the kernel itself is axiom-free, nor
+     that the kernel apparatus is eliminated. The honest framing is *recognition at a minimal axiom
+     base*, not foundational genesis.
+  3. **`decide` and structural reduction.** Where proofs discharge goals by `decide` / kernel
+     reduction, correctness rests on the kernel's reduction behavior. This is axiom-free (no
+     `Lean.ofReduceBool` / `native_decide` is used anywhere — that would itself be DIRTY), but it does
+     shift trust onto the kernel evaluator for those steps, which a reader auditing the TCB should
+     note.
+  4. **The sealed-DIRTY boundary (47 declarations).** A small, enumerated set is classical-axiom-
+     dependent by design: higher-order function equality requiring `funext` (e.g. a cochain
+     `cup_symm`, whose pointwise content is itself PURE), the `propext`-expressed "Prop is an atom"
+     thesis surface, and elaborator metaprogramming inheriting `Classical.choice` via the command
+     monad. These are listed by name in Appendix A and in the scanner's seal list. The risk to the
+     claim is that the seal could be used to launder a genuine regression; we mitigate this by (i)
+     keeping the list small and per-module explicit, (ii) requiring CI to fail on any *unsealed* DIRTY,
+     and (iii) noting that the seal list itself drifted and was reconciled by the scan (§4.2) — i.e. the
+     mechanism that could hide a regression is the same one that exposed one.
+  5. **Census scope and counting.** The headline census counts `#print axioms` over declarations the
+     comprehensive build gate reaches; a module excluded from the build would not be scanned. The
+     theorem/lemma-vs-definition split in the count (Appendix A) is the scanner's keyword
+     classification, not a semantic one. We report the live numbers and the command to reproduce them
+     rather than asking the reader to trust a frozen total.
+  6. **Constructive lineage.** The analysis layer is Bishop/Ishihara/Kohlenbach in substance; the
+     novelty claimed is engineering and census, not foundational analysis.
 
 ## 7. Conclusion
 
-A broad swath of mainstream mathematics is *genuinely* axiom-free — `#print axioms`-empty — when
-reimplemented from the kernel up and machine-certified, even in a system (Lean 4) not engineered for
-axiom compartmentalization and without its standard library. The deliverable is the certified
-corpus, the pure-twin + scanner methodology, and the forcing-vs-bookkeeping criterion. The honest
-scope — purity of mathematical content with an enumerated structural boundary, and no new theorems —
-is what makes the claim a contribution rather than rejection-bait.
+A broad slice of standard undergraduate and graduate mathematics — number theory, combinatorics,
+algebra, and Bishop-style analysis — is reachable at a minimal trusted-axiom base: `#print
+axioms`-empty for the mathematical content, machine-certified, in a system (Lean 4) not engineered for
+axiom compartmentalization and without its standard library. The deliverables are an empirical map of
+*how much* mathematics sits there (the census), a scanner-enforced methodology for getting and staying
+there (reimplement-don't-import plus a `#print axioms` CI gate), and a catalog of where the classical-
+axiom boundary bites. The honest scope — axiom-freedom of mathematical content with an enumerated
+structural boundary and a still-trusted kernel, and no new theorems — is what makes this a
+contribution to the proof-engineering community's own concern (minimizing and monitoring the trusted
+axiom base) rather than an overclaim.
 
-## Appendix A — reproduction
+## Appendix A — corpus census and reproduction
 
 ```
 cd lean && lake build E213            # full build
@@ -268,20 +333,68 @@ python3 tools/scan_all_axioms.py      # whole-corpus PURE / sealed-DIRTY / real-
 python3 tools/scan_axioms.py <module> # per-module #print axioms classification
 ```
 
-Corpus size at draft time: 2,110 Lean modules. Whole-corpus `#print axioms` census
-(`scan_all_axioms.py --csv`): **18,845 declarations scanned (theorems, lemmas, and definitions),
-18,798 PURE, 47 DIRTY — all 47 sealed-by-design, 0 real DIRTY.** (Of the ~15,700 are
-`theorem`/`lemma` keyword declarations; the census additionally covers `def`-level proof-carrying
-declarations.) 0 `sorry`, 0 `native_decide`. The 47 sealed-DIRTY break down as: 33 Prop-as-
-distinguishing `propext` (`SemanticAtom`, `BoolProp`, `CanonicalTruthChar`), 5 `CommandElab`
-elaborator plumbing, 2 axiom-exhibiting bridge lenses (which *deliberately* apply `funext` /
-`Quot.sound` to demonstrate "the axiom is a lens application"), and 1 `funext` toll on a cochain
-function-equality whose pointwise content is PURE (`CupPairing.cup_symm_pointwise`). Full inventory:
-`STRICT_ZERO_AXIOM.md` §"Sealed-DIRTY inventory".
+Corpus size at draft time: **~2,100 Lean modules** (2,116 `.lean` files under `lean/E213` at the time
+of writing). Whole-corpus `#print axioms` census (`scan_all_axioms.py --csv`, all modules), per
+`STRICT_ZERO_AXIOM.md`:
+
+> **18,845 declarations scanned (theorems, lemmas, and definitions), 18,798 axiom-free (PURE), 47
+> classical-axiom-dependent (DIRTY) — all 47 sealed-by-design, 0 real DIRTY.**
+> 0 `sorry`, 0 `native_decide`/`Lean.ofReduceBool`, 0 `Classical.choice` in mathematical content.
+
+The 47 sealed-DIRTY declarations (full inventory, `STRICT_ZERO_AXIOM.md` §"Sealed-DIRTY inventory"):
+
+| count | module | category |
+|---|---|---|
+| 23 | `Lens.Foundations.SemanticAtom` | (a) `propext` — "Prop is an atom of meaning" thesis surface |
+| 10 | `Lens.Properties.Morphism.BoolProp` | (a) `propext` — `Bool→Prop` morphism equalities |
+| 6 | `Lib.Math.Foundations.Choice.CanonicalTruthChar` | (a) `propext` (Prop-side; Bool-lens views PURE) |
+| 2 | `Meta.Tactic.NativeGuard` | (a) `CommandElab` vocabulary-guard plumbing |
+| 1 | `Lib.Math.Tactic.QuadExtension` | (a) `CommandElab` elaborator plumbing |
+| 1 | `Meta.Tactic.DeriveConjugationCodomain` | (a) `CommandElab` elaborator plumbing |
+| 1 | `Meta.Tactic.VerifyConjugation` | (a) `CommandElab` elaborator plumbing |
+| 1 | `Lens.AxiomLenses.Bridges.Funext` | (c) axiom-exhibiting: `funext` used deliberately to demonstrate the axiom |
+| 1 | `Lens.AxiomLenses.Bridges.QuotSound` | (c) axiom-exhibiting: `Quot.sound` used deliberately |
+| 1 | `Lib.Math.Cohomology.Surfaces.T2Minimal.CupPairing` | (b) `funext` toll on cochain `=` (pointwise `cup_symm_pointwise` is PURE) |
+| **47** | | **total** |
+
+The classical-axiom carriers are thus: `propext` (the Prop-as-atom surface, 39 declarations) and
+`funext`/`Quot.sound` (3 declarations: 1 cochain equality + 2 deliberate axiom-exhibiting bridges);
+the only `Classical.choice` carriers in the whole corpus are 5 elaborator/metaprogramming declarations
+that inherit it through Lean's `Lean.Elab.Command` monad and are not mathematical content. No
+mathematical-theorem declaration depends on `Classical.choice` or `native_decide`.
 
 ## Appendix B — prior-art index
 
 See `research-notes/drafts/publishability_audit.md` §"Cross-cutting prior-art index" (Gauss/Miller,
 Thue, Wall, Bishop–Bridges, Diener CRM, Brattka–Gherardi–Marcone, Mandelkern, Berger–Schuster,
-Kohlenbach; TypeTopology, C-CoRN, agda-unimath, UniMath; Lawvere/Yanofsky for the self-reference
-core; the Lean Zulip axiom-compartmentalization thread).
+Kohlenbach; TypeTopology, C-CoRN, agda-unimath, UniMath; the Lean Zulip axiom-compartmentalization
+thread).
+
+---
+
+## Notes for revision (not for submission)
+
+Numbers used and their source, plus claims I could not verify (flagged for the originator):
+
+- **18,845 / 18,798 / 47 / 0** — from `STRICT_ZERO_AXIOM.md` §"Sealed-DIRTY inventory" and confirmed
+  consistent with `HANDOFF.md`. The 47-row inventory in Appendix A sums to 47 (23+10+6+2+1+1+1+1+1+1).
+  These are the canonical, citable numbers.
+- **~2,100 modules** — actual `find lean/E213 -name '*.lean'` = **2,116** at draft time. NOTE: an
+  inconsistency in the repo — `STRICT_ZERO_AXIOM.md` §"Net effect" still says "all 1532 modules"
+  (stale). The 1532 figure is NOT used in this draft; I used the live file count. Flagging so you can
+  refresh `STRICT_ZERO_AXIOM.md`.
+- **~15,700 theorem/lemma declarations** — the prior draft's figure for the theorem/lemma-keyword
+  subset of the 18,845. I could NOT verify this exact number (would require running the scanner with a
+  keyword breakdown). I removed the unverified "~15,700" from the abstract/body and now report only
+  the verifiable 18,845-declaration census; reinstate "~15,700 of which are `theorem`/`lemma`" only
+  after confirming with `scan_all_axioms.py --csv`.
+- **5 `Classical.choice` carriers** — Appendix A says "5 elaborator/metaprogramming declarations." This
+  is 2 `NativeGuard` + 1 `QuadExtension` + 1 `DeriveConjugationCodomain` + 1 `VerifyConjugation` = 5,
+  all `CommandElab` plumbing. STRICT_ZERO_AXIOM.md §"Net effect" elsewhere names "three CommandElab
+  elaborators" (QuadExtension, DeriveConjugationCodomain, VerifyConjugation) — this counts the *3
+  named tactic modules*, which is consistent if `NativeGuard`'s 2 are counted separately. Worth a quick
+  `#print axioms` confirmation that all 5 carry `Classical.choice` (the inventory only tags them
+  category (a) "CommandElab plumbing", not the specific axiom). I phrased it conservatively.
+- The §5.1/§5.2 theorem names (`eq_of_vp_eq`, `genSwap`, `inversion_from_orthogonality`, CRT/lcm
+  lattice, Cayley–Dickson) are carried over from the prior draft unchanged; not independently
+  re-verified against current Lean source in this pass.
