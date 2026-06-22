@@ -7,6 +7,14 @@ category theory created objects/arrows/functors, type theory created types/terms
 **decompose existing mathematics into it**. Raw/Lens are the *Lean encoding* (the machine verifier);
 **this is the form a human reads and writes.** 0-axiom is just the discipline the purpose forces.
 
+> **★ Capstone map: [`SYNTHESIS.md`](SYNTHESIS.md)** — the whole corpus as one statement: 52 fields
+> reduce to **two invariants** (the character arrow `×↦·`/`×↦+`, the `q=±1` residue tag) over four axes;
+> the `q=±1` spine (escape: Cantor/Gödel/measure/quintic/… ⟷ converge: φ/Gaussian/ODE/ergodic/…); the
+> Lean census (~21 ∅-axiom modules, 12 of 13 predictions closed); the recurring breaks (the
+> ambient-isotopy/colimit quotient verbatim in knots + π₁; the propext ceiling; the `Real213` value-cut);
+> and the self-description (the PURE/DIRTY boundary IS the Heyting/Boolean boundary = why 213 is constructive).
+> Read it first for the bird's-eye; the per-field notes below are the worked detail.
+
 ## What it is
 
 Every mathematical object is a **construction read through a lens**; every theorem is a **property of
