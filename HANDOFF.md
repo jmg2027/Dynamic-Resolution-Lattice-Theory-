@@ -52,7 +52,17 @@ deformation-`q` vs tag-`q` is **CONTAINMENT not identity**: `qbinom` at q=−1 i
 `QBinomial` 11/0); information theory (mutual info = the ×↦+ character's additivity-defect = the channel
 residue; `Channel.lean` BUILT 8/0); Nash equilibria (the q=+1 fixed point of best-response, a 3rd carrier of
 the diagonal engine; minimax = LP duality = a 6th duality instance; Brouwer existence = a calibrated LLPO
-gap).  SYNTHESIS at **v4 (count 135)**.  **Five calibrated boundaries** now located
+gap).  **Wave 42 (132→135):** symmetric functions (Λ = the universal home of the elementary `eᵢ` the corpus
+keeps rediscovering — det/tr=e₁/e₂, Chern, Newton; consolidating capstone), optimal control (value fn = the q+1
+Bellman-contraction fixed point, Pontryagin = Noether), quantum information (no-cloning = q−1 no-surjection,
+⊗ = monoidal grade, vN entropy = ×↦+ character). **Two ∅-axiom actions this turn:** (1) BUILT Newton's
+identities `newton_id_p2`/`newton_id_p3` (3-variable `p₂=e₁p₁−2e₂`, `p₃=e₁p₂−e₂p₁+3e₃`) in
+`NewtonInequalities` (5/0→7/0) — and found the all-degrees Newton–Girard recurrence for the 2-element spectrum
+ALREADY built (`Mat2TraceRecurrence.trace_recurrence` 5/0, `p_{n+2}=e₁p_{n+1}−e₂p_n`); (2) CORRECTED a
+false-friend: the proposed `no_universal_qubit_copier` witness is Cantor (a no-universal-realizer fact at
+`Qubit:=Bool`), NOT no-cloning — basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the
+amplitude residue, stays predicted-not-built.  Prediction tally now **13/14 Lean-closed**.  SYNTHESIS at
+**v4 (count 135)**.  **Five calibrated boundaries** now located
 (nonstandard/LLPO, CFT/bundle, descriptive-set/large-cardinals, Stone/ultrafilter, Berkovich/seminorm-completeness) — all converging on the one ultrafilter/LLPO/choice point: the no-exterior axiom, tested at its hardest
 points, yields a *calibrated* remainder on the corpus's own strength ledger, never an uncalibrated wall.
 
