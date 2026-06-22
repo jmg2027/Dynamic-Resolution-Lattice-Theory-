@@ -730,7 +730,32 @@ the transfer operator's contraction/spectral gap. Honest correction: the "Markov
 `measurePreserving`/`Birkhoff`/`Koopman`/`Ergodic` object (the Birkhoff average over an orbit `f∘Tⁱ` vs the
 LLN's over a `List`) — engines + ties built and PURE, the named field object open.
 
-**Count.** 52 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### Differential geometry / connections (`connections.md`) — curvature = holonomy loop AND bracket commutator (both built); a stale gap corrected
+
+PREDICTION, the geometry cluster's strongest consolidation (curvature + holonomy + de_rham + lie_theory's
+bracket). ★ Curvature is the SAME `q=−1` residue read two **provably-equal** ways, both ∅-axiom: the
+*geometric* holonomy-around-a-loop (`first_loop_is_the_fold : holonomy[S,S]=−I≠I`) AND the *algebraic*
+bracket-commutator of covariant derivatives — `Mat2Bracket.bracket` AND the genuine index field
+`TensorCalculus.riemUp` (`R^l_{ijk}=[∇_j,∇_k]`) with `riem_antisym_jk` (the `q=−1` pair-swap). Flat = `det1`
+q=+1; Bianchi = the cyclic `q=−1` cancellation (`riem_bianchi1`, same mechanism as `jacobi`/`dsq_zero`);
+Gauss–Bonnet = `totalCurv_eq`. ★ **Stale-gap correction**: curvature.md/de_rham.md/lie_theory.md declared
+"no Riemann tensor/Christoffel/Bianchi" — **false**; `Geometry/TensorCalculus.lean` (23/0 PURE) builds the
+abstract-index Riemann tensor, Christoffel (both kinds), Levi-Civita (`∇g=0`), Ricci, Einstein, both Bianchi
+identities. The genuine residue is strictly smaller: only the `Real213` **smooth metric** (`h→0`).
+
+### Random matrix theory (`random_matrix.md`) — Wigner semicircle = the q=+1 free-convolve fixed point
+
+PREDICTION (spectral + gaussian_clt + probability + convolution): a random matrix = the symmetric `q=+1`
+real-spectrum reading (`disc_symmetric_nonneg`) ∘ the probability weight; the eigenvalue distribution = the
+spectral measure. ★ The **Wigner semicircle = the q=+1 fixed point of free convolve-rescale** `Φ_free =
+rescale(μ⊞μ)` — the spectral-measure twin of gaussian_clt's `Φ = rescale(weight⋆weight)` one level up:
+*semicircle : free convolution :: Gaussian : classical convolution*, both the q=+1 fixed point of the SAME
+`Φ_contraction` engine. Its finite generator is grounded — the semicircle's even moments ARE the Catalan
+numbers (`Combinatorics/Catalan.catalan`, 17/0, the free analogue of Gaussian pairings). Missing leg: the
+random-matrix/spectral-measure/free-convolution `⊞`/R-transform/semicircle objects (engines PURE, field
+object absent); promotable: a 2×2 GOE toy inside `Mat2SymmetricSpectrum` (cf. the 2-vertex Laplacian).
+
+**Count.** 54 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +

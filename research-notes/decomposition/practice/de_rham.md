@@ -173,7 +173,8 @@ classical theories collapse to **one reading + one adjoint + one residue tag** �
 load-bearing invariants (the character/adjoint and the `q=±1` residue), now spanning differential
 topology in full. **EXTEND by consolidation; no new axis; the interior model v7.1 holds.** The one
 genuine absence — the smooth form bundle — is located precisely, the differential-topology twin of
-`curvature.md`'s missing smooth Riemann tensor.
+`curvature.md`'s smooth-metric residue (NB: the *abstract-index* Riemann tensor IS built —
+`Geometry/TensorCalculus.lean`, 23/0; only the `Real213` smooth metric is the residue).
 
 ## Note for the technique
 
@@ -220,7 +221,8 @@ genuine absence — the smooth form bundle — is located precisely, the differe
   `H*_dR ≅ H*_sing(·;ℝ)`** as a proved theorem (grep for `deRham`/`smooth form`/`Ω^k`/alternating-tensor
   returns only the combinatorial cochain complex + a conformal-curvature file). The discrete/cellular
   cochain version (`Cochain n k` + `delta`) IS built; the smooth completion + de Rham iso is the named
-  open leg — the differential-topology twin of `curvature.md`'s missing smooth Riemann tensor and
+  open leg — the differential-topology twin of `curvature.md`'s smooth-metric residue (the abstract Riemann
+  tensor is built, `TensorCalculus.lean`; only the `Real213` smooth metric is open) and
   `derivative.md`'s general `Δ↔d/dx`.
 - **`Multivariable/Stokes.lean` cited only as scope-honest scaffolding, NOT as the content.**
   `stokes_n_existence` (`∃k,k=n−1`) and `ddOmega_zero_skeleton` (`n−n=0`) are trivial skeletons;

@@ -187,11 +187,16 @@ axis.
 
 ### Dropped / unverified citations (honest)
 
-- **No smooth Riemann/Ricci curvature tensor, no `R^ρ_{σμν}`, no smooth connection / continuous
-  parallel transport in `lean/E213`.** The `DiscreteRicci` header states this explicitly (smooth
-  Perelman not treated; this is the *discrete parallel* theory). The infinitesimal
-  holonomy→curvature limit (`lim_{loop→0}(holonomy − I)/area`) that *defines* curvature
-  analytically is the named open frontier, not cited as proven.
+- **CORRECTION (stale gap, fixed per `connections.md`):** an earlier version claimed "no Riemann/Ricci
+  tensor, no `R^ρ_{σμν}`, no Bianchi, no Christoffel" — that is **false**. `Lib/Math/Geometry/TensorCalculus.lean`
+  (23/0 PURE) builds the **abstract-index Riemann tensor** `riemUp` (`R^l_{ijk}`), Christoffel symbols of both
+  kinds, Levi-Civita (`chris1_symm` torsion-free + `chris1_metric_compat` = `∇g=0`), Ricci (`ricciFromRiem`),
+  scalar curvature, Einstein fixed-points, and **both first-Bianchi identities** (`riem_bianchi1`, the cyclic
+  `q=−1` cancellation = the same mechanism as `jacobi`/`dsq_zero`), with `riem_antisym_jk` (the `q=−1`
+  pair-swap). The genuine remaining residue is **strictly smaller**: only the **smooth metric** — `dg`/`Gam`
+  are abstract `Int`-valued index fields carried by hypotheses, not the `Real213`-cut `h→0` derivatives of a
+  differentiable metric — plus the un-welded `lim_{loop→0}(holonomy−I)/area` tying `holonomy` to `riemUp`.
+  (The `DiscreteRicci` header's "smooth Perelman not treated" stands; the abstract tensor calculus does not.)
 - **`MetricHolonomyBridge` cited with its CAVEAT**: a *generator identity* `J = S`, not a
   transported curvature field; flagged thin so the Regge tie is not overclaimed.
 - **`four_way_modulus_framework`'s "Ricci" leg** is the *discrete* Ricci flow modulus, not smooth
