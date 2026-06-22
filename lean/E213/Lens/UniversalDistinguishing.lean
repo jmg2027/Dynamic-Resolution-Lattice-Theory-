@@ -74,4 +74,36 @@ theorem rawDStr_generated : Generated rawDStr := by
   | b => exact Or.inr (Or.inl rfl)
   | slash x y h _ _ => exact Or.inr (Or.inr ⟨x, y, h, rfl⟩)
 
+/-- A **morphism** of distinguishing-structures: a carrier map preserving the base points and the
+    partial pairing (it must keep distinct operands distinct, `map_ne`, so `N.op` stays applicable). -/
+structure DHom {α β : Type} (M : DStr α) (N : DStr β) where
+  map    : α → β
+  map_e₁ : map M.e₁ = N.e₁
+  map_e₂ : map M.e₂ = N.e₂
+  map_ne : ∀ {x y : α}, x ≠ y → map x ≠ map y
+  map_op : ∀ (x y : α) (h : x ≠ y), map (M.op x y h) = N.op (map x) (map y) (map_ne h)
+
+/-- `N.op` congruence in its value arguments (the distinctness proofs are irrelevant). -/
+theorem op_congr {β : Type} (N : DStr β) {a b a' b' : β}
+    (ha : a = a') (hb : b = b') (h : a ≠ b) (h' : a' ≠ b') :
+    N.op a b h = N.op a' b' h' := by
+  subst ha; subst hb; rfl
+
+/-- ★★★ **Uniqueness half of the universal property** (funext-free, pointwise): *any two*
+    distinguishing-homomorphisms `Raw → N` agree at every `Raw`.  Since `Raw` is generated
+    (`rawDStr_generated`), induction on `Raw.rec` discharges `∀ rival morphism` — the catamorphism is
+    forced.  This is the uniqueness leg of `Raw` being initial in the `DStr` category; the existence
+    leg (`raw_initial`) is the remaining target (the injective catamorphism via `N`'s D3+D4+D5). -/
+theorem dhom_unique_pointwise {β : Type} (N : DStr β) (f g : DHom rawDStr N) :
+    ∀ r : Raw, f.map r = g.map r := by
+  intro r
+  induction r using Raw.rec with
+  | a => exact f.map_e₁.trans g.map_e₁.symm
+  | b => exact f.map_e₂.trans g.map_e₂.symm
+  | slash x y h ihx ihy =>
+      calc f.map (Raw.slash x y h)
+          = N.op (f.map x) (f.map y) (f.map_ne h) := f.map_op x y h
+        _ = N.op (g.map x) (g.map y) (g.map_ne h) := op_congr N ihx ihy (f.map_ne h) (g.map_ne h)
+        _ = g.map (Raw.slash x y h) := (g.map_op x y h).symm
+
 end E213.Lens.UniversalDistinguishing
