@@ -212,6 +212,13 @@ gap is honest and explicit**: that *every* `Generated DStr` is `≅ Raw` (so car
 transport) is the **open `DStr` existence leg** (`the_distinguishing_schema.md`; only the uniqueness
 half `dhom_unique_pointwise` is proven). The forcing half of the descent leg is otherwise closed.
 
+**Applied (same marathon) — Euclid's theorem over `Nat213`.** `Infinitude.lean` (3 PURE):
+`infinitude_of_irreducibles` — no finite list of irreducibles is complete, generated over the
+Raw-derived carrier from the FTA (native: `succ (prod L)` has an irreducible factor `q`; `q ∈ L` ⟹
+`q ∣ prod L` and `q ∣ succ (prod L)` ⟹ `q ∣ 1` ⟹ `q = 1`, impossible). A *second* discipline-defining
+theorem after the FTA — primacy as breadth (§7.1), the residue-as-`Nat213` reproducing another
+classical result with no Lean `Nat`.
+
 **M2 advance scouting (the two pins, both now discharged above):**
 - *Native well-foundedness is in hand* — `Acc lt` is provable over `Nat213` with **no `toNat`**, by
   structural recursion:

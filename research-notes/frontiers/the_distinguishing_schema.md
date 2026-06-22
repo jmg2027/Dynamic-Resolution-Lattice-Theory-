@@ -164,8 +164,14 @@ untyped class into a closed dichotomy over a typed class, pushing the irreducibl
   target; Route A is a faster but heavier-hypothesis fallback. Either yields
   `raw_initial = ⟨existence, dhom_unique_pointwise⟩`. This is research-grade Lean (a free-algebra
   catamorphism into a faithful *partial*-operation structure), deferred as the precise next deposit.
-- ⏳ **The dichotomy theorem** (negative branch = named clause failure; positive = `generated_iso` for
-  *free* generated N — note a generated-but-not-free N gets a surjection, not an iso), and
-  **`kernel_devices_are_distinguishing_instances`** (Attack-1 recognition bundle).
+- ✅ **The dichotomy theorem — negative branch DONE** (`Lens/Number/Nat213/Forcing.forcing_dichotomy`):
+  the distinguishing-blind (subsingleton) carrier fails named clause D1 (`no_DStr_on_subsingleton`) and
+  cannot host the FTA carrier (`subsingleton_cannot_host_fta`); the positive branch (`Generated N ≅
+  Raw`, transport the FTA) is exactly the **existence leg** above — *Route A's commutativity +
+  DecidableEq + junk-injectivity costs were independently re-confirmed this marathon*, so **Route B
+  (mutual WF recursion) stands as the honest target**. (Meanwhile the FTA itself + Euclid's theorem are
+  now generated over `Nat213` — `FTA.fta`, `Infinitude.infinitude_of_irreducibles` — so the *content*
+  the positive branch would transport is already deposited.)
+- ⏳ **`kernel_devices_are_distinguishing_instances`** (Attack-1 recognition bundle).
 - 📌 Promote the honest maximal claim (Agent 2's 2d) to a permanent tier; retire "from one primitive"
   rhetoric in CLAUDE.md framing.

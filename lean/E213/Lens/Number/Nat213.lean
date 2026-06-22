@@ -16,6 +16,7 @@ import E213.Lens.Number.Nat213.Factorization
 import E213.Lens.Number.Nat213.EuclidUnique
 import E213.Lens.Number.Nat213.FTA
 import E213.Lens.Number.Nat213.Forcing
+import E213.Lens.Number.Nat213.Infinitude
 import E213.Lens.Number.Nat213.Generation
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.Number.Nat213.RawCut
@@ -83,6 +84,10 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            reading cannot carry the prime/composite distinction
                            (`factorization_forced_by_distinguishing`).  M5; honest
                            "recognition, not genesis" (Nat213 a parallel inductive).
+    * `Infinitude`       — **Euclid's theorem** (`infinitude_of_irreducibles`):
+                           no finite list of irreducibles is complete.  Generated
+                           over `Nat213` from the FTA — a second discipline-defining
+                           theorem after the FTA itself.
 
   ## Tower/
 

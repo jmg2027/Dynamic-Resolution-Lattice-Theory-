@@ -57,7 +57,11 @@ codebases." Closed for arithmetic, over `Nat213` (Peano's Raw-generated ℕ₊),
   lifts M5 to the `DStr` schema level — `Raw` is the free `DStr` + `Nat213` embeds injectively
   (positive); a distinguishing-blind (subsingleton) carrier can't host the FTA carrier nor is a `DStr`
   (negative, fails named clause D1). **Open arm (honest)**: *every* `Generated DStr ≅ Raw` (transport
-  the FTA) is the open `DStr` existence leg, not claimed.
+  the FTA) is the open `DStr` existence leg, not claimed. This marathon re-confirmed Route A's
+  commutativity + junk-injectivity costs → Route B (mutual WF recursion) is the honest target.
+- **Applied — Euclid's theorem** — `Infinitude.lean` (3 PURE): `infinitude_of_irreducibles` (no finite
+  list of irreducibles is complete), generated over `Nat213` from the FTA. A *second*
+  discipline-defining theorem after the FTA — primacy as breadth.
 
 ### Line B (external exposure)
 - `research-notes/drafts/strict_zero_axiom_formalization_paper.md` rewritten as an
@@ -83,6 +87,7 @@ lean/E213/Lens/Number/Nat213/Factorization.lean  ← M2 existence + native WF + 
 lean/E213/Lens/Number/Nat213/EuclidUnique.lean   ← M3 Euclid / subtractive gcd
 lean/E213/Lens/Number/Nat213/FTA.lean            ← M4 FTA capstone (existence + uniqueness)
 lean/E213/Lens/Number/Nat213/Forcing.lean        ← M5/M6 forcing: FTA tied to the distinguishing
+lean/E213/Lens/Number/Nat213/Infinitude.lean     ← Euclid's theorem (infinitude) over Nat213
 lean/E213/Lens/Number/Nat213.lean                ← aggregate (registers all five)
 research-notes/frontiers/the_purpose_and_the_marathon.md  ← the inference + marathon spine + Line B template
 research-notes/frontiers/the_descent_leg.md               ← M0–M4 record + M5/M6 + honest walls
