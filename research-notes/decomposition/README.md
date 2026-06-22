@@ -1692,7 +1692,21 @@ machine-checked aperiodicity/mixing (q−1→q+1) witness, the "make it lazy to 
 MarkovChain/stationary/Perron/mixing objects absent (the Real213/Markov tree is the Diophantine x²+y²+z²=3xyz,
 not transitions); buildable witness: `markov2_perron` (2×2 doubly-stochastic, spec={1,1−2p} via Mat2Spectrum).
 
-**Count.** 120 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Additive combinatorics / sum-product (`additive_combinatorics.md`) — the ×↦·/×↦+ character incompatibility made combinatorial
+
+EXTEND + PREDICTION. ★ The load-bearing new datum: the **sum-product phenomenon IS Invariant A's ×↦·/×↦+
+character incompatibility made a combinatorial theorem**. The two doubling counts |A+A| and |A·A| are the two
+readings of the *one* character arrow prime_factorization already proved non-collapsible (the wall
+`two_three_unique`:158 8/0); sum-product is that non-trade read at finite cardinality — the one set can't be
+tight for both because being a +-subgroup and a ·-subgroup at once is the field/trivial case the wall forbids
+(`vp_mul`/`vp_separation` ×↦+, `det2_mul`/`legendre_mul` ×↦·). Freiman = the ×↦+ structured-sets normal form
+(AP/GAP = the additive twin of unique factorization); Plünnecke–Ruzsa = ×↦· on the doubling (`mass_conv`
+convolution multiplicativity 20/0); Szemerédi = Ramsey q+1 density-unavoidability on the additive sub-family
+(`ramsey_lower`:174 13/0 — the cell ramsey_theory flagged absent); Cauchy–Davenport = the additive saturation
+twin of `sperner_theorem`:534 (50/0). Named sumset/Freiman/Plünnecke/Szemerédi objects absent (the only AP hit
+is the Lambert-poly coefficient list, false-friend); predicted-buildable on existing infra.
+
+**Count.** 121 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
