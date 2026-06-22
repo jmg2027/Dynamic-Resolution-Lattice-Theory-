@@ -82,13 +82,30 @@ skein + isotopy-quotient are named missing primitives)}.
   List-Nat lattice can't rescale by 1/√2 and stay integral) — this is the complementary profile-side half
   of `gaussian_center_fixed_via_engine`.
 
-**Tally:** 34 decompositions + the `two_cells` meta + the formal `q=±1` tag; **nine predictions, eight
-Lean-closed** (orthogonality 2/3/6, growing-corner, convolve-rescale contraction + completion-limit,
-discrete Noether-iff, modulated Banach engine/wall defeat, Carathéodory-as-`clo`, formal `q=±1` tag) + QR
-already-closed. `lake build E213` clean. Open frontier (`decomposition_calculus.md` + `wall_synthesis.md`
-residual): variational Noether current, general-χ orthogonality (needs `Real213` ζ), the `tr`-character /
-`Rep(G)`-Maschke at `d>1`, the full Gaussian *density* profile (continuous L¹ metric), the native
-free-monad/νF carrier, isotopy/colimit quotient, Ostrowski exhaustiveness.
+## ★ FIFTH WAVE — continuity open-set cert, topology, order-4 orthogonality, generating functions
+- **`continuous_iff_preimage_dyadicopen` CLOSED** (`Geometry/Topology/ContinuityOpenSet.lean`, 11/0):
+  forward + pointwise-backward unconditional; uniform backward via modulus-as-data (the `AC₀,₀` wall,
+  located). Certifies continuity.md's prose leg.
+- **Topology (`topology.md`)** — PREDICTION: compactness = the `q=+1` finiteness-residue, contrapositive
+  of cardinality's `q=−1` escape; consolidates onto `ResidueTag`. `ExtremeValue.ModContOnGrid.gridMax_attained`
+  (finite-resolution attainment) vs `Msup` (reached-by-none limit). (Caught + fixed the agent's citation
+  slips: `ModContOnGrid.` namespace; `max_reached_by_none` is a prose §5 header, not a theorem.)
+- **Orthogonality order 4 (`GaussianOrthogonality.lean`, 18/0)** — `i_orthogonality` in ℤ[i] +
+  `orthogonality_of_pow_one` (order-agnostic conditional: ζⁿ=1 ∧ (ζ−1) cancellable ⟹ Σ=0). Orders closed:
+  2/3/4/6. Residual: arbitrary-n needs ℤ[ζ_n].
+- **Generating functions (`generating_functions.md`)** — PREDICTION: GF-product = the Cauchy convolution
+  `⋆` (`ConvolveProfile.mass_conv`/`momentNum_conv`), unifying zeta_euler + ConvolveProfile + recurrences.
+  Missing: the two conv defs not welded into a formal-power-series semiring.
+
+**Tally:** 36 decompositions + the `two_cells` meta + the formal `q=±1` tag; **eleven predictions, ten
+Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction + completion-limit,
+discrete Noether-iff, modulated Banach engine/wall defeat, Carathéodory-as-`clo`, formal `q=±1` tag,
+`continuous_iff_preimage_dyadicopen`) + QR already-closed. `lake build E213` clean. Open frontier
+(`decomposition_calculus.md` + `wall_synthesis.md` residual): variational Noether current, general-χ
+orthogonality at arbitrary n (needs `ℤ[ζ_n]`), the `tr`-character / `Rep(G)`-Maschke at `d>1`, the full
+Gaussian *density* profile (continuous L¹ metric), a formal-power-series semiring (weld the two `conv`
+defs), the arbitrary-cover quantifier (compactness/measure q=−1 half), the native free-monad/νF carrier,
+isotopy/colimit quotient, Ostrowski exhaustiveness.
 
 ## ★ DIRECTION RECALIBRATION (2026-06-22, from the originator directly — READ FIRST)
 The originator course-corrected the whole approach: **the Lean files are scaffolding, not the body —
