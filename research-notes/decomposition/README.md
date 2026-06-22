@@ -1777,7 +1777,23 @@ conservation — the sharpest new tie; (3) the fundamental theorem = the valuati
 tropicalize/balanced(geometric) objects absent (false-friends: rBalanced/BalancedSignature); buildable witness:
 `tropV` as the per-axis vp-vector image + a `balanced` field proved equal to continuity_eq's ∂·j=0.
 
-**Count.** 126 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Cluster algebras (`cluster_algebras.md`) — the Markov mutation structure, ALREADY BUILT
+
+EXTEND (consolidation — the calculus recognizes its own built object as a cluster algebra). ★ The load-bearing
+instance — the **rank-3 Markov cluster algebra — is already built and PURE** (`SternBrocotMarkov` 130/0, the
+largest tally in the corpus): the exchange relation/mutation is a machine-checked theorem `markov_vieta_int`:265
+(the Vieta jump (x,y,z)↦(x,z,3xz−y) preserving x²+y²+z²=3xyz), with `markoff_vieta`:169 the SL₂ form and
+`mInterval_markov` the tree generating Markov triples. Mutation μ²=id = the q=±1 involution
+(`bothSwap_involutive`/`multiplier_unimodular`); the exchange matrix = the q−1 antisymmetric det-1 SL₂ form
+(`det2_mul`/`bracket_antisymm`); the Laurent phenomenon = a q+1 no-residue normal-form analogue
+(`FreeReduction.proj_val_eq_iff` + integer positivity `markovNum_pos`); finite-type/Dynkin = q+1 finite-order
+orbit (`finite_order_divides_twelve` 29/0) vs infinite-type = q−1 escape (`golden_aperiodic`,
+`markovNum_children_ne`:2702); the Stern–Brocot mediant tree = the seed graph (`Mediant`/`manin_unimodular_decomposition`).
+Named ClusterAlgebra/mutation/Laurent objects absent (the mutation hits are code comments); the exchange
+relation is the rank-3 Markov instance, not a general B-parametrized one. Buildable witness already PURE:
+`markov_vieta_int` (the cluster mutation as a machine-checked theorem).
+
+**Count.** 127 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
