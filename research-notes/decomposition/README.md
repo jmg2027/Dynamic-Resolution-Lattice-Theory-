@@ -1572,7 +1572,33 @@ etc.) the load-bearing evidence. Named Topos/KripkeJoyal/forcing(⊩)/subobjectC
 `forcing` hits are unrelated combinatorial (2,3)-atomicity forcing, flagged); buildable witness: a `Forces X φ`
 relation at the Bool/q+1 corner, monotonicity from `IsResolutionShift_compose`, ∅-axiom without propext.
 
-**Count.** 111 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Max-flow / min-cut (`max_flow_min_cut.md`) — the first three-invariant fusion
+
+EXTEND. Max-flow–min-cut = optimal_transport's Kantorovich LP duality read on a graph, where the primal
+constraint is noether's **conserved current ∂·j=0** (`NoetherCurrent.continuity_eq`:97 14/0, not OT's marginals)
+and the dual object is homology's **coboundary δ(𝟙_S)** (`Cohomology/Delta.delta`:54, not OT's Lipschitz
+potential). ★ New datum: the first decomposition where LP duality + the conserved current + the boundary ∂ all
+**fuse on one object** — max-flow≤min-cut = `kantorovich_weak_duality`:52, equality = `ollivier_plan_optimal`:106
+(the q+1 zero-gap optimum, OllivierRicci 60/0); the cut = `GraphConnectivity` non-flat 0-cochain (8/0) on the
+network adjacency (`bipAdj_connected` 20/0); Ford–Fulkerson augmenting = the matching-by-augment recursion
+(`HallMarriage.hall_matching_two`:618 36/0, HallCond = the obstruction never hit). Named maxFlow/minCut/Menger/
+FordFulkerson objects absent (the Menger hits are Cayley–Menger geometry, false-friend); buildable witness: a
+tiny s→{a,b}→t network with flow instantiating continuity_eq, cut via delta(𝟙_S), maxFlow=minCut by ollivier_plan_optimal.
+
+### ★ Characteristic classes / Chern–Weil (`characteristic_classes.md`) — the det-character OF the curvature
+
+EXTEND (decisive consolidation). A characteristic class = the calculus's ×↦· **determinant-character OF the
+curvature**, landed in cohomology. ★ New datum: the Chern classes c_i ARE the elementary-symmetric (Vieta)
+functions e_i of the curvature spectrum — **generalizing the SYNTHESIS det/tr=e₁/e₂ finding from a single Mat2
+to a bundle's curvature** (c₁=tr Ω=e₁, c₂=det Ω=e₂; `Mat2Spectrum.det_tr_split_is_e1_e2`:204 9/0,
+`Mat2CayleyHamilton.cayley_hamilton`:37 = c(E)=det(I+Ω) char-poly). The Chern character ch(E)=tr exp(Ω) = the
+×↦+ additive twin (`vp_mul`); the splitting principle = the spectral reading; naturality = the Lens-morphism
+2-cell (`view_factors_through_morphism`); curvature input = `TensorCalculus.riemUp`/`riem_bianchi1` (23/0,
+Bianchi = closedness); Gauss–Bonnet–Chern ∫e(TM)=χ = the built `DiscreteGaussBonnet` (12/0). Named Chern/
+VectorBundle/Pontryagin objects absent (Chernoff = probability false-friend); buildable witness: Whitney
+det(I+Ω_E⊕Ω_F)=det(I+Ω_E)·det(I+Ω_F) = `det2_mul` on block-diagonal curvature (already PURE).
+
+**Count.** 113 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
