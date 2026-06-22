@@ -123,12 +123,25 @@ skein + isotopy-quotient are named missing primitives)}.
 - **Information geometry (`information_geometry.md`)** — KL = entropy-character's asymmetry residue (q=+1
   at p=q), Fisher = its Hessian/curvature; PARTIAL (dyadic atom built, full functional+metric absent).
 
-**Tally:** 40 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
-Lean-closed** + Lean **groundings** of the spectral note (`Mat2SymmetricSpectrum`) and Lie note
-(`Mat2Bracket`). The `det`/`tr` edge dissolved; Stokes = the telescope. `lake build E213` clean. Open
-frontier: the `d>1` trace character / Killing form (`tr(ad∘ad)`), continuous Noether current, arbitrary-n
+## ★ EIGHTH WAVE — Killing form (d>1 trace grounded), graph theory, convex duality, model theory
+- **d>1 trace character grounded** (`Mat2/Mat2Killing.lean`, 19/0): via the adjoint rep on sl₂ — `killing
+  X Y := tr(ad_X∘ad_Y)`, `killing_symmetric`, `adX_traceless`, **`killing_eq_trace_form` (K=4·tr(XY))**,
+  `killing_gram` (nondegeneracy=semisimplicity). The additive trace lands as the Lie algebra's invariant
+  form (not a multiplicative character). Closes representation.md's main residue.
+- **Graph theory (`graph_theory.md`)** — Laplacian spectrum = q=+1 diffusion-residue; connectivity = dim
+  ker L is BUILT (`GraphConnectivity.closed_const`). Promotable: 2-vertex Laplacian as a Mat2, spectrum {0,2}.
+- **Convex duality (`convex_duality.md`)** — Legendre–Fenchel f**=clo(f) = galois closure; weak/strong LP
+  duality BUILT (`kantorovich_weak_duality`/`ollivier_plan_optimal`). Missing: the Legendre transform object.
+- **Model theory (`model_theory.md`)** — completeness ⊢φ⟺⊨φ = view=fold initiality; logical compactness =
+  topology's q=+1 finiteness corner (same `heineBorel`). The q=+1 companion of godel.md.
+
+**Tally:** 43 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
+Lean-closed** + Lean **groundings** of spectral (`Mat2SymmetricSpectrum`), Lie (`Mat2Bracket`), and
+representation (`Mat2Killing`) notes. The `det`/`tr` edge dissolved + the `d>1` trace grounded; Stokes = the
+telescope; logical = topological compactness. `lake build E213` clean. Open frontier: the 2-vertex Laplacian
+weld, the Legendre transform object (weld `clo` at `Fix=Inv=(·)*`), continuous Noether current, arbitrary-n
 orthogonality (`ℤ[ζ_n]`), the symmetric eigenvalue √-cut value (Real213), the full Gaussian density profile,
-KL functional + Fisher metric, the smooth-manifold form complex, the νF/free-monad carrier, isotopy/colimit. Open frontier
+KL functional + Fisher metric, the smooth-manifold form complex, FOL object, the νF/free-monad carrier. Open frontier
 (`decomposition_calculus.md` + `wall_synthesis.md` residual): variational Noether current, general-χ
 orthogonality at arbitrary n (needs `ℤ[ζ_n]`), the `tr`-character / `Rep(G)`-Maschke at `d>1`, the full
 Gaussian *density* profile (continuous L¹ metric), a formal-power-series semiring (weld the two `conv`
