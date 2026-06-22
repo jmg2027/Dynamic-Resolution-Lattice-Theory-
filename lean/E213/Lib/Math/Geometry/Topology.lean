@@ -2,6 +2,7 @@ import E213.Lib.Math.Geometry.Topology.DyadicOpen
 import E213.Lib.Math.Geometry.Topology.Compactness
 import E213.Lib.Math.Geometry.Topology.Continuity
 import E213.Lib.Math.Geometry.Topology.ContinuityArith
+import E213.Lib.Math.Geometry.Topology.ContinuityOpenSet
 import E213.Lib.Math.Geometry.Topology.Connectedness
 import E213.Lib.Math.Geometry.Topology.EulerChi
 import E213.Lib.Math.Geometry.Topology.ModulusStructure

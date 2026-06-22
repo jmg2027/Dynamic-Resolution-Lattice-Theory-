@@ -10,13 +10,14 @@ Blueprint: `blueprints/math/03_topology_213.md` (retired).
 | `Compactness.lean` | `IsCover` (membership); Heine-Borel = trivial (cover IS finite by `List`) | 7 | ∅-axiom |
 | `Continuity.lean` | `IsContinuousModulus` structure; identity / constant / composition | 6 | ∅-axiom |
 | `ContinuityArith.lean` | Continuity under arithmetic operations | 4 | ∅-axiom |
+| `ContinuityOpenSet.lean` | continuity ⟺ preimage-of-dyadic-open-is-open: `IsDyadicOpen` (refinement-stable fibre), forward `continuous_preimage_dyadicopen` (∅), backward pointwise `preimage_dyadicopen_pointwise_continuous` (∅) via open `nbhd`; uniform converse is choice wall, closed via modulus-as-data | 11 | ∅-axiom |
 | `Connectedness.lean` | `adjacent` predicate; `Chain` finite-list adjacency; `chain_finite` | 7 | ∅-axiom |
 | `EulerChi.lean` | χ(Δ⁴) = 1, χ(S³) = 0, χ(K_{3,2}^{(c=2)}) = −7; face count totals | 10 | ∅-axiom |
 | `ModulusStructure.lean` | bare `IsModulusStructure` typeclass; 3-way bridge across `IsContinuousModulus` (Topology), `IsRicciModulus` (DiscreteCurvature), `BracketCauchyModulus` (Analysis) | 12 | ∅-axiom |
 | `Capstone.lean` | 5 cluster witnesses + `total_witness` | 6 | ∅-axiom |
 | `Topology.lean` | umbrella | — | — |
 
-**Total**: 62 atomic facts, all `#print axioms` ∅.
+**Total**: 73 atomic facts, all `#print axioms` ∅.
 
 ## 213-native paradigm parallel
 

@@ -74,7 +74,12 @@ in the two q=±1 poles, only the q=+1 closure corner built.
 - **continuous/variational Noether current `∂_μ j^μ=0`** — still open (discrete skeleton built).
 
 ### Open Lean faithfulness-targets (would certify a current prose-only collapse)
-- `continuous_iff_preimage_dyadicopen` (`continuity.md` flags the open-set/preimage leg as prose).
+- ✅ CLOSED (forward + pointwise backward; uniform backward = modulus-as-data) —
+  `continuous_iff_preimage_dyadicopen`: `Geometry/Topology/ContinuityOpenSet.lean` (11/0).
+  `continuous_preimage_dyadicopen` (forward, unconditional), `preimage_dyadicopen_pointwise_continuous`
+  (backward pointwise, unconditional), `preimage_dyadicopen_uniform_continuous_of_modulus` (uniform
+  converse via the modulus-as-data treatment — the same `AC₀,₀` wall as the Banach engine, located not
+  fabricated). Certifies `continuity.md`'s prose leg.
 - ✅ CLOSED — a formal **`q = ±1` residue tag** uniting `object1_not_surjective` (escape, `q=−1`) and
   the φ Cassini law `cassini_law_one_at_two_multipliers` (converge, `q=+1`):
   `Lib/Math/Foundations/ResidueTag.lean` (55/0) — `ResidueTag` (`escape | converge`) + `multiplier` (∓1,
