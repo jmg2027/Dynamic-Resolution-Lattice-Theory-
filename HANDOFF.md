@@ -140,13 +140,13 @@ shared term is the rung. F1 (bialgebra distributivity of `Δ_+`/`Δ_×`) still o
    conserved (same law as golden Cassini). Family II's two sub-domains unified.
 3. **Bell/Dobinski via the partition antipode** (`BellStirling`): `B(n) = Σ_k S₂(n,k)`; wire a
    falling-factorial/moment forward identity to `stirling_inversion_via_engine`. Risk MED.
-4. **Cross-domain `LensIso`** — **ASSESSED this session** (see `the_substance_test.md`
-   "State of Line A"). The abstract-`Lens`-instance version is tautology-prone (the corpus's
-   `Lens/Instances/` have *distinct* kernels; no clean equal-kernel pair). **The genuine
-   number-theoretic one already exists**: CRT as `ModArith.LensCRT` (`L_6 ≈ prodLens(L_2,L_3)`,
-   equal kernel). Open extension: generalize to all coprime `m,k`
-   (`prodLens L_m L_k ≈ L_{mk}`) at the Lens-lattice level (needs general coprime CRT, not the
-   concrete `L_6`). This is the one remaining *internal* Line-A theorem worth building.
+4. **Cross-domain `LensIso`** — **CLOSED this session** (`ModArith.LensCRTGeneral`, 3 PURE):
+   `leavesModNat_crt : LensIso (L_{mk}) (prodLens L_m L_k)` for `gcd(m,k)=1` — the general
+   coprime CRT as a kernel coincidence (CRT direction via `crt_unique`, meet via
+   `divides_refines`). Generalizes the corpus's concrete `L_6`. The number-theoretic
+   primacy-witness, now for all coprime moduli. Essay
+   `synthesis/crt_is_a_cross_domain_lensiso.md`. (The abstract-`Lens`-instance LensIso remains
+   tautology-prone — not a clean target; the genuine cross-domain one is CRT.)
 
 ## Line B (the genuinely-remaining frontier — exposure)
 The no-exterior claim cannot be falsified from inside (§5.1 blind spot). Next real test is
