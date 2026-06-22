@@ -58,11 +58,15 @@ in the two q=±1 poles, only the q=+1 closure corner built.
 - **character orthogonality `Σ_x χ(x)=0`** — ✅ CLOSED. `CharacterOrthogonality.lean`
   (`quadratic_orthogonality`, order 2) + `RootOfUnityOrthogonality.lean` (orders 3, 6 in ℤ[ω]); both
   ∅-axiom. Promotes `fourier.md`'s orthogonality leg from predicted to built.
-- **"convolve-and-rescale is a contraction" → `banach_fixed_point`** — ✅ CONTRACTION LEG CLOSED.
-  `ConvolveRescaleContraction.lean` (`Φ_contraction : Contraction (dyMet L) Φ`, `Φ_picard_cauchy`,
-  `center_fixed`/`orbit_to_center`; 20/0 ∅-axiom). Honest residual: `banach_fixed_point` itself not
-  applied (needs a genuine `CompleteMetricModulus Dy` — open), and convolution is on the centered
-  statistic, not the full weight-profile. `gaussian_clt.md` upgraded prediction→keystone-leg-built.
+- **"convolve-and-rescale is a contraction" → `banach_fixed_point`** — ✅ CONTRACTION + COMPLETION-LIMIT
+  CLOSED. `ConvolveRescaleContraction.lean` (`Φ_contraction : Contraction (dyMet L) Φ`, `Φ_picard_cauchy`,
+  `center_fixed`/`orbit_to_center`; 20/0) **and** `DyadicCompletion.lean` (a genuine quotient-free dyadic
+  Cauchy-completion `DyC L`, the lifted `Φhat_contraction`, and `orbit_to_center_completion` — the center
+  as a true completion-limit; 19/0). **Principled residual** (not missing work): `banach_fixed_point`'s
+  generic *wrapper* needs a total choice-free `CompleteMetricModulus.lim` satisfying universal `climconv` —
+  constructively **impossible** (lim can't read each sequence's unbounded modulus). The *content* (center =
+  completion-limit of `Φ`) is delivered; the engine wrapper is the constructive wall. Profile (vs center)
+  still conceptual. `gaussian_clt.md` upgraded prediction→keystone-leg+completion-limit-built.
 - **the growing/free corner** — ✅ MIRROR LEG CLOSED. `MuNuMirror.succ_not_idempotent` (the ascent
   step `S` is non-idempotent — `S(S r) ≠ S r` on the tower) is the exact mirror of the closure monad's
   `clo_idempotent`: the two values of the **iteration-character** axis. The native free-monad

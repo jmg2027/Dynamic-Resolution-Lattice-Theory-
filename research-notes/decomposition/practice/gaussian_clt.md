@@ -109,13 +109,21 @@ closed. `Lib/Math/Probability/Limit/ConvolveRescaleContraction.lean` (20 pure / 
 `Φ_contraction (L) : Contraction (dyMet L) Φ` — convolve-rescale *is* a `Contraction` in
 `BanachFixedPoint`'s sense. `Φ_picard_cauchy` applies `picard_cauchy` to it (orbit Cauchy, geometric
 modulus `N(m)=m`), and `center_fixed`/`orbit_to_center` locate the `q=+1` fixed point reached-by-none.
-**Honest residual** (the bar that keeps this a prediction, not a closed derivation): `banach_fixed_point`
-*itself* is not applied — that needs a `CompleteMetricModulus Dy` (a genuine Cauchy-completion of the
-dyadics, `lim`+`climconv` for *every* Cauchy sequence), which cannot be supplied without fabricating
-completeness; `picard_cauchy` (needs only the `MetricModulus`) is used instead and orbit→center proved
-directly. Two pieces remain conceptual: a **convolution** operator on full weight-readings (the tree
-has masses `(num,den)` + the `joint` ×-character, no density/weight-function type), and the full
-Gaussian **profile** (not just its center) as `Φ`'s fixed point.
+**Now also built (`DyadicCompletion.lean`, 19/0):** a **genuine quotient-free Cauchy-completion** `DyC L`
+of the dyadic metric (Bishop regular-Cauchy sequences, no `Quot.sound`), the contraction lifted to it
+(`Φhat_contraction : Contraction (metC L) (Φhat L)`), and **`orbit_to_center_completion`** — the
+convolve-rescale Picard orbit converges *in the completion metric* to the Gaussian center: the center is
+now a true **completion-limit** of the lifted contraction, not just a by-hand `picard_cauchy` argument.
+
+**Honest residual (now a *principled* wall, not missing work):** `banach_fixed_point`'s generic *wrapper*
+still cannot be applied, because `CompleteMetricModulus.lim : (Nat→X)→X` demands a **total choice-free**
+limit operator satisfying `climconv` for *every* Cauchy sequence — constructively impossible (`lim` would
+have to read each sequence's own unbounded convergence modulus; no fixed freeze schedule works for all
+inputs). This is the standard fact that a metric completion's limit operator is not total-computable — so
+the *engine wrapper* stays unreachable ∅-axiom, while the *content* (center = completion-limit of `Φ`) is
+delivered. Two pieces remain conceptual: a **convolution** operator on full weight-readings (the tree has
+masses `(num,den)` + the `joint` ×-character, no density type), and the full Gaussian **profile** (not
+just its center) as `Φ`'s fixed point.
 
 **(C) The remaining gap — predicted-not-built.** What the Lean still does **not** contain:
 - **No convolution operator on full weight-profiles** (only `ProbabilityCut=(num,den)` masses + the
