@@ -1329,7 +1329,22 @@ fold-to-normal-form (cut_elimination.md). Named LinearLogic/⊗/⅋/!/proofNet o
 tensor is the differential-geometry false-friend, flagged). Buildable witness: a `LinearFormula` inductive with
 `dual_dual : dual(dual A)=A` (the `bothSwap_involutive` involution shape) + `dual_tensor` De Morgan by rfl.
 
-**Count.** 94 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Homotopy theory / model categories (`homotopy_theory.md`) — Ho(C) = the Quot-free localization
+
+EXTEND + PARTIAL-BREAK. A model category = two_cells's 2-category of readings + equivalence's `Lens.refines`
+weak-equivalence localization + a q=±1 fibration/cofibration lifting dual (`Mat2Bracket.bracket_antisymm`).
+★ New datum: **Ho(C) = localization at weak-equivalence = the Quot-free `LensImage`/`FreeReduction` Σ-quotient**
+(`LensImage.proj_val_eq_iff` Unified 14/0, `FreeReduction.free_group_quotient_no_quot` 26/0) — the homotopy
+category, the localization, the Lens-image quotient, and the free-reduction normal form are ONE construction
+named four ways, the same colimit Side-A machinery promoted from the knots/π₁ break. Weak equivalence =
+`Lens.refines` (refl/trans 11/0); 2-of-3 = `refines_trans`; πₙ = fundamental_group's loop graded by
+fold-height (`holonomy_append`/`first_loop_is_the_fold` 26/0); fibration LES = the residue δ
+(`dsq_zero_universal_delta4`). The full homotopy quotient (maps mod a continuous ambient family) = the **third
+verbatim recurrence** of the isotopy/colimit break Side B (knots/fundamental_group); the confluent-terminating
+q=+1 corner IS built (FreeReduction), Side B (Novikov–Boone-grade) theorem-grade absent. Named ModelCategory/
+fibration/weakEquivalence/Quillen objects absent.
+
+**Count.** 95 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
