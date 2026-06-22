@@ -19,7 +19,17 @@ README.md = the spec: `OBJECT = ⟨Construction | Reading⟩`, Residue, the 4-st
 **revelation rule** = every decomposition must *reveal* (collapse / forcing / residue-surfaced), never
 just re-skin — the design constraint that kept CT from being "abstract nonsense"). Key grounding: the
 calculus is the **positive form of CLAUDE.md's failure-mode catalog** (each failure = a missed
-decomposition). **Six worked decompositions** in `practice/` (all Lean-certified citations):
+decomposition). Frontier registered: `research-notes/frontiers/decomposition_calculus.md`.
+**Eleven worked decompositions** in `practice/` (all Lean-certified citations); model refined twice by
+the practice (README "Refinements"): `C` = distinguishing + {direction→sign, fold-height→dim/degree,
+atom-distinguishability→×/+}; `L` = a reading + {resolution (→ a whole discipline = topology when made a
+condition), bidirectional character-mode (×↦+ valuation/log and +↦× exp, one arrow)}; **Residue is
+first-class and tagged `q=±1`** — the escaping residue (Cantor diagonal, `q=−1`) and the converging
+residue (φ, `q=+1`) are ONE residue at the two unimodular poles (`cassini_law_one_at_two_multipliers`),
+the calculus's deepest collapse. Batch-2 fresh: `determinant` (det = character `×↦·`),
+`golden_ratio` (φ = self-application residue; the q=±1 find), `exponential` (exp = inverse character;
+e = residue), `continuity` (topology = the resolution dial's three questions). **Six worked
+decompositions** in `practice/` — superseded; see eleven above. Earlier list:
 crystallized-from-repo — `parity.md` (parity/congruence/perm-sign/det=±1 = one construction-preserving
 finite reading, Zolotarev), `integers.md` (ℤ = difference-reading of a directed count-pair),
 `equivalence.md` (동치/동형/준동형 = one Lens-arrow); and **four FRESH** (4-agent parallel panel) —

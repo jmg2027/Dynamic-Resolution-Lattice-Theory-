@@ -21,6 +21,19 @@ not apply — `G##` chronological prefixes are fine in scratch).
 
 ---
 
+## The 213 Decomposition Calculus  (`decomposition_calculus.md`)
+
+**The originator's recalibrated central program (2026-06-22).** A human-facing
+technique for *seeing* mathematics cleanly via the single act of distinguishing —
+create the way-of-describing (as category theory / type theory did), then decompose
+existing mathematics into it. Spec + 11 worked decompositions in
+`research-notes/decomposition/`; Lean is the faithfulness-check only. Open: more
+fresh decompositions (groups, probability, homology, Galois), and Lean targets that
+would certify current prose-only collapses (`continuous_iff_preimage_dyadicopen`, a
+formal `q=±1` residue tag uniting Cantor-escape and φ-convergence). See the note.
+
+---
+
 ## π continued-fraction non-holonomicity  (`pi_nonholonomicity/`)
 
 **Core open problem (classical):** is the partial-quotient sequence of π

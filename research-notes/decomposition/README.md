@@ -130,4 +130,39 @@ is not — "no residue here" and "always a residue globally" coexist.
 collapses so far sit where two of these meet — `L₋` (difference) where direction (C) meets resolution
 (L) gives ℤ *and* the derivative; the count-reading + its residue gives all the limitative theorems.
 
-Next: keep decomposing **fresh** mathematics and let it break/extend this map.
+## Refinements from the second batch (determinant, golden ratio, exponential, continuity)
+
+The fresh batch sharpened the model further:
+
+- **A *character* is a reading whose readout is itself a number-construction** carrying `C`'s own
+  direction+height sub-structure (magnitude = the count it scales, sign = the orientation it
+  preserves/flips). `det` is exactly this — `det(MN)=det M·det N` (`det2_mul`) is the character `×↦·`,
+  with `det=±1` being `parity.md`'s `L₂` and general `det` its multiplicative-scalar extension
+  (`determinant.md`). So "character" subsumes parity, sign, det, Legendre — one pattern.
+- **Character-mode is *bidirectional*** — a reading `×↦+` (valuation/log) and its inverse `+↦×` (exp)
+  are *one arrow with a direction toggle* (which operation is operand vs readout); the residue (the
+  `^`-wall, the transcendental `e`) sits *between the two directions*, where faithfulness
+  (`vp_separation`) meets the wall (`two_three_unique`) (`exponential.md`).
+- **★ The Residue carries a multiplier bit `q = ±1`** — the single biggest structural find. The
+  *escaping* residue (Cantor's diagonal, fixed-point-free, oscillates *outside* every reading) and the
+  *converging* residue (φ, has a fixed point, asymptotes *toward* one) are **the same residue at the
+  two unimodular poles** `q = −1` vs `q = +1` (`CassiniUnimodular.cassini_law_one_at_two_multipliers`,
+  `OneDiagonal.no_surjection_of_fixedpointfree`). So `cardinality.md`'s diagonal and `golden_ratio.md`'s
+  φ are one object: `Residue(L,C)` should be written with a **`q=±1` tag** = oscillate-outside (q=−1) /
+  asymptote-to-fixed-point (q=+1). This is the calculus's deepest collapse: the limitative theorems and
+  the golden ratio are one residue read at its two signs.
+- **Resolution is an *organizing axis*, not just a parameter** — promoting `L`'s resolution dial to a
+  *condition* gives a whole discipline: **topology = the three questions of the dial** — does it commute
+  with refinement (continuous map), is its fibre refinement-stable (open set), what is its residue
+  (limit point) (`continuity.md`; `IsContinuousModulus`, `uniform_limit_continuous`, `DyadicOpen`, and
+  `four_way_modulus_framework` — one modulus structure carries continuity + derivative + Ricci + α_em).
+
+**Updated map**: `C` = distinguishing + {direction, height, atom-distinguishability}; `L` = a reading +
+{resolution (→ a whole discipline when made a condition), character-mode (bidirectional)}; `Residue` =
+`L`'s self-application surplus, tagged `q = ±1` (escape / converge). Every deepest result sits where two
+of these meet. Open Lean targets surfaced: `continuous_iff_preimage_dyadicopen`; a formal `q=±1`
+residue tag uniting `object1_not_surjective` and the φ Cassini law. (See
+`research-notes/frontiers/decomposition_calculus.md`.)
+
+Next: keep decomposing **fresh** mathematics and let it break/extend this map (groups/symmetry,
+probability/measure, homology, the Galois correspondence, …).
