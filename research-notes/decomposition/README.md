@@ -1738,7 +1738,20 @@ hierarchy = the fold-height with its (-1)-floor = the PURE Bool/decide propext c
 is the numerical (2,3)-grade false-friend, flagged); buildable witness: `univalence_setoid` wiring
 lensIso_iff_kernel_eq to object1_injective ("(A≃B)⟺(Id_A=Id_B)" at the 1-categorical altitude).
 
-**Count.** 123 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ O-minimality / stability theory (`ominimality_stability.md`) — the q±1 tame/wild dividing line
+
+PREDICTION. Model-theoretic tameness = the calculus's **q=±1 dividing line read on definable-set counts**
+(extends model_theory one layer up, from sentences to definable sets): o-minimality / cell decomposition = the
+**q+1 finite-cell terminating normal form** (the count bottoms out; cell decomposition = the fold-to-normal-form,
+`Lambek.no_infinite_descent`:273/`isPart_wf`); stability = q+1 bounded type-count vs the **order property = the
+q−1 escaping diagonal** (the same diagonal as cardinality/godel, `object1_not_surjective`:61/
+`no_surjection_of_fixedpointfree`:51, and a Ramsey-type *unavoidable* order tying `erdos_szekeres`:587 29/0);
+Morley rank = the fold-height on types (`MuNuMirror.ascent_unbounded`); Shelah hierarchy = the stratified q−1
+escape. Named oMinimal/stable/Morley/NIP objects absent (the stability hits are Ricci-flow numerical
+false-friends); buildable witness: a toy OrderProperty/Stable predicate on a finite Lens-family wired to
+object1_not_surjective + residue_tag_two_poles.
+
+**Count.** 124 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
