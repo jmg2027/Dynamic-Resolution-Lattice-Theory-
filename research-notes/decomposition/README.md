@@ -609,7 +609,30 @@ finiteness residue** — the SAME corner (`heineBorel`/`compact_bounded_by_lengt
 `object1_not_surjective`). Consolidates category_theory (initiality) + topology (compactness) + godel
 (diagonal). Missing leg: an actual FOL `Formula`/`⊨`/`⊢` object (the structural prediction is the deliverable).
 
-**Count.** 43 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### Quantum mechanics (`quantum_mechanics.md`) — measurement = q=+1 eigenvalue, uncertainty = q=−1 bracket
+
+PREDICTION (physics-branch math-structure, no validation claim): an observable = a symmetric operator =
+the `q=+1` real-spectrum reading (`disc_symmetric_nonneg` — the Hermitian postulate IS "stay at q=+1");
+measurement outcome = eigenvalue = q=+1 scale-residue. The canonical commutator `[X,P]≠0` = the q=−1
+antisymmetry bracket-residue (`Mat2Bracket`); the uncertainty principle = the bracket obstructing a common
+q=+1 eigenbasis. Unitary evolution = det/holonomy=1 (`det_holonomy_eq_one`). Measurement and uncertainty
+are the two poles of one `ResidueTag`. Honest ceiling: the finite `Mat2` cannot host `[X,P]=iℏI`
+(commutators are traceless, `tr(iℏI)≠0`) — the certified content is the trace-free antisymmetry residue,
+not the `iℏ` value; Hilbert space / `⟨ψ|φ⟩` / Born rule / d>1 eigenprojector are the missing legs.
+
+### Yoneda lemma (`yoneda.md`) — the self-describing capstone: Yoneda = the calculus's own foundation
+
+PREDICTION, the deepest self-reference: Yoneda is not a new field but the calculus's OWN operating principle
+`OBJECT = ⟨C | L⟩` ("an object is its bundle of readings") made categorical — decomposing it is a fixed
+point. The Yoneda embedding `A↦Hom(−,A)` = the founding sentence; the Yoneda lemma `Nat(Hom(A,−),F)≅F(A)` =
+`dhom_unique_pointwise` (an arrow out of the representable/initial object pinned by one datum) + naturality
+`view_factors_through_morphism`; faithfulness = `object1_injective`; fullness/"same readings ⟹ iso" =
+`lensIso_iff_kernel_eq`. ★ The sharpest line: **`self_covering_closure` (injective ∧ ¬surjective) = Yoneda
+⊕ its residue in ONE ∅-axiom theorem** — faithful where the embedding succeeds (`q=+1`), un-pointable where
+self-application diagonalizes out (`object1_not_surjective`, `q=−1`). Missing leg: a named `Hom(−,A)`/presheaf
+object + the Yoneda bijection as a natural `Equiv` (the latter presses on `funext` — the 1-categorical ceiling).
+
+**Count.** 45 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
