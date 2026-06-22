@@ -3,9 +3,9 @@
 ## Branch
 `claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean, all new modules ∅-axiom PURE.
 
-## ★★ CURRENT STATE (2026-06-22, 19-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
+## ★★ CURRENT STATE (2026-06-22, 25-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
 The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
-now spans **67 worked decompositions** of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+now spans **84 worked decompositions** of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
 converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
 `ResidueTag.lean`) + the reflexive deepening (homological algebra names the calculus's own residue-taking
 operation; spectral sequences = that operation ITERATED). Canonical indices: **`SYNTHESIS.md`** (the capstone
@@ -28,6 +28,27 @@ irrational = reached-by-none); optimal transport (the FOURTH f**=clo instance, `
 LP built); cut-elimination (= the fold-to-normal-form on proofs; subformula property = the fold's
 no-new-atoms law; ε₀ = q−1 height-escape; repo toy `CutElimination` 10/0). NonzeroBetti (56/0) closed
 homological_algebra's nonzero-H¹ witness.
+
+**Waves 20–25 (this session), 67→84 decompositions:** Itô (the resolution axis carries a `scaling`
+sub-param √h, the 2nd-order residue revived); class field theory (the ×↦· character at maximal abelian
+extent; located break = global idele bundle); **non-standard analysis (a CALIBRATED located boundary** —
+`Hyper213` uses cofinite not ultrafilter; the ultrafilter's maximality = a non-constructive primitive
+calibrated at LLPO, `comparability_imp_llpo`→`llpo_of_realDichotomy`); coding theory (named object BUILT — a
+`[10,4,4]` code, the Sourlas identity ML-decode=spin-glass=cohomology, MLDecoder/SpinGlass 13/0); matroid
+(5th f**=clo instance); differential Galois (galois's q±1 solvability on the ∫-axis, Liouville = q−1
+antiderivative escape); operator algebras (the C*-axiom promotes spectral's disc≥0 to an axiom; Gelfand = the
+character's 8th field); toric geometry (Newton polytope = the multi-var ×↦+ valuation image); symplectic
+(lie q−1 + noether q+1 fused on Sp(2); ω named in `SignedCup`); random walks (harmonic = Laplacian-kernel =
+martingale; found `WeightedGreen` 11/0, a stale-gap fix); **descriptive set theory (a 2nd calibrated boundary**
+— the diagonal escape graded by ordinal height; projective determinacy = large-cardinal boundary); Hodge
+theory (the (p,q) bigrading + signed q±1 star; the `HodgeConjecture/` tree substantially built); free
+probability (R-transform = the ×↦+ free-log, semicircle = free CLT, free cumulants = non-crossing = Catalan);
+percolation (thin/honest — p_c the q±1 transition, mostly analogy); renormalization group (the resolution dial
+made a FLOW; DRLT tie: `1/α_3(N)=(NS²−1)·S(N)` AsymptoticFreedom 6/0); operads (Raw.fold made arity-graded;
+`CombinatorialArity` proves binary-generated); TQFT (character arrow as monoidal functor ⊔↦⊗; `GRA/Monoidal`
+13/0 ships `product_NT_NT_grade`). SYNTHESIS at **v3 (count 84)**.  **Three calibrated boundaries** now located
+(nonstandard/LLPO, CFT/bundle, descriptive-set/large-cardinals): the no-exterior axiom, tested at its hardest
+points, yields a *calibrated* remainder on the corpus's own strength ledger, never an uncalibrated wall.
 
 Process notes (this session): `scan_axioms` can read a freshly-registered module's stale `.olean` as
 false-DIRTY — `#print axioms` on a clean rebuild is authoritative. Core `List.length_range`/`length_filter_le`
