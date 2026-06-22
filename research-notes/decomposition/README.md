@@ -1871,9 +1871,10 @@ bridge (`eᵢ` det-reading ↔ `p_k` trace-power additive twin). Schur `s_λ` = 
 NAMES the scattered `eᵢ` as ONE universal object. ABSENT (grep-confirmed): named Λ, the `e/h/p/m/s_λ` bases, Jacobi–Trudi, the
 alternant `∏(xᵢ−xⱼ)` (Schur denominator), λ-ring — the same `d>1`-character break `representation.md` located. Flagged name-collisions
 NOT cited: `Combinatorics/PowerSums` (Faulhaber, not `p_k`), `Combinatorics/Vandermonde` (binomial convolution, not the alternant),
-`Foundations/SchurInequality` (Schur's *inequality*, not Schur *functions*). **Witness BUILT this session:** Newton's identities
-`newton_id_p2 : p₂ = e₁p₁ − 2e₂` and `newton_id_p3 : p₃ = e₁p₂ − e₂p₁ + 3e₃`, each one `ring_intZ` lemma in `NewtonInequalities`
-(the power-sum ↔ elementary-symmetric `×↦+ ↔ ×↦·` character bridge), `#print axioms`-clean — module 5/0 → **7/0**.
+`Foundations/SchurInequality` (Schur's *inequality*, not Schur *functions*). **Newton's identities already built for the 2-element
+spectrum at ALL degrees:** `Mat2TraceRecurrence.trace_recurrence` (5/0) = `p_{n+2} = e₁p_{n+1} − e₂p_n` (trace powers `p_k=tr(Mᵏ)`,
+`e₁=tr`, `e₂=det`, Cayley–Hamilton iterated). **Witness BUILT this session (3-variable degrees):** `newton_id_p2 : p₂ = e₁p₁ − 2e₂`
+and `newton_id_p3 : p₃ = e₁p₂ − e₂p₁ + 3e₃`, each one `ring_intZ` lemma in `NewtonInequalities`, `#print axioms`-clean — module 5/0 → **7/0**.
 
 ### ★ Optimal control / Bellman (`optimal_control.md`) — the value function = the q+1 Bellman-contraction fixed point
 

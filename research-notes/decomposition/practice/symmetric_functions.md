@@ -55,7 +55,12 @@ coefficient ring.
     `p_1 = tr`, and generally `p_k = tr(M^k)` over the spectrum. This is the additive `×↦+` twin
     (`vp_mul`-style: additive on `⊕`/disjoint union of spectra). `p_1 = e₁ = tr` is the place the two
     readings *coincide* (degree 1), exactly `representation.md`'s observation that for 1-dim characters
-    `tr = det =` the scalar.
+    `tr = det =` the scalar.  **Newton's identities (the `p`↔`e` bridge) are ALREADY BUILT for the
+    2-element spectrum at all degrees**: `Mat2TraceRecurrence.trace_recurrence` (5/0) proves
+    `tr(Mⁿ⁺²) = tr(M)·tr(Mⁿ⁺¹) − det(M)·tr(Mⁿ)`, i.e. `p_{n+2} = e₁·p_{n+1} − e₂·p_n` — the
+    Newton–Girard recurrence for `{μ,ν}` (the matrix shadow of `λ² = e₁λ − e₂`, Cayley–Hamilton
+    iterated).  The 3-variable degrees 2,3 are now added explicitly (`newton_id_p2`/`newton_id_p3`,
+    below); together they are the full `×↦+ ↔ ×↦·` bridge at the spectra the corpus carries.
   - **`h_λ`/`m_λ`/`s_λ` = cross-readings of the same spectrum.** `h_i` (complete homogeneous) = the
     coefficient reading of `∏ 1/(1−xⱼt)` (the *other* GF, `generating_functions.md`'s family-reading);
     `m_λ` (monomial) = the raw orbit-sum (the bare relabeling-orbit count); `s_λ` (Schur) = the GL_n
@@ -223,6 +228,12 @@ universalized):**
 - `lean/E213/Lib/Math/NumberSystems/Real213/Mat2/Mat2CayleyHamilton.lean:37` `cayley_hamilton`
   (`M² = tr·M − det·I` = `M² = e₁·M − e₂·I`, the characteristic-polynomial / Newton-identity-`p_2`
   generator); `:50` `char_poly_discriminant`; `:57` `dial_is_char_discriminant`. **PURE (4/0).**
+- `lean/E213/Lib/Math/NumberSystems/Real213/Mat2/Mat2TraceRecurrence.lean:54` `trace_recurrence`
+  (`tr(Mⁿ⁺²) = tr(M)·tr(Mⁿ⁺¹) − det(M)·tr(Mⁿ)` = `p_{n+2} = e₁·p_{n+1} − e₂·p_n`, **Newton–Girard for
+  the 2-element spectrum at ALL degrees** — the power-sum ↔ elementary bridge, Cayley–Hamilton iterated);
+  `:65` `golden_trace_recurrence` (the Lucas instance). **PURE (5/0).**
+- `lean/E213/Lib/Math/Foundations/NewtonInequalities.lean` `newton_id_p2`/`newton_id_p3` (the 3-variable
+  Newton identities `p₂ = e₁p₁−2e₂`, `p₃ = e₁p₂−e₂p₁+3e₃`, added this session). **PURE (module 7/0).**
 
 **The ×↦· character (`eᵢ` = the universal `det`) and the ×↦+ twin (power sums = trace-powers):**
 - `lean/E213/Lib/Math/NumberSystems/Real213/Markov/SternBrocotMarkov.lean:104` `det2_mul`
