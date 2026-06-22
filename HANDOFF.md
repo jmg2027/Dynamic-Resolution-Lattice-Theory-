@@ -38,11 +38,35 @@ skein + isotopy-quotient are named missing primitives)}.
   true completion-limit). **Principled wall**: `banach_fixed_point`'s wrapper needs a total choice-free
   `lim` (universal `climconv`) — constructively impossible; the *content* is delivered, the wrapper isn't.
 
-**Tally:** 31 decompositions + the `two_cells` meta; six predictions, **five Lean-closed** (orthogonality
-2/3/6, growing-corner, convolve-rescale contraction + completion-limit, discrete Noether-iff). `lake build
-E213` clean. Open frontier (`research-notes/frontiers/decomposition_calculus.md`): variational Noether
-current, general-χ orthogonality (needs `Real213` ζ), the `tr`-character / `Rep(G)`-Maschke at `d>1`,
-convolution-on-profiles, the native free-monad/νF carrier, isotopy/colimit quotient, Ostrowski exhaustiveness.
+## ★ THIRD WAVE — the constructive wall DEFEATED + measure theory
+
+- **★ THE BANACH-ENGINE WALL IS DEFEATED ∅-axiom** (`research-notes/frontiers/wall_synthesis.md` =
+  CLOSED). A three-school "genius mathematician" panel (Bishop constructive, computable-analysis/
+  domain-theory, reverse-math) converged: the wall is an **interface defect** — the bare `lim` +
+  universal `climconv` smuggles countable choice `AC₀,₀`; the fixed-point theorem is ∅-axiom once the
+  modulus is *data*. Implemented Route A: `BanachFixedPointModulated.lean` (new reusable engine —
+  `CompleteMetricModulusMod` with modulus-as-data `limMod`, `picard_cauchy_mod`,
+  `banach_fixed_point_modulated`, all axiom-free) + `DyadicCompletion.lean §8-10`
+  (`climconv_regDiag` the crux, `completeDyMod` first non-trivial instance,
+  **`gaussian_center_fixed_via_engine`** — the Gaussian center as a fixed point of `Φhat` THROUGH the
+  engine, not by-hand). All `#print axioms` → "does not depend on any axioms"; `lake build E213` clean.
+  (Three wall memos: `wall_constructive.md`/`wall_computable.md`/`wall_reverse_math.md`. Caught & fixed
+  a docstring over-claim + propext-leaking Nat lemmas during verification.)
+- **Measure theory (`measure.md`)** — the sharpest leverage: measure theory is already built Choice-free
+  in `Analysis/Measure/` (35/0); the calculus PREDICTS that classical Choice-dependence (Vitali,
+  Banach–Tarski) is *exactly* the `q=−1` escape residue (same diagonal as Cantor/Gödel), so the repo's
+  "no Choice" stance is **derived** (= "stay at `q=+1`"), not a taboo. Located break: `Lp` full additivity
+  leaks `Quot.sound` via `funext` (only pointwise PURE).
+- **ODE / dynamical systems (`differential_equations.md`)** — the `q=+1` contraction residue spans a third
+  field (φ/Gaussian/ODE); real discrete ODE corpus surfaced (`Analysis/ODE/`).
+
+**Tally:** 33 decompositions + the `two_cells` meta; eight predictions, **six Lean-closed** (orthogonality
+2/3/6, growing-corner, convolve-rescale contraction + completion-limit, discrete Noether-iff, **and the
+modulated Banach engine / wall defeat**). `lake build E213` clean. Open frontier
+(`decomposition_calculus.md` + `wall_synthesis.md` residual): variational Noether current, general-χ
+orthogonality (needs `Real213` ζ), the `tr`-character / `Rep(G)`-Maschke at `d>1`, convolution-on-profiles
++ full Gaussian profile (not just center), the native free-monad/νF carrier, isotopy/colimit quotient,
+Carathéodory outer-measure instantiation, Ostrowski exhaustiveness.
 
 ## ★ DIRECTION RECALIBRATION (2026-06-22, from the originator directly — READ FIRST)
 The originator course-corrected the whole approach: **the Lean files are scaffolding, not the body —
