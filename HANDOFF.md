@@ -60,13 +60,35 @@ skein + isotopy-quotient are named missing primitives)}.
 - **ODE / dynamical systems (`differential_equations.md`)** — the `q=+1` contraction residue spans a third
   field (φ/Gaussian/ODE); real discrete ODE corpus surfaced (`Analysis/ODE/`).
 
-**Tally:** 33 decompositions + the `two_cells` meta; eight predictions, **six Lean-closed** (orthogonality
-2/3/6, growing-corner, convolve-rescale contraction + completion-limit, discrete Noether-iff, **and the
-modulated Banach engine / wall defeat**). `lake build E213` clean. Open frontier
-(`decomposition_calculus.md` + `wall_synthesis.md` residual): variational Noether current, general-χ
-orthogonality (needs `Real213` ζ), the `tr`-character / `Rep(G)`-Maschke at `d>1`, convolution-on-profiles
-+ full Gaussian profile (not just center), the native free-monad/νF carrier, isotopy/colimit quotient,
-Carathéodory outer-measure instantiation, Ostrowski exhaustiveness.
+## ★ FOURTH WAVE — q=±1 tag formalized, QR already-closed, Carathéodory, Gaussian profile
+
+- **★ The `q=±1` residue tag is now ONE formal ∅-axiom object** (`Lib/Math/Foundations/ResidueTag.lean`,
+  55/0) — the notebook's deepest open collapse, CLOSED. `ResidueTag (escape | converge)` + `multiplier`
+  (∓1, unimodular) + `TaggedResidue`, capstone `residue_tag_two_poles`. q=−1 ⟹ `escape_residue_outside`
+  (⟵ `no_surjection_of_fixedpointfree`: Cantor/Gödel/measure); q=+1 ⟹ `converge_residue_fixed`
+  (⟵ `banach_fixed_point_modulated`: φ/Gaussian/ODE), `golden_is_converge` ties +1 to the φ Cassini
+  multiplier. HONEST: one tag + one consequence *per pole*, NOT one biconditional (poles asymmetric:
+  universal-negation vs existence; a single `Eq` needs excluded middle).
+- **Quadratic reciprocity (`quadratic_reciprocity.md`)** — fresh decomposition found QR is **already
+  fully proved ∅-axiom** (`quadratic_reciprocity`, 11/0, Eisenstein lattice double-count). σ_a carries
+  FIVE readouts (psign/det/Legendre via `zolotarev_mu`/Gauss-sign/Eisenstein-floor) all one number —
+  parity.md's collapse on the Legendre symbol; reciprocity sign = the q=±1 parity residue. No open leg.
+- **Carathéodory outer-measure (`Analysis/Measure/OuterMeasure.lean`, 29/0)** — closed measure.md's
+  named target: instantiated AS the predicted `clo` closure (genuine Galois connection,
+  `caraClosure_idempotent`, conservative). The degenerate form = the predicted q=+1-corner content.
+- **Gaussian profile (`Probability/Limit/ConvolveProfile.lean`, 20/0)** — a genuine discrete convolution
+  `⋆` + moment-preservation (`mass_conv`, `momentNum_conv` = mean is the additive +-character). HONEST
+  partial: the full *density* profile as Φ's fixed point needs a continuous L¹ metric the repo lacks (a
+  List-Nat lattice can't rescale by 1/√2 and stay integral) — this is the complementary profile-side half
+  of `gaussian_center_fixed_via_engine`.
+
+**Tally:** 34 decompositions + the `two_cells` meta + the formal `q=±1` tag; **nine predictions, eight
+Lean-closed** (orthogonality 2/3/6, growing-corner, convolve-rescale contraction + completion-limit,
+discrete Noether-iff, modulated Banach engine/wall defeat, Carathéodory-as-`clo`, formal `q=±1` tag) + QR
+already-closed. `lake build E213` clean. Open frontier (`decomposition_calculus.md` + `wall_synthesis.md`
+residual): variational Noether current, general-χ orthogonality (needs `Real213` ζ), the `tr`-character /
+`Rep(G)`-Maschke at `d>1`, the full Gaussian *density* profile (continuous L¹ metric), the native
+free-monad/νF carrier, isotopy/colimit quotient, Ostrowski exhaustiveness.
 
 ## ★ DIRECTION RECALIBRATION (2026-06-22, from the originator directly — READ FIRST)
 The originator course-corrected the whole approach: **the Lean files are scaffolding, not the body —
