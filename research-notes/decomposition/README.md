@@ -1492,7 +1492,33 @@ tie calibrates the **non-abelian/uncountable** boundary at LLPO (stone_duality, 
 group law on the limit, the Krull topology, the absolute-Galois tower = the located boundary); buildable
 witness: a two-quotient thread `iProdLens {ℤ/2, ℤ/3}≅ℤ/6` as a worked finite-stage universal-property instance.
 
-**Count.** 105 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Synthetic differential geometry (`synthetic_differential_geometry.md`) — the derivative with ε²=0 (the Itô-dual)
+
+PREDICTION + PARTIAL. SDG = derivative's difference-reading read as a value-derivative slot pair, with the
+second-order residue **truncated to zero** (ε²=0) — the precise **dual of Itô**. ★ The three notes are one
+reading at three positions of the resolution-axis *scaling* sub-parameter: smooth **drops** the O(h²) residue,
+Itô **promotes** it (√h → ½f''dt), SDG **annihilates** it (ε²=0 → first-order-exact Kock–Lawvere). ★ Repo-first
+surprise: the dual-number ring R[ε]/(ε²) IS genuinely BUILT (over 𝔽₂, the char-2 collapse of the
+Cayley–Dickson tower) — `F2CDTower.eps_sq_is_zero`:86 (ε²=0), `has_zero_divisors`:105, `eps_has_no_inverse`:122
+(17/0); the second-order residue it annihilates is `NewtonGregory.obstruction_int_constant`:404 (41/0); the
+value-derivative slot pair = ℤ's difference pair (`npairToInt` 19/0). Named real-coefficient R[ε]/Kock–Lawvere/
+tangentBundle M^D objects absent (M^D = lie_theory's open T_e G; the infinitesimal hits are cut-gaps/
+ultrapowers, not nilpotent); buildable witness: the Real213 dual ring + Kock–Lawvere weld.
+
+### ★ Distribution theory / generalized functions (`distribution_theory.md`) — "object = its readings" made the definition
+
+PREDICTION + deep consolidation. A distribution T:φ↦⟨T,φ⟩ is the calculus's founding sentence ("object = its
+readings", yoneda/motives) **made the definition** — `Lens.view` promoted to the primary object, faithful by
+`object1_injective`:47, with singular distributions = the q−1 residue `object1_not_surjective`:61. The Dirac δ
+(⟨δ,φ⟩=φ(0)) = the point-evaluation reading (`FlatOntology.Object1`:43 `r↦fun s=>decide(s=r)`, `Object1_self`).
+★ The distributional derivative's minus sign is *derived*, not relabeled: ⟨T',φ⟩=−⟨T,φ'⟩ = the
+integration-by-parts telescope (`gauss_conservation_telescope`:152, 8/0) + the q=±1 orientation/adjoint bit
+(`dsq_zero_universal_delta4`/`leibniz_universal_delta4`). Fourier of tempered distributions = fourier's
+character by duality; convolution = the weight axis (`mass_conv` 20/0). Named Distribution/TestFunction/Dirac/
+tempered objects absent; buildable witness: `diracFunctional r := fun φ=>φ r`, represented by `Object1 r`
+(`Object1_self` already gives the spike) — δ = the point-evaluation reading welded ∅-axiom.
+
+**Count.** 107 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
