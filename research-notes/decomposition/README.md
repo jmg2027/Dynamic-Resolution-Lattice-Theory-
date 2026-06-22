@@ -546,14 +546,49 @@ split a non-split.
 ### Lie theory / the bracket (`lie_theory.md`) — bracket = the q=±1 antisymmetry; Jacobi = the graded-Leibniz pole
 
 PREDICTION (consolidation of groups + exponential + homology): a Lie algebra = the **infinitesimal of the
-Aut-family**; the bracket `[X,Y]=XY−YX` = the `q=−1` antisymmetry residue (`[X,Y]=−[Y,X]`, the same sign-fold
-as `det`/`∂`/ℤ — proved generally on `Mat2` by `ring_intZ` in scratch), forced traceless (`tr[X,Y]=0`, the
-`sl` kernel = representation.md's det/tr split read from the algebra side). `exp:𝔤→G` = exponential.md's `×↦+`
-character (group `×` ↦ algebra `+`); BCH's `½[X,Y]` = the `^`-wall infinitesimally. **Jacobi = the
-graded-Leibniz pole** (tied to `leibniz_universal_delta4`, README v7.1's graded-relation slot — "ad is a
-derivation"), *not* naive `∂²=0`. Missing leg located: the infinitesimal/tangent `ε` object (`T_eG`, `ε²=0`)
-— the discrete `Mat2` hosts the finite commutator (= the bracket on matrix groups, so the prediction lands)
-but no tangent space; the `h→0` residue (`derivative.md`), same cap `ordinals.md`/`curvature.md` hit. + BCH.
+Aut-family**; the bracket `[X,Y]=XY−YX` = the `q=−1` antisymmetry residue — **now built ∅-axiom**
+(`Mat2Bracket.lean`, 10/0): `bracket_antisymm` (`[X,Y]=−[Y,X]`, the same sign-fold as `det`/`∂`/ℤ),
+`tr_bracket_zero` (forced traceless — the `sl` kernel = representation.md's det/tr split from the algebra
+side), `jacobi`, and `bracket_leibniz` (the derivation pole). `exp:𝔤→G` = exponential.md's `×↦+` character
+(group `×` ↦ algebra `+`); BCH's `½[X,Y]` = the `^`-wall infinitesimally. **Jacobi = the graded-Leibniz
+pole** (tied to `leibniz_universal_delta4`, README v7.1's graded-relation slot), *not* naive `∂²=0`. Missing
+leg located: the infinitesimal/tangent `ε` object (`T_eG`, `ε²=0`) — the discrete `Mat2` hosts the finite
+commutator (= the bracket on matrix groups, so the prediction lands) but no tangent space; same cap + BCH.
+
+### de Rham cohomology / forms (`de_rham.md`) — the strongest consolidation: Stokes is *already* built
+
+PREDICTION (consolidation of homology + integration + curvature): de Rham is `homology.md`'s fold-height
+reading run **upward** in degree. **`d²=0` = `∂²=0`** (literally one operator, `dsq_zero_universal_delta4`);
+**Stokes `∫_M dω=∫_∂M ω` is ALREADY a ∅-axiom theorem** — it is `gauss_conservation_telescope` (the discrete
+divergence theorem, interior walls cancel / boundary survives = the `Σ⊣Δ`/`∫⊣d` adjoint at residue
+resolution); **wedge-Leibniz = `leibniz_universal_delta4`** (the graded-relation slot, with the wedge
+antisymmetry = `cup1_antisymmetric` = parity's `q=−1` det sign); `H*_dR = ker d/im d` = homology's residue
+read upward, tied to curvature via Gauss–Bonnet `Σκ=2(1−b₁)`. Missing leg: the smooth-manifold form complex
+`Ω^k(M)` + the de Rham comparison iso (the `Real213`/`h→0` smooth-tensor gap; the agent also flagged
+`Multivariable/Stokes.lean`'s "masters" as trivial skeletons — the load-bearing Stokes is the telescope).
+
+### Information geometry (`information_geometry.md`) — KL = the entropy-character's asymmetry residue
+
+CONSOLIDATION-PARTIAL (entropy + probability + curvature): KL divergence = entropy.md's `weight∘log`-character
+eating a *ratio* `p/q` = a directed surprise-depth difference (`klBitsDyadic a b = a−b`, `kl_nonneg`,
+`kl_self_zero`); the asymmetry `D(p‖q)≠D(q‖p)` = the `q=±1` direction bit; `D≥0`, `=0⟺p=q` = the `q=+1`
+diagonal fixed point. Fisher metric = the second-order (Hessian-at-diagonal) of KL = curvature.md on
+weight-space — the one `×↦+` character at three orders (entropy/KL/Fisher). **PARTIAL:** built at the dyadic
+atom only; the full divergence *functional* `Σ p·log(p/q)` and its Hessian (the Fisher *metric tensor*) are
+absent — the `weight × character` at non-power resolution (the `log₂e` `Real213` bracket, entropy.md's own gap).
+
+**Count.** 40 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
+is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
+predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
+dyadic completion-limit, discrete Noether-iff, the modulated Banach engine/wall defeat, Carathéodory-as-`clo`,
+the formal `q=±1` tag, `continuous_iff_preimage_dyadicopen`, the **det/tr=e₁/e₂ Vieta resolution**, and the
+**formal power-series semiring** `PowerSeriesSemiring`) + QR already-closed; plus Lean **groundings** of the
+spectral note (`Mat2SymmetricSpectrum`: symmetric `disc≥0` = real spectrum, the `q=+1` corner) and the Lie
+note (`Mat2Bracket`: antisymmetry + traceless-sl + Jacobi). The `q=+1` contraction residue spans
+φ/Gaussian/ODE; the formal `q=±1` tag unites Cantor/Gödel/measure (escape) with φ/Gaussian/ODE (converge);
+compactness is the `q=+1` finiteness corner; the spectrum dissolves det/tr; the Lie bracket is the `q=−1`
+antisymmetry; **Stokes = the telescope** (de Rham); the Banach-engine "wall" is **defeated** (`wall_synthesis.md`).
 
 **Count.** 38 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge

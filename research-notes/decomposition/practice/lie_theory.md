@@ -148,10 +148,13 @@ precisely — not hand-waved.
   `AB−BA` is a computable `Mat2` operation on the existing `mul`; antisymmetry (`comm_antisym`) and
   tracelessness (`comm_traceless`) both **prove generally by `ring_intZ`** (I verified this in scratch, not
   committed), and self-bracket-vanishing + nonabelian-`[S,U]≠0` by `decide`. The antisymmetry is the *same*
-  q=−1 pair-swap as `cup1_antisymmetric`/`det`/ℤ's sign — **forced, not posited.** The repo has the bracket
-  *latent* (Mat2 mul + Int sub) but **no named `bracket`/`Lie`/`Jacobi` object** (grep-confirmed absent);
-  the prediction is that promoting these three one-liners gives the Lie bracket axioms (antisymmetry +
-  bilinearity) free, exactly as `PermGroup` gave the group axioms.
+  q=−1 pair-swap as `cup1_antisymmetric`/`det`/ℤ's sign — **forced, not posited.** **NOW BUILT ∅-axiom**
+  (`Mat2/Mat2Bracket.lean`, 10/0 PURE): `bracket A B := AB−BA` with `bracket_antisymm` (the q=−1
+  antisymmetry), `bracket_self` (`[A,A]=0`), **`tr_bracket_zero`** (traceless / sl₂ — the det/tr split
+  from the algebra side), **`jacobi`** (`[[A,B],C]+[[B,C],A]+[[C,A],B]=0`), and `bracket_leibniz` (the
+  derivation/graded-Leibniz pole). The "no named `bracket`/`Jacobi` object" caveat is resolved — the Lie
+  bracket axioms (antisymmetry + Jacobi + Leibniz) are now Lean theorems, exactly as `PermGroup` gave the
+  group axioms.
 
 - **Leg 2 — exp = the ×↦+ character arrow; bracket = exp's non-homomorphism residue. PREDICTION + PARTIAL.**
   The structural identity (algebra = + face, group = × face, exp = the `exponential.md` arrow's `+→×`
