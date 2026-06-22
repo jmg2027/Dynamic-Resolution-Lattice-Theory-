@@ -11,6 +11,7 @@ import E213.Lens.Number.Nat213.ChebyshevLower
 import E213.Lens.Number.Nat213.NumberingSystem
 import E213.Lens.Number.Nat213.Peano
 import E213.Lens.Number.Nat213.Divisibility
+import E213.Lens.Number.Nat213.Irreducible
 import E213.Lens.Number.Nat213.Generation
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.Number.Nat213.RawCut
@@ -51,8 +52,14 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            parallel to `Bool213.booleanProj`.
     * `Order`            — native strict order `lt a b := ∃ c, add a c = b`
                            (no Lean `Nat` order, which is propext-dirty);
-                           trichotomy, strict square-monotonicity, and
-                           square-injectivity `a·a = b·b → a = b`.
+                           trichotomy, strict square-monotonicity,
+                           square-injectivity `a·a = b·b → a = b`, and the
+                           native cancellation `mul_left/right_cancel`.
+    * `Divisibility`     — the first discipline over `Nat213` (partial order,
+                           bottom `one`, no top); cone is `toNat`-free.
+    * `Irreducible`      — irreducibility over `Nat213`: `2,3,5` irreducible,
+                           `4` not; `lt_succ_iff` enumeration + cofactor
+                           bound.  Rung 1 of the FTA-generated capstone.
 
   ## Tower/
 

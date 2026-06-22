@@ -111,8 +111,9 @@ The four lines, ranked by *leverage toward the purpose* (not ease):
 **Spine milestones (strategist), on a now-`toNat`-free foundation:**
 - **M0 (DONE this session)** — de-launder the divisibility cone: it now stands on `Nat213` all the
   way down, proofs included (the toNat-cone bet, won — see `the_descent_leg.md`).
-- **M1** — `Irreducible` over `Nat213` (define via `Nat213.mul`; `2,3,5` irreducible, `4` not;
-  `irreducible_divisors`). Reuses `Divisibility` + `Order` (now native).
+- **M1 (DONE this session)** — `Irreducible` over `Nat213` (`Irreducible.lean`, 18 PURE): `2,3,5`
+  irreducible, `4` not, `irreducible_divisors`; `five_irreducible` via native `lt_succ_iff`
+  enumeration + cofactor bound, whole cone `toNat`-free. Reuses `Divisibility` + `Order` (now native).
 - **M2** — existence of irreducible factorization over `Nat213` (the one new ingredient: native
   well-founded recursion on `Order.lt`).
 - **M3** — Euclid's lemma + uniqueness (native descent gcd on `Order.lt` — the deepest construction).

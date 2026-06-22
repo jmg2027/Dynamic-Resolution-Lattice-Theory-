@@ -151,6 +151,16 @@ the cone (`mul_one/comm/assoc`, `add_*`, `mul_add`, `add_mul`, `succ_ne_one`, `a
 on `Nat213` all the way down — proofs included.** This converts the skeptic's "looks generated" into
 "is generated," for one discipline.
 
+**M1 DONE (same marathon) — irreducibility over `Nat213`.** On the now-`toNat`-free foundation,
+`Lens/Number/Nat213/Irreducible.lean` (18 PURE): `Irreducible p := p ≠ one ∧ ∀ a b, p = mul a b →
+a = one ∨ b = one` (no Lean `Nat`); `two/three/five_irreducible`, `four_not_irreducible`,
+`irreducible_divisors`. `five_irreducible` is genuine elementary number theory — proper divisors
+enumerated by a **native `lt_succ_iff`** + a **native cofactor bound** (`cofactor_lt`: `a ≠ 1 ∧ p =
+a·c ⟹ c < p`, from `lt_right_mul`), then the finite `(a,c)` grid refuted by structural `decide`
+(PURE on `Nat213`'s `DecidableEq`). Whole cone `toNat`-free. This is rung 1 of the FTA-generated
+capstone (M1→M6). Next: M2 (factorization existence, needs native well-founded recursion on
+`Order.lt`) → M3 (Euclid + uniqueness via native descent gcd).
+
 **Honest residual (the next bet, not yet run).** Peano still has a `toNat`-laundered
 `mul_left_cancel`/`mul_right_cancel` — retained because the **ℚ₊ Tower** cone
 (`Tower/NatPairToQPos`, `Tower/PairCompletion`) still consumes them. That cone is the next
