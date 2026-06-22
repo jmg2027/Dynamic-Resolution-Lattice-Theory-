@@ -14,6 +14,7 @@ import E213.Lens.Number.Nat213.Divisibility
 import E213.Lens.Number.Nat213.Irreducible
 import E213.Lens.Number.Nat213.Factorization
 import E213.Lens.Number.Nat213.EuclidUnique
+import E213.Lens.Number.Nat213.FTA
 import E213.Lens.Number.Nat213.Generation
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.Number.Nat213.RawCut
@@ -70,6 +71,11 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            `prime_dvd_prod`.  Subtractive gcd with the scaled
                            multiplicative spec (`gcd_exists_mul`) — the Bézout
                            substitute that fits ℕ₊ (no zero).  Rung 3.
+    * `FTA`              — **the Fundamental Theorem of Arithmetic** (`fta`):
+                           existence + uniqueness-up-to-permutation, generated
+                           over `Nat213`.  Native propext-free `Perm`/`erase`.
+                           Descent-leg capstone (M4); a full classical discipline
+                           computed on the Raw-generated carrier.
 
   ## Tower/
 

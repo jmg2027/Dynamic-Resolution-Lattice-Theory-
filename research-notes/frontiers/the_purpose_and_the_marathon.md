@@ -143,6 +143,17 @@ exterior and judged there** (the §5.1 wall: the inside cannot deliver this verd
 - **M1 (DONE this session)** — `Irreducible` over `Nat213` (`Irreducible.lean`, 18 PURE): `2,3,5`
   irreducible, `4` not, `irreducible_divisors`; `five_irreducible` via native `lt_succ_iff`
   enumeration + cofactor bound, whole cone `toNat`-free. Reuses `Divisibility` + `Order` (now native).
+- **M4 (DONE this session) — THE FTA CAPSTONE CLOSED.** `FTA.lean` (11 PURE): `fta` bundles
+  **existence** (`exists_factorization`) + **uniqueness up to permutation** (`factorization_unique`),
+  generated entirely over `Nat213`. Native propext-free `Perm`/`erase` (+ `prod_erase`,
+  `cons_erase_perm`), `prime_dvd_prod` to locate the head, `mul_left_cancel` to descend. **The
+  arithmetic-generation half of the capstone is achieved**: a full paradigm discipline (the FTA) is
+  now *computed on the Raw-generated carrier*, not re-derived over Lean `Nat` and bridged — "math is
+  the distinguishing's unfolding" instantiated, not asserted, for arithmetic. Remaining (renumbered):
+  M5 = forcing (a distinguishing-blind reading provably cannot carry factorization, reuse
+  `RivalArity`/`distinguishing_necessary`); M6 = `DStr`-dichotomy merge (every rival `≅ Raw` or fails
+  a named clause). The §5.1 verdict-wall (a clean capstone proves coherence+forcing, not "not a
+  re-skin") stands → Line B exposure remains the only external test.
 - **M3 (DONE this session)** — Euclid's lemma over `Nat213` (`EuclidUnique.lean`, 7 PURE): `euclid`
   (`p` irreducible, `p ∣ a·b → p ∣ a ∨ p ∣ b`) + `prime_dvd_prod` (`p ∣ ∏ L → p ∈ L`) — irreducibles
   are *prime*. The no-zero/no-subtraction wall (Bézout needs ℤ; division-with-remainder needs a zero

@@ -178,8 +178,18 @@ a *subtractive* Euclidean gcd — every step subtracts smaller from larger, the 
 `lt`-witness (`a<b ⟺ ∃k, a+k=b`), so it lives in ℕ₊ with no zero. gcd existence AND the multiplicative
 law `gcd(c·a,c·b)=c·gcd(a,b)` (the Bézout substitute Euclid needs) are proved in **one** well-founded
 induction on `a+b` (`gcd_exists_mul`, spec quantified over the scaling `c`). Rung 3 of the FTA-generated
-capstone. Next: M4 — uniqueness up to permutation (needs a native, propext-free `List` permutation /
-`erase` + `prod_erase`, then induction using `prime_dvd_prod` + `mul_left_cancel`).
+capstone.
+
+**M4 DONE (same marathon) — THE FTA CAPSTONE CLOSED.** `FTA.lean` (11 PURE): `fta` =
+existence (`exists_factorization`) + uniqueness up to permutation (`factorization_unique`), generated
+over `Nat213`. A native propext-free `Perm` inductive + native `erase`/`prod_erase`/`cons_erase_perm`
+(the core `List.Perm` lemmas import `propext`), then structural induction using `prime_dvd_prod` to
+locate the head in the second list and `mul_left_cancel` to descend. **The arithmetic-generation half
+of the descent leg is achieved**: the Fundamental Theorem of Arithmetic is now *computed on the
+Raw-generated carrier* — "math is the distinguishing's unfolding" instantiated for arithmetic, not
+asserted. Remaining: the *forcing* half (M5 rival-exclusion: a distinguishing-blind reading cannot
+carry factorization; M6 `DStr`-dichotomy merge), and the §5.1 verdict-wall (a clean capstone proves
+coherence+forcing, not "not a re-skin") → Line B exposure is the only external test.
 
 **M2 advance scouting (the two pins, both now discharged above):**
 - *Native well-foundedness is in hand* — `Acc lt` is provable over `Nat213` with **no `toNat`**, by
