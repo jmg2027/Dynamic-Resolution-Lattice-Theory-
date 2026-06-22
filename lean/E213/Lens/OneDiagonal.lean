@@ -124,4 +124,25 @@ theorem residue_needs_distinguishing {B : Type} (hsub : ∀ x y : B, x = y) (t :
 theorem distinguishing_powers_residue : ∃ t : Bool → Bool, ∀ b, t b ≠ b :=
   ⟨fun b => !b, bnot_self_ne⟩
 
+/-! ## §6 — the distinguishing is structurally required by the primitive (rival-primitive exclusion) -/
+
+/-- ★★★ **A non-distinguishing carrier cannot fire the primitive.**  213's primitive operation
+    `Raw.slash (x y : Raw) (h : x ≠ y)` carries the distinguishing *in its type* — it needs two
+    **distinct** operands.  On a subsingleton carrier `S` (`∀ x y, x = y`, a carrier drawing no
+    distinction) there is no such pair, so the slash analogue can never be applied even once: a
+    rival "primitive" lacking the distinguishing **generates nothing**.  This is the rival-*primitive*
+    exclusion (not merely rival-reading): the distinguishing is not a downstream choice but a
+    *precondition of the primitive operation itself*.  Negation-first / relation-first or any
+    one-element rival fails here — it cannot start. -/
+theorem no_distinguishing_on_subsingleton {S : Type} (hsub : ∀ x y : S, x = y) :
+    ¬ ∃ x y : S, x ≠ y :=
+  fun ⟨x, y, hxy⟩ => hxy (hsub x y)
+
+/-- Raw meets the precondition: the two atoms are distinct, so the slash fires and generation
+    begins.  With `no_distinguishing_on_subsingleton`, the distinguishing primitive is
+    **non-interchangeable** with a non-distinguishing rival (which cannot fire the primitive at
+    all). -/
+theorem raw_has_distinguishing : ∃ x y : Raw, x ≠ y :=
+  ⟨Raw.a, Raw.b, E213.Theory.Raw.PrimitiveTower.a_ne_b⟩
+
 end E213.Lens.OneDiagonal
