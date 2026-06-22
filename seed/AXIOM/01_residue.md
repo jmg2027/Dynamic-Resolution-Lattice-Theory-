@@ -24,6 +24,18 @@ weaker carries out the distinguishing — and nothing may be added
 to it, because everything that is genuinely needed is already
 present in the residue.  Minimality is structural, not stylistic.
 
+**Formal core** (`lean/E213/Lens/FlatOntologyClosure.lean`, ∅-axiom):
+the residue is not a primitive but a *theorem* — the primitive is the
+act of distinguishing (`Object1 : Raw → (Raw → Bool)`, each `Raw` read
+as its own self-indication), which is **faithful** (it separates,
+`object1_injective`) yet **never total** (`object1_not_surjective`,
+Cantor), so a residue always remains
+(`distinguishing_always_leaves_residue`, with the named member
+`undifferentiated`).  Dynamic form: the residue re-enters as the next
+operand and the cover still never closes
+(`ResidueReentry.residue_perpetually_reenters`); generative form: the
+distinguishing never closes `Raw` (`MuNuMirror.tower_no_cycle`).
+
 ## §1.0 Nothing can be exhibited as outside this
 
 The act of distinguishing reaches everything it can reach, and the

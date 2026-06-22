@@ -119,4 +119,26 @@ theorem residue_witnessed :
     ∧ (∃ P : Raw → Bool, ∀ r : Raw, Object1 r ≠ P) :=
   ⟨object1_injective, undifferentiated, undifferentiated_not_object1⟩
 
+/-- ★★★ **The residue is the remainder the distinguishing always leaves** — `01_residue.md`
+    §1.1 *as a theorem*, not a primitive.  The primitive is the **act of distinguishing**:
+    `Object1 : Raw → (Raw → Bool)` reads each `Raw` as its own self-indication (the
+    distinguishing of that point from every other).  This act is **faithful** —
+    `object1_injective`, distinct points are genuinely separated, the distinguishing
+    *succeeds* — and **never total** — `object1_not_surjective`, a predicate always lies
+    outside its image (Cantor).  The residue is therefore not assumed; it is *derived* as the
+    proven, ineliminable remainder of distinguishing, with a **named** member: the
+    undifferentiated reading `fun _ => true` is outside every self-indication
+    (`undifferentiated_not_object1`).
+
+    So "213 is the residue of pointing" is exact only read this way: pointing/distinguishing
+    is primal, and *that a residue always remains* is the content of this theorem.  Its
+    dynamic strengthening — the residue re-enters as the next operand and the cover still
+    never closes — is `ResidueReentry.residue_perpetually_reenters`; its generative twin —
+    the distinguishing never closes `Raw` — is `Theory.Raw.MuNuMirror.tower_no_cycle`. -/
+theorem distinguishing_always_leaves_residue :
+    Function.Injective Object1
+    ∧ ¬ Function.Surjective Object1
+    ∧ (∀ r : Raw, Object1 r ≠ undifferentiated) :=
+  ⟨object1_injective, object1_not_surjective, undifferentiated_not_object1⟩
+
 end E213.Lens.FlatOntologyClosure

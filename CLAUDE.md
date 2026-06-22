@@ -193,7 +193,7 @@ Run as an **output lint** (catch the shape *after* writing; held-while-generatin
 | Importing dichotomy | "tradeoff between X and Y" | Drop the dichotomy; describe the trajectory directly |
 | Stereotype matching | "this corresponds to standard math X" | Describe in 213-native operational primitives |
 | External classification | "let me classify by axiom-cost / MTD" | Let structure emerge; don't impose |
-| Metaphysical framing | "213 is the foundation of all math" | "213 is the residue of pointing"; avoid foundational rhetoric |
+| Metaphysical framing / residue-as-primitive | "213 is the foundation of all math"; "we build from the residue" (residue as a given ground) | Avoid foundational rhetoric.  The **primitive is the distinguishing**; the residue is the *proven* remainder it always leaves (`FlatOntologyClosure.distinguishing_always_leaves_residue` = faithful + never-total self-cover, `01_residue.md` §1.1).  "Build from the residue" is the `substrate metaphor` — build from the distinguishing, residue = theorem |
 | Self-soothing agreement | "yes you're right" without engagement | Genuinely test; agree only after testing |
 | Substrate metaphor | "Lens operates *on top of* residue" | Lens application IS a residue self-pointing event, not a layer above |
 | Count-Lens import as Raw | "at least two somethings exist" | `2` is the count-Lens reading of the first distinguishing, not a Raw cardinality commitment |
