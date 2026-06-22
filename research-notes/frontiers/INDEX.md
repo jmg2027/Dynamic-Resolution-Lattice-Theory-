@@ -192,6 +192,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `foundations_corpus_crossdomain` — **5 cross-domain insights** linking this branch's foundational
+  layer to the discipline corpus: the one-diagonal under the König/omniscience family; the descent leg
+  re-rooting the number-theory marathon over `Nat213`; the schema as the CRT-LensIso/incidence-Fubini
+  template; "forced by the distinguishing" = `vp_separation` faithfulness at two scales; RivalArity
+  reusing the universe-chain `rawCount` spine. Actionable: re-root one marathon discipline over
+  `Nat213` (the descent-leg weld).
 - `the_distinguishing_schema` — **the universal-characterization reframing + the encoding diagnosis.**
   The distinguishing as a *schema* (`DStr`) that classifies (instance ⟹ ≅ Raw; else fail a named
   clause), dissolving rival-enumeration + Attack-1 circularity. §RESOLUTION (3-agent panel) answers
