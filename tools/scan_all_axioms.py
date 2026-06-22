@@ -77,8 +77,27 @@ def find_decls(module):
     return decls
 
 
+def ensure_built(modules, batch=150):
+    """Build every module before probing.
+
+    `lake build E213` (the default target) only compiles the import-closure of
+    `E213.lean` (~446 modules); the remaining ~1676 modules have no `.olean`, so
+    the `#print axioms` probe silently returns nothing for them and the census
+    under-reports by ~80%.  Building all modules first closes that gate hole and
+    makes the whole-corpus census reproducible (Lake is incremental — already-built
+    modules are instant)."""
+    print(f'# Pre-building {len(modules)} modules (gate-integrity)…', file=sys.stderr)
+    for i in range(0, len(modules), batch):
+        chunk = modules[i:i + batch]
+        subprocess.run(['lake', 'build', *chunk], cwd='lean',
+                       capture_output=True, text=True, timeout=3600)
+        sys.stderr.write(f'  built {min(i + batch, len(modules))}/{len(modules)}\n')
+        sys.stderr.flush()
+
+
 def scan_batch(modules, batch_size=50):
     """Scan one module per probe (slower but reliable)."""
+    ensure_built(modules)
     results = []
     print(f'# Scanning {len(modules)} modules', file=sys.stderr)
     for i, mod in enumerate(modules):
