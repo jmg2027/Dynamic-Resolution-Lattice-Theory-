@@ -1273,7 +1273,48 @@ Burnside/cycle-index: `Sym3OctetOrbits` (28/0) is a real orbit/cycle-index insta
 cycleIndex/molecular objects absent; buildable witness: a finite-label Species as a List/subtype Σₙ-set
 generalizing the octet, with speciesProduct welded to `Convolution213.conv`.
 
-**Count.** 90 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Domain theory / denotational semantics (`domain_theory.md`) — the q=+1 fixed point as an order-colimit
+
+PREDICTION. Domain theory = the calculus's q=+1 fixed-point engine reached as an **order-colimit**
+(lfp f = ⊔ₙ fⁿ(⊥), the iteration ascending to a directed supremum, index n = the modulus) instead of the
+metric-completion the neighbours use. ★ Strong find: the repo **already builds the order-theoretic least
+fixed point** — `Order/KnasterTarski.lean` (19/0): `lfp = glb{x | f x ≤ x}`, `lfp_fixed`(f lfp = lfp),
+`lfp_least`, dual `gfp` — the impredicative construction of the exact lfp denotational recursion needs (Kleene's
+⊔fⁿ(⊥) is the predicative version of the *same* lfp). Scott-continuity = the resolution axis (commutes with
+directed colimits). D≅[D→D] = Lawvere's diagonal **tamed to q=+1 by ⊥/partiality**: `lawvere_fixed_point` reads
+as Cantor's q−1 escape on total maps but as consistent self-application q+1 when every Scott-continuous map has
+its own lfp — ⊥ flips the multiplier bit. Named CPO/ScottContinuous/Kleene-iteration objects absent; buildable
+witness: a Kleene lfp atop the built K–T lattice (fⁿ(⊥) ascending chain whose sup `lfp_fixed` already pins).
+
+### ★ Galois cohomology (`galois_cohomology.md`) — the residue operation on the Galois G-action
+
+EXTEND + PARTIAL. Galois cohomology = homological_algebra's residue-taking operation `Residue(L,C)`
+instantiated at `L=(−)ᴳ` (the Galois invariants = galois's `Fix`), graded by n, tagged q=±1, fed galois's
+G-action: H⁰=Mᴳ the q+1 exact part (`clo_idempotent`); H¹=crossed-homs-mod-principal the q−1 first obstruction
+(`ker δ¹/im δ⁰`, the same mechanism as `NonzeroBetti`'s built nonzero H¹ 56/0); H²=Brauer the second residue;
+the connecting δ/LES/Kummer = the `dsq_zero_universal_delta4` sign-propagation. ★ New datum: **Hilbert Theorem
+90 (H¹(Gal,L*)=0) = the q+1 VANISHING of the ×↦· multiplicative character's first residue** — binding the
+corpus's central character arrow (`det2_mul`/`legendre_mul`/`det_holonomy_eq_one`) to a cohomology-vanishing
+(the empty-residue `reduced_betti_d4_contractible` shape, vs NonzeroBetti's q−1 hollow cycle). The Galois G is
+`CyclotomicFive.galois_group_is_C4` (4/0); cocycle exemplar `MinkowskiCocycle` (6/0). Named GroupCohomology/
+Hilbert90/Brauer objects absent; buildable witness: a cyclic H¹(Cₙ,L*) toy forcing norm-1 cocycles principal.
+
+### ★★ Stone duality (`stone_duality.md`) — the Ω=Bool reading ⟺ its spectrum (a FOURTH calibrated boundary)
+
+LOCATED BOUNDARY (calibrated at LLPO). Stone duality splits exactly on the calculus's own constructive line:
+the **Boolean-algebra side is ∅-axiom BUILT**, the **ultrafilter Stone-space side is the calibrated
+non-constructive exterior — the SAME ultrafilter nonstandard_analysis located at LLPO**, recurring verbatim
+(totalize the valuation + reify the spectral point). ★ Load-bearing correction: `Order/BooleanAlgebra.lean` is
+BUILT and ∅-axiom (**25/0** — `cmpl_unique`, `cmpl_cmpl`, both De Morgan laws by propext-free rewriting, the
+α=Bool witness by `decide`); the algebra element/clopen = `FlatOntology.Object1 = decide(s=r)` (12/0), the
+topos Boolean pole. The Stone space Spec(B) IS the points-from-readings reconstruction (yoneda/tannakian/
+motives) carried to the maximal/uncountable index where it needs the BPI/LLPO exterior (`comparability_imp_llpo`
+2/0 → `llpo_of_realDichotomy` 31/0, the omniscience ledger `LPO`/`LLPO`; `Hyper213.cofiniteEquiv` is the
+internal horn one step below). Named Stone/Ultrafilter/Spec/clopen objects absent (the spectrum side has no
+∅-axiom witness — building it would need the forbidden choice fragment). This is the **fourth calibrated
+boundary**, all four converging on the one ultrafilter/LLPO point — the no-exterior axiom tested at its sharpest.
+
+**Count.** 93 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
