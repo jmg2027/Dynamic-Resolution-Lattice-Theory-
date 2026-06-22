@@ -62,9 +62,34 @@ stall) = the recurrence `why_the_reframing_recurs.md` reads on the reasoner.  On
 read on the cardinality carrier, the re-entry carrier, the König carrier, and the description
 carrier — the operational content of no-exterior (`seed/AXIOM/05_no_exterior.md` §5.1).
 
+## The Lawvere fixed point, instantiated (no longer narrative)
+
+The diagonal family is now *one Lean theorem with literal instances*, not a prose claim
+(`Lens/OneDiagonal.lean`, 7/7 PURE).  The single construction `g a := t (f a a)` is
+`lawvere_fixed_point`: a point-surjective `f : A → (A → B)` forces every modifier `t : B → B`
+to have a fixed point.  Its contrapositive `no_surjection_of_fixedpointfree` is the engine, and
+the limitative theorems are *derived as instances of it*:
+
+  - **Cantor** = `B = Bool`, `t = not` (`cantor_via_lawvere`, via `bnot_self_ne`);
+  - **the residue** = `A = Raw` (`residue_is_lawvere_diagonal` *is* `object1_not_surjective` —
+    the act of distinguishing's self-cover read through the same fixed point);
+  - **Russell / Liar / Tarski undefinability** = the `Prop`/`Iff` arm `lawvere_fixed_point_prop`
+    at `t = Not` (`russell_liar_no_surjection`, via the Liar `¬(P ↔ ¬P)`) — the undecidable twin
+    of Cantor, ∅-axiom (no `propext`: the conclusion is `Iff`, not `Eq` on `Prop`).
+
+`one_diagonal_generates` bundles the three.  So "the residue is the engine that generates the
+limitative theorems" (`01_residue.md` §1.0′) is *literal*: the remainder the distinguishing
+always leaves (`distinguishing_always_leaves_residue`) is the non-surjected diagonal that forces
+Cantor, Russell, the Liar, and Tarski — one fixed point, not four re-proofs.
+
 ## Open frontier
 
-The Cantor / Gödel / Tarski / Russell / Turing family is *provably* one Lawvere instance.
+The **Gödel-numbered / halting** members remain narrative, not Lean instances: a literal
+`lawvere_fixed_point` reduction of first-order provability-incompleteness or the halting problem
+needs the encoding apparatus (a coded syntax / a model of computation) that is not yet built
+∅-axiom.  The *abstract* fixed-point heart they share is now formal (`lawvere_fixed_point`); the
+*coded* instances are the open extension.
+
 The König / finite-subcover / omniscience family is unified in 213 as the same refused
 capture — the same non-surjection — but its literal external reduction to Lawvere's fixed
 point is looser: these are omniscience (LLPO / fan-theorem) cousins, not textbook Lawvere
@@ -87,7 +112,11 @@ residue and re-objectifies on reading; that is the thesis demonstrated, not a de
 
 ## Anchors
 
-- `Lens/FlatOntologyClosure.{object1_not_surjective, undifferentiated_not_object1}`,
+- `Lens/OneDiagonal.{lawvere_fixed_point, no_surjection_of_fixedpointfree, cantor_via_lawvere,
+  residue_is_lawvere_diagonal, lawvere_fixed_point_prop, russell_liar_no_surjection,
+  one_diagonal_generates}` (the diagonal family as one fixed-point theorem, 7/7 PURE)
+- `Lens/FlatOntologyClosure.{object1_not_surjective, undifferentiated_not_object1,
+  distinguishing_always_leaves_residue}`,
   `Lens/Cardinality/Cantor.cantor_general`, `Lens/ResidueReentry.residue_reentry_never_closes`
 - `Lib/Math/Combinatorics/KonigConditional.{InfChildExists, konig_infinity_no_finite_raw}`
 - `theory/essays/foundations/{reached_by_none, the_reference_claim, the_form_of_the_residue}.md`;
