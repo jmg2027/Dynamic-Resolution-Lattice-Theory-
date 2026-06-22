@@ -160,3 +160,14 @@ independently rebuilt this session, the axiom-scan tool could not write its prob
 - **`MultParityOrthogonal.mult_parity_orthogonal_to_cup_orientation`** exists and is PURE but is
   *linear-independence* "orthogonal" (two ℤ/2's on disjoint data), NOT character-orthogonality — NOT
   cited as a Fourier anchor (would be overclaiming).
+
+## ★ Update — orthogonality prediction CLOSED in ∅-axiom Lean (Legendre level)
+
+The predicted character-orthogonality `Σ_x χ(x)=0` is now a machine-checked theorem at the order-2
+(Legendre) character: `ModArith/CharacterOrthogonality.quadratic_orthogonality` (20 PURE) — for a
+primitive root `g` mod `p`, the order-2 character sums to zero over the orbit `{g^0,…,g^{p−2}}` AND
+each summand is the Legendre symbol (`altSign k = 1 ⟺ g^k` is a QR), via `altSign_eq_one_iff_even` ∘
+`qr_pow_iff_even_exp`. Count form `qr_count_eq_nonqr_count` (#QR = #nonQR = (p−1)/2). Propext-avoidance:
+Bool `n%2==0` parity instead of `Decidable (2∣n)`. This turns this entry's prediction into a verified
+derivation. Open: general order-`>2` χ needs a `Real213` cyclotomic root-of-unity `ζ` (the
+transcendental-cut residue this note already located).

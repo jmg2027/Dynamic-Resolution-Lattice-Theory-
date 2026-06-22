@@ -273,3 +273,28 @@ convolution-contraction; continuous Noether current), and probe the un-built **f
 (does the distinguishing's *unbounded ascent* give the free monad the closure corner lacks?). Targets +
 frontier: `research-notes/frontiers/decomposition_calculus.md`. The standing bar: every decomposition
 ends in a Revelation, or it is dropped.
+
+## Two predictions now CLOSED in ∅-axiom Lean (the technique paying off, verifiably)
+
+The leverage phase made predictions; two are now machine-checked theorems, not prose — the strongest
+form of "the technique pays" (the originator's bar):
+
+- **The growing/iteration-character axis** (`free_corner.md`) — a *new axis orthogonal to `q=±1`*:
+  readings have an **iteration-character** — `∂` *nilpotent* (`∂²=0`), `clo` *idempotent* (`T²=T`), `S`
+  *growing* (`Tⁿ` strictly ascends). The growing pole is now proved: `Theory/Raw/MuNuMirror.`
+  **`succ_not_idempotent`** (∅-axiom PURE) — the distinguishing's successor reading `S r = slashOrSelf
+  a r` satisfies `S(S r) ≠ S r` (depth strictly rises), the literal mirror of `clo_idempotent`. So the
+  calculus is *not* confined to the converging/closure corner; the growing (free-flavoured) endofunctor
+  is real and verified. (Honest residual: a free *monad* — the Kleisli multiplication — is still
+  un-built, possibly blocked Mathlib-free.)
+- **Character orthogonality** (`fourier.md`) — `ModArith/CharacterOrthogonality.`
+  **`quadratic_orthogonality`** (20 PURE): for a primitive root `g` mod `p`, the order-2 character sums
+  to zero over the orbit *and* each summand is the Legendre symbol (`altSign k = 1 ⟺ g^k` is a QR).
+  fourier.md's predicted "root-of-unity telescoping" cashed at the Legendre level. (Open: general
+  order-`>2` χ needs a `Real213` cyclotomic `ζ`.)
+
+**Model v6**: as v5, plus a second reading-axis — **iteration-character** {nilpotent `∂` / idempotent
+`clo` / growing `S`}, orthogonal to the `q=±1` residue tag (the same ascent is growing yet `q=+1`).
+Two of the calculus's predictions are now ∅-axiom theorems; the remaining leverage targets
+(convolution-contraction → Gaussian, continuous Noether current, general-χ orthogonality, the free
+monad) are recorded in the frontier.

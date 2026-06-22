@@ -29,10 +29,15 @@ Gaussian = convolve-rescale fixed point, generalizes φ; contraction lemma the o
 free/growing corner is the un-built edge). **Two load-bearing finds**: (1) ONE `×↦·` character arrow
 runs through parity/valuation/det/entropy/Noether/Fourier — six theorems, one reading; (2) the calculus
 is a *category of readings* living in the two q=±1 poles, and only the **q=+1 closure corner** is built
-(free/growing corner open). **Model v5** named in README. Honest leverage verdict: the calculus
-PREDICTS at the structural level (form + why), each prediction naming a concrete Lean target (character
-orthogonality / convolution-contraction / continuous Noether current / free monad) — the boundary
-between predicted and built. +batch-4 (all EXTEND): `homology` (∂ = fold-height run DOWNWARD → height is bidirectional; ∂²=0 forced by q=±1
+(free/growing corner open). **Model v6** named in README. Honest leverage verdict: the calculus
+PREDICTS at the structural level (form + why); **TWO predictions are now CLOSED in ∅-axiom Lean** (the
+technique paying off, verifiably): (1) the **growing/iteration-character axis** — `MuNuMirror.`
+`succ_not_idempotent` (PURE), the distinguishing's successor reading is non-idempotent (mirror of
+`clo_idempotent`), so the calculus is NOT confined to the q=+1 closure corner; new axis
+iteration-character {∂ nilpotent / clo idempotent / S growing}, orthogonal to q=±1; (2) **character
+orthogonality** — `ModArith/CharacterOrthogonality.quadratic_orthogonality` (20 PURE), Legendre-level
+Σχ=0 + altSign=Legendre. Remaining leverage targets (frontier): convolution-contraction→Gaussian,
+continuous Noether current, general-χ orthogonality (needs ζ), the free monad multiplication. +batch-4 (all EXTEND): `homology` (∂ = fold-height run DOWNWARD → height is bidirectional; ∂²=0 forced by q=±1
 sign-cancellation; nilpotent vs involutive = the two q=±1 poles), `ordinals` (ω = height-residue, q=+1,
 3rd instance; model caps HONESTLY at ω — finite-signature boundary), `galois` (first NON-INVERTIBLE
 reading-pair = adjoint/order-reversing connection; fundamental thm = residue-collapse-to-closure;
