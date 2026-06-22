@@ -1142,7 +1142,51 @@ witness**: the entire `p`-dependent transition layer (`p_c`/θ/infinite-cluster/
 unbuilt (sits on the Real213 value-cut + measure.md's Choice-flavoured residual). Recorded honestly as weaker
 than its neighbours: the static legs + q=±1 tag are PURE, the transition itself is analogy.
 
-**Count.** 81 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Renormalization group (`renormalization_group.md`) — the resolution dial made a FLOW (+ the DRLT tie)
+
+PREDICTION + PARTIAL. The RG = the calculus's **resolution dial made a continuous flow** whose UV/IR fixed
+points are the q=±1 poles, universality = the q=+1 attractor's basin = the fold-to-normal-form. New datum: the
+dial run as a one-parameter flow on *values* (the coupling) completes the resolution axis's **three reading
+modes** — iterated-on-residues (spectral sequences), scaled (Itô), **flowed (RG)**. The RG semigroup
+(grades add, irreversible) = `IsResolutionShift_compose`:130 + `cutDouble_no_grade`:355 (semigroup not group);
+IR attractor = `converge_residue_fixed` q+1, UV repeller = `escape_residue_outside` q−1, marginal =
+`multiplier_unimodular`. ★ The DRLT tie is real (and honestly bounded): the repo's *own physics branch* builds
+the running coupling `1/α_3(N)=(NS²−1)·S(N)` as a resolution-indexed rational sequence
+(`AsymptoticFreedom.asymp_free_via_monotone` 6/0, β-sign = monotonicity, IR fixed point = a ζ(2) bracket
+`Basel/Bound` 27/0, `RunningGap.running_gap_master` 3/0) — but the *continuous* β-function is the Real213
+residue (the field's own docstring marks it an interpretive posit). Flagged a vacuous
+`renormalization_auto:=True:=trivial`. Named RGflow/betaFunction objects absent.
+
+### ★ Operads / higher algebra (`operads.md`) — the Raw.fold composition made arity-graded
+
+PREDICTION. An operad = the calculus's `Raw.fold` composition made **arity-graded** (the multicategory above
+two_cells's 2-category of readings); the operad axioms = the fold's `raw_initial`/`dhom_unique_pointwise`
+coherence; Assoc/Comm/Lie = the q=±1 readings of one fold (`slash_comm` commutative q+1, `Mat2Bracket`
+antisymmetric q−1); A∞ coherence = the associahedron = Catalan (`catalan_recursion_n` `Cₙ₊₁=ΣCᵢ·Cₙ₋ᵢ`, the
+free-binary-operad composition recurrence, 17/0). ★ Strong in-repo find: `CombinatorialArity.lean` (5/0)
+already defines an arity-graded distinguishing `rel : (Fin k → Raw k) → Raw k` and proves
+`arity_2_unique_via_k_ge_3_vacuous`:180 — the calculus's operad is provably **binary-generated**. A∞
+witness-carrying normal form = `FreeReduction.proj_val_eq_iff`. Named Operad/∘ᵢ/equivariance/A∞ objects
+absent (the in-repo "operad level" in GRA is a grade reading `operadLens≡gradeLens`, not the substitution
+structure). Buildable witness: a `fold_split = catalan_convolution` bridge (`Raw.fold_slash`:37 = split a
+composition tree at the root, matching `catalan_recursion_n`).
+
+### ★ Topological quantum field theory (`tqft.md`) — the character arrow as a monoidal functor ⊔↦⊗
+
+EXTEND + PARTIAL. A TQFT = the character arrow (×↦·) promoted one categorical level to a symmetric monoidal
+functor `⊔↦⊗` on cobordisms — `Z(M⊔N)=Z(M)⊗Z(N)` is the character's product-preservation with the
+codomain swapped to Vect; gluing = the fold-composition (`raw_initial` + the 2-category); ∂ = homology's q=±1
+orientation bit (`dsq_zero_universal_delta4`); the 2d-classification's Frobenius structure = hopf_algebras's
+convolution (`m`+`Δ`, `Convolution213` 49/0, `mu_conv_one`). ★ Surprise built grounding: `GRA/Monoidal.lean`
+(13/0) already ships a symmetric monoidal `product` with unit `trivial23` (Z(∅)=k's shadow), braiding
+`productSwapIso_involutive` (23/0), and **`product_NT_NT_grade`: grade(M⊗N)=grade M+grade N** — Atiyah's ⊔↦⊗
+axiom at the grade readout, the first built instance of "a monoidal product whose readout is the additive
+character." Located break: the named cobordism category / ambient-isotopy quotient (recurring from knots),
+and no general `Vect`/`⊗` object (the d>1 ceiling); the FP2SqrtD "Frobenius" is the number-theoretic
+Frobenius (false-friend flagged). Buildable witness: bundle `product_NT_NT_grade`+`productSwapIso_involutive`+
+unit homs into one `IsMonoidalGradeFunctor`.
+
+**Count.** 84 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
