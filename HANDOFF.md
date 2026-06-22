@@ -79,8 +79,15 @@ codebases." Closed for arithmetic, over `Nat213` (Peano's Raw-generated ℕ₊),
 2. **Line B exposure** — the §5.1 verdict-wall: a clean capstone proves coherence + forcing, **not**
    "not a re-skin." Only an exterior settles it. Finish the paper's flagged numbers; consider a
    pre-registered, time-boxed open-problem attack. Frontier: `the_substance_test.md` (Line B).
-3. **Census refresh** — `STRICT_ZERO_AXIOM.md`'s 18,845/18,798-PURE snapshot predates this session's
-   +Irreducible/+Factorization/+EuclidUnique/+FTA/+Forcing/+Infinitude/+Prime (all PURE); refresh at next doc-sync.
+3. **Census tooling fix (NEW — audited this session)** — a whole-corpus audit found the
+   `scan_all_axioms.py --csv` batch mode **resolves only ~4177 of ~20,429 top-level decls** (~80%
+   silently dropped to per-module probe timeouts / name-resolution); its aggregate total is
+   untrustworthy. Per-module `scan_axioms.py` is authoritative. Fixed this session: a false "1 real
+   DIRTY" (command-elaborator `elab{Verify,Derive}Conjugation` cross-attributed to a `Cauchy.*`
+   module) is now sealed by decl name (`SEALED_DIRTY_DECLS`); the stale "18,845"/"three CommandElab"/
+   "Classical.choice in NativeGuard" claims are corrected in `STRICT_ZERO_AXIOM.md` + the Line B paper.
+   **Remaining**: fix the batch probe (name-qualification + per-decl timeout) so the whole-corpus
+   census is reproducible — a real gate-integrity task. 0 real DIRTY holds (per-module + resolved set).
 
 ## File Map
 ```
