@@ -47,20 +47,20 @@ with the chain load-bearing *in the proof*, not just the prose:
   is a **partial order** (`dvd_antisymm` + `mul_eq_one`), **order-refining** (`dvd_imp_eq_or_lt`:
   divisor ≤ dividend), **bounded below** (`one_dvd`) and **open above** (`dvd_no_top` — no top,
   forced by the primitive's non-closure). A discipline computed entirely on the distinguishing's ℕ₊.
-- **Leg-3 reading-forcing — FIRST STEP DONE** (`Generation.count_reading_forced`, PURE): the count
-  is *the* reading **forced** by "atom ↦ 1, distinguishing ↦ +" — any `g : Raw → Nat` with that
-  interpretation is identically the leaf-count (`Lens.view_unique`/initiality at the arithmetic
-  level). So the unfolding is **forced, not chosen**, at the leaf-count level. This is a partial
-  answer to the skeptic's Attack 2.
+- **Leg-3 — BRACKETED at the arithmetic level** (`Generation.lean`, 8 PURE):
+  - *forced* (`count_reading_forced`): any `g` with atom↦1, slash↦+ is identically the leaf-count
+    (initiality with teeth) — the reading is forced given the interpretation.
+  - *necessary* (`distinguishing_necessary` + `deg_view_one`): a distinguishing-blind reading (constant
+    combine ignoring the `slash`) collapses all numerals to one value, while the count separates them —
+    the distinguishing structure is load-bearing, not decorative.
+  Together: at the arithmetic level the unfolding is **forced AND the distinguishing is necessary** — a
+  genuine partial answer to the skeptic's Attack 2.
 - **Remaining (the genuinely hard part):**
-  - leg-2 *depth* — a deeper discipline (primality / unique factorisation, or a figurate identity)
-    over `Nat213`.
-  - leg-3 *full rival-exclusion* — `count_reading_forced` forces the **reading** given the
-    interpretation; it does **not** yet exclude rival **primitives** (negation-first, relation-first).
-    Attack 2's full demand: a checkable statement that distinguishing-as-primitive is *not
-    interchangeable* — e.g. that a non-distinguishing structure (`a = b`, or a degenerate combine)
-    *provably* fails to generate the non-degenerate arithmetic (numeral injectivity needs `a ≠ b`).
-    This is the deepest open work.
+  - leg-2 *depth* — a deeper discipline (primality / unique factorisation) over `Nat213`.
+  - leg-3 *full rival-PRIMITIVE exclusion* — `distinguishing_necessary` excludes rival *readings*
+    (distinguishing-blind combines); the full Attack-2 demand is to exclude rival *primitives*
+    (negation-first, relation-first) — show they generate a *different/degenerate* structure. The
+    deepest open work; needs formal rival primitives, not just rival Lenses.
 
 ## CORRECTION (2026-06-22): leg 1 is ~80% done — the gap is leg 2
 
