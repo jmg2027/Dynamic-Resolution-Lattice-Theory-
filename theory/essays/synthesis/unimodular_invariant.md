@@ -84,8 +84,12 @@ into single theorems rooted in `det2_mul`. The open extension is the *period-pol
 
   - **Cassini multiplier law** (`CassiniUnimodular.det_step`/`det_closed`): the parametric
     `D(n) = qⁿ·D(0)` — the determinant of a 2nd-order recurrence scales by its shift-det `q`;
-    the golden `q=1` (conserved) and swap `q=−1` (alternating) are its instances. The
-    unimodular invariant here is the `q=1` conserved case on the Markoff spine.
+    the golden `q=1` (conserved) and swap `q=−1` (alternating) are its instances. This
+    connection is now a theorem (`MarkovCassiniUnimodular`): the Markov matrix orbit's
+    `c`-entries obey a `q = det₂ M_l = 1` recurrence (Cayley–Hamilton Vieta), so their Cassini
+    determinant is **conserved** (`markov_orbit_cassini_const`) — the unimodular invariant
+    `det₂ = 1` *is* the Cassini multiplier `q = 1`, the same conservation as the golden Cassini.
+    This ties the two sub-domains of this family into one law.
   - **Markov uniqueness** (`MarkovUniqueness`, `MarkovInjectivity.slope_path_inj`): Reading 2
     (Frobenius monotonicity) is the engine behind the residue-map injectivity in the
     uniqueness programme.

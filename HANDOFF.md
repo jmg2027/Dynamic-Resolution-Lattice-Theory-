@@ -47,6 +47,17 @@ carries both faces. Converts the corpus's narrated "two faces, one matrix"
 - Wired into `lean/E213/Lib/Math/Combinatorics.lean`; umbrella build green.
 - `tools/scan_axioms.py E213.Lib.Math.Combinatorics.CountDuality` → 7 pure / 0 dirty.
 
+## Closed (Line A — Markov orbit Cassini conservation; family II's two sub-domains unified)
+`lean/E213/Lib/Math/NumberSystems/Real213/Markov/MarkovCassiniUnimodular.lean` (6 PURE).
+The Markov/Stern-Brocot matrix orbit's `c`-entries `s(k)=(M_l^k·M_r).c` obey a 2nd-order
+recurrence `s(k+2)=tr(M_l)·s(k+1)−1·s(k)` (Cayley–Hamilton Vieta, `markoff_vieta`, needs
+`det₂ M_l=1`), so by `CassiniUnimodular.det_step` (multiplier `q`) their Cassini determinant
+is **conserved** (`markov_orbit_cassini_const`: `det s n = det s 0`) — the same `q=1`
+conservation as the golden Cassini. So `det₂=1` (the SL₂ unimodular invariant) **is** the
+Cassini multiplier `q=1`: family II's two sub-domains (Markov SL₂ ↔ Cassini/Fibonacci) are
+one law. Queue item #2, closed. Wired into `Real213.lean`; essay `unimodular_invariant.md`
+cross-frame updated.
+
 ## Closed (Line A, fourth deposit — unimodular invariant, a SECOND unification family)
 **One `det₂ = 1` drives the Stern-Brocot tree and the Markov recurrence** —
 `lean/E213/Lib/Math/NumberSystems/Real213/Markov/UnimodularSynthesis.lean` (1 PURE,
@@ -123,13 +134,9 @@ shared term is the rung. F1 (bialgebra distributivity of `Δ_+`/`Δ_×`) still o
    (vp of a range-product = Σ vp). `FTAUniqueness` has list-product factorization
    (`prodL`, `vp_prodL_eq_countOcc`) but not the arbitrary-number vp-determinism. Build
    `eq_of_vp_eq` first (real work), then the product form is a clean corollary. Risk MED-HIGH.
-2. **Cassini ↔ Markov unimodular bridge** (ties family II's two sub-domains). The Markov
-   matrix `.c`-entries along a Stern-Brocot path satisfy a 2nd-order recurrence
-   `s(n+2) = tr·s(n+1) − det·s(n)` with `det = det2 = 1` (from `markoff_vieta` + `mNode_det1`),
-   so by `CassiniUnimodular.det_step` (multiplier `q = det2 = 1`) their Cassini determinant is
-   *conserved* — the SAME `q=1` conserved law as the golden/Fibonacci Cassini (`det_golden`).
-   Genuine: `det2 = 1` IS the Cassini multiplier `q`. Risk MED (needs the entry-recurrence in
-   the right shape from `markoff_vieta`).
+2. **Cassini ↔ Markov unimodular bridge** — **CLOSED** (`MarkovCassiniUnimodular`, 6 PURE):
+   `det₂=1` is the Cassini multiplier `q=1`, so the Markov orbit's Cassini determinant is
+   conserved (same law as golden Cassini). Family II's two sub-domains unified.
 3. **Bell/Dobinski via the partition antipode** (`BellStirling`): `B(n) = Σ_k S₂(n,k)`; wire a
    falling-factorial/moment forward identity to `stirling_inversion_via_engine`. Risk MED.
 4. **A cross-domain `LensIso` + transport** via `lensIso_iff_kernel_eq`
