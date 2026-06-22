@@ -47,11 +47,20 @@ with the chain load-bearing *in the proof*, not just the prose:
   is a **partial order** (`dvd_antisymm` + `mul_eq_one`), **order-refining** (`dvd_imp_eq_or_lt`:
   divisor ≤ dividend), **bounded below** (`one_dvd`) and **open above** (`dvd_no_top` — no top,
   forced by the primitive's non-closure). A discipline computed entirely on the distinguishing's ℕ₊.
-- **Remaining (the genuinely hard part):** leg-2 *depth* — route a deeper discipline (primality /
-  unique factorisation, or a figurate identity) over `Nat213`; and leg-3 *forcing/uniqueness* — show
-  the distinguishing primitive is **non-interchangeable** with rivals (negation-first, relation-first),
-  i.e. strengthen `Lens/Initiality` so the classical structure is the *unique* distinguishing-preserving
-  reading. The latter is the skeptic's Attack-2 target and the deepest open work.
+- **Leg-3 reading-forcing — FIRST STEP DONE** (`Generation.count_reading_forced`, PURE): the count
+  is *the* reading **forced** by "atom ↦ 1, distinguishing ↦ +" — any `g : Raw → Nat` with that
+  interpretation is identically the leaf-count (`Lens.view_unique`/initiality at the arithmetic
+  level). So the unfolding is **forced, not chosen**, at the leaf-count level. This is a partial
+  answer to the skeptic's Attack 2.
+- **Remaining (the genuinely hard part):**
+  - leg-2 *depth* — a deeper discipline (primality / unique factorisation, or a figurate identity)
+    over `Nat213`.
+  - leg-3 *full rival-exclusion* — `count_reading_forced` forces the **reading** given the
+    interpretation; it does **not** yet exclude rival **primitives** (negation-first, relation-first).
+    Attack 2's full demand: a checkable statement that distinguishing-as-primitive is *not
+    interchangeable* — e.g. that a non-distinguishing structure (`a = b`, or a degenerate combine)
+    *provably* fails to generate the non-degenerate arithmetic (numeral injectivity needs `a ≠ b`).
+    This is the deepest open work.
 
 ## CORRECTION (2026-06-22): leg 1 is ~80% done — the gap is leg 2
 
