@@ -3,32 +3,38 @@
 ## Branch
 `claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean, all new modules ∅-axiom PURE.
 
-## ★★ CURRENT STATE (2026-06-22, 13-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
+## ★★ CURRENT STATE (2026-06-22, 19-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
 The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
-now spans **56 worked decompositions** of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+now spans **67 worked decompositions** of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
 converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
-`ResidueTag.lean`). Canonical indices: **`SYNTHESIS.md`** (the capstone map — invariants, q=±1 spine, Lean
-census, recurring breaks, the self-description: PURE/DIRTY = Heyting/Boolean = why 213 is constructive),
-`README.md` (the technique + per-field entries), `FRONTIER_AUDIT.md` (honesty pass — 7 stale claims fixed,
-~22 gaps confirmed honest). **~18 ∅-axiom Lean modules** ground the invariants: `ResidueTag`, `Mat2Spectrum`
-(det/tr=e₁/e₂), `Mat2Bracket`, `Mat2Killing` (d>1 trace), `Mat2SymmetricSpectrum`, `GraphLaplacian`,
-`DerivedSeries` (S₃ solvable), `FenchelMoreau` (f**=clo), `CyclicErgodic`, `BanachFixedPointModulated` +
-`DyadicCompletion` (the constructive-wall defeat), `NoetherCurrent`, `OuterMeasure`, `ContinuityOpenSet`,
-`PowerSeriesSemiring`, `GaussianOrthogonality` + `CyclicCharacterOrthogonality` (orthogonality all orders mod p),
-`ConvolveRescaleContraction`/`ConvolveProfile`, `CyclicErgodic`, `A5Perfect` (A₅ perfect, the quintic q=−1
-pole — with `DerivedSeries.solvable_S3` the q=+1 pole). **★ Two wall-style results:** (1) the constructive
-wall DEFEATED (modulated Banach engine, wave 3); (2) the colimit/ambient-quotient corner SPLIT (wave 14,
-`colimit_quotient_synthesis.md`) — Side A interface-defect (buildable ∅-axiom via the verified `LensImage`
-Σ-pattern: braids/free π₁/Jones state-sum) vs Side B theorem-grade obstruction (Novikov–Boone undecidability).
-`FreeReduction` (the Side-A colimit witness — free group as a normal-form Σ-quotient, `proj_val_eq_iff` =
-`Quot.sound`'s content axiom-free, the decidable word problem, NO `Quot`), `Solvable` (general
-`isSolvable`/`isPerfect` + `perfect_nontrivial_not_solvable`, unifying S₃ q=+1 / A₅ q=−1). **★ The colimit
-corner is now SPLIT *and* its Side A BUILT** (`FreeReduction`), the second "impossible corner" addressed the
-way the wall was (diagnose → build the buildable side). 57 decompositions; latest fresh fields: algebraic
-geometry, modular forms (E–S period side built), homological algebra (= the residue-taking operation named).
-Process note: `scan_axioms` can read a freshly-registered
-module's stale `.olean` as false-DIRTY — `#print axioms` on a clean rebuild is authoritative (verified this
-session). The 12 per-wave sections below are superseded by SYNTHESIS.md (kept for provenance; a `/handoff`
+`ResidueTag.lean`) + the reflexive deepening (homological algebra names the calculus's own residue-taking
+operation; spectral sequences = that operation ITERATED). Canonical indices: **`SYNTHESIS.md`** (the capstone
+map — invariants, q=±1 spine, Lean census, recurring breaks, the self-description: PURE/DIRTY =
+Heyting/Boolean = why 213 is constructive), `README.md` (the technique + per-field entries),
+`FRONTIER_AUDIT.md` (honesty pass). **~28 ∅-axiom Lean modules** ground the invariants (full list:
+SYNTHESIS.md §4 census). **★ Two wall-style results:** (1) the constructive wall DEFEATED (modulated Banach
+engine); (2) the colimit/ambient-quotient corner SPLIT — Side A BUILT ∅-axiom (`FreeReduction`, free group
+as normal-form Σ-quotient, NO `Quot`) vs Side B theorem-grade (Novikov–Boone).
+
+**Waves 16–19 (this session), 58→67 decompositions:** game theory (Sprague–Grundy = XOR character + q=±1
+P/N split; `mex` engine BUILT ∅-axiom `Mex.lean` 12/0 — the bounded diagonal); Lefschetz/degree (L(f)≠0 ⟹
+fixed point = the trace-weighted diagonal); martingales (q=+1 conditional-expectation fixed point, Doob =
+⟨C|L⟩⊕Residue); spectral sequences (the residue operation iterated, `residue_perpetually_reenters`);
+Hopf algebras (the slash read co-, comultiplication calculus-native, antipode = q−1; located break = bialgebra
+compatibility F1); K-theory (= integers' group-completion difference-Lens one carrier up; the completion is
+carrier-polymorphic, `PairCompletionUniversal` 19/0); Morse theory (read-a-space-by-height; Morse index = a
+5th word for `Raw.depth`); continued fractions (the PUREST residue-doctrine instance — convergents = modulus,
+irrational = reached-by-none); optimal transport (the FOURTH f**=clo instance, `OllivierRicci` 60/0 Kantorovich
+LP built); cut-elimination (= the fold-to-normal-form on proofs; subformula property = the fold's
+no-new-atoms law; ε₀ = q−1 height-escape; repo toy `CutElimination` 10/0). NonzeroBetti (56/0) closed
+homological_algebra's nonzero-H¹ witness.
+
+Process notes (this session): `scan_axioms` can read a freshly-registered module's stale `.olean` as
+false-DIRTY — `#print axioms` on a clean rebuild is authoritative. Core `List.length_range`/`length_filter_le`
+leak `propext` — use `E213.Tactic.List213.*` (pure) instead; a pure `length_range` is NOT yet in the repo
+(blocked one Morse-bound build — reverted rather than ship DIRTY). Agent-proposed buildable witnesses must be
+re-checked: one (`kerSizeDelta 5 k ≤ binom 5 k`) was FALSE (count vs dimension category error) and was caught.
+The 12 per-wave sections below are superseded by SYNTHESIS.md (kept for provenance; a `/handoff`
 regeneration would prune them).
 
 ## ★ LATEST (batch-8 wave, model v7) — read this before the dense block below
