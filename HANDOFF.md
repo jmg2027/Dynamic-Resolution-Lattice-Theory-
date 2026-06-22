@@ -3,9 +3,9 @@
 ## Branch
 `claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean, all new modules ∅-axiom PURE.
 
-## ★★ CURRENT STATE (2026-06-22, 30-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
+## ★★ CURRENT STATE (2026-06-22, 31-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
 The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
-now spans **99 worked decompositions** of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+now spans **102 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
 converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
 `ResidueTag.lean`) + the reflexive deepening (homological algebra names the calculus's own residue-taking
 operation; spectral sequences = that operation ITERATED). Canonical indices: **`SYNTHESIS.md`** (the capstone
@@ -52,7 +52,7 @@ deformation-`q` vs tag-`q` is **CONTAINMENT not identity**: `qbinom` at q=−1 i
 `QBinomial` 11/0); information theory (mutual info = the ×↦+ character's additivity-defect = the channel
 residue; `Channel.lean` BUILT 8/0); Nash equilibria (the q=+1 fixed point of best-response, a 3rd carrier of
 the diagonal engine; minimax = LP duality = a 6th duality instance; Brouwer existence = a calibrated LLPO
-gap).  SYNTHESIS at **v3 (count 99)**.  **Four calibrated boundaries** now located
+gap).  SYNTHESIS at **v3 (count 102)**.  **Four calibrated boundaries** now located
 (nonstandard/LLPO, CFT/bundle, descriptive-set/large-cardinals, Stone/ultrafilter) — all converging on the one ultrafilter/LLPO/choice point: the no-exterior axiom, tested at its hardest
 points, yields a *calibrated* remainder on the corpus's own strength ledger, never an uncalibrated wall.
 
