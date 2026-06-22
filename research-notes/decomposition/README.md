@@ -577,7 +577,39 @@ weight-space — the one `×↦+` character at three orders (entropy/KL/Fisher).
 atom only; the full divergence *functional* `Σ p·log(p/q)` and its Hessian (the Fisher *metric tensor*) are
 absent — the `weight × character` at non-power resolution (the `log₂e` `Real213` bracket, entropy.md's own gap).
 
-**Count.** 40 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### Spectral graph theory (`graph_theory.md`) — Laplacian spectrum = the q=+1 diffusion-residue
+
+PREDICTION, central leg BUILT: a graph = `⟨V (count) | symmetric adjacency reading⟩`; the Laplacian `L=D−A`
+is the symmetric diffusion reading, so its spectrum is REAL (`Mat2SymmetricSpectrum.disc_symmetric_nonneg`,
+the `q=+1` corner), with `λ₀=0` the constant/all-ones fixed point. **Connectivity = dim ker L** is a PURE
+theorem (`GraphConnectivity.closed_const`/`closed_root_determines`; an actual bipartite adjacency in
+`KernelConstancyUniversal.bipAdj_connected`; the physics K_{3,2} Laplacian spectrum
+`LaplacianSpectrum.laplacian_spectrum_master`) — Fiedler's "#components = dim ker L" = the count-reading's
+`q=+1` fixed point; Matrix-Tree = the det-character. Consolidates spectral + topology + count + det.
+Promotable target: the 2-vertex Laplacian `[[1,−1],[−1,1]]` is a `Mat2`, symmetric, spectrum {0,2} rational.
+
+### Convex optimization / duality (`convex_duality.md`) — Legendre–Fenchel = galois.md's closure
+
+PREDICTION (galois + adjunction + gradient-flow + spectral): the Legendre–Fenchel biconjugate `f**=clo(f)`
+= the closed convex hull = `galois.md`'s idempotent closure monad `clo=G∘F` on the function lattice;
+Fenchel–Moreau = the residue-collapse-to-closure; **duality gap = the closure residue, q=+1**. Convexity =
+the `q=+1` PSD-Hessian corner (`disc≥0`); the minimum = gradient-flow's `q=+1` fixed point
+(`gradient_descent_monotone`). Surprise: weak/strong duality are BUILT — `OllivierRicci.kantorovich_weak_duality`
+(`max_λ min_x ≤ min_x max_λ`, LP/Kantorovich) + `ollivier_plan_optimal` (zero-gap certificate). Missing leg:
+the Legendre transform *object* `f*(p)=sup_x(px−f(x))` (the one weld: instantiate `clo` at `Fix=Inv=(·)*`).
+
+### Model theory / completeness (`model_theory.md`) — completeness = view=fold initiality; logical compactness = topology's q=+1 corner
+
+PREDICTION+PARTIAL, the q=+1 companion of `godel.md`'s q=−1: **completeness `⊢φ⟺⊨φ` = the calculus's
+`view=fold` initiality** — the term model = the initial object `Raw`, syntactic (free, `Raw.fold`) and
+semantic (universal, `Lens.view`) sides are the *same unique arrow* (`raw_initial`/`universalMorphism_unique`/
+`dhom_unique_pointwise`), the q=+1 syntax/semantics fixed point. **Logical compactness = topology.md's q=+1
+finiteness residue** — the SAME corner (`heineBorel`/`compact_bounded_by_length`), name not a coincidence
+(Stone-space compactness). Löwenheim–Skolem = the q=−1 count diagonal (`raw_at_most_countable` +
+`object1_not_surjective`). Consolidates category_theory (initiality) + topology (compactness) + godel
+(diagonal). Missing leg: an actual FOL `Formula`/`⊨`/`⊢` object (the structural prediction is the deliverable).
+
+**Count.** 43 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
