@@ -79,11 +79,25 @@ untyped class into a closed dichotomy over a typed class, pushing the irreducibl
 ## Status / next deposits
 
 - ✅ **Insight recorded** (this note) + **first deposit**: `UniversalDistinguishing.rawDStr` (`Raw`
-  satisfies the weaker axioms; binary/commutative derived not assumed).
-- ⏳ **Universal property** (`raw_initial`: existence + uniqueness of `DHom rawDStr N`): existence = a
-  `depth`-recursive map tracking `≠`; uniqueness = `view_unique` upgraded to the `DHom` signature.
-- ⏳ **The dichotomy theorem** (negative branch = named clause failure; positive = `generated_iso`),
-  and **`kernel_devices_are_distinguishing_instances`** (Attack-1 recognition bundle: `Bool`, `Prop`,
-  `Eq` as `DStr`-models).
+  satisfies the weaker axioms; binary/commutative derived not assumed) + `rawDStr_generated`.
+- ✅ **Universal property — uniqueness half** (`dhom_unique_pointwise`, PURE, funext-free): any two
+  `DHom rawDStr N` agree at every `Raw` (induction, since `Raw` is generated). The `∀ rival morphism`
+  quantifier is discharged.
+- ⚠️ **Existence half — a genuine subtlety found (refines Agent 1).** The catamorphism `Raw → N` must
+  preserve distinctness (`map x ≠ map y` at every slash, so `N.op` applies). But D3 (`op_faithful`) +
+  D4 (`op_ne_operand`) do **not** prevent an op-result from colliding with a *base point*
+  (`op u v = e₁` is not forbidden by the stated axioms) → the catamorphism need not be injective →
+  the morphism need not exist → **`Raw` is not initial in the naive `DStr` category.** Fix: add
+  > **D6** `op_ne_base`: `op x y h ≠ e₁ ∧ op x y h ≠ e₂` (op-results are never base points — true in
+  > `Raw` by `depth`, the atoms being the floor).
+  With D1+D3+D4+D6 the catamorphism is injective (atom/atom by `e_ne`; atom/slash by D6; slash/slash
+  by D3 + induction), so existence holds. The construction is then an injective catamorphism with the
+  `≠`-proof embedded (well-founded on `depth`); the Lean obligation is defining `map` and its
+  injectivity simultaneously. **This is the precise next target** — add D6 to `DStr`, prove
+  `rawDStr` satisfies it (`Raw.slash_ne_a/b` via depth), build the injective catamorphism, then
+  `raw_initial = ⟨existence, dhom_unique_pointwise⟩`.
+- ⏳ **The dichotomy theorem** (negative branch = named clause failure; positive = `generated_iso` for
+  *free* generated N — note a generated-but-not-free N gets a surjection, not an iso), and
+  **`kernel_devices_are_distinguishing_instances`** (Attack-1 recognition bundle).
 - 📌 Promote the honest maximal claim (Agent 2's 2d) to a permanent tier; retire "from one primitive"
   rhetoric in CLAUDE.md framing.

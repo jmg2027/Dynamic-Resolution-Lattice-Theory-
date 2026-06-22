@@ -20,6 +20,9 @@ binary commutative `combine`, the skeptic's circularity charge).
     even a `DStr`, by signature — this is how `RivalArity`'s corners become signature failures).
   - **D3** `op_faithful` — faithful up to swap (⟹ commutativity of the free object is a theorem).
   - **D4** `op_ne_operand` — a pairing is never its own operand (freeness / no collapse).
+  - **D6** `op_ne_base` — a pairing is never a base point (atoms are the floor; required so the
+    catamorphism `Raw → N` preserves distinctness, hence exists — D3+D4 alone do not prevent
+    `op u v = e₁`).
   - **D5** `rank_op` — `op` strictly increases a ℕ-rank (well-founded generation).
 
 `rawDStr` fills every field from existing PURE theorems; the keystone D3 is `Raw.slash_inj`.  ∅-axiom.
@@ -41,6 +44,7 @@ structure DStr (α : Type) where
   op_ne_operand : ∀ (x y : α) (h : x ≠ y), op x y h ≠ x ∧ op x y h ≠ y
   op_faithful : ∀ (x y : α) (hxy : x ≠ y) (u v : α) (huv : u ≠ v),
       op x y hxy = op u v huv → (x = u ∧ y = v) ∨ (x = v ∧ y = u)
+  op_ne_base : ∀ (x y : α) (h : x ≠ y), op x y h ≠ e₁ ∧ op x y h ≠ e₂
   rank : α → Nat
   rank_op : ∀ (x y : α) (h : x ≠ y),
       rank x < rank (op x y h) ∧ rank y < rank (op x y h)
@@ -57,6 +61,7 @@ def rawDStr : DStr Raw where
   op := Raw.slash
   op_ne_operand := fun x y h => ⟨Raw.slash_ne_left x y h, Raw.slash_ne_right x y h⟩
   op_faithful := fun _ _ _ _ _ _ he => Raw.slash_inj he
+  op_ne_base := fun x y h => ⟨Raw.slash_ne_a x y h, Raw.slash_ne_b x y h⟩
   rank := Raw.depth
   rank_op := fun x y h => E213.Theory.Raw.Lambek.depth_drops x y h
 
