@@ -18,10 +18,31 @@ PURE. Latest commits: `Φ_contraction` (ConvolveRescaleContraction, 20/0), model
   `fourier.md` order-2; **`Φ_contraction`** (`ConvolveRescaleContraction`, 20 PURE) closes
   `gaussian_clt.md`'s keystone leg (honest residual: no `CompleteMetricModulus Dy`, profile open).
 **Model v7** = v6 + {resolution carries a `base` (padic); the boundary is located (knots break:
-skein + isotopy-quotient are named missing primitives)}. Open frontier targets:
-`research-notes/frontiers/decomposition_calculus.md` — continuous Noether current, general-χ
-orthogonality (needs `Real213` ζ), `CompleteMetricModulus Dy` + convolution-on-profiles, the native
-free-monad/νF carrier, Ostrowski exhaustiveness.
+skein + isotopy-quotient are named missing primitives)}.
+
+## ★ SECOND WAVE (model v7.1) — four more agents, three new Lean closures
+- **v7.1 (`two_cells.md`)** — META-decomposition of natural transformations re-partitions the knots
+  break: naturality DISSOLVES (readings form an explicit **2-category** — `view_factors_through_morphism`
+  etc., ∅-axiom); skein/Leibniz = a real **graded-relation slot** (grounded by `leibniz_universal_delta4`);
+  isotopy-quotient = genuinely absent (colimit/`q=−1` corner + ambient space). Missing-primitive list
+  shrinks from two coarse items to those two precise ones.
+- **Noether closed (discrete)** — `NoetherCurrent.lean` (14/0) + `TelescopingConservation.lean` (8/0):
+  continuity equation `∂_t ρ = j` + Noether-as-iff `noether_local : (∀w, current g w = 0) ↔ det g = 1`.
+  Residual: full variational `∂_μ j^μ=0` needs analytic Real213 (no Lagrangian/flow) — named frontier.
+- **Representation theory (`representation.md`)** — the character arrow's home field; Schur orthogonality
+  = the already-closed `Σχ=0`; `×↦·` arrow now spans **seven** fields. New located edge: the **`det`/`tr`
+  split** (`det` is the built multiplicative character; `Mat2.tr` exists only as an additive order/growth
+  readout — `GoldenAperiodic`/`traceDisc` — no `tr`-multiplicativity, no `Rep(G)`/Maschke).
+- **Gaussian completion-limit** — `DyadicCompletion.lean` (19/0): a genuine **quotient-free** dyadic
+  Cauchy-completion `DyC L`, the lifted `Φhat_contraction`, and `orbit_to_center_completion` (center as a
+  true completion-limit). **Principled wall**: `banach_fixed_point`'s wrapper needs a total choice-free
+  `lim` (universal `climconv`) — constructively impossible; the *content* is delivered, the wrapper isn't.
+
+**Tally:** 31 decompositions + the `two_cells` meta; six predictions, **five Lean-closed** (orthogonality
+2/3/6, growing-corner, convolve-rescale contraction + completion-limit, discrete Noether-iff). `lake build
+E213` clean. Open frontier (`research-notes/frontiers/decomposition_calculus.md`): variational Noether
+current, general-χ orthogonality (needs `Real213` ζ), the `tr`-character / `Rep(G)`-Maschke at `d>1`,
+convolution-on-profiles, the native free-monad/νF carrier, isotopy/colimit quotient, Ostrowski exhaustiveness.
 
 ## ★ DIRECTION RECALIBRATION (2026-06-22, from the originator directly — READ FIRST)
 The originator course-corrected the whole approach: **the Lean files are scaffolding, not the body —
