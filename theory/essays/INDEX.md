@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 105 essays are grouped into ten thematic sub-directories — distinct
+The 106 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -27,6 +27,10 @@ others together):
 `the_frontier_has_a_form`, `the_residue_unit_odometer`, `the_unit`,
 `reached_by_none`, `the_breadth_signature`, `the_reference_claim`,
 `the_one_diagonal`, `the_one_carrier`, `growth_without_a_clock`,
+`raw_and_lens_explained` (a plain-language reader's guide — for humans and AI — to the
+foundational layer: what `Raw`/`Lens` are, *why* `slash` carries `x ≠ y` (forced by the axiom +
+the no-`Quot.sound` rule), the universal property `raw_initial` (already proven), the residue as
+engine, the schema/rival-exclusion, and an honest proven-vs-open scoreboard with a file map),
 `the_distinguishing_is_the_primitive` (the corrected 진의 as a checkable
 four-direction lattice — generation / forcing / reading-necessity /
 primitive-necessity, across arithmetic (`Nat213.Generation`) and the residue
