@@ -1,4 +1,5 @@
 import E213.Lens.Number.Nat213.Peano
+import E213.Lens.Number.Nat213.Order
 
 /-!
 # Lens.Number.Nat213.Divisibility — a discipline computed OVER the Raw-generated ℕ₊ (∅-axiom)
@@ -24,7 +25,9 @@ namespace E213.Lens.Number.Nat213.Divisibility
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
-  (mul one mul_one one_mul mul_assoc mul_comm mul_left_cancel succ_ne_one)
+  (mul one succ add mul_one one_mul mul_assoc mul_comm mul_left_cancel succ_ne_one
+   mul_succ_right add_assoc add_one_right)
+open E213.Lens.Number.Nat213.Order (lt lt_irrefl)
 
 /-- **Divisibility over the Raw-generated ℕ₊**: `a ∣ b` iff `b = a · c` for some `c : Nat213`,
     using `Nat213`'s own multiplication.  No Lean `Nat`. -/
@@ -85,6 +88,32 @@ theorem dvd_antisymm {a b : Nat213} (hab : Dvd a b) (hba : Dvd b a) : a = b := b
   obtain ⟨hx1, _⟩ := mul_eq_one hxy
   have hb : b = a := by rw [hx, hx1, mul_one]
   exact hb.symm
+
+/-- **A divisor is no larger than its dividend**: `a ∣ t → a = t ∨ a < t` (the native `Nat213`
+    order `lt`).  Purely over `Nat213` — `c = one` gives equality (`mul_one`); `c = succ c'` gives
+    `t = a + a·c'` (`mul_succ_right`), i.e. `a < t`.  Divisibility refines the additive order. -/
+theorem dvd_imp_eq_or_lt {a t : Nat213} (h : Dvd a t) : a = t ∨ lt a t := by
+  obtain ⟨c, hc⟩ := h
+  cases c with
+  | one => left; rw [hc, mul_one]
+  | succ c' => right; exact ⟨mul a c', by rw [hc, mul_succ_right]⟩
+
+private theorem lt_trans' {a b d : Nat213} (h1 : lt a b) (h2 : lt b d) : lt a d := by
+  obtain ⟨c, hc⟩ := h1
+  obtain ⟨e, he⟩ := h2
+  exact ⟨add c e, by rw [← add_assoc, hc, he]⟩
+
+/-- ★★★ **No top**: no `t` is divisible by every `Nat213`.  Divisibility over the Raw-generated ℕ₊
+    has a bottom (`one`) but **no top** — the shape *forced* by the primitive: every element is
+    exceeded by its successor (`add_one_right`), the distinguishing's counting never closing
+    (cf. `Peano.no_absorbing_element`).  Unlike a bounded divisibility lattice, this order is open
+    upward.  Entirely over `Nat213`. -/
+theorem dvd_no_top : ¬ ∃ t : Nat213, ∀ a : Nat213, Dvd a t := by
+  intro ⟨t, ht⟩
+  have htlt : lt t (succ t) := ⟨one, add_one_right t⟩
+  rcases dvd_imp_eq_or_lt (ht (succ t)) with heq | hlt
+  · rw [heq] at htlt; exact lt_irrefl t htlt
+  · exact lt_irrefl t (lt_trans' htlt hlt)
 
 /-- ★★★ **Divisibility is a preorder on the Raw-generated ℕ₊, with bottom `one` and no zero.**
     The first elementary discipline (divisibility) computed entirely over `Nat213` — the
