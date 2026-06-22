@@ -24,7 +24,7 @@ namespace E213.Lens.Number.Nat213.Divisibility
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
-  (mul one mul_one one_mul mul_assoc mul_comm)
+  (mul one mul_one one_mul mul_assoc mul_comm mul_left_cancel succ_ne_one)
 
 /-- **Divisibility over the Raw-generated ℕ₊**: `a ∣ b` iff `b = a · c` for some `c : Nat213`,
     using `Nat213`'s own multiplication.  No Lean `Nat`. -/
@@ -58,6 +58,34 @@ theorem dvd_mul_of_dvd_right {a b : Nat213} (h : Dvd a b) (c : Nat213) : Dvd a (
   obtain ⟨x, hx⟩ := h
   exact ⟨mul c x, by rw [hx, mul_comm c (mul a x), mul_assoc, mul_comm x c]⟩
 
+/-- **A product is `one` only if both factors are** — over the Raw-generated ℕ₊.  Forced by the
+    no-zero structure: a `succ`-headed factor makes the product `succ`-headed (`add` of a positive
+    is always a successor), hence `≠ one` (`succ_ne_one`).  A genuine number-theoretic fact on
+    `Nat213`, not Lean `Nat`. -/
+theorem mul_eq_one {x y : Nat213} (h : mul x y = one) : x = one ∧ y = one := by
+  cases x with
+  | one => exact ⟨rfl, by rwa [one_mul] at h⟩
+  | succ x' =>
+      exfalso
+      cases y with
+      | one => rw [mul_one] at h; exact succ_ne_one x' h
+      | succ y' => exact succ_ne_one _ h
+
+/-- ★★★ **Antisymmetry**: `a ∣ b → b ∣ a → a = b` — so divisibility is a **partial order** on the
+    Raw-generated ℕ₊, not merely a preorder.  The proof routes through `mul_left_cancel` (every
+    `Nat213` is cancellable — positivity, no zero-divisor) and `mul_eq_one`: `a = a·(x·y)` forces
+    `x·y = one`, hence `x = one`, hence `b = a`.  Entirely over `Nat213`. -/
+theorem dvd_antisymm {a b : Nat213} (hab : Dvd a b) (hba : Dvd b a) : a = b := by
+  obtain ⟨x, hx⟩ := hab
+  obtain ⟨y, hy⟩ := hba
+  -- a = mul b y = mul (mul a x) y = mul a (mul x y); each ←-rewrite hits a unique pattern.
+  have ha : mul a (mul x y) = a := by rw [← mul_assoc, ← hx, ← hy]
+  have ha2 : mul a (mul x y) = mul a one := by rw [ha, mul_one]
+  have hxy : mul x y = one := mul_left_cancel ha2
+  obtain ⟨hx1, _⟩ := mul_eq_one hxy
+  have hb : b = a := by rw [hx, hx1, mul_one]
+  exact hb.symm
+
 /-- ★★★ **Divisibility is a preorder on the Raw-generated ℕ₊, with bottom `one` and no zero.**
     The first elementary discipline (divisibility) computed entirely over `Nat213` — the
     distinguishing's own counting object — with the no-absorbing-zero shape forced by the primitive
@@ -65,7 +93,8 @@ theorem dvd_mul_of_dvd_right {a b : Nat213} (h : Dvd a b) (c : Nat213) : Dvd a (
 theorem divisibility_preorder_with_bottom :
     (∀ a : Nat213, Dvd a a)
     ∧ (∀ a b c : Nat213, Dvd a b → Dvd b c → Dvd a c)
+    ∧ (∀ a b : Nat213, Dvd a b → Dvd b a → a = b)
     ∧ (∀ a : Nat213, Dvd one a) :=
-  ⟨dvd_refl, fun _ _ _ => dvd_trans, one_dvd⟩
+  ⟨dvd_refl, fun _ _ _ => dvd_trans, fun _ _ => dvd_antisymm, one_dvd⟩
 
 end E213.Lens.Number.Nat213.Divisibility
