@@ -298,3 +298,23 @@ form of "the technique pays" (the originator's bar):
 Two of the calculus's predictions are now ∅-axiom theorems; the remaining leverage targets
 (convolution-contraction → Gaussian, continuous Noether current, general-χ orthogonality, the free
 monad) are recorded in the frontier.
+
+### Batch 6 (integration, ζ/Euler) — two more predictions, two consolidations (23 decompositions)
+
+- **Integration** (`integration.md`) — PREDICTION: `∫ = Σ` at residue resolution (inverse of the
+  difference-Lens), and **FTC = "telescoping is resolution-invariant"** — `Σ⊣Δ` (discrete) and `∫⊣d`
+  (FTC) are the *same adjoint pair at two resolutions* (`gauss_conservation_telescope` PURE;
+  `integral_eq_flux` by `rfl`). Cashes `derivative.md`'s open Σ/∫ cell and ties the **resolution axis to
+  the adjoint-pair structure** (`galois.md`/`adjunction.md`): the resolution dial is reading-agnostic
+  (dials `L₋`→`d` and `L_Σ`→`∫` identically) and commutes with the inverse-pair.
+- **ζ / Euler product** (`zeta_euler.md`) — PREDICTION: the Euler *product form* falls out of the UFD
+  character (`Σ_n = Π_p` is the distributive law of the faithful prime-valuation coordinate;
+  `summatory_mul`, `geom_sum`, `primorial_le_four_pow` — a real finite Euler product, all ∅-axiom). The
+  ζ-*value* is a `Real213`-cut residue (honest). **Consolidation**: "read the whole family at once" has
+  two dual faces — Fourier sums over the dual `Ĉ`, the Euler/Dirichlet generating function sums over `C`
+  weighted by a multiplicative kernel — one per *direction* of the `×↦+` character arrow.
+
+These EXTEND, no new axis: the v6 invariants (the character arrow, `q=±1` residue, resolution,
+iteration-character) absorb both, and reveal two cross-ties — *resolution ⇄ adjoint-pair* (FTC) and
+*family-reading ⇄ the character arrow's two directions* (Fourier/Euler). The model is stable across
+**23 decompositions, no break**; four predictions, two Lean-closed.

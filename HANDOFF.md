@@ -20,7 +20,15 @@ README.md = the spec: `OBJECT = ⟨Construction | Reading⟩`, Residue, the 4-st
 just re-skin — the design constraint that kept CT from being "abstract nonsense"). Key grounding: the
 calculus is the **positive form of CLAUDE.md's failure-mode catalog** (each failure = a missed
 decomposition). Frontier registered: `research-notes/frontiers/decomposition_calculus.md`.
-**Twenty-one worked decompositions** in `practice/` (all Lean-certified citations). **+batch-5 = the
+**Twenty-three worked decompositions** in `practice/` (all Lean-certified citations). +batch-6 (both
+PREDICTION, EXTEND): `integration` (∫ = Σ at residue resolution; FTC = "telescoping is
+resolution-invariant", Σ⊣Δ and ∫⊣d = same adjoint at two resolutions — ties resolution to the
+adjoint-pair structure; gauss_conservation_telescope PURE), `zeta_euler` (Euler product falls out of
+the UFD character: Σ_n=Π_p = distributive law of the faithful valuation coordinate; summatory_mul/
+geom_sum/primorial_le_four_pow ∅-axiom; ζ-value = Real213-cut residue; "generating function = read C
+weighted" is the dual of Fourier's "read Ĉ", one per character-arrow direction). Four predictions
+total, two Lean-closed (succ_not_idempotent, quadratic_orthogonality). Model stable across 23
+decompositions, no break. **+batch-5 = the
 LEVERAGE phase** (bar raised from collapse to *predict/derive*): `noether` (PREDICTION, structural —
 conserved = Aut-invariant character, q=+1; variational current open), `gaussian_clt` (PREDICTION —
 Gaussian = convolve-rescale fixed point, generalizes φ; contraction lemma the open target), `fourier`
