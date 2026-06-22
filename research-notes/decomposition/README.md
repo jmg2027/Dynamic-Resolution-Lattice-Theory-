@@ -419,3 +419,22 @@ and the calculus's status differs on each:
 from two coarse items to **(i) the graded-relation slot** (a *promotion target*, partially grounded by
 Leibniz) and **(ii) the isotopy/colimit quotient** (the genuine remaining absence). The two invariants and
 four axes are unchanged. The first break is real but smaller and more precisely mapped than v7 recorded.
+
+### Representation theory (`representation.md`) — the character arrow's home field; the `det`/`tr` split
+
+A fresh decomposition of the field that is the *home* of the calculus's central object: a representation
+= `groups.md`'s Aut-family read through `determinant.md`'s scalar character; a character = the `×↦·` arrow
+on the Aut-family; class functions = `noether`'s `q=+1` invariant; and **Schur/character orthogonality =
+the SAME `Σχ=0` theorem the repo just closed** (orders 2/3/6) — no new work, a decisive consolidation.
+Verdict PREDICTION + PARTIAL with one new **located break**: the realized *character* is `det`
+(multiplicative, the `×↦·` arrow); the genuine `d>1` representation character is the **trace**, which is
+the *additive `×↦+` twin* and **not multiplicative** — `Mat2.tr` exists in-repo only as an order/growth
+readout (φ-growth `GoldenAperiodic`, discriminant `traceDisc`), never as a character-homomorphism (there
+can be no `tr(MN)=tr M·tr N`), and there is no `Rep(G)`/Maschke. So the `×↦·` arrow now provably runs
+through **seven** fields (parity, valuation, det, entropy, Noether, Fourier, rep-theory characters), and
+the live edge is pinned: **the `det`/`tr` split** — where the multiplicative character ends and the
+additive trace-character (un-closed at `d>1`) begins. EXTEND by consolidation; interior unchanged.
+
+**Count.** 31 worked decompositions + the `two_cells.md` meta-decomposition; one located partial-break
+(knots, refined to two precise missing primitives) + the `det`/`tr` edge; six predictions, four Lean-closed
+(orthogonality 2/3/6, growing-corner, convolve-rescale contraction, and now the discrete Noether-iff).
