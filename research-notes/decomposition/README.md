@@ -1662,7 +1662,22 @@ Novikov–Boone Side-B (q−1). Named GrobnerBasis/Buchberger/Spolynomial object
 `Monomial:=List Nat` + well-founded monomialOrder (via isPart_wf) + reduceMod with order-drop (part_depth_succ_le)
 and idempotence (mirroring freeReduce_idempotent) — the polynomial-ideal analogue of proj_val_eq_iff.
 
-**Count.** 118 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Index theory / Atiyah–Singer (`index_theory.md`) — the third "two readings of one object coincide"
+
+EXTEND (decisive consolidation). ★ Atiyah–Singer is the corpus's **third and deepest "two readings of one
+object coincide"** equality — after det/tr=e₁/e₂ (two Vieta readings of one spectrum) and Lefschetz
+fixed-point=trace. The **analytic index** ind(D)=dim ker − dim coker = the q=±1 alternating residue count
+(homological_algebra's ker/coker residue signed by the tag: ker=q+1 `converge_residue_fixed`, coker=q−1
+`escape_residue_outside`; = McKean–Singer's Σ(−1)ⁱ = lefschetz_degree's L(id)=χ, `simplex_face_euler_zero` 10/0)
+is shown EQUAL to the **topological index** ∫ch·Td (the ×↦·/×↦+ curvature character integrated,
+characteristic_classes' `det_tr_split_is_e1_e2` 9/0). McKean–Singer's heat-kernel proof = that collapse made a
+deformation (the resolution dial at t→0 vs t→∞). Gauss–Bonnet (ind(d+d*)=χ) = the built special case
+(`DiscreteGaussBonnet` 12/0). The three neighbors are revealed as the analytic residue count, its trace-weighted
+alternating form, and the topological character integral — Atiyah–Singer welds them. Named Fredholm/Atiyah/
+McKean/Todd/RiemannRoch objects absent (the smooth elliptic D + ∫ch·Td = the Real213-cut break); buildable
+witness: wire `multiplier .converge·dim ker + multiplier .escape·dim coker` to `eulerChar` as one decide lemma.
+
+**Count.** 119 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
