@@ -61,6 +61,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDvd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConverse
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.GaussianOrthogonality
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.GaussianDivStep
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.GaussianDvd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.GaussianGcd

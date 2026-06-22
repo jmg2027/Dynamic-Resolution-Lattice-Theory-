@@ -496,10 +496,43 @@ asymmetric in type (q=−1 = a universal-negation hypothesis → a *negative* th
 hypothesis → a *positive existence* theorem; collapsing them to one `Eq` would need excluded middle). The
 `±1` tag is the "shared column", the asymmetry named precisely — closing the frontier's stated target.
 
-**Count.** 34 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### Topology / compactness (`topology.md`) — compactness = the finiteness-residue, `q=+1` corner
+
+PREDICTION: an open set = a resolution-stable fibre; compactness = the `q=+1` finiteness-collapse of the
+count-reading on a cover, the *contrapositive* of `cardinality.md`'s `q=−1` escape diagonal — consolidated
+onto the formal `ResidueTag`. The phenomenon is built (`Geometry/Topology/`: `DyadicOpen`, `heineBorel`,
+`chain_finite`; `Analysis/ExtremeValue.lean` makes it literal — `ModContOnGrid.gridMax_attained` = max
+attained at every *finite* resolution (`q=+1`), `Msup` = the reached-by-none limit cut (`q=−1`)). Missing
+leg located (dual to measure.md): the arbitrary-cover quantifier the finite-`List` setting can't host.
+Continuity's open-set leg is now also certified — `ContinuityOpenSet.lean` (11/0): forward + pointwise
+backward unconditional, uniform backward via modulus-as-data (the `AC₀,₀` wall, located).
+
+### Generating functions / formal power series (`generating_functions.md`) — GF-product = convolution, Lean-grounded
+
+PREDICTION, load-bearing leg fully ∅-axiom: a generating function = the family-reading (the count-reading
+of a height-indexed family, the `x`-slot the grading coordinate), and **its product IS the Cauchy
+convolution `⋆`** just built in `ConvolveProfile` — `mass_conv` (total mass multiplicative, `×↦·`) +
+`momentNum_conv` (mean additive, `×↦+`) are literally "the GF of a sum of independents is the product of
+GFs". Unifies `zeta_euler` (Dirichlet/Euler product, `summatory_mul`), `ConvolveProfile` (Cauchy product),
+and recurrences (rational GFs = the `q=±1` residue, `mobius_iteration_master`/`fib`/Cassini) as three
+indexings of one reading. The repo even has `Combinatorics/GeneratingFunction.lean` (`convolution`, `xVar`).
+Missing leg: the two `conv` defs aren't welded into a formal-power-series **semiring** (no
+associativity/homomorphism proof on `CoeffSeq`); the analytic GF-as-function is the `Real213`-cut residue.
+
+### Character orthogonality extended to order 4 (`GaussianOrthogonality.lean`, 18/0) + the generic conditional
+
+Extends fourier.md's orthogonality leg: `i_orthogonality : 1+i+i²+i³ = 0` in the Gaussian integers ℤ[i]
+(no `Real213` needed — order 4 lives in ℤ[i]), plus `orthogonality_of_pow_one` — the **order-AGNOSTIC
+conditional**: in any `CommRing213`, `ζⁿ=1 ∧ (ζ−1)` cancellable ⟹ `Σ_{k<n}ζ^k = 0`, straight from
+`geomSum_telescope`. Concrete primitive-root orders now closed: **2, 3, 4, 6** ({±1}, ℤ[ω], ℤ[i]). Residual:
+arbitrary `n` needs a cyclotomic ring `ℤ[ζ_n]` the repo lacks — the conditional is closed, only the witness
+for general `n` is open.
+
+**Count.** 36 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `det`/`tr` edge + the `Lp`/funext wall;
-**nine** predictions, **eight Lean-closed** (orthogonality 2/3/6, growing-corner, convolve-rescale
+**eleven** predictions, **ten Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale
 contraction + dyadic completion-limit, discrete Noether-iff, the modulated Banach engine/wall defeat,
-Carathéodory-as-`clo`, and the formal `q=±1` tag) + QR already-closed. The `q=+1` contraction residue spans
-φ/Gaussian/ODE; the formal `q=±1` tag unites Cantor/Gödel/measure (escape) with φ/Gaussian/ODE (converge) in
-one ∅-axiom construct; the Banach-engine "wall" is **defeated** (`wall_synthesis.md`).
+Carathéodory-as-`clo`, the formal `q=±1` tag, and `continuous_iff_preimage_dyadicopen`) + QR already-closed.
+The `q=+1` contraction residue spans φ/Gaussian/ODE; the formal `q=±1` tag unites Cantor/Gödel/measure
+(escape) with φ/Gaussian/ODE (converge) in one ∅-axiom construct; compactness is the `q=+1` finiteness
+corner; GF-product = convolution; the Banach-engine "wall" is **defeated** (`wall_synthesis.md`).

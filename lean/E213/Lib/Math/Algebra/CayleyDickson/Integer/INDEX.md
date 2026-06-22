@@ -9,7 +9,7 @@ These are the **first non-trivial witnesses** for the
 `Meta.SelfRecognising` axiom-game.  Each cluster has shape
 (carrier · arithmetic · domain · instance · hom).
 
-## Files (31)
+## Files (32)
 
 ### ZI = ℤ[i] (Gaussian integers)
   - `ZI.lean`           — type + arithmetic
@@ -18,6 +18,11 @@ These are the **first non-trivial witnesses** for the
   - `ZIAlgebra213.lean` — `Algebra213` instance
   - `ZIHom.lean`        — homomorphism witnesses
   - `ZIInstance.lean`   — `ConjugationCodomain` instance
+  - `GaussianOrthogonality.lean` — additive-character orthogonality `Σ iᵏ = 0` at order 4
+    (`i_orthogonality`: `1+i+i²+i³=0`) via the geometric telescope, plus the order-agnostic
+    generic conditional over any `CommRing213` (`geomSum_telescope`,
+    `orthogonality_of_pow_one`).  The order-4 leg of fourier.md's character-orthogonality
+    target — sibling of `RootOfUnityOrthogonality` (orders 3, 6 in ℤ[ω])
   - `ShiftRule_ZI_L3.lean` — Level-3 shift-rule
 
 ### Z₂ = ℤ[√-2]
