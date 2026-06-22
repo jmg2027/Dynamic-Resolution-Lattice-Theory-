@@ -149,11 +149,16 @@ Lagrangian / no `∂_μ j^μ` in the repo).
 
 ## Dropped / unverified citations
 
-- **No `Noether`/`conserved current`/`∂_μ j^μ` theorem exists in `lean/E213`** (grep of
-  `Physics/` for `noether`/`conserv`/`current`/`charge` returns only CP-conjugation, "conserved
-  Cassini", and prose uses of "current" = "present"). The variational Noether theorem is **absent**;
-  named here as the open frontier, not cited as proven. The repo's conservation is the *discrete
-  structural* kind (`det_holonomy_eq_one`, `det_closed`), not the analytic current.
+- **CORRECTION (stale gap).** An earlier version claimed "no `Noether`/`conserved current`/`∂_μ j^μ`
+  theorem exists in `lean/E213`" — that grep covered only `Physics/`. It is **false**: the discrete
+  Noether theorem is **built** in `Lib/Math/NumberSystems/Real213/ModularGeometry/NoetherCurrent.lean`
+  (15/0 PURE), which defines an actual `density`, `current`, and `dtDensity`, proves the discrete
+  continuity equation `continuity_eq`, and proves **`noether_local`** — `∂·j = 0 ⟺ Aut-invariant`
+  (`det g = 1`) — plus the global telescoped form `noether_global` and the bridge
+  `noether_local_implies_global`. So the conservation is not only the structural `det_holonomy_eq_one`;
+  the local current/continuity-equation Noether statement is a theorem. The genuine remaining residual is
+  **strictly smaller**: the *smooth/analytic* variational current `∂_μ j^μ` over a differentiable field
+  (the `Real213`-cut/`h→0` completion), not the discrete `current`/`continuity_eq` (which are built).
 - **`MetricHolonomyBridge` cited with its caveat:** it is a *generator identity* (`J = S`), not a
   curvature/connection; flagged thin so the physics tie is not overclaimed as "Noether for gravity."
 - **General `det₂` Aut-invariance beyond `SL₂`/the Stern-Brocot tree** is not a single closed

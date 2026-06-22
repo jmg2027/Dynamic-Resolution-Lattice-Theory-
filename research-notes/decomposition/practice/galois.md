@@ -200,7 +200,13 @@ The reading-iso layer (the degenerate / closed-element case of the connection):
   Conjugation `a+b√d ↦ a−b√d` is the obvious `q=−1` swap-bit reading (cf. `integers.md`'s sign), but
   no theorem packages it as "the order-2 Galois group of the quadratic extension" — so even the
   simplest real Galois group is **conceptual** in this repo.
-- **Solvability by radicals / the insolvability of the quintic** — entirely absent. Conceptual.
+- **Solvability by radicals / the insolvability of the quintic** — *partially* built (see
+  `galois_correspondence.md`). The **derived-series / solvable-tower mechanism is built for S₃**:
+  `Algebra/Linalg213/DerivedSeries.lean` (21/0 PURE) proves `derived_S3_step1 : [S₃,S₃]=A₃`,
+  `derived_A3_step2 : [A₃,A₃]={e}`, `solvable_S3` (the q=+1 converging tower), with the group commutator
+  `gcomm`/`gcomm_id_iff_commute` and the A₅ escape probed (`three_cycle_commutator_S5`). What remains
+  genuinely absent is **A₅ perfectness `[A₅,A₅]=A₅`** (the quintic's q=−1 non-terminating escape, beyond
+  `decide`) and a **general `isSolvable` predicate** — the strictly-smaller residual.
 
 ## Verdict: EXTENDS (with a real, grounded promotion)
 

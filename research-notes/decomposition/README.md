@@ -755,7 +755,36 @@ numbers (`Combinatorics/Catalan.catalan`, 17/0, the free analogue of Gaussian pa
 random-matrix/spectral-measure/free-convolution `⊞`/R-transform/semicircle objects (engines PURE, field
 object absent); promotable: a 2×2 GOE toy inside `Mat2SymmetricSpectrum` (cf. the 2-vertex Laplacian).
 
-**Count.** 54 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### Algebraic geometry / Nullstellensatz (`algebraic_geometry.md`) — the THIRD order-reversing-closure instance
+
+PREDICTION+PARTIAL: the V⊣I (variety↔ideal) correspondence = the SAME `f**=clo(f)` order-reversing closure as
+field-Galois and Legendre–Fenchel — the THIRD instance. Nullstellensatz `I(V(J))=√J` = `clo(J)=√J` (radical =
+closure-completion, `clo_idempotent`/`biconj_idempotent`), reduced ⟺ `closed_iff_fixed`; Zariski-closed =
+V-closed; irreducible = prime = prime_factorization's ×-atom (`vp_mul`); Spec glued = sheaf gluing. Grounded
+toy: `mulDiv_gc`; nearest instantiated V∘I-closure on a real set-system = `OuterMeasure.cara_gc` (29/0).
+Missing leg: an actual `Ideal`/`V`/`I`/`√`/`Spec` object (grep-confirmed absent).
+
+### Modular forms / L-functions (`modular_forms.md`) — the Eichler–Shimura period side is BUILT
+
+PREDICTION+PARTIAL: a modular form = `connections.md`'s SL(2,ℤ) Aut-family read four ways. Modular form =
+`q=+1` Aut-invariant character (Noether); L Euler product = `Σ_n=Π_p` (the UFD `×↦·` character, eigenform
+multiplicativity); eigenforms = spectral's `q=+1` simultaneous eigenbasis; functional equation = the `q=±1`
+reflection involution (`FenchelMoreau` antitone + the `S` involution). ★ Surprise: the Minkowski/ModularGeometry
+corpus grounds the **entire Eichler–Shimura PERIOD side** ∅-axiom (30/0) — `manin_unimodular_decomposition`
+(period contour = Stern–Brocot tree), `minkowski_is_markov_valued_cocycle` (the SL(2,ℤ) 1-cocycle),
+`period_satisfies_relations` (weight-4 `1−X²`, the E–S relations `r|(1+S)=0 ∧ r|(1+U+U²)=0`). Missing leg: the
+automorphic side (Hecke/eigenform/q-expansion + analytic `L(f,s)`) — the cohomological dual of the built period corpus.
+
+### Frontier-reconciliation audit (`FRONTIER_AUDIT.md`) — 7 stale "missing leg" claims corrected
+
+A repo-first sweep of all 55 notes' absence-claims (the connections.md lesson generalized): **7 stale claims
+fixed across 4 notes** (lie_theory: `no jacobi/Jacobi object` → `Mat2Bracket`+`Mat2Killing`; noether:
+`no ∂·j theorem` → `NoetherCurrent.noether_local`; galois + galois_correspondence: `derived series absent` →
+`DerivedSeries.solvable_S3`). **~22 genuinely-absent gaps confirmed honest** (FOL, sheaf/topos, π₁/isotopy,
+tropical semiring, Hilbert space, divergence functional, σ-additive measure, …). Top shared residual: a smooth
+`Real213`-cut metric (geometry cluster), A₅-perfectness + general `isSolvable`, the de Rham comparison iso.
+
+**Count.** 56 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +

@@ -17,7 +17,8 @@ closure), `convex_duality.md` (`f**=clo(f)` = the same closure pattern on a func
 roots-of-unity orthogonality orders (`RootOfUnityOrthogonality`/`GaussianOrthogonality`). It is split
 into a **grounded core** (the adjunction/closure skeleton; a concrete `Gal(ℚ(ζ₅)/ℚ)≅C₄` with its
 golden fixed subfield; A₅ as an actual object; the radical/cyclotomic orthogonality) and a **located
-break** (the solvability tower / derived series / A₅-simple — the genuine missing leg).
+break** (the solvability tower / derived series is built for S₃ — `DerivedSeries.solvable_S3`, 21/0 PURE;
+only A₅-perfectness `[A₅,A₅]=A₅` + a general `isSolvable` predicate remain — the genuine missing leg).
 
 ## The decomposition (C / Reading / Residue)
 
@@ -202,12 +203,19 @@ This is **collapse + forcing + residue-surfaced + a located break**, four at onc
    solvable-by-radicals from the insolvable quintic. The bracket is read **twice**: once as the
    closure governing the correspondence, once as the commutator-tower governing solvability.
 
-4. **The located break (the genuine missing leg).** The tie is *predicted exactly* but the
-   connecting structure is unbuilt: the repo has the **commutator** (`Mat2Bracket`, the Lie bracket,
-   not the group-commutator-subgroup), **A₅** (as an object, not proven simple), and the **closure
-   machine** — but **no derived series `[G,G]⁽ⁿ⁾`, no `is_solvable` predicate, no `[A₅,A₅]=A₅`
-   simplicity proof.** The break is precise: the q=±1 *reading* of solvability is right and both
-   endpoints are PURE, but the **iterated commutator-subgroup tower** is the named promotion target.
+4. **The located break (the genuine missing leg — strictly smaller than first recorded).** The tie is
+   *predicted exactly* and the **derived series IS built** for the closable instance:
+   `Algebra/Linalg213/DerivedSeries.lean` (21/0 PURE) defines the group commutator
+   `gcomm a b := a⁻¹b⁻¹ab` (`gcomm_id_iff_commute`) and the derived-series step `commSet`, then proves
+   **`derived_S3_step1 : [S₃,S₃]=A₃`**, **`derived_A3_step2 : [A₃,A₃]={e}`**, and
+   **`solvable_S3 : commSet (commSet S₃) = One`** — the q=+1 solvable tower, terminating in two steps;
+   the A₅ escape direction is probed (`three_cycle_commutator_S5`). So the repo has the **commutator**
+   (`Mat2Bracket` + the group `gcomm`), **A₅** (as an object, not proven simple), the **closure
+   machine**, *and* the **derived series** for S₃. The precise residual is **A₅ perfectness
+   `[A₅,A₅]=A₅`** (the non-terminating quintic escape, needs the 60-element closure beyond `decide`) and
+   a **general `isSolvable` predicate** with a proven subgroup-generation step (S₃/A₃ close only because
+   their commutator sets are already closed). The q=±1 *reading* of solvability is right, both endpoints
+   are PURE, the S₃ tower is built; A₅-simplicity + the general predicate are the named promotion target.
 
 **THE CONSOLIDATION (the brief's central question):**
 
@@ -216,7 +224,7 @@ This is **collapse + forcing + residue-surfaced + a located break**, four at onc
 | `Gal(L/K)` = the Aut-family fixing `K`; tower = nested distinguishing | `groups.md`'s Aut-family of the field-extension reading | `groups.md` | Aut-family axioms **built** (`PermGroup`); concrete `Gal(ℚ(ζ₅)/ℚ)≅C₄` **built** (`galois_group_is_C4`) |
 | Galois correspondence = order-reversing closure (lattice anti-iso, q=+1 closed elements) | `Fix ⊣ Inv`, `clo=Inv∘Fix=id` on closed elements = `f**=clo(f)` | `galois.md`/`convex_duality.md` | closure machine **built** (`clo_idempotent`, 15/0); anti-iso skeleton **built** (`divides⟺refines`); concrete fixed-subfield `ℚ(φ)⊂ℚ(ζ₅)` **built** (`golden_real_subfield`) |
 | radical extension = adjoin n-th roots = roots-of-unity orthogonality | the cyclotomic `Σζⁿ=0` kernel | `fourier.md`/batch-8 | **built** orders 2/3/4/6 (`omega_/zeta6_/i_orthogonality`, `root_orthogonality`); welded to `C₄` Galois (`five_splits_gaussian_inert_eisenstein`) |
-| solvable ⟺ Gal solvable = bracket tower converges (q=+1) | derived series `[G,G]⁽ⁿ⁾→1` = commutator-residue iterated to 1 | `lie_theory.md` (bracket) | commutator **built** (`bracket_antisymm`, q=−1); **derived series ABSENT** — the break |
+| solvable ⟺ Gal solvable = bracket tower converges (q=+1) | derived series `[G,G]⁽ⁿ⁾→1` = commutator-residue iterated to 1 | `lie_theory.md` (bracket) | commutator **built** (`bracket_antisymm`, q=−1); **derived series built for S₃** (`DerivedSeries.solvable_S3`, `derived_S3_step1`, 21/0); general `isSolvable` predicate the residual |
 | insolvable quintic = A₅ simple/perfect (q=−1 escape) | `[A₅,A₅]=A₅`, commutator-residue never terminates | `lie_theory.md` + `ResidueTag` | A₅ **object built** (`a5_order`, `order_exactly_five_in_psl`); **A₅-simple ABSENT** — the break |
 
 So **YES** — the Galois correspondence falls out as `galois.md`'s order-reversing closure (lattice

@@ -144,11 +144,11 @@ trace character (`representation.md`) + the q=±1 tag.
 two standing invariants, with the genuinely-missing pieces (the infinitesimal `ε`, BCH proper) located
 precisely — not hand-waved.
 
-- **Leg 1 — bracket = q=±1 antisymmetry commutator-residue. PREDICTION, certified-shaped.** The commutator
-  `AB−BA` is a computable `Mat2` operation on the existing `mul`; antisymmetry (`comm_antisym`) and
-  tracelessness (`comm_traceless`) both **prove generally by `ring_intZ`** (I verified this in scratch, not
-  committed), and self-bracket-vanishing + nonabelian-`[S,U]≠0` by `decide`. The antisymmetry is the *same*
-  q=−1 pair-swap as `cup1_antisymmetric`/`det`/ℤ's sign — **forced, not posited.** **NOW BUILT ∅-axiom**
+- **Leg 1 — bracket = q=±1 antisymmetry commutator-residue. BUILT ∅-axiom.** The commutator
+  `AB−BA` is a computable `Mat2` operation on the existing `mul`; antisymmetry (`bracket_antisymm`) and
+  tracelessness (`tr_bracket_zero`) both prove by `ring_intZ`, and self-bracket-vanishing by `decide`.
+  The antisymmetry is the *same*
+  q=−1 pair-swap as `cup1_antisymmetric`/`det`/ℤ's sign — **forced, not posited.** **BUILT ∅-axiom**
   (`Mat2/Mat2Bracket.lean`, 10/0 PURE): `bracket A B := AB−BA` with `bracket_antisymm` (the q=−1
   antisymmetry), `bracket_self` (`[A,A]=0`), **`tr_bracket_zero`** (traceless / sl₂ — the det/tr split
   from the algebra side), **`jacobi`** (`[[A,B],C]+[[B,C],A]+[[C,A],B]=0`), and `bracket_leibniz` (the
@@ -168,14 +168,18 @@ precisely — not hand-waved.
   derivation" = the **graded three-term Leibniz relation** of README v7.1's graded-relation slot, the same
   shape as the certified `leibniz_universal_delta4`. Tie confirmed — but to the *Leibniz/derivation* face of
   the q=−1 cancellation, not naively to the `∂²=0` two-step nilpotency. The repo has the Leibniz shape
-  (`leibniz_universal_delta4`, PURE) but **no `jacobi` theorem on `Mat2` commutators**; the prediction names
-  it as the promotion target (it would prove by `ring_intZ`, like `comm_antisym`).
+  (`leibniz_universal_delta4`, PURE) **and** the Jacobi identity on `Mat2` commutators
+  (`Mat2Bracket.jacobi`, `[[A,B],C]+[[B,C],A]+[[C,A],B]=0`, 10/0 PURE, by `ring_intZ` — the same
+  mechanism as `riem_bianchi1`'s `hexcancel`). BUILT.
 
 - **Leg 4 — so/su + Killing = Aut-of-a-form + trace character. PREDICTION (consolidation).** No new
   primitive: `groups.md` (Aut-family) + `representation.md` (trace character) + q=±1 (definiteness). The
-  concrete antisymmetric/elliptic generators exist (`S_elliptic_order4`, `det = 1`); a general `so(n)`/`su(n)`
-  Aut-of-form theorem and the Killing form `tr(ad∘ad)` are conceptual (the `d>1` trace character is
-  `representation.md`'s located open edge, inherited here).
+  concrete antisymmetric/elliptic generators exist (`S_elliptic_order4`, `det = 1`); the Killing form
+  `tr(ad∘ad)` is **BUILT ∅-axiom** (`Mat2/Mat2Killing.lean`, PURE): the adjoint rep `ad_X=[X,·]` as a
+  3×3 matrix on sl₂ (`adMap`, `adMat`), the Killing form `K(X,Y)=tr(ad_X∘ad_Y)` (`killing`,
+  `killing_symmetric`), `adX_traceless`, `killing_eq_trace_form` (`K=4·tr(XY)` on sl₂), and `killing_gram`
+  (nondegeneracy = semisimplicity). Only a general `so(n)`/`su(n)` Aut-of-form theorem (beyond `sl₂`/`Mat2`)
+  stays conceptual (the `d>1` edge `representation.md` located).
 
 **The located break (the genuinely missing leg).** Like `knots.md`/`representation.md`, Lie theory pins where
 the calculus stops: **the infinitesimal / tangent-at-identity `ε`.** The discrete `Mat2` setting hosts the
@@ -231,7 +235,8 @@ located break.
 | Leg | Theorem (file:line) | Status |
 |---|---|---|
 | `Mat2` ×-construction: `mul`, `det`, `tr`, generators `I,S,U,G` | `Lib/Math/NumberSystems/Real213/ModularGeometry/HyperbolicEllipticTrace.lean:28` `Mat2`; `:38` `mul`; `:45` `det`; `:47` `tr` | def (∅-axiom) ✓ |
-| ★ commutator `AB−BA` is computable; antisymmetry + tracelessness fall out by `ring_intZ` | **scratch (verified, not committed)**: `comm`, `comm_antisym` (`[A,B].x = −[B,A].x`), `comm_traceless` (`[A,B].a = −[A,B].d`), `comm S S = 0`, `comm S U ≠ 0` — built on `HyperbolicEllipticTrace.mul` + `Int` sub | compiles clean ✓ |
+| ★ commutator `AB−BA` is computable; antisymmetry + tracelessness + Jacobi by `ring_intZ` | `Lib/Math/NumberSystems/Real213/Mat2/Mat2Bracket.lean` : `bracket`, `bracket_antisymm` (`[A,B]=−[B,A]`), `tr_bracket_zero` (`tr[A,B]=0`), `bracket_self` (`[A,A]=0`), `jacobi`, `bracket_leibniz` | **PURE (10/0)** ✓ |
+| ★ adjoint rep + Killing form `K(X,Y)=tr(ad_X∘ad_Y)` (semisimplicity) | `…/Mat2/Mat2Killing.lean` : `adMap`, `killing`, `killing_symmetric`, `killing_eq_trace_form`, `killing_gram`, `adX_traceless` | **PURE** ✓ |
 | Cayley–Hamilton `M² = tr·M − det·I` (the trace/det dial, `sl` discriminant) | `…/Mat2/Mat2CayleyHamilton.lean:37` `cayley_hamilton`; `:50` `char_poly_discriminant` | **PURE** ✓ |
 | trace recurrence `tr(Mⁿ⁺²)=tr·tr(Mⁿ⁺¹)−det·tr(Mⁿ)` (tr as additive/order readout, not a character) | `…/Mat2/Mat2TraceRecurrence.lean:53` `trace_recurrence`; `:64` `golden_trace_recurrence` | **PURE** ✓ |
 | ★ antisymmetry sign = `homology.md`'s q=−1 wedge: `e_i∧e_j = −(e_j∧e_i)`, `e_i∧e_i=0` | `Lib/Math/Cohomology/Cup/SignedCup.lean:62` `cup1_antisymmetric`; `:45` `negPow`; `:52` `mergeSign` | **PURE** ✓ |
@@ -246,12 +251,13 @@ located break.
 
 ## Conceptual-only legs / located breaks (honest — not cited as anchors)
 
-- **No `bracket`/`Lie`/`LieAlgebra`/`Jacobi`/`adjoint`/`Killing` object in `lean/E213`** (grep-confirmed:
-  the only `bracket`/`Lie` hits are interval `BracketModulus`/`EulerCertifiedBracket` and the substring
-  "ad" — *no* Lie-theoretic structure). The bracket is **latent** (Mat2 `mul` + `Int` sub make `AB−BA`
-  computable; antisymmetry + tracelessness prove by `ring_intZ` — verified scratch) but **unnamed**. The
-  prediction: promoting `comm`/`comm_antisym`/a `jacobi` lemma gives the Lie-algebra axioms free, exactly as
-  `PermGroup` gave the group axioms. THIN beyond the finite commutator on `Mat2`.
+- **The `bracket`/`Jacobi`/`adjoint`/`Killing` objects ARE built — not a break.** (Earlier versions of
+  this note recorded them absent; that is stale.) `Mat2/Mat2Bracket.lean` (10/0 PURE) names the Lie bracket
+  `bracket A B := AB−BA` with its axioms as Lean theorems — `bracket_antisymm` (q=−1 antisymmetry),
+  `bracket_self` (`[A,A]=0`), `tr_bracket_zero` (sl₂ kernel), `jacobi`, `bracket_leibniz` — exactly as
+  `PermGroup` gave the group axioms; and `Mat2/Mat2Killing.lean` (PURE) names the adjoint rep `adMap`/`adMat`
+  and the Killing form `killing`/`killing_gram`. The bracket tower is finite (on `Mat2`), but it is built
+  and named. The genuine break is below (the tangent `ε`), not the bracket.
 - **The infinitesimal / tangent-at-identity `ε` (`T_e G`) — the located break.** The discrete `Mat2` hosts
   the *finite* commutator (which equals the bracket on matrix groups) and the *finite* holonomy loop, but
   **not a separate tangent space** — no `I + εX`, `ε²=0`, no manifold. Located at the resolution dial's
