@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 106 essays are grouped into ten thematic sub-directories — distinct
+The 107 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -55,6 +55,12 @@ reached by no convergent yet every cut is decided in finite — `PointingLimit`,
 `the_forcing_criterion_is_distinguishing` (a quantity is forced ⟺ it names a
 genuine distinguishing axis; faithful ⟺ the axes separate (`vp_separation`);
 removable ⟺ no axis added (`c` not forced) — one criterion, both verdicts),
+`forced_by_the_distinguishing` (the *same* forcing principle at two scales: the
+foundational distinguishing-necessity — `count_reading_forced` /
+`distinguishing_necessary` / `residue_needs_distinguishing` — IS `vp_separation`
+faithfulness in multiplicative number theory; forced ⟺ a separating distinguishing
+axis, collapse under no-distinction; the additive count-Lens and the ×-count-Lens
+are the same act read on two axes, ×-atoms distinguishable where +-atoms aren't),
 `multiplicativity_is_the_x_count_lens`,
 `addition_and_multiplication_are_two_faces_of_one_count`,
 `convolution_is_the_product_dual_to_a_cut` (a convolution = the product dual to a
