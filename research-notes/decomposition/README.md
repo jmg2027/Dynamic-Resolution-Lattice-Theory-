@@ -1314,7 +1314,22 @@ internal horn one step below). Named Stone/Ultrafilter/Spec/clopen objects absen
 ∅-axiom witness — building it would need the forbidden choice fragment). This is the **fourth calibrated
 boundary**, all four converging on the one ultrafilter/LLPO point — the no-exterior axiom tested at its sharpest.
 
-**Count.** 93 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Linear logic (`linear_logic.md`) — the character split + the q=±1 involution made a logic
+
+EXTEND + PREDICTION. Linear logic = the calculus's two invariants made into a logic, no new axis: the
+**multiplicative ⊗/⅋ vs additive &/⊕** connectives = the **×↦· / ×↦+ character-mode split** (Invariant A) made
+the primary logical structure; **linear negation A^⊥⊥=A = the q=±1 involution** (`multiplier_unimodular` q·q=1,
+`FoldKlein.bothSwap_involutive`); ★ De Morgan `(A⊗B)^⊥=A^⊥⅋B^⊥` = the involution swapping the two character
+modes, and it is *built*: `bothSwap = negQ∘recQ` (`bothSwap_eq_negQ_recQ`:40) is literally the additive fold
+(negation, `negQ_involutive`) composed with the multiplicative fold (reciprocal, `recQ_involutive`),
+FoldDuality 13/0. Resource-sensitivity (no weakening/contraction) = the `Raw` combine's no-duplication
+(`Raw.slash x y` requires `h:x≠y`, `Raw.fold_slash`:37 uses each branch once — contraction needs x=x, blocked);
+!/? exponentials = the structural-rule residue (the bridge back to the cartesian). Cut-elimination = the
+fold-to-normal-form (cut_elimination.md). Named LinearLogic/⊗/⅋/!/proofNet objects absent (the TensorCalculus
+tensor is the differential-geometry false-friend, flagged). Buildable witness: a `LinearFormula` inductive with
+`dual_dual : dual(dual A)=A` (the `bothSwap_involutive` involution shape) + `dual_tensor` De Morgan by rfl.
+
+**Count.** 94 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
