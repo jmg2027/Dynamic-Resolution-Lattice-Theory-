@@ -18,10 +18,15 @@ first deposits this session:
    unfolding. Finding: leg 1 (ℕ generated from Raw) is ~80% present —`Nat213.{Raw,Peano,Bridge}`
    (succ := slashOrSelf·Raw.b *is* the distinguishing op; own `add`/`mul`; no-zero/sub/absorption
    *forced* by the primitive). First **leg-2** deposit: `Lens/Number/Nat213/Divisibility.lean`
-   (9 PURE) — elementary **divisibility computed entirely over `Nat213`** (its own `mul`, no Lean
-   `Nat` in any statement): a discipline routed *through* the distinguishing's counting object.
-   Next: route a deeper discipline (φ=μ∗id / a figurate identity) over `Nat213`; leg 3 = upgrade
-   Peano from "ergonomic parallel" to lens-derived + initiality-as-forcing.
+   (11 PURE) — elementary **divisibility computed entirely over `Nat213`** (its own `mul`, no Lean
+   `Nat` in any statement), now a **partial order**: `dvd_refl/trans/antisymm`, `one_dvd` (bottom),
+   `mul_eq_one`. The order's shape — bottom `one`, no top/zero — is *forced by the primitive*
+   (Raw ≥1 atom; `Peano.no_absorbing_element`). A discipline routed *through* the distinguishing's
+   counting object, not bridged.
+   Next: a deeper discipline over `Nat213` (primality / `dvd_no_top` via the value reading, or a
+   figurate identity); leg 3 = upgrade Peano from "ergonomic parallel" to lens-derived +
+   initiality-as-forcing. NOTE: `conv_lhs`/`nth_rewrite` are Mathlib — unavailable; use `←`-rewrites
+   with unique patterns or core `conv => lhs`.
 
 Foundational capstone also added: `FlatOntologyClosure.distinguishing_always_leaves_residue` (PURE) +
 CLAUDE.md framing row + `01_residue.md §1.1` grounding (residue = theorem, distinguishing = primitive).
