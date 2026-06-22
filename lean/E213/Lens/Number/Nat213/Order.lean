@@ -25,18 +25,7 @@ open E213.Lens.Number.Nat213.Peano.Nat213
 /-- Strict order: `a < b` iff `b` is `a` with a positive `Nat213` added. -/
 def lt (a b : Nat213) : Prop := ∃ c, add a c = b
 
-/-- `add a c ≠ a` — adding any `Nat213` strictly grows (there is no additive `0`). -/
-theorem add_ne_self (a c : Nat213) : add a c ≠ a := by
-  intro h
-  have hn : (add a c).toNat = a.toNat := congrArg toNat h
-  rw [toNat_add] at hn
-  have h0 : a.toNat + c.toNat = a.toNat + 0 := hn
-  have hc0 : c.toNat = 0 := E213.Tactic.NatHelper.add_left_cancel h0
-  have hge : c.toNat ≥ 1 := toNat_ge_one c
-  rw [hc0] at hge
-  exact absurd hge (by decide)
-
-/-- Irreflexivity. -/
+/-- Irreflexivity — via the **native** `Peano.add_ne_self` (no `toNat`). -/
 theorem lt_irrefl (a : Nat213) : ¬ lt a a := fun ⟨c, hc⟩ => add_ne_self a c hc
 
 /-- A strict inequality is a disequality. -/
@@ -77,5 +66,32 @@ theorem mul_self_inj {a b : Nat213} (h : mul a a = mul b b) : a = b := by
   · exact absurd h (lt_ne (lt_mul_self hlt))
   · exact heq
   · exact absurd h.symm (lt_ne (lt_mul_self hgt))
+
+/-- ★★★ **Strict monotonicity of left multiplication** — `b < c ⟹ a·b < a·c`,
+    derived purely from left-distributivity (`mul_add`); no order lemma, no
+    `toNat`.  If `add b k = c`, the witness is `mul a k`:
+    `a·c = a·(b+k) = a·b + a·k`. -/
+theorem lt_mul_left {a b c : Nat213} (h : lt b c) : lt (mul a b) (mul a c) := by
+  obtain ⟨k, hk⟩ := h
+  exact ⟨mul a k, by rw [← hk, mul_add]⟩
+
+/-- ★★★ **Left cancellation, native** — `a·b = a·c ⟹ b = c`.  By trichotomy +
+    strict monotonicity (`lt_mul_left`) + `lt_ne`; mirrors `mul_self_inj`.  This
+    replaces the previous `toNat`-laundered cancellation: the divisibility
+    partial order's antisymmetry (`Divisibility.dvd_antisymm`) now stands on
+    `Nat213` all the way down — zero `toNat`, zero Lean-`Nat` lemmas in its
+    dependency cone.  See `research-notes/frontiers/the_descent_leg.md`
+    (the toNat-cone bet). -/
+theorem mul_left_cancel {a b c : Nat213} (h : mul a b = mul a c) : b = c := by
+  rcases lt_trichotomy b c with hlt | heq | hgt
+  · exact absurd h (lt_ne (lt_mul_left hlt))
+  · exact heq
+  · exact absurd h.symm (lt_ne (lt_mul_left hgt))
+
+/-- ★ **Right cancellation, native** — `a·c = b·c ⟹ a = b` (via `mul_comm`). -/
+theorem mul_right_cancel {a b c : Nat213} (h : mul a c = mul b c) : a = b := by
+  apply mul_left_cancel (a := c)
+  rw [mul_comm c a, mul_comm c b]
+  exact h
 
 end E213.Lens.Number.Nat213.Order

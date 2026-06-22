@@ -221,6 +221,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   at corpus scale, 0 real DIRTY).  **Line B (the open frontier — external exposure):**
   (a) the ∅-axiom formalization paper (`drafts/strict_zero_axiom_formalization_paper.md`);
   (b) pre-registered open-problem attack — *executed, NULL* (Markov, `markov_lagrange/G206`).
+- `the_purpose_and_the_marathon` — **the purpose re-inferred + the marathon spine** (4-agent
+  convening, 2026-06-22, answering the originator's "is the goal category theory / HoTT?").  Verdict:
+  **no** — 213's formal core *already IS* initial-algebra + Lawvere-diagonal CT (`Raw`=μF,
+  `fold`=catamorphism, residue=`object1_not_surjective`), reached from the *distinguishing* primitive
+  (verdict (c), not a recasting); **HoTT absent** (no univalence/identity-types; `propext`/`Quot.sound`/
+  `funext` forbidden).  진의: a *sustained discipline of non-self-deception* (not a decision procedure)
+  about whether the act forces mathematics; the unnamed driver = to meet a forcing not imported.
+  Spine = **the descent leg** (M0 done: the toNat-cone bet won; M1–M5 = factorization generated over
+  `Nat213`; capstone = FTA *generated*); exit = Line B exposure.  The §5.1 boundary named in 3 walls.
 - `multiplicative_count_pnt` — **multiplicative count → PNT density**
   (`MultSystem`/`MultSystemValue`).  Upper bound + density cut CLOSED ∅-axiom
   (prime window `(n,2n]`, Chebyshev doubling, telescoped `π(2^m) ≤ chebBound m =

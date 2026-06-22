@@ -13,9 +13,13 @@ bridged.  `Nat213.Peano` is the Raw-generated positive naturals — `one := Raw.
 (`no_additive_identity_at_one`, `no_closed_subtraction`, `no_absorbing_element`).
 
 This file is the first **discipline** (elementary divisibility) proven **entirely over `Nat213`** —
-`dvd` is defined by `Nat213`'s own `mul`, and every theorem's statement and proof stay on `Nat213`
-with **no detour through Lean `Nat`**.  It is the first concrete leg-2 deposit: a number-theoretic
-preorder computed on the distinguishing's own counting object.  ∅-axiom.
+`dvd` is defined by `Nat213`'s own `mul`, and every theorem's statement *and proof* stay on `Nat213`
+with **no detour through Lean `Nat`**: the whole dependency cone is `toNat`-free, verified
+mechanically (the descent-leg "toNat-cone bet", `research-notes/frontiers/the_descent_leg.md`).  The
+one cancellation it needs (`dvd_antisymm` → `mul_left_cancel`) is taken from `Order` — the **native**
+version (trichotomy + distributivity, mirroring `Order.mul_self_inj`), not `Peano`'s earlier
+`toNat`-laundered one.  It is the first concrete leg-2 deposit: a number-theoretic preorder computed
+on the distinguishing's own counting object, generated all the way down.  ∅-axiom.
 
 The structure is genuinely shaped by the primitive: divisibility here is a preorder with bottom
 `one` (`one_dvd`, since `Raw` has the atom) but — unlike ℕ-with-0 — **no top** and no zero to absorb,
@@ -26,9 +30,12 @@ namespace E213.Lens.Number.Nat213.Divisibility
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
-  (mul one succ add mul_one one_mul mul_assoc mul_comm mul_left_cancel succ_ne_one
+  (mul one succ add mul_one one_mul mul_assoc mul_comm succ_ne_one
    mul_succ_right add_assoc add_one_right)
-open E213.Lens.Number.Nat213.Order (lt lt_irrefl)
+-- `mul_left_cancel` is taken from `Order` (the **native**, toNat-free cancellation),
+-- not from `Peano` (whose version laundered through Lean `Nat`).  This keeps the
+-- entire divisibility dependency cone toNat-free — see the descent-leg bet.
+open E213.Lens.Number.Nat213.Order (lt lt_irrefl mul_left_cancel)
 
 /-- **Divisibility over the Raw-generated ℕ₊**: `a ∣ b` iff `b = a · c` for some `c : Nat213`,
     using `Nat213`'s own multiplication.  No Lean `Nat`. -/

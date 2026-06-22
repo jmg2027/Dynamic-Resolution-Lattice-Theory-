@@ -113,6 +113,53 @@ What remains:
   `value`/`toNat` level), and strengthen `Lens/Foundations/Initiality` so this reading is the **unique**
   distinguishing-preserving one (rules out rival primitives).
 
+## UPDATE (2026-06-22, marathon) — the toNat-cone bet: PRE-REGISTERED, WON
+
+A 4-agent panel (CT/HoTT positioning; 진의 re-inference; adversarial skeptic; marathon strategist)
+re-ran the substance inference. The skeptic's sharpest *internal* discriminator, verified against the
+Lean rather than the prose:
+
+> The divisibility discipline's *statements* are Nat-free, but a load-bearing lemma in its **proof
+> cone** — `Peano.mul_left_cancel` — laundered through Lean `Nat`: `congrArg toNat` → cancel in `Nat`
+> via `NatHelper.mul_left_cancel_pos` → pull back through `toNat_injective` (76 `toNat` uses in
+> `Peano.lean`). And `Order.add_ne_self` (used by `lt_irrefl`, itself in the cone via `dvd_no_top`)
+> did the same. So "computed over `Nat213` with no detour through Lean `Nat`" held for the *types* but
+> **not for the proofs** — "looks generated, is parasitic on `Nat`."
+
+**Pre-registered falsifiable bet (G206 template).** *Every lemma in the `Nat213.Divisibility`
+dependency cone can be re-proven by `Nat213`-induction with **zero `toNat` and zero Lean-`Nat`
+lemmas**.* WIN = generation all the way down for one discipline; NULL = the generation was parasitic
+on `Nat` (an honest datapoint against the thesis, exactly as designed).
+
+**Result: WON.** The cancellation was re-derived natively, mirroring the file's own `mul_self_inj`
+template (trichotomy + strict monotonicity from distributivity + `lt_ne`), with **no order or `toNat`
+machinery imported**:
+- `Peano.add_ne_self` (NEW, native): `add a c ≠ a` by structural induction (`add one c = succ c ≠ one`;
+  `succ`-step via `succ.inj`) — replaces the `toNat`-laundered `Order.add_ne_self`, which is deleted.
+- `Order.lt_mul_left` (NEW): `b < c ⟹ a·b < a·c` from left-distributivity (`mul_add`) alone.
+- `Order.mul_left_cancel` / `mul_right_cancel` (NEW, native): trichotomy + `lt_mul_left` + `lt_ne`.
+  `Divisibility` now opens cancellation from `Order`, not `Peano`.
+- Bonus: `Peano.no_absorbing_element` (a flagship *forcing* theorem cited by `Divisibility`) de-laundered
+  to native — `mul z 2 = add z z` (`mul_two`) so `mul z n = z` forces `add z z = z`, impossible by
+  `add_ne_self`; the laundering helper `mul_two_grows` is deleted.
+
+**Verification (the bet's mechanical gate).** `lake build E213` clean (439/439); `scan_axioms`
+`Order` 10/0, `Divisibility` 13/0 (all PURE); `grep -E 'toNat|Nat\.|NatHelper'` over `Order.lean`
+and `Divisibility.lean` returns **comments/docstrings only — zero code hits**; every Peano lemma in
+the cone (`mul_one/comm/assoc`, `add_*`, `mul_add`, `add_mul`, `succ_ne_one`, `add_ne_self`) is
+`toNat`-free. So the **first elementary discipline (divisibility) over the Raw-generated ℕ₊ now stands
+on `Nat213` all the way down — proofs included.** This converts the skeptic's "looks generated" into
+"is generated," for one discipline.
+
+**Honest residual (the next bet, not yet run).** Peano still has a `toNat`-laundered
+`mul_left_cancel`/`mul_right_cancel` — retained because the **ℚ₊ Tower** cone
+(`Tower/NatPairToQPos`, `Tower/PairCompletion`) still consumes them. That cone is the next
+pre-registered target: de-launder the Tower (route its `mul_right_cancel` through `Order`'s native
+one). The bridge lemmas `toNat`, `toNat_add/mul`, `toNat_injective` legitimately *are about* `toNat`
+(homomorphism characterisations), not laundering, and stay. And the deepest gap (leg-2 *depth*) is
+unchanged: irreducibility / unique factorisation over `Nat213` (strategist's milestones M1–M3) — now
+on a genuinely `toNat`-free foundation, which is the right ground to build them on.
+
 ## Other seeds
 
 - `Lib/Math/Foundations/UniverseChain/RawRecurrence.lean` — the `Raw → count` recurrence

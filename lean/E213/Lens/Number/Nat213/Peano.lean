@@ -268,6 +268,15 @@ theorem mul_two (n : Nat213) : mul n (succ one) = add n n := by
 /-- ★ `succ n ≠ one`: every successor is distinct from the base. -/
 theorem succ_ne_one (n : Nat213) : succ n ≠ one := fun h => Nat213.noConfusion h
 
+/-- ★ `add a c ≠ a` — adding any `Nat213` strictly grows (there is no additive
+    `0`).  **Native** structural induction on `a`, no `toNat`: `add one c`
+    reduces to `succ c ≠ one` (`succ_ne_one`); the `succ` step descends through
+    `succ.inj`.  This is the no-additive-identity shape forced by "`Raw` has an
+    atom", proven on the generated carrier all the way down. -/
+theorem add_ne_self : ∀ (a c : Nat213), add a c ≠ a
+  | one,    c => fun h => succ_ne_one c h
+  | succ a, c => fun h => add_ne_self a c (Nat213.succ.inj h)
+
 /-- ★ `(succ n).toNat = n.toNat + 1` — by definition. -/
 theorem succ_toNat (n : Nat213) : (succ n).toNat = n.toNat + 1 := rfl
 
@@ -298,76 +307,20 @@ theorem no_closed_subtraction :
 
 -- ═══ NO ABSORPTION: there is no zero in Nat213 ═══
 
-/-- Helper: `mul_succ_two_strictly_grows` — if z = succ z', then
-    `mul (succ z') two = succ (succ (mul z' two))`, which has
-    `toNat ≥ z.toNat + 1`, hence cannot equal z. -/
-theorem mul_two_grows : ∀ z : Nat213,
-    (mul z (succ one)).toNat = z.toNat + z.toNat
-  | one    => rfl
-  | succ m => by
-      show (add (succ one) (mul m (succ one))).toNat
-         = (succ m).toNat + (succ m).toNat
-      show (succ (succ (mul m (succ one)))).toNat
-         = (m.toNat + 1) + (m.toNat + 1)
-      show (mul m (succ one)).toNat + 1 + 1
-         = m.toNat + 1 + (m.toNat + 1)
-      rw [mul_two_grows m]
-      -- LHS: m.toNat + m.toNat + 1 + 1
-      -- RHS: m.toNat + 1 + m.toNat + 1
-      -- Both = 2*m.toNat + 2
-      rw [Nat.add_assoc m.toNat 1 (m.toNat + 1),
-          Nat.add_comm 1 (m.toNat + 1),
-          ← Nat.add_assoc m.toNat (m.toNat + 1) 1,
-          ← Nat.add_assoc m.toNat m.toNat 1]
+/-- ★★★ NO ABSORBING ELEMENT: there is no `z : Nat213` such that `z · n = z`
+    for all `n`.  In Lean `Nat` (with 0): `0 · n = 0` for all `n` — the
+    absorption pathology of 0.  In `Nat213`, NO such element exists.
 
-/-- ★★★ NO ABSORBING ELEMENT: there is no `z : Nat213` such that
-    `z · n = z` for all `n`.  In Lean Nat (with 0): `0 · n = 0` for
-    all n — this is the absorption pathology of 0.  In Nat213, NO
-    such element exists.  Proof: if `mul z 2 = z`, then `2 · z.toNat
-    = z.toNat`, which forces `z.toNat = 0`, contradicting
-    `toNat_ge_one`. -/
+    **Native** proof, no `toNat`: instantiate at `n = 2`; `mul z 2 = add z z`
+    (`mul_two`), so the hypothesis forces `add z z = z`, impossible by
+    `add_ne_self`.  The no-zero/no-absorption shape is thus forced by the
+    primitive and witnessed on the generated carrier all the way down. -/
 theorem no_absorbing_element :
     ¬ ∃ z : Nat213, ∀ n : Nat213, mul z n = z := by
   intro ⟨z, h⟩
   have h2 : mul z (succ one) = z := h (succ one)
-  have eq_nat : (mul z (succ one)).toNat = z.toNat :=
-    congrArg toNat h2
-  rw [mul_two_grows z] at eq_nat
-  -- eq_nat : z.toNat + z.toNat = z.toNat.  Since toNat z ≥ 1, want
-  -- a contradiction.  Cancel: z.toNat + z.toNat = z.toNat = 0 + z.toNat
-  -- (by rfl on Lean Nat.add: n + 0 = n, but here we have left-add).
-  -- Using Nat213-helper add_right_cancel: a + c = b + c → a = b.
-  -- Cast: z.toNat + z.toNat = 0 + z.toNat (need 0 + n = n)
-  have hz : z.toNat ≥ 1 := toNat_ge_one z
-  -- z.toNat = 0 + z.toNat (rfl for Nat.add only when 0 is on right, not left).
-  -- Workaround: use Nat213.add_right_cancel with c = z.toNat:
-  --   eq_nat : z.toNat + z.toNat = z.toNat.  Rewrite RHS as 0 + z.toNat.
-  -- Lean Nat: rfl gives n + 0 = n, but 0 + n requires Nat.zero_add (propext).
-  -- Alternative: induct on z.toNat directly to derive contradiction.
-  cases z with
-  | one => exact Nat213.noConfusion h2
-  | succ z' =>
-      -- h2 : mul (succ z') (succ one) = succ z'
-      -- LHS = add (succ one) (mul z' (succ one)) = succ (succ (mul z' (succ one)))
-      have h_form : succ (succ (mul z' (succ one))) = succ z' := h2
-      have h_inj : succ (mul z' (succ one)) = z' := Nat213.succ.inj h_form
-      -- toNat: (mul z' 2).toNat + 1 = z'.toNat, so (mul z' 2).toNat < z'.toNat
-      have h_tn : (mul z' (succ one)).toNat + 1 = z'.toNat :=
-        congrArg toNat h_inj
-      rw [mul_two_grows z'] at h_tn
-      -- h_tn : z'.toNat + z'.toNat + 1 = z'.toNat
-      -- Equivalently: z'.toNat + (z'.toNat + 1) = z'.toNat (using add_assoc).
-      -- For Nat: a + b = a forces b = 0, but here b = z'.toNat + 1 ≥ 1.
-      have hz' : z'.toNat ≥ 1 := toNat_ge_one z'
-      -- Rearrange h_tn: z'.toNat + (z'.toNat + 1) = z'.toNat
-      have h_tn2 : z'.toNat + (z'.toNat + 1) = z'.toNat := by
-        rw [← Nat.add_assoc]; exact h_tn
-      -- z'.toNat = z'.toNat + 0 by Nat.add reduction (n+0 = n by rfl):
-      have h_eq : z'.toNat + (z'.toNat + 1) = z'.toNat + 0 := by
-        rw [h_tn2]; rfl
-      have h_zero : z'.toNat + 1 = 0 :=
-        E213.Tactic.NatHelper.add_left_cancel h_eq
-      exact Nat.noConfusion h_zero
+  rw [mul_two] at h2
+  exact add_ne_self z z h2
 
 end Nat213
 
