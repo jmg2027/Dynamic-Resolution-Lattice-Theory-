@@ -94,6 +94,38 @@ theorem newton2_doubled (a b c : Int) :
       = (a*b - b*c)*(a*b - b*c)
           + ((b*c - c*a)*(b*c - c*a) + (c*a - a*b)*(c*a - a*b)) := by ring_intZ
 
+/-! ## Newton's identities — the power-sum ↔ elementary-symmetric character bridge
+
+The two readings of one 3-element spectrum `{a,b,c}`:
+
+* the **multiplicative** (×↦·) reading — the elementary symmetric `e1 = a+b+c`,
+  `e2 = ab+bc+ca`, `e3 = abc` (the coefficients of `∏(t+xⱼ)`, the universal
+  `det`/char-poly; `e1 = tr`, `e2 = det` of the 2×2 case in `Mat2Spectrum`);
+* the **additive** (×↦+) reading — the power sums `p_k = aᵏ+bᵏ+cᵏ` (the
+  `tr(Mᵏ)` trace-powers).
+
+**Newton's identities** are the exact bridge between the two characters — each
+`p_k` written through the `eᵢ`.  These are genuine symmetric-function theorems
+(`SchurInequality.lean`/`NewtonInequalities` neighbours), the degree-by-degree
+companion to the closed `newton1`/`newton2` log-concavity inequalities.  Both
+∅-axiom: a single `ring_intZ` polynomial identity. -/
+
+/-- ★★ **Newton's identity, degree 2** (ℤ): `p₂ = e₁·p₁ − 2·e₂`, i.e.
+    `a²+b²+c² = (a+b+c)² − 2(ab+bc+ca)`.  The power-sum ↔ elementary bridge at
+    degree 2 (`p₁ = e₁` is the degree-1 identity, definitional). -/
+theorem newton_id_p2 (a b c : Int) :
+    a*a + b*b + c*c
+      = (a+b+c)*(a+b+c) - 2*(a*b + b*c + c*a) := by ring_intZ
+
+/-- ★★ **Newton's identity, degree 3** (ℤ): `p₃ = e₁·p₂ − e₂·p₁ + 3·e₃`, i.e.
+    `a³+b³+c³ = (a+b+c)(a²+b²+c²) − (ab+bc+ca)(a+b+c) + 3abc`.  The degree-3
+    `×↦+ ↔ ×↦·` character bridge; reduces to the classical `a³+b³+c³−3abc
+    = (a+b+c)(a²+b²+c²−ab−bc−ca)` once `e₁p₂−e₂p₁` collapses to `p₃−3e₃`. -/
+theorem newton_id_p3 (a b c : Int) :
+    a*a*a + b*b*b + c*c*c
+      = (a+b+c)*(a*a + b*b + c*c)
+          - (a*b + b*c + c*a)*(a+b+c) + 3*(a*b*c) := by ring_intZ
+
 /-! ## Maclaurin remark
 
 The two Newton inequalities `e1² ≥ 3·e2` and `e2² ≥ 3·e1·e3` are exactly the

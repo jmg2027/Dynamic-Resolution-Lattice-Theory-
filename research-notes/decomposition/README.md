@@ -10,7 +10,7 @@ category theory created objects/arrows/functors, type theory created types/terms
 > **★ Capstone map: [`SYNTHESIS.md`](SYNTHESIS.md)** — the whole corpus as one statement: 52 fields
 > reduce to **two invariants** (the character arrow `×↦·`/`×↦+`, the `q=±1` residue tag) over four axes;
 > the `q=±1` spine (escape: Cantor/Gödel/measure/quintic/… ⟷ converge: φ/Gaussian/ODE/ergodic/…); the
-> Lean census (~21 ∅-axiom modules, 12 of 13 predictions closed); the recurring breaks (the
+> Lean census (~21 ∅-axiom modules, 13 of 14 predictions closed); the recurring breaks (the
 > ambient-isotopy/colimit quotient verbatim in knots + π₁; the propext ceiling; the `Real213` value-cut);
 > and the self-description (the PURE/DIRTY boundary IS the Heyting/Boolean boundary = why 213 is constructive).
 > Read it first for the bird's-eye; the per-field notes below are the worked detail.
@@ -1871,8 +1871,9 @@ bridge (`eᵢ` det-reading ↔ `p_k` trace-power additive twin). Schur `s_λ` = 
 NAMES the scattered `eᵢ` as ONE universal object. ABSENT (grep-confirmed): named Λ, the `e/h/p/m/s_λ` bases, Jacobi–Trudi, the
 alternant `∏(xᵢ−xⱼ)` (Schur denominator), λ-ring — the same `d>1`-character break `representation.md` located. Flagged name-collisions
 NOT cited: `Combinatorics/PowerSums` (Faulhaber, not `p_k`), `Combinatorics/Vandermonde` (binomial convolution, not the alternant),
-`Foundations/SchurInequality` (Schur's *inequality*, not Schur *functions*). Buildable witness: the 3-var Newton identity
-`p_3 = e₁p_2 − e₂p_1 + 3e₃` as one `ring_intZ` lemma in `NewtonInequalities` (degree-3 ×↦+/×↦· bridge).
+`Foundations/SchurInequality` (Schur's *inequality*, not Schur *functions*). **Witness BUILT this session:** Newton's identities
+`newton_id_p2 : p₂ = e₁p₁ − 2e₂` and `newton_id_p3 : p₃ = e₁p₂ − e₂p₁ + 3e₃`, each one `ring_intZ` lemma in `NewtonInequalities`
+(the power-sum ↔ elementary-symmetric `×↦+ ↔ ×↦·` character bridge), `#print axioms`-clean — module 5/0 → **7/0**.
 
 ### ★ Optimal control / Bellman (`optimal_control.md`) — the value function = the q+1 Bellman-contraction fixed point
 
@@ -1904,11 +1905,12 @@ basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the am
 
 **Count.** 135 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
-is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
-predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
+is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **fourteen**
+predictions, **thirteen Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
 dyadic completion-limit, discrete Noether-iff, the modulated Banach engine/wall defeat, Carathéodory-as-`clo`,
-the formal `q=±1` tag, `continuous_iff_preimage_dyadicopen`, the **det/tr=e₁/e₂ Vieta resolution**, and the
-**formal power-series semiring** `PowerSeriesSemiring`) + QR already-closed; plus Lean **groundings** of the
+the formal `q=±1` tag, `continuous_iff_preimage_dyadicopen`, the **det/tr=e₁/e₂ Vieta resolution**, the
+**formal power-series semiring** `PowerSeriesSemiring`, and **Newton's identities** `newton_id_p2`/`newton_id_p3`
+= the power-sum ↔ elementary-symmetric character bridge) + QR already-closed; plus Lean **groundings** of the
 spectral note (`Mat2SymmetricSpectrum`: symmetric `disc≥0` = real spectrum, the `q=+1` corner), the Lie
 note (`Mat2Bracket`: antisymmetry + traceless-sl + Jacobi), and the representation note (`Mat2Killing`: the
 `d>1` trace character as the adjoint rep's Killing form `K=4·tr(XY)` on sl₂, `killing_gram` nondegeneracy).

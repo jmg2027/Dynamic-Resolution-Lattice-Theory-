@@ -296,10 +296,15 @@ alternant — see Dropped). All PURE, 0 DIRTY. (`det2_mul`, `vp_mul`, `mu_conv_o
 - **The bialgebra compatibility (Λ as a *bi*algebra, Δ an algebra map)** — ABSENT, the same open
   frontier F1 `hopf_algebras.md` located (`Δ_+ ⇄ Δ_×` distributivity). The `conv`/`CoAppend213`
   co-fold and the antipode `mu_conv_one` are built; the bialgebra law fusing them is the residual.
-- **Verified buildable witness (no new claim asserted):** the load-bearing collapse is already a set of
-  `decide`/`ring`-grade theorems (`det_tr_split_is_e1_e2`, `cayley_hamilton`, `newton1`, `newton2`, all
-  scanned PURE this session). A clean additional witness would be the **3-variable Newton identity
-  `p_3 = e_1 p_2 − e_2 p_1 + 3 e_3`** stated as a `ring_intZ` identity in `a,b,c` (the additive ×↦+ /
-  multiplicative ×↦· bridge at degree 3, the exact companion of the closed `newton1`/`newton2`
-  inequalities) — a single `ring_intZ` lemma in `NewtonInequalities.lean`, PURE by construction. No new
-  count-inequality is proposed beyond the grep-confirmed, scanned-PURE anchors above.
+- **BUILT witness (this session):** the load-bearing collapse is already a set of `decide`/`ring`-grade
+  theorems (`det_tr_split_is_e1_e2`, `cayley_hamilton`, `newton1`, `newton2`, all scanned PURE). The
+  predicted additional witness — **Newton's identities**, the power-sum ↔ elementary-symmetric character
+  bridge — is now **closed ∅-axiom** in `NewtonInequalities.lean`:
+  - `newton_id_p2 : a²+b²+c² = (a+b+c)² − 2(ab+bc+ca)` (`p₂ = e₁p₁ − 2e₂`), and
+  - `newton_id_p3 : a³+b³+c³ = (a+b+c)(a²+b²+c²) − (ab+bc+ca)(a+b+c) + 3abc` (`p₃ = e₁p₂ − e₂p₁ + 3e₃`),
+
+  each a single `ring_intZ` identity, both `#print axioms`-clean (module now **7/0**, was 5/0). This is
+  the genuine degree-2/degree-3 `×↦+ ↔ ×↦·` character bridge — the power sums `p_k` (additive trace-powers)
+  written through the elementary `eᵢ` (multiplicative det-coefficients) — not a re-skin: Newton's identities
+  are core symmetric-function theory, the degree-graded companion to the closed `newton1`/`newton2`
+  log-concavity inequalities. The named ring Λ and the `e/h/p/m/s_λ` bases remain ABSENT (the `d>1` break).

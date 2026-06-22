@@ -362,11 +362,12 @@ hyperbolic geometry's curvature trichotomy). The trend of the arc: fields the v3
 "engine built, object missing" increasingly arrive with the *object* built (coalgebra's `CoResidue`, Stone's
 `BooleanAlgebra`, coding's `[10,4,4]`, the profinite limit) — the predicted-not-built column is shrinking.
 
-**Closure tally (`README.md` count block):** thirteen predictions, **twelve Lean-closed** (orthogonality
+**Closure tally (`README.md` count block):** fourteen predictions, **thirteen Lean-closed** (orthogonality
 orders 2/3/4/6 + **all-orders-mod-p**, growing-corner, convolve-rescale contraction + dyadic
 completion-limit, discrete Noether-iff, the modulated Banach engine, Carathéodory-as-`clo`, the formal
 q=±1 tag, `continuous_iff_preimage_dyadicopen`, the det/tr=e₁/e₂ Vieta resolution, the formal
-power-series semiring), plus QR found already-closed.
+power-series semiring, and Newton's identities `newton_id_p2`/`newton_id_p3` = the power-sum ↔
+elementary-symmetric character bridge), plus QR found already-closed.
 
 ### (b) PREDICTION — engine built, named object missing
 Structural prediction delivered and grounded, the *named field object* absent: **CLT/Gaussian** (full
@@ -600,7 +601,7 @@ validation gate, which CLAUDE.md is explicit is one domain's gate, not the yards
 One hundred thirty-two fields across ~16 disciplines, read through a fixed normal form, converge on *two*
 invariants (the character arrow, the q=±1 residue) plus the reflexive residue-operation (now shown both
 *iterable* — spectral sequences — and *self-dual* — the μ/ν closure, `CoResidue`), over one structured
-frame, and the convergence is **Lean-anchored at a high rate** — twelve of thirteen predictions closed
+frame, and the convergence is **Lean-anchored at a high rate** — thirteen of fourteen predictions closed
 ∅-axiom, with thirty-three modules in the §4 census table and a further roll-up of this arc's newly-built
 objects. The deepest collapses are now *theorems*, not prose: the det/tr split (Vieta) — now generalized to
 the Chern classes `cᵢ=eᵢ` of a bundle's curvature; the q=±1 tag; the **six-instance** `f**=clo` closure
