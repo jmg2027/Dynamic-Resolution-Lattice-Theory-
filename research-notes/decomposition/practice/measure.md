@@ -168,18 +168,20 @@ resolution-dial replaces?). The answer is clean, with three genuinely-absent cla
   artifact (which sets are resolvable), not a Construction primitive — and the calculus dissolves
   it the way `continuity.md` dissolved "open set" into a refinement-stable fibre.
 
-- **Outer measure / Carathéodory extension: ABSENT, and it WOULD be `galois.md`'s closure operator
-  `clo` (`q=+1` idempotent).** Carathéodory's construction is: define an outer measure `μ*` by
-  infimum over covers (a `g`), restrict to Carathéodory-measurable sets (the closed elements of a
-  Galois-style connection), giving an idempotent extension. That is *exactly* `clo = g∘f` with
-  `clo_extensive` (unit), `clo_idempotent` (`T²=T`), `clo_monotone` — all PURE in
-  `Order/GaloisConnection.lean:104-132`. So the calculus **predicts the shape** of Carathéodory
-  extension (a closure monad, `q=+1`) — but there is **no `outerMeasure`/`Caratheodory` object in
-  `lean/E213`** (grep: zero hits). This is a *conceptual-only* leg: the abstract `clo` engine exists
-  and PURE, but it has not been instantiated as outer-measure-to-measure. **Named open target**,
-  honestly not a closed collapse. (And note: the classical Carathéodory construction *also* secretly
-  rides the `q=−1` half — the infimum over countable covers is where non-measurable sets get
-  excluded; the repo never builds the over-large domain, so it never needs the cutting-down.)
+- **Outer measure / Carathéodory extension: NOW CLOSED — instantiated AS `galois.md`'s closure
+  operator `clo` (`q=+1` idempotent).** ✅ `Analysis/Measure/OuterMeasure.lean` (29/0 PURE) builds the
+  finitary outer measure `outerMeasureNum` (= inf over covers, attained by the set), proves it
+  monotone + subadditive (`outerMeasure_union_le`), and instantiates the Carathéodory passage AS the
+  abstract `clo`: a genuine Galois connection `cara_gc` (with `cara_g` a section of `cara_f`), so
+  `caraClosure := clo cara_f cara_g` satisfies `caraClosure_extensive`/`_monotone`/`_idempotent`
+  (literal `T²=T`) — the predicted closure-monad shape made literal. `all_caratheodory_measurable`:
+  **every** finite measurable set splits additively (the criterion = `measure_union_additive`), and
+  `clo_preserves_measure`/`outerMeasure_conservative`: the extension is conservative. This is the
+  *predicted content* of the `q=+1` corner — the classical construction's `q=−1` half (the infimum
+  over *countable* covers, where non-measurable sets get excluded) is the deliberately-omitted part:
+  on a finite `List` the over-large domain is never built, so the closure is conservative (adds
+  nothing) and every set is measurable. Closure shape: built + PURE. (Earlier this was a named open
+  target; now closed as the conservative finite instantiation.)
 
 - **The one located break inside the built tree — `Lp` full additivity leaks `Quot.sound`.** The
   INDEX is honest (`:36-38`): `lp_one_singleton` (the per-bracket `p=1 ↔ Lebesgue` collapse) is
