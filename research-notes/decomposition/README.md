@@ -1518,7 +1518,22 @@ character by duality; convolution = the weight axis (`mass_conv` 20/0). Named Di
 tempered objects absent; buildable witness: `diracFunctional r := fun φ=>φ r`, represented by `Object1 r`
 (`Object1_self` already gives the spike) — δ = the point-evaluation reading welded ∅-axiom.
 
-**Count.** 107 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Geometric measure theory (`geometric_measure_theory.md`) — currents = the de Rham dual
+
+PREDICTION + PARTIAL (strong consolidation). GMT = the calculus's **de Rham dual**: a current T:ω↦⟨T,ω⟩ =
+de_rham's forms read as the integration-against-forms pairing-functional ("object = its readings" on forms, the
+motives/⟨C|L⟩ half — same reflexive theme as distribution_theory but on forms). ★ New datum: the **dualization**
+— ∂T (defined by ⟨∂T,ω⟩=⟨T,dω⟩) is *forced* as the adjoint/transpose of d = homology's q=±1 boundary, with
+∂²=0 dual to d²=0 (`dsq_zero_universal_delta4` 5/0; Stokes-by-duality = `gauss_conservation_telescope`:152 8/0,
+whose functional is docstring-named a "current"). Mass = measure's weight (`measureNum`/`measure_union_additive`
+9/0, `lebesgueStepNum` 9/0 = a current against a value-form); Hausdorff dimension = dimension's fold-height as a
+scaling exponent (`Raw.depth_slash`/`isPart_wf`); non-integer dim_H / non-rectifiable = the q−1 height-escape
+(`height_diagonal_escapes`); Plateau = the q+1 mass-minimizing zero-gap optimum (`ollivier_plan_optimal` 60/0).
+Named Current/rectifiable/HausdorffMeasure/Plateau/varifold objects absent (the "current" hits are the physics
+NoetherCurrent, false-friend); buildable witness: a dual current functional `boundaryCurrent T ω := T (delta ω)`
+with `boundaryCurrent²=0` (dual to dsq_zero), mass-min via OllivierRicci's LP at cost=measureNum.
+
+**Count.** 108 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
