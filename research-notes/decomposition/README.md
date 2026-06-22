@@ -1533,7 +1533,46 @@ Named Current/rectifiable/HausdorffMeasure/Plateau/varifold objects absent (the 
 NoetherCurrent, false-friend); buildable witness: a dual current functional `boundaryCurrent T ω := T (delta ω)`
 with `boundaryCurrent²=0` (dual to dsq_zero), mass-min via OllivierRicci's LP at cost=measureNum.
 
-**Count.** 108 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Quadratic forms / Witt ring (`quadratic_forms.md`) — the signature = the disc-sign trichotomy counted
+
+EXTEND (deep consolidation). A quadratic form = `⟨symmetric Mat2/cup-pairing | L_sig⟩ ⊕ Residue(q=±1)`, L_sig =
+"diagonalize, then count the q=±1 disc-sign per eigenvalue." ★ New datum: the **signature (p,n) IS the disc-sign
+trichotomy counted over an eigenbasis** (positive λ = q+1, negative λ = q−1); the hyperbolic plane
+`[[0,1],[1,0]]` IS the q+1⊕q−1 cancelling pair (the Witt-neutral, signature 0); definite/semidefinite/indefinite
+= the same trichotomy as forms. ★ The repo has BUILT signature content (not just spectral): the cup-pairing on
+H¹(T²) diagonalized to diag(2,−2) with explicit Sylvester invocation (`T2Minimal/Signature.signature_one_one_witness`:59
+7/0), `KahlerGradeStructure.hodge_index_signature`:142 (5/0), `BalancedSignature.signature_balanced`:94
+(`hirzebruch_zero` = Witt-trivial, 11/0), `EisensteinSignature.signature_dichotomy`:117 (golden indefinite vs
+Eisenstein definite, 13/0). Witt ring = group-completion (`PairCompletionUniversal` 19/0) mod the hyperbolic;
+Hasse–Minkowski = the local-global base-family (FP2Sqrt5 per-prime). Named QuadraticForm/WittRing/HasseMinkowski
+objects absent; buildable witness: a binary-form `signatureOf (a,b,c)` reading sign(disc)+sign(a) into (p,n).
+
+### ★ Lattices / theta functions (`lattices_theta.md`) — the count-by-norm packaged as a modular form
+
+PREDICTION + PARTIAL. A lattice's theta series θ_Λ(τ)=Σ q^(|v|²/2) = the **count-by-norm reading packaged as
+modular_forms' q+1 SL(2,ℤ)-invariant generating function**, with Poisson summation = fourier's Fourier
+self-duality = the q=±1 τ↦−1/τ reflection, and even-unimodular Λ=Λ* = the q=±1 fixed point. ★ New datum: the
+repo's **sums-of-squares corpus IS the theta-coefficient (count-by-norm) side**, ∅-axiom (modular_forms never
+cited it): `FourSquare.four_sq_id`:122/`isSum4_mul` (multiplicative SoS count = θ_{Λ⊕Λ'}=θ_Λ·θ_Λ' = the ×↦·
+character on the norm, 34/0), `Gram` (9/0 = the quadratic form), `LatticeArea.area2_unimodular`:148 (SL₂
+preserves covolume = the modularity root, 18/0), `EisensteinRepresentation` (A₂ hexagonal, 27/0). Named Lattice/
+thetaSeries/E8/Leech/Poisson objects absent (the geometric ℝⁿ lattice = the located break, twin of
+modular_forms' automorphic break); buildable witness: θ_{Λ⊕Λ'}=convolution θ_Λ θ_Λ' on `CoeffSeq` at low degree.
+
+### ★ Topos internal logic / Kripke–Joyal (`topos_internal_logic.md`) — Ω=Bool made forcing semantics
+
+PREDICTION + PARTIAL. The internal logic of a topos = topos's Ω=Bool reading made the truth-value/forcing
+*semantics*, same PURE/DIRTY=Heyting/Boolean line. New datum: **Kripke–Joyal forcing X⊩φ = read-at-a-stage/
+resolution** (`IsResolutionShift`/`_compose` 17/0, the base/stage parameter; substitution = the naturality 2-cell
+`view_factors_through_morphism`); the **internal (Mitchell–Bénabou) language = reading-through-the-Lens** (term =
+Raw read by Lens.view; formula = `Type213`=Raw→Bool; higher type = `OnLens.universalMorphismLevelTwo`:242, 25/0);
+**intuitionistic = PURE/Heyting q+1 (forcing decidable per stage), Boolean/LEM = DIRTY/propext q−1** — the same
+line read on the forcing relation, with the DIRTY canonical Prop-connective maps (`SemanticAtom.canonicalAndMap`
+etc.) the load-bearing evidence. Named Topos/KripkeJoyal/forcing(⊩)/subobjectClassifier objects absent (the
+`forcing` hits are unrelated combinatorial (2,3)-atomicity forcing, flagged); buildable witness: a `Forces X φ`
+relation at the Bool/q+1 corner, monotonicity from `IsResolutionShift_compose`, ∅-axiom without propext.
+
+**Count.** 111 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +

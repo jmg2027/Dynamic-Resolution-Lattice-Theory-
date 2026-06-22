@@ -1,7 +1,7 @@
 # The 213 Decomposition Calculus — capstone synthesis (v3)
 
 **Status**: Tier-1 capstone of the decomposition cluster (`README.md` = the technique + per-field
-log; `practice/*.md` = the 108 worked decompositions; `FRONTIER_AUDIT.md` = the honesty pass;
+log; `practice/*.md` = the 111 worked decompositions; `FRONTIER_AUDIT.md` = the honesty pass;
 `frontiers/colimit_quotient_synthesis.md` + the 3 panel memos = the open edge, now half-built). This
 document does not add a decomposition — it makes the whole corpus legible as one statement. Every Lean
 name cited below was grep-verified to exist in `lean/E213/` and scanned ∅-axiom via `tools/scan_axioms.py`;
@@ -22,8 +22,8 @@ read through a **Lens** `L` (which feature you project to — count, order, diff
 sign), leaving a **Residue** (what `L` forces but cannot capture). A theorem is a property `P(⟨C|L⟩)`;
 the payoff is *collapse* — two superficially different theorems shown to share `(C, L)` and so be one.
 The Lean encoding (`Raw`, `Lens`, `Lens.view = Raw.fold`) is the faithfulness-check, not the
-deliverable. The headline finding, after **108 worked decompositions across ~16 disciplines**, is that this
-wide front does not need 108 different ideas: it converges on a **small invariant set** — one *character
+deliverable. The headline finding, after **111 worked decompositions across ~16 disciplines**, is that this
+wide front does not need 111 different ideas: it converges on a **small invariant set** — one *character
 arrow*, one *q=±1 residue tag*, and (the deepest reflexive turn) one *residue-taking operation* (now shown
 self-composable — spectral sequences) — read across one structured frame, all Lean-anchored, not merely
 asserted. `Residue(L,C)` is the **proven remainder** the
@@ -35,7 +35,7 @@ operation** (§2, §6).
 
 ## 2. The invariant set — the complete inventory
 
-The 108 decompositions converge on **two load-bearing invariants** plus **one structured frame** (the
+The 111 decompositions converge on **two load-bearing invariants** plus **one structured frame** (the
 read-off axes of `C` and the parameters of `L`) — and one reflexive addition: the calculus naming its own
 residue operation. Each is cashed by a verified Lean theorem.
 
@@ -469,7 +469,7 @@ residue reproducing domain after domain. Assessed honestly against *that* bar (n
 validation gate, which CLAUDE.md is explicit is one domain's gate, not the yardstick):
 
 **What it HAS shown — and this is the real result.** The reduction is genuine and unusually wide.
-One hundred eight fields across ~16 disciplines, read through a fixed normal form, converge on *two* invariants (the
+One hundred eleven fields across ~16 disciplines, read through a fixed normal form, converge on *two* invariants (the
 character arrow, the q=±1 residue) plus the reflexive residue-operation (now shown *iterable* —
 spectral sequences), over one structured frame, and the convergence is **Lean-anchored at a high rate** —
 twelve of thirteen predictions closed ∅-axiom across twenty-nine ∅-axiom modules. The deepest collapses are
