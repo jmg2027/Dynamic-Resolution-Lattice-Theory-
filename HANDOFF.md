@@ -97,10 +97,25 @@ skein + isotopy-quotient are named missing primitives)}.
   `⋆` (`ConvolveProfile.mass_conv`/`momentNum_conv`), unifying zeta_euler + ConvolveProfile + recurrences.
   Missing: the two conv defs not welded into a formal-power-series semiring.
 
-**Tally:** 36 decompositions + the `two_cells` meta + the formal `q=±1` tag; **eleven predictions, ten
-Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction + completion-limit,
+## ★ SIXTH WAVE — det/tr split DISSOLVED (spectrum) + Lie bracket + formal power-series semiring
+- **det/tr split dissolved as a Lean theorem** (`Mat2/Mat2Spectrum.lean`, 9/0): `tr_eq_e1` (tr=μ+ν=e₁,
+  additive `×↦+`), `det_eq_e2` (det=μν=e₂, multiplicative `×↦·`), `disc_eq_gap_squared`,
+  `det_tr_split_is_e1_e2` — det and tr are the two elementary symmetric functions of one spectrum (on the
+  committed `cayley_hamilton`). Conditional on root existence (= `Real213`/ℂ residue). `spectral.md`
+  decomposition: eigenvalue = q=+1 scale-residue, φ = the Fibonacci matrix's dominant eigenvalue.
+- **Lie theory (`lie_theory.md`)** — bracket = the q=−1 antisymmetry residue (forced traceless = the `sl`
+  kernel = det/tr split from the algebra side); exp:𝔤→G = the `×↦+` character; Jacobi = the graded-Leibniz
+  pole (`leibniz_universal_delta4`), NOT naive ∂²=0. Missing: the infinitesimal/tangent `ε` (T_eG), BCH.
+- **Formal power-series semiring** (`Combinatorics/PowerSeriesSemiring.lean`, 33/0) — closes
+  generating_functions.md's leg: the WELD (both Cauchy products = the same partial sum), the transported
+  pointwise semiring laws, and `massN_toCoeffSeq_conv` (the multiplicative `×↦·` character). Residual:
+  pointwise (extensional needs funext = forbidden).
+
+**Tally:** 38 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
+Lean-closed** (orthogonality 2/3/4/6, growing-corner, convolve-rescale contraction + completion-limit,
 discrete Noether-iff, modulated Banach engine/wall defeat, Carathéodory-as-`clo`, formal `q=±1` tag,
-`continuous_iff_preimage_dyadicopen`) + QR already-closed. `lake build E213` clean. Open frontier
+`continuous_iff_preimage_dyadicopen`, the **det/tr=e₁/e₂ Vieta resolution**, the **formal power-series
+semiring**) + QR already-closed. The `det`/`tr` edge is now **dissolved**. `lake build E213` clean. Open frontier
 (`decomposition_calculus.md` + `wall_synthesis.md` residual): variational Noether current, general-χ
 orthogonality at arbitrary n (needs `ℤ[ζ_n]`), the `tr`-character / `Rep(G)`-Maschke at `d>1`, the full
 Gaussian *density* profile (continuous L¹ metric), a formal-power-series semiring (weld the two `conv`
