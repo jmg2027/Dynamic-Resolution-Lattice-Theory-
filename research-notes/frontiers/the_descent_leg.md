@@ -57,10 +57,14 @@ with the chain load-bearing *in the proof*, not just the prose:
   genuine partial answer to the skeptic's Attack 2.
 - **Remaining (the genuinely hard part):**
   - leg-2 *depth* — a deeper discipline (primality / unique factorisation) over `Nat213`.
-  - leg-3 *full rival-PRIMITIVE exclusion* — `distinguishing_necessary` excludes rival *readings*
-    (distinguishing-blind combines); the full Attack-2 demand is to exclude rival *primitives*
-    (negation-first, relation-first) — show they generate a *different/degenerate* structure. The
-    deepest open work; needs formal rival primitives, not just rival Lenses.
+  - leg-3 *full rival-PRIMITIVE exclusion* — **first deposit done** (`OneDiagonal` §6,
+    `no_distinguishing_on_subsingleton` + `raw_has_distinguishing`): the distinguishing is in the
+    *type* of the primitive `Raw.slash (x y) (h : x≠y)`, so a non-distinguishing (subsingleton)
+    rival carrier cannot fire the slash even once — it generates nothing; Raw meets the precondition
+    (`a ≠ b`). So the distinguishing primitive is non-interchangeable with a non-distinguishing
+    rival at the primitive-operation level. Remaining: model *structured* rivals (negation-first,
+    relation-first) and show they generate a degenerate/different arithmetic — the full Attack-2
+    closure (the subsingleton case is the degenerate corner; structured rivals are the open middle).
 
 ## CORRECTION (2026-06-22): leg 1 is ~80% done — the gap is leg 2
 
