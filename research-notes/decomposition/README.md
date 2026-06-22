@@ -1186,7 +1186,23 @@ and no general `Vect`/`⊗` object (the d>1 ceiling); the FP2SqrtD "Frobenius" i
 Frobenius (false-friend flagged). Buildable witness: bundle `product_NT_NT_grade`+`productSwapIso_involutive`+
 unit homs into one `IsMonoidalGradeFunctor`.
 
-**Count.** 84 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Quantum groups (`quantum_groups.md`) — the deformation-q vs tag-q: CONTAINMENT, not identity (a precise BREAK)
+
+PREDICTION + BREAK — the most on-theme test, and it yields a rigorous negative. A quantum group =
+hopf_algebras' Hopf structure deformed by `q` on the count-reading (the q-binomial is BUILT:
+`QBinomial.qbinom`/`qbinom_pascal`, `qbinom_q1` the q→1 classical limit GENERAL, 11/0; `QBinomialSymmetry`
+12/0). ★ The decisive datum: evaluating the BUILT `qbinom` recurrence at q=−1 gives **not a sign-fold but the
+Lucas/fermionic table** `[n,k]_{−1}=C(⌊n/2⌋,⌊k/2⌋)` (non-negative counts, zeros where n even/k odd) — whereas
+the `ResidueTag` tag-q=−1 is a unimodular `multiplier=−1` swap bit (`bothSwap`). So the **deformation-q (a
+continuous/integer scaling dial on the count) and the tag-q (a discrete ±1 unimodular swap bit on the
+residue) are different objects**: they share the ±1 *locus* by containment (the tag's ±1 is the unimodular
+boundary the deformation passes through), but the *content* read there differs — fermionic count value vs swap
+bit. The naive "deformation-q IS the tag-q" is FALSE as identity, true only as containment; at q=+1 both align
+(classical/converging, `qbinom_q1` + `golden_is_converge`). Named U_q/R-matrix/Yang–Baxter absent (R-matrix
+at knots's located break). Buildable witness: `qbinom_qm1_lucas` (`qbinom(−1) n k = C(n/2,k/2)`, verified true
+by computation) — would machine-check the BREAK.
+
+**Count.** 85 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
