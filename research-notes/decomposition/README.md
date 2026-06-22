@@ -1764,7 +1764,20 @@ q−1 non-split `loopClass_not_coboundary` 56/0); Verdier/Poincaré duality = th
 ScalingOrbit spiral false-friend); located break = the stratified-space/constructible ambient + the
 calculus-of-fractions Side-B (same as sheaf_theory/derived_categories).
 
-**Count.** 125 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Tropical geometry (`tropical_geometry.md`) — the ×↦+ valuation made a degeneration
+
+PREDICTION + PARTIAL. Tropical geometry = the calculus's ×↦+ valuation reading made a degeneration (extends
+tropical's (max,+) semiring + toric's Newton polytope). New data: (1) **tropicalization = the valuation image
+of a whole VARIETY** (trop(V)=val(V)) — toric's "Newton polytope = valuation image on monomials" extended past
+monomials to the solution set; the tropical variety = the q+1 combinatorial skeleton (`vp_mul`:165 10/0,
+`vp_separation` faithful, `max_idem` 17/0); (2) ★ **the balancing condition Σ w_e·u_e=0 = a conservation law
+∂·j=0 at each vertex** = *the same* `NoetherCurrent.continuity_eq`:97 (14/0) that max-flow identified as flow
+conservation — the sharpest new tie; (3) the fundamental theorem = the valuation reading commutes
+(`view_factors_through_morphism`); tropical Bézout = the count (`countTrue_append`). Named TropicalVariety/
+tropicalize/balanced(geometric) objects absent (false-friends: rBalanced/BalancedSignature); buildable witness:
+`tropV` as the per-axis vp-vector image + a `balanced` field proved equal to continuity_eq's ∂·j=0.
+
+**Count.** 126 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
