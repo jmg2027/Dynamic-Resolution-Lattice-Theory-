@@ -166,6 +166,25 @@ universe's numbers exhibit, the particle dictionary is interpretation; the
 forced/read split IS the residue/Lens split at the physics scale
 (`object1_not_surjective`), the genuine zero-dial content small (≈3 independent
 counts) and honest about ◑ closures — octet `Unit`-modelled, CP-phase matrix-`J`).
+`unimodular_invariant` (one `det₂ = 1` drives the Stern-Brocot tree AND the Markov
+recurrence — `det2_mul` propagates `det=1` over the whole tree and supplies the
+hypothesis forcing Frobenius monotonicity + the Vieta jump; with the Markov orbit's
+Cassini determinant conserved as the same `q=1` as the golden Cassini — family II,
+the SL₂(ℤ) unimodularity cross-domain family).
+`incidence_fubini_one_engine` (the two incidence families — COUNT-duality over `Nat`
+and the inversion engine over `Int` — are the two carrier-specializations of ONE
+carrier-general Fubini swap `genSwap`; the session's two incidence unifications welded
+at their root).
+`the_two_homes_of_e` (the factorial `Σ1/k!` and the lcm `lcm(1..N)~eᴺ` homes of `e`
+welded as a product identity `N! = Π lcm(1..⌊N/i⌋)` by matching prime-valuation vectors
+— `eq_of_vp_eq` + `vp_factorial_eq_sum_vp_lcm`, the FTA "number = its prime-exponent
+vector" half doing the welding).
+`crt_is_a_cross_domain_lensiso` (CRT as a proven kernel coincidence between two
+independently-built residue-readings — `L_{mk} ≈ prodLens(L_m, L_k)` for coprime `m,k`,
+the number-theoretic primacy-witness — generalized to its full structural form: the
+`leavesModNat` refinement lattice IS the divisibility lattice (`refines`=`∣`, meet=`lcm`),
+`L_{lcm(m,k)} ≈ prodLens(L_m,L_k)` for ALL positive `m,k`, with CRT the coprime corner
+`lcm=m·k`; `LensLcmMeet`, `lcm_unique` via the universal property `lcm_dvd`).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
@@ -200,7 +219,14 @@ counts) and honest about ◑ closures — octet `Unit`-modelled, CP-phase matrix
 synthesis), `probabilistic_method`, `sperner_double_counting`,
 `lym_inequality` (the per-term refinement Sperner discards; `Σ 1/C(n,|A|) ≤ 1`),
 `chain_antichain_duality` (Mirsky + Dilworth — Sperner's dual; the SCD partition),
-`linear_algebra_method`, `parity_invariant_method`, `konig_boundary`.
+`linear_algebra_method`, `parity_invariant_method`, `konig_boundary`,
+`count_duality` (the Erdős union bound (Ramsey) and the LYM inequality (Sperner) are
+the two marginals of ONE incidence double-count `incidence_balance = sumOver_swap`; the
+union bound re-derived *through* the swap it previously bypassed — "two faces, one
+matrix" made a theorem),
+`incidence_inversion` (one `inversion_from_orthogonality` engine — Möbius inversion on
+any locally-finite poset via the incidence-algebra orthogonality — instanced for
+binomial / Stirling / Stirling-dual, two cuts, and three posets; the inversion ISA).
 The "why" of each reproduced technique; the instruction set's interior + edge.
 Both named COUNT bounds (Ramsey `R(k,k)>N`, Sperner) close ∅-axiom; LYM is the
 sharp inequality Sperner is the corollary of; Mirsky/Dilworth are the chain-side

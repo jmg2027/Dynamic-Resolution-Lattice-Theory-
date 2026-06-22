@@ -6,6 +6,7 @@ import E213.Lib.Math.NumberTheory.ModArith.JoinExample
 import E213.Lib.Math.NumberTheory.ModArith.JoinGCD
 import E213.Lib.Math.NumberTheory.ModArith.LensCRT
 import E213.Lib.Math.NumberTheory.ModArith.LensCRTGeneral
+import E213.Lib.Math.NumberTheory.ModArith.LensLcmMeet
 import E213.Lib.Math.NumberTheory.ModArith.CRTReconstruction
 import E213.Lib.Math.NumberTheory.ModArith.FieldIffPrime
 import E213.Lib.Math.NumberTheory.ModArith.PureNatMod3
@@ -155,6 +156,9 @@ import E213.Lib.Math.NumberTheory.MobiusBridge
 
     * `LensCRT`      — Chinese remainder theorem as Lens
                        composition
+    * `LensLcmMeet`  — the Lens-lattice meet is the lcm-modulus:
+                       `L_{lcm(m,k)} ≈ prodLens(L_m,L_k)` for all
+                       positive `m,k` (CRT is the coprime case)
 
   ## Concrete instances
 

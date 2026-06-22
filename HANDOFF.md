@@ -35,6 +35,19 @@ type-mismatched to the primacy claim). Two lines instead:
   the formalization paper (already scoped in the publishability audit) and run one
   pre-registered, time-boxed ISA attack on a recognized open problem.
 
+## Closed (Line A — the Lens lattice mirrors the divisibility lattice; meet = lcm)
+`lean/E213/Lib/Math/NumberTheory/ModArith/LensLcmMeet.lean` (4/4 PURE). The general lattice
+statement behind CRT: for **all** positive `m,k` (no coprimality),
+`LensIso (leavesModNat (lcm m k)) (prodLens (leavesModNat m) (leavesModNat k))`
+(`leavesModNat_lcm`). So the `leavesModNat` refinement lattice mirrors the divisibility lattice
+(`refines` = `∣`, meet = `lcm`); CRT (`LensCRTGeneral`) is the coprime corner where `lcm = m·k`.
+Same two-direction skeleton as CRT, with `crt_unique`'s `coprime_mul_dvd` replaced by the
+**universal property** `lcm_dvd` (→ `lcm_unique`). This is the structurally-honest home for the
+CRT primacy-witness: not a special fold, but the coprime corner of the modulus-↔-divisibility
+lattice iso. Wired into `ModArith.lean`; essay `crt_is_a_cross_domain_lensiso.md` extended
+(+ fixed a sign error: without coprimality the product reading is strictly *coarser* than
+`L_{mk}`, = `L_{lcm}`). `tools/scan_axioms.py … LensLcmMeet` → 4 pure / 0 dirty.
+
 ## Closed this session (Line A, first deposit)
 **COUNT-duality** — `lean/E213/Lib/Math/Combinatorics/CountDuality.lean` (7/7 PURE).
 The Erdős union bound (Ramsey, row read) and the LYM inequality (Sperner, column
@@ -147,6 +160,10 @@ shared term is the rung. F1 (bialgebra distributivity of `Δ_+`/`Δ_×`) still o
    primacy-witness, now for all coprime moduli. Essay
    `synthesis/crt_is_a_cross_domain_lensiso.md`. (The abstract-`Lens`-instance LensIso remains
    tautology-prone — not a clean target; the genuine cross-domain one is CRT.)
+   **Generalized further** (`ModArith.LensLcmMeet`, 4 PURE): `leavesModNat_lcm` proves the meet
+   is the lcm-modulus for ALL positive `m,k` — the modulus lattice ≅ divisibility lattice; CRT
+   is the coprime corner. This is the cleaner structural home; queue item closed at full
+   generality.
 
 ## Line B (the genuinely-remaining frontier — exposure)
 The no-exterior claim cannot be falsified from inside (§5.1 blind spot). Next real test is
