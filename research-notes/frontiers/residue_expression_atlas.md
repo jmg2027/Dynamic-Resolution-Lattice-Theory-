@@ -200,4 +200,4 @@ shared-unit bundle (`unit_bridges_dynamics_and_readings` previously had only asc
 `theory/essays/cohomology/{kplus1_alpha_power_graduation,c_counter_programme_closure,k32_cohomology_simplex_higher_insight}.md`,
 `theory/essays/p_orbit/mobius_self_form_fixed_point.md`,
 `Lib/Physics/AlphaEM/CupLadderResidueUnit`, `Lens/Number/SharedUnitAcrossReadings`,
-`Lens/FlatOntologyClosure`, `theory/essays/foundations/the_residue_unit_odometer.md`.
+`Lens/Foundations/FlatOntologyClosure`, `theory/essays/foundations/the_residue_unit_odometer.md`.

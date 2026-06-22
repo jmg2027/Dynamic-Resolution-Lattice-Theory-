@@ -9,7 +9,7 @@ obtained by reading each coordinate off *its own* modulus stage,
 per-coordinate values — not asserted by a completion axiom.
 
 This is the positive / internal-reach complement to "reached by none"
-(`Lens/FlatOntologyClosure.object1_not_surjective`): there the self-cover misses
+(`Lens/Foundations/FlatOntologyClosure.object1_not_surjective`): there the self-cover misses
 its residue; here the staged reading, once each coordinate stabilizes, *is* its
 limit at every late index.  It is the forward (eventual-constancy) sibling of the
 well-founded descent schema `Lib/Math/Foundations/MonovariantFlow` (which reaches

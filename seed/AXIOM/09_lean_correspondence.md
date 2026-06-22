@@ -97,10 +97,10 @@ For §6:
   - `lean/E213/Lens/SyntacticInternalization.lean` — the §6.4
     full L2 + L3 + L4 realisation: seven-glyph alphabet,
     Polish-prefix printer and parser, universal round-trip.
-  - `lean/E213/Lens/FlatOntology.lean` — the §6.3 forward
+  - `lean/E213/Lens/Foundations/FlatOntology.lean` — the §6.3 forward
     direction (objects, types, relations, functions, Lenses all
     as decidable predicates on `Rawⁿ`).
-  - `lean/E213/Lens/PredicateSelfEncoding.lean` — the §6.3
+  - `lean/E213/Lens/Foundations/PredicateSelfEncoding.lean` — the §6.3
     closure direction (predicates encoded back to Raw via
     positional Gödel numbering).
   - `lean/E213/Lens/RawTopology.lean` — the §6.5 K_∞ ≡ point

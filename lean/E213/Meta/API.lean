@@ -62,7 +62,7 @@ import E213.Meta.LensInternality
 
   ## Adjacent (NOT in this Meta cluster)
 
-    * `Lens/Initiality.lean::Lens.initiality` — categorical universality
+    * `Lens/Foundations/Initiality.lean::Lens.initiality` — categorical universality
       of `Raw.fold` (∃! Raw → α homomorphism per Lens).  Sealed
       `Quot.sound`-dependent (Raw.fold quotient lifting); paired with
       `LensInternality` it gives the full picture but stays in the

@@ -18,7 +18,7 @@ Two ∅-axiom formal parts:
 
 Universality (∃! `Raw → α` Lens-homomorphism per Lens) is the third
 leg of the picture; it is proved upstream as `Lens.initiality` in
-`Lens/Initiality.lean`, which depends on `Quot.sound` (sealed
+`Lens/Foundations/Initiality.lean`, which depends on `Quot.sound` (sealed
 funext-by-design via `Raw.fold` quotient-lifting) and is therefore
 NOT re-exported here.  The categorical statement "Raw is the
 initial object in the commutative Lens-algebra category" is

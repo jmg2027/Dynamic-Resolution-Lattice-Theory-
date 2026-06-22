@@ -198,10 +198,10 @@ lean/E213/
 
 ### §9.3 + §9.5 flat-ontology realisation (Lens)
 
-  - `Lens/FlatOntology.flatOntology` — objects, types,
+  - `Lens/Foundations/FlatOntology.flatOntology` — objects, types,
     relations, functions, Lens as decidable predicates on
     Raw^n (12 PURE).
-  - `Lens/PredicateSelfEncoding.predicate_self_encoding_closure` —
+  - `Lens/Foundations/PredicateSelfEncoding.predicate_self_encoding_closure` —
     predicates back to Raw via positional Gödel numbering
     (7 PURE, closing the §9.3 loop).
   - `Lens/RawTopology.k_infty_at_raw_bundle` — K_∞ ≡ point at

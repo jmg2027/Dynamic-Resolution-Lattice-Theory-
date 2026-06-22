@@ -1,13 +1,13 @@
 import E213.Theory.Raw.API
 import E213.Lens.Number.Nat213.Raw
-import E213.Lens.FlatOntology
+import E213.Lens.Foundations.FlatOntology
 
 /-!
 # Lens.PredicateSelfEncoding — §9.3 closure direction
 
 `seed/AXIOM/06_lens_readings.md` §6.3 records the flat-ontology
 table: every entity (object, type, relation, function, Lens) is a
-decidable predicate on Raw^n.  `Lens/FlatOntology.lean` realised
+decidable predicate on Raw^n.  `Lens/Foundations/FlatOntology.lean` realised
 the *forward* direction (Raws → predicates via indicator
 functions, Lens → predicate via fibre indicators).
 
@@ -41,7 +41,7 @@ finite-prefix case suffices to close the philosophical loop:
 "predicates are themselves Raw" has a constructive witness.
 -/
 
-namespace E213.Lens.PredicateSelfEncoding
+namespace E213.Lens.Foundations.PredicateSelfEncoding
 
 open E213.Theory (Raw)
 open E213.Lens.Number.Nat213.Raw (numeral numeral_injective)
@@ -130,4 +130,4 @@ theorem predicateToRaw_injective_on_prefix
   unfold predicateToRaw at h
   exact numeral_injective h
 
-end E213.Lens.PredicateSelfEncoding
+end E213.Lens.Foundations.PredicateSelfEncoding

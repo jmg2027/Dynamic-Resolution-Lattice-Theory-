@@ -32,7 +32,7 @@ two atoms, the binary slash, the symmetry, the distinctness
 precondition) and exhibits a collapse witness for its removal.
 
 Two further structures formalise the same minimum-from-below
-reading from different angles.  `Lens/SemanticAtom.lean` defines
+reading from different angles.  `Lens/Foundations/SemanticAtom.lean` defines
 the typeclass `HasDistinguishing` and its `universalMorphism` — the
 existence half of Raw's initiality in the distinguishing-
 framework category (§4.2 adds the uniqueness half via
@@ -70,8 +70,8 @@ declaration.
 
 The second reading targets the question "could a framework
 distinguish that *is* something different from Raw?"  The
-answer — formalised across `Lens/SemanticAtom.lean` (the
-typeclass and the universal morphism), `Lens/Initiality.lean`
+answer — formalised across `Lens/Foundations/SemanticAtom.lean` (the
+typeclass and the universal morphism), `Lens/Foundations/Initiality.lean`
 (its uniqueness), and `Lens/Universal/Witnesses/` (the instance
 families) — is no, in two categorically separate senses that
 should not be conflated.  First, **initiality**: every `HasDistinguishing`
@@ -98,7 +98,7 @@ so that proofs can address them independently.
 
 The technical content of "factors through" is the categorical
 notion of an initial object.  The typeclass `HasDistinguishing`
-in `lean/E213/Lens/SemanticAtom.lean` captures the abstract
+in `lean/E213/Lens/Foundations/SemanticAtom.lean` captures the abstract
 shape of a distinguishing framework: two atoms (`a`, `b`), a
 binary `combine`, and a `combine_sym` field stating that
 `combine` is symmetric.  Read at this level, the 213 axiom is
@@ -112,7 +112,7 @@ distinguishing frameworks.  Every other instance — `Bool` with
 xor, `Prop` with `propXor` or `Iff`, function spaces with
 pointwise combine, and so on — receives a unique morphism *from*
 Raw via the catamorphism `Raw.fold`.  The companion theorem
-`view_unique` at `lean/E213/Lens/Initiality.lean` certifies
+`view_unique` at `lean/E213/Lens/Foundations/Initiality.lean` certifies
 the uniqueness side of this universal property explicitly: any
 two morphisms `Raw → α` that agree on the basis and respect the
 combine agree everywhere.  So when one writes "any
@@ -152,7 +152,7 @@ contract via Lean alone; it uses a Lens whose codomain reaches
 beyond what Lean encodes.  This is not a weakness of the
 reading.  Both §4.1 and §4.2 read the same residue, with
 different Lens codomains.  The formal Lean coverage of the
-meaning side is in `Lens/SemanticAtom.lean`.
+meaning side is in `Lens/Foundations/SemanticAtom.lean`.
 
 ---
 

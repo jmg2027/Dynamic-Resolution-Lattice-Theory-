@@ -1,18 +1,18 @@
 import E213.Lib.Math.Cohomology.Cochain.Core
-import E213.Lens.FlatOntology
+import E213.Lens.Foundations.FlatOntology
 import E213.Lib.Physics.Simplex.Counts
 
 /-!
 # Cohomology.Bridge.PredicateAsCochain — §9.3 closure deepening
 
-Connects the `Lens/FlatOntology.lean` realisation
+Connects the `Lens/Foundations/FlatOntology.lean` realisation
 (types ≡ predicates `Rawⁿ → Bool`) to the cohomology cluster's
 `Cochain n k` infrastructure.
 
 The bridge:
 
   - `Cochain n 1` is a `Fin n → Bool` (indicator on n vertices).
-  - `Lens/FlatOntology.UnaryType` is `Raw → Bool` (indicator on
+  - `Lens/Foundations/FlatOntology.UnaryType` is `Raw → Bool` (indicator on
     Raw atoms).
   - When the n-vertex domain is identified with n distinct Raws
     (via Method A numerals or any chart), a cochain is *exactly*
@@ -30,7 +30,7 @@ boundary" property at this depth.
 This file makes the alignment concrete via small ∅-axiom
 identifications at n ≤ 5 (the d=5 atomicity range).  Larger
 constructions (full Cantor-style closure across all n) remain
-in `Lens/PredicateSelfEncoding.lean` (finite-prefix Raw encoding)
+in `Lens/Foundations/PredicateSelfEncoding.lean` (finite-prefix Raw encoding)
 and `Lens/Cardinality/Godel.lean` (Raw → ℕ injection).
 -/
 
@@ -73,8 +73,8 @@ theorem cochain_5_1_predicate_cardinality :
 
 /-! ## §2 — Self-reference closure note
 
-  Together with `Lens/FlatOntology.lean` (forward direction:
-  Raws → predicates) and `Lens/PredicateSelfEncoding.lean`
+  Together with `Lens/Foundations/FlatOntology.lean` (forward direction:
+  Raws → predicates) and `Lens/Foundations/PredicateSelfEncoding.lean`
   (closure direction: predicates → Raw via Gödel numbering),
   this bridge file completes the §9.3 self-reference loop at the
   cochain level:

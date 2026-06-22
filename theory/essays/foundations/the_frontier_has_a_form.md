@@ -217,7 +217,7 @@ md`, `phi_pi_poles.md`).
 |---|---|---|
 | `isPart_wf`, `terminal_iff_atom` | `Theory/Raw/Lambek` | µF = Raw: peel well-founded, terminal = atoms (inductive-complete) |
 | `slashNu_final` | `Theory/Raw/CoResidue` | νF = `SlashNu` is the residue's exact slash final coalgebra (coinductive-complete) |
-| `spineL_escapes`, `object1_not_surjective` | `Theory/Raw/CoResidue`, `Lens/FlatOntologyClosure` | the escape is non-surjective: νF strictly exceeds the finite µF |
+| `spineL_escapes`, `object1_not_surjective` | `Theory/Raw/CoResidue`, `Lens/Foundations/FlatOntologyClosure` | the escape is non-surjective: νF strictly exceeds the finite µF |
 | `spineL_unique` | `Theory/Raw/CoResidue` | the escape is the unique self-similar fixpoint (form at every scale) |
 | `nu_population_capstone` | `Theory/Raw/CoResidue` | νF is a `Distinct`-rich populated carrier (family + bit-stream + automorphism) |
 | `coSwap_boolSpine_free_action` | `Theory/Raw/CoResidue` | the residue's lone symmetry acts *freely* on the bit-stream escapes (no fixed escapee) |

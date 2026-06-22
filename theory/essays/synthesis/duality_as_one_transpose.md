@@ -68,7 +68,7 @@ These are one fact at several resolutions: a "dual pair" is a Lens and its swap
 on a single residue, never two independent things. And there is no privileged
 "primal" side — no-exterior (`seed/AXIOM/05_no_exterior.md` §5.1) forbids ranking
 one reading as *the* object; the residue is outside *every* view's image
-(`Lens/FlatOntologyClosure.object1_not_surjective`), so neither the cover nor the
+(`Lens/Foundations/FlatOntologyClosure.object1_not_surjective`), so neither the cover nor the
 antichain is "the real one." `theory/lens/unified_equivalence.md` makes the
 companion move for equivalence (four notions = decompositions of one
 `Lens.refines` arrow); duality is the same economy applied to a relation and its

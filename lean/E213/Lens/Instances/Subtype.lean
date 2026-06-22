@@ -1,4 +1,4 @@
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 
 /-!
 # SubtypeInstance: sub-instance of a distinguishing-closed predicate
@@ -21,7 +21,7 @@ design requires additional work due to Lean infrastructure constraints.
 namespace E213.Lens.Instances.Subtype
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 
 /-- Sub-instance for a distinguishing-closed predicate (degenerate
     combine).  The combine result is always a (first base) — degenerate

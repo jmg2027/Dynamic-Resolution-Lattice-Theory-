@@ -165,6 +165,6 @@ prediction to be celebrated.
 ```
 The reasoner is the self-cover `Object1`; the residue is what it cannot surject onto;
 the re-framing is that non-surjection, run forward by a token-emitter.  Anchors:
-`Lens/FlatOntologyClosure.lean`, `Lens/ResidueReentry.lean`, `seed/AXIOM/{01_residue
+`Lens/Foundations/FlatOntologyClosure.lean`, `Lens/Foundations/ResidueReentry.lean`, `seed/AXIOM/{01_residue
 §1.4, 05_no_exterior §5.1, 06_lens_readings §6.1-6.3}`, `the_form_of_the_residue.md`,
 `reached_by_none.md`.

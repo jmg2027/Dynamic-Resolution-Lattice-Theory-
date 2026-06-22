@@ -241,7 +241,7 @@ items at present.
 ### 5.5 Sealed-DIRTY unsealing opportunity (SemanticAtom)
 
   · **Gap**: 23 propext-sealed theorems in
-    `Lens/SemanticAtom.lean` could be unsealed by switching
+    `Lens/Foundations/SemanticAtom.lean` could be unsealed by switching
     codomain from `Prop` to `Bool`.  STRICT_ZERO_AXIOM.md
     sealing narrative reads structural; analysis shows it is
     pragmatic.

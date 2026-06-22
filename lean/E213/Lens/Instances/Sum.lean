@@ -1,4 +1,4 @@
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 import E213.Lens.Instances.Reach
 
 /-!
@@ -38,7 +38,7 @@ content — interesting to analyze.)
 namespace E213.Lens.Instances.Sum
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 open E213.Lens.Instances.Reach
 
 /-- Priority-based combine for Sum type. -/

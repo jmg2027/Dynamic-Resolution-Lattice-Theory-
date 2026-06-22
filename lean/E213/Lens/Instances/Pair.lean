@@ -1,4 +1,4 @@
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 import E213.Lens.Instances.Reach
 
 /-!
@@ -21,7 +21,7 @@ atoms.
 namespace E213.Lens.Instances.Pair
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 
 /-- Pair instance: the product of two HasDistinguishing instances. -/
 def pairHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]

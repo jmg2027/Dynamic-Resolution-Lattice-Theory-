@@ -593,7 +593,7 @@ the Lean disagree, the Lean wins.
   - `lean/E213/Lib/Math/Analysis/Cauchy/DepthCeilingResidue.lean` — `diag_not_in_seq`,
     `ceiling_reference_leaves_residue` (= `cantor_general`),
     `ceiling_residue_is_pointing_residue` (= `self_covering_closure`)
-  - `lean/E213/Lens/FlatOntologyClosure.lean` — `self_covering_closure`,
+  - `lean/E213/Lens/Foundations/FlatOntologyClosure.lean` — `self_covering_closure`,
     `object1_not_surjective`
   - `lean/E213/Lens/Cardinality/Cantor.lean` — `cantor_general`
 

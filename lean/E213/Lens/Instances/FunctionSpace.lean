@@ -1,4 +1,4 @@
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 import E213.Lens.Instances.Reach
 
 /-!
@@ -26,7 +26,7 @@ the module ∅-axiom.
 namespace E213.Lens.Instances.FunctionSpace
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 open E213.Lens.Instances.Reach
 
 /-- **Universal morphism Raw → (α → β)** — defined directly via

@@ -58,7 +58,7 @@ all three sides:
 - *below* — removing any clause collapses to trivial / static /
   void (`Meta/AxiomMinimality`).
 - *sideways* — any distinguishability framework factors through
-  Raw (`Lens/SemanticAtom` + `Lens/Initiality` +
+  Raw (`Lens/Foundations/SemanticAtom` + `Lens/Foundations/Initiality` +
   `Lens/Universal/Witnesses`).
 - *above* — Raw's shape is forced to (NS, NT, d) = (3, 2, 5)
   (`Theory/Atomicity/{Five, PairForcing, …}`, pure-ℕ, no Raw

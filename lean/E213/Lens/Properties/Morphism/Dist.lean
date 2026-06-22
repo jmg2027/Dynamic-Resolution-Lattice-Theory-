@@ -1,4 +1,4 @@
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 
 /-!
 # DistMorphism: Morphisms of the distinguishing-framework category
@@ -28,7 +28,7 @@ universalMorphism in SemanticAtom).
 namespace E213.Lens.Properties.Morphism.Dist
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 
 /-- **Distinguishing-framework morphism** (abstract, all cases). -/
 structure DistMorphism (α β : Type) [d_α : HasDistinguishing α]

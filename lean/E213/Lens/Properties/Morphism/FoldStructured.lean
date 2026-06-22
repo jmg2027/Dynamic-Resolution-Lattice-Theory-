@@ -1,5 +1,5 @@
 import E213.Lens.LensCore
-import E213.Lens.Initiality
+import E213.Lens.Foundations.Initiality
 
 /-!
 # FoldStructured: exact characterization of Lens-expressible functions
@@ -20,7 +20,7 @@ This file is the **function version**.
 
 namespace E213.Lens.Properties.Morphism.FoldStructured
 
-open E213.Theory E213.Lens E213.Lens.Initiality
+open E213.Theory E213.Lens E213.Lens.Foundations.Initiality
 
 /-- `f : Raw → α` is fold-structured. -/
 def FoldStructured {α : Type} (f : Raw → α) : Prop :=

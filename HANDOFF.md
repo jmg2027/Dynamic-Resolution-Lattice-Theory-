@@ -22,7 +22,7 @@ faithful + never-total, so a residue always remains. CLAUDE.md + `seed/AXIOM/01_
 framing grounded in it.
 
 ### 2. Prong A — generation (the residue is the *engine*)
-`Lens/OneDiagonal.lean` (11 PURE): one `lawvere_fixed_point` generates **Cantor + the residue
+`Lens/Foundations/OneDiagonal.lean` (11 PURE): one `lawvere_fixed_point` generates **Cantor + the residue
 (`object1_not_surjective`) + Russell/Liar/Tarski** as instances — §1.0′ made literal. §5
 `residue_needs_distinguishing` + §6 `no_distinguishing_on_subsingleton` (rival-primitive exclusion,
 degenerate corner). Essay `the_one_diagonal.md` updated.
@@ -39,7 +39,7 @@ degenerate corner). Essay `the_one_diagonal.md` updated.
 ### 4. The universal characterization (the encoding question, answered)
 A 3-agent panel (encoding / category theory / axiom-faithfulness) answered the originator's question
 "is the Raw/Lens technique causing the limit?": **NO.**
-- `Lens/UniversalDistinguishing.lean` (6 PURE): the distinguishing as a *schema* `DStr` that
+- `Lens/Foundations/UniversalDistinguishing.lean` (6 PURE): the distinguishing as a *schema* `DStr` that
   classifies (instance ⟹ ≅ Raw; else fail a named clause). `rawDStr`, `rawDStr_generated`,
   `dhom_unique_pointwise` (uniqueness half), `no_DStr_on_subsingleton`.
 - **Key fact:** the universal property is *already proven* — `SemanticAtom.raw_initial` (PURE,
@@ -105,9 +105,9 @@ existence leg via apartness-preserving morphisms (route b).
 
 ## File Map
 ```
-lean/E213/Lens/FlatOntologyClosure.lean      ← +distinguishing_always_leaves_residue
-lean/E213/Lens/OneDiagonal.lean              ← NEW: one diagonal generates the limitative theorems
-lean/E213/Lens/UniversalDistinguishing.lean  ← NEW: DStr schema + uniqueness half
+lean/E213/Lens/Foundations/FlatOntologyClosure.lean      ← +distinguishing_always_leaves_residue
+lean/E213/Lens/Foundations/OneDiagonal.lean              ← NEW: one diagonal generates the limitative theorems
+lean/E213/Lens/Foundations/UniversalDistinguishing.lean  ← NEW: DStr schema + uniqueness half
 lean/E213/Lens/Number/Nat213/Generation.lean ← NEW: ℕ₊ = leaves-Lens reading of distinguishing
 lean/E213/Lens/Number/Nat213/Divisibility.lean ← NEW: divisibility over Nat213
 lean/E213/Lib/Math/Foundations/UniverseChain/RivalArity.lean ← NEW: structured-rival exclusion

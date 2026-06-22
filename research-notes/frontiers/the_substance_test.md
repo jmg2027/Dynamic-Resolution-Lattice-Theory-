@@ -26,7 +26,7 @@ quietly assumed (wordplay)?
   the primitive**. The act and the unfolding are two adjacent codebases sharing a build target.
 - *(logician + skeptic, the reachable demonstration)* Make §1.0′ literal — the residue (the
   distinguishing's non-closure) is the **engine** that generates the limitative theorems. **DONE this
-  session** (`Lens/OneDiagonal.lean`, 7 PURE): one `lawvere_fixed_point` generates Cantor, the
+  session** (`Lens/Foundations/OneDiagonal.lean`, 7 PURE): one `lawvere_fixed_point` generates Cantor, the
   residue (`object1_not_surjective` at `A=Raw`), and Russell/Liar/Tarski (`Prop` arm) — one fixed
   point, not four re-proofs. The Gödel-numbered/halting *coded* instances remain open.
 - *(honest limits the skeptic is right about)* "∅-axiom" means *no `propext`/`choice`/`quot`/Mathlib*,

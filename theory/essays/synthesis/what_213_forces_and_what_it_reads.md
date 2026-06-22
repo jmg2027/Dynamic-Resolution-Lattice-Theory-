@@ -50,7 +50,7 @@ dictionary onto our specific particles is interpretation.
 The forced/read split is the residue/Lens split at the physics scale.  The
 forced numbers are properties of the distinguishing act; the readings are
 Lens-outputs that no single view exhausts
-(`Lens/FlatOntologyClosure.object1_not_surjective`).  It is the physics form
+(`Lens/Foundations/FlatOntologyClosure.object1_not_surjective`).  It is the physics form
 of "no view is final" (`theory/essays/synthesis/no_view_is_final.md`):
 readings differ, the residue reduces to none.  The genuinely zero-dial content
 is small — on the order of three logically independent measured numbers

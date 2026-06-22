@@ -1,5 +1,5 @@
-import E213.Lens.SemanticAtom
-import E213.Lens.FlatOntologyClosure
+import E213.Lens.Foundations.SemanticAtom
+import E213.Lens.Foundations.FlatOntologyClosure
 import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 import E213.Theory.Atomicity
 
@@ -45,7 +45,7 @@ All zero-axiom.
 namespace E213.Lib.Math.Foundations.ResidueForm
 
 open E213.Theory (Raw)
-open E213.Lens.SemanticAtom (HasDistinguishing raw_initial)
+open E213.Lens.Foundations.SemanticAtom (HasDistinguishing raw_initial)
 
 /-- ★★★ **No exterior, named as source-without-enclosure.**  Four co-present facts, each
     proven elsewhere, bundled to exhibit the §5.1 "no exterior" content:
@@ -74,7 +74,7 @@ theorem no_exterior_source_without_enclosure :
             d.same (g (Raw.slash x y h)) (d.combine (g x) (g y))) →
           ∀ r : Raw, d.same (g r) (f r)))
     ∧ -- 2. un-enclosed (no back): no view's image encloses the residue
-    (¬ Function.Surjective E213.Lens.FlatOntology.Object1)
+    (¬ Function.Surjective E213.Lens.Foundations.FlatOntology.Object1)
     ∧ -- 3. the unit / glue / axis: the self-form's off-diagonal 1 = NS − NT
     ((2 : Int) * 1 - 1 * 1
       = (E213.Lib.Physics.Simplex.Counts.NS : Int)
@@ -82,7 +82,7 @@ theorem no_exterior_source_without_enclosure :
     ∧ -- 4. forced shape: the unique atomic 5
     (∀ n : Nat, E213.Theory.Atomicity.Five.Atomic n ↔ n = 5) :=
   ⟨fun α => raw_initial α,
-   E213.Lens.FlatOntologyClosure.object1_not_surjective,
+   E213.Lens.Foundations.FlatOntologyClosure.object1_not_surjective,
    E213.Lib.Math.Algebra.Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt,
    E213.Theory.Atomicity.Five.atomic_iff_five⟩
 

@@ -22,7 +22,7 @@ If an arbitrary function f : Raw → α satisfies the Lens homomorphism
 conditions, then f = Lens.view.
 -/
 
-namespace E213.Lens.Initiality
+namespace E213.Lens.Foundations.Initiality
 
 open E213.Theory E213.Lens
 
@@ -113,4 +113,4 @@ protected theorem Lens.initiality {α : Type} (L : Lens α)
     funext r
     exact Lens.view_unique L hsym g ha hb hslash r
 
-end E213.Lens.Initiality
+end E213.Lens.Foundations.Initiality

@@ -219,8 +219,8 @@ Empirical inventory (all read):
 | Sub-cluster | Files | Content |
 |---|---|---|
 | `Lens.lean` (root) | 1 | `Lens` type, `view`, `equiv`, `refines`, `leaves`, `depth` |
-| `Lens/Initiality.lean` | 1 | `Lens.view_unique` — universal property |
-| `Lens/SemanticAtom.lean` | 1 | "213 = atom of meaning" formal hub |
+| `Lens/Foundations/Initiality.lean` | 1 | `Lens.view_unique` — universal property |
+| `Lens/Foundations/SemanticAtom.lean` | 1 | "213 = atom of meaning" formal hub |
 | `Lens/Lattice/` | 7 | join, meet, family, indexed |
 | `Lens/Compose/` | 7 | factoring, image minimum, on-lens |
 | `Lens/Properties/` | 10 | refines props, IsLeaf, CanonicalForm, EquivProperties |

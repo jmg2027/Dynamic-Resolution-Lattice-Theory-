@@ -135,7 +135,7 @@ shape by its finite signature; name the defect.  `∞` is constituted, not enshr
 ## Cross-references
 
 `seed/AXIOM/01_residue` (§1.4), `seed/AXIOM/05_no_exterior` (§5.1) ·
-`Lens/FlatOntologyClosure.object1_not_surjective` · `simplicial_operation_tower.md`
+`Lens/Foundations/FlatOntologyClosure.object1_not_surjective` · `simplicial_operation_tower.md`
 (L3‴/L3‴a — the worked instance) · `residue_expression_atlas.md` (the expression faces) ·
 `the_reframing_conquest.md` (the cognitive recurrence) ·
 `ChebyshevLower.chebyshev_defect`, `MultSystem.{diff_drops_rung,monoCount_vertices}`

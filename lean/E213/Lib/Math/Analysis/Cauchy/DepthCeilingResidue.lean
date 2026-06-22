@@ -1,5 +1,5 @@
 import E213.Lens
-import E213.Lens.FlatOntologyClosure
+import E213.Lens.Foundations.FlatOntologyClosure
 
 /-!
 # DepthCeilingResidue — naming the ceiling-raising is a diagonalisation; the act leaves a residue
@@ -11,7 +11,7 @@ reference" closes, and the *next* axis raises it.  The question this file answer
 a single object?**
 
 The answer closes the whole development back onto its own starting point (the
-*residue*, `Lens/FlatOntologyClosure`).  To name "the ceiling-raising" is to take
+*residue*, `Lens/Foundations/FlatOntologyClosure`).  To name "the ceiling-raising" is to take
 the sequence of all the reference-levels you have built — a function `f : ℕ → (the
 level's growth)` — and form one object that dominates them all.  That object is the
 **diagonal** `diag f n = f n n + 1`, and the diagonal argument shows it is *not in
@@ -85,10 +85,10 @@ theorem ceiling_reference_leaves_residue {X : Type} :
     pointing act, and like every pointing act it leaves the residue outside its
     image. -/
 theorem ceiling_residue_is_pointing_residue :
-    (Function.Injective E213.Lens.FlatOntology.Object1
-      ∧ ¬ Function.Surjective E213.Lens.FlatOntology.Object1)
+    (Function.Injective E213.Lens.Foundations.FlatOntology.Object1
+      ∧ ¬ Function.Surjective E213.Lens.Foundations.FlatOntology.Object1)
     ∧ (¬ ∃ g : Raw → (Raw → Bool), Function.Surjective g) :=
-  ⟨E213.Lens.FlatOntologyClosure.self_covering_closure,
+  ⟨E213.Lens.Foundations.FlatOntologyClosure.self_covering_closure,
    E213.Lens.Cardinality.cantor_general⟩
 
 end E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue

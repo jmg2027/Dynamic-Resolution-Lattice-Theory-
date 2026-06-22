@@ -281,7 +281,7 @@ the GRA-`Lens.Unified` bridge formal.
 
 ### II.4 HasDistinguishing — the universal-morphism shape
 
-`lean/E213/Lens/SemanticAtom.lean` defines `class
+`lean/E213/Lens/Foundations/SemanticAtom.lean` defines `class
 HasDistinguishing α` — the minimum α-side data Raw's fold
 imposes:
 
@@ -291,7 +291,7 @@ imposes:
 `universalMorphism α : Raw → α := Raw.fold d.a d.b d.combine`
 is the *unique* morphism Raw → α (Raw is the initial object
 in the meaning-framework category).  Uniqueness is
-`lean/E213/Lens/Initiality.lean` — Raw is initial in the Raw-
+`lean/E213/Lens/Foundations/Initiality.lean` — Raw is initial in the Raw-
 algebra category; the symmetric-combine hypothesis is needed
 for the uniqueness half.
 
@@ -375,13 +375,13 @@ ontology**: objects, types, relations, functions, Lenses, and
 proofs are all predicates on Raw^n.  No layering, no exterior
 hierarchy.
 
-`lean/E213/Lens/FlatOntology.lean` formalises this as
+`lean/E213/Lens/Foundations/FlatOntology.lean` formalises this as
 decidable predicates `Raw^n → Bool` with the algebraic
 operations (and, or, not, xor, implication).
 `Lens/SyntacticInternalization.lean` (§9.4) closes the
 self-reference loop: a 7-glyph Polish-prefix encoding /
 parser pair satisfies `parseTree (printTree t) = some t` —
-lossless round-trip.  `Lens/PredicateSelfEncoding.lean`
+lossless round-trip.  `Lens/Foundations/PredicateSelfEncoding.lean`
 encodes finite-prefix predicates back to Raw via positional
 Gödel numbering — *predicates themselves are Raw*.
 

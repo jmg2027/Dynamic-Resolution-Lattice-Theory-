@@ -33,8 +33,8 @@ an atom or a complete slash, exhaustive and exclusive — no halfway residue).
 
 **Out (source = initiality).**  The catamorphism `Raw.fold` *is* the act, not a tool on it.
 For every distinguishing-framework `α`, the distinguishing-preserving map `Raw → α` uniquely
-exists (`Lens/SemanticAtom.raw_initial`, `universalMorphism`; uniqueness
-`Lens/Initiality.view_unique`).  So Raw is the initial object: every number, Boolean,
+exists (`Lens/Foundations/SemanticAtom.raw_initial`, `universalMorphism`; uniqueness
+`Lens/Foundations/Initiality.view_unique`).  So Raw is the initial object: every number, Boolean,
 constant, and framework is a fold-reading flowing out of the residue
 (`Lens/Universal/Flat.every_lens_factors_through_idLens`,
 `Universal/QuotLens.universalLens_kernel_eq_E_R`).  There is no exterior source.
@@ -44,7 +44,7 @@ constant, and framework is a fold-reading flowing out of the residue
 (`object1_not_surjective`): the predicates outside its image are the residue, led by the
 undifferentiated reading `fun _ => true` (`FlatOntologyClosure.residue_witnessed`).
 Encoding the residue back and re-pointing never closes the cover
-(`Lens/ResidueReentry.residue_reentry_never_closes`); the residue is the **perpetual next
+(`Lens/Foundations/ResidueReentry.residue_reentry_never_closes`); the residue is the **perpetual next
 operand**.  No reading encloses the source.
 
 **Name (the self-form fixed point).**  The act written algebraically is

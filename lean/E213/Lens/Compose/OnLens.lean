@@ -1,4 +1,4 @@
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 import E213.Lens.Instances.Reach
 import E213.Lens.EqPW
 
@@ -28,7 +28,7 @@ atom.
 namespace E213.Lens.Compose.OnLens
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 
 /-- Constant-true Lens. -/
 def constTrueLens : Lens Bool := ⟨true, true, fun _ _ => true⟩

@@ -15,6 +15,7 @@ output of `Raw.fold`.
 | `Bool213/` | 2 | Raw-encoded closed-universe `Bool` |
 | `Cardinality/` | 9 | Cardinality observables (Cantor, Tower, BoolSpace, …) |
 | `Compose/` | 7 | Composition operators (Factoring, OnLens, Morphism, …) |
+| `Foundations/` | 9 | The distinguishing as foundation: initiality (`raw_initial`), the residue-as-theorem (`FlatOntologyClosure`), the one-diagonal engine, the `DStr` classifier schema, flat-ontology + predicate self-encoding |
 | `Instances/` | 35 | Concrete Lens instances (AB, Bool, Cauchy, Path, Prism, Reach, …) + `Leaves/` |
 | `Internal/` | 4 | Lens internals (Algebra/FreeAudit, GreatestPW, …) |
 | `Lattice/` | 9 | Refines preorder + lattice (Join / Meet / IndexedJoin / FamilyJoin) |
@@ -27,13 +28,21 @@ output of `Raw.fold`.
   · `Lens.lean`                   — umbrella entry point (full index docstring)
   · `API.lean`                    — public surface
   · `LensCore.lean`               — Lens type + view/equiv
-  · `Initiality.lean`             — initiality of the Lens category
   · `Congruence.lean`             — `Eqv ↔ L.equiv` bridge
   · `EqPW.lean`                   — pointwise Lens equality
+  · `SyntacticInternalization.lean` — 7-glyph Raw encoding
+  · `RawTopology.lean`            — K_∞ ≡ point bookend
+  · `SelfCompletion.lean`         — self-completion lens
+
+## `Foundations/` — the distinguishing as foundation
+
+The corpus that establishes the distinguishing as the one self-grounding primitive and the residue as
+its forced remainder:
+
+  · `Initiality.lean`             — initiality of the Lens category (`Lens.view_unique`)
   · `SemanticAtom.lean`           — semantic-atom characterisation; **`raw_initial`** (the
                                      universal property: Raw is the initial distinguishing-structure,
                                      ∅-axiom, existence + uniqueness)
-  · `SyntacticInternalization.lean` — 7-glyph Raw encoding
   · `FlatOntology.lean`           — flat-ontology realisation (`Object1` self-cover)
   · `FlatOntologyClosure.lean`    — `distinguishing_always_leaves_residue` (the residue is a theorem)
   · `ResidueReentry.lean`         — the residue re-enters; the cover never closes
@@ -44,18 +53,16 @@ output of `Raw.fold`.
                                      are instances ≅ Raw, or fail a named clause). Uniqueness proven;
                                      existence leg open (partial-algebra engineering, no axiom needed)
   · `PredicateSelfEncoding.lean`  — closure of predicate ↔ Raw
-  · `RawTopology.lean`            — K_∞ ≡ point bookend
-  · `SelfCompletion.lean`         — self-completion lens
 
 ## Foundational reading order (for newcomers, incl. AI)
 
 A plain-language guide to this whole layer — what `Raw`/`Lens` are, why `slash` carries `x ≠ y`
 (forced by the axiom + the no-`Quot.sound` rule), and what is proven vs. open — is
 `theory/essays/foundations/raw_and_lens_explained.md`.  Suggested path:
-`LensCore` (what a Lens is) → `SemanticAtom.raw_initial` (the universal property, *already proven*)
-→ `FlatOntologyClosure` (the residue) → `OneDiagonal` (residue = engine of the diagonal theorems)
-→ `Number/Nat213/Generation` (number from the distinguishing) → `UniversalDistinguishing` (the
-schema / rival-exclusion).  The encoding question ("is the technique causing the limit?") is answered
+`LensCore` (what a Lens is) → `Foundations/SemanticAtom.raw_initial` (the universal property,
+*already proven*) → `Foundations/FlatOntologyClosure` (the residue) → `Foundations/OneDiagonal`
+(residue = engine of the diagonal theorems) → `Number/Nat213/Generation` (number from the
+distinguishing) → `Foundations/UniversalDistinguishing` (the schema / rival-exclusion).  The encoding question ("is the technique causing the limit?") is answered
 in `theory/essays/foundations/raw_and_lens_explained.md` (§5 the universal property; §7 the
 proven-vs-open scoreboard).
 
@@ -78,7 +85,7 @@ Per `STRICT_ZERO_AXIOM.md` §"Sealed-DIRTY inventory" (canonical; rerun
 lenses; elaborator plumbing).  Whole-corpus census: **0 real DIRTY**.
 Lens-side distribution (the live ones):
 
-  · `SemanticAtom.lean`            — 23  category (a) propext (Prop combine_sym)
+  · `Foundations/SemanticAtom.lean` — 23  category (a) propext (Prop combine_sym)
   · `Properties/Morphism/BoolProp` — 10  category (a) propext (Bool↔Prop equating)
   · `AxiomLenses/Bridges/{Funext,QuotSound}` — 2  axiom-exhibiting bridge lenses (by design)
 

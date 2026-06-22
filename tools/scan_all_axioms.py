@@ -123,7 +123,7 @@ SEALED_DIRTY_PREFIXES = (
     # (a) Prop-as-distinguishing thesis.  `HasDistinguishing` for `Prop`
     #     has a `combine_sym : combine P Q = combine Q P` field at type
     #     `Prop = Prop` — provable only via `propext`.
-    "E213.Lens.SemanticAtom",
+    "E213.Lens.Foundations.SemanticAtom",
     "E213.Lens.Properties.Morphism.BoolProp",
     # (b) Lens funext-by-design.  `Lens.combine` for the universal /
     #     indexed / Cauchy Lens family is function-valued (e.g.

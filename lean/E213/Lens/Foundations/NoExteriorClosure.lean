@@ -1,5 +1,5 @@
-import E213.Lens.SemanticAtom
-import E213.Lens.PredicateSelfEncoding
+import E213.Lens.Foundations.SemanticAtom
+import E213.Lens.Foundations.PredicateSelfEncoding
 
 /-!
 # The no-exhibitable-exterior closure (formal anchor for §1 / §5.1)
@@ -20,9 +20,9 @@ This file pulls the formalizable core of that closure down to a proof-core (∅-
     *framework* is to present something downstream of `Raw`, not exterior.
 -/
 
-namespace E213.Lens.NoExteriorClosure
+namespace E213.Lens.Foundations.NoExteriorClosure
 
-open E213.Theory E213.Lens E213.Lens.SemanticAtom E213.Lens.PredicateSelfEncoding
+open E213.Theory E213.Lens E213.Lens.Foundations.SemanticAtom E213.Lens.Foundations.PredicateSelfEncoding
 
 /-- ★★★★★ **Naming a candidate exterior is producing a `Raw`.**  Any property by which one would name or
     conceive a candidate — `name : Raw → Bool`, the act of distinguishing it — is itself a `Raw`.  So
@@ -45,4 +45,4 @@ theorem distinguishing_is_downstream (α : Type) [d : HasDistinguishing α]
 theorem the_exterior_claim_is_a_raw :
     ∃ r : Raw, r = predicateToRaw 3 (fun _ => false) := ⟨_, rfl⟩
 
-end E213.Lens.NoExteriorClosure
+end E213.Lens.Foundations.NoExteriorClosure

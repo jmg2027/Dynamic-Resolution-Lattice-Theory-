@@ -10,7 +10,7 @@ its **universal property**, which is what makes "invert is one move" precise: th
 is *the* group receiving the semigroup, through which every map to an abelian group factors.
 
 Stated **without quotient types** (`Quot.sound` is axiom-dirty), in the repo's native
-factor-through style (`Lens/Initiality.view_unique`, `Lens/Compose/Morphism`): for every
+factor-through style (`Lens/Foundations/Initiality.view_unique`, `Lens/Compose/Morphism`): for every
 abelian-group target `H` and every semigroup-hom `f : M → H`, the map on representatives
 `lift f (a, b) = f a − f b` is
 

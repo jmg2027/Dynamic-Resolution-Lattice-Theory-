@@ -62,12 +62,12 @@ Key facts, all proven:
   leaf-count (`count_reading_forced`) — this is *initiality* (§5).
 - **No reading captures everything.** The "self-cover" `Object1 : Raw → (Raw → Bool)` is faithful but
   never onto (Cantor) — there is always a predicate outside it. *That leftover is "the residue"*
-  (`Lens/FlatOntologyClosure.lean`: `distinguishing_always_leaves_residue`). **The residue is a theorem,
+  (`Lens/Foundations/FlatOntologyClosure.lean`: `distinguishing_always_leaves_residue`). **The residue is a theorem,
   not a starting assumption.**
 
 ## 4. The residue is the *engine*, not a substrate
 
-One diagonal construction (`Lens/OneDiagonal.lean`, Lawvere's fixed point) *generates*, as instances,
+One diagonal construction (`Lens/Foundations/OneDiagonal.lean`, Lawvere's fixed point) *generates*, as instances,
 **Cantor + the residue + Russell/Liar/Tarski** — they are one move, not four proofs. And the residue
 *needs* the distinguishing: on a value-space that draws no distinction, the diagonal escape vanishes
 (`residue_needs_distinguishing`). So "the residue is what the distinguishing always leaves, and that
@@ -79,11 +79,11 @@ The sharpest statement of "everything is sourced from the distinguishing" is **i
 
 > For any distinguishing-respecting target, there is a **unique** map from `Raw` into it.
 
-This is **proven, ∅-axiom**: `Lens/SemanticAtom.lean` `raw_initial` (existence + uniqueness, stated
+This is **proven, ∅-axiom**: `Lens/Foundations/SemanticAtom.lean` `raw_initial` (existence + uniqueness, stated
 pointwise to avoid `funext`). So "Raw is the initial object / the free distinguishing-structure" is
 *done*, not aspirational.
 
-There is also a *deliberately weaker* restatement, `Lens/UniversalDistinguishing.lean` (`DStr`), which
+There is also a *deliberately weaker* restatement, `Lens/Foundations/UniversalDistinguishing.lean` (`DStr`), which
 assumes *less* about the target (a partial pairing, no commutativity) to answer a circularity worry.
 Its **uniqueness** half is proven; its **existence** half is the one open "wall" — and that wall is a
 known *partial-algebra* subtlety (maps into a partial operation must preserve "definedness"), i.e. **Lean
@@ -127,13 +127,13 @@ is the framework's own, openly-accepted "no-exterior" limit (`seed/AXIOM/05_no_e
 - **The axiom (start here):** `seed/AXIOM/01_residue.md`, `seed/AXIOM/05_no_exterior.md`,
   `seed/AXIOM/10_encoding_costs.md`; essay `theory/essays/foundations/the_form_of_the_residue.md`.
 - **`Raw` (the primitive):** `lean/E213/Theory/Raw/` (`Core`, `Slash`, `Fold`, `Rec`).
-- **`Lens` (readings) + universal property:** `lean/E213/Lens/LensCore.lean`, `Lens/SemanticAtom.lean`
-  (`raw_initial`), `Lens/Initiality.lean`.
-- **Residue + the one diagonal:** `Lens/FlatOntologyClosure.lean`, `Lens/OneDiagonal.lean`,
-  `Lens/ResidueReentry.lean`; essays `the_one_diagonal.md`, `the_distinguishing_is_the_primitive.md`.
+- **`Lens` (readings) + universal property:** `lean/E213/Lens/LensCore.lean`, `Lens/Foundations/SemanticAtom.lean`
+  (`raw_initial`), `Lens/Foundations/Initiality.lean`.
+- **Residue + the one diagonal:** `Lens/Foundations/FlatOntologyClosure.lean`, `Lens/Foundations/OneDiagonal.lean`,
+  `Lens/Foundations/ResidueReentry.lean`; essays `the_one_diagonal.md`, `the_distinguishing_is_the_primitive.md`.
 - **Number from the distinguishing:** `lean/E213/Lens/Number/Nat213/` (`Raw`, `Peano`, `Generation`,
   `Divisibility`).
-- **Schema / rival-exclusion / the encoding question:** `Lens/UniversalDistinguishing.lean`,
+- **Schema / rival-exclusion / the encoding question:** `Lens/Foundations/UniversalDistinguishing.lean`,
   `Lib/Math/Foundations/UniverseChain/RivalArity.lean`; the corresponding open frontiers (the
   distinguishing-schema diagnosis, the descent leg, the substance test) live under
   `research-notes/frontiers/`.

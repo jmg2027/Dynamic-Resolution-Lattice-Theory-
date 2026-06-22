@@ -33,7 +33,7 @@ negative theorem.
 namespace E213.Lens.Instances.SumNotCoproduct
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 open E213.Lens.Instances.Sum
 open E213.Lens.Properties.Morphism.BoolProp
 

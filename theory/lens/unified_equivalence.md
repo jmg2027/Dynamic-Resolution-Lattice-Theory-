@@ -76,7 +76,7 @@ the codomain-polymorphic equivalence and refinement over `same`, with
 `Lens.equiv` / `Lens.refines` their `=`-realization at concrete codomains.
 
 The same primitive runs through `HasDistinguishing`
-(`Lens/SemanticAtom.lean`): the distinguishing framework's swap-invariance
+(`Lens/Foundations/SemanticAtom.lean`): the distinguishing framework's swap-invariance
 is `combine_sym : ∀ x y, same (combine x y) (combine y x)`, and the
 universal morphism's slash-coherence is `universalMorphism_slash` stated
 up to `same` (`Raw.fold_slash_rel`).  A composite instance carries the
@@ -90,7 +90,7 @@ imports nothing and as the pointwise form where Lean `=` would import
 `funext`/`propext`.
 
 `propext` survives in exactly one place: `propAsDistinguishing*`
-(`Prop` as a `HasDistinguishing` instance, `Lens/SemanticAtom.lean`) and
+(`Prop` as a `HasDistinguishing` instance, `Lens/Foundations/SemanticAtom.lean`) and
 the `canonical*Map` it generates.  There `propext` is the **content** — the
 thesis "`Prop` is an atom of meaning", `propXor` the `Prop`-parallel of
 `Raw.slash` — not a borrowed statement shape.  It is held, not removed.

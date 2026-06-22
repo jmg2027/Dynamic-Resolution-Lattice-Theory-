@@ -5,15 +5,15 @@ import E213.Lens.AxiomLenses
 import E213.Lens.Bool213
 import E213.Lens.Compose
 import E213.Lens.Congruence
-import E213.Lens.FlatOntology
-import E213.Lens.Initiality
-import E213.Lens.PredicateSelfEncoding
-import E213.Lens.NoExteriorClosure
+import E213.Lens.Foundations.FlatOntology
+import E213.Lens.Foundations.Initiality
+import E213.Lens.Foundations.PredicateSelfEncoding
+import E213.Lens.Foundations.NoExteriorClosure
 import E213.Lens.ProofISA
 import E213.Lens.ProofISADemo
-import E213.Lens.ResidueReentry
-import E213.Lens.OneDiagonal
-import E213.Lens.UniversalDistinguishing
+import E213.Lens.Foundations.ResidueReentry
+import E213.Lens.Foundations.OneDiagonal
+import E213.Lens.Foundations.UniversalDistinguishing
 import E213.Lens.RawTopology
 import E213.Lens.SelfCompletion
 import E213.Lens.SelfReferenceThreeOutcomes
@@ -24,7 +24,7 @@ import E213.Lens.DirectionFree
 import E213.Lens.Lattice
 import E213.Lens.Number
 import E213.Lens.Properties
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 import E213.Lens.SyntacticInternalization
 import E213.Lens.Unified
 import E213.Lens.Universal
@@ -81,10 +81,10 @@ import E213.Lens.Number.Founding
       `,`, whitespace`) Raw-encoded; Polish-prefix printer + parser
       + universal round-trip `∀ t, parseTree (printTree t) = some t`
       (21 strict ∅-axiom).
-    * `Lens.FlatOntology`                 — §9.3 flat-ontology
+    * `Lens.Foundations.FlatOntology`     — §9.3 flat-ontology
       realisation: objects, types, relations, functions, and Lens
       all as decidable predicates on Raw^n.
-    * `Lens.PredicateSelfEncoding`        — §9.3 closure (predicates
+    * `Lens.Foundations.PredicateSelfEncoding` — §9.3 closure (predicates
       back to Raw via positional truth-table Gödel numbering).
       Closes the self-reference loop: predicates that operate on
       Raw are themselves Raw.
@@ -97,8 +97,8 @@ import E213.Lens.Number.Founding
 
     * `API.lean`            — public surface
     * `Lens.lean`           — Lens type + view/equiv
-    * `Lens/Initiality.lean`    — initiality of the Lens category
-    * `Lens/SemanticAtom.lean`  — semantic-atom characterisation
+    * `Lens/Foundations/Initiality.lean`    — initiality of the Lens category
+    * `Lens/Foundations/SemanticAtom.lean`  — semantic-atom characterisation
     * `Lens/Congruence.lean`    — `Eqv ↔ L.equiv` bridge
     * `Lens/SyntacticInternalization.lean` — glyph-as-Raw L2 + L3
                                               round-trip

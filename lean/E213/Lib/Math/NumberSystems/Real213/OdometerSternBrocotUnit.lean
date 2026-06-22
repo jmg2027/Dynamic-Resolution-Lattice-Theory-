@@ -212,7 +212,7 @@ argument — is the residue: it lives not on any finite path `List Bool` (µF, t
 but on the **stream carrier** `Nat → Bool` (νF, the odometer's `CoResidue` escape space, one bit per
 refinement depth).  This is the recurring "essential residue / reached-by-none" — and it is
 expressed here exactly as the framework expresses *every* such residue
-(`Lens/FlatOntologyClosure.object1_not_surjective`): the approximant structure is built, the carrier
+(`Lens/Foundations/FlatOntologyClosure.object1_not_surjective`): the approximant structure is built, the carrier
 is named, the non-surjection is witnessed — the residue is **pointed at, never constructed** (no
 exterior, `seed/AXIOM/05_no_exterior.md` §5.1).  See `theory/essays/foundations/reached_by_none.md`. -/
 

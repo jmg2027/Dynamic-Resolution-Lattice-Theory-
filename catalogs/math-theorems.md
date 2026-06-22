@@ -473,10 +473,10 @@ axioms").
 Closes the residue framework's self-reference
 loop within the Lean tree.
 
-### J.1 `Lens/FlatOntology` — §9.3 forward direction
+### J.1 `Lens/Foundations/FlatOntology` — §9.3 forward direction
 
 ```lean
-import E213.Lens.FlatOntology
+import E213.Lens.Foundations.FlatOntology
 -- abbrev Type213 (n : Nat) : Type := (Fin n → Raw) → Bool
 -- abbrev UnaryType : Type := Raw → Bool
 -- abbrev Relation : Type := Raw → Raw → Bool
@@ -490,10 +490,10 @@ import E213.Lens.FlatOntology
 12 PURE / 0 DIRTY.  Realises §9.3's "objects, types, relations,
 functions, Lens all as decidable predicates on Raw^n".
 
-### J.2 `Lens/PredicateSelfEncoding` — §9.3 closure direction
+### J.2 `Lens/Foundations/PredicateSelfEncoding` — §9.3 closure direction
 
 ```lean
-import E213.Lens.PredicateSelfEncoding
+import E213.Lens.Foundations.PredicateSelfEncoding
 -- def truthTableNat (n : Nat) (P : Nat → Bool) : Nat
 -- def predicateToRaw (n : Nat) (P : Raw → Bool) : Raw
 -- theorem predicate_self_encoding_closure

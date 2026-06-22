@@ -1,5 +1,5 @@
 import E213.Lens.LensCore
-import E213.Lens.Initiality
+import E213.Lens.Foundations.Initiality
 import E213.Lens.Properties.Morphism.FoldStructured
 import E213.Lens.Properties.Morphism.DepthParityNotFold
 
@@ -33,7 +33,7 @@ abstraction of the meaning framework — Raw is the strict minimum of this
 abstraction (the 4 cases of AxiomMinimality are the negative direction).
 -/
 
-namespace E213.Lens.SemanticAtom
+namespace E213.Lens.Foundations.SemanticAtom
 
 open E213.Theory E213.Lens
 
@@ -374,7 +374,7 @@ theorem exists_non_lens_expressible :
   rw [isLensExpressible_iff_foldStructured]
   exact E213.Lens.Properties.Morphism.DepthParityNotFold.depthParityFn_not_fold_structured
 
-open E213.Lens.Initiality
+open E213.Lens.Foundations.Initiality
 
 /-! ### Universal property of `HasDistinguishing` category
 
@@ -428,4 +428,4 @@ theorem raw_initial (α : Type) [d : HasDistinguishing α] :
   · intro g hga hgb hgslash r
     exact universalMorphism_unique α g hga hgb hgslash r
 
-end E213.Lens.SemanticAtom
+end E213.Lens.Foundations.SemanticAtom

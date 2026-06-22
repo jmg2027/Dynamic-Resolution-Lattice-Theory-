@@ -247,7 +247,7 @@ theorem lensCombineGeneric_const {α : Type} (c : α → α → α) (a b : α) :
   unfold lensCombineGeneric constLens; rfl
 ```
 
-## `Lens` (E213/Hypervisor/Lens/Initiality.lean)
+## `Lens` (E213/Hypervisor/Lens/Foundations/Initiality.lean)
 
 ```lean
 theorem Lens.view_unique {α : Type} (L : Lens α)

@@ -1,4 +1,4 @@
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 import E213.Meta.Nat.IntHelpers
 import E213.Meta.Tactic.NatHelper
 
@@ -36,7 +36,7 @@ Note 80 analysis.
 namespace E213.Lens.Instances.Reach
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 
 /-! ### Witness: trivial-combine instance on Fin 3 -/
 

@@ -80,7 +80,7 @@ The same structural fact appears in four frames:
 - **Nat-style self-reference completes** — the catamorphism reaching its
   limit (`seed/AXIOM/05_no_exterior.md` §5.2).
 - **The residue reached by no pointing** —
-  `Lens/FlatOntologyClosure.object1_not_surjective`: pointings only
+  `Lens/Foundations/FlatOntologyClosure.object1_not_surjective`: pointings only
   converge, none lands on the limit.
 
 The fourth frame marks where `ω` is *complementary* to the residue

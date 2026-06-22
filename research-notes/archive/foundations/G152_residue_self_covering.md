@@ -81,7 +81,7 @@ component) — you rotate around it, never land on it.
 
 ## FlatOntology — "둘이 다르지 않다" precisely (no separate sorts)
 
-`Lens/FlatOntology.lean` (§9.3): "**One universe — no separate sorts** for
+`Lens/Foundations/FlatOntology.lean` (§9.3): "**One universe — no separate sorts** for
 types, objects, relations, Lens. All live in the predicate algebra on Raw^n."
 
 - "둘이 다르지 않다" = *not different in SORT* (one substrate), **not** value-
@@ -99,7 +99,7 @@ Raw via Gödel numbering of its truth table." Status:
 - Raw → predicate: trivial (`Object1`). Raw → ℕ: done
   (`Cardinality/Godel.Raw.toNat`, injective).
 - **Positive direction ALREADY CLOSED** (repo-first catch — was on `main`):
-  `Lens/PredicateSelfEncoding.lean` (7 PURE, commit `10500a4`) encodes every
+  `Lens/Foundations/PredicateSelfEncoding.lean` (7 PURE, commit `10500a4`) encodes every
   *finite-prefix / definable* predicate back to a Raw —
   `predicateToRaw n P = numeral(truthTableNat n …)`,
   `predicate_self_encoding_closure`, `predicateToRaw_kernel`,
@@ -115,7 +115,7 @@ Raw via Gödel numbering of its truth table." Status:
   thesis (finite pointing; completed infinity = a finite name; the unpointable
   surplus IS the residue).
 
-**Brick (this session)** — `Lens/FlatOntologyClosure.lean` (6 PURE):
+**Brick (this session)** — `Lens/Foundations/FlatOntologyClosure.lean` (6 PURE):
 `object1_injective` (faithful self-cover) ∧ `object1_not_surjective` (the residue
 surplus, via `cantor_raw_bool`); `self_covering_closure` bundles both.  This is
 the *limit* half; `PredicateSelfEncoding` is the *positive* half — together they
@@ -170,7 +170,7 @@ identity" — a reading is a facet, never the residue itself.)
 - residue def: `Lib/Math/UniverseChain/Residue.lean`, `research-notes/G29_residue.md`.
 - 0 vs 1 / Frobenius: `theory/math/foundations/universe_chain.md` (the 1-as-glue /
   axis-generator narrative) + `Lib/Math/Mobius213.lean`.
-- flat ontology: `Lens/FlatOntology.lean`, `Lens/RawTopology.lean`,
+- flat ontology: `Lens/Foundations/FlatOntology.lean`, `Lens/RawTopology.lean`,
   `Lens/UndifferentiatedRaw.lean`, `Lens/Cardinality/{Cantor,Godel}.lean`.
 - self-pointing axis: `research-notes/G121_dim4_self_pointing_axis.md`.
 - ℝ as Lens output: `Lib/Math/Real213/Core/AsLensOutput.lean`, `…/ValidCut.lean`.

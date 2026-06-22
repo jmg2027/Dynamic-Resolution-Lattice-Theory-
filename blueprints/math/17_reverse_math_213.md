@@ -25,7 +25,7 @@ the ledger records the rest.
 
 ## Building blocks already in place
 
-- **Free interior (no omniscience):** `Lens/FlatOntologyClosure.object1_not_surjective`,
+- **Free interior (no omniscience):** `Lens/Foundations/FlatOntologyClosure.object1_not_surjective`,
   `Lens/Cardinality/Cantor.cantor_general` — the diagonal/non-surjection family, all PURE.
 - **The first calibration:** `Lib/Math/Combinatorics/KonigConditional.lean` —
   `InfChildExists` (the selection stall) ↔ `FiniteSubcoverOracle` (compactness) modulo the

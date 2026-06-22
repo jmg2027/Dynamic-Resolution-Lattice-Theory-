@@ -1,5 +1,5 @@
 import E213.Lens.Cardinality
-import E213.Lens.FlatOntologyClosure
+import E213.Lens.Foundations.FlatOntologyClosure
 import E213.Lens.ProofISA
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.FLTPrimary
 import E213.Lib.Math.NumberTheory.DyadicFSM.FLT.FreshmanDream
@@ -120,7 +120,7 @@ namespace E213.Lib.Math.Foundations.ProofISALifts
 abbrev lift_diagonal := @E213.Lens.Cardinality.cantor_general
 
 /-- **A1 (concrete)** — the same lift as the residue's non-surjectivity onto `Raw → Bool`. -/
-abbrev lift_diagonal_concrete := @E213.Lens.FlatOntologyClosure.object1_not_surjective
+abbrev lift_diagonal_concrete := @E213.Lens.Foundations.FlatOntologyClosure.object1_not_surjective
 
 /-- **A2 LOOP** — the solved inductive lift: Fermat `∀ a, a^p ≡ a (mod p)`, the finite step lifted by
     induction on `a`. -/

@@ -3,7 +3,7 @@
 **Source.** A two-agent debate (category theorist + proof theorist) on the session's stuck points
 (`the_descent_leg.md` rival-enumeration residual; `the_substance_test.md` Attack-1 circularity).
 Both converged on **one** reframing. This note records the insight; the first Lean deposit is
-`lean/E213/Lens/UniversalDistinguishing.lean`.
+`lean/E213/Lens/Foundations/UniversalDistinguishing.lean`.
 
 ## The stuck points (restated)
 

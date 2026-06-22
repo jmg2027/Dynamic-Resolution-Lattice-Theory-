@@ -1,8 +1,8 @@
 import E213.Lens.LensCore
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 import E213.Lens.Cardinality
 import E213.Lens.Lattice
-import E213.Lens.NoExteriorClosure
+import E213.Lens.Foundations.NoExteriorClosure
 import E213.Theory.Raw.API
 
 /-!
@@ -45,7 +45,7 @@ abbrev isa_diagonalize := @E213.Lens.Cardinality.cantor_general
 
 /-- **GAP** — a reading does not cover its codomain; the un-covered surplus is the residue (not every
     function is a fold). -/
-abbrev isa_gap := @E213.Lens.SemanticAtom.exists_non_lens_expressible
+abbrev isa_gap := @E213.Lens.Foundations.SemanticAtom.exists_non_lens_expressible
 
 /-- **SEPARATE** — two distinct objects are separated by an injective reading (a reading refines the
     identity Lens iff it distinguishes every pair). -/
@@ -53,10 +53,10 @@ abbrev isa_separate := @E213.Lens.Lattice.Lattice.refines_idLens_iff_injective
 
 /-- **COMPILE-DOWN** — any framework that distinguishes at all receives the *unique* morphism from `Raw`
     (initiality): everything compiles from the residue. -/
-abbrev isa_compile_down := @E213.Lens.SemanticAtom.universalMorphism_unique
+abbrev isa_compile_down := @E213.Lens.Foundations.SemanticAtom.universalMorphism_unique
 
 /-- **REFLECT** — predicates / proofs are themselves `Raw` (the naming of any candidate lands inside). -/
-abbrev isa_reflect := @E213.Lens.NoExteriorClosure.naming_is_internal
+abbrev isa_reflect := @E213.Lens.Foundations.NoExteriorClosure.naming_is_internal
 
 /-- **LOOP (µ/ν)** — finite-path induction certifies the unique fixed point of a residue recursion (no
     coinduction needed). -/

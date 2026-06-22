@@ -1,4 +1,4 @@
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 import E213.Meta.Tactic.NatHelper
 
 /-!
@@ -31,7 +31,7 @@ And canonicalTruthMap r is the Prop translation of
 namespace E213.Lib.Math.Foundations.Choice.CanonicalTruthChar
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 
 /-- Bool-valued a-count parity Lens. -/
 def aCountParityLens : Lens Bool := ⟨true, false, fun x y => xor x y⟩

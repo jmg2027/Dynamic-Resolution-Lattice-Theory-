@@ -158,7 +158,7 @@ instruction set.  That change is the substance behind "this is not wordplay."
 
   - instruction index: `lean/E213/Lens/ProofISA.lean`
   - lift catalog (solved finite→uniform lift archetypes): `lean/E213/Lib/Math/Foundations/ProofISALifts.lean`
-  - closure (nothing exhibitable as outside): `seed/AXIOM/01_residue.md` §1.0, `Lens/NoExteriorClosure.lean`
+  - closure (nothing exhibitable as outside): `seed/AXIOM/01_residue.md` §1.0, `Lens/Foundations/NoExteriorClosure.lean`
   - solving = pointing at the proof-residue: `seed/AXIOM/05_no_exterior.md` §5.3
-  - the residue as Cantor's diagonal: `Lens/FlatOntologyClosure.lean` (`object1_not_surjective`), `Lens/Cardinality/Cantor.lean`
+  - the residue as Cantor's diagonal: `Lens/Foundations/FlatOntologyClosure.lean` (`object1_not_surjective`), `Lens/Cardinality/Cantor.lean`
   - number towers as Lens bundlings: `seed/AXIOM/06_lens_readings.md` §6.7

@@ -4,7 +4,7 @@
 **Author:** Mingu Jeong (insight)
 **Formalisation:** Claude (Anthropic)
 **Status:** Foundational principle; formal core already in
-`Firmware/Raw.lean` + `Hypervisor/Lens/Initiality.lean`.  This note
+`Firmware/Raw.lean` + `Hypervisor/Lens/Foundations/Initiality.lean`.  This note
 re-frames the existing Raw axiom + Lens framework through the
 trajectory lens of G2.
 
@@ -58,7 +58,7 @@ Equivalently: **Raw = labelled binary trees, leaves drawn from
 {obj 0, obj 1}.**  Every Raw IS a trajectory tree.
 
 Existing theorems making this precise:
-  - `Hypervisor/Lens/Initiality.lean`: every distinguishing framework
+  - `Hypervisor/Lens/Foundations/Initiality.lean`: every distinguishing framework
     factors through Raw via an injective Lens.
   - `Meta/UniversalLens/*`: the Raw → α lens family is the *universal*
     way to map trajectories into target types.
@@ -148,7 +148,7 @@ formal artifacts realising I5:
   - **Raw axiom** (`Firmware/Raw.lean`) — the free magma definition.
   - **Lens type** (`Hypervisor/Lens.lean`) — Raw → α projection,
     with refines preorder + composition.
-  - **Lens initiality** (`Hypervisor/Lens/Initiality.lean`) —
+  - **Lens initiality** (`Hypervisor/Lens/Foundations/Initiality.lean`) —
     every distinguishing framework factors through Raw uniquely.
   - **Universal Lens family** (`Meta/UniversalLens/*`) — the
     Raw → α functor is universal in the categorical sense.
@@ -198,7 +198,7 @@ Raw-pullback of α-statements.**
   - `seed/AXIOM/01_residue.md` — primitive distinction, recursion of pointing
   - `Firmware/Raw.lean` — the Raw axiom
   - `Hypervisor/Lens.lean` — Lens type
-  - `Hypervisor/Lens/Initiality.lean` — Raw-as-initial-object
+  - `Hypervisor/Lens/Foundations/Initiality.lean` — Raw-as-initial-object
   - `Meta/UniversalLens/*` — universality
   - `research-notes/G1_universal_lens.md` — Universal Lens metatheory
   - `research-notes/G2_trajectory_principle.md` — the trajectory frame

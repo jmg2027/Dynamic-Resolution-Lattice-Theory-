@@ -101,7 +101,7 @@ If neither the number tower nor (qua number tower) Cayley–Dickson runs endless
 
 This is the diagonal/cardinality axis, not the number axis.  It has no top, and the act
 of *naming* its top is the Cantor self-cover — which lands back on the residue of
-pointing (`05_no_exterior.md`, `Lens/FlatOntologyClosure.lean`).  So the only thing endless
+pointing (`05_no_exterior.md`, `Lens/Foundations/FlatOntologyClosure.lean`).  So the only thing endless
 above `ℝ` is the residue re-covering itself; the *number* content closes at `ℝ`.
 
 ## 2.4 The finite-config reconciliation: rationals below, `ℝ` as a label rung

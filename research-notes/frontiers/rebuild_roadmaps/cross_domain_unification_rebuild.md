@@ -77,5 +77,5 @@ existing `LensIso` capstones is itself the cross-domain master.
 - `lean/E213/Lens/Unified.lean` (`LensIso`, `lensIso_iff_kernel_eq`)
 - `lean/E213/Lib/Math/Algebra/GRA/LensIsoCapstone.lean` (genuine within-GRA template)
 - `lean/E213/Lens/ProofISA.lean` (COMPILE-DOWN = `universalMorphism_unique`)
-- `lean/E213/Lens/NoExteriorClosure.lean` (initiality / no-exterior framing)
+- `lean/E213/Lens/Foundations/NoExteriorClosure.lean` (initiality / no-exterior framing)
 - `seed/PROOF_ISA.md` (the instruction set, COMPILE-DOWN row)

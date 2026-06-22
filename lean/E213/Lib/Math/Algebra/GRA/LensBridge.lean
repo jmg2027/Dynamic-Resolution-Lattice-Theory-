@@ -9,7 +9,7 @@ Resolution) — now consolidated as the single `BipartiteCarrier`
 enrichment — are Readings of the same `(2, 3)`-arithmetic forced
 by atomic distinguishing.  This file connects them to the
 213-native catamorphism `Raw.fold` (the infrastructure underlying
-`E213.Lens.SemanticAtom.universalMorphism`):
+`E213.Lens.Foundations.SemanticAtom.universalMorphism`):
 
   * The **canonical Nat-level grade map**
     `canonicalGradeMap := Raw.fold 2 3 (· + ·)` is the

@@ -115,7 +115,7 @@ theorem getBase_eq {N k : Nat} :
   | .rel _,    h => by cases h
 ```
 
-### \`Lens\` (E213/Hypervisor/Lens/Initiality.lean)
+### \`Lens\` (E213/Hypervisor/Lens/Foundations/Initiality.lean)
 ```lean
 theorem Lens.view_unique {α : Type} (L : Lens α)
     (hsym : ∀ u v : α, L.combine u v = L.combine v u)
@@ -1032,7 +1032,7 @@ theorem refines_refl {α : Type} (L : Lens α) : L.refines L := by
 /-- Transitivity. -/
 ```
 
-### \`true_ne_false\` (E213/Hypervisor/Lens/SemanticAtom.lean)
+### \`true_ne_false\` (E213/Hypervisor/Lens/Foundations/SemanticAtom.lean)
 ```lean
 theorem true_ne_false : (True : Prop) ≠ False := by
   intro h; exact h.mp trivial
@@ -1097,7 +1097,7 @@ theorem not_alternative :
 
 ## #43  Combo \`AND\`  (10 theorems)
 
-### \`canonicalAndMap_slash\` (E213/Hypervisor/Lens/SemanticAtom.lean)
+### \`canonicalAndMap_slash\` (E213/Hypervisor/Lens/Foundations/SemanticAtom.lean)
 ```lean
 theorem canonicalAndMap_slash (x y : Raw) (h : x ≠ y) :
     canonicalAndMap (Raw.slash x y h)

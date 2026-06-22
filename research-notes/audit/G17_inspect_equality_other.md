@@ -257,7 +257,7 @@ theorem refinesEquiv_symm {α β} {L : Lens α} {M : Lens β} :
   | ⟨h1, h2⟩ => ⟨h2, h1⟩
 ```
 
-## \`universalMorphism_slash\` (E213/Hypervisor/Lens/SemanticAtom.lean)
+## \`universalMorphism_slash\` (E213/Hypervisor/Lens/Foundations/SemanticAtom.lean)
 
 ```lean
 theorem universalMorphism_slash (α : Type) [d : HasDistinguishing α]
@@ -268,7 +268,7 @@ theorem universalMorphism_slash (α : Type) [d : HasDistinguishing α]
   apply Raw.fold_slash _ _ _ d.combine_sym
 ```
 
-## \`propXor_comm\` (E213/Hypervisor/Lens/SemanticAtom.lean)
+## \`propXor_comm\` (E213/Hypervisor/Lens/Foundations/SemanticAtom.lean)
 
 ```lean
 theorem propXor_comm (P Q : Prop) : propXor P Q = propXor Q P := by
@@ -283,7 +283,7 @@ theorem propXor_comm (P Q : Prop) : propXor P Q = propXor Q P := by
     intro h; exact h2 h.symm
 ```
 
-## \`canonicalTruthMap_a\` (E213/Hypervisor/Lens/SemanticAtom.lean)
+## \`canonicalTruthMap_a\` (E213/Hypervisor/Lens/Foundations/SemanticAtom.lean)
 
 ```lean
 theorem canonicalTruthMap_a : canonicalTruthMap Raw.a = True :=
@@ -292,7 +292,7 @@ theorem canonicalTruthMap_a : canonicalTruthMap Raw.a = True :=
 /-- canonicalTruthMap b = False. -/
 ```
 
-## \`canonicalTruthMap_b\` (E213/Hypervisor/Lens/SemanticAtom.lean)
+## \`canonicalTruthMap_b\` (E213/Hypervisor/Lens/Foundations/SemanticAtom.lean)
 
 ```lean
 theorem canonicalTruthMap_b : canonicalTruthMap Raw.b = False :=

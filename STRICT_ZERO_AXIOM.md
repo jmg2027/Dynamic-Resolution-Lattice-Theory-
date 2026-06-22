@@ -48,7 +48,7 @@ axiom `propext`.
 
 Sealed modules:
 
-  · `E213.Lens.SemanticAtom`
+  · `E213.Lens.Foundations.SemanticAtom`
       `propAsDistinguishing` + `propAsDistinguishing{And, Or, Iff}`
       use `combine = propXor / And / Or / Iff`; `combine_sym` is
       `(P * Q) = (Q * P)` at type `Prop`.  Carries `iff_comm_eq`
@@ -221,7 +221,7 @@ sealed-by-design entries below, waived under the categories above.
 Whole-corpus census (`--csv`, all modules): **18,845 declarations
 scanned, 18,798 PURE, 47 DIRTY (all sealed-by-design), 0 real DIRTY.**
 
-  · 23  E213.Lens.SemanticAtom                              — (a) propext (Prop-as-distinguishing)
+  · 23  E213.Lens.Foundations.SemanticAtom                              — (a) propext (Prop-as-distinguishing)
   · 10  E213.Lens.Properties.Morphism.BoolProp              — (a) propext (Prop-as-distinguishing)
   ·  6  E213.Lib.Math.Foundations.Choice.CanonicalTruthChar — (a) propext (Prop-side; Bool-lens views PURE)
   ·  2  E213.Meta.Tactic.NativeGuard                        — (a) CommandElab vocabulary-guard plumbing

@@ -70,7 +70,7 @@ no third option*; the forced/read split at the physics scale
 (`theory/essays/synthesis/what_213_forces_and_what_it_reads.md` — forced
 numbers, read names); `vp_separation` as faithfulness of the ×-atoms; the
 c-removability audit as a missing distinguishing axis; and the residue/Lens
-non-surjection (`Lens/FlatOntologyClosure.object1_not_surjective`) — a Lens
+non-surjection (`Lens/Foundations/FlatOntologyClosure.object1_not_surjective`) — a Lens
 output is never the residue, so a Lens-output number (like `b₁(K^{(c)})`) is
 never itself a forced atom.  The honesty audits of the deleted programmes were
 this criterion applied as hygiene: a `:= True` "conjecture", a `chartVisibleAxes

@@ -130,7 +130,7 @@ def Raw.level1_set : List Raw :=
 theorem boolToConstLens_true : boolToConstLens true = constTrueLens := rfl
 ```
 
-### \`Lens\` (E213/Hypervisor/Lens/Initiality.lean)
+### \`Lens\` (E213/Hypervisor/Lens/Foundations/Initiality.lean)
 ```lean
 theorem Lens.view_unique {α : Type} (L : Lens α)
     (hsym : ∀ u v : α, L.combine u v = L.combine v u)

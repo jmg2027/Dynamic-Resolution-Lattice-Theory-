@@ -33,7 +33,7 @@ The Raw/Lens machinery that *touches* this (exact signatures, honest verdict):
 
 | machinery | what it fixes | decides *which residue realizes*? |
 |---|---|---|
-| **`object1_not_surjective`** (`Lens/FlatOntologyClosure`) — self-cover injective, non-surjective; residue = the un-pointable Cantor surplus | a **hard** cardinality gap every kernel must respect | **No** — names the gap, not who fills it |
+| **`object1_not_surjective`** (`Lens/Foundations/FlatOntologyClosure`) — self-cover injective, non-surjective; residue = the un-pointable Cantor surplus | a **hard** cardinality gap every kernel must respect | **No** — names the gap, not who fills it |
 | **difference-Lens additivity** (`difference_lens_founds_on_count`, `signedLens`) — ℤ as the count-Lens on a directed pair, slash-additive | a **hard** group law on any integer reading | **No** — fixes addition, not which integers realize |
 | **`SqrtUnity` torsor + free action** (`sqrtUnity_acts_on_root`, `root_orbit_inj{,_neg}`, `nontrivial_unit_root_exists`) — the windowed `√(−1)` roots are a torsor; action free; `2^(ω−1)` disjoint ±-suborbits | a **hard** count + disjointness | **No** — fixes *how many* competitors, not *which* realizes |
 | **`kernel_correspondence`** (`Lens/Algebra/Corresp`) — {slash-congruences} ↔ {Lens kernels} | the **form** of all possible quotients | **No** — *enumerates* kernels, selects none (permissive) |
@@ -102,6 +102,6 @@ products — the first rung of the oriented bridge `markovNum p = K(CF-shape of 
 
 ### Pointers
 - frontier objects: `Real213/Markov/SternBrocotMarkov` (`mediantLens`/`slope_path_inj`/`markovGen_noncommutative`/`SqrtUnity`/`OrbitRealizabilityH`/§34 iff)
-- Raw/Lens native: `Lens/FlatOntologyClosure` (`object1_not_surjective`), `Lens/Number/DifferenceLensFounding` + `Int213/Raw` (`signedLens`), `Lens/Algebra/Corresp` (`kernel_correspondence`), `Lens/DirectionFree`, `Theory/Raw/{Slash,Fold}`, `seed/AXIOM/05_no_exterior.md` §5.1
+- Raw/Lens native: `Lens/Foundations/FlatOntologyClosure` (`object1_not_surjective`), `Lens/Number/DifferenceLensFounding` + `Int213/Raw` (`signedLens`), `Lens/Algebra/Corresp` (`kernel_correspondence`), `Lens/DirectionFree`, `Theory/Raw/{Slash,Fold}`, `seed/AXIOM/05_no_exterior.md` §5.1
 - cohomology rhyme: `Cohomology/{Delta,Cochain}/Core` (ℤ/2 δ²=0)
 - classical companion: `research-notes/G191_continuant_aigner_program.md`

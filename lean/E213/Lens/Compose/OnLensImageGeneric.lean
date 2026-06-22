@@ -28,7 +28,7 @@ level of the recursive Lens^n α tower.
 namespace E213.Lens.Compose.OnLensImageGeneric
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 open E213.Lens.Compose.OnLens
 
 /-- `lensCombineGeneric c (constLens a) (constLens b) = constLens (c a b)`. -/

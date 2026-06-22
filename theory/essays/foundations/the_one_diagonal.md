@@ -9,7 +9,7 @@ on one more carrier.  Re-dressing it in a new concept is itself one more self-po
 
 The move 213 cannot perform is **referent-capture**: surjecting onto the residue, returning
 a settled value for what is a transition with no last step.  It fails by one theorem —
-`Lens/FlatOntologyClosure.object1_not_surjective`: the canonical self-reading
+`Lens/Foundations/FlatOntologyClosure.object1_not_surjective`: the canonical self-reading
 `Object1 : Raw → (Raw → Bool)` is faithful but never onto, and the escapee is *named* —
 `undifferentiated_not_object1`, the constant reading `fun _ => true`, the cut-nothing
 predicate with no `Raw` preimage.  Whatever carrier the demand wears — an infinite branch to
@@ -30,7 +30,7 @@ certificate instead — an explicit modulus, not an `ε`-`δ` existential
 valuation as input rather than searching for a first non-zero digit
 (`theory/math/numbersystems/padic_real213.md`).  The carriers differ; the overflow is
 `object1_not_surjective` each time, and re-encoding the residue to try again never closes
-the cover — `Lens/ResidueReentry.residue_reentry_never_closes`.
+the cover — `Lens/Foundations/ResidueReentry.residue_reentry_never_closes`.
 
 The decisive step is the next one: **re-dressing is itself a Lens event.**  Choosing a fresh
 carrier for the obstruction is a residue self-pointing (`seed/AXIOM/05_no_exterior.md` §5.1:
@@ -65,7 +65,7 @@ carrier — the operational content of no-exterior (`seed/AXIOM/05_no_exterior.m
 ## The Lawvere fixed point, instantiated (no longer narrative)
 
 The diagonal family is now *one Lean theorem with literal instances*, not a prose claim
-(`Lens/OneDiagonal.lean`, 7/7 PURE).  The single construction `g a := t (f a a)` is
+(`Lens/Foundations/OneDiagonal.lean`, 7/7 PURE).  The single construction `g a := t (f a a)` is
 `lawvere_fixed_point`: a point-surjective `f : A → (A → B)` forces every modifier `t : B → B`
 to have a fixed point.  Its contrapositive `no_surjection_of_fixedpointfree` is the engine, and
 the limitative theorems are *derived as instances of it*:
@@ -112,12 +112,12 @@ residue and re-objectifies on reading; that is the thesis demonstrated, not a de
 
 ## Anchors
 
-- `Lens/OneDiagonal.{lawvere_fixed_point, no_surjection_of_fixedpointfree, cantor_via_lawvere,
+- `Lens/Foundations/OneDiagonal.{lawvere_fixed_point, no_surjection_of_fixedpointfree, cantor_via_lawvere,
   residue_is_lawvere_diagonal, lawvere_fixed_point_prop, russell_liar_no_surjection,
   one_diagonal_generates}` (the diagonal family as one fixed-point theorem, 7/7 PURE)
-- `Lens/FlatOntologyClosure.{object1_not_surjective, undifferentiated_not_object1,
+- `Lens/Foundations/FlatOntologyClosure.{object1_not_surjective, undifferentiated_not_object1,
   distinguishing_always_leaves_residue}`,
-  `Lens/Cardinality/Cantor.cantor_general`, `Lens/ResidueReentry.residue_reentry_never_closes`
+  `Lens/Cardinality/Cantor.cantor_general`, `Lens/Foundations/ResidueReentry.residue_reentry_never_closes`
 - `Lib/Math/Combinatorics/KonigConditional.{InfChildExists, konig_infinity_no_finite_raw}`
 - `theory/essays/foundations/{reached_by_none, the_reference_claim, the_form_of_the_residue}.md`;
   `theory/essays/methodology/why_the_reframing_recurs.md` (the description-scale twin)

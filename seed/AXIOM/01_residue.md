@@ -24,7 +24,7 @@ weaker carries out the distinguishing — and nothing may be added
 to it, because everything that is genuinely needed is already
 present in the residue.  Minimality is structural, not stylistic.
 
-**Formal core** (`lean/E213/Lens/FlatOntologyClosure.lean`, ∅-axiom):
+**Formal core** (`lean/E213/Lens/Foundations/FlatOntologyClosure.lean`, ∅-axiom):
 the residue is not a primitive but a *theorem* — the primitive is the
 act of distinguishing (`Object1 : Raw → (Raw → Bool)`, each `Raw` read
 as its own self-indication), which is **faithful** (it separates,
@@ -48,7 +48,7 @@ what "the minimum residue of pointing" *means* — the closure is closed
 under conception itself, including the conception of an outside.
 
 The formalizable core is a proof-core, not a slogan
-(`lean/E213/Lens/NoExteriorClosure.lean`, ∅-axiom): the property by
+(`lean/E213/Lens/Foundations/NoExteriorClosure.lean`, ∅-axiom): the property by
 which one would name any candidate is itself a `Raw`
 (`naming_is_internal`, via the §9.3 self-encoding), and any candidate
 that distinguishes at all receives the *unique* morphism from `Raw`
@@ -77,7 +77,7 @@ exist, and that forcing *is* the proof.  Cantor, Russell, Gödel, Turing, Tarski
 totality, exhibit the residue outside it.
 
 This is a theorem, not a slogan.  `Lens/Cardinality/Cantor.lean` `cantor_general` is the diagonal
-argument; `Lens/FlatOntologyClosure.lean` `object1_not_surjective` (derived from `cantor_raw_bool`) is its
+argument; `Lens/Foundations/FlatOntologyClosure.lean` `object1_not_surjective` (derived from `cantor_raw_bool`) is its
 `Raw` instance, and it names the un-pointable surplus — the predicates outside the image of any `Raw`-indexed
 self-cover — **as the residue**.  So the residue is not merely *what reference leaves behind*; it is the
 *engine* of the deepest proofs about the infinite.

@@ -1,4 +1,4 @@
-import E213.Lens.FlatOntologyClosure
+import E213.Lens.Foundations.FlatOntologyClosure
 import E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue
 import E213.Lib.Math.Analysis.Cauchy.ThueMorseRingEscape
 import E213.Lib.Math.Analysis.Cauchy.DepthMonotoneSynthesis
@@ -85,9 +85,9 @@ theorem s2Z_poly_reached :
 theorem ceilings_are_nonsurjectivity :
     (∀ f : Nat → Nat → Nat, ¬ Function.Surjective f)
     ∧ (¬ Function.Surjective (fun dc : Nat × (Nat → Int) => fun n => newtonZ dc.2 dc.1 n))
-    ∧ (¬ Function.Surjective E213.Lens.FlatOntology.Object1) :=
+    ∧ (¬ Function.Surjective E213.Lens.Foundations.FlatOntology.Object1) :=
   ⟨fun f => not_surjective_of_reachedByNoStage (diag_reached f),
    not_surjective_of_reachedByNoStage s2Z_poly_reached,
-   E213.Lens.FlatOntologyClosure.object1_not_surjective⟩
+   E213.Lens.Foundations.FlatOntologyClosure.object1_not_surjective⟩
 
 end E213.Lib.Math.Foundations.CeilingSchema

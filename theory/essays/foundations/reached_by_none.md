@@ -14,7 +14,7 @@ move, and naming why fixes the methodology once.
 "Reached by no finite approximant" is not several phenomena.  It is a single
 ∅-axiom theorem wearing instances:
 
-> **`Lens/FlatOntologyClosure.object1_not_surjective`** — the self-cover
+> **`Lens/Foundations/FlatOntologyClosure.object1_not_surjective`** — the self-cover
 > `Object1 : Raw → (Raw → Bool)` is faithful (injective) but **not surjective**;
 > the un-embedded surplus is the residue.
 
@@ -104,7 +104,7 @@ reached by none — and *reached-by-none*, formalized, is the object.
 
 ## Anchors
 
-- `Lens/FlatOntologyClosure.{object1_not_surjective, residue_witnessed,
+- `Lens/Foundations/FlatOntologyClosure.{object1_not_surjective, residue_witnessed,
   undifferentiated_not_object1}` — the uniform non-surjection + named gap.
 - `Lens/Cardinality/Cantor.cantor_general` — the non-enumerability engine.
 - `Theory/Raw/CoResidue.{slashNu_final, spineL_escapes, boolSpine_escapes}` —

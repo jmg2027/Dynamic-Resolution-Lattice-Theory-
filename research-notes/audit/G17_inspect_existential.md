@@ -41,7 +41,7 @@ theorem reachable_base_only {N k : Nat} (h : N < k) :
 /-- Corollary: no rel-term is ever Reachable when `N < k`. -/
 ```
 
-## `Lens` (E213/Hypervisor/Lens/Initiality.lean)
+## `Lens` (E213/Hypervisor/Lens/Foundations/Initiality.lean)
 
 ```lean
 theorem Lens.view_unique {α : Type} (L : Lens α)
@@ -380,7 +380,7 @@ theorem lens_expressible_iff_fold_structured {α : Type} (f : Raw → α) :
   · exact fold_structured_lens_expressible f
 ```
 
-## `exists_non_lens_expressible` (E213/Hypervisor/Lens/SemanticAtom.lean)
+## `exists_non_lens_expressible` (E213/Hypervisor/Lens/Foundations/SemanticAtom.lean)
 
 ```lean
 theorem exists_non_lens_expressible :
@@ -390,7 +390,7 @@ theorem exists_non_lens_expressible :
   exact E213.Hypervisor.Lens.Morphism.DepthParityNotFold.depthParityFn_not_fold_structured
 ```
 
-## `raw_initial` (E213/Hypervisor/Lens/SemanticAtom.lean)
+## `raw_initial` (E213/Hypervisor/Lens/Foundations/SemanticAtom.lean)
 
 ```lean
 theorem raw_initial (α : Type) [d : HasDistinguishing α] :

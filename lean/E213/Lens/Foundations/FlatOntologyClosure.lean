@@ -1,4 +1,4 @@
-import E213.Lens.FlatOntology
+import E213.Lens.Foundations.FlatOntology
 import E213.Lens.Cardinality.Cantor
 
 /-!
@@ -19,7 +19,7 @@ This file records the *limit* shape of that closure:
     of the predicate algebra the substrate cannot point at as a single Raw.
 
 The complementary *positive* direction is already closed in
-`Lens/PredicateSelfEncoding.lean`: every **finite-prefix / definable** predicate
+`Lens/Foundations/PredicateSelfEncoding.lean`: every **finite-prefix / definable** predicate
 DOES encode back to a Raw (`predicateToRaw`, `predicate_self_encoding_closure`,
 all ∅-axiom).  Together: definable predicates round-trip (positive closure), the
 full predicate space does not (this file) — and the gap between "definable" and
@@ -30,10 +30,10 @@ of the session thesis: pointing
 is finite; the completed-infinite surplus is a finite *name*, not an inhabitant.
 -/
 
-namespace E213.Lens.FlatOntologyClosure
+namespace E213.Lens.Foundations.FlatOntologyClosure
 
 open E213.Theory (Raw)
-open E213.Lens.FlatOntology (Object1)
+open E213.Lens.Foundations.FlatOntology (Object1)
 open E213.Term.Internal (Tree)
 
 /-- The two atoms differ — propext-free (`Tree.noConfusion`, not `decide`
@@ -49,10 +49,10 @@ theorem object1_injective : Function.Injective Object1 := by
   -- `h : Object1 r = Object1 s`; evaluate both sides at `r`.
   have hr : Object1 r r = Object1 s r := congrFun h r
   -- `Object1 r r = true`, so `Object1 s r = true`, i.e. `decide (r = s) = true`.
-  rw [E213.Lens.FlatOntology.Object1_self] at hr
+  rw [E213.Lens.Foundations.FlatOntology.Object1_self] at hr
   -- `Object1 s r = decide (r = s)`; from `true = decide (r = s)` get `r = s`.
   -- `of_decide_eq_true` (not `decide_eq_true_eq`, which pulls propext).
-  unfold E213.Lens.FlatOntology.Object1 at hr
+  unfold E213.Lens.Foundations.FlatOntology.Object1 at hr
   exact of_decide_eq_true hr.symm
 
 /-- The self-cover `Object1` is **not surjective**: there is no surjection
@@ -141,4 +141,4 @@ theorem distinguishing_always_leaves_residue :
     ∧ (∀ r : Raw, Object1 r ≠ undifferentiated) :=
   ⟨object1_injective, object1_not_surjective, undifferentiated_not_object1⟩
 
-end E213.Lens.FlatOntologyClosure
+end E213.Lens.Foundations.FlatOntologyClosure

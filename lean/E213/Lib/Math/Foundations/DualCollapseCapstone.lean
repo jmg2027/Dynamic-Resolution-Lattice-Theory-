@@ -1,5 +1,5 @@
 import E213.Theory.Raw.API
-import E213.Lens.FlatOntologyClosure
+import E213.Lens.Foundations.FlatOntologyClosure
 import E213.Lib.Math.NumberSystems.Real213.ObjectIsReadingScaleInvariant
 import E213.Lib.Math.Algebra.Mobius213OneAsGlue
 
@@ -58,11 +58,11 @@ theorem every_dual_is_one_shape :
           y.depth < (Raw.slash x y h).depth)
       ∧ (Raw.a.depth = 0 ∧ Raw.b.depth = 0) )
     ∧ -- 2. object/morphism: faithful self-cover, not surjective (residue outside)
-    ( Function.Injective E213.Lens.FlatOntology.Object1
-      ∧ ¬ Function.Surjective E213.Lens.FlatOntology.Object1 )
+    ( Function.Injective E213.Lens.Foundations.FlatOntology.Object1
+      ∧ ¬ Function.Surjective E213.Lens.Foundations.FlatOntology.Object1 )
     ∧ -- 3. object/reading: one shape Index→Bool, scale-invariant
     ( (∀ r : Raw,
-          (E213.Lens.FlatOntology.Object1 r : Raw → Bool) r = true)
+          (E213.Lens.Foundations.FlatOntology.Object1 r : Raw → Bool) r = true)
       ∧ (E213.Lib.Math.NumberSystems.Real213.Core.AsLensOutput.RealAsLensOutput
           = (Nat → Nat → Bool)) )
     ∧ -- 4. difference/identity: the same 1
@@ -70,7 +70,7 @@ theorem every_dual_is_one_shape :
         = (E213.Lib.Physics.Simplex.Counts.NS : Int)
           - (E213.Lib.Physics.Simplex.Counts.NT : Int) ) :=
   ⟨ E213.Theory.Raw.Lambek.two_closures,
-    E213.Lens.FlatOntologyClosure.self_covering_closure,
+    E213.Lens.Foundations.FlatOntologyClosure.self_covering_closure,
     E213.Lib.Math.NumberSystems.Real213.ObjectIsReadingScaleInvariant.object_is_reading_scale_invariant,
     E213.Lib.Math.Algebra.Mobius213OneAsGlue.mobius_det_eq_ns_minus_nt ⟩
 

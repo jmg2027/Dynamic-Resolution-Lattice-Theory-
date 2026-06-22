@@ -1,6 +1,6 @@
 import E213.Lens.LensCore
-import E213.Lens.SemanticAtom
-import E213.Lens.Initiality
+import E213.Lens.Foundations.SemanticAtom
+import E213.Lens.Foundations.Initiality
 import E213.Lens.Lattice.Chain
 import E213.Lens.Lattice.Preorder
 

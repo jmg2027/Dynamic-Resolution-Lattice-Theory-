@@ -29,7 +29,7 @@ binary commutative `combine`, the skeptic's circularity charge).
 `rawDStr` fills every field from existing PURE theorems; the keystone D3 is `Raw.slash_inj`.  ∅-axiom.
 -/
 
-namespace E213.Lens.UniversalDistinguishing
+namespace E213.Lens.Foundations.UniversalDistinguishing
 
 open E213.Theory (Raw)
 
@@ -125,4 +125,4 @@ theorem no_DStr_on_subsingleton {α : Type} (hsub : ∀ x y : α, x = y) :
     ¬ Nonempty (DStr α) :=
   fun ⟨N⟩ => N.e_ne (hsub N.e₁ N.e₂)
 
-end E213.Lens.UniversalDistinguishing
+end E213.Lens.Foundations.UniversalDistinguishing

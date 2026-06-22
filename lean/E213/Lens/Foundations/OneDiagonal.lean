@@ -1,5 +1,5 @@
 import E213.Lens.Cardinality.Cantor
-import E213.Lens.FlatOntologyClosure
+import E213.Lens.Foundations.FlatOntologyClosure
 
 /-!
 # One diagonal — the residue is the engine that generates the limitative theorems (∅-axiom)
@@ -29,10 +29,10 @@ cover's self-application").  Two value-equalities instantiate it:
 All ∅-axiom (no `propext`: the `Prop` arm uses only intuitionistic `Iff`/`¬`).
 -/
 
-namespace E213.Lens.OneDiagonal
+namespace E213.Lens.Foundations.OneDiagonal
 
 open E213.Theory (Raw)
-open E213.Lens.FlatOntology (Object1)
+open E213.Lens.Foundations.FlatOntology (Object1)
 open E213.Lens.Cardinality (bnot_self_ne)
 
 /-! ## §1 — the Lawvere fixed-point construction (Eq form) -/
@@ -145,4 +145,4 @@ theorem no_distinguishing_on_subsingleton {S : Type} (hsub : ∀ x y : S, x = y)
 theorem raw_has_distinguishing : ∃ x y : Raw, x ≠ y :=
   ⟨Raw.a, Raw.b, E213.Theory.Raw.PrimitiveTower.a_ne_b⟩
 
-end E213.Lens.OneDiagonal
+end E213.Lens.Foundations.OneDiagonal

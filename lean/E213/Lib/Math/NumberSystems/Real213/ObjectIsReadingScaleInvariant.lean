@@ -1,4 +1,4 @@
-import E213.Lens.FlatOntology
+import E213.Lens.Foundations.FlatOntology
 import E213.Lib.Math.NumberSystems.Real213.Core.AsLensOutput
 
 /-!
@@ -10,7 +10,7 @@ thing" vs "the reading of it".  This file records that the *same* collapse
 appears at two scales that classically look unrelated:
 
   * **atom scale** — a single `Raw` is its own indicator predicate
-    `Object1 r : Raw → Bool` (`Lens/FlatOntology`).  The object IS a
+    `Object1 r : Raw → Bool` (`Lens/Foundations/FlatOntology`).  The object IS a
     `Raw → Bool` reading.
   * **limit scale** — a real number is `RealAsLensOutput = Nat → Nat → Bool`,
     a Lens output assigning a Bool to each rational target
@@ -34,7 +34,7 @@ it is ℝ being both a rule (the cut predicate) and a totality (the number).
 namespace E213.Lib.Math.NumberSystems.Real213.ObjectIsReadingScaleInvariant
 
 open E213.Theory (Raw)
-open E213.Lens.FlatOntology (Object1 Object1_self)
+open E213.Lens.Foundations.FlatOntology (Object1 Object1_self)
 open E213.Lib.Math.NumberSystems.Real213.Core.AsLensOutput (RealAsLensOutput)
 
 /-- The shared shape: an **object at index `ι`** is a reading `ι → Bool`. -/

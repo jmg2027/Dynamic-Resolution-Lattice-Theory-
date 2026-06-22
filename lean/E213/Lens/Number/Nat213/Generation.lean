@@ -1,6 +1,6 @@
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.LensCore
-import E213.Lens.Initiality
+import E213.Lens.Foundations.Initiality
 
 /-!
 # Lens.Number.Nat213.Generation — ℕ₊ is the leaves-Lens reading of iterated distinguishing (∅-axiom)
@@ -29,7 +29,7 @@ namespace E213.Lens.Number.Nat213.Generation
 open E213.Theory (Raw)
 open E213.Theory.Raw.Endomorphic (slashOrSelf)
 open E213.Lens.Number.Nat213.Raw (one succ numeral value value_numeral)
-open E213.Lens.Initiality
+open E213.Lens.Foundations.Initiality
 
 /-- The local leaf-count `value` **is** the canonical leaves-Lens reading
     `Lens.leaves.view` (`Lens.leaves = ⟨1,1,(·+·)⟩`, the catamorphism).  `Raw.lean`'s comment as a

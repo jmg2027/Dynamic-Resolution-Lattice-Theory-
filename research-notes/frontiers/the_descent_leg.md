@@ -29,7 +29,7 @@ with the chain load-bearing *in the proof*, not just the prose:
    PURE over native `Nat` — candidates: `φ = μ ∗ id`, σ_m multiplicativity, or a figurate identity —
    and re-state + re-prove it over `Nat₂₁₃` via the Lens-arrow, ∅-axiom. This is the first genuine
    "discipline = the distinguishing's reading" demonstration.
-3. **Forcing, not matching.** Strengthen the initiality story (`Lens/Initiality`, `raw_initial`) so a
+3. **Forcing, not matching.** Strengthen the initiality story (`Lens/Foundations/Initiality`, `raw_initial`) so a
    *specific* classical structure is the **unique** distinguishing-preserving reading, not merely *a*
    reading that happens to match (skeptic's Attack 2: the primitive must be shown non-interchangeable
    with rivals — negation-first, relation-first).
@@ -110,14 +110,14 @@ What remains:
 - **Leg 3 (forcing/uniqueness):** the Peano file is still flagged "ergonomic parallel, not
   lens-derived" though `Bridge` makes it iso to the lens-derived chain. Upgrade: show the `Peano`
   `succ`/`add` *are* the Lens-readings of the `Raw` `slash`-operations (not merely iso at the
-  `value`/`toNat` level), and strengthen `Lens/Initiality` so this reading is the **unique**
+  `value`/`toNat` level), and strengthen `Lens/Foundations/Initiality` so this reading is the **unique**
   distinguishing-preserving one (rules out rival primitives).
 
 ## Other seeds
 
 - `Lib/Math/Foundations/UniverseChain/RawRecurrence.lean` — the `Raw → count` recurrence
   (`|S_n| = 2 + C(|S_{n-1}|,2)`, → 2,3,5,12,68); consumed by one file. The combinatorial spine.
-- `Lens/Initiality.lean`, `Theory/Raw/Lambek.lean`, `Theory/Raw/MuNuMirror.lean` — initiality/μF-νF
+- `Lens/Foundations/Initiality.lean`, `Theory/Raw/Lambek.lean`, `Theory/Raw/MuNuMirror.lean` — initiality/μF-νF
   apparatus for leg 3.
 
 ## Why this is the central frontier (not peripheral)
@@ -138,5 +138,5 @@ reach. Time-box and report honestly, win or lose (the G206 template).
 
 ## Pointers
 - Diagnosis + corrected 진의: `the_substance_test.md` §CORRECTION (2026-06-22).
-- Generation already deposited (the *other* prong): `Lens/OneDiagonal.lean` (the residue as the
+- Generation already deposited (the *other* prong): `Lens/Foundations/OneDiagonal.lean` (the residue as the
   engine of the limitative theorems), `theory/essays/foundations/the_one_diagonal.md`.

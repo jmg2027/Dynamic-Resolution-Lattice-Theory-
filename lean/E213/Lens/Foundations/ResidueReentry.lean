@@ -1,5 +1,5 @@
-import E213.Lens.FlatOntologyClosure
-import E213.Lens.PredicateSelfEncoding
+import E213.Lens.Foundations.FlatOntologyClosure
+import E213.Lens.Foundations.PredicateSelfEncoding
 
 /-!
 # ResidueReentry — the residue re-enters as the next operand, and the cover never closes
@@ -44,12 +44,12 @@ non-surjectivity.
 All zero-axiom.
 -/
 
-namespace E213.Lens.ResidueReentry
+namespace E213.Lens.Foundations.ResidueReentry
 
 open E213.Theory (Raw)
-open E213.Lens.FlatOntology (Object1)
-open E213.Lens.FlatOntologyClosure (object1_injective object1_not_surjective)
-open E213.Lens.PredicateSelfEncoding (predicateToRaw predicateToRaw_kernel truthTableNat_const_false)
+open E213.Lens.Foundations.FlatOntology (Object1)
+open E213.Lens.Foundations.FlatOntologyClosure (object1_injective object1_not_surjective)
+open E213.Lens.Foundations.PredicateSelfEncoding (predicateToRaw predicateToRaw_kernel truthTableNat_const_false)
 open E213.Lens.Number.Nat213.Raw (numeral numeral_ne_b)
 
 /-! ## §1 — re-entering the residue never closes the cover -/
@@ -187,7 +187,7 @@ round-trip condition is the rest.  `object1_true_exactly_one` records the single
     the count-Lens unit that re-pointing collapses every predicate to. -/
 theorem object1_true_exactly_one (r : Raw) :
     Object1 r r = true ∧ ∀ s : Raw, Object1 r s = true → s = r :=
-  ⟨E213.Lens.FlatOntology.Object1_self r, fun s h => object1_true_unique r s h⟩
+  ⟨E213.Lens.Foundations.FlatOntology.Object1_self r, fun s h => object1_true_unique r s h⟩
 
 /-- ★★★ **The fixed points are exactly the round-tripping indicators.**  `Object1
     (predicateToRaw n P) = P` holds **iff** `P` is the indicator of some Raw `r` whose
@@ -246,7 +246,7 @@ theorem object1_b_encodes_to_numeral_zero (n : Nat) :
     show Object1 Raw.b (numeral i) = false
     exact decide_eq_false (numeral_ne_b i)
   rw [predicateToRaw_kernel n (Object1 Raw.b) (fun _ => false) (fun i _ => hfalse i)]
-  show numeral (E213.Lens.PredicateSelfEncoding.truthTableNat n (fun _ => false)) = numeral 0
+  show numeral (E213.Lens.Foundations.PredicateSelfEncoding.truthTableNat n (fun _ => false)) = numeral 0
   rw [truthTableNat_const_false]
 
 /-- ★★★ **A single-point indicator that re-pointing does not fix.**  `Object1 Raw.b` is true
@@ -262,4 +262,4 @@ theorem object1_b_singlepoint_nonfixed (n : Nat) :
   intro h
   exact numeral_ne_b 0 (object1_injective h)
 
-end E213.Lens.ResidueReentry
+end E213.Lens.Foundations.ResidueReentry

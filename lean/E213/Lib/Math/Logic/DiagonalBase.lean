@@ -8,7 +8,7 @@ Marathon field 17, Phase GC (`blueprints/math/17_reverse_math_213.md`).
 The base of the ledger: the **diagonal / non-surjection** family costs **no omniscience** —
 it is ∅-axiom outright (the `RCA₀`-analogue interior).  Here it is on the residue's own
 Bool-stream carrier `Nat → Bool`: no enumeration of streams contains its own diagonal.
-This is the same shape as `Lens/FlatOntologyClosure.object1_not_surjective` (the residue's
+This is the same shape as `Lens/Foundations/FlatOntologyClosure.object1_not_surjective` (the residue's
 self-cover) and `Lib/Math/NumberSystems/Padic.zpSeq_not_enumerable` (the p-adic digit
 tree) — one diagonal, no cost (`theory/essays/foundations/the_one_diagonal.md`).
 -/

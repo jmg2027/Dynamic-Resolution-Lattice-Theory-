@@ -39,7 +39,7 @@ ZFC's arbitrary-subset construction (Dedekind cuts) is not a primitive in 213's 
 namespace E213.Lib.Math.NumberSystems.Hyper.Hyper213Tower
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 open E213.Lens.Compose.OnLens
 open E213.Lib.Math.NumberSystems.Hyper.Hyper213
 

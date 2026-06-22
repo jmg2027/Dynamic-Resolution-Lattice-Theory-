@@ -1,5 +1,5 @@
 import E213.Lens.Bool213.SelfReferenceForms
-import E213.Lens.ResidueReentry
+import E213.Lens.Foundations.ResidueReentry
 
 /-!
 # SelfReferenceThreeOutcomes — one Raw self-pointing, three co-present outcomes
@@ -37,8 +37,8 @@ namespace E213.Lens.SelfReferenceThreeOutcomes
 
 open E213.Theory (Raw)
 open E213.Lens.Bool213.Raw (isBool not)
-open E213.Lens.FlatOntology (Object1)
-open E213.Lens.PredicateSelfEncoding (predicateToRaw)
+open E213.Lens.Foundations.FlatOntology (Object1)
+open E213.Lens.Foundations.PredicateSelfEncoding (predicateToRaw)
 
 /-- ★★ **Three sharp facts about the Raw substrate, none reducible to the others.**  For the
     Raw substrate, the three §5.2/§5.5 readings each hold in their sharp form:
@@ -66,6 +66,6 @@ theorem self_reference_three_outcomes (n : Nat) :
     ¬ Function.Surjective (fun P : Raw → Bool => Object1 (predicateToRaw n P)) :=
   ⟨fun r h => E213.Lens.Bool213.SelfReferenceForms.bool_min_period_two r h,
    ⟨E213.Theory.Raw.Lambek.isPart_wf, E213.Theory.Raw.Lambek.terminal_iff_atom⟩,
-   E213.Lens.ResidueReentry.residue_reentry_never_closes n⟩
+   E213.Lens.Foundations.ResidueReentry.residue_reentry_never_closes n⟩
 
 end E213.Lens.SelfReferenceThreeOutcomes

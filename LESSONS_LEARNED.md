@@ -361,7 +361,7 @@ claim.
 
 **Sources**:
 - `Theory/Raw/Core.lean` (the Raw definition)
-- `Lens/LensCore.lean` + `Lens/Initiality.lean` (Lens factoring)
+- `Lens/LensCore.lean` + `Lens/Foundations/Initiality.lean` (Lens factoring)
 - `Lens/Universal/Witnesses/*` (universality)
 
 **Guardrail**: when in doubt whether 213 can handle some field,

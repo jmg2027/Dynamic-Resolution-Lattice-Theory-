@@ -1,4 +1,4 @@
-import E213.Lens.SemanticAtom
+import E213.Lens.Foundations.SemanticAtom
 
 /-!
 # SubtypeInstanceClosed: slash-based combine instance for
@@ -19,7 +19,7 @@ Replaces the degenerate combine of `SubtypeInstance.lean`.
 namespace E213.Lens.Instances.SubtypeClosed
 
 open E213.Theory E213.Lens
-open E213.Lens.SemanticAtom
+open E213.Lens.Foundations.SemanticAtom
 
 /-- `P` is closed over `Raw.slash`: P is preserved on distinct args. -/
 class SlashClosed (P : Raw → Prop) : Prop where

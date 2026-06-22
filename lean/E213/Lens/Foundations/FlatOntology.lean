@@ -30,7 +30,7 @@ principle be encoded back to Raw via truth-table numerals, but
 that closure is a separate continuation).
 -/
 
-namespace E213.Lens.FlatOntology
+namespace E213.Lens.Foundations.FlatOntology
 
 open E213.Theory (Raw)
 open E213.Lens (Lens)
@@ -122,9 +122,9 @@ All six rows of the table are realised by the single primitive
 catamorphism specialisation.
 
 The closure direction (a predicate encoded back as a Raw) has two halves:
-  * `Lens/PredicateSelfEncoding.lean` — *positive*: every finite-prefix /
+  * `Lens/Foundations/PredicateSelfEncoding.lean` — *positive*: every finite-prefix /
     definable predicate DOES encode back to a Raw (`predicateToRaw`).
-  * `Lens/FlatOntologyClosure.lean` — *limit*: the self-cover
+  * `Lens/Foundations/FlatOntologyClosure.lean` — *limit*: the self-cover
     `Object1 : Raw → (Raw → Bool)` is faithful (injective) but not total
     (not surjective, by Cantor) — it "closes exactly up to the residue,"
     the Cantor-unpointable surplus, whose named lead member is the
@@ -134,4 +134,4 @@ See also `Lens/Cardinality/Godel.lean` for the Raw → ℕ injection and
  for the synthesis.
 -/
 
-end E213.Lens.FlatOntology
+end E213.Lens.Foundations.FlatOntology

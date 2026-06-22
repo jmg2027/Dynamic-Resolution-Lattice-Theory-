@@ -53,7 +53,7 @@ open E213.Lib.Math.Analysis.Cauchy.DepthClosure
 open E213.Lib.Math.Analysis.Cauchy.DepthCoordGenerator (genExp tower_is_coordinate_system)
 open E213.Lib.Math.Analysis.Cauchy.DepthOmegaTower (expTower Coord coordLt)
 open E213.Lib.Math.Analysis.Cauchy.DepthCeilingResidue (ceiling_residue_is_pointing_residue)
-open E213.Lens.FlatOntology (Object1)
+open E213.Lens.Foundations.FlatOntology (Object1)
 open E213.Theory (Raw)
 
 /-- ★★★ **The tower-native real-number program, closed.**  The completability boundary,

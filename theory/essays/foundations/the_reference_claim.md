@@ -25,12 +25,12 @@ them apart.
 > accumulation.**  Its denial — a pointing that distinguishes nothing — is not a
 > counterexample but a non-pointing.  This is the residue axiom
 > (`seed/AXIOM/01_residue.md` §1.1) read as a *condition of possibility*, with
-> `Lens/NoExteriorClosure.naming_is_internal` (REFLECT) its formal face: the very naming
+> `Lens/Foundations/NoExteriorClosure.naming_is_internal` (REFLECT) its formal face: the very naming
 > of any candidate is itself a residue-leaving act, so reference is closed inside.
 
 > **Refused (never claimed).**  That the residue *captures* its referent — exhausts what
 > π, or an abstraction, or a metaphysical absolute *is*.  The self-cover is non-surjective
-> (`Lens/FlatOntologyClosure.object1_not_surjective`): the residue is outside every view's
+> (`Lens/Foundations/FlatOntologyClosure.object1_not_surjective`): the residue is outside every view's
 > image.  Naming is not capture.
 
 > **Under test (the genuine frontier).**  That every referent is *reached by internal
@@ -55,13 +55,13 @@ Formalized, that is `naming_is_internal`: any candidate predicate or proof is it
 `Raw`, so the naming lands inside (REFLECT, `Lens/ProofISA.isa_reflect`).  Everything
 readable is read *out* of the residue because `Raw` is initial — the
 distinguishing-preserving map `Raw → α` uniquely exists for every framework `α`
-(`Lens/SemanticAtom.raw_initial`, `universalMorphism_unique`), and every Lens factors
+(`Lens/Foundations/SemanticAtom.raw_initial`, `universalMorphism_unique`), and every Lens factors
 through the identity reading (`Lens/Universal/Flat.every_lens_factors_through_idLens`;
-uniqueness `Lens/Initiality.view_unique`).  Nothing reads *back* to enclose it: the
+uniqueness `Lens/Foundations/Initiality.view_unique`).  Nothing reads *back* to enclose it: the
 canonical self-cover `Object1 : Raw → (Raw → Bool)` is faithful but not surjective
 (`object1_not_surjective`), with a **named** gap member (`residue_witnessed`,
 `undifferentiated_not_object1`); re-encoding and re-pointing never closes the cover
-(`Lens/ResidueReentry.residue_reentry_never_closes`).  These are the "out / no-back /
+(`Lens/Foundations/ResidueReentry.residue_reentry_never_closes`).  These are the "out / no-back /
 name" faces of `the_form_of_the_residue.md`, here read as the reference claim's provable
 spine: `Lib/Math/Foundations/ResidueForm.no_exterior_source_without_enclosure`.
 
@@ -175,14 +175,14 @@ internal handles go, and saying plainly where they stop.
 
 ## Anchors
 
-- `Lens/NoExteriorClosure.naming_is_internal` (REFLECT) — naming/predicates/proofs are
+- `Lens/Foundations/NoExteriorClosure.naming_is_internal` (REFLECT) — naming/predicates/proofs are
   `Raw`; the reference is a residue-leaving act, closed inside.
-- `Lens/FlatOntologyClosure.{object1_not_surjective, residue_witnessed,
+- `Lens/Foundations/FlatOntologyClosure.{object1_not_surjective, residue_witnessed,
   undifferentiated_not_object1}` — the self-cover is non-surjective with a named gap.
-- `Lens/SemanticAtom.{raw_initial, universalMorphism, universalMorphism_unique}`,
-  `Lens/Initiality.view_unique`, `Lens/Universal/Flat.every_lens_factors_through_idLens`
+- `Lens/Foundations/SemanticAtom.{raw_initial, universalMorphism, universalMorphism_unique}`,
+  `Lens/Foundations/Initiality.view_unique`, `Lens/Universal/Flat.every_lens_factors_through_idLens`
   — everything readable flows out of the residue.
-- `Lens/ResidueReentry.residue_reentry_never_closes` — re-encoding and re-pointing never
+- `Lens/Foundations/ResidueReentry.residue_reentry_never_closes` — re-encoding and re-pointing never
   closes the cover.
 - `Lib/Math/Foundations/ResidueForm.no_exterior_source_without_enclosure` — the
   source-without-enclosure form as one ∅-axiom theorem.

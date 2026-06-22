@@ -19,7 +19,7 @@ Each entry separates the **hard fact** (the `∅`-axiom theorem + its lift mecha
 ## Archetype 1 — DIAGONAL / direct lift (the residue instruction self-supplies the uniform witness)
 
 **Solved theorem.**  `E213.Lens.Cardinality.cantor_general` (`Lens/Cardinality/Cantor.lean`) /
-`cantor_raw_bool` / `E213.Lens.FlatOntologyClosure.object1_not_surjective` — no map `X → (X → Bool)` is
+`cantor_raw_bool` / `E213.Lens.Foundations.FlatOntologyClosure.object1_not_surjective` — no map `X → (X → Bool)` is
 surjective; no enumeration captures the residue.  **`∅`-axiom.**
 
 **Finite vs uniform.**  *Local*: for a given candidate enumeration `f` and a given index, the diagonal

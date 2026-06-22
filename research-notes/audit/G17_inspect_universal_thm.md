@@ -369,7 +369,7 @@ theorem lensCombineGeneric_comm {α : Type} (c : α → α → α)
   · funext x y; exact hsym _ _
 ```
 
-## \`Lens\` (E213/Hypervisor/Lens/Initiality.lean)
+## \`Lens\` (E213/Hypervisor/Lens/Foundations/Initiality.lean)
 
 ```lean
 theorem Lens.view_unique {α : Type} (L : Lens α)
