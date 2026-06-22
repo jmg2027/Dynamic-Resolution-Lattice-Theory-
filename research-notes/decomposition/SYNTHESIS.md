@@ -1,7 +1,7 @@
 # The 213 Decomposition Calculus — capstone synthesis (v3)
 
 **Status**: Tier-1 capstone of the decomposition cluster (`README.md` = the technique + per-field
-log; `practice/*.md` = the 87 worked decompositions; `FRONTIER_AUDIT.md` = the honesty pass;
+log; `practice/*.md` = the 90 worked decompositions; `FRONTIER_AUDIT.md` = the honesty pass;
 `frontiers/colimit_quotient_synthesis.md` + the 3 panel memos = the open edge, now half-built). This
 document does not add a decomposition — it makes the whole corpus legible as one statement. Every Lean
 name cited below was grep-verified to exist in `lean/E213/` and scanned ∅-axiom via `tools/scan_axioms.py`;
@@ -22,8 +22,8 @@ read through a **Lens** `L` (which feature you project to — count, order, diff
 sign), leaving a **Residue** (what `L` forces but cannot capture). A theorem is a property `P(⟨C|L⟩)`;
 the payoff is *collapse* — two superficially different theorems shown to share `(C, L)` and so be one.
 The Lean encoding (`Raw`, `Lens`, `Lens.view = Raw.fold`) is the faithfulness-check, not the
-deliverable. The headline finding, after **87 worked decompositions across ~16 disciplines**, is that this
-wide front does not need 87 different ideas: it converges on a **small invariant set** — one *character
+deliverable. The headline finding, after **90 worked decompositions across ~16 disciplines**, is that this
+wide front does not need 90 different ideas: it converges on a **small invariant set** — one *character
 arrow*, one *q=±1 residue tag*, and (the deepest reflexive turn) one *residue-taking operation* (now shown
 self-composable — spectral sequences) — read across one structured frame, all Lean-anchored, not merely
 asserted. `Residue(L,C)` is the **proven remainder** the
@@ -35,7 +35,7 @@ operation** (§2, §6).
 
 ## 2. The invariant set — the complete inventory
 
-The 87 decompositions converge on **two load-bearing invariants** plus **one structured frame** (the
+The 90 decompositions converge on **two load-bearing invariants** plus **one structured frame** (the
 read-off axes of `C` and the parameters of `L`) — and one reflexive addition: the calculus naming its own
 residue operation. Each is cashed by a verified Lean theorem.
 
@@ -96,6 +96,22 @@ point of the iteration (`r` the convergence modulus, the same modulated-completi
 non-degeneration = the `q=−1` escape (`residue_reentry_never_closes`); `d_r²=0` per page =
 `dsq_zero_universal_delta4` repeated. So the normal form's residue operation is not just a recipe but a
 self-composable endofunctor; only the named `SpectralSequence`/`Page`/`E_r`/`E_∞` object is absent.
+
+**And the OTHER half is named too — motives are the `⟨C|L⟩` half (the calculus recognizing its own engine).**
+Homological algebra named the `Residue(L,C)` half of the normal form; **motives** (`motives.md`) name the
+`⟨C|L⟩` half. Grothendieck's motive = "the universal cohomology through which every Weil cohomology factors
+uniquely" — which is *exactly* the calculus's core universal property `Lens.view = Raw.fold`
+(`raw_initial`/`dhom_unique_pointwise`, 6/0): the category of motives = the universal construction `C`/`Raw`,
+each realization (Betti/de Rham/ℓ-adic) = a Lens `L` factoring through it
+(`view_factors_through_morphism`, 3/0 — the literal "three outputs of one machine"), the motivic Galois group =
+the `Aut` of the universal Lens (`det_holonomy_eq_one`), the Tate weight = the fold-height, and the standard
+conjectures = the q=±1 **faithful** (`object1_injective`, *proven*) / **total** (`object1_not_surjective`, the
+escape residue, *conjectural*) split. So the two reflexive halves of `⟨C|L⟩ ⊕ Residue(L,C)` are each a named
+field: motives the construction-and-reading half, homological algebra the residue half. Tannakian duality
+(`tannakian_duality.md`) sharpens the motivic-Galois leg — a group reconstructed as `Aut^⊗(ω)` of its
+forgetful-Lens fiber functor, "object = its readings" promoted to a reconstruction. The universal-property
+*mechanism* is the most-built thing in the repo (it IS the Lens framework); only the *named* motivic/Tannakian
+objects are absent.
 
 ### The frame — the read-off axes (`C`) and the `L`-parameters
 These are not extra invariants; they are the coordinates the invariants are read across. Each pays by
@@ -440,7 +456,7 @@ residue reproducing domain after domain. Assessed honestly against *that* bar (n
 validation gate, which CLAUDE.md is explicit is one domain's gate, not the yardstick):
 
 **What it HAS shown — and this is the real result.** The reduction is genuine and unusually wide.
-Eighty-seven fields across ~16 disciplines, read through a fixed normal form, converge on *two* invariants (the
+Ninety fields across ~16 disciplines, read through a fixed normal form, converge on *two* invariants (the
 character arrow, the q=±1 residue) plus the reflexive residue-operation (now shown *iterable* —
 spectral sequences), over one structured frame, and the convergence is **Lean-anchored at a high rate** —
 twelve of thirteen predictions closed ∅-axiom across twenty-nine ∅-axiom modules. The deepest collapses are
