@@ -318,3 +318,28 @@ These EXTEND, no new axis: the v6 invariants (the character arrow, `q=±1` resid
 iteration-character) absorb both, and reveal two cross-ties — *resolution ⇄ adjoint-pair* (FTC) and
 *family-reading ⇄ the character arrow's two directions* (Fourier/Euler). The model is stable across
 **23 decompositions, no break**; four predictions, two Lean-closed.
+
+### Batch 7 (category theory itself, curvature) — the founding question answered; one character, four readings
+
+- **Category theory itself** (`category_theory.md`) — answers the originator's founding question
+  ("is the goal to make the axiom into CT/HoTT?"): **213 IS category-theory-shaped, but *generated from
+  the distinguishing*** (verdict (c) made literal, term-by-term: `Raw` = initial object,
+  `fold`/`universalMorphism` = the read-op = catamorphism, readings = morphisms, `LensIso` = groupoid,
+  adjoint pairs → the closure monad). HoTT is *absent and structurally opposed* (`funext`/`propext`
+  forbidden). What the distinguishing **adds** beyond bare CT (which leaves these free): the `q=±1`
+  residue (limit/colimit duality as one *derived* law), atom-distinguishability (why hom is vectorial
+  vs scalar), the forced `(3,2,5)`. The calculus is **self-describing** (its own apparatus = the
+  vocabulary it produces; a fixed point via `raw_initial` + `dhom_unique_pointwise`), and the loop stays
+  open *exactly* at `q=±1` (the free/colimit corner). No new axis — consolidation + the founding answer.
+- **Curvature** (`curvature.md`) — PREDICTION: flat = conserved-character = `det 1` (the *same*
+  `det_holonomy_eq_one` Noether-invariant), curvature = the loop-reading's `q=±1` residue (born with the
+  sign-fold `S`; Gauss–Bonnet `Σκ = 2(1−b₁)` literally identifies it with `homology.md`'s residue).
+
+**★ The deepest unity (capstone of the leverage phase):** the single `det` / `×↦·` character is read
+**four ways** — *scalar* (`determinant`), *`Aut`-invariant* (`noether`), *around a loop* (`curvature`,
+holonomy), *down the height* (`homology`, `∂`) — and the curvature/homology residues are tied by
+Gauss–Bonnet. Determinant, conservation, curvature, and topology are **one character read four ways**.
+Together with the count-reading's residue generating all the limitative theorems (`cardinality`), and
+the `×↦+` character spanning parity/valuation/entropy/Fourier/ζ, the calculus has reduced a wide swath
+of mathematics to **two invariants** — the *character arrow* and the *`q=±1` residue* — read across
+{direction, fold-height, resolution, iteration-character}. **25 decompositions, no break.**

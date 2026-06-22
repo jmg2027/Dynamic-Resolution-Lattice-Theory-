@@ -27,8 +27,16 @@ adjoint-pair structure; gauss_conservation_telescope PURE), `zeta_euler` (Euler 
 the UFD character: Σ_n=Π_p = distributive law of the faithful valuation coordinate; summatory_mul/
 geom_sum/primorial_le_four_pow ∅-axiom; ζ-value = Real213-cut residue; "generating function = read C
 weighted" is the dual of Fourier's "read Ĉ", one per character-arrow direction). Four predictions
-total, two Lean-closed (succ_not_idempotent, quadratic_orthogonality). Model stable across 23
-decompositions, no break. **+batch-5 = the
+total, two Lean-closed (succ_not_idempotent, quadratic_orthogonality). +batch-7: `category_theory`
+(★ the originator's FOUNDING QUESTION answered: 213 IS category-theory-shaped but GENERATED FROM the
+distinguishing — verdict (c) literal, term-by-term Raw=initial/fold=read-op/readings=morphisms/adjoint→
+closure-monad; HoTT absent+forbidden; the distinguishing ADDS q=±1 residue + atom-distinguishability +
+forced (3,2,5); the calculus is self-describing), `curvature` (flat=det1=Noether-invariant; curvature=
+loop-reading's q=±1 residue; Gauss-Bonnet ties it to homology's residue). **★ Capstone unity**: the one
+`det`/`×↦·` character is read FOUR ways — scalar (determinant) / Aut-invariant (Noether) / around a loop
+(curvature) / down the height (homology) — residues tied by Gauss-Bonnet. The calculus reduces a wide
+swath of math to **two invariants** (the character arrow + the q=±1 residue) read across {direction,
+fold-height, resolution, iteration-character}. **25 decompositions, no break.** Model v6 stable. **+batch-5 = the
 LEVERAGE phase** (bar raised from collapse to *predict/derive*): `noether` (PREDICTION, structural —
 conserved = Aut-invariant character, q=+1; variational current open), `gaussian_clt` (PREDICTION —
 Gaussian = convolve-rescale fixed point, generalizes φ; contraction lemma the open target), `fourier`
