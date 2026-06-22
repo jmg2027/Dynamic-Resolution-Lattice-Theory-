@@ -161,7 +161,16 @@ a·c ⟹ c < p`, from `lt_right_mul`), then the finite `(a,c)` grid refuted by s
 capstone (M1→M6). Next: M2 (factorization existence, needs native well-founded recursion on
 `Order.lt`) → M3 (Euclid + uniqueness via native descent gcd).
 
-**M2 advance scouting (two pins, to avoid known traps next session):**
+**M2 DONE (same marathon) — factorization existence over `Nat213`.** `Factorization.lean` (18 PURE):
+`exists_factorization : ∀ n, ∃ l, (∀ p ∈ l, Irreducible p) ∧ prod l = n`. Both scouted pins (below)
+were honoured *constructively*: native `acc_lt`/`wf_lt` (structural recursion, no `Nat` measure) +
+`decBoundedExists` (decides `∃ c ≤ k, P c` for decidable `P`), giving decidable `lt`/`Dvd` (cofactor
+`≤` dividend) and the *decided* dichotomy `irreducible_or_properDiv` — no `Classical.em`. Native
+`mem_append_pure`/`not_mem_nil` avoid the propext-carrying core `List.mem_append`/`not_mem_nil`. Rung
+2 of the FTA-generated capstone. Next: M3 (uniqueness — Euclid's lemma `p ∣ ab → p ∣ a ∨ p ∣ b` via a
+native descent gcd / Bézout over `Nat213`, then list-permutation uniqueness of the factorization).
+
+**M2 advance scouting (the two pins, both now discharged above):**
 - *Native well-foundedness is in hand* — `Acc lt` is provable over `Nat213` with **no `toNat`**, by
   structural recursion:
   `acc_lt : ∀ n, Acc lt n | one => Acc.intro _ (fun y h => absurd h (not_lt_one y)) | succ n =>

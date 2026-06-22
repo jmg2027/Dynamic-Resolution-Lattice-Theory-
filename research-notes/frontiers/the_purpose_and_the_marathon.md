@@ -143,6 +143,12 @@ exterior and judged there** (the §5.1 wall: the inside cannot deliver this verd
 - **M1 (DONE this session)** — `Irreducible` over `Nat213` (`Irreducible.lean`, 18 PURE): `2,3,5`
   irreducible, `4` not, `irreducible_divisors`; `five_irreducible` via native `lt_succ_iff`
   enumeration + cofactor bound, whole cone `toNat`-free. Reuses `Divisibility` + `Order` (now native).
+- **M2 (DONE this session)** — factorization existence (`Factorization.lean`, 18 PURE):
+  `exists_factorization : ∀ n, ∃ l, (∀ p ∈ l, Irreducible p) ∧ prod l = n`, over `Nat213`. Both
+  scouted pins honoured *constructively*: native `acc_lt`/`wf_lt` (no `Nat` measure) + a constructive
+  bounded search `decBoundedExists` giving decidable `lt`/`Dvd` and the decided dichotomy
+  `irreducible_or_properDiv` (no `Classical.em`). Native `mem_append_pure`/`not_mem_nil` avoid
+  propext-carrying core `List` lemmas. Next: M3 (uniqueness — Euclid's lemma via native descent gcd).
 - **M2** — existence of irreducible factorization over `Nat213` (the one new ingredient: native
   well-founded recursion on `Order.lt`).
 - **M3** — Euclid's lemma + uniqueness (native descent gcd on `Order.lt` — the deepest construction).

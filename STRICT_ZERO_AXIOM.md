@@ -125,7 +125,7 @@ Remaining sealed module in this category:
 
 Scope note: until the build gate was made comprehensive, only the
 umbrella-reachable subset was ever scanned, and that subset was fully PURE
-(non-sealed).  The comprehensive gate now scans **all 1532 modules**, which
+(non-sealed).  The comprehensive gate now scans **all modules in `lean/E213/`**, which
 exposes the purity status of the previously-ungated clusters.  Current
 `tools/scan_all_axioms.py`:
 

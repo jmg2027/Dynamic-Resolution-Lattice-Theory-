@@ -12,6 +12,7 @@ import E213.Lens.Number.Nat213.NumberingSystem
 import E213.Lens.Number.Nat213.Peano
 import E213.Lens.Number.Nat213.Divisibility
 import E213.Lens.Number.Nat213.Irreducible
+import E213.Lens.Number.Nat213.Factorization
 import E213.Lens.Number.Nat213.Generation
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.Number.Nat213.RawCut
@@ -60,6 +61,10 @@ import E213.Lens.Number.Nat213.SignatureMaps
     * `Irreducible`      — irreducibility over `Nat213`: `2,3,5` irreducible,
                            `4` not; `lt_succ_iff` enumeration + cofactor
                            bound.  Rung 1 of the FTA-generated capstone.
+    * `Factorization`    — factorization existence (`exists_factorization`):
+                           every `Nat213` is a product of irreducibles.  Native
+                           `Acc lt`/`wf_lt`, decidable `lt`/`Dvd` via a
+                           constructive bounded search (no `Classical`).  Rung 2.
 
   ## Tower/
 
