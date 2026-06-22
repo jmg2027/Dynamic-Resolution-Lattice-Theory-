@@ -57,14 +57,20 @@ with the chain load-bearing *in the proof*, not just the prose:
   genuine partial answer to the skeptic's Attack 2.
 - **Remaining (the genuinely hard part):**
   - leg-2 *depth* — a deeper discipline (primality / unique factorisation) over `Nat213`.
-  - leg-3 *full rival-PRIMITIVE exclusion* — **first deposit done** (`OneDiagonal` §6,
-    `no_distinguishing_on_subsingleton` + `raw_has_distinguishing`): the distinguishing is in the
-    *type* of the primitive `Raw.slash (x y) (h : x≠y)`, so a non-distinguishing (subsingleton)
-    rival carrier cannot fire the slash even once — it generates nothing; Raw meets the precondition
-    (`a ≠ b`). So the distinguishing primitive is non-interchangeable with a non-distinguishing
-    rival at the primitive-operation level. Remaining: model *structured* rivals (negation-first,
-    relation-first) and show they generate a degenerate/different arithmetic — the full Attack-2
-    closure (the subsingleton case is the degenerate corner; structured rivals are the open middle).
+  - leg-3 *full rival-PRIMITIVE exclusion* — **two corners closed**:
+    - *degenerate corner* (`OneDiagonal` §6, `no_distinguishing_on_subsingleton` +
+      `raw_has_distinguishing`): the distinguishing is in the *type* of `Raw.slash (x y) (h : x≠y)`,
+      so a non-distinguishing (subsingleton) rival cannot fire the slash even once — generates
+      nothing; Raw meets the precondition (`a ≠ b`).
+    - *unary / negation-first corner* (`UniverseChain.RivalArity`, 4 PURE): a unary rival's graded
+      count is **linear** (`unaryCount n = n+1`), while the binary slash obeys the **super-linear**
+      `2 + C(·,2)` recurrence (`rawCount_ge`: `n+2 ≤ rawCount n` ∀n; `binary_non_interchangeable_with_unary`:
+      constant `+1` step vs `C(·,2)` step, strict domination). A negation-first rival cannot
+      reproduce 213's graded structure — too slow, no branching.
+    - *remaining open middle*: **relation-first** and other *structured* binary rivals (e.g. a binary
+      op *without* the distinctness constraint, allowing `op x x`) — show they generate a
+      different/degenerate structure. The non-distinctness rival is the natural next target (it has
+      strictly *more* terms — the self-combinations 213 forbids — so a different graded count).
 
 ## CORRECTION (2026-06-22): leg 1 is ~80% done — the gap is leg 2
 
