@@ -1751,7 +1751,20 @@ escape. Named oMinimal/stable/Morley/NIP objects absent (the stability hits are 
 false-friends); buildable witness: a toy OrderProperty/Stable predicate on a finite Lens-family wired to
 object1_not_surjective + residue_tag_two_poles.
 
-**Count.** 124 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Perverse sheaves / intersection cohomology (`perverse_sheaves.md`) — the residue machine re-truncated
+
+EXTEND + PREDICTION + PARTIAL-BREAK. Perverse sheaves = derived_categories' residue machine **re-truncated** by
+a perverse t-structure (a fold-height re-grading = a different reading of the SAME resolution axis
+`IsResolutionShift` 17/0). ★ IC = j!* the intermediate extension = the **q+1 self-dual canonical fixed point**
+(`FenchelMoreau.closed_iff_fixed`:152 18/0 + the involution `multiplier_unimodular`); the **Decomposition
+Theorem** (proper pushforward = ⊕ shifted IC) = the residue's **semisimple q+1 splitting** into IC summands
+(`reduced_betti_d4_contractible` + `converge_residue_fixed` = the spectral-degeneration / Ext¹=0 case, vs the
+q−1 non-split `loopClass_not_coboundary` 56/0); Verdier/Poincaré duality = the q=±1 reflection (`bracket_antisymm`,
+𝔻²=id = `multiplier_unimodular`). Named Perverse/IC/tStructure/Verdier objects absent (the Verdier hits are the
+ScalingOrbit spiral false-friend); located break = the stratified-space/constructible ambient + the
+calculus-of-fractions Side-B (same as sheaf_theory/derived_categories).
+
+**Count.** 125 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
