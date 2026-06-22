@@ -18,7 +18,7 @@ theorem depends on any axiom**: `#print axioms` returns *"does not depend on any
 mathematical content, i.e. free of `propext`, `Quot.sound`, `Classical.choice`, `funext`, and
 `Lean.ofReduceBool` (`native_decide`). The development is built **without Mathlib**, reimplementing
 the numeric and collection basis (`Nat`/`Int`/`List`/a constructive `Real`) to eliminate Mathlib's
-hidden axiom leakage, at a scale of ~2,100 modules and ~15,600 theorems. The contribution is not
+hidden axiom leakage, at a scale of ~2,100 modules and ~15,700 theorem/lemma declarations. The contribution is not
 new mathematics — every theorem is classical — but (i) an **empirical datum**: how much mainstream
 mathematics is genuinely axiom-free when a machine, not the author, certifies it; (ii) a
 **methodology** — the "pure-twin" reimplementation discipline, scanner-enforced `#print axioms`
@@ -192,9 +192,13 @@ on **one shared engine** (each a proven map, ∅-axiom):
     `q = 1` (one law across the golden/Fibonacci and Markov domains).
   - **Multiplicative number theory.** `eq_of_vp_eq` welds `e`'s two homes into a product identity
     `N! = Π_{i=1}^{N} lcm(1..⌊N/i⌋)`.
-  - **CRT as a kernel coincidence.** For coprime `m,k`, the mod-`mk` reading and the
-    `(mod-m, mod-k)` product reading have the *same kernel* — a genuine cross-domain isomorphism,
-    proven for all coprime moduli.
+  - **CRT as a kernel coincidence — and a lattice isomorphism.** The mod-`m` reading and the
+    `(mod-a, mod-b)` product reading are compared by *equal kernel*. The general fact: for all
+    positive `a,b`, the product reading equals the mod-`lcm(a,b)` reading, so the modulus
+    refinement lattice *is* the divisibility lattice (refinement = divisibility, meet = `lcm`).
+    CRT (coprime `a,b`, `lcm = ab`) is the corner case. A genuine cross-domain isomorphism whose
+    two directions are an order-theoretic meet and a uniqueness argument generalized via the
+    `lcm` universal property — not a definitional accident.
 
 These are classical facts, but their *organization* — breadth descending from shared engines rather
 than accumulated per-theorem — is the structural evidence that a strict ∅-axiom development can be
@@ -228,7 +232,7 @@ python3 tools/scan_all_axioms.py      # whole-corpus PURE / sealed-DIRTY / real-
 python3 tools/scan_axioms.py <module> # per-module #print axioms classification
 ```
 
-Corpus size at draft time: 2,109 Lean modules, ~15,600 theorems/lemmas; 0 `sorry`, 0
+Corpus size at draft time: 2,110 Lean modules, ~15,700 theorem/lemma declarations; 0 `sorry`, 0
 `native_decide`, 0 real DIRTY on the mathematical content.
 
 ## Appendix B — prior-art index
