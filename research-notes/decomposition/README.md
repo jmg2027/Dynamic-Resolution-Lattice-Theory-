@@ -632,7 +632,20 @@ point. The Yoneda embedding `A↦Hom(−,A)` = the founding sentence; the Yoneda
 self-application diagonalizes out (`object1_not_surjective`, `q=−1`). Missing leg: a named `Hom(−,A)`/presheaf
 object + the Yoneda bijection as a natural `Equiv` (the latter presses on `funext` — the 1-categorical ceiling).
 
-**Count.** 45 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### Galois correspondence (`galois_correspondence.md`) — subfield↔subgroup anti-iso = the order-reversing closure; solvability = the commutator tower
+
+PREDICTION+PARTIAL (galois + convex_duality + lie_theory's bracket + orthogonality orders): the field-theoretic
+Galois correspondence = `galois.md`'s `Fix⊣Inv` adjunction with `clo=Inv∘Fix=id` on the closed (q=+1 fixed)
+elements — the SAME `f**=clo(f)` pattern as `convex_duality.md`, on the subgroup/subfield lattices (the repo's
+`divides⟺refines` anti-iso skeleton). **Field content is partially grounded** (corrects galois/convex notes):
+`CyclotomicFive.galois_group_is_C4` (`Gal(ℚ(ζ₅)/ℚ)≅C₄`) with `golden_real_subfield` (`ℚ(φ)` the order-2 fixed
+subfield), and A₅ as a real object (`A5Bridge.a5_order`=60). **Solvability = the commutator tower at q=±1**: the
+derived series `[G,G]⁽ⁿ⁾` terminating = q=+1 (solvable), vs the quintic's A₅-simplicity `[A₅,A₅]=A₅` = the q=−1
+non-terminating commutator-escape — both endpoints PURE (`Mat2Bracket.bracket_antisymm`, A₅ built) but the
+*iteration* (derived series + A₅-simplicity) is the located missing leg: promote the Lie commutator to a
+group-commutator-subgroup and iterate, tagging termination q=+1 vs A₅-escape q=−1.
+
+**Count.** 46 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
