@@ -3,9 +3,9 @@
 ## Branch
 `claude/multi-agent-math-research-3lv3gj` — pushed. `lake build E213` clean, all new modules ∅-axiom PURE.
 
-## ★★ CURRENT STATE (2026-06-22, 25-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
+## ★★ CURRENT STATE (2026-06-22, 26-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
 The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
-now spans **84 worked decompositions** of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+now spans **87 worked decompositions** of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
 converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
 `ResidueTag.lean`) + the reflexive deepening (homological algebra names the calculus's own residue-taking
 operation; spectral sequences = that operation ITERATED). Canonical indices: **`SYNTHESIS.md`** (the capstone
@@ -46,7 +46,13 @@ probability (R-transform = the ×↦+ free-log, semicircle = free CLT, free cumu
 percolation (thin/honest — p_c the q±1 transition, mostly analogy); renormalization group (the resolution dial
 made a FLOW; DRLT tie: `1/α_3(N)=(NS²−1)·S(N)` AsymptoticFreedom 6/0); operads (Raw.fold made arity-graded;
 `CombinatorialArity` proves binary-generated); TQFT (character arrow as monoidal functor ⊔↦⊗; `GRA/Monoidal`
-13/0 ships `product_NT_NT_grade`). SYNTHESIS at **v3 (count 84)**.  **Three calibrated boundaries** now located
+13/0 ships `product_NT_NT_grade`).  **Wave 26 (84→87):** quantum groups (★ a precise **BREAK** — the
+deformation-`q` vs tag-`q` is **CONTAINMENT not identity**: `qbinom` at q=−1 is the Lucas/fermionic table
+`C(⌊n/2⌋,⌊k/2⌋)`, a non-negative count, NOT the tag's ±1 swap bit; they meet only at the ±1 locus,
+`QBinomial` 11/0); information theory (mutual info = the ×↦+ character's additivity-defect = the channel
+residue; `Channel.lean` BUILT 8/0); Nash equilibria (the q=+1 fixed point of best-response, a 3rd carrier of
+the diagonal engine; minimax = LP duality = a 6th duality instance; Brouwer existence = a calibrated LLPO
+gap).  SYNTHESIS at **v3 (count 87)**.  **Three calibrated boundaries** now located
 (nonstandard/LLPO, CFT/bundle, descriptive-set/large-cardinals): the no-exterior axiom, tested at its hardest
 points, yields a *calibrated* remainder on the corpus's own strength ledger, never an uncalibrated wall.
 
