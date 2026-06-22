@@ -1,4 +1,6 @@
 import E213.Lib.Math.Probability.Limit.ConvolveRescaleContraction
+import E213.Lib.Math.Analysis.BanachFixedPointModulated
+import E213.Meta.Nat.Max213
 
 /-!
 # Probability — a genuine `CompleteMetricModulus` for the dyadic metric (zero-axiom)
@@ -378,5 +380,243 @@ theorem orbit_to_center_completion (L p : Nat) :
   show closeDy L m ((picard (Φhat L) (inj L (p, 0)) n).seq j) ((inj L (0, 0)).seq j)
   rw [hval]
   exact hgoal
+
+/-! ## 8. The diagonal limit + `climconvMod` — `DyC L` is a modulated completion
+
+`limPoint`/`stab` (§5) repaired the *bare* diagonal into a regular point for
+*every* `S` via a decidable freeze — the cost of forcing a total `lim` onto bare
+sequences (the bare `CompleteMetricModulus` interface), and its
+freeze-permanence is genuinely delicate.  The modulated engine
+(`BanachFixedPointModulated.CompleteMetricModulusMod`) sidesteps that entirely:
+with the convergence modulus supplied as **data**, the diagonal can be
+*subsampled* against that modulus into a genuinely **regular** (identity-modulus)
+sequence — no freeze.
+
+The plain diagonal `diagSeq` is Cauchy with a *non-identity* modulus
+(`diag_reg`: its scale-`m` modulus is `cmod N m = N (m+2) + (m+2)`).  To make a
+`DyC L` (which demands the identity-modulus `reg` spec) we reindex by a monotone
+running-max `cmodMon N` of that modulus: `regDiag k = diagSeq (cmodMon N k)`.
+Monotone + dominating ⇒ for `p, q ≥ m` both indices clear `cmod N m`, so
+`diag_reg_mod` lands `closeDy m (regDiag p) (regDiag q)` — identity-modulus
+regular.  `climconv` then chains `(S p).seq big — (S big').seq big —` via `qtri`,
+the `diag_reg` skeleton, against `regDiag` in the tail. -/
+
+open E213.Lib.Math.Analysis.BanachFixedPoint
+  (CompleteMetricModulusMod)
+
+/-- **`diag_reg_mod` — `diag_reg` with the modulus as an explicit argument.**
+    For an explicit modulus `N` (`closeC`-Cauchy at `N`), the plain diagonal is
+    Cauchy with the explicit scale-`m` modulus `N (m+2) + (m+2)`.  Same proof as
+    `diag_reg` (chain via `big`, `qtri`), `N` supplied rather than chosen. -/
+theorem diag_reg_mod (L : Nat) (S : Nat → DyC L) (N : Nat → Nat)
+    (hcau : ∀ m p q, p ≥ N m → q ≥ N m → closeC L m (S p) (S q)) :
+    ∀ m p q, p ≥ N (m + 2) + (m + 2) → q ≥ N (m + 2) + (m + 2) →
+      closeDy L m (diagSeq L S p) (diagSeq L S q) := by
+  intro m p q hp hq
+  have hpNidx : p ≥ N (m + 2) := Nat.le_trans (Nat.le_add_right _ (m + 2)) hp
+  have hpm2 : p ≥ m + 2 := Nat.le_trans (Nat.le_add_left (m + 2) _) hp
+  have hqNidx : q ≥ N (m + 2) := Nat.le_trans (Nat.le_add_right _ (m + 2)) hq
+  have hqm2 : q ≥ m + 2 := Nat.le_trans (Nat.le_add_left (m + 2) _) hq
+  obtain ⟨K, hK⟩ := hcau (m + 2) p q hpNidx hqNidx
+  let big : Nat := p + q + K
+  have hbig_p : big ≥ p :=
+    Nat.le_trans (Nat.le_add_right p q) (Nat.le_add_right (p + q) K)
+  have hbig_K : big ≥ K := Nat.le_add_left K (p + q)
+  have hbig_m2 : big ≥ m + 2 := Nat.le_trans hpm2 hbig_p
+  have hleg1 : closeDy L (m + 2) (diagSeq L S p) ((S p).seq big) :=
+    (S p).reg (m + 2) p big hpm2 hbig_m2
+  have hleg2 : closeDy L (m + 2) ((S p).seq big) ((S q).seq big) :=
+    hK big hbig_K
+  have hleg3 : closeDy L (m + 2) ((S q).seq big) (diagSeq L S q) :=
+    (S q).reg (m + 2) big q hbig_m2 hqm2
+  exact (dyMet L).qtri m (diagSeq L S p) ((S p).seq big) ((S q).seq big)
+    (diagSeq L S q) hleg1 hleg2 hleg3
+
+/-- The scale-`m` diagonal modulus from an explicit Cauchy modulus `N`. -/
+def cmod (N : Nat → Nat) (m : Nat) : Nat := N (m + 2) + (m + 2)
+
+/-- Monotone running-max of `cmod N`: `cmodMon N k = max_{j ≤ k} cmod N j`. -/
+def cmodMon (N : Nat → Nat) : Nat → Nat
+  | 0 => cmod N 0
+  | k + 1 => Nat.max (cmodMon N k) (cmod N (k + 1))
+
+/-- `cmodMon` is nondecreasing. -/
+theorem cmodMon_mono (N : Nat → Nat) (k : Nat) :
+    cmodMon N k ≤ cmodMon N (k + 1) :=
+  E213.Meta.Nat.Max213.le_max_left _ _
+
+/-- `cmodMon` dominates `cmod` at its own index. -/
+theorem cmod_le_cmodMon (N : Nat → Nat) : ∀ k, cmod N k ≤ cmodMon N k
+  | 0 => Nat.le_refl _
+  | _ + 1 => E213.Meta.Nat.Max213.le_max_right _ _
+
+/-- `cmodMon N a ≤ cmodMon N (a + d)` for every `d` (iterate the one-step bound). -/
+theorem cmodMon_le_add (N : Nat → Nat) (a : Nat) :
+    ∀ d, cmodMon N a ≤ cmodMon N (a + d)
+  | 0 => Nat.le_refl _
+  | d + 1 => Nat.le_trans (cmodMon_le_add N a d) (cmodMon_mono N (a + d))
+
+/-- `cmodMon` is monotone across `≤`. -/
+theorem cmodMon_le_of_le (N : Nat → Nat) {a b : Nat} (h : a ≤ b) :
+    cmodMon N a ≤ cmodMon N b := by
+  obtain ⟨d, hd⟩ := Nat.le.dest h
+  rw [← hd]
+  exact cmodMon_le_add N a d
+
+/-- `cmod N` dominated by `cmodMon N` at every later index: `m ≤ k → cmod N m ≤
+    cmodMon N k`.  (The running-max is monotone and dominates pointwise.) -/
+theorem cmod_le_cmodMon_of_le (N : Nat → Nat) {m k : Nat} (h : m ≤ k) :
+    cmod N m ≤ cmodMon N k :=
+  Nat.le_trans (cmod_le_cmodMon N m) (cmodMon_le_of_le N h)
+
+/-- **The regularized (subsampled) diagonal** — a genuine identity-modulus
+    `DyC L`.  `regDiag k = diagSeq (cmodMon N k)`; for `p, q ≥ m` both indices
+    clear `cmod N m`, so `diag_reg_mod` gives the identity-modulus `reg` spec. -/
+def regDiagPoint (L : Nat) (S : Nat → DyC L) (N : Nat → Nat)
+    (hcau : ∀ m p q, p ≥ N m → q ≥ N m → closeC L m (S p) (S q)) : DyC L where
+  seq := fun k => diagSeq L S (cmodMon N k)
+  reg := fun m p q hp hq =>
+    diag_reg_mod L S N hcau m (cmodMon N p) (cmodMon N q)
+      (cmod_le_cmodMon_of_le N hp) (cmod_le_cmodMon_of_le N hq)
+
+/-! ## 9. `climconvMod` for the regularized diagonal + the engine instance -/
+
+/-- **★ `climconv_regDiag` — the convergence (∅-axiom, finite `Nat`).**
+
+    For a modulus-carried Cauchy `S`, the regularized diagonal `regDiagPoint` is
+    its `closeC` limit: for every scale `m`, past `N (m+2) + (m+2)` the terms
+    `S p` are `closeC m` to `regDiagPoint`.  Crux: `closeC m (S p) regDiagPoint`
+    needs a tail `K` with `closeDy m ((S p).seq big) ((S (cmodMon N n)).seq big)`
+    for `n ≥ K`; take `K = N (m+2) + (m+2)`, and for each such `n` chain through
+    `big = p + cmodMon N n + (inner tail)` via three `(m+2)`-legs (`qtri`).  The
+    subsample index `cmodMon N n ≥ cmod N n ≥ N (m+2) + (m+2) ≥ N (m+2)` clears
+    the Cauchy modulus, so leg 2 holds. -/
+theorem climconv_regDiag (L : Nat) (S : Nat → DyC L) (N : Nat → Nat)
+    (hcau : ∀ m p q, p ≥ N m → q ≥ N m → closeC L m (S p) (S q)) :
+    ∀ m, ∃ K, ∀ p, p ≥ K → closeC L m (S p) (regDiagPoint L S N hcau) := by
+  intro m
+  refine ⟨N (m + 2) + (m + 2), fun p hp => ?_⟩
+  -- tail K = N(m+2)+(m+2): for n ≥ K, closeDy m ((S p).seq n) (regDiag.seq n)
+  refine ⟨N (m + 2) + (m + 2), fun n hn => ?_⟩
+  -- regDiag.seq n = diagSeq (cmodMon N n) = (S (cmodMon N n)).seq (cmodMon N n)
+  show closeDy L m ((S p).seq n)
+    ((S (cmodMon N n)).seq (cmodMon N n))
+  -- r := cmodMon N n, the subsample index.  Since n ≥ N(m+2)+(m+2) ≥ m+2 ≥ m,
+  -- the running-max dominates cmod N m = N(m+2)+(m+2): cmodMon N n ≥ cmod N m.
+  have hn_m2 : n ≥ m + 2 := Nat.le_trans (Nat.le_add_left (m + 2) _) hn
+  have hnm' : m ≤ n :=
+    Nat.le_trans (Nat.le_trans (Nat.le_succ m) (Nat.le_succ (m + 1))) hn_m2
+  have hrge : cmodMon N n ≥ N (m + 2) + (m + 2) :=
+    cmod_le_cmodMon_of_le N hnm'
+  -- bounds
+  have hpNidx : p ≥ N (m + 2) := Nat.le_trans (Nat.le_add_right _ (m + 2)) hp
+  have hpm2 : p ≥ m + 2 := Nat.le_trans (Nat.le_add_left (m + 2) _) hp
+  have hnm2 : n ≥ m + 2 := Nat.le_trans (Nat.le_add_left (m + 2) _) hn
+  have hrNidx : cmodMon N n ≥ N (m + 2) :=
+    Nat.le_trans (Nat.le_add_right _ (m + 2)) hrge
+  have hrm2 : cmodMon N n ≥ m + 2 :=
+    Nat.le_trans (Nat.le_add_left (m + 2) _) hrge
+  -- inter-term Cauchy tail at scale (m+2) between p and r=cmodMon N n
+  obtain ⟨Kt, hKt⟩ := hcau (m + 2) p (cmodMon N n) hpNidx hrNidx
+  let big : Nat := p + cmodMon N n + Kt
+  have hbig_p : big ≥ p :=
+    Nat.le_trans (Nat.le_add_right p (cmodMon N n))
+      (Nat.le_add_right (p + cmodMon N n) Kt)
+  have hbig_K : big ≥ Kt := Nat.le_add_left Kt (p + cmodMon N n)
+  have hbig_m2 : big ≥ m + 2 := Nat.le_trans hpm2 hbig_p
+  -- leg1: (S p) regular, indices n, big
+  have hleg1 : closeDy L (m + 2) ((S p).seq n) ((S p).seq big) :=
+    (S p).reg (m + 2) n big hnm2 hbig_m2
+  -- leg2: inter-term Cauchy at index big
+  have hleg2 : closeDy L (m + 2) ((S p).seq big) ((S (cmodMon N n)).seq big) :=
+    hKt big hbig_K
+  -- leg3: (S r) regular, indices big, r
+  have hleg3 : closeDy L (m + 2)
+      ((S (cmodMon N n)).seq big) ((S (cmodMon N n)).seq (cmodMon N n)) :=
+    (S (cmodMon N n)).reg (m + 2) big (cmodMon N n) hbig_m2 hrm2
+  exact (dyMet L).qtri m ((S p).seq n) ((S p).seq big)
+    ((S (cmodMon N n)).seq big) ((S (cmodMon N n)).seq (cmodMon N n))
+    hleg1 hleg2 hleg3
+
+/-- **★ `completeDyMod L` — the modulated completion of the dyadic metric.**
+    The first **non-trivial** inhabitant of `CompleteMetricModulusMod` (the only
+    prior one is the degenerate `trivCompleteMod` on `Unit`): `limMod` is the
+    regularized diagonal of the modulus-carried Cauchy sequence; `climconvMod` is
+    the finite-`Nat` `climconv_regDiag`.  No freeze, no choice. -/
+def completeDyMod (L : Nat) : CompleteMetricModulusMod (DyC L) where
+  toMetricModulus := metC L
+  limMod := fun S N hcau => regDiagPoint L S N hcau
+  climconvMod := fun S N hcau m => climconv_regDiag L S N hcau m
+
+/-! ## 10. ★★★ The Gaussian center as a fixed point THROUGH the reusable engine
+
+The headline.  `Φhat_contraction` (§6) is exactly the `Contraction` the
+modulated engine consumes; feeding it the base gap, `banach_fixed_point_modulated`
+lands the convolve-rescale fixed point as the *engine-produced* Picard limit
+`picardLim` — and that limit is `closeC`-equal (at every scale) to the Gaussian
+center `inj L (0,0)`.  The center is the located fixed point of convolve-and-
+rescale, obtained through a reusable generic engine, ∅-axiom — not the by-hand
+`orbit_to_center_completion`. -/
+
+/-- The base gap for the `Φhat` orbit from the seed `inj L (p, 0)` at scale `s+1`:
+    `closeC (s+1) (inj L (p,0)) (Φhat L (inj L (p,0)))`, provided `2^(s+1)·p <
+    2^1·2^(L+1)` (the `Dy`-level base gap `closeDy_center`, lifted pointwise). -/
+theorem Φhat_base_gap (L p s : Nat)
+    (h : 2 ^ (s + 1) * p < 2 ^ 1 * 2 ^ (L + 1)) :
+    closeC L (s + 1) (picard (Φhat L) (inj L (p, 0)) 0)
+      (picard (Φhat L) (inj L (p, 0)) 1) := by
+  refine ⟨0, fun n _ => ?_⟩
+  -- picard 0 = inj (p,0) (seq ≡ (p,0)); picard 1 = Φhat (inj (p,0)) (seq ≡ Φ (p,0) = (p,1))
+  show closeDy L (s + 1) ((inj L (p, 0)).seq n)
+    ((Φhat L (inj L (p, 0))).seq n)
+  -- (inj L (p,0)).seq n ≡ (p,0); (Φhat …).seq n ≡ Φ ((inj …).seq n) ≡ Φ (p,0) = (p,1)
+  show closeDy L (s + 1) (p, 0) (Φ (p, 0))
+  -- Φ (p,0) = (p,1); closeDy (s+1) (p,0) (p,1)
+  show closeDy L (s + 1) (p, 0) (p, 1)
+  unfold closeDy
+  -- 2^(s+1)·crossDist (p,0)(p,1) < 2^(0+1)·2^(L+1)
+  have hc : crossDist ((p : Nat), (0 : Nat)) ((p : Nat), (1 : Nat)) = p := by
+    show E213.Lib.Math.Analysis.UniformLimitContinuous.distN
+      (p * 2 ^ 1) (p * 2 ^ 0) = p
+    show (p * 2 ^ 1 - p * 2 ^ 0) + (p * 2 ^ 0 - p * 2 ^ 1) = p
+    rw [Nat.pow_one, Nat.pow_zero, Nat.mul_one]
+    -- (p*2 - p) + (p - p*2) = p :  p*2 = p + p, so (p+p) - p = p and p - (p+p) = 0
+    have e1 : p * 2 = p + p := by rw [Nat.mul_comm]; exact Nat.two_mul p
+    rw [e1]
+    -- (p+p) - p = p via the pure add_sub_cancel_p ; p - (p+p) = 0 via pure sub_eq_zero_of_le_p
+    rw [E213.Lib.Math.Analysis.UniformLimitContinuous.add_sub_cancel_p p p,
+      E213.Lib.Math.Probability.Limit.ConvolveRescaleContraction.sub_eq_zero_of_le_p
+        (Nat.le_add_right p p),
+      Nat.add_zero]
+  show 2 ^ (s + 1) * crossDist ((p : Nat), (0 : Nat)) ((p : Nat), (1 : Nat))
+      < 2 ^ ((0 : Nat) + 1) * 2 ^ (L + 1)
+  rw [hc, Nat.zero_add]
+  exact h
+
+/-- The base-gap hypothesis at the center seed `p = 0`: `2^(0+1)·0 < 2^1·2^(L+1)`
+    (the LHS is `0`, the RHS positive). -/
+theorem center_base_lt (L : Nat) : 2 ^ (0 + 1) * 0 < 2 ^ 1 * 2 ^ (L + 1) := by
+  rw [Nat.mul_zero]
+  exact Nat.mul_pos (Nat.pos_pow_of_pos 1 (by decide))
+    (Nat.pos_pow_of_pos (L + 1) (by decide))
+
+/-- **★★★ Gaussian center = fixed point of `Φhat` through the reusable engine.**
+
+    The convolve-rescale fixed point `x* = (completeDyMod L).picardLim …` (the
+    Picard limit produced by `banach_fixed_point_modulated` from
+    `Φhat_contraction`) satisfies `closeC m x* (Φhat L x*)` at every scale —
+    located equality `Φhat x* = x*` — obtained THROUGH the generic modulated
+    engine.  Seed `inj L (p,0)` with `p = 0` (`2^(s+1)·0 = 0 < …`), so the base
+    gap holds for any `s`; the engine lands the center as a genuine Banach fixed
+    point, ∅-axiom, reusable. -/
+theorem gaussian_center_fixed_via_engine (L : Nat) :
+    ∀ m, closeC L m
+      ((completeDyMod L).picardLim (Φhat_contraction L) (inj L (0, 0)) 0
+        (Φhat_base_gap L 0 0 (center_base_lt L)))
+      (Φhat L
+        ((completeDyMod L).picardLim (Φhat_contraction L) (inj L (0, 0)) 0
+          (Φhat_base_gap L 0 0 (center_base_lt L)))) :=
+  (completeDyMod L).banach_fixed_point_modulated
+    (Φhat_contraction L) (inj L (0, 0)) 0 (Φhat_base_gap L 0 0 (center_base_lt L))
 
 end E213.Lib.Math.Probability.Limit.DyadicCompletion

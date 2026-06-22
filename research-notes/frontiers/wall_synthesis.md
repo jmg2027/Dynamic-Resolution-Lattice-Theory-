@@ -1,6 +1,31 @@
 # Frontier: defeating the "principled constructive wall" (Banach engine, ∅-axiom)
 
-**Status**: open, with a converged plan — three independent mathematical schools (constructive
+**Status**: CLOSED (Route A, modulated engine).  The wall is defeated ∅-axiom.
+Built (all PURE, `#print axioms` → no axioms):
+- `lean/E213/Lib/Math/Analysis/BanachFixedPointModulated.lean` — the reusable
+  generic engine: `CompleteMetricModulusMod` (modulus-as-data completeness),
+  `picard_cauchy_mod`, `CompleteMetricModulusMod.banach_fixed_point_modulated`
+  (fixed point with NO bare `lim`), `trivCompleteMod` non-vacuity.
+- `lean/E213/Lib/Math/Probability/Limit/DyadicCompletion.lean` §8-10 — the
+  `DyC L` instance: `diag_reg_mod` (modulus-explicit diagonal regularity),
+  `cmodMon` (monotone running-max reindexer), `regDiagPoint` (the subsampled
+  diagonal = genuine identity-modulus `DyC L`), `climconv_regDiag` (the crux,
+  finite-`Nat` qtri convergence proof), `completeDyMod` (first NON-trivial
+  inhabitant of the engine), and the headline `gaussian_center_fixed_via_engine`
+  — the Gaussian center `inj L (0,0)` as a located fixed point of `Φhat`
+  obtained THROUGH the engine (not the by-hand `orbit_to_center_completion`).
+
+Note vs the original plan: step 1's `climconv` was discharged NOT for the
+`stab`/`limPoint` freeze (whose freeze-permanence is genuinely delicate) but for
+the cleaner *modulated* limit — the plain diagonal **subsampled against the
+supplied modulus** (`regDiagPoint`), which is identity-modulus regular by
+construction.  With the modulus as data this needs no freeze and no choice; the
+freeze-permanence subtlety is sidestepped, not resolved.  `limPoint`/`stab`
+remain in the file as the bare-interface artifact.
+
+---
+
+**Original plan (converged)** — three independent mathematical schools (constructive
 Bishop–Bridges, computable-analysis/domain-theory, reverse-math/proof-theory) attacked the wall
 separately and **agree on the diagnosis and the fix**. Memos: `wall_constructive.md`,
 `wall_computable.md`, `wall_reverse_math.md`. This file synthesizes them into one Lean plan.
