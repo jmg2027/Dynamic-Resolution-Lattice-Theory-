@@ -796,9 +796,28 @@ sign-propagation (`dsq_zero_universal_delta4`); proj/inj resolution = the resolu
 split-q=+1/non-split-q=−1 residue, `clo_idempotent`). So derived functors are the *systematic, graded* name
 for the calculus's residue-of-a-reading construction — unifying homology + de_rham + sheaf under one machine.
 Missing leg: the named `Ext`/`Tor`/resolution/exact-sequence objects (grep-confirmed absent); buildable
-witness named — a nonzero `Ext¹` via `kerSizeDelta` on a non-exact resolution (mirroring the exact zero case).
+witness named — a nonzero `Ext¹` via `kerSizeDelta` on a non-exact resolution, now **BUILT**
+(`NonzeroBetti.lean`, 56/0 PURE: hollow-triangle `H¹≠0`, `betti_one_cycle`, `cycle_vs_contractible_qpm`).
 
-**Count.** 57 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Combinatorial game theory / Sprague–Grundy (`game_theory.md`) — consolidates surreal + parity + normal-form under q=±1
+
+PREDICTION (leverage) + PARTIAL. Combinatorial game theory adds **no new axis** — it fuses three
+already-decomposed pieces: an impartial game = surreal.md's `C` (directed iterated distinguishing) in its
+**symmetric/swap-trivial** case (`Raw.slash_comm`, so the value is a single unsigned Nat = the nim-value,
+not a signed surreal); the nim-value `G(g)=mex{G(g')}` = the `Raw.fold` catamorphism to the canonical
+Nim-heap (`raw_initial`/`dhom_unique_pointwise` — Sprague–Grundy **is** the fold-to-normal-form initiality
+theorem); game-sum `G(g+h)=G(g)⊕G(h)` = **parity.md's character arrow in its 𝔽₂^k form**
+(`psiNatPos_linear` PURE, the XOR-fold distributing over pointwise XOR; group `C2_6.mul`). P-positions
+`G=0` = the q=+1 converging pole (`golden_is_converge`), N-positions `G≠0` = the q=−1 escape
+(`no_surjection_of_fixedpointfree`); mex itself = a **bounded diagonal** (the diagonal read at finite
+resolution = the first missing Nat). ★ Purity revelation: the nim-sum is PURE **only coordinatewise**
+(`Fin 6 → Bool` pointwise XOR); the packed `Nat.xor` form is DIRTY (`AutKGroup.lean:71`, `propext`/
+`Quot.sound` via `Nat.xor_assoc`) — a character is PURE exactly when read per-bit, the same PURE/DIRTY =
+Heyting/Boolean boundary topos.md/SYNTHESIS §6 names as 213's constructive line, surfaced here on the
+central arrow itself. Missing leg: the named `Game`/`Nim`/`Grundy`/`mex` object (grep-confirmed absent) —
+the identical ceiling surreal.md and knots.md hit; the `C`, character, and normal-form legs are PURE-anchored.
+
+**Count.** 58 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
