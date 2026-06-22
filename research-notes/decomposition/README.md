@@ -995,7 +995,35 @@ LLPO-strength sign-decision the corpus PROVES non-constructive (`comparability_i
 under test: internal handle found and built; the irreducible remainder *measured at LLPO*, not posited as a
 wall. Transfer/Łoś/`st`/`𝒰` all absent (require `𝒰`'s maximality).
 
-**Count.** 70 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Coding theory / error-correcting codes (`coding_theory.md`) — a linear code IS a cochain complex (and it's BUILT)
+
+EXTEND — and *stronger* than the thesis predicted: the named field object is **BUILT ∅-axiom**, not absent.
+A linear code = the parity χ-character read as a cochain complex: `H = δ₁` (parity-check = coboundary),
+`G = δ₀` (generator), code `= ker δ₁ = im δ₀` (cocycles, the SAME ker δ as homology.md), syndrome `= δ₁x` =
+the cohomology class (the residue of x mod the code), `H·Gᵀ=0 = δ²=0` (the q=±1 orientation cancellation),
+`s=0`/`s≠0` = the q=±1 converge/escape tag (= `nonzero_cohomology_class`), ambient 𝔽₂ⁿ = the parity/game XOR
+character. The repo ships a complete STRICT ∅-axiom `[10,4,4]` code: `MLDecoder` (13/0,
+`ml_decoder_capstone` — Hamming bound, syndrome=0 clean / =3 under error, ML decoder recovery + 1-error
+correction), `SpinGlass` (13/0, `delta0`/`delta1`/`cocycleObstruction`/`spin_glass_213_capstone` `H·Gᵀ=0`) —
+the **Sourlas identity** (ML decoding = spin-glass ground state = cohomology, one ⟨C|L⟩ read three ways);
+`Coding` (10/0, the Hamming metric `decodeML` minimizes); min distance = smallest nonzero cocycle
+(`betti_one_cycle`). Predicted-not-built: the abstract parametric `LinearCode`, the Singleton/MDS bound, and
+Reed–Solomon/BCH (need 𝔽_q, q>2 — the q>2 ceiling).
+
+### ★ Matroid theory (`matroid_theory.md`) — the FIFTH `clo` closure-family instance
+
+EXTEND + PREDICTION. A matroid = the calculus's idempotent closure `clo` (`GaloisConnection.clo`/
+`clo_idempotent`/`clo_extensive`/`clo_monotone`, 15/0) read on a finite atom-carrier — the **fifth
+`f**=clo`-family instance** after Galois/Legendre–Fenchel/Nullstellensatz/optimal-transport; a flat = a closed
+set = a `clo`-fixed point (`FenchelMoreau.closed_iff_fixed`, welded via `cloAntitone_eq_gc_clo`). Two
+matroid-specific legs: the **rank = dimension** height-reading (`LinearDependence.dimension_bound_is_count`:85,
+7/0 — the rank ceiling as a pigeonhole count) and the **q=±1 complementation involution** (duality `M↔M*`,
+`multiplier_unimodular`). Greedy=optimal = the "fold-to-normal-form gives the optimum" characterization (the
+q=+1 closure corner where `clo` settles). Named `Matroid`/`independentSet`/`circuit`/`submodular` absent
+(grep-confirmed; the "greedy" hits are the unrelated GRA cell-depth minimization). Buildable witness: the
+matroid-closure `clo` on the 𝔽₂ span (`cl S = {v | r(S∪{v})=r(S)}`, idempotent via `clo_idempotent`).
+
+**Count.** 72 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
