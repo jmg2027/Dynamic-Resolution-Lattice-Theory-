@@ -140,11 +140,19 @@ shared term is the rung. F1 (bialgebra distributivity of `Δ_+`/`Δ_×`) still o
    conserved (same law as golden Cassini). Family II's two sub-domains unified.
 3. **Bell/Dobinski via the partition antipode** (`BellStirling`): `B(n) = Σ_k S₂(n,k)`; wire a
    falling-factorial/moment forward identity to `stirling_inversion_via_engine`. Risk MED.
-4. **A cross-domain `LensIso` + transport** via `lensIso_iff_kernel_eq`
-   (`Lens/Unified.lean`) between two independently-built domains, a theorem
-   transported across. Guard: avoid the tautology (same `Raw`) and the
-   genius-requiring extreme — aim at provable-but-not-definitional kernel coincidence
-   (COUNT-duality is the template: two enumerations, one swap).
+4. **Cross-domain `LensIso`** — **ASSESSED this session** (see `the_substance_test.md`
+   "State of Line A"). The abstract-`Lens`-instance version is tautology-prone (the corpus's
+   `Lens/Instances/` have *distinct* kernels; no clean equal-kernel pair). **The genuine
+   number-theoretic one already exists**: CRT as `ModArith.LensCRT` (`L_6 ≈ prodLens(L_2,L_3)`,
+   equal kernel). Open extension: generalize to all coprime `m,k`
+   (`prodLens L_m L_k ≈ L_{mk}`) at the Lens-lattice level (needs general coprime CRT, not the
+   concrete `L_6`). This is the one remaining *internal* Line-A theorem worth building.
+
+## Line B (the genuinely-remaining frontier — exposure)
+The no-exterior claim cannot be falsified from inside (§5.1 blind spot). Next real test is
+external: (a) the ITP/CPP/JAR formalization paper (audit §"the one publishable kernel",
+residue-metaphysics stripped); (b) one pre-registered, time-boxed ISA attack on a recognized
+open problem. These are the Skeptic's recommendation and the honest next phase.
 
 Standing technique note (recurs every deposit): existing identities are stated over
 *different `sumZ`/`sumTo` clones* (BinomialInversion / StirlingOrthogonality /
