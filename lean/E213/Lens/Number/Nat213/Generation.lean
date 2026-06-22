@@ -66,4 +66,34 @@ theorem generation_capstone (n : Nat) :
     ∧ Lens.leaves.view (numeral n) = n + 1 :=
   ⟨rfl, leaves_numeral n⟩
 
+/-! ## §2 — the distinguishing is necessary: distinguishing-blind readings collapse -/
+
+/-- A **distinguishing-blind** reading: the constant combine `fun _ _ => 1` ignores the `slash`
+    structure entirely (it never looks at the branches it combines). -/
+def degLens : Lens Nat := ⟨1, 1, fun _ _ => 1⟩
+
+/-- The distinguishing-blind reading collapses *every* Raw to `1` — it cannot see the `slash`,
+    so it carries no count. -/
+theorem deg_view_one (r : Raw) : degLens.view r = 1 := by
+  induction r using Raw.rec with
+  | a => rfl
+  | b => rfl
+  | slash x y h _ _ =>
+      show Raw.fold 1 1 (fun _ _ => 1) (Raw.slash x y h) = 1
+      rw [Raw.fold_slash 1 1 (fun _ _ => 1) (fun _ _ => rfl) x y h]
+
+/-- ★★★ **The distinguishing is necessary for the count** (partial rival-exclusion).  The
+    distinguishing-blind reading `degLens` maps *all* numerals to one value (`deg_view_one`), so it
+    cannot tell `numeral 0` from `numeral 1`; the count — which *uses* the distinguishing via `+` —
+    separates them (`leaves_numeral`: `1 ≠ 2`).  So arithmetic is **not** recovered by an arbitrary
+    reading of the distinguishing: only a reading that genuinely combines the branches (uses the
+    `slash`) generates it.  A reading blind to the distinguishing collapses — the structure is
+    load-bearing, not decorative. -/
+theorem distinguishing_necessary :
+    (degLens.view (numeral 0) = degLens.view (numeral 1))
+    ∧ (Lens.leaves.view (numeral 0) ≠ Lens.leaves.view (numeral 1)) := by
+  refine ⟨by rw [deg_view_one, deg_view_one], ?_⟩
+  rw [leaves_numeral, leaves_numeral]
+  decide
+
 end E213.Lens.Number.Nat213.Generation
