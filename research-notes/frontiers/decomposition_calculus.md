@@ -21,12 +21,24 @@ self-application surplus, tagged `q = ±1` (escape/oscillate vs converge/fixed-p
 DONE (batch 3, both EXTEND, no break): **groups** (a group = `⟨C | Aut C closed under composition⟩`,
 axioms forced — readings form a composition-closed family); **probability** (`P = ratio∘count`, first
 *composite* reading; `L` gains a `weight` parameter; independence = ×-character, expectation = its
-additive twin). Lesson: **readings form a category.** Remaining targets (chosen to *break/extend*):
-- **homology / the boundary operator** — `∂² = 0` as a residue/character fact? (repo `Cohomology/*`.)
-- **the Galois correspondence** — two readings whose fibres mirror (a `LensIso` of two `Aut`-families)?
-  (now sharper post-`groups.md`: Galois = an iso of two composition-closed reading-families.)
-- **ordinals / well-ordering** — fold-height pushed transfinite; where does the finite-signature bite?
-- **information / entropy** — a weighted count-reading's *residue* (probability.md's `weight` × log-character)?
+additive twin). Lesson: **readings form a category.** DONE (batch 4, all EXTEND, no break — 17 decompositions total): **homology** (∂ = fold-height run
+downward → height bidirectional; ∂²=0 forced by q=±1; nilpotent/involutive = the two q=±1 poles);
+**ordinals** (ω = height-residue q=+1; model caps honestly at ω); **galois** (first non-invertible
+reading-pair = adjoint/order-reversing connection; FT = residue-collapse-to-closure); **entropy**
+(★ FIRST LEVERAGE — H = weight∘log-character, the calculus *predicts* entropy's form, not re-skin).
+
+**Shift of emphasis (post-leverage):** the collapse-hunting phase has shown the model is robust (17/17
+EXTEND). The next phase should prioritize **leverage** — decompositions that *predict/derive* a form or
+*enable* a result, like entropy did — over more confirming collapses. Candidate leverage-targets:
+- **the Fourier/character duality** — does "a function = Σ over its characters" fall out of the
+  character-mode (a reading's spectrum)? (would predict, not re-describe.)
+- **the central limit / Gaussian** — forced by weight∘character at the resolution limit?
+- **Noether's theorem** (symmetry→conservation) — an `Aut(C)`-invariant = a conserved readout? (ties
+  groups.md to physics.)
+- **adjunction/monad** — generalize galois.md's adjoint-pair to the full categorical adjunction (the
+  repo's readings-form-a-category lesson made explicit).
+
+### Open Lean faithfulness-targets (would certify a current prose-only collapse)
 
 ### Open Lean faithfulness-targets (would certify a current prose-only collapse)
 - `continuous_iff_preimage_dyadicopen` (`continuity.md` flags the open-set/preimage leg as prose).
