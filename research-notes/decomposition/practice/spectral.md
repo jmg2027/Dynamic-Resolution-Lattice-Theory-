@@ -61,6 +61,22 @@ The hypotheses under test (from the task):
   real-symmetric / positivity guarantee of a real spectrum is the statement "stay at `q=+1`"
   (`disc ≥ 0`), the same corner discipline `measure.md`/`topology.md` named.
 
+  **NOW BUILT ∅-axiom (`Mat2/Mat2SymmetricSpectrum.lean`, 9/0 PURE):** the `2×2` spectral theorem at the
+  existence level. `disc_symmetric_sum_of_squares` (`IsSymmetric M → disc M = (a−d)²+(2b)²`) and
+  **`disc_symmetric_nonneg`** (`IsSymmetric M → 0 ≤ disc M`) — the symmetric discriminant is a sum of
+  squares, so the spectrum is REAL: the elliptic `disc<0` escape is structurally unavailable to a
+  symmetric operator. `disc_zero_iff_scalar` (the repeated-eigenvalue cusp = exactly the scalar
+  matrices), `disc_symmetric_pos_of_nonscalar` (off the scalar locus, two distinct real eigenvalues),
+  `symmetric_gap_squared_nonneg` (under the `Mat2Spectrum` factorization, `(μ−ν)²=(a−d)²+(2b)²≥0`, so
+  `μ,ν` cannot be a complex pair). So the eigenvalue-existence residue is **closed for the symmetric
+  case** at the `disc≥0` (real-square-root-exists) level — the `q=+1` corner is now a theorem. Honest
+  remaining residual: the eigenvalue *value* `√disc` is still a `Real213` √-cut (irrational in general,
+  e.g. symmetric `disc=5`), and the repo has only √-*irrationality* infrastructure (`SqrtPure`), no
+  value-bearing nonneg-real √-cut over which `charPoly` factors — so the explicit eigenvalue cuts +
+  their `charPoly`-root proofs stay open (a `Real213` task). Per the residue framing, irrationality of
+  the value is reached-by-none, NOT an escape to ℂ; `disc≥0` is exactly the existence-of-the-real-root
+  statement, now ∅-axiom.
+
 ## Re-seeing
 
 ```

@@ -108,9 +108,11 @@ import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HyperbolicBoost
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.ParabolicTranslation
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2CayleyHamilton
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Spectrum
+import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2SymmetricSpectrum
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Adjugate
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence
+import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Bracket
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyOrderLaw
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyFreeness
