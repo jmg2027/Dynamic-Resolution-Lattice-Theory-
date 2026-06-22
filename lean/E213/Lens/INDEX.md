@@ -82,8 +82,7 @@ Lens-side distribution (the live ones):
   · `Properties/Morphism/BoolProp` — 10  category (a) propext (Bool↔Prop equating)
   · `AxiomLenses/Bridges/{Funext,QuotSound}` — 2  axiom-exhibiting bridge lenses (by design)
 
-The Lens-funext family previously listed here (`Instances/Leaves/DepthJoin`,
-`Universal/QuotLens`, `Lattice/IndexedJoin`, `Instances/Cauchy`,
-`Instances/FunctionSpace`) is now **fully PURE** (the sealed class shrank;
-see `STRICT_ZERO_AXIOM.md`).  All other Lens modules are PURE; scanner
-reports zero unsealed DIRTY.
+The Lens-funext family (`Instances/Leaves/DepthJoin`, `Universal/QuotLens`,
+`Lattice/IndexedJoin`, `Instances/Cauchy`, `Instances/FunctionSpace`) is
+**fully PURE** (see `STRICT_ZERO_AXIOM.md`).  All other Lens modules are PURE;
+scanner reports zero unsealed DIRTY.

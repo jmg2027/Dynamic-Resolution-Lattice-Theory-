@@ -232,11 +232,11 @@ scanned, 18,798 PURE, 47 DIRTY (all sealed-by-design), 0 real DIRTY.**
   ·  1  E213.Lens.AxiomLenses.Bridges.QuotSound             — (c) axiom-exhibiting: sound_lens := Quot.sound
   ·  1  E213.Lib.Math.Cohomology.Surfaces.T2Minimal.CupPairing — (b) funext toll on cochain `=` (pointwise `cup_symm_pointwise` PURE)
 
-The Lens funext family previously listed here (`Instances.Leaves.DepthJoin`,
-`Universal.QuotLens`, `Lattice.IndexedJoin`, `Instances.Cauchy`,
-`Instances.FunctionSpace`) is now **fully PURE** (0 DIRTY across all their
-declarations — `Cauchy` alone is 1005 PURE decls); they remain in
-`SEALED_DIRTY_PREFIXES` harmlessly. The sealed class has only shrunk.
+The Lens-funext family (`Instances.Leaves.DepthJoin`, `Universal.QuotLens`,
+`Lattice.IndexedJoin`, `Instances.Cauchy`, `Instances.FunctionSpace`) is
+**fully PURE** (0 DIRTY across all their declarations — `Cauchy` alone is 1005
+PURE decls); they remain in `SEALED_DIRTY_PREFIXES` harmlessly (defensive
+coverage, no live DIRTY).
 
 DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
 `E213.Theory.*`, all capstones) is **fully PURE** — the lone `Lib.Math.*`
