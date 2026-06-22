@@ -861,7 +861,49 @@ non-degeneration = the q=−1 escape (`residue_reentry_never_closes`); `d_r²=0`
 `dsq_zero_universal_delta4` repeated. Missing leg: the named `SpectralSequence`/`Page`/`E_r`/`E_∞` objects
 (grep-confirmed absent; suggested witness — a finite two-page tower degenerating at E₂ on `NonzeroBetti`).
 
-**Count.** 61 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Hopf algebras / bialgebras (`hopf_algebras.md`) — the slash read in both directions at once
+
+EXTEND + PARTIAL (one located break). A Hopf algebra is the distinguishing's **slash read co- as well as
+contra-**: `m` (multiply/fold) = the ×↦· character; `Δ` (comultiply) = the *same* construction's co-fold
+(`CoAppend213.mem_splits_iff`, the +-witness split), the two bridged by convolution `f⋆g=m∘(f⊗g)∘Δ` =
+`Convolution213.conv` (49/0). The comultiplication is **calculus-native, not a missing primitive** — the
+coalgebra axioms collapse onto the algebra axioms by cut-reversal (`conv_assoc`/`conv_comm`/`conv_delta_left`).
+The antipode = the q=−1 unimodular residue (`multiplier_unimodular`; `FoldKlein.bothSwap_involutive`/
+`bothSwap_no_fixed`), and the antipode axiom `m∘(S⊗id)∘Δ=η∘ε` is literally `DirichletIdentities.mu_conv_one`
+(S⋆id=ε, 20/0), with the signed binomial (`IncidenceInversion.binomial_inversion_via_engine`) the +-cut twin.
+★ The located break (PARTIAL): the **bialgebra compatibility** (Δ an algebra map, the `Δ_+⇄Δ_×` interlock)
+is genuinely ABSENT — the repo's own frontier flags it as open target F1; the buildable witness is the
+∅-axiom `Δ_+`/`Δ_×` distributive law on ℕ (object-level `vp_mul`). Named `HopfAlgebra`/`antipode` absent.
+
+### ★ K-theory (K₀) (`k_theory.md`) — the difference-Lens of integers.md, one carrier up
+
+EXTEND by consolidation. K₀ = `integers.md`'s group-completion difference-Lens run one level up:
+`⟨ directed object-pair ([A],[B]) over (iso-classes,⊕) | [A]−[B] ⟩` + two already-built legs — the rank map
+= the ×↦+ additive character (`vp_mul`, dimension.md), the short-exact relation `[B]=[A]+[C]` = the q=+1
+exact pole (`reduced_betti_d4_contractible`); higher `K_n` = the q=−1 obstruction (the `Ext^{>0}` analogue).
+★ The genuinely new datum (not a re-skin of integers.md): the repo's group-completion is **already
+parametrized over an arbitrary `CommCancelSemigroup`** and proven `Quot`-free + choice-free with full
+universal property (`PairCompletionUniversal.invert_is_the_universal_group_completion`:215, `lift_unique`:169,
+19/0). So "ℤ from (ℕ,+)" and "K₀ from (iso-classes,⊕)" are *the same theorem at two carriers* — the
+difference-Lens is **carrier-polymorphic** (ℤ at +, ℚ₊ at ·, K₀ at ⊕), sharpening the model with a carrier
+parameter on `L₋` (parallel to padic's base parameter). Missing leg: the `(iso-classes,⊕)` carrier
+(`K0`/`GrothendieckGroup`/`ShortExact` absent) — the engine is built and general, no object-monoid to feed it.
+
+### ★ Morse theory (`morse_theory.md`) — read a space by a height function
+
+PREDICTION + the deepest consolidation in the height/homology cluster. Morse theory = the
+"read-a-space-by-a-height-function" *instance*: (fold-height = Morse index, `Raw.depth_slash`/`isPart_wf`) +
+(homology residue `ker∂/im∂`, `reduced_betti_d4_contractible`/`kerSizeDelta`) + (the q=±1 alternating Euler
+sum = `L(id)=χ`, `simplex_face_euler_zero`) + (critical point = where the gradient-distinguishing vanishes =
+the residue at both poles: `GradientFlow.gradient_descent_monotone`/`MonovariantFlow.flow_reaches` q=+1 vs
+`no_surjection_of_fixedpointfree` q=−1). New vs lefschetz/homology: the Morse *index* = a fifth word for the
+`Raw.depth` grade (dimension/degree/pole-order/nesting/index), read at gradient flat-spots; `∂` is
+read-agnostic (face-peel vs flow-line count, same q=±1 operator); Morse=singular = de_rham's "two complexes,
+one residue." Named `criticalPoint`/`morseIndex`/`MorseComplex` absent (only Morse–Hedlund/Thue–Morse, an
+unrelated field). ★ Buildable witness: the **discrete Morse weak inequality on Δ⁴**
+(`kerSizeDelta 5 k ≤ binom 5 k`, both sides already PURE) — pairs with the proven Euler equality.
+
+**Count.** 64 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
