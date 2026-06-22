@@ -17,8 +17,9 @@ closure), `convex_duality.md` (`f**=clo(f)` = the same closure pattern on a func
 roots-of-unity orthogonality orders (`RootOfUnityOrthogonality`/`GaussianOrthogonality`). It is split
 into a **grounded core** (the adjunction/closure skeleton; a concrete `Gal(ℚ(ζ₅)/ℚ)≅C₄` with its
 golden fixed subfield; A₅ as an actual object; the radical/cyclotomic orthogonality) and a **located
-break** (the solvability tower / derived series is built for S₃ — `DerivedSeries.solvable_S3`, 21/0 PURE;
-only A₅-perfectness `[A₅,A₅]=A₅` + a general `isSolvable` predicate remain — the genuine missing leg).
+break** (the solvability tower / derived series is built for both poles — `DerivedSeries.solvable_S3`
+(q=+1), 21/0 PURE, and `A5Perfect.a5_perfect`/`a5_not_solvable` (q=−1 — `[A₅,A₅]=A₅`), 9/0 PURE; only a
+general `isSolvable` predicate remains — the now-narrowed missing leg).
 
 ## The decomposition (C / Reading / Residue)
 
@@ -127,10 +128,13 @@ an element of **order exactly 5** in `PSL(2,𝔽₅) ≅ A₅` (`order_exactly_f
 for `1≤k≤4`, `pow 5 = −I`; `orbit_in_SL`: `det=1` along the whole orbit — 12/0 PURE); `A5Reps`
 (PURE) has the irrep dimensions (`sum_dim_sq`: `Σdim²=60`, `five_tensor_five_is_d_squared`:
 `5⊗5=25=d²`) and golden character orthonormality; `A5RealityNoCP` (`a5_3rep_is_real`,
-`delta_not_from_a5`) proves the 3-rep is real (`A₅⊂SO(3)`). So A₅ is a **built, used object** — but
-**the property the insolvability of the quintic needs — A₅ simple / perfect / `[A₅,A₅]=A₅` — is NOT
-proven anywhere** (grep: no `is_simple`, `perfect_group`, `simple` on A₅). A₅ exists as the order-60
-icosahedral rotation group with an order-5 element and its reps; its **simplicity is conceptual.**
+`delta_not_from_a5`) proves the 3-rep is real (`A₅⊂SO(3)`). So A₅ is a **built, used object** — and
+**the property the insolvability of the quintic needs — A₅ perfect `[A₅,A₅]=A₅` — is NOW PROVEN**
+(`A5Perfect.a5_perfect`, 9/0 PURE): structural upper bound (`gcommP_even`) + `decide` lower bound over
+the 60 elements. A₅ is the order-60 icosahedral rotation group with an order-5 element, its reps, **and a
+perfect (hence non-solvable) commutator structure** — the q=−1 quintic pole. (Full *simplicity* — no
+proper normal subgroup — is a strictly stronger statement still conceptual; perfectness is what the
+derived-series / solvability argument actually uses.)
 
 **(D) Solvability by radicals ⟺ Gal solvable; the bracket/commutator tower — the LOCATED BREAK.**
 This is the brief's sharpest leverage and the **genuine missing leg**. The intended tie:
@@ -153,11 +157,22 @@ and **`solvable_S3 : commSet (commSet S3) = One`** — the derived series termin
 **q=+1 converging tower** (justified by `A3_product_closed`/`A3_inverse_closed`: the commutator *set* of
 S₃ is already the closed subgroup A₃, so `commSet` IS `[G,G]` here, no generation step needed). The **A₅
 escape direction is probed** (`three_cycle_commutator_S5`: a 3-cycle realized as a commutator in S₅/A₅ =
-the q=−1 escape). **Residual** (the genuine remaining break): full **A₅ perfectness `[A₅,A₅]=A₅`** (the
-non-terminating quintic escape — needs the 60-element closure, beyond `decide`) and a **general
-`isSolvable` predicate** with a proven subgroup-generation step (S₃/A₃ are closable because their
-commutator sets are already closed — not true in general). So: q=+1 solvable tower BUILT for S₃; the
-q=−1 A₅-escape probed; full A₅-simplicity + general predicate the located residual.
+the q=−1 escape).
+
+**A₅ PERFECTNESS NOW GROUNDED** (`Algebra/Icosahedral/A5Perfect.lean`, 9/0 PURE): the q=−1 pole is
+built. `A5 := (perms 5).filter (psign · = 1)` (the 60 even permutations, `A5_card : A5.length = 60`).
+Two bounds give **`[A₅,A₅] = A₅`**: the **upper** `commutators_subset_A5` is *structural* — a commutator
+of evens is even, `gcommP_even : psign (g⁻¹h⁻¹gh) = 1` from the sign homomorphism (`psign_mul`/`psign_inv`),
+holding for any `n`, **no enumeration**; the **lower** `A5_subset_commutators` is `decide` over the 60
+elements — *every* even permutation actually occurs as a commutator (the perfectness content). Combined:
+**`a5_perfect`** and **`a5_not_solvable`** (the derived step returns A₅, which is `≠ {e}` since
+`|A₅|=60`) — the derived series is **constant at A₅**, the non-terminating q=−1 escape. (The "beyond
+`decide`" worry was the O(n²) `eraseDups` in `DerivedSeries.commSet`; dropping it for the un-deduplicated
+`commList` makes the 60-element `decide` complete in ~13s, ∅-axiom.) So **both poles of the solvability
+tower are now PURE**: `solvable_S3` (q=+1 terminating, S₃ ⊵ A₃ ⊵ {e}) and `a5_perfect` (q=−1
+non-terminating, A₅). **Residual**: only a **general `isSolvable` predicate** with a proven
+subgroup-generation step (S₃/A₃ and A₅ are closable because their commutator *sets* are already closed —
+not true in general).
 
 **Net.** Not a re-skin (it predicts the correspondence's form from `galois.md`/`convex_duality.md`'s
 closure and *finds a concrete field instance the prior notes missed*) and not a clean collapse-only

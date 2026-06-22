@@ -1,5 +1,6 @@
 import E213.Lib.Math.Algebra.Icosahedral.OrderFive
 import E213.Lib.Math.Algebra.Icosahedral.A5Bridge
+import E213.Lib.Math.Algebra.Icosahedral.A5Perfect
 import E213.Lib.Math.Algebra.Icosahedral.A5Reps
 import E213.Lib.Math.Algebra.Icosahedral.GoldenMixing
 import E213.Lib.Math.Algebra.Icosahedral.SpanAreas

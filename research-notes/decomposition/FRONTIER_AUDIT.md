@@ -18,6 +18,7 @@ classify ABSENT vs STALE. A claim is marked STALE only if grep confirms the obje
 | `Lib/Math/NumberSystems/Real213/Mat2/Mat2Killing.lean` | **PURE (0 dirty)** | `adMap` (adjoint), `killing`, `killing_symmetric`, `killing_eq_trace_form`, `killing_gram`, `adX_traceless` |
 | `Lib/Math/NumberSystems/Real213/ModularGeometry/NoetherCurrent.lean` | **15/0 PURE** | `current`, `density`, `continuity_eq`, `noether_local` (`∂·j=0 ⟺ Aut-invariant`), `noether_global`, `noether_local_implies_global` |
 | `Lib/Math/Algebra/Linalg213/DerivedSeries.lean` | **21/0 PURE** | `gcomm`, `gcomm_id_iff_commute`, `commSet`, `derived_S3_step1` (`[S₃,S₃]=A₃`), `derived_A3_step2` (`[A₃,A₃]={e}`), `solvable_S3`, `three_cycle_commutator_S5` |
+| `Lib/Math/Algebra/Icosahedral/A5Perfect.lean` | **9/0 PURE** | `A5` (60 even perms), `A5_card`, `gcommP_even` (commutator of evens is even — structural), `commutators_subset_A5`, `A5_subset_commutators` (`decide`), `a5_perfect` (`[A₅,A₅]=A₅`), `a5_not_solvable` (q=−1 pole) |
 
 ## Audit table — claimed-absent objects
 
@@ -34,7 +35,7 @@ classify ABSENT vs STALE. A claim is marked STALE only if grep confirms the obje
 | `noether.md` | "No `Noether`/`conserved current`/`∂_μ j^μ` theorem exists in `lean/E213`" (line 152) | **STALE** | `NoetherCurrent.noether_local` (`∂·j=0 ⟺ Aut-invariant`, 15/0 PURE) — under `ModularGeometry/`, not `Physics/` where the note grepped. **FIXED.** |
 | `noether.md` | smooth/analytic variational current over a field | **ABSENT** | Genuine residual (strictly smaller): the *smooth* `∂_μ j^μ` over a differentiable field, vs the discrete `current`/`continuity_eq`. |
 | `galois_correspondence.md` | "no derived series `[G,G]⁽ⁿ⁾`, no `is_solvable` predicate" (Revelation §4, line 208; header line 20) | **STALE** | `DerivedSeries.solvable_S3` / `derived_series_S3` (21/0 PURE). The note's own body (§D, lines 146-159) already cites this as "NOW GROUNDED"; the header + Revelation §4 leftovers contradict it. **FIXED.** |
-| `galois_correspondence.md` | A₅ perfectness `[A₅,A₅]=A₅`; general `isSolvable` predicate | **ABSENT** | Genuine residual: full 60-element A₅ closure beyond `decide`; general solvable predicate with proven subgroup-generation. |
+| `galois_correspondence.md` | A₅ perfectness `[A₅,A₅]=A₅`; general `isSolvable` predicate | **PARTLY FIXED** | A₅-perfectness now PROVEN (`A5Perfect.a5_perfect`/`a5_not_solvable`, 9/0 PURE): structural upper bound + `decide` lower bound over 60 elements (the un-deduplicated `commList` makes the closure ∅-axiom in ~13s). Only the general `isSolvable` predicate with a proven subgroup-generation step remains. **FIXED (A₅ leg).** |
 | `galois.md` | "Solvability by radicals / insolvability of the quintic — entirely absent" (line 203) | **STALE (partial)** | The derived-series / solvable-tower mechanism IS built for S₃ (`DerivedSeries`, 21/0). The quintic / A₅-perfectness remains absent. **FIXED** (split into built-tower + remaining quintic gap). |
 | `galois.md` | "even the simplest real Galois group is conceptual" / `Gal` object (line 200-202) | **ABSENT** | A *named* `Gal(L/K)` group-of-a-field-extension object; `galois_correspondence.md` later found a worked `Gal(ℚ(ζ₅)/ℚ)≅C₄` instance via `CyclotomicFive`, but no general `Gal` constructor. Left as-is. |
 | `representation.md` | `d>1` Killing / `tr(ad∘ad)` trace character (line 256) | **STALE (already corrected in note)** | Note already cites `Mat2Killing.lean` as closing it. No edit needed. |
@@ -73,5 +74,5 @@ These were grep-checked against all plausible namespaces and confirmed genuinely
 
 1. **Smooth `Real213`-cut metric instantiating `dg`/`ddg`** (geometry cluster: `connections.md`/`de_rham.md`/`curvature.md`/`lie_theory.md` all share it) — would weld the abstract-index `TensorCalculus` tower to an actual differentiable metric and close the single largest shared residual.
 2. **The `lim_{loop→0}(holonomy−I)/area` weld** tying `HolonomyLattice.holonomy` (finite) to `TensorCalculus.riemUp` (infinitesimal) — they live in separate modules; the analytic identification is named-not-built.
-3. **A₅ perfectness `[A₅,A₅]=A₅`** + a general `isSolvable` predicate — would close the insolvability-of-the-quintic leg now that the S₃ solvable tower (`DerivedSeries`) is built.
+3. **A general `isSolvable` predicate** with a proven subgroup-generation step — the last remaining piece of the insolvability-of-the-quintic leg. (A₅ perfectness `[A₅,A₅]=A₅` is now BUILT: `A5Perfect.a5_perfect`/`a5_not_solvable`, 9/0 PURE, the q=−1 pole dual to `solvable_S3`'s q=+1.)
 4. **The de Rham comparison iso `H*_dR ≅ H*_sing(·;ℝ)`** on a smooth form bundle — the differential-topology twin of (1).
