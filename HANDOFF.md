@@ -20,7 +20,17 @@ README.md = the spec: `OBJECT = ⟨Construction | Reading⟩`, Residue, the 4-st
 just re-skin — the design constraint that kept CT from being "abstract nonsense"). Key grounding: the
 calculus is the **positive form of CLAUDE.md's failure-mode catalog** (each failure = a missed
 decomposition). Frontier registered: `research-notes/frontiers/decomposition_calculus.md`.
-**Thirteen worked decompositions** in `practice/` (all Lean-certified citations); +batch-3 `groups`
+**Seventeen worked decompositions** in `practice/` (all Lean-certified citations). +batch-4 (all
+EXTEND): `homology` (∂ = fold-height run DOWNWARD → height is bidirectional; ∂²=0 forced by q=±1
+sign-cancellation; nilpotent vs involutive = the two q=±1 poles), `ordinals` (ω = height-residue, q=+1,
+3rd instance; model caps HONESTLY at ω — finite-signature boundary), `galois` (first NON-INVERTIBLE
+reading-pair = adjoint/order-reversing connection; fundamental thm = residue-collapse-to-closure;
+LensIso = the closed special case), `entropy` (★ L-parameters COMPOSE IN SERIES: H=E[−log p]=weight∘
+character; FIRST LEVERAGE — the calculus PREDICTS entropy's form, −log forced by independence→additivity
+= the ×↦+ character, not re-skin). **Model v4**: L's form a category (compose in series, Aut-families,
+adjoint pairs); fold-height + character both bidirectional; Residue q=±1 (escape/nilpotent vs
+converge/involutive/closure). No break across 17 targets; first genuine prediction achieved (entropy).
+Earlier-batch detail: +batch-3 `groups`
 (a group = `⟨C | Aut C closed under composition⟩`, axioms forced; EXTEND) + `probability`
 (`P = ratio∘count`, first *composite reading*; `L` gains a `weight` parameter; independence = ×-character,
 expectation = its additive twin; EXTEND). **Model v3 lesson: readings form a category — they compose and

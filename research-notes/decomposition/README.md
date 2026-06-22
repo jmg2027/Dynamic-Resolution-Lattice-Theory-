@@ -191,6 +191,43 @@ robust:
 converge). **Readings form a category** (they compose, they have automorphism families) — the
 single biggest structural lesson of batch 3. Thirteen decompositions in; no break yet.
 
-Next: keep decomposing **fresh** mathematics (homology / `∂²=0`, the Galois correspondence,
-ordinals/transfinite height, information/entropy) and let it break/extend this map. The standing bar:
-every decomposition ends in a Revelation, or it is dropped.
+## Refinements from the fourth batch (homology, Galois, ordinals, entropy) — and the first leverage
+
+All four **EXTEND**; the model held across **17 decompositions** with no break. The batch added the
+deepest structure and the first clear *payoff*:
+
+- **Fold-height is bidirectional** — `∂` (boundary) is the height axis run *downward*
+  (`Cᵏ→Cᵏ⁺¹` peels a cell), the exact mirror of distinguishing's height-*raising*. `∂²=0` is **forced
+  by the `q=±1` direction bit**: opposite-order face removals carry opposite orientation signs that
+  cancel pairwise (`Cohomology/Delta/V4Capstone.dsq_zero_universal_delta4`). And `∂²=0` (nilpotent) vs
+  `⋆⋆=id` (involutive) are the **two poles of `q=±1`** at a two-step composite — "nilpotent reading"
+  is not new, it is character+direction (`homology.md`). Homology = `Residue(L↓, C)`.
+- **Ordinals = the height-reading's residue past every finite stage** — `ω` is the `q=+1` (converging)
+  residue of cofinal finite heights, a *third* instance of the `q=±1` residue (after Cantor `q=−1`, φ
+  `q=+1`). The model **caps honestly at `ω`**: `ascent_unbounded` says no `Raw` has depth `ω`, so `ω`
+  is named by its finite generator, never inhabited (`ordinals.md`). The finite-signature rule's exact
+  bite point.
+- **Galois = the first *non-invertible* reading-pair (an adjoint pair / order-reversing connection)** —
+  `Fix ⊣ Inv` between the sub-construction lattice and the `Aut`-subfamily lattice; the fundamental
+  theorem = **residue-collapse-to-closure** (`clo = Inv∘Fix = id` on closed elements, `q=+1` idempotent
+  pole). `equivalence.md`'s symmetric `LensIso` is the *closed/iso special case*; a general Galois
+  connection is the asymmetric generalization (`Order/GaloisConnection.lean`, `ModNat.refines⟺divides`).
+  New construct: **ordered/adjoint reading-pairs, residue = the closure gap** (`galois.md`).
+- **★ L-parameters COMPOSE IN SERIES — and the calculus PREDICTS (first leverage).** Entropy
+  `H = E[−log p]` = the **weight-reading ∘ the log-character**: the character's output (surprise depth)
+  becomes the weight's value-slot. The payoff beyond collapse: the calculus **predicts entropy's form** —
+  `−log` is *forced* as the unique character turning the independence-product of weights into a sum
+  (the same `×↦+` arrow as `vp_mul`), so additivity `H(X,Y)=H(X)+H(Y)` is derived, not relabeled
+  (`Information/Entropy.entropy_additive`). This passes the re-skin guard at the highest level — a
+  *prediction*, not a re-description (`entropy.md`).
+
+**Model v4**: `C` = distinguishing + {direction (`q=±1`), **bidirectional** fold-height,
+atom-distinguishability}; `L` = a reading — *which form a category*: they **compose in series**
+(entropy = weight∘character), form **composition-closed families** (`Aut`, groups), and form
+**adjoint/order-reversing pairs** (Galois) — carrying {resolution, bidirectional character-mode,
+weight}; `Residue` = `L`'s self-application surplus, tagged `q=±1` (escape/nilpotent vs
+converge/involutive/closure). **First genuine leverage**: entropy's form *predicted* from the parts.
+
+Next: push for more **leverage** (predictions/derivations, not just collapses) and the open Lean
+faithfulness-targets (`research-notes/frontiers/decomposition_calculus.md`). The standing bar: every
+decomposition ends in a Revelation, or it is dropped.
