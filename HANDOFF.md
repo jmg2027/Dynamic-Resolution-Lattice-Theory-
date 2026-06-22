@@ -149,6 +149,20 @@ skein + isotopy-quotient are named missing primitives)}.
   closure (f**=clo(f)); field content partially grounded (`CyclotomicFive.galois_group_is_C4`, golden subfield,
   A₅ built); solvability = the commutator tower q=+1 (terminating) vs quintic's A₅-escape q=−1 (iteration = open leg).
 
+## ★ ELEVENTH WAVE — Fenchel–Moreau (clo), topos (why-constructive), π₁, ergodic
+- **Fenchel–Moreau f**=clo(f)** (`Order/FenchelMoreau.lean`, 18/0): the antitone self-adjoint closure
+  (`biconj_idempotent`, `closed_iff_fixed` = strong duality, `cloAntitone_eq_gc_clo` = the monotone-clo
+  reduction) — grounds convex_duality's weld. (Caught a Fin-3 propext leak → Bool.)
+- **★ Topos (`topos.md`)** — the sharpest foundational leverage, VERIFIED by purity scan: Ω = the
+  distinguishing-target Bool, χ = `Object1` (BUILT+PURE); the classical Prop connectives in SemanticAtom are
+  DIRTY [propext] while Bool/decide are PURE — **the PURE/DIRTY boundary IS the Heyting/Boolean boundary**, so
+  "213 is ∅-axiom-constructive" = "213 is the q=+1 PURE corner of its own topos (internal logic Heyting)".
+- **π₁ (`fundamental_group.md`)** — loop algebra EXTENDS (H₁ = π₁ abelianized = the commutator quotient
+  `DerivedSeries.commSet`); the homotopy quotient BREAKS at EXACTLY knots.md's break, recurring verbatim →
+  promotes it to a principled topological-quotient limit (one ambient-deformation primitive serves both).
+- **Ergodic (`ergodic_theory.md`)** — the most consolidating: invariant measure = q=+1 fixed point;
+  ergodic theorem = the q=+1 Birkhoff/LLN residue; ergodicity = the dim-1 constant kernel = Laplacian λ₀=0.
+
 ## ★ TENTH WAVE — S₃ solvability tower, Curry–Howard, sheaf theory, tropical
 - **S₃ solvable, the q=+1 commutator-tower** (`Linalg213/DerivedSeries.lean`, 21/0): group commutator
   `gcomm=a⁻¹b⁻¹ab`, `gcomm_id_iff_commute`, `derived_S3_step1` ([S₃,S₃]=A₃), `derived_A3_step2` ([A₃,A₃]={e}),
@@ -160,7 +174,7 @@ skein + isotopy-quotient are named missing primitives)}.
 - **Tropical (`tropical.md`)** — (max,+) = the ×↦+ character's idempotent T→0 limit; the repo's own docstrings
   pre-classify `max` as the idempotent pole (`max_idem`, mirror of `succ_not_idempotent`).
 
-**Tally:** 49 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
+**Tally:** 52 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
 Lean-closed** + Lean **groundings** of spectral (`Mat2SymmetricSpectrum`), Lie (`Mat2Bracket`), representation
 (`Mat2Killing`), graph (`GraphLaplacian`), and galois/solvability (`DerivedSeries`) notes. `lake build E213`
 clean. Open frontier: full A₅-simplicity + general isSolvable, the Legendre transform object (weld `clo` at
