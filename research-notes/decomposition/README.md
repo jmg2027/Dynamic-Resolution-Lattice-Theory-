@@ -814,10 +814,54 @@ resolution = the first missing Nat). ★ Purity revelation: the nim-sum is PURE 
 (`Fin 6 → Bool` pointwise XOR); the packed `Nat.xor` form is DIRTY (`AutKGroup.lean:71`, `propext`/
 `Quot.sound` via `Nat.xor_assoc`) — a character is PURE exactly when read per-bit, the same PURE/DIRTY =
 Heyting/Boolean boundary topos.md/SYNTHESIS §6 names as 213's constructive line, surfaced here on the
-central arrow itself. Missing leg: the named `Game`/`Nim`/`Grundy`/`mex` object (grep-confirmed absent) —
-the identical ceiling surreal.md and knots.md hit; the `C`, character, and normal-form legs are PURE-anchored.
+central arrow itself. Missing leg: the named `Game`/`Nim`/`Grundy` object (grep-confirmed absent) — the
+identical ceiling surreal.md and knots.md hit; the `C`, character, and normal-form legs are PURE-anchored.
+★ Follow-on: the **`mex` engine is now BUILT ∅-axiom** (`Mex.lean`, 12/0: `mexFrom_finds` = the scan lands
+on a non-member = the bounded diagonal, `mexFrom_lt_mem` = minimality, `mex_eq_zero_iff_zero_excluded` =
+P-position `G=0` ⟺ `0` excluded); the residual is only mex's *application on a `Game` type*.
 
-**Count.** 58 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Lefschetz fixed-point + Brouwer degree (`lefschetz_degree.md`) — the trace-weighted diagonal
+
+PREDICTION + PARTIAL (EXTEND by consolidation). The central collapse holds fully: `L(f)≠0 ⟹ f has a fixed
+point` **IS** the Lawvere/diagonal engine — its contrapositive "fixed-point-free ⟹ the self-cover leaves a
+residue" is literally `no_surjection_of_fixedpointfree`, and Lefschetz is the **trace-weighted** refinement
+of the same diagonal that runs Cantor/Gödel/`object1_not_surjective`. The Lefschetz number
+`L(f)=Σ(-1)^i tr(f_*|H^i)` decomposes as: `tr` = the additive `×↦+` character (`tr=e₁`, `Mat2Spectrum`),
+the `(-1)^i` = homology's q=±1 orientation bit (`dsq_zero_universal_delta4`; `L(id)=χ` = the Euler/`∂²=0`
+cancellation, `simplex_face_euler_zero`), summed down the fold-height. Brouwer degree = the `×↦·`
+holonomy/`det`-winding character (`det_holonomy_eq_one`, `first_loop_is_the_fold`); no-retraction/hairy-ball
+= the q=−1 escape. The det/tr split recurs as the degree(`×↦·`, top-degree)/Lefschetz(`×↦+`, graded) split.
+Missing leg: the named `Lefschetz`/`degree`/`f_*:H^i→H^i` objects (grep-confirmed absent; break shape =
+homological_algebra's, every leg PURE, the named graded bundle open).
+
+### ★ Martingales (`martingales.md`) — the q=+1 fixed point on the weight axis
+
+PREDICTION + PARTIAL. A martingale `E[X_{n+1}|F_n]=X_n` = the conditional-expectation reading as the **q=+1
+converging fixed point of the filtration-refinement step** (the `banach_fixed_point_modulated`/
+`golden_is_converge` pole, read on the σ-algebra dial). The Doob decomposition `X=M+A` **is** the README
+normal form `⟨C|L⟩⊕Residue` on the weight axis (M = the q=+1 fixed-point part, A = the predictable directed
+residue; super/sub-martingale = the q=±1 direction bit on A) — a classical theorem that is literally the
+calculus's split, a clean external corroboration. `E[·|F]` idempotent = the `clo`-projection
+(`caraClosure_idempotent`/`biconj_idempotent`, T²=T); optional stopping = the fixed point invariant under a
+weight-preserving Lens (ergodic_theory's measure-preserving tie); martingale convergence = the q=+1
+completion-limit (`orbit_to_center_completion`, `DyadicCompletion`). Missing leg: every named martingale
+object (`Martingale`/`condExp`/`Filtration`/`Doob`/`stoppingTime`) grep-confirmed absent.
+
+### ★ Spectral sequences (`spectral_sequences.md`) — the residue operation ITERATED
+
+PREDICTION + PARTIAL (EXTEND, genuinely new datum beyond homological_algebra). homological_algebra named the
+residue operation applied **once** per degree; this note's new finding: the residue operation is **closed
+under self-composition**, and a spectral sequence is its **orbit**. The page recursion `E_{r+1}=H(E_r)` =
+the residue **re-entering as its own operand** (`residue_perpetually_reenters`, `ResidueReentry.lean` 14/0 —
+a foundational theorem homological_algebra never used); the page index `r` = the resolution dial counting
+iterations, grades **adding** under page-composition (`IsResolutionShift_compose`, `cutHalfIter`,
+`ResolutionShift.lean` 17/0); convergence `E_∞` = the **q=+1 fixed point of the iteration**, with `r` the
+convergence modulus (same modulated-completion as `golden_is_converge`/`orbit_to_center_completion`),
+non-degeneration = the q=−1 escape (`residue_reentry_never_closes`); `d_r²=0` per page =
+`dsq_zero_universal_delta4` repeated. Missing leg: the named `SpectralSequence`/`Page`/`E_r`/`E_∞` objects
+(grep-confirmed absent; suggested witness — a finite two-page tower degenerating at E₂ on `NonzeroBetti`).
+
+**Count.** 61 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
