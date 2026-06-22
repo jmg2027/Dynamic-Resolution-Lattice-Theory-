@@ -222,14 +222,21 @@ condition (`q=+1`) read two ways** (closure exact + contraction converges), not 
 
 ## Conceptual-only legs (honest — NOT grounded in repo Lean; the located missing primitive)
 
-- **The Legendre–Fenchel transform *object* `f*(p) = sup_x(px − f(x))`** — **absent.** No
-  `convexConjugate`, `epigraph`, `biconjugate`, or `convexHull` of a function in the repo. Every
-  `convex`/`Convex` hit is Jensen-convexity of the square in the discrete heat equation
-  (`Analysis/ODE/HeatEq/EnergyL2.lean`, `EnergyDecay.lean` — `(a+b)² ≤ 2(a²+b²)`); every `conjugate`
-  hit is complex/algebraic conjugation (Cayley–Dickson, CP-phase, Hodge). The **closure machine** `clo`
-  is present and certified; the function-lattice instantiation `clo = (·)*∘(·)*` is conceptual — the
-  precise missing leg, parallel to `galois.md`'s missing field-extension instance and `knots.md`'s
-  located boundary.
+- **The Fenchel–Moreau weld `f**=clo(f)` — NOW GROUNDED at the abstract level** (`Order/FenchelMoreau.lean`,
+  18/0 PURE): the Legendre transform is *antitone* (order-reversing) and self-adjoint, which the repo's
+  *monotone* `clo` did not express — so the agent built the antitone-self-adjoint closure and welded it.
+  `cloAntitone star x := star (star x)`; `biconjugate_eq_clo` (`f**=clo f`); `cloAntitone_extensive`
+  (**weak duality** `x ≤ star(star x)`, the gap = the residue); `star_triple` (`f***=f*`);
+  `biconj_idempotent` (**Fenchel–Moreau `f****=f**`**); `closed_iff_fixed` (**strong duality**: the residue
+  vanishes exactly on the closure-fixed/"convex" locus, q=+1); and the precise reduction
+  `cloAntitone_eq_gc_clo` (the antitone `star` IS a monotone Galois connection `star⊣star` into the order-dual,
+  so `cloAntitone star = GaloisConnection.clo star star` by `rfl`). Bool order-reversal witnesses the convex
+  `f**=f` corner. So convex_duality.md's named weld ("instantiate the closure at `Fix=Inv=(·)*`") is
+  satisfied for any order-reversing involution.
+- **Residual — the actual `sup_x(px−f(x))` Legendre transform OBJECT** — still absent (needs `Real213`: a
+  sup over a real function-lattice; `convexConjugate`/`epigraph` unbuilt). The closure *machine* (now both
+  monotone and antitone) is certified; only the real-valued `sup` transform instance is unwritten — the
+  precise remaining missing leg, parallel to `galois.md`'s missing field-extension and `knots.md`'s boundary.
 - **The convex function as a typed object** — convexity exists only as Jensen inequalities on specific
   expressions and as the symmetric `disc≥0` matrix shadow; there is no `Convex (f : ℝ → ℝ)` predicate
   or `f'' ≥ 0` theorem. The `q=+1` PSD corner is grounded at `2×2`; the multivariate

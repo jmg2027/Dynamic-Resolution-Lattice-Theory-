@@ -1,5 +1,6 @@
 import E213.Lib.Math.Order.GaloisConnection
 import E213.Lib.Math.Order.GaloisConnectionComposition
+import E213.Lib.Math.Order.FenchelMoreau
 import E213.Lib.Math.Order.BooleanAlgebra
 import E213.Lib.Math.Order.KnasterTarski
 import E213.Lib.Math.Order.TarskiLattice
@@ -17,4 +18,10 @@ import E213.Lib.Math.Order.TarskiLattice
     `f∘g∘f = f` / `g∘f∘g = g` (pointwise), and the induced `g∘f` closure
     operator (extensive / monotone / idempotent). The multiply/divide
     adjunction `(·*p) ⊣ (·/p)` on `Nat` as a concrete witness.
+  * `FenchelMoreau` — the **antitone** (order-reversing) self-adjoint
+    closure: an order-reversing `star` with `y ≤ star x ↔ x ≤ star y` makes
+    `star ∘ star` a closure operator — the **Fenchel–Moreau biconjugate**
+    `f** = clo f` (extensive `cloAntitone_extensive`, idempotent
+    `f**** = f**`, strong duality = closure-fixed locus). Order-reversal on
+    `Fin 3` as a concrete witness.
 -/
