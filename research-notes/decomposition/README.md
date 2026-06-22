@@ -1677,7 +1677,22 @@ alternating form, and the topological character integral — Atiyah–Singer wel
 McKean/Todd/RiemannRoch objects absent (the smooth elliptic D + ∫ch·Td = the Real213-cut break); buildable
 witness: wire `multiplier .converge·dim ker + multiplier .escape·dim coker` to `eulerChar` as one decide lemma.
 
-**Count.** 119 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Markov chains (`markov_chains.md`) — the stationary distribution = the q+1 Perron eigenvector
+
+EXTEND + PREDICTION. A Markov chain folds random_walks + martingales + ergodic_theory at one spectrally-pinned
+q+1 fixed point. ★ New datum: the stationary distribution π = the q+1 converging fixed point = the **Perron
+eigenvector**, the q+1 pole *made spectral* — the top eigenvalue pinned to the q+1 fixed VALUE 1 by
+row-stochasticity (P·𝟙=𝟙); the spectral gap = the convergence MODULUS / mixing time; reversibility = the q±1
+time-symmetry (real spectrum via `disc_symmetric_nonneg`); periodicity vs mixing = q−1 escape vs q+1 converge.
+★ Strong find: the repo's discrete heat equation (`Analysis/ODE/HeatEq/Discrete.lean` 30/0) is a concrete
+row-stochastic reversible walk — the lazy step (¼,½,¼) preserves the stationary constant (`lazyHeatStep_const`:214)
+and **collapses the checkerboard period-2 / eigenvalue-(−1) mode to the constant in one step**
+(`lazy_checker_collapses`:335), while the non-lazy step oscillates forever (`nonlazy_checker_hot`:324) — a
+machine-checked aperiodicity/mixing (q−1→q+1) witness, the "make it lazy to mix" move as a theorem. Named
+MarkovChain/stationary/Perron/mixing objects absent (the Real213/Markov tree is the Diophantine x²+y²+z²=3xyz,
+not transitions); buildable witness: `markov2_perron` (2×2 doubly-stochastic, spec={1,1−2p} via Mat2Spectrum).
+
+**Count.** 120 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
