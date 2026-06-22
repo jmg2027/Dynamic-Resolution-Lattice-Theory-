@@ -1612,7 +1612,44 @@ absent (the braid hits are Coxeter physics, false-friend); the pentagon/hexagon/
 colimit/q−1 coherence break as tqft's cobordism. Buildable witnesses: `fibonacci_fusion_perron` (d_τ=φ via
 golden), `verlinde_is_character_inversion` (Verlinde = inverse character transform at the abelian slice, ∅-axiom).
 
-**Count.** 114 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Higher / Milnor K-theory (`higher_k_theory.md`) — the ×↦· character climbing the degree
+
+EXTEND (deep consolidation, the multiplicative dual of k_theory's additive K₀). K₁(R)=GL/[GL,GL] = the
+abelianization = the det/×↦· character (the commutator-quotient kills the q−1 non-abelian part — `DerivedSeries`
+`commSet`/`gcommP_transpositions_even`, `A5Perfect.a5_perfect` the extreme q−1 pole, 9/0). K₂/Steinberg {a,b} =
+the q=±1 antisymmetric ({a,b}{b,a}=1, same swap as `bracket_antisymm`:76/`cup1_antisymmetric`:62) bimultiplicative
+(×↦· in each slot) pairing. Milnor K^M = the ×↦· character tensored up, graded, mod the Steinberg cut. ★ The
+Milnor conjecture / norm-residue = the deepest collapse: K^M/2 ≅ Galois cohomology (galois_cohomology) ≅ graded
+Witt ring (quadratic_forms) are ONE graded object — a **three-note fusion** (det2_mul 130/0, legendre_mul,
+psign_mulPerm_hom 11/0). Named K₁/K₂/Milnor/Steinberg objects absent (the Milnor hits are Milnor-exponent
+dynamics, false-friend); buildable witness: `K1(S₃)=S₃/commSet≅C₂` (a decide/rfl corollary of derived_S3_step1).
+
+### ★ Berkovich / rigid analytic geometry (`berkovich_geometry.md`) — a point = a multiplicative seminorm (a FIFTH boundary)
+
+PREDICTION + a calibrated BREAK. A Berkovich point IS a multiplicative seminorm = the ×↦· character/valuation
+made a point (`vp_mul` 7/0, `Zp.valEq_mul`:461 21/0); M(A) = the space of these readings ("object = its
+readings", `object1_injective`); the Berkovich line's tree = the Stern–Brocot/mediant refinement
+(`Mediant.mediant_strictly_between`:54 11/0, `manin_unimodular_decomposition`); contractibility = the tree being
+a tree (q+1 no-loops, `reduced_betti_d4_contractible`/`chain_finite`). ★ M(A) completeness ("these are ALL the
+seminorms") = the same LLPO/choice totalization as Stone's ultrafilter spectrum — a **fifth calibrated boundary
+on the one ultrafilter/LLPO point** (twin of padic's open Ostrowski exhaustiveness); type-4 points need the
+Real213 value-cut. Named Berkovich/seminorm/analytification objects absent; buildable witness: a
+`seminorm_is_vp_character` bridge + `berkovich_line_tree_contractible` weld of built theorems.
+
+### ★ Geometric invariant theory / GIT (`git_quotient.md`) — X//G = the Fix Lens, stability = q±1
+
+PREDICTION (consolidation, fusing five corners on one G⤳X action). X//G = Spec(R^G) = galois_correspondence's
+G-invariant **Fix Lens** (the ring of invariants = the `clo`-closed elements under the relabel-family,
+`clo`:104/`clo_idempotent`:126 15/0, `galois_group_is_C4` a concrete Fix). ★ Stability = the q=±1 tag:
+stable/closed-orbit = q+1 converge, unstable (orbit closure hits 0) = q−1 escape (`no_surjection_of_fixedpointfree`
+the destabilizing direction); Hilbert–Mumford = the 1-parameter (resolution-axis) q±1 escape test. The moment
+map / Kempf–Ness = the q+1 symplectic/convex optimum (`SignedCup.gram_hermitian_gravity_gauge_split`:127 14/0;
+`ollivier_plan_optimal` 60/0, μ⁻¹(0) = the minimal-norm closed-orbit point). The categorical quotient = the
+colimit corner, and **GIT stability IS the choice of the Side-A-good (separated, q+1) locus**
+(`FreeReduction.free_group_quotient_no_quot` 26/0) — the new datum past the parent files. Named GIT/invariantRing/
+momentMap/semistable objects absent; engines all PURE, the Kempf–Ness symplectic-quotient weld conceptual.
+
+**Count.** 117 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
