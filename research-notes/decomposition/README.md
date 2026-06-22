@@ -1598,7 +1598,21 @@ Bianchi = closedness); Gauss–Bonnet–Chern ∫e(TM)=χ = the built `DiscreteG
 VectorBundle/Pontryagin objects absent (Chernoff = probability false-friend); buildable witness: Whitney
 det(I+Ω_E⊕Ω_F)=det(I+Ω_E)·det(I+Ω_F) = `det2_mul` on block-diagonal curvature (already PURE).
 
-**Count.** 113 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Fusion / modular tensor categories (`fusion_categories.md`) — tqft's product, finite, with the Fourier S-matrix
+
+EXTEND + PREDICTION + located BREAK. A fusion category = tqft's monoidal product (Invariant A) made **finite**
+with a fusion-rule **count** (`GRA/Monoidal.product` 13/0, `product_NT_NT_grade`), the braiding/twist/dual the
+**q=±1** residue (`productSwapIso_involutive` 23/0, `FoldKlein.bothSwap` 9/0, `QBinomial` deformation-q phase
+11/0), the modular **S-matrix = fourier's character transform** diagonalizing the fusion ring
+(`legendre_mul`/`quadratic_orthogonality` 20/0 / `root_orthogonality`/`cyclic_orthogonality_modp` 15/0),
+**Verlinde = character-orthogonality inversion**, and the **quantum dimension = the Perron count** (φ for
+Fibonacci anyons = `golden_hyperbolic`/`golden_is_converge`). The braiding-phase deformation-q vs tag-q is
+containment-not-identity (inherited from quantum_groups). Named FusionCategory/Smatrix/Verlinde/anyon objects
+absent (the braid hits are Coxeter physics, false-friend); the pentagon/hexagon/F-R-symbol coherence = the same
+colimit/q−1 coherence break as tqft's cobordism. Buildable witnesses: `fibonacci_fusion_perron` (d_τ=φ via
+golden), `verlinde_is_character_inversion` (Verlinde = inverse character transform at the abelian slice, ∅-axiom).
+
+**Count.** 114 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
