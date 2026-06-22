@@ -1462,7 +1462,22 @@ Named CayleyGraph/wordMetric/growthRate/hyperbolicGroup/Gromov objects absent (t
 Cayley–Dickson algebra, false-friend flagged); the general word problem = the Novikov–Boone Side-B colimit
 break (recurs verbatim from free_corner). No new buildable witness (the collapse is already theorem-grade).
 
-**Count.** 103 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ Coalgebra / corecursion (`coalgebra.md`) — the dual of Raw.fold, ALREADY BUILT (the μ/ν closure)
+
+EXTEND, with a major find overturning the predicted-not-built prior. Coalgebra = the calculus's `Raw.fold`
+catamorphism **dualized** — the ν to the fold's μ. ★ The repo has **already built the dual ∅-axiom**:
+`Theory/Raw/CoResidue.lean` (**140/0**) builds the final coalgebra `SlashNu`, the anamorphism `ana`:155
+(`ana_unique`:315), and finality `slashNu_final`:726 — the literal dual of `raw_initial`/`dhom_unique_pointwise`,
+proved by *finite-path induction* on the M-type path presentation (no coinduction primitive, closing what
+MuNuMirror's docstring called the Mathlib-free-coinduction-blocked open piece). So the calculus's core fold (μ,
+`raw_initial`) and its dual unfold (ν, `CoResidue`) are **both** built — it is closed under the μ/ν duality
+(`MuNuMirror` the named mirror, 8/0). Streams = the coinductive modulus (`spineL_escapes`:462 the q−1 escaping
+stream); bisimulation = `StateMachine.traceEq_iff_not_distinct`:262 (positive trace-eq, 21/0); coinduction = the
+greatest fixed point (`KnasterTarski.gfp_greatest`:148, the dual of domain_theory's lfp); the co-fold ties hopf's
+comultiplication (`CoAppend213`/`Convolution213`). Named Coalgebra/Bisimulation *structure bundles* absent
+(apparatus is path-function emulation, not a typeclass record); buildable witness: weld `TraceEq = gfp Φ`.
+
+**Count.** 104 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
