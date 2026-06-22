@@ -3,7 +3,8 @@ import E213.Theory.Raw.API
 /-!
 # UniversalDistinguishing — the distinguishing schema `DStr` (∅-axiom)
 
-The structured-rival exclusion (`research-notes/frontiers/the_distinguishing_schema.md`) reframed:
+The structured-rival exclusion reframed (narrative:
+`theory/essays/foundations/the_distinguishing_is_the_primitive.md`):
 instead of excluding rival primitives one class at a time (an open `∀ rival`), characterize the
 distinguishing by a **schema** `DStr` and a universal property, so that exhaustiveness becomes a
 *dichotomy* (satisfy the schema ⟹ canonically `Raw`; else fail a *named* clause), not an enumeration.

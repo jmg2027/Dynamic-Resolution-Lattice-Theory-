@@ -56,7 +56,8 @@ A plain-language guide to this whole layer — what `Raw`/`Lens` are, why `slash
 → `FlatOntologyClosure` (the residue) → `OneDiagonal` (residue = engine of the diagonal theorems)
 → `Number/Nat213/Generation` (number from the distinguishing) → `UniversalDistinguishing` (the
 schema / rival-exclusion).  The encoding question ("is the technique causing the limit?") is answered
-in `research-notes/frontiers/the_distinguishing_schema.md` §RESOLUTION.
+in `theory/essays/foundations/raw_and_lens_explained.md` (§5 the universal property; §7 the
+proven-vs-open scoreboard).
 
 ## Entry point
 

@@ -192,6 +192,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `the_distinguishing_schema` — **the universal-characterization reframing + the encoding diagnosis.**
+  The distinguishing as a *schema* (`DStr`) that classifies (instance ⟹ ≅ Raw; else fail a named
+  clause), dissolving rival-enumeration + Attack-1 circularity. §RESOLUTION (3-agent panel) answers
+  "is the Raw/Lens encoding causing the limit?": NO — the universal property is already proven
+  (`SemanticAtom.raw_initial`, ∅-axiom); the source `x≠y`-in-type / canonical-subtype is *forced* by
+  the axiom + the no-`Quot.sound` rule (faithful); the only wall is the *optional* `DStr` partial-op
+  existence leg (partial-algebra engineering, no new axiom — three closure routes recorded).
+  Reader's guide promoted to `theory/essays/foundations/raw_and_lens_explained.md`.
 - `the_descent_leg` — **THE central open frontier (2026-06-22 panel).** Wire the act to the
   unfolding: the chain `Raw(slash) → Lens-reading → discipline` is *severed in the Lean* (96% of
   `Lib/Math` imports neither `Raw` nor `Lens`; `Raw.leaves` borrows ℕ, doesn't generate it). To make

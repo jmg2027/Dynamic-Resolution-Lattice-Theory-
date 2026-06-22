@@ -3,7 +3,7 @@ import E213.Lib.Math.Foundations.UniverseChain.RawRecurrence
 /-!
 # RivalArity — the binary distinguishing is non-interchangeable with a unary rival (∅-axiom)
 
-The structured-rival exclusion (`research-notes/frontiers/the_descent_leg.md`, leg-3 open middle):
+The structured-rival exclusion (leg-3, the open middle of the descent-leg program):
 a *negation-first* / unary rival primitive — one (or finitely many) generators with a **unary**
 operation — generates a structure whose depth-`≤ n` count is **linear** in `n` (each level adds a
 bounded number of elements: `g, neg g, neg² g, …`).  213's primitive `Raw.slash` is **binary** and

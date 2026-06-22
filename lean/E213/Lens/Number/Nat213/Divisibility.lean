@@ -4,8 +4,9 @@ import E213.Lens.Number.Nat213.Order
 /-!
 # Lens.Number.Nat213.Divisibility — a discipline computed OVER the Raw-generated ℕ₊ (∅-axiom)
 
-The **descent leg** (`research-notes/frontiers/the_descent_leg.md`): the corrected 진의 asks that a
-classical discipline be *generated from the distinguishing*, not re-derived over Lean's `Nat` and
+The **descent leg** (narrative: `theory/essays/foundations/raw_and_lens_explained.md`): the corrected
+진의 asks that a classical discipline be *generated from the distinguishing*, not re-derived over
+Lean's `Nat` and
 bridged.  `Nat213.Peano` is the Raw-generated positive naturals — `one := Raw.a`,
 `succ := slashOrSelf · Raw.b` (the successor *is* the distinguishing operation), with its own
 `add`/`mul` and the no-zero/no-subtraction/no-absorption shape *forced* by the primitive

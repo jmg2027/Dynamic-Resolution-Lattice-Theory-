@@ -87,8 +87,10 @@ There is also a *deliberately weaker* restatement, `Lens/UniversalDistinguishing
 assumes *less* about the target (a partial pairing, no commutativity) to answer a circularity worry.
 Its **uniqueness** half is proven; its **existence** half is the one open "wall" — and that wall is a
 known *partial-algebra* subtlety (maps into a partial operation must preserve "definedness"), i.e. **Lean
-engineering, not a foundational limit, and it needs no new axiom**. See
-`research-notes/frontiers/the_distinguishing_schema.md` for the three closure routes.
+engineering, not a foundational limit, and it needs no new axiom**.  (Three closure routes are on
+record: use the proven total-target `raw_initial` directly; or make morphisms preserve the apartness
+`Raw`'s `cmp` already supplies; or a well-founded mutual recursion.  The open frontier is tracked under
+`research-notes/frontiers/`.)
 
 ## 6. The schema view — why rival "primitives" don't compete
 
@@ -132,7 +134,7 @@ is the framework's own, openly-accepted "no-exterior" limit (`seed/AXIOM/05_no_e
 - **Number from the distinguishing:** `lean/E213/Lens/Number/Nat213/` (`Raw`, `Peano`, `Generation`,
   `Divisibility`).
 - **Schema / rival-exclusion / the encoding question:** `Lens/UniversalDistinguishing.lean`,
-  `Lib/Math/Foundations/UniverseChain/RivalArity.lean`; frontier notes
-  `research-notes/frontiers/the_distinguishing_schema.md` (the encoding diagnosis answered here),
-  `the_descent_leg.md`, `the_substance_test.md`.
+  `Lib/Math/Foundations/UniverseChain/RivalArity.lean`; the corresponding open frontiers (the
+  distinguishing-schema diagnosis, the descent leg, the substance test) live under
+  `research-notes/frontiers/`.
 - **Honesty infrastructure:** `STRICT_ZERO_AXIOM.md` (the PURE/sealed catalog), `tools/scan_all_axioms.py`.
