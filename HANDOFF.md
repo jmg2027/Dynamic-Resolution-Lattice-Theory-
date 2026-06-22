@@ -126,22 +126,15 @@ Open refinement: a *single* Lean engine covering both faces over one index conve
 shared term is the rung. F1 (bialgebra distributivity of `Δ_+`/`Δ_×`) still open.
 
 ## Next (priority order, Line A) — with this session's feasibility assessments
-1. **`e`'s two homes — product form** `N! = Π_{i=1}^{N} lcm(1..⌊N/i⌋)`. Progress this session:
-   - **DONE (PURE)**: the genuinely-missing `vp`-under-division infra is built —
-     `FTAEquality.{div_pos_of_dvd, vp_div_self (vp p b = vp p (b/p)+1), vp_div_other
-     (vp q b = vp q (b/p))}` (from `vp_mul`+`vp_prime_single`). 3/3 PURE, wired into `ModArith`.
-   - **REMAINING (next session)**:
-     (i) `eq_of_vp_eq (a b)(0<a)(0<b)(∀p prime, vp p a = vp p b) → a = b` via
-         `dvd_of_countOcc_le_vp` (`prodL L ∣ b` from `countOcc q L ≤ vp q b`, peel-a-prime
-         induction using the vp_div lemmas) + dvd-antisymmetry. **NOTE**: a draft of this
-         assembled cleanly (builds) but leaked **`propext`** (all *cited* lemmas are PURE —
-         `le_vp_iff`, `vp_div_*`, `mul_div_of_dvd`, `prodL_cons`, `countOcc_cons`, `pow_*` all
-         scan PURE; the leak is in `dvd_of_countOcc_le_vp`'s assembly itself, source not yet
-         localized — was NOT `by_cases` (→`cases Nat.decEq`), NOT the eqn-compiler (→`induction`),
-         NOT `le_vp_iff`). Next: bisect the propext (suspect a core `Nat`/`Dvd`/`if` lemma used
-         only in the assembly; replace with a PURE corpus twin).
-     (ii) `prodTo` (range product) + `vp_prod` (vp of product = Σ vp, induction via `vp_mul`).
-     (iii) `N! = Π lcm` = clean `eq_of_vp_eq` corollary from `vp_factorial_eq_sum_vp_lcm`.
+1. **`e`'s two homes — product form `N! = Π lcm(1..⌊N/i⌋)`** — **CLOSED ∅-axiom this session.**
+   - `FTAEquality` (6 PURE): the full "number = its prime-valuation vector" FTA half —
+     `vp_div_self`/`vp_div_other` (vp under division), `dvd_of_countOcc_le_vp`,
+     `eq_of_vp_eq`. **The propext leak was core `Nat.mul_assoc`** (propext-carrying); the PURE
+     `ring_nat` fixed it (standing lesson: avoid core `Nat.mul_assoc`, use `ring_nat`).
+   - `FactorialLcmProduct` (5 PURE): `prodTo`, `vp_prod`, and
+     `factorial_eq_prod_lcm : N! = prodTo N (fun i => lcmUpTo (N/(i+1)))` — the two homes of
+     `e` welded by matching prime exponents (`eq_of_vp_eq` + `vp_factorial_eq_sum_vp_lcm`).
+     Essay `synthesis/the_two_homes_of_e.md`. Wired into `ModArith`.
 2. **Cassini ↔ Markov unimodular bridge** — **CLOSED** (`MarkovCassiniUnimodular`, 6 PURE):
    `det₂=1` is the Cassini multiplier `q=1`, so the Markov orbit's Cassini determinant is
    conserved (same law as golden Cassini). Family II's two sub-domains unified.
