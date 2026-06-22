@@ -113,6 +113,7 @@ import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyOrderLaw
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyFreeness
+import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.NoetherCurrent
 import E213.Lib.Math.NumberSystems.Real213.Phi.GoldenAperiodic
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FiniteOrderSpectrum
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.EllipticTracePeriodic

@@ -49,7 +49,7 @@ All declarations PURE.
 namespace E213.Lib.Math.Analysis.FluxMVT.TelescopingConservation
 
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
-open E213.Lib.Math.Analysis.FluxMVT.FluxCochain.FluxCut (fluxAlong)
+open E213.Lib.Math.Analysis.FluxMVT.FluxCochain.FluxCut (fluxAlong isBalanced)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 
 /-- **Adjacency predicate** on dyadic brackets: `db₀` and `db₁`
@@ -159,5 +159,34 @@ theorem gauss_conservation_telescope
     ∧ (fluxAlong f db₀).backward = f db₀.leftCut
     ∧ (fluxAlong f db₂).forward = f db₂.rightCut :=
   ⟨flux_edge_match f h.adj01, flux_edge_match f h.adj12, rfl, rfl⟩
+
+/-! ## Spatial divergence ⟺ wall-invariance — the cut-side Noether iff
+
+The character-side Noether iff (`∂·j = 0 ⟺ Aut-invariant`) lives in
+`NumberSystems/Real213/ModularGeometry/NoetherCurrent.lean`.  Here is its
+**cut-side spatial twin**: the local divergence of the current `f` over a
+bracket vanishes (`isBalanced (fluxAlong f db)` — the `∂_x j = 0` form, no net
+flux across the cell) **iff** the reading `f` is invariant across the two walls
+of the bracket.  Symmetry-invariance of the readout ⟺ vanishing local
+divergence — Noether read on the dyadic cut, the spatial face whose telescoped
+sum is `gauss_conservation_telescope`. -/
+
+/-- **Wall-invariance** of a current `f` over a bracket: `f` reads the two
+    bracket walls (left/right cuts) equally at every resolution.  The cut-side
+    symmetry-invariance of the readout. -/
+def WallInvariant (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (db : DyadicBracket) : Prop :=
+  ∀ m k, f db.rightCut m k = f db.leftCut m k
+
+/-- ★★★ **Cut-side Noether iff** — `∂_x j = 0 ⟺ wall-invariant`.
+    The local divergence of the current `f` over the bracket vanishes
+    (`isBalanced (fluxAlong f db)`) iff `f` is invariant across the bracket's
+    two walls.  This is Noether on the dyadic cut: no net spatial flux across
+    the cell ⟺ the readout is unchanged by the cell's endpoint symmetry —
+    the spatial divergence twin of the character-side `noether_local`. -/
+theorem divergence_zero_iff_wall_invariant
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) (db : DyadicBracket) :
+    isBalanced (fluxAlong f db) ↔ WallInvariant f db :=
+  Iff.rfl
 
 end E213.Lib.Math.Analysis.FluxMVT.TelescopingConservation
