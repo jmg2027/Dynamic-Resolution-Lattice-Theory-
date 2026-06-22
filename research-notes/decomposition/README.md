@@ -1359,7 +1359,52 @@ modular_forms/zeta_euler/padic). All named Iwasawa objects (Iwasawa/characterist
 pAdicL/Λ-as-group-ring) grep-confirmed absent; buildable witness: a two-rung class-number-growth toy
 (h(−3)=1 p⁰ q+1 vs a class-number-p discriminant q−1, tagged via ResidueTag, exhibiting p^(λn) with λ=1).
 
-**Count.** 96 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Ramsey theory / extremal combinatorics (`ramsey_theory.md`) — the q=±1 unavoidability threshold (strongly BUILT)
+
+EXTEND + PARTIAL, unusually well-grounded. Ramsey theory = the **count-reading at a finite threshold**, read at
+its two q=±1 poles: pigeonhole = the q+1 forced-coincidence base (the cardinality diagonal folded back at finite
+size, `Pigeonhole.exists_collision` 5/0), the probabilistic lower bound = the q−1 escape (`CountExistence.deficit_exists`
+10/0), the extremal corpus = the q+1 saturation pole (dual double-count). ★ New datum: Ramsey is the **flip-locus**
+where the count-reading's escape has a finite ceiling and switches sign — both signs visible at once, separated by
+the threshold. ★ Strongly built: `RamseyNamedBound.ramsey_lower`:174 (R(k,k)>N, named & closed, 13/0),
+`SpernerChains.sperner_theorem`:534 (50/0), `Sperner` (47/0), `LymInequality` (5/0), `BollobasSetPair.bollobas`:257
+(21/0), `BollobasCount` (36/0), `ErdosSzekeres.erdos_szekeres`:587 (26/0) — the proof-ISA independently records
+the same split (Ramsey-lower = union-bound face, Sperner-upper = dual double-count face). Located gaps: Turán
+`ex(n,K_r)` absent (the edge carrier exists; buildable, no witness asserted), van der Waerden/Szemerédi absent
+(the density leg meets the calibrated infinite-quantifier residual); R(s,t) as a defined number absent (only the
+inequality).
+
+### ★ Derived / triangulated categories (`derived_categories.md`) — the residue operation's natural home
+
+EXTEND + PREDICTION + PARTIAL-BREAK. A derived category = homological_algebra's residue-taking operation
+`Residue(L,C)` placed inside homotopy_theory's Quot-free localization — the home that operation needed. D(A) =
+chain complexes localized at quasi-iso = the SAME Quot-free `LensImage`/`FreeReduction` Σ-quotient as Ho(C)
+(a quasi-iso = iso on all Hⁿ = "same under the cohomology reading" = `Lens.refines`). The shift `[1]` =
+fold-height+1 carrying the q=±1 swap (`IsResolutionShift_compose` additive grades; differential sign-flip =
+`bracket_antisymm`; `[2]≅sign-identity` = `multiplier_unimodular` q²=1). The distinguished triangle = the LES
+packaged into one rotatable object (cone Z = the q−1 residue, witnessed concretely by
+`NonzeroBetti.loopClass_not_coboundary` 56/0; the third map = the connecting δ into the shift; the triangle's
+LES = `dsq_zero_universal_delta4`). Lf/Rf = the resolution-dial lift; octahedral axiom = a 2-cell coherence
+(`refines_trans`/`view_factors_through_morphism`). Named DerivedCategory/triangulated/shift/Cone/quasiIso
+objects absent (the octahedral hits are the binary octahedral group 2O, false-friend flagged); the
+calculus-of-fractions/roof corner = the same Side-B located break as the homotopy/isotopy quotient.
+
+### ★ Hyperbolic / non-Euclidean geometry (`hyperbolic_geometry.md`) — the discriminant-sign trichotomy as curvature
+
+EXTEND (deep consolidation). ★ New datum: the three constant-curvature geometries (elliptic K>0 / Euclidean K=0
+/ hyperbolic K<0) ARE the one discriminant-sign trichotomy `sign(disc=tr²−4det=(μ−ν)²)` the corpus already
+proves — read as the curvature sign. This unifies spectral.md (complex/real spectrum), golden_ratio/
+continued_fractions (finite/infinite order), and `CrossDetTraceField.disc_sign_is_line_cusp_curve`:248
+(hyperbolic/parabolic/elliptic = G>0/T=0/U<0, 20/0) as ONE geometric trichotomy: disc>0 hyperbolic q−1
+(`golden_hyperbolic`/`golden_aperiodic` escape) vs disc<0 elliptic q+1 (`finite_order_divides_twelve` 29/0,
+periodic rotation) vs disc=0 flat (`signature_trichotomy` 4/0). PSL(2,ℝ) = the Möbius holonomy
+(`det_holonomy_eq_one`, `mediantLens_view_reachable`); ★ Gauss–Bonnet is BUILT discretely
+(`DiscreteGaussBonnet.gauss_bonnet_Kmn`:42 `totalVertexCurv = 2·eulerChar`, 12/0 — the curvature–Euler
+telescope). Located break: the smooth geometric objects (HyperbolicPlane/UpperHalfPlane/PSL2R/smooth ∫K=2πχ
+with 2π) absent — the Real213-cut smooth-metric residue; the angle-sum/parallel-postulate-as-named-theorem is
+the PREDICTION leg (only the disc-sign number trichotomy is built).
+
+**Count.** 99 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
