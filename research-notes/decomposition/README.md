@@ -1447,7 +1447,22 @@ separate theorem; the built height-cocycle is `minkowski_is_markov_valued_cocycl
 preperiodic/Northcott/Julia objects absent; buildable witness: `multiplier_unit_magnitude_sign_order_NT`:188
 (the preperiodic detector at the multiplier level).
 
-**Count.** 102 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Geometric group theory (`geometric_group_theory.md`) — the word object through a growth Lens
+
+EXTEND (deep consolidation). GGT = the `FreeReduction` word object read through a **length/fold-height Lens**,
+with the polynomial-vs-exponential growth dichotomy = the q=±1 spine and quasi-isometry = `Lens.refines`. The
+Cayley graph/word metric = the FreeReduction normal-form (`free_group_quotient_no_quot` 26/0,
+`freeEquiv_iff_reduce_eq`:216 the decidable word problem) with a word-length distance; growth = the count
+reading graded by length. ★ New datum: Gromov's growth dichotomy (polynomial ⟺ virtually nilpotent) is the
+*same q=±1 solvability spine the corpus already unified in one Lean object* (`Solvable.solvability_two_poles`
+65/0), read through the growth Lens — polynomial/virtually-nilpotent = q+1 terminating derived series (ties
+DerivedSeries), exponential/free = q−1 escape (growing iteration `MuNuMirror.ascent_unbounded`/rising trace
+`golden_aperiodic`/perfect group `a5_not_solvable'`). Quasi-isometry = `Lens.refines` (reading-invariant).
+Named CayleyGraph/wordMetric/growthRate/hyperbolicGroup/Gromov objects absent (the 228 Cayley hits are
+Cayley–Dickson algebra, false-friend flagged); the general word problem = the Novikov–Boone Side-B colimit
+break (recurs verbatim from free_corner). No new buildable witness (the collapse is already theorem-grade).
+
+**Count.** 103 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
