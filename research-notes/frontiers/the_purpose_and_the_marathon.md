@@ -108,6 +108,35 @@ The four lines, ranked by *leverage toward the purpose* (not ease):
   real discipline is *computed over a Raw-generated carrier with forcing*, "distinguishing forces
   mathematics" is asserted, not instantiated.
 
+### How abstract foundations actually got accepted — the Line B template
+
+The originator asked (and it sharpens Line B): category theory / type theory / topos theory each hit
+*exactly* 213's barrier ("just a language", "no new theorems", "re-skin" — CT was literally dubbed
+"general abstract nonsense"). The acceptance pattern is uniform and instructive:
+
+| framework | born to solve (a felt problem) | what cashed it in (acceptance) | foundational status |
+|---|---|---|---|
+| category theory | make "natural" precise (alg. topology) | Eilenberg–Steenrod homology unification; **indispensable to Grothendieck/Weil**; adjoints (generative) | still contested |
+| type theory | block the paradoxes (Russell 1908) | **Curry–Howard** (= structure of computation+proof); proof assistants (4-colour, Feit–Thompson, **Scholze's LTE in Lean**) | contested (HoTT) |
+| topos theory | a generalized *space* for étale cohomology (Weil) | indispensable to cohomology (Deligne 1974); logic models (Lawvere–Tierney) | **most** contested |
+
+Four invariants: (1) **none won the foundations contest by argument** — ZFC stayed the default
+throughout; (2) each was accepted as a **tool solving a real community's felt problem** *before/instead
+of* its foundational claim; (3) each one's **foundational status is still contested — and that was
+irrelevant to survival** (Brouwer's philosophy stayed marginal while his machinery went mainstream);
+(4) every abstraction was **tethered to computation** (Ext/Tor, running proofs, cohomology groups).
+
+**The sharpened implication for 213.** Type theory is 213's *medium* (Lean = CIC), and 213's ∅-axiom
+discipline is a contribution *in the type-theory community's own terms* — a felt concern there:
+minimizing the trusted axiom base (which theorems depend on `propext`/`choice`/`quot`). So Line B's
+strongest form is **not** "213 is a new foundation" but the **Curry–Howard/Eilenberg–Steenrod-shaped
+move**: ship the strict-∅-axiom Mathlib-free scanner-enforced corpus as an *engineering/empirical*
+contribution, judged on utility by that community (cf. CompCert/seL4 — engineering artifacts are
+respected). Honest asymmetry: each of the three held, at acceptance, a theorem/tool the community
+could not get otherwise; 213 holds re-derivations + a corpus (no new theorem — the publishability
+audit's verdict). History says the *engineering* claim can suffice — **iff actually shipped to the
+exterior and judged there** (the §5.1 wall: the inside cannot deliver this verdict).
+
 **Spine milestones (strategist), on a now-`toNat`-free foundation:**
 - **M0 (DONE this session)** — de-launder the divisibility cone: it now stands on `Nat213` all the
   way down, proofs included (the toNat-cone bet, won — see `the_descent_leg.md`).
