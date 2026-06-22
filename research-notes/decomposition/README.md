@@ -681,7 +681,35 @@ tropicalization = that pole armed with a `⊗`; the tropical product = the Legen
 the dequantization map `t·log(e^{x/t}+e^{y/t})→max` (the named weld: `softmax_t` on `Real213` cuts, its `t→0`
 residue = `cutMax`). A sharpening: tropicalization is the calculus's first explicit *character-at-a-resolution-limit*.
 
-**Count.** 49 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Topos theory (`topos.md`) — why 213 is constructive: the PURE/DIRTY boundary IS the Heyting/Boolean boundary
+
+PREDICTION+PARTIAL, the sharpest *foundational* leverage: a topos = the calculus's `Raw`/`Lens` variable-set
+world; **Ω = the distinguishing-target `Bool`** and the characteristic map **χ = `Object1` (`decide (s=r)`) are
+BUILT + PURE** (`FlatOntology.lean:43`), not conceptual; the power-object embedding `A→Ω^A` is `object1_injective`,
+its residue `object1_not_surjective`. ★ The revelation is **grounded by a purity scan, not asserted**: in
+`SemanticAtom.lean` the classical `Prop`-valued connectives (`canonicalTruthMap`, `canonicalIffMap`,
+`propAsDistinguishing`, …) are all **DIRTY [propext]**, while the `Bool`/`decide` connectives are **PURE** — *the
+PURE/DIRTY boundary IS the Heyting/Boolean boundary*. So **"213 is constructive (∅-axiom)" = "213 is the `q=+1`
+PURE corner of its own topos, whose internal logic is intuitionistic (Heyting)"** — a structural account of the
+repo's foundational discipline, the `measure.md`-grade payoff (there "no Choice" = `q=−1` escape; here "no
+Classical/LEM" = the `q=−1` propext cost of Boolean logic). Lawvere–Tierney topology = `clo`; geometric morphism
+= an adjoint pair. Consolidates category_theory + sheaf + model_theory + yoneda + the no-Classical stance.
+Missing leg: a *named* `Topos`/`Ω`/Mitchell–Bénabou/`GeometricMorphism` object (the categorical twin of the
+missing presheaf object — every leg built+PURE, only the bundle naming it "a topos" absent).
+
+### Fundamental group / π₁ (`fundamental_group.md`) — π₁'s homotopy quotient recurs as knots.md's SAME break
+
+PARTIAL: the loop *algebra* EXTENDS — π₁ = the loop-holonomy reading's `q=±1` residue (`holonomy_append` =
+concatenation, `positive_loop_trivial` = simply-connected q=+1, `first_loop_is_the_fold : holonomy[S,S]=−I≠I`
+= the q=−1 non-contractible loop); **H₁ = π₁ abelianized = the commutator quotient** = ONE step of
+`DerivedSeries.commSet` (`derived_S3_step1`), bridged to b₁ via Gauss–Bonnet `totalCurv_eq`; covers↔subgroups =
+the Galois anti-iso (`clo`). ★ But the **homotopy quotient BREAKS at exactly knots.md's located break** (the
+ambient-deformation/isotopy quotient — not a self-application residue, not a kernel-coincidence, not `clo`),
+recurring verbatim in an independent field. That recurrence promotes the break from a one-off to a **principled
+topological-quotient limit**: the precise missing leg is a single **ambient-deformation quotient primitive**
+serving both knots and π₁.
+
+**Count.** 51 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
