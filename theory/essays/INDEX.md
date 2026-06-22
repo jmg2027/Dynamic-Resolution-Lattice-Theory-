@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 104 essays are grouped into ten thematic sub-directories — distinct
+The 105 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -27,6 +27,12 @@ others together):
 `the_frontier_has_a_form`, `the_residue_unit_odometer`, `the_unit`,
 `reached_by_none`, `the_breadth_signature`, `the_reference_claim`,
 `the_one_diagonal`, `the_one_carrier`, `growth_without_a_clock`,
+`the_distinguishing_is_the_primitive` (the corrected 진의 as a checkable
+four-direction lattice — generation / forcing / reading-necessity /
+primitive-necessity, across arithmetic (`Nat213.Generation`) and the residue
+(`OneDiagonal`): the distinguishing is the primitive, its unfolding forced and
+the distinguishing necessary, ∅-axiom; honest scope on what `∅-axiom` does and
+doesn't claim),
 `imagining_infinity` (conceiving ∞ is a discrete pointing: the limit-value is
 reached by no convergent yet every cut is decided in finite — `PointingLimit`,
 `BestApproximation`; the residue's shape characterises ∞ without deifying it).
