@@ -14,6 +14,7 @@ import E213.Lib.Math.Foundations.UniverseChain.RawDepthCount
 import E213.Lib.Math.Foundations.UniverseChain.RawEnumeration
 import E213.Lib.Math.Foundations.UniverseChain.RawPastCompleteness
 import E213.Lib.Math.Foundations.UniverseChain.RawRecurrence
+import E213.Lib.Math.Foundations.UniverseChain.RivalArity
 import E213.Lib.Math.Foundations.UniverseChain.Recursion
 import E213.Lib.Math.Foundations.UniverseChain.Residue
 import E213.Lib.Math.Foundations.UniverseChain.TriangleRecurrence
