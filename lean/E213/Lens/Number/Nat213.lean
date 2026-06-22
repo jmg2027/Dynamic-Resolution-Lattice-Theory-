@@ -15,6 +15,7 @@ import E213.Lens.Number.Nat213.Irreducible
 import E213.Lens.Number.Nat213.Factorization
 import E213.Lens.Number.Nat213.EuclidUnique
 import E213.Lens.Number.Nat213.FTA
+import E213.Lens.Number.Nat213.Forcing
 import E213.Lens.Number.Nat213.Generation
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.Number.Nat213.RawCut
@@ -76,6 +77,12 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            over `Nat213`.  Native propext-free `Perm`/`erase`.
                            Descent-leg capstone (M4); a full classical discipline
                            computed on the Raw-generated carrier.
+    * `Forcing`          — the FTA carrier tied to the primitive: Peano's `succ`
+                           IS the distinguishing under `Bridge.toRaw`
+                           (`peano_succ_is_distinguishing`); a distinguishing-blind
+                           reading cannot carry the prime/composite distinction
+                           (`factorization_forced_by_distinguishing`).  M5; honest
+                           "recognition, not genesis" (Nat213 a parallel inductive).
 
   ## Tower/
 

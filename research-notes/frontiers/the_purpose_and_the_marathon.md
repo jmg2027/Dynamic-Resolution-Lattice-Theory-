@@ -143,6 +143,13 @@ exterior and judged there** (the §5.1 wall: the inside cannot deliver this verd
 - **M1 (DONE this session)** — `Irreducible` over `Nat213` (`Irreducible.lean`, 18 PURE): `2,3,5`
   irreducible, `4` not, `irreducible_divisors`; `five_irreducible` via native `lt_succ_iff`
   enumeration + cofactor bound, whole cone `toNat`-free. Reuses `Divisibility` + `Order` (now native).
+- **M5 (DONE this session) — forcing: the FTA carrier tied to the act.** `Forcing.lean` (3 PURE):
+  `peano_succ_is_distinguishing` (Peano `succ` = the distinguishing `slashOrSelf · Raw.b` under
+  `Bridge.toRaw`) + `factorization_forced_by_distinguishing` (`five` irreducible, `four` not; the
+  distinguishing-blind `degLens` conflates their Raw images, the count reading separates them). A
+  distinguishing-blind reading cannot carry the prime/composite distinction. **Honest wall stated**:
+  `Nat213` is a parallel inductive, link is the *injective* bridge → "recognition, not genesis."
+  Remaining: M6 (`DStr`-dichotomy merge).
 - **M4 (DONE this session) — THE FTA CAPSTONE CLOSED.** `FTA.lean` (11 PURE): `fta` bundles
   **existence** (`exists_factorization`) + **uniqueness up to permutation** (`factorization_unique`),
   generated entirely over `Nat213`. Native propext-free `Perm`/`erase` (+ `prod_erase`,

@@ -191,6 +191,17 @@ asserted. Remaining: the *forcing* half (M5 rival-exclusion: a distinguishing-bl
 carry factorization; M6 `DStr`-dichotomy merge), and the §5.1 verdict-wall (a clean capstone proves
 coherence+forcing, not "not a re-skin") → Line B exposure is the only external test.
 
+**M5 DONE (same marathon) — the FTA carrier forced by the distinguishing.** `Forcing.lean` (3 PURE):
+`peano_succ_is_distinguishing` (under `Bridge.toRaw`, Peano's `succ` *is* `Raw.succ = slashOrSelf ·
+Raw.b`, the distinguishing op) + `factorization_forced_by_distinguishing` (`five` irreducible, `four`
+not; the distinguishing-blind `Generation.degLens` collapses both Raw images to `1`, while the count
+reading `Raw.value` — which uses the distinguishing via `+` — separates `4 ≠ 5`). So a reading blind
+to the act cannot carry the prime/composite distinction the FTA rests on. **Honest boundary stated in
+the file**: `Peano.Nat213` is an *ergonomic parallel* inductive, not literally `Raw`; the link is the
+*injective* bridge, so the earned claim is **recognition, not genesis** (the marathon's wall #1). M6
+(`DStr`-dichotomy merge — every rival `≅ Raw` or fails a named clause, via `UniversalDistinguishing`)
+remains.
+
 **M2 advance scouting (the two pins, both now discharged above):**
 - *Native well-foundedness is in hand* — `Acc lt` is provable over `Nat213` with **no `toNat`**, by
   structural recursion:
