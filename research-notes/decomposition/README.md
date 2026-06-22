@@ -659,7 +659,29 @@ Consolidates category_theory + model_theory + yoneda + godel + MuNuMirror/Lambek
 λ-calculus (`Term`/β-reduction/`Γ⊢t:A`) + the bridge "β-SN = `no_infinite_descent`" (the proof-theory dual
 of model_theory's absent FOL syntax — the engine is real and PURE, the typed-calculus instance is the open work).
 
-**Count.** 47 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### Sheaf theory (`sheaf_theory.md`) — gluing = q=+1 unique-amalgamation; H^{>0} = the q=−1 local-global obstruction
+
+PREDICTION+PARTIAL (topology + de_rham + resolution + initiality): a presheaf = a restriction-compatible
+reading on the resolution poset; the **sheaf gluing axiom = the q=+1 unique-amalgamation = `dhom_unique_pointwise`
+initiality** (a unique global section forced by compatible local data = the catamorphism pinned by its pieces),
+with overlap-compatibility = the naturality 2-cell `view_factors_through_morphism`. **H^{>0} = ker δ/im δ = the
+q=−1 local-global obstruction = de_rham's coboundary residue** (`delta`, `dsq_zero_universal_delta4`); H⁰/H^{>0} =
+the two poles of one `ResidueTag`; de Rham = the constant-sheaf case; stalk = the residue-resolution germ (`Msup`).
+Missing leg: a named `Presheaf`/`Sheaf`/`Stalk`/Čech object (grep-confirmed absent) — same shape as topology's
+arbitrary-cover and de_rham's smooth `Ω^k(M)`.
+
+### Tropical / idempotent semiring (`tropical.md`) — (max,+) = the character arrow's idempotent T→0 limit
+
+PREDICTION (exponential + entropy + the idempotent iteration-character + convex_duality + the max-lattice): the
+tropical `(max,+)` semiring = the `×↦+` character at its idempotent `T→0` dequantization limit. ★ The repo's OWN
+docstrings already classify `max` as the idempotent pole of the iteration-character axis — `max_idem` (`T²=T`),
+`max_iter_trivial` ("`max` builds no tower"), the exact mirror of `succ_not_idempotent`'s growing pole. So
+tropicalization = that pole armed with a `⊗`; the tropical product = the Legendre/infimal-convolution dual
+(convex_duality); dequantization = the resolution-limit residue. Missing leg: the tropical semiring object +
+the dequantization map `t·log(e^{x/t}+e^{y/t})→max` (the named weld: `softmax_t` on `Real213` cuts, its `t→0`
+residue = `cutMax`). A sharpening: tropicalization is the calculus's first explicit *character-at-a-resolution-limit*.
+
+**Count.** 49 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
