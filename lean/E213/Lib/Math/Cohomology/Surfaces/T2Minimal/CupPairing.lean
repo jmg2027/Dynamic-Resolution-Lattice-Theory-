@@ -55,15 +55,13 @@ theorem cup_ba : cup basis_b basis_a Cell2.f = 1 := by decide
 /-- Matrix entry: `(basis_b ⌣ basis_b)(f) = 0`. -/
 theorem cup_bb : cup basis_b basis_b Cell2.f = 0 := by decide
 
-/-- Cup is symmetric: `α ⌣ β = β ⌣ α`.  PURE (modulo funext-by-design)
-    via `Int213.mul_comm` + `Int213.add_comm` in place of Lean-core
-    Int.mul_comm / Int.add_comm (which are propext-leaking).
-    Category (A) classical-correspondence surface
-    (`catalogs/correspondence-surface.md`): the lone `Quot.sound` is the
-    `funext` toll for stating standard cup graded-commutativity as
-    cochain function-`=`; the pointwise `cup α β s = cup β α s` is PURE. -/
-theorem cup_symm (α β : C1) : cup α β = cup β α := by
-  funext _
+/-- Cup graded-commutativity, **pointwise** — the genuine mathematical
+    content, **PURE** (`#print axioms` empty): `(α ⌣ β)(s) = (β ⌣ α)(s)`
+    for every cell `s`, via `Int213.mul_comm` + `Int213.add_comm` (the
+    pure twins; Lean-core `Int.mul_comm`/`Int.add_comm` are
+    propext-leaking).  The cup form `[[0,1],[1,0]]` is symmetric. -/
+theorem cup_symm_pointwise (α β : C1) (s : Cell2) :
+    cup α β s = cup β α s := by
   show α Cell1.a * β Cell1.b + α Cell1.b * β Cell1.a
      = β Cell1.a * α Cell1.b + β Cell1.b * α Cell1.a
   have h1 : α Cell1.a * β Cell1.b = β Cell1.b * α Cell1.a :=
@@ -71,5 +69,16 @@ theorem cup_symm (α β : C1) : cup α β = cup β α := by
   have h2 : α Cell1.b * β Cell1.a = β Cell1.a * α Cell1.b :=
     E213.Meta.Int213.mul_comm _ _
   rw [h1, h2, E213.Meta.Int213.add_comm]
+
+/-- Cup is symmetric as a function-`=`: `α ⌣ β = β ⌣ α`.
+    **sealed-DIRTY-by-design** (`Quot.sound` via `funext`): the lone toll
+    is the `funext` wrapper turning the PURE pointwise
+    `cup_symm_pointwise` into a cochain function-equality.  The
+    mathematical content (graded-commutativity) lives in the pointwise
+    theorem; this restatement is the function-valued-equality category
+    (b) of `STRICT_ZERO_AXIOM.md` (same class as the Lens funext).
+    Enumerated in the scanner's `SEALED_DIRTY_PREFIXES`. -/
+theorem cup_symm (α β : C1) : cup α β = cup β α := by
+  funext s; exact cup_symm_pointwise α β s
 
 end E213.Lib.Math.Cohomology.Surfaces.T2Minimal.CupPairing

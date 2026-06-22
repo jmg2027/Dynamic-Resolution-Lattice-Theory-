@@ -131,7 +131,13 @@ inherit.
 `scan_all_axioms.py` runs `#print axioms` over the corpus and classifies PURE / sealed-DIRTY / real
 DIRTY against `STRICT_ZERO_AXIOM.md`. CI-style enforcement makes purity a *checked invariant*, not a
 review aspiration; per-theorem certificates (`#print axioms <thm> → ∅`) are the paper's primary data
-and are mechanically reproducible (a CPP plus).
+and are mechanically reproducible (a CPP plus). The census is **18,798 PURE / 47 sealed-DIRTY /
+0 real DIRTY** over 18,845 declarations (§Appendix A). We stress that this number is *checked, not
+asserted*: the scan itself surfaced that the sealed registry had drifted out of sync with the
+corpus — five DIRTY-by-design modules (e.g. the axiom-exhibiting bridge lenses) were not yet
+enumerated, and conversely the entire Lens-funext family it *did* enumerate (`QuotLens`, `Cauchy`,
+…, 1000+ declarations) had since become PURE. Reconciling registry to corpus is exactly the kind of
+drift a machine census catches and a manual "it's constructive" claim does not.
 
 ### 4.3 The recurring traps (and a worked one)
 
@@ -262,8 +268,16 @@ python3 tools/scan_all_axioms.py      # whole-corpus PURE / sealed-DIRTY / real-
 python3 tools/scan_axioms.py <module> # per-module #print axioms classification
 ```
 
-Corpus size at draft time: 2,110 Lean modules, ~15,700 theorem/lemma declarations; 0 `sorry`, 0
-`native_decide`, 0 real DIRTY on the mathematical content.
+Corpus size at draft time: 2,110 Lean modules. Whole-corpus `#print axioms` census
+(`scan_all_axioms.py --csv`): **18,845 declarations scanned (theorems, lemmas, and definitions),
+18,798 PURE, 47 DIRTY — all 47 sealed-by-design, 0 real DIRTY.** (Of the ~15,700 are
+`theorem`/`lemma` keyword declarations; the census additionally covers `def`-level proof-carrying
+declarations.) 0 `sorry`, 0 `native_decide`. The 47 sealed-DIRTY break down as: 33 Prop-as-
+distinguishing `propext` (`SemanticAtom`, `BoolProp`, `CanonicalTruthChar`), 5 `CommandElab`
+elaborator plumbing, 2 axiom-exhibiting bridge lenses (which *deliberately* apply `funext` /
+`Quot.sound` to demonstrate "the axiom is a lens application"), and 1 `funext` toll on a cochain
+function-equality whose pointwise content is PURE (`CupPairing.cup_symm_pointwise`). Full inventory:
+`STRICT_ZERO_AXIOM.md` §"Sealed-DIRTY inventory".
 
 ## Appendix B — prior-art index
 

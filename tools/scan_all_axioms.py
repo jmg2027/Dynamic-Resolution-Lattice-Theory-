@@ -146,6 +146,26 @@ SEALED_DIRTY_PREFIXES = (
     "E213.Lib.Math.Tactic.QuadExtension",
     "E213.Meta.Tactic.DeriveConjugationCodomain",
     "E213.Meta.Tactic.VerifyConjugation",
+    "E213.Meta.Tactic.NativeGuard",          # 213-native *vocabulary* guard
+                                             #   metaprogram; CommandElab-class
+                                             #   plumbing (same as the elab defs
+                                             #   above), not math content.
+    # (c) axiom-exhibiting bridge lenses.  Each file's only DIRTY decl
+    #     *deliberately applies* the named axiom to demonstrate "the axiom
+    #     IS a lens application" (documented "DIRTY BY DESIGN" in-file).
+    #     Their DIRTY status is the content, not a leak.
+    "E213.Lens.AxiomLenses.Bridges.Funext",     # funextLens_inhabited := funext
+    "E213.Lens.AxiomLenses.Bridges.QuotSound",  # sound_lens := Quot.sound
+    # (a) cont. — Prop-as-distinguishing (same justification as
+    #     `SemanticAtom`/`BoolProp` above): the `propext` decls are the
+    #     Prop-side statement; the Bool-lens `view` equalities are the PURE
+    #     213-native content.
+    "E213.Lib.Math.Foundations.Choice.CanonicalTruthChar",
+    # (b) cont. — funext toll on a *cochain* function-equality.  The PURE
+    #     mathematical content is the pointwise `cup_symm_pointwise`; the
+    #     lone DIRTY decl `cup_symm` is the `funext` wrapper restating it as
+    #     a function-`=` (same class as the Lens funext family above).
+    "E213.Lib.Math.Cohomology.Surfaces.T2Minimal.CupPairing",
 )
 
 

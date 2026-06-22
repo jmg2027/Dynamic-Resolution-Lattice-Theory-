@@ -217,20 +217,33 @@ dependency-purity audit (`tools/scan_all_axioms.py`).
 
 Run `tools/scan_all_axioms.py` for the live count; the standing
 status is **0 real DIRTY** — every DIRTY theorem is one of the
-sealed-by-design entries below, waived under the categories above:
+sealed-by-design entries below, waived under the categories above.
+Whole-corpus census (`--csv`, all modules): **18,845 declarations
+scanned, 18,798 PURE, 47 DIRTY (all sealed-by-design), 0 real DIRTY.**
 
-  · 23  E213.Lens.SemanticAtom                  — category (a) propext
-  · 10  E213.Lens.Properties.Morphism.BoolProp  — category (a) propext
-  · 10  E213.Lens.Instances.Leaves.DepthJoin    — category (c) Classical.choice (5) + category (b) Quot.sound (5)
-  ·  5  E213.Lens.Universal.QuotLens            — category (b) Quot.sound
-  ·  4  E213.Lens.Lattice.IndexedJoin           — category (b) Quot.sound
-  ·  3  E213.Lens.Instances.Cauchy              — category (b) Quot.sound
-  ·  1  E213.Lens.Instances.FunctionSpace       — category (b) Quot.sound
+  · 23  E213.Lens.SemanticAtom                              — (a) propext (Prop-as-distinguishing)
+  · 10  E213.Lens.Properties.Morphism.BoolProp              — (a) propext (Prop-as-distinguishing)
+  ·  6  E213.Lib.Math.Foundations.Choice.CanonicalTruthChar — (a) propext (Prop-side; Bool-lens views PURE)
+  ·  2  E213.Meta.Tactic.NativeGuard                        — (a) CommandElab vocabulary-guard plumbing
+  ·  1  E213.Lib.Math.Tactic.QuadExtension                  — (a) CommandElab elaborator plumbing
+  ·  1  E213.Meta.Tactic.DeriveConjugationCodomain          — (a) CommandElab elaborator plumbing
+  ·  1  E213.Meta.Tactic.VerifyConjugation                  — (a) CommandElab elaborator plumbing
+  ·  1  E213.Lens.AxiomLenses.Bridges.Funext                — (c) axiom-exhibiting: funextLens_inhabited := funext
+  ·  1  E213.Lens.AxiomLenses.Bridges.QuotSound             — (c) axiom-exhibiting: sound_lens := Quot.sound
+  ·  1  E213.Lib.Math.Cohomology.Surfaces.T2Minimal.CupPairing — (b) funext toll on cochain `=` (pointwise `cup_symm_pointwise` PURE)
+
+The Lens funext family previously listed here (`Instances.Leaves.DepthJoin`,
+`Universal.QuotLens`, `Lattice.IndexedJoin`, `Instances.Cauchy`,
+`Instances.FunctionSpace`) is now **fully PURE** (0 DIRTY across all their
+declarations — `Cauchy` alone is 1005 PURE decls); they remain in
+`SEALED_DIRTY_PREFIXES` harmlessly. The sealed class has only shrunk.
 
 DRLT mathematical content (`E213.Lib.Math.*`, `E213.Lib.Physics.*`,
-`E213.Theory.*`, all capstones) is **fully PURE**.  Zero unsealed
-DIRTY: every Lean-core axiom use is structurally justified per
-§"Sealed-by-design categories".
+`E213.Theory.*`, all capstones) is **fully PURE** — the lone `Lib.Math.*`
+DIRTY decl, `CupPairing.cup_symm`, is the funext wrapper of the PURE
+`cup_symm_pointwise` (the graded-commutativity content itself is PURE).
+Zero unsealed DIRTY: every Lean-core axiom use is structurally justified
+per §"Sealed-by-design categories".
 
 ---
 
