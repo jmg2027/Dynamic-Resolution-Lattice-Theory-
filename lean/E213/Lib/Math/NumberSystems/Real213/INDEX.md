@@ -30,7 +30,7 @@ Specific reals / dynamics:
 | `Mobius/` | 10 | Möbius transforms on cuts, Stern–Brocot, setoid, Pell invariant |
 | `Minkowski/` | 7 | Minkowski `?`, modular symbols, period integrals/polynomials |
 | `ModularGeometry/` | 12 | elliptic/hyperbolic/parabolic traces, geodesic lens, holonomy, finite-order spectrum, Lagrange extremes |
-| `Mat2/` | 3 | 2×2 matrix algebra (assoc, Cayley–Hamilton, trace recurrence) |
+| `Mat2/` | 5 | 2×2 matrix algebra (assoc, adjugate, Cayley–Hamilton, trace recurrence, spectrum = tr/det as e₁/e₂) |
 | `ProbeTwist/` | 3 | probe-twist dynamics, conic, fixed point |
 | `Spiral/` | 4 | spiral coordinate/layer/rotation invariant + scaling orbit |
 

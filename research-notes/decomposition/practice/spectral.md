@@ -228,20 +228,21 @@ batch log:
 | Cassini `q=±1` scale-multiplier (the eigenvalue read on the vector/det), cross-ref `golden_ratio.md` | `Lib/Math/Algebra/CassiniUnimodular.lean:123` `det_step`; `:142` `det_closed`; `:163` `cassini_law_one_at_two_multipliers` | ∅-axiom (per `golden_ratio.md`) ✓ |
 | eigenvalue deployed: `R_u=1/φ²` = contracting eigenvalue `λ₋` (`λ₊λ₋=det=1`) | `Lib/Physics/Mixing/JarlskogApex.lean:166` `apex_modulus_is_selfref_contracting_eigenvalue`; `:204` `apex_modulus_subunit_forced` | PURE (per file docstrings) ✓ (grep-confirmed) |
 
-## Concurrent / in-progress (NOT cited as a verified anchor — does not yet build)
+## The Vieta resolution — now BUILT ∅-axiom (verified anchor)
 
-- **`Lib/Math/NumberSystems/Real213/Mat2/Mat2Spectrum.lean`** — a concurrent Lean agent is building
-  exactly the Vieta `tr=e₁`/`det=e₂` resolution of the `det`/`tr` split (declarations `charPoly`,
-  `vieta_factor`, `tr_eq_e1`, `det_eq_e2`, `tr_det_are_e1_e2`, `disc_eq_gap_squared`, `spectrum_roots`,
-  `det_tr_split_is_e1_e2` — the conditional "if `charPoly M = (λ−μ)(λ−ν)` ∀λ then `tr=μ+ν ∧ det=μν`",
-  with the honest note that root *existence* is a `Real213`/algebraic-closure residue). As of this
-  session the file is **wired into `Real213.lean` (imports 109–113) but does NOT yet build** —
-  `scan_axioms` reports build errors at lines 83/84/106/107/118 (`neg_neg` unknown identifier, type
-  mismatches in the coefficient-matching proof). So the Vieta identity is **in progress, not yet
-  ∅-axiom-verified**; this note cites it as the concurrent work that closes the same target, and rests
-  its own dissolution claim on the *already-PURE* order-2 dial (Cayley–Hamilton + `char_poly_discriminant`
-  + `disc_eq` chain), which carries `det`/`tr` as the two coefficients of the characteristic quadratic
-  independently of `Mat2Spectrum`'s root-factorization lemmas.
+- **`Lib/Math/NumberSystems/Real213/Mat2/Mat2Spectrum.lean`** (9/0 PURE, `lake build E213` clean,
+  `#print axioms` → no axioms) — the Vieta `tr=e₁`/`det=e₂` resolution of the `det`/`tr` split is now a
+  real ∅-axiom theorem: `charPoly M lam := lam² − tr·lam + det`; `vieta_factor` (`(λ−μ)(λ−ν)=λ²−(μ+ν)λ+μν`);
+  **`tr_eq_e1`** (`charPoly M = (λ−μ)(λ−ν)` ∀λ ⟹ `tr M = μ+ν`, the additive `×↦+` character);
+  **`det_eq_e2`** (`det M = μ·ν`, the multiplicative `×↦·` character); `tr_det_are_e1_e2` (both at once);
+  `disc_eq_gap_squared` (`disc M = (μ−ν)²`, tying to `traceDisc`); `spectrum_roots` (eigenvalues solve
+  `charPoly`); the bundle `det_tr_split_is_e1_e2`. **The split is dissolved as a Lean theorem**: `det` and
+  `tr` are `e₂` and `e₁` of one spectrum, the two coefficients of the monic characteristic quadratic the
+  matrix obeys (`Mat2CayleyHamilton.cayley_hamilton`). Honest conditional: the factorization is a
+  *hypothesis* — root *existence* in `Int` is the `Real213`/algebraic-closure residue (e.g. `G`'s spectrum
+  φ²,φ⁻² is a cut), so the theorem is "*if* the spectrum exists, *then* tr=e₁ ∧ det=e₂" — exactly the
+  content that makes the split a non-split. Built with propext-free `Int213` helpers (the bare-`0` and
+  `neg_neg` lemmas in Lean-core route through propext; replaced).
 
 ## Conceptual-only legs / located breaks (honest — not cited as anchors)
 
