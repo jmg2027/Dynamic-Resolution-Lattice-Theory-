@@ -528,11 +528,38 @@ conditional**: in any `CommRing213`, `ζⁿ=1 ∧ (ζ−1)` cancellable ⟹ `Σ_
 arbitrary `n` needs a cyclotomic ring `ℤ[ζ_n]` the repo lacks — the conditional is closed, only the witness
 for general `n` is open.
 
-**Count.** 36 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
-located partial-break (knots → two precise missing primitives) + the `det`/`tr` edge + the `Lp`/funext wall;
-**eleven** predictions, **ten Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale
-contraction + dyadic completion-limit, discrete Noether-iff, the modulated Banach engine/wall defeat,
-Carathéodory-as-`clo`, the formal `q=±1` tag, and `continuous_iff_preimage_dyadicopen`) + QR already-closed.
-The `q=+1` contraction residue spans φ/Gaussian/ODE; the formal `q=±1` tag unites Cantor/Gödel/measure
-(escape) with φ/Gaussian/ODE (converge) in one ∅-axiom construct; compactness is the `q=+1` finiteness
-corner; GF-product = convolution; the Banach-engine "wall" is **defeated** (`wall_synthesis.md`).
+### Spectral theory / eigenvalues (`spectral.md`) — the spectrum DISSOLVES the det/tr split
+
+PREDICTION: an eigenvalue = the `q=+1` scale-residue of the linear reading (`A·v=λ·v`: `v` fixed up to the
+multiplier `λ`); φ is literally the dominant eigenvalue of the Fibonacci/Möbius matrix `G` (`golden_hyperbolic`:
+`tr=3,det=1,disc=5`, eigenvalues `φ²,φ⁻²`). **The det/tr split (representation.md's open edge) DISSOLVES**:
+`tr = Σλ = e₁` (the additive `×↦+` character) and `det = Πλ = e₂` (the multiplicative `×↦·` character) are
+the two elementary symmetric functions of *one* spectrum — the two coefficients of the characteristic
+quadratic the matrix obeys by **Cayley–Hamilton** (`Mat2CayleyHamilton.cayley_hamilton`, 4/0 PURE, committed;
+`char_poly_discriminant`/`dial_is_char_discriminant`). The det/tr "opposition" was degree-1-vs-degree-2 of
+one Vieta factorization. Residue: eigenvalue *existence* = the `Real213`/ℂ residue, stratified by
+`disc=(μ−ν)²` — real spectrum = `q=+1` (hyperbolic/φ), complex = `q=−1` escape (elliptic). (The explicit
+Vieta `tr=e₁`/`det=e₂` lemmas in `Mat2Spectrum.lean` are being built concurrently; the dissolution rests on
+the committed order-2 dial regardless.)
+
+### Lie theory / the bracket (`lie_theory.md`) — bracket = the q=±1 antisymmetry; Jacobi = the graded-Leibniz pole
+
+PREDICTION (consolidation of groups + exponential + homology): a Lie algebra = the **infinitesimal of the
+Aut-family**; the bracket `[X,Y]=XY−YX` = the `q=−1` antisymmetry residue (`[X,Y]=−[Y,X]`, the same sign-fold
+as `det`/`∂`/ℤ — proved generally on `Mat2` by `ring_intZ` in scratch), forced traceless (`tr[X,Y]=0`, the
+`sl` kernel = representation.md's det/tr split read from the algebra side). `exp:𝔤→G` = exponential.md's `×↦+`
+character (group `×` ↦ algebra `+`); BCH's `½[X,Y]` = the `^`-wall infinitesimally. **Jacobi = the
+graded-Leibniz pole** (tied to `leibniz_universal_delta4`, README v7.1's graded-relation slot — "ad is a
+derivation"), *not* naive `∂²=0`. Missing leg located: the infinitesimal/tangent `ε` object (`T_eG`, `ε²=0`)
+— the discrete `Mat2` hosts the finite commutator (= the bracket on matrix groups, so the prediction lands)
+but no tangent space; the `h→0` residue (`derivative.md`), same cap `ordinals.md`/`curvature.md` hit. + BCH.
+
+**Count.** 38 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
+is now **dissolved** (spectral: both = elementary symmetric functions of the spectrum); **thirteen**
+predictions, **ten Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
+dyadic completion-limit, discrete Noether-iff, the modulated Banach engine/wall defeat, Carathéodory-as-`clo`,
+the formal `q=±1` tag, and `continuous_iff_preimage_dyadicopen`) + QR already-closed. The `q=+1` contraction
+residue spans φ/Gaussian/ODE; the formal `q=±1` tag unites Cantor/Gödel/measure (escape) with φ/Gaussian/ODE
+(converge); compactness is the `q=+1` finiteness corner; the spectrum dissolves det/tr; the Lie bracket is
+the `q=−1` antisymmetry; the Banach-engine "wall" is **defeated** (`wall_synthesis.md`).
