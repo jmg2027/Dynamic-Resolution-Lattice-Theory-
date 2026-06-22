@@ -616,20 +616,10 @@ predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, 
 dyadic completion-limit, discrete Noether-iff, the modulated Banach engine/wall defeat, Carathéodory-as-`clo`,
 the formal `q=±1` tag, `continuous_iff_preimage_dyadicopen`, the **det/tr=e₁/e₂ Vieta resolution**, and the
 **formal power-series semiring** `PowerSeriesSemiring`) + QR already-closed; plus Lean **groundings** of the
-spectral note (`Mat2SymmetricSpectrum`: symmetric `disc≥0` = real spectrum, the `q=+1` corner) and the Lie
-note (`Mat2Bracket`: antisymmetry + traceless-sl + Jacobi). The `q=+1` contraction residue spans
+spectral note (`Mat2SymmetricSpectrum`: symmetric `disc≥0` = real spectrum, the `q=+1` corner), the Lie
+note (`Mat2Bracket`: antisymmetry + traceless-sl + Jacobi), and the representation note (`Mat2Killing`: the
+`d>1` trace character as the adjoint rep's Killing form `K=4·tr(XY)` on sl₂, `killing_gram` nondegeneracy).
+The `q=+1` contraction residue spans
 φ/Gaussian/ODE; the formal `q=±1` tag unites Cantor/Gödel/measure (escape) with φ/Gaussian/ODE (converge);
 compactness is the `q=+1` finiteness corner; the spectrum dissolves det/tr; the Lie bracket is the `q=−1`
 antisymmetry; **Stokes = the telescope** (de Rham); the Banach-engine "wall" is **defeated** (`wall_synthesis.md`).
-
-**Count.** 38 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
-located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
-is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
-predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
-dyadic completion-limit, discrete Noether-iff, the modulated Banach engine/wall defeat, Carathéodory-as-`clo`,
-the formal `q=±1` tag, `continuous_iff_preimage_dyadicopen`, the **det/tr=e₁/e₂ Vieta resolution**, and the
-**formal power-series semiring** `PowerSeriesSemiring` — GF-product = convolution with `mass`/`momentDeg`
-the two characters, pointwise/funext-free) + QR already-closed. The `q=+1` contraction residue spans
-φ/Gaussian/ODE; the formal `q=±1` tag unites Cantor/Gödel/measure (escape) with φ/Gaussian/ODE (converge);
-compactness is the `q=+1` finiteness corner; the spectrum dissolves det/tr; the Lie bracket is the `q=−1`
-antisymmetry; the Banach-engine "wall" is **defeated** (`wall_synthesis.md`).

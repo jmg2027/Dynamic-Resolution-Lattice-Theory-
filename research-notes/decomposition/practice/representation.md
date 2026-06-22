@@ -253,9 +253,15 @@ consolidation, with the `det`/`tr` split as a new located partial-break.**
   **absent is any `tr(MN)=…` multiplicativity / character-homomorphism theorem** (there can be none — `tr`
   is not multiplicative) and any `d>1` **trace-character** used as a class function for orthogonality. The
   realized *character* is `det` (multiplicative, the `×↦·` arrow); `tr` is the *additive `×↦+` twin* the
-  `det`-homomorphism machinery does not turn into a character. Central located break: 1-dim characters
-  (`tr=det`= the scalar) are closed and orthogonality-proved; the `d>1` trace character is conceptual-only.
-  **The sharp open target.**
+  `det`-homomorphism machinery does not turn into a multiplicative character. **NOW GROUNDED ∅-axiom
+  (`Mat2/Mat2Killing.lean`, 19/0)** — via the **adjoint representation**: `tr` lands as a *structure*, the
+  Lie algebra's intrinsic invariant **Killing form** `K(X,Y) := tr(ad_X ∘ ad_Y)` (`killing`,
+  `killing_symmetric`), with `adX_traceless` (the adjoint rep's additive character vanishes) and the
+  headline `killing_eq_trace_form` (`K(X,Y) = 4·tr(XY)` on sl₂ — the matrix trace recovered exactly as the
+  Killing metric), plus `killing_gram` (nondegeneracy = Cartan semisimplicity). So the `d>1` trace is real
+  and load-bearing — *as the invariant bilinear trace-form of the adjoint rep*, not as a (nonexistent)
+  multiplicative trace-character. Residual: the general `d×d` Killing form (this is sl₂/`Mat2`-specific),
+  full nondegeneracy as one `det≠0`, and `Rep(G)`/Maschke.
 - **Maschke / complete reducibility / `Rep(G)` decomposition into irreps** — absent; predicted by analogy
   to `prime_factorization.md`'s certified UFD `vp`-coordinate (decompose = factor the readout into
   distinguishable ×-atoms), not independently closed. PARTIAL.

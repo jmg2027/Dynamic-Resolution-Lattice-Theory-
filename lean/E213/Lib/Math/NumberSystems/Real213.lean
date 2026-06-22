@@ -113,6 +113,7 @@ import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Adjugate
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Assoc
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2TraceRecurrence
 import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Bracket
+import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Killing
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyLattice
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyOrderLaw
 import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.HolonomyFreeness

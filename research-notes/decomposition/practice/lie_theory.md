@@ -264,7 +264,11 @@ located break.
   `exponential.md`'s open `exp∘log=id` and `curvature.md`'s open holonomy→curvature limit). PARTIAL.
 - **`tr` as a multiplicative character — there is none** (inherited from `representation.md`): `tr(MN)≠tr M·tr N`.
   `tr` is the *additive* `×↦+` twin, and the bracket lands in its **kernel** (`sl`, `comm_traceless`). The
-  Killing form `tr(ad∘ad)` is the `d>1` trace character `representation.md` located as open — conceptual here.
+  Killing form `tr(ad∘ad)` is the `d>1` trace character `representation.md` located as open — **NOW BUILT
+  ∅-axiom** (`Mat2/Mat2Killing.lean`, 19/0): the adjoint rep `ad_X=[X,·]` as a 3×3 matrix on sl₂, the
+  Killing form `K(X,Y)=tr(ad_X∘ad_Y)` (`killing`, `killing_symmetric`), `adX_traceless`, and
+  `killing_eq_trace_form` (`K=4·tr(XY)` on sl₂) + `killing_gram` (nondegeneracy = semisimplicity). The
+  additive trace lands as the Lie algebra's intrinsic invariant *form*, not a multiplicative character.
 - **General `so(n)`/`su(n)` Aut-of-form theorem** — only the concrete elliptic/antisymmetric generators
   (`S_elliptic_order4`, `det = 1`) are built; a general Aut-of-bilinear-form structure is conceptual
   (`groups.md`'s `SymmetrySpecies` catalog corroborates the *form*, not the axioms).
