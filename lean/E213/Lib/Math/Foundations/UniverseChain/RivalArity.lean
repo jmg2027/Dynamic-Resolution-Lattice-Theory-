@@ -73,4 +73,72 @@ theorem binary_non_interchangeable_with_unary :
     _ < n + 2 := Nat.lt_succ_self (n + 1)
     _ ≤ rawCount n := rawCount_ge n
 
+/-! ## §2 — the relation-first / non-distinctness binary rival -/
+
+/-- `choose2` recurrence at the literal `k+2` form (definitional). -/
+theorem choose2_succ_succ (k : Nat) : choose2 (k + 2) = choose2 (k + 1) + (k + 1) := rfl
+
+/-- `choose2` is monotone (each step adds `≥ 0`). -/
+theorem choose2_step : ∀ n : Nat, choose2 n ≤ choose2 (n + 1)
+  | 0 => by decide
+  | 1 => by decide
+  | n + 2 => by
+      rw [choose2_succ_succ (n + 1)]
+      exact Nat.le_add_right _ _
+
+theorem choose2_mono {m k : Nat} (h : m ≤ k) : choose2 m ≤ choose2 k := by
+  induction h with
+  | refl => exact Nat.le_refl _
+  | step _ ih => exact Nat.le_trans ih (choose2_step _)
+
+/-- A **non-distinctness** binary rival's depth-`≤ n` count: a binary op that *allows* `op x x`
+    counts unordered pairs **with repetition** = `C(m,2) + m` (distinct pairs *plus* the diagonal).
+    So its step is `2 + choose2 (·) + (·)` — 213's step `2 + choose2 (·)` plus the self-combinations
+    the distinctness constraint forbids. -/
+def relCount : Nat → Nat
+  | 0 => 2
+  | n + 1 => 2 + choose2 (relCount n) + relCount n
+
+theorem relCount_ge_two : ∀ n : Nat, 2 ≤ relCount n
+  | 0 => Nat.le_refl 2
+  | n + 1 => by
+      show 2 ≤ 2 + choose2 (relCount n) + relCount n
+      exact Nat.le_trans (Nat.le_add_right 2 _) (Nat.le_add_right _ _)
+
+/-- The non-distinctness rival dominates 213's count (it has every distinct-pair term *plus* the
+    diagonal). -/
+theorem rawCount_le_relCount : ∀ n : Nat, rawCount n ≤ relCount n
+  | 0 => Nat.le_refl 2
+  | n + 1 => by
+      have ih : rawCount n ≤ relCount n := rawCount_le_relCount n
+      rw [rawCount_succ]
+      show 2 + choose2 (rawCount n) ≤ 2 + choose2 (relCount n) + relCount n
+      exact Nat.le_trans (Nat.add_le_add_left (choose2_mono ih) 2) (Nat.le_add_right _ _)
+
+/-- ★ **The non-distinctness rival strictly exceeds 213** at every level `≥ 1`: the extra
+    `+ relCount n` is exactly the self-combinations (`op x x`) the distinctness constraint removes. -/
+theorem nondistinct_rival_exceeds : ∀ n : Nat, rawCount (n + 1) < relCount (n + 1)
+  | n => by
+      have hle : rawCount (n + 1) ≤ 2 + choose2 (relCount n) := by
+        rw [rawCount_succ]
+        exact Nat.add_le_add_left (choose2_mono (rawCount_le_relCount n)) 2
+      have hpos : 0 < relCount n := Nat.lt_of_lt_of_le (by decide) (relCount_ge_two n)
+      show rawCount (n + 1) < 2 + choose2 (relCount n) + relCount n
+      exact Nat.lt_of_le_of_lt hle (Nat.lt_add_of_pos_right hpos)
+
+/-- ★★★ **The distinctness constraint is exactly the removal of self-combinations.**  213's `slash`
+    counts unordered *distinct* pairs (step `2 + choose2 (·)`); the unrestricted (relation-first /
+    non-distinctness) binary rival counts pairs *with repetition* (step `2 + choose2 (·) + (·)`), so
+    it **strictly exceeds** 213 at every level `≥ 1` (`nondistinct_rival_exceeds`).  213's
+    distinguishing is therefore *the unrestricted binary rival minus the degenerate self-combinations
+    `op x x`* — not an arbitrary primitive, but the unique one that forbids self-combination.  With
+    the **unary** corner (`binary_non_interchangeable_with_unary`) and the **degenerate** corner
+    (`OneDiagonal.no_distinguishing_on_subsingleton`), the distinguishing primitive is
+    non-interchangeable across all three formalized rival classes. -/
+theorem distinctness_removes_self_combination :
+    (∀ n, relCount (n + 1) = 2 + choose2 (relCount n) + relCount n)
+    ∧ (∀ n, rawCount (n + 1) = 2 + choose2 (rawCount n))
+    ∧ (∀ n, rawCount (n + 1) < relCount (n + 1)) :=
+  ⟨fun _ => rfl, rawCount_succ, nondistinct_rival_exceeds⟩
+
 end E213.Lib.Math.Foundations.UniverseChain.RivalArity
