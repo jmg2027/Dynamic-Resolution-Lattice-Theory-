@@ -174,10 +174,22 @@ skein + isotopy-quotient are named missing primitives)}.
 - **Tropical (`tropical.md`)** — (max,+) = the ×↦+ character's idempotent T→0 limit; the repo's own docstrings
   pre-classify `max` as the idempotent pole (`max_idem`, mirror of `succ_not_idempotent`).
 
-**Tally:** 52 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
-Lean-closed** + Lean **groundings** of spectral (`Mat2SymmetricSpectrum`), Lie (`Mat2Bracket`), representation
-(`Mat2Killing`), graph (`GraphLaplacian`), and galois/solvability (`DerivedSeries`) notes. `lake build E213`
-clean. Open frontier: full A₅-simplicity + general isSolvable, the Legendre transform object (weld `clo` at
+## ★ TWELFTH WAVE — SYNTHESIS capstone + Fenchel–Moreau, Birkhoff/ergodic, random matrix, connections
+- **★ `SYNTHESIS.md`** — the capstone map of the whole 54-decomposition corpus (two invariants, the q=±1
+  spine, the ~21-module Lean census, the recurring breaks, the self-description: PURE/DIRTY = Heyting/Boolean
+  = why 213 is constructive; honest verdict vs §7.1 breadth). Linked from the README intro.
+- **Fenchel–Moreau** (`Order/FenchelMoreau.lean`, 18/0): f**=clo(f) via the antitone self-adjoint closure.
+- **Cyclic Birkhoff/ergodic** (`Combinatorics/CyclicErgodic.lean`, 26/0): time=space at the period;
+  ergodicity = the constant kernel, reusing `closed_const` (= graph_theory's Laplacian λ₀ machinery).
+- **connections.md** — curvature = holonomy loop AND bracket commutator (both built); ★ STALE-GAP CORRECTION:
+  `TensorCalculus.lean` (23/0) already has the Riemann tensor/Christoffel/Levi-Civita/Bianchi — three notes
+  declared a false gap; fixed curvature.md + de_rham.md.
+- **random_matrix.md** — Wigner semicircle = the q=+1 free-convolve fixed point (Catalan moments grounded).
+
+**Tally:** 54 decompositions + the `two_cells` meta + the formal `q=±1` tag + `SYNTHESIS.md`; **thirteen
+predictions, twelve Lean-closed** + Lean **groundings**: spectral (`Mat2SymmetricSpectrum`), Lie (`Mat2Bracket`),
+representation (`Mat2Killing`), graph (`GraphLaplacian`), galois/solvability (`DerivedSeries`), convex
+(`FenchelMoreau`), ergodic (`CyclicErgodic`). `lake build E213` clean. Open frontier: full A₅-simplicity + general isSolvable, the Legendre transform object (weld `clo` at
 `Fix=Inv=(·)*`), continuous Noether current, arbitrary-n orthogonality (`ℤ[ζ_n]`), the symmetric eigenvalue
 √-cut value, the full Gaussian density profile, KL functional + Fisher metric, the smooth-manifold form complex,
 FOL/λ-calculus objects, Hilbert/Born, presheaf/sheaf object, tropical semiring, the νF/free-monad carrier.
