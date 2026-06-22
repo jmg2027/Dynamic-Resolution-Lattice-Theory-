@@ -1404,7 +1404,50 @@ telescope). Located break: the smooth geometric objects (HyperbolicPlane/UpperHa
 with 2π) absent — the Real213-cut smooth-metric residue; the angle-sum/parallel-postulate-as-named-theorem is
 the PREDICTION leg (only the disc-sign number trichotomy is built).
 
-**Count.** 99 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ Étale cohomology / the Weil conjectures (`etale_cohomology.md`) — the 100th: three threads converge
+
+PREDICTION + substantial PARTIAL. Étale cohomology + the Weil conjectures = the **convergence of three
+already-grounded threads on one object** (a variety over 𝔽_q): (1) the Lefschetz trace formula
+`#X(𝔽_q)=Σ(−1)ⁱtr(F*|Hⁱ)` = lefschetz_degree's trace-weighted alternating diagonal, with the arithmetic
+Frobenius F the self-map (fixed points = 𝔽_q-points); (2) the zeta `Z(X,t)=∏_x(1−t^deg x)⁻¹` = zeta_euler/
+modular_forms' ×↦· Euler product, re-based from primes to closed points (`summatory_mul`/`dconv_mul`/`geom_sum`);
+(3) étale Hⁱ = motives' ℓ-adic realization Lens. ★ The Weil RH `|α|=q^(w/2)` = Invariant B (the q=±1 tag)
+promoted to a continuous eigenvalue-magnitude constraint graded by the fold-height weight w; the functional
+equation = the q=±1 Poincaré reflection. New in-repo anchor: the **arithmetic Frobenius is BUILT** at the
+per-prime level — `FP2SqrtD.fp2dFrob` (32/0), Galois conjugation on 𝔽_{p²}, with `fp2dFrob_involution`:220
+(σ²=id, the q=±1 bit), `fp2dFrob_mul`:267 (ring-hom), `fp2dMul_self_frob`:318 (x·σ(x)=Norm). Named étale/Weil/
+zetaVariety/Deligne objects absent (the Weil-operator J=⋆ Hodge hits + Chicken-McNugget Frobenius are
+false-friends, flagged); buildable witness: the Frobenius–Legendre bridge (√D)^p≡(D/p)√D welding `fp2dFrob`
+to the QR character.
+
+### ★ ∞-categories / higher category theory (`infinity_categories.md`) — the 2-category with fold-height up the cell-dimension
+
+EXTEND + PREDICTION. An ∞-category = the calculus's 2-category of readings (two_cells) with the **fold-height
+axis run up the cell-dimension** — n-cells-for-all-n = the coherence tower (`MuNuMirror.ascent_unbounded`/
+`succ_not_idempotent` 8/0 applied to the cell-grading). New datum: cell-dimension = the fold-height coordinate
+already in C; the 2-category is the height-≤2 truncation, removing the truncation (no finite ceiling) gives
+cells at every dimension. The "∞" (never-closing tower) = the iterated-residue re-entry
+(`ResidueReentry.residue_perpetually_reenters` 14/0, = spectral_sequences' residue-iterated); ∞-groupoid =
+space = the all-invertible q+1 `LensIso` pole; A∞ coherence = operads' associahedron/`catalan_recursion_n`
+(17/0); the level-0 unique horn filler = `dhom_unique_pointwise` (6/0). The Δ-complex simplicial *substrate* is
+built (`SimplexBasis`/`Delta/Core` + `dsq_zero`), but no nerve/SimplicialSet bundle; the homotopy-coherent
+inner-horn filler = the same Side-B colimit/q−1 break as homotopy_theory/knots. Buildable witness:
+`unique_filler_iff_strict_truncation` (strict horns ⟺ nerve of a 1-category, the q+1/q−1 split).
+
+### ★ Arithmetic dynamics (`arithmetic_dynamics.md`) — the canonical height as the q=±1 preperiodic detector
+
+PREDICTION. Arithmetic dynamics = the iteration axis (golden/ergodic's self-applying orbit, `orbit_eq_iter`)
+with the **canonical height ĥ = the q=±1 fixed-point/preperiodic detector made a size reading**, plus the q+1
+bounded⟹finite corner for Northcott. ★ New datum: the height functional equation ĥ(fⁿP)=(deg f)ⁿ·ĥ(P) is
+*structurally* `CassiniUnimodular.det_closed` (`det s n = qⁿ·det s 0`, 13/0) — the height is the orbit's Cassini
+determinant read as a magnitude, with deg f in the multiplier slot. ĥ(P)=0 ⟺ preperiodic IS the q=±1 detector:
+q+1 conserved/finite (`qpow_one`, `finite_order_divides_twelve`) ⟺ ĥ=0; q−1 escape (`golden_aperiodic`,
+`height_diagonal_escapes`) ⟺ ĥ>0. Northcott = the q+1 finiteness corner (`heineBorel`/`gridMax_attained`), not a
+separate theorem; the built height-cocycle is `minkowski_is_markov_valued_cocycle`. Named canonicalHeight/
+preperiodic/Northcott/Julia objects absent; buildable witness: `multiplier_unit_magnitude_sign_order_NT`:188
+(the preperiodic detector at the multiplier level).
+
+**Count.** 102 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
