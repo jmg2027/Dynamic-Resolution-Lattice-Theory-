@@ -1202,7 +1202,35 @@ bit. The naive "deformation-q IS the tag-q" is FALSE as identity, true only as c
 at knots's located break). Buildable witness: `qbinom_qm1_lucas` (`qbinom(−1) n k = C(n/2,k/2)`, verified true
 by computation) — would machine-check the BREAK.
 
-**Count.** 85 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Information theory / Shannon (`information_theory.md`) — the ×↦+ entropy character read on a channel
+
+EXTEND (consolidation). Shannon information theory = entropy's ×↦+ character read on a channel. New datum
+over entropy/coding: **mutual information `I(X;Y)=H(X)+H(Y)−H(X,Y)` is that same additive character read on
+the joint-vs-conditional — the channel's preserved information = the additivity-*defect* = the channel
+residue** (`MutualInfo.mutualInfoBits` 12/0, `mutualInfo_self_eq_entropy`, `entropy_subadditive`,
+`mutualInfo_independent_zero`); capacity = the weight-axis variational optimum; the coding theorem = the q=±1
+rate-vs-capacity threshold that **links to coding_theory's syndrome-zero achievability** (R<C/q+1/s=0 ⟷
+R>C/q−1/s≠0). ★ Surprise: `Channel.lean` is BUILT (8/0) — `noiseless_capacity=1`, `bscCapacityNum/Den=k/2^k`
+(capacity as exact dyadic rational), `bsc_half_capacity`; and `source_coding_optimal` (10/0,
+optimalCodeLength=n=H). Capacity *values* built; the `C=max I` variational object, the noisy-channel coding
+theorem (needs real-valued log = Real213 residue), data-processing inequality, and AEP object absent.
+
+### ★ Nash equilibria / strategic game theory (`nash_equilibria.md`) — the q=+1 fixed point of best-response
+
+PREDICTION + PARTIAL (EXTEND, no new axis). A Nash equilibrium = the calculus's **q=+1 fixed point of the
+best-response self-map** — the *converge* side of the same diagonal/self-map engine (lefschetz_degree) whose
+*escape* side (q=−1) is Cantor/Gödel (`lawvere_fixed_point` 11/0: q+1 a fixed point exists vs q−1
+`no_surjection_of_fixedpointfree`). New datum: Nash is the strategic name for that q=+1 pole — a **third
+carrier** for the central diagonal engine alongside Lefschetz (trace-weighted, topological) and combinatorial
+games (mex bounded diagonal). The von Neumann minimax theorem (zero-sum: max min = min max) IS convex_duality's
+LP duality made tight (`OllivierRicci.kantorovich_weak_duality`+`ollivier_plan_optimal` 60/0, the sup=inf no-gap
+q=+1 optimum) — adding zero-sum games as a **sixth instance** of the LP-duality/f**=clo family. No-pure-equilibrium
+= the q=−1 escape recovered by mixing (`mex_eq_zero_iff_zero_excluded`). Located/calibrated break: the
+continuous Brouwer/Kakutani existence on a compact convex Real213 simplex (Brouwer is itself LLPO-strength,
+SYNTHESIS §5) — only the discrete Lawvere + contraction-Banach fixed points are built. Named Nash/minimax/
+strategy/payoff objects absent. Buildable witness: a 2×2 zero-sum minimax instance via OllivierRicci's LP saddle.
+
+**Count.** 87 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
