@@ -1,5 +1,18 @@
 # Session Handoff — 2026-06-21
 
+## Autonomous-research iteration (audit pass) — codebase verified clean
+After the LensLcmMeet / census / Markov-probe deposits, an autonomous-research audit pass found
+**no breakage**: `lake build E213` green; whole-corpus census 0 real DIRTY (18,798 PURE / 47
+sealed); no broken imports; `theory/INDEX.md` "254 chapters+essays" accurate (the 5 extra top-level
+.md are process docs, not chapters); essays/INDEX.md "104 essays" matches disk. Session-touched
+permanent-tier files (`LensCRTGeneral`, `CountDuality`) cite active *frontier* notes — legitimate,
+not sink violations.
+- **Open maintenance item (for the `process` skill, not done here):** 72 permanent-tier files
+  cite `research-notes/`. Most are legitimate active-frontier / `G##`-scratch citations; a triage
+  pass should confirm none cite a now-*promoted* topic (which would be a true sink violation).
+  Too broad to triage safely in this iteration without context exhaustion; flagged for a dedicated
+  `process` run.
+
 ## Branch
 `claude/multi-agent-research-pxzpls` (tracks `origin/`). This session reorients the
 research direction; read `research-notes/frontiers/the_substance_test.md` first.
