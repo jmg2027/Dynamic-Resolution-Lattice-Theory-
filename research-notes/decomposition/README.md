@@ -645,7 +645,21 @@ non-terminating commutator-escape — both endpoints PURE (`Mat2Bracket.bracket_
 *iteration* (derived series + A₅-simplicity) is the located missing leg: promote the Lie commutator to a
 group-commutator-subgroup and iterate, tagging termination q=+1 vs A₅-escape q=−1.
 
-**Count.** 46 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### Curry–Howard / proof theory (`curry_howard.md`) — the calculus is a type theory describing itself
+
+PREDICTION, near-self-descriptive (like yoneda): Curry–Howard = the calculus recognizing its own
+type-theoretic substrate. `Raw` = the free inductive type = term model = proof/construction; a `Lens` = a
+type-as-reading = proposition; `Lens.view = Raw.fold` is the recursor — so `⟨C|L⟩ = ⟨proof|proposition⟩`,
+and the λ↔⊢ correspondence = `view=fold` initiality (the *same* `dhom_unique_pointwise`/`raw_initial` as
+model_theory's completeness). ★ Two PURE-built ties: **normalization = the fold to the unique normal form**
+(pinned by `dhom_unique_pointwise`); **strong normalization = `Lambek.no_infinite_descent`'s `q=+1`
+well-founded termination** (`isPart_wf` — reduction bottoms out at the atomic floor = the normal form).
+Consistency = the `q=+1` converging pole vs Gödel's `q=−1` diagonal (one `residue_tag_two_poles`).
+Consolidates category_theory + model_theory + yoneda + godel + MuNuMirror/Lambek. Missing leg: a named typed
+λ-calculus (`Term`/β-reduction/`Γ⊢t:A`) + the bridge "β-SN = `no_infinite_descent`" (the proof-theory dual
+of model_theory's absent FOL syntax — the engine is real and PURE, the typed-calculus instance is the open work).
+
+**Count.** 47 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
