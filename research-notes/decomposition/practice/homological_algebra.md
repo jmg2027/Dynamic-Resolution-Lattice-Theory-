@@ -329,10 +329,15 @@ V4Capstone, prior-scanned 5/0 in `de_rham.md`/`sheaf_theory.md`). `ResidueTag`, 
   `delta`, `dsq_zero`, `reduced_betti_*`), the *`q=±1` grading tag* (`ResidueTag`), the *exact/`q=+1` part*
   (`clo_idempotent`/`ker=im`), the *resolution dial* (`compose_modulus_eq`/`ResolutionShift`), and the
   *`⊗`-flavour reading* (`ConvolveProfile`) are each built and PURE; the derived-functor object that would
-  weld them is the named open target. Suggested buildable witness (analogue of the modulated Banach
-  engine): a small concrete `Ext¹` of two finite cochain complexes via `kerSizeDelta` on a *non-exact*
-  resolution — exhibiting a nonzero `q=−1` residue where `reduced_betti_d4_contractible` exhibits the zero
-  (`q=+1`/exact) one.
+  weld them is the named open target. **The suggested buildable witness is NOW BUILT ∅-axiom**
+  (`Cohomology/Examples/NonzeroBetti.lean`, 56/0 PURE): the hollow triangle S¹ = `∂Δ²` (mod 2) has a
+  **nonzero H¹** — `loopClass_not_coboundary` (the all-ones edge cochain `111` is closed but not a
+  coboundary), `betti_one_cycle` (`kerSize1=8, imSize0=4`, so `|H¹|=2>1`, `b₁=1`), and
+  `nonzero_cohomology_class` (a witnessed element of `ker δ/im δ`). `cycle_vs_contractible_qpm` tags the
+  contrast via `ResidueTag`: the cycle = `escape` (q=−1, the obstruction surfaces, `im ⊊ ker`) vs the
+  contractible Δ⁴ (`reduced_betti_d4_contractible`, `ker=im`) = `converge` (q=+1). So the `q=−1` obstruction
+  residue at degree 1 is now a concrete ∅-axiom witness — the explicit complement of the exact case.
+  Still open: the general graded `Ext^n`/`Tor_n`/resolution object that welds the (all-built) mechanism.
 - **`GroupCohomology` / `groupRing` / `Ext_{ℤG}` — ABSENT.** Grep returns zero declarations; the `Aut`-family
   (`PermGroup.composeList`) and a `q=±1` modular cocycle (`MinkowskiCocycle.lean`) are built, but no
   group-ring or group-cohomology object. The `galois.md` "Galois cohomology `H¹`" leg is conceptual at the

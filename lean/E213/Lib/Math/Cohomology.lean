@@ -12,6 +12,7 @@ import E213.Lib.Math.Cohomology.Examples.EulerClosed
 import E213.Lib.Math.Cohomology.Fractal
 import E213.Lib.Math.Cohomology.Hodge
 import E213.Lib.Math.Cohomology.Examples.K5
+import E213.Lib.Math.Cohomology.Examples.NonzeroBetti
 import E213.Lib.Math.Cohomology.Bridge.LeibnizFinding
 import E213.Lib.Math.Cohomology.Bridge.Paper1Chiral
 import E213.Lib.Math.Cohomology.Bridge.Real213Bridge
