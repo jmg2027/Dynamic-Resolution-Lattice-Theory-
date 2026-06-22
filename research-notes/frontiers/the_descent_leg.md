@@ -202,6 +202,16 @@ the file**: `Peano.Nat213` is an *ergonomic parallel* inductive, not literally `
 (`DStr`-dichotomy merge — every rival `≅ Raw` or fails a named clause, via `UniversalDistinguishing`)
 remains.
 
+**M6 DONE (negative arm; positive arm = the open existence leg).** `Forcing.lean` extended (now 6
+PURE): `forcing_dichotomy` lifts M5's single `degLens` instance to the schema level —
+*positive side* the FTA carrier's home `Raw` is the free `DStr` (`rawDStr_generated`) and `Nat213`
+embeds injectively (`Bridge.toRaw_injective`); *negative side* any distinguishing-blind (subsingleton)
+carrier neither hosts the FTA carrier (`subsingleton_cannot_host_fta`: `four ≠ five` can't collapse)
+nor is even a `DStr` (`no_DStr_on_subsingleton`, fails named clause D1 `e_ne`). **The one remaining
+gap is honest and explicit**: that *every* `Generated DStr` is `≅ Raw` (so carries the FTA by
+transport) is the **open `DStr` existence leg** (`the_distinguishing_schema.md`; only the uniqueness
+half `dhom_unique_pointwise` is proven). The forcing half of the descent leg is otherwise closed.
+
 **M2 advance scouting (the two pins, both now discharged above):**
 - *Native well-foundedness is in hand* — `Acc lt` is provable over `Nat213` with **no `toNat`**, by
   structural recursion:

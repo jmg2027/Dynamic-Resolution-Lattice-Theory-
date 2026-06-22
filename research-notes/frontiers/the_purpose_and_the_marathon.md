@@ -143,6 +143,12 @@ exterior and judged there** (the §5.1 wall: the inside cannot deliver this verd
 - **M1 (DONE this session)** — `Irreducible` over `Nat213` (`Irreducible.lean`, 18 PURE): `2,3,5`
   irreducible, `4` not, `irreducible_divisors`; `five_irreducible` via native `lt_succ_iff`
   enumeration + cofactor bound, whole cone `toNat`-free. Reuses `Divisibility` + `Order` (now native).
+- **M6 (DONE this session — negative arm; positive arm = open existence leg).** `Forcing.lean`
+  extended (6 PURE): `forcing_dichotomy` lifts M5 to the schema level — positive: `Raw` is the free
+  `DStr` (`rawDStr_generated`) + `Nat213` embeds injectively; negative: a distinguishing-blind
+  (subsingleton) carrier can't host the FTA carrier (`subsingleton_cannot_host_fta`) nor is a `DStr`
+  (fails named clause D1). The only remaining gap — *every* `Generated DStr` `≅ Raw` (transport the
+  FTA) — is the **open `DStr` existence leg**, flagged honestly, not claimed.
 - **M5 (DONE this session) — forcing: the FTA carrier tied to the act.** `Forcing.lean` (3 PURE):
   `peano_succ_is_distinguishing` (Peano `succ` = the distinguishing `slashOrSelf · Raw.b` under
   `Bridge.toRaw`) + `factorization_forced_by_distinguishing` (`five` irreducible, `four` not; the

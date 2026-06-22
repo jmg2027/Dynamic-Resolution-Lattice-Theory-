@@ -1,6 +1,7 @@
 import E213.Lens.Number.Nat213.Bridge
 import E213.Lens.Number.Nat213.Generation
 import E213.Lens.Number.Nat213.Irreducible
+import E213.Lens.Foundations.UniversalDistinguishing
 
 /-!
 # Lens.Number.Nat213.Forcing — the FTA's carrier is forced by the distinguishing (∅-axiom)
@@ -61,5 +62,45 @@ theorem factorization_forced_by_distinguishing :
   refine ⟨⟨five_irreducible, four_not_irreducible⟩, ?_, ?_⟩
   · rw [blind_collapses, blind_collapses]
   · rw [Bridge.value_toRaw, Bridge.value_toRaw]; decide
+
+/-! ## M6 — the schema-level dichotomy (every rival `≅ Raw`, or fails a named clause)
+
+The forcing of M5 was a *single* blind reading (`degLens`).  Here it is lifted to the schema level:
+every candidate carrier sits on one of two sides of `UniversalDistinguishing.DStr`.  **Honest status**:
+the *positive* arm — a `Generated` `DStr` is `≅ Raw`, hence carries the FTA by transport — needs the
+**open** `DStr` existence leg (`research-notes/frontiers/the_distinguishing_schema.md`; only the
+uniqueness half `dhom_unique_pointwise` is proven).  The *negative* arm is closed here, schema-level. -/
+
+open E213.Lens.Foundations.UniversalDistinguishing (DStr Generated rawDStr rawDStr_generated
+  no_DStr_on_subsingleton)
+
+/-- `four ≠ five` in the FTA carrier — the prime/composite distinction the FTA rests on. -/
+theorem four_ne_five : Nat213.four ≠ Nat213.five := by decide
+
+/-- ★★ **A distinguishing-blind (subsingleton) carrier cannot host the FTA carrier** — no injection
+    `Nat213 ↪ α` exists, because `four ≠ five` would have to collapse.  This lifts M5's single
+    `degLens` instance to *every* degenerate rival: a carrier that draws no distinction cannot even
+    embed the carrier the FTA lives on. -/
+theorem subsingleton_cannot_host_fta {α : Type} (hsub : ∀ x y : α, x = y) :
+    ¬ ∃ f : Nat213 → α, ∀ m n, f m = f n → m = n := by
+  rintro ⟨f, hinj⟩
+  exact four_ne_five (hinj _ _ (hsub (f Nat213.four) (f Nat213.five)))
+
+/-- ★★★ **The forcing dichotomy (negative arm closed, positive arm = the open existence leg).**
+    *Positive side*: the FTA carrier's home `Raw` is the free distinguishing-structure
+    (`rawDStr` is `Generated`), and the FTA carrier `Nat213` embeds into it injectively
+    (`Bridge.toRaw_injective`).  *Negative side*: any distinguishing-blind (subsingleton) carrier
+    neither hosts the FTA carrier (`subsingleton_cannot_host_fta`) nor is even a `DStr` — it fails the
+    *named* clause D1 `e_ne` (`no_DStr_on_subsingleton`).  The remaining gap — that *every* `Generated`
+    `DStr` is `≅ Raw` and so carries the FTA by transport — is the open `DStr` existence leg, recorded
+    honestly, not claimed. -/
+theorem forcing_dichotomy :
+    (Generated rawDStr
+      ∧ (∀ m n : Nat213, Bridge.toRaw m = Bridge.toRaw n → m = n))
+    ∧ (∀ {α : Type}, (∀ x y : α, x = y) →
+         (¬ ∃ f : Nat213 → α, ∀ m n, f m = f n → m = n)
+         ∧ ¬ Nonempty (DStr α)) :=
+  ⟨⟨rawDStr_generated, fun _ _ h => Bridge.toRaw_injective h⟩,
+   fun hsub => ⟨subsingleton_cannot_host_fta hsub, no_DStr_on_subsingleton hsub⟩⟩
 
 end E213.Lens.Number.Nat213.Forcing
