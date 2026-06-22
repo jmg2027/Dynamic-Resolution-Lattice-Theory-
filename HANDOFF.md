@@ -10,10 +10,12 @@ chain `Raw→Lens→discipline` was **severed** (96% of `Lib/Math` never imports
 the corpus is ∅-axiom **re-derivation**, not **generation from the primitive**. Two prongs, both with
 first deposits this session:
 
-1. **Generation, not re-derivation** — `Lens/OneDiagonal.lean` (7 PURE): one `lawvere_fixed_point`
+1. **Generation, not re-derivation** — `Lens/OneDiagonal.lean` (9 PURE): one `lawvere_fixed_point`
    generates **Cantor + the residue (`object1_not_surjective` at A=Raw) + Russell/Liar/Tarski**
    (Prop arm) — §1.0′ made literal (the residue is the *engine* of the limitative theorems, not four
-   re-proofs). Open: Gödel-numbered/halting *coded* instances. Essay `the_one_diagonal.md` updated.
+   re-proofs). §5 adds `residue_needs_distinguishing` (subsingleton value-space ⟹ no diagonal escape)
+   + `distinguishing_powers_residue` (Bool's `not` fixed-point-free) — **the residue is born of the
+   distinguishing**. Open: Gödel-numbered/halting *coded* instances. Essay `the_one_diagonal.md` updated.
 2. **The descent leg** (`frontiers/the_descent_leg.md`, the central frontier) — wire the act to the
    unfolding. Finding: leg 1 (ℕ generated from Raw) is ~80% present —`Nat213.{Raw,Peano,Bridge}`
    (succ := slashOrSelf·Raw.b *is* the distinguishing op; own `add`/`mul`; no-zero/sub/absorption
@@ -31,9 +33,16 @@ first deposits this session:
 Foundational capstone also added: `FlatOntologyClosure.distinguishing_always_leaves_residue` (PURE) +
 CLAUDE.md framing row + `01_residue.md §1.1` grounding (residue = theorem, distinguishing = primitive).
 
+**Both prongs now bracketed by necessity of the distinguishing** (the thesis's "forced"): arithmetic
+— `Nat213.Generation.{count_reading_forced, distinguishing_necessary}`; residue —
+`OneDiagonal.{residue_needs_distinguishing, distinguishing_powers_residue}`. So "mathematics is the
+distinguishing's forced unfolding" is bracketed forced + necessary at both prongs (arithmetic +
+residue), ∅-axiom.
+
 Honest limits (skeptic, recorded): ∅-axiom ≠ "from one primitive" (kernel inductives/Pi/Bool are
 ambient); the foundational thesis is untestable from inside (§5.1) → Line B external exposure stays
-rank-1.
+rank-1.  The full rival-*primitive* exclusion (negation-first/relation-first generate a degenerate
+structure) is the deepest open work — current results exclude rival *readings*, not rival *primitives*.
 
 ## Autonomous-research iteration (audit pass) — codebase verified clean
 After the LensLcmMeet / census / Markov-probe deposits, an autonomous-research audit pass found
