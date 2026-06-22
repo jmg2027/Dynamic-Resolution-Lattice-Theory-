@@ -75,5 +75,5 @@ The two cuts are not independent — `×` distributes over `+`, so `Δ_+` and `�
 satisfy a bialgebra compatibility. The sharp open target: **binomial inversion (the additive
 antipode, `A n g = Σ(−1)^k C(n,k) g(k)`, `inclusion_exclusion_set_partitions.md`) and Möbius
 inversion (the multiplicative antipode) are two faces of one antipode under the two cuts** —
-both sides closed in the corpus, the unifying statement unwritten
-(`research-notes/frontiers/convolution_comultiplication_crossdomain.md`).
+both sides closed in the corpus, the unifying statement supplied by
+`incidence_inversion.md` (the antipode as one construction read through `Δ_+`/`Δ_×`).

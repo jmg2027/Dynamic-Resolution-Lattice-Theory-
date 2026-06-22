@@ -22,9 +22,8 @@ incidence-algebra story: double-count (Fubini) and antipode-inversion (Fubini th
 on a 0/1 incidence matrix. They looked like two engines because they run over different
 carriers — `Nat` (counting, an inequality is then read off a marginal) and `Int` (the signed
 antipode, an equality collapses). The honest question is whether that is two engines or one.
-A genuine answer is a *proven* common generalization, not a juxtaposition of the two
-(`research-notes/frontiers/rebuild_roadmaps/cross_domain_unification_rebuild.md`: a unification
-needs a shared map, never a bare `∧`). This essay supplies the shared map: one swap, two
+A genuine answer is a *proven* common generalization, not a juxtaposition of the two: a
+unification needs a shared map, never a bare `∧`. This essay supplies the shared map: one swap, two
 carriers.
 
 ## Derivation — the carrier-general swap and its two bridges
@@ -78,9 +77,8 @@ shared root beneath it.
   - **Unimodular invariant** (`unimodular_invariant.md`): the *other* cross-domain family
     (`SL₂(ℤ)` determinant multiplicativity); it is a distinct engine, not a `genSwap`
     instance — the honest boundary of this synthesis (no forced merge).
-  - **Convolution / comultiplication** (`research-notes/frontiers/convolution_comultiplication_crossdomain.md`):
-    the swap is the coassociativity/Fubini face of a cut comultiplication; `genSwap` is its
-    carrier-general form.
+  - **Convolution / comultiplication**: the swap is the coassociativity/Fubini face of a cut
+    comultiplication; `genSwap` is its carrier-general form.
 
 ## Constructive accessibility
 

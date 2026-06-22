@@ -70,6 +70,12 @@ class-number core (composite `c` with both `3c±2` composite, smallest `1325`).
   closed**: the closure table (`markov_prime_pow_unique`, `markov_two_prime_pow_unique`,
   `markov_max_unique_via_3c_pm2`, `markovMaxUnique_985`) + the sharpened residual
   (class-number / fundamental-unit core) + the REFRAME tool and its limit.
+- `G206_preregistered_reframe_probe` — **pre-registered, time-boxed probe of `G204`
+  direction-1** (universal alternative linear reframe `αc+β`); **NULL result**: no
+  universal prime-power form separates the residual root-fiber (33 cases to `c ≤ 10⁹`),
+  neither order nor single-step neighbour reframe either.  Confirms the class-number
+  verdict computationally; not progress on the kernel.  The Line-B(b) external
+  falsifiable test, honestly reported.
 - `G173_markov_uniqueness` — the ∅-axiom arithmetic spine (neighbor
   congruence, √(−1) encoding, Button prime-power closure) + the conjecture
   slate reducing composite uniqueness to one realisability hypothesis `H`.
@@ -186,6 +192,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `the_substance_test` — **the strategic frame** (substance vs wordplay, without
+  self-deception): genuine cross-domain unity = shared-engine / shared-kernel
+  theorems, not isolated re-derivations.  **State of Line A:** internal complete —
+  the incidence-Fubini engine, SL₂(ℤ) unimodularity, multiplicative number theory,
+  and CRT→lcm-meet lattice isomorphism are all ∅-axiom machine-verified (and audited
+  at corpus scale, 0 real DIRTY).  **Line B (the open frontier — external exposure):**
+  (a) the ∅-axiom formalization paper (`drafts/strict_zero_axiom_formalization_paper.md`);
+  (b) pre-registered open-problem attack — *executed, NULL* (Markov, `markov_lagrange/G206`).
 - `multiplicative_count_pnt` — **multiplicative count → PNT density**
   (`MultSystem`/`MultSystemValue`).  Upper bound + density cut CLOSED ∅-axiom
   (prime window `(n,2n]`, Chebyshev doubling, telescoped `π(2^m) ≤ chebBound m =

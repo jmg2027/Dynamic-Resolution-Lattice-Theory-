@@ -9,8 +9,7 @@ import E213.Meta.Int213.PolyIntMTactic
 
 ℕ carries two comultiplications (cuts): the **additive** cut
 `Δ_+ : n ↦ Σ_{i+j=n} i⊗j` and the **multiplicative** cut
-`Δ_× : n ↦ Σ_{d·e=n} d⊗e`
-(`research-notes/frontiers/convolution_comultiplication_crossdomain.md`). Each cut's
+`Δ_× : n ↦ Σ_{d·e=n} d⊗e`. Each cut's
 convolution has an **antipode**, and inversion against the structure element is the
 *same* incidence-algebra move (Rota 1964) read through the two cuts:
 

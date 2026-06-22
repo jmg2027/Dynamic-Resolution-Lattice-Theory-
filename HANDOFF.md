@@ -7,11 +7,13 @@ sealed); no broken imports; `theory/INDEX.md` "254 chapters+essays" accurate (th
 .md are process docs, not chapters); essays/INDEX.md "104 essays" matches disk. Session-touched
 permanent-tier files (`LensCRTGeneral`, `CountDuality`) cite active *frontier* notes — legitimate,
 not sink violations.
-- **Open maintenance item (for the `process` skill, not done here):** 72 permanent-tier files
-  cite `research-notes/`. Most are legitimate active-frontier / `G##`-scratch citations; a triage
-  pass should confirm none cite a now-*promoted* topic (which would be a true sink violation).
-  Too broad to triage safely in this iteration without context exhaustion; flagged for a dedicated
-  `process` run.
+- **Sink rule — DECOUPLED (process skill run).** The precise audit (note-file cites only, excl.
+  dir/INDEX refs) found **11** real violations (8 `theory/`, 3 `lean/`), all from this session's
+  deposits citing active frontier notes. All 11 fixed per-sentence (drop pointer / repoint to the
+  permanent home — Lean theorem or `theory/` essay); re-audit **0 violations**; the 3 edited Lean
+  modules rebuild clean. (The earlier "72" counted directory + INDEX refs, which are not
+  violations.) Frontiers registered in `frontiers/INDEX.md`: `G206` (Markov null-result probe) and
+  `the_substance_test` (the Line-A/B strategic frame).
 
 ## Branch
 `claude/multi-agent-research-pxzpls` (tracks `origin/`). This session reorients the

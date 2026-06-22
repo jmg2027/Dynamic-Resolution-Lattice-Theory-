@@ -15,7 +15,7 @@ corpus's concrete `L_6 ≈ prodLens(L_2, L_3)` (`ModArith.LensCRT`) to all copri
 
 The §7.1 primacy claim is that every pointing framework is the *same residue* read through a
 Lens, so its sharpest internal test is a **proven kernel coincidence between two independently-
-built Lenses**, with a property transported across (`research-notes/frontiers/the_substance_test.md`).
+built Lenses**, with a property transported across.
 A `LensIso` between two *abstract* `Lens` instances is tautology-prone (the corpus's
 `Lens/Instances/` carry genuinely distinct kernels, so a non-trivial equal-kernel pair is not
 just sitting there). CRT is the genuine, non-tautological instance: `L_{mk}` is built from the

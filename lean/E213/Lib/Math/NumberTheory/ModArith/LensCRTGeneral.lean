@@ -12,7 +12,7 @@ import E213.Lens.Unified
 
 i.e. the mod-`mk` reading and the `(mod-m, mod-k)` product reading are *one residue* — a
 genuine cross-domain `LensIso` (equal kernel on `Raw`), the number-theoretic primacy-witness
-(`research-notes/frontiers/the_substance_test.md` "State of Line A").  The CRT direction
+(narrative: `theory/essays/synthesis/crt_is_a_cross_domain_lensiso.md`).  The CRT direction
 (`prodLens ⊑ L_{mk}`) replaces the concrete 36-case enumeration by `crt_unique`; the meet
 direction (`L_{mk} ⊑ prodLens`) is `divides_refines` (m, k ∣ mk) through `prodLens_is_meet`.
 -/

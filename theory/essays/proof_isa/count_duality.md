@@ -31,8 +31,7 @@ A claim that two domains are "the same" is, in 213, a claim about a shared kerne
 (`Lens.refines`, `lensIso_iff_kernel_eq`), and it is licensed *only when the shared
 structure is exhibited as a theorem* — never by a value-coincidence and never by a
 sentence. A vacuous `... : True` headline carries no map and so is not a
-unification; only a proven map is
-(`research-notes/frontiers/rebuild_roadmaps/cross_domain_unification_rebuild.md`).
+unification; only a proven map is.
 The narrated union-bound/LYM unity sits in exactly that unproven status until a
 shared engine is exhibited. This essay exhibits it.
 

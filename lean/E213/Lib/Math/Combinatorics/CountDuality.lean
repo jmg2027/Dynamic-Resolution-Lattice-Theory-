@@ -18,9 +18,8 @@ columns."*  But that unity was **narrated, not proven**: in the corpus the union
 bound is discharged by per-element subadditivity (`CountExistence.bcount_or_le`,
 `cond_or_le`), while LYM is discharged by the double-count swap
 (`Sperner.sumOver_swap`).  Two *different* proofs.  A cross-domain unification
-claim is licensed only when the shared structure is **exhibited as a theorem**
-(`research-notes/frontiers/rebuild_roadmaps/cross_domain_unification_rebuild.md`:
-no value-coincidence, no `: True` headline — a proven map).
+claim is licensed only when the shared structure is **exhibited as a theorem**:
+no value-coincidence, no `: True` headline — a proven map.
 
 This file supplies it.  Both bounds are re-derived from the **single** identity
 

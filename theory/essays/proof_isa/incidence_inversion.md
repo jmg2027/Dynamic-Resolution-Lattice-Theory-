@@ -18,8 +18,7 @@ declarations `#print axioms`-empty (`lean/E213/Lib/Math/IncidenceInversion.lean`
 
 ## Why we picked it — the two cuts, one antipode
 
-ℕ carries two comultiplications
-(`research-notes/frontiers/convolution_comultiplication_crossdomain.md`): the **additive
+ℕ carries two comultiplications: the **additive
 cut** `Δ_+ : n ↦ Σ_{i+j=n} i⊗j` and the **multiplicative cut** `Δ_× : n ↦ Σ_{d·e=n} d⊗e`.
 Each cut's convolution has a structure element (a zeta) and an antipode (its convolution
 inverse), and *inversion against the structure element is the same incidence-algebra move*
@@ -98,8 +97,8 @@ proven; a single shared Lean term for both is the open refinement.
   - **Convolution generating functions** (`theory/math/combinatorics/convolution_generating_functions.md`):
     the additive cut's Cauchy convolution; its antipode (the `(−1)`-alternation formal
     inverse) is the binomial side's structural home.
-  - **The two cuts** (`research-notes/frontiers/convolution_comultiplication_crossdomain.md`):
-    this closes that note's F2 — the antipode as one construction read through `Δ_+`/`Δ_×`.
+  - **The two cuts**: the antipode as one construction read through `Δ_+`/`Δ_×`
+    (the additive and multiplicative comultiplications of ℕ).
   - **Derangements** (`Combinatorics.DerangementInversion`): a worked corollary —
     `D(n) = Σ_k (−1)^{n−k}C(n,k)·k!` is the binomial inverse of `n! = Σ_k C(n,k)·D(k)`
     (`derange_eq_binomial_inverse_fact`), so inclusion–exclusion for derangements is the

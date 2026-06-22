@@ -50,7 +50,7 @@ formula, the `ψ`/`Λ` bookkeeping behind `lcm(1..N) ~ eᴺ`). Read 213-native, 
 breadth/primacy programme into analytic/multiplicative number theory with a *proven* map: the
 factorial domain and the lcm-growth domain are one residue read two ways, and the bridge is an
 equality of objects, not of a statistic — the standard this corpus holds cross-domain claims
-to (`research-notes/frontiers/rebuild_roadmaps/cross_domain_unification_rebuild.md`).
+to.
 
 Honest scope (`§8` falsifiability discipline). The growth asymptotics (`lcm(1..N) ~ eᴺ`,
 `N! ~ (N/e)ᴺ`) are not re-proved here; this is the exact finite product identity underneath
