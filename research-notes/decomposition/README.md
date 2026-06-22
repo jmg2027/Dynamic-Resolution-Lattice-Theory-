@@ -1793,7 +1793,20 @@ Named ClusterAlgebra/mutation/Laurent objects absent (the mutation hits are code
 relation is the rank-3 Markov instance, not a general B-parametrized one. Buildable witness already PURE:
 `markov_vieta_int` (the cluster mutation as a machine-checked theorem).
 
-**Count.** 127 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Khovanov homology / categorification (`khovanov_homology.md`) — the residue on knots' resolution cube
+
+PREDICTION + PARTIAL. Khovanov homology = the residue-taking operation applied to knots' resolution cube: the
+cube of resolutions = the {0,1}ⁿ bit-cube (game_theory's `BoolXORFold` hypercube, `psiNatPos_linear` 6/0); the
+chain complex / δ²=0 / ker δ/im δ = homological_algebra's residue machine, now bigraded (two fold-heights,
+`dsq_zero_universal_delta4`, `BettiKernel` 11/0). ★ New datum: **the graded Euler characteristic = the Jones
+polynomial** = the corpus's decategorify=q±1-alternating-count pattern (the same Σ(−1)ⁱ as
+`simplex_face_euler_zero`/McKean–Singer); the residue strictly DOMINATES the count (carries the q−1 obstruction
+the alternating cancellation erases) — `NonzeroBetti` (56/0) the concrete ∅-axiom model "categorification
+detects what decategorification cancels" (nonzero H¹: cycle=escape vs contractible=converge). Lee/s = the
+deformation dial; functoriality = the 2-cell. Named Khovanov/Jones/Kauffman/Frobenius objects absent; the break
+is INHERITED from knots (the isotopy/Reidemeister-invariance Side B), not new.
+
+**Count.** 128 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
