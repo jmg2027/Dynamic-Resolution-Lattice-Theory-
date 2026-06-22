@@ -343,3 +343,52 @@ Together with the count-reading's residue generating all the limitative theorems
 the `×↦+` character spanning parity/valuation/entropy/Fourier/ζ, the calculus has reduced a wide swath
 of mathematics to **two invariants** — the *character arrow* and the *`q=±1` residue* — read across
 {direction, fold-height, resolution, iteration-character}. **25 decompositions, no break.**
+
+### Batch 8 (Gödel, surreals, knots, p-adics) — the first honest break, a new slot, two Lean closures
+
+A six-agent wave: four fresh decompositions probing the model's *edges* (a limitative theorem, a
+number-construction the author wrote by hand, a topological invariant, a non-Archimedean completion),
+plus two leverage-target Lean closures.
+
+- **Gödel / "provable"** (`godel.md`) — PREDICTION, not collapse: incompleteness is the **same `q=−1`
+  escaping diagonal** as `cardinality.md` (Cantor) and `object1_not_surjective` — a self-pointing reading
+  whose residue *cannot* be in the system's image. The calculus even predicts *where* incompleteness
+  vanishes (a system with no self-encoding has no diagonal residue). Same residue, new domain — the
+  count-reading's `q=−1` pole now spans cardinality, the halting problem's relatives, and provability.
+- **Surreal numbers** (`surreal.md`) — EXTEND, and the strongest "the author wrote our `C`" datum:
+  Conway's `{L | R}` *is* the directed iterated distinguishing, term-for-term (the construction `C`
+  confirmed, not re-skinned). Ceiling: the same honest ordinal cap `ordinals.md` hit (no completed νF).
+- **Knots** (`knots.md`) — ★ **the first clean PARTIAL-BREAK** (26 prior decompositions, no break). The
+  braid *group* `Bₙ = ⟨n strands | crossing-compositions⟩` EXTENDS with no new primitive (`groups.md`),
+  but the **knot invariant BREAKS** at two points the apparatus genuinely lacks: (1) the **skein relation**
+  is a *relation among distinct constructions* (not one construction's self-application residue), and (2)
+  the knot itself is an **ambient-isotopy quotient** (a topological identification the count/fold reading
+  has no handle on). This is the most valuable datum in the notebook — it *locates the boundary*: the
+  calculus is `⟨C-self-application | reading⟩ ⊕ residue`, and skein/isotopy sit outside that shape.
+- **p-adics ℚ_p** (`padic.md`) — PREDICTION + a **new reading slot**: the resolution axis gains a **base**
+  parameter (*which* valuation/metric measures "close"). The calculus predicts the *shape of the family
+  of completions* (one per prime `vp`, the faithful coordinate), matching the `~484 PURE / 0 DIRTY` Padic
+  corpus; Ostrowski **exhaustiveness** (these are *all* the completions) is named as the open leg.
+
+Two leverage targets closed in ∅-axiom Lean this wave (each promotes a batch-5 prediction):
+- **Character orthogonality at orders 3 and 6** — `CayleyDickson/Integer/RootOfUnityOrthogonality.`
+  `root_orthogonality`/`omega_orthogonality`/`zeta6_orthogonality`/`cyclotomic_orthogonality` (23 PURE,
+  in ℤ[ω]) extends `fourier.md`'s order-2 `quadratic_orthogonality` to the genuine roots of unity — the
+  `Σ_x χ(x)=0` prediction now built at orders 2, 3, 6.
+- **Convolve-rescale is a `Contraction`** — `Probability/Limit/ConvolveRescaleContraction.`
+  `Φ_contraction` + `Φ_picard_cauchy` + `center_fixed`/`orbit_to_center` (20 PURE) closes
+  `gaussian_clt.md`'s keystone *leg*: the rescale is exact dyadic halving, so `picard_cauchy` forces the
+  Gaussian's `q=+1` modulus-residue. Honest residual: `banach_fixed_point` itself awaits a genuine
+  `CompleteMetricModulus Dy`, and convolution is on the centered statistic, not the full profile.
+
+**Model v7**: as v6, plus —
+1. **the resolution axis carries a `base`** (`padic.md`): *which* valuation/metric defines "adjacent" is
+   a reading parameter, not fixed — the family of completions is one reading dialed over its bases.
+2. **the calculus's boundary is now located** (`knots.md`, first break): the normal form
+   `⟨C-self-application | reading⟩ ⊕ residue(q=±1)` does **not** cover (a) *relations among distinct
+   constructions* (skein) or (b) *quotients by an ambient identification* (isotopy). These are named
+   missing primitives, not failures — the edge of the technique, found by probing for it.
+
+The two invariants (character arrow, `q=±1` residue) and the four axes (direction, fold-height,
+resolution+base, iteration-character) are unchanged in the interior; the break adds an *exterior*
+marker. **30 decompositions, one located partial-break, six predictions, four Lean-closed.**

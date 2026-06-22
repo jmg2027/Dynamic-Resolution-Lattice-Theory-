@@ -6,14 +6,19 @@ distinguishing), not the Lean re-derivation corpus (scaffolding). Spec + practic
 `research-notes/decomposition/` (`README.md` = the technique; `practice/` = worked decompositions).
 Lean is the faithfulness-check only.
 
-## State (11 worked decompositions, all Lean-cited)
+## State (30 worked decompositions, all Lean-cited — model v7)
 
-Crystallized-from-repo: `parity`, `integers`, `equivalence`. Fresh batch 1: `prime_factorization`,
-`cardinality`, `dimension`, `derivative`. Fresh batch 2: `determinant`, `golden_ratio`, `exponential`,
-`continuity`. The practice has refined the model twice (see `README.md` "Refinements"):
-`C` = distinguishing + {direction, fold-height, atom-distinguishability}; `L` = a reading +
-{resolution (→ a discipline when made a condition), bidirectional character-mode}; `Residue` = `L`'s
-self-application surplus, tagged `q = ±1` (escape/oscillate vs converge/fixed-point).
+Batches 1-8 (see `README.md`). Crystallized-from-repo: `parity`, `integers`, `equivalence`. The
+practice has refined the model to **v7**: `C` = distinguishing + {direction `q=±1`, bidirectional
+fold-height, atom-distinguishability}; readings `L` form a **category** + {resolution **with a `base`**
+(which valuation/metric is "adjacent", `padic.md`), bidirectional character-mode, weight,
+iteration-character (nilpotent `∂` / idempotent `clo` / growing `S`)}; `Residue` = `L`'s
+self-application surplus, tagged `q = ±1` (escape/oscillate vs converge/fixed-point). **The boundary is
+now located** (`knots.md`, first partial-break): the normal form does *not* cover relations among
+distinct constructions (skein) or ambient-isotopy quotients — named missing primitives.
+
+Six predictions, four now Lean-closed (orthogonality orders 2/3/6, growing-corner `succ_not_idempotent`,
+convolve-rescale `Φ_contraction`); the remaining targets are below.
 
 ## Open directions
 
@@ -46,11 +51,19 @@ runs through parity/valuation/det/entropy/Noether/Fourier; the calculus is a cat
 in the two q=±1 poles, only the q=+1 closure corner built.
 
 ### Leverage-closing Lean targets (each promotes a batch-5 *prediction* to a closed *derivation*)
-- **character orthogonality `Σ_x χ(x)=0`** — closes `fourier.md`.
-- **"convolve-and-rescale is a contraction" → `banach_fixed_point`** — closes `gaussian_clt.md`.
-- **continuous/variational Noether current `∂_μ j^μ=0`** — closes `noether.md` (discrete skeleton built).
-- **the free/growing monad corner** (`Lens.bind`/Kleisli) — `adjunction.md`'s honest miss; probe whether
-  the distinguishing's unbounded ascent (`MuNuMirror.ascent_unbounded`) furnishes the free monad.
+- **character orthogonality `Σ_x χ(x)=0`** — ✅ CLOSED. `CharacterOrthogonality.lean`
+  (`quadratic_orthogonality`, order 2) + `RootOfUnityOrthogonality.lean` (orders 3, 6 in ℤ[ω]); both
+  ∅-axiom. Promotes `fourier.md`'s orthogonality leg from predicted to built.
+- **"convolve-and-rescale is a contraction" → `banach_fixed_point`** — ✅ CONTRACTION LEG CLOSED.
+  `ConvolveRescaleContraction.lean` (`Φ_contraction : Contraction (dyMet L) Φ`, `Φ_picard_cauchy`,
+  `center_fixed`/`orbit_to_center`; 20/0 ∅-axiom). Honest residual: `banach_fixed_point` itself not
+  applied (needs a genuine `CompleteMetricModulus Dy` — open), and convolution is on the centered
+  statistic, not the full weight-profile. `gaussian_clt.md` upgraded prediction→keystone-leg-built.
+- **the growing/free corner** — ✅ MIRROR LEG CLOSED. `MuNuMirror.succ_not_idempotent` (the ascent
+  step `S` is non-idempotent — `S(S r) ≠ S r` on the tower) is the exact mirror of the closure monad's
+  `clo_idempotent`: the two values of the **iteration-character** axis. The native free-monad
+  carrier (νF) stays open (Mathlib-free coinduction blocked, per `MuNuMirror` header).
+- **continuous/variational Noether current `∂_μ j^μ=0`** — still open (discrete skeleton built).
 
 ### Open Lean faithfulness-targets (would certify a current prose-only collapse)
 - `continuous_iff_preimage_dyadicopen` (`continuity.md` flags the open-set/preimage leg as prose).

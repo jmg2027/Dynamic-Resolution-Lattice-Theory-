@@ -103,12 +103,26 @@ and the CLT scaffolding instantiates its q=+1 pole at the *attained* level:**
   (at `V=1` it collapses to the trivial balanced modulus), `CauchyModulus.ProbCauchy` /
   `absDevCross_self` (the `(Nat,Nat)`-only Cauchy structure on `ProbabilityCut` sequences).
 
-**(C) The honest gap — predicted-not-built (the load-bearing CLT theorem is absent).** What the
-Lean does **not** contain:
-- **No convolution operator on weights / no `Φ = convolve-and-rescale` map**, hence **no theorem
-  that the Gaussian is `Φ`'s fixed point**. `banach_fixed_point` exists in `Analysis/`; it is
-  **not applied to a convolution contraction** anywhere — the bridge "convolution-rescale is a
-  contraction whose Banach fixed point is the Gaussian" is the conceptual leg, unbuilt.
+**(C′) UPDATE — the contraction leg is now built (∅-axiom).** The keystone's load-bearing half is
+closed. `Lib/Math/Probability/Limit/ConvolveRescaleContraction.lean` (20 pure / 0 dirty) builds the
+`Φ = convolve-and-rescale` **rescale leg** as exact dyadic-rational halving and proves
+`Φ_contraction (L) : Contraction (dyMet L) Φ` — convolve-rescale *is* a `Contraction` in
+`BanachFixedPoint`'s sense. `Φ_picard_cauchy` applies `picard_cauchy` to it (orbit Cauchy, geometric
+modulus `N(m)=m`), and `center_fixed`/`orbit_to_center` locate the `q=+1` fixed point reached-by-none.
+**Honest residual** (the bar that keeps this a prediction, not a closed derivation): `banach_fixed_point`
+*itself* is not applied — that needs a `CompleteMetricModulus Dy` (a genuine Cauchy-completion of the
+dyadics, `lim`+`climconv` for *every* Cauchy sequence), which cannot be supplied without fabricating
+completeness; `picard_cauchy` (needs only the `MetricModulus`) is used instead and orbit→center proved
+directly. Two pieces remain conceptual: a **convolution** operator on full weight-readings (the tree
+has masses `(num,den)` + the `joint` ×-character, no density/weight-function type), and the full
+Gaussian **profile** (not just its center) as `Φ`'s fixed point.
+
+**(C) The remaining gap — predicted-not-built.** What the Lean still does **not** contain:
+- **No convolution operator on full weight-profiles** (only `ProbabilityCut=(num,den)` masses + the
+  `joint` ×-character), hence **no theorem that the Gaussian *profile* is `Φ`'s fixed point** — the
+  contraction is proved on the centered dyadic statistic, not yet on the shape. The completeness
+  instance (`CompleteMetricModulus Dy`) that would route the fixed point through `banach_fixed_point`
+  rather than by-hand is also still open.
 - The CLT files are honest about this: `CLTLimit.lean` says the generic modulus "depends on the
   sequence; the balanced specialisation collapses to the trivial modulus", and `Gaussian.lean`
   defers the real form — *"The `partialSum`-based Cauchy-modulus form of full CLT lives in
@@ -121,9 +135,11 @@ Lean does **not** contain:
 
 **Net.** Not collapse-only (it predicts a *form* and *why q=+1*), not a miss (the fixed-point
 engine, the two convolution-characters, centering/variance, and the modulus residue are all real
-∅-axiom theorems). It is a **prediction with a finite generator already in Lean and the keystone
-(Gaussian = Banach fixed point of convolve-rescale) unbuilt** — the honest middle, one notch below
-`entropy.md`'s closed derivation because the keystone bridge is stated, not proved.
+∅-axiom theorems). It is a **prediction whose keystone *leg* is now built** — `Φ_contraction`
+proves convolve-rescale is a `Contraction` and `picard_cauchy` forces the `q=+1` modulus-residue
+(`ConvolveRescaleContraction.lean`, 20/0). What keeps it one notch below `entropy.md`'s closed
+derivation: `banach_fixed_point` itself is not yet applied (no honest `CompleteMetricModulus Dy`),
+and convolution acts on the centered statistic, not the full weight-profile.
 
 ## Note for the technique — does CLT confirm "fixed point of a composed reading = q=+1 residue", generalizing golden_ratio.md from Möbius to convolution?
 
@@ -143,7 +159,7 @@ on a number-pair. CLT lifts the **same structure one level up**: the self-applyi
 | `q` tag | `+1` (converges, Lambek) | `+1` (converges) |
 | reached-by-none | no convergent lands on φ | no finite `n` lands on the Gaussian |
 | finite generator | recurrence + modulus `N=2k` | preserved moments + modulus `N(ε)` |
-| Lean engine | `mobius_iteration_master` (built) | `banach_fixed_point` (built) **+** convolution⋆rescale contraction (**unbuilt**) |
+| Lean engine | `mobius_iteration_master` (built) | `banach_fixed_point` (built) **+** convolve⋆rescale contraction (**built**: `Φ_contraction`) |
 
 So CLT **confirms and generalizes** the rule: *the fixed point of a self-applying reading is its
 `q=+1` residue* — now with the self-applying thing being a **composed reading** (a weight under
@@ -171,6 +187,7 @@ generator, the modulus is `picard_cauchy`'s `N(m)`.
 | Leg | Theorem (file:name) | Status |
 |---|---|---|
 | q=+1 fixed point = modulus-computed residue (the engine) | `Lib/Math/Analysis/BanachFixedPoint.lean : banach_fixed_point` (`:202`), `picard_cauchy` (`:154`), `banach_unique` (`:250`), `picard_step_geometric` (`:45`) | ∅-axiom (vein-C) ✓ |
+| **convolve⋆rescale IS a `Contraction` (the keystone leg)** | `Probability/Limit/ConvolveRescaleContraction.lean : Φ_contraction` (rescale = exact dyadic halving), `Φ_picard_cauchy` (picard_cauchy applied, modulus `N(m)=m`), `dyMet` (genuine `MetricModulus Dy`), `center_fixed`/`orbit_to_center` (q=+1 fixed point reached-by-none) | **∅-axiom ✓ (20/0)** |
 | convolution = `×↦·` character on weights | `Probability/Foundation/Independence.lean : joint` (`:27`), `joint_assoc_num` (`:87`), `joint_comm_num` (`:53`) | `joint_assoc_num` ∅-axiom ✓ |
 | convolution = additive `+`-character (mean of a sum) | `Probability/Limit/LLN.lean : countTrue_append` (`:29`); `Probability/Foundation/Expectation.lean : discreteNum_append` (cited via `probability.md`) | ∅-axiom ✓ |
 | CLT centering attained structurally | `Probability/Distribution/Gaussian.lean : CLT_fair_centered` (`:74`) | ∅-axiom ✓ |
@@ -179,13 +196,21 @@ generator, the modulus is `picard_cauchy`'s `N(m)`.
 | residue = Cauchy modulus, q=+1 collapse | `Probability/Limit/CLTLimit.lean : balanced_LLN_modulus` (`:31`), `balanced_cauchy` (`:40`); `Probability/Bridge/CauchyModulus.lean : ProbCauchy` (`:39`), `absDevCross_self` (`:33`); `Probability/Limit/CLTGeneric.lean : cltModulus_of_varBound` (`:41`), `genericCLT_balanced_collapse` (`:59`), `cltModulus_mono_var` (`:44`) | ∅-axiom ✓ |
 | LLN (frequency=expectation at balance) | `Probability/Limit/LLN.lean : LLN_unit` (`:58`), `bernoulli_LLN_exact` (`:66`), `fair_LLN` (`:72`) | ∅-axiom ✓ |
 
-**Conceptual-only legs (honest — predicted, not built):**
-- **No convolution operator on weights** and **no `Φ = convolve-and-rescale` map** in `lean/E213`.
-- **No theorem "Gaussian = `Φ`'s fixed point"** — `banach_fixed_point` exists but is *not* applied
-  to a convolution contraction. This is the keystone bridge, conceptual.
+**Now built (contraction leg closed, ∅-axiom — `tools/scan_axioms.py` → 20 pure / 0 dirty):**
+- The `Φ = convolve-and-rescale` map and `Φ_contraction : Contraction (dyMet L) Φ` exist in
+  `Probability/Limit/ConvolveRescaleContraction.lean`; `picard_cauchy` is applied to it
+  (`Φ_picard_cauchy`), and the `q=+1` fixed point is located (`center_fixed`/`orbit_to_center`).
+
+**Conceptual-only legs that remain (honest — predicted, not built):**
+- **No convolution operator on full weight-profiles** — the contraction is proved on the centered
+  dyadic statistic, not on a density/weight-function type (the tree has `(num,den)` masses + `joint`).
+- **No theorem "Gaussian *profile* = `Φ`'s fixed point"** and **no `CompleteMetricModulus Dy`** — so
+  `banach_fixed_point` itself is not applied (a genuine Cauchy-completion of the dyadics is open;
+  `picard_cauchy` + a by-hand orbit→center is used instead, no fabricated `climconv`).
 - `CLTGeneric.genericCLT_modulus_exists` (`:65`) has conclusion `True` — a placeholder, **not** a
   general deviation bound; the full `partialSum`-based CLT is *deferred* by `Gaussian.lean`'s own
   header to `Real213.CutSeries.partialSum`, not proved in this tree.
 
-> Axiom-purity note: purity rests on the cited files' in-file docstrings ("STRICT ∅-AXIOM",
-> "∅-axiom, vein-C", "no σ-algebra, no Choice"); `tools/scan_axioms.py` was not re-run here.
+> Axiom-purity note: the new contraction module was re-run through `tools/scan_axioms.py`
+> (20 pure / 0 dirty); the other rows' purity rests on the cited files' in-file docstrings
+> ("STRICT ∅-AXIOM", "∅-axiom, vein-C", "no σ-algebra, no Choice").
