@@ -1649,7 +1649,20 @@ colimit corner, and **GIT stability IS the choice of the Side-A-good (separated,
 (`FreeReduction.free_group_quotient_no_quot` 26/0) — the new datum past the parent files. Named GIT/invariantRing/
 momentMap/semistable objects absent; engines all PURE, the Kempf–Ness symplectic-quotient weld conceptual.
 
-**Count.** 117 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Gröbner bases / Buchberger (`grobner_bases.md`) — the colimit Side-A on polynomial ideals (the decidable corner)
+
+EXTEND + PREDICTION. A Gröbner basis IS the calculus's confluent+terminating **Side-A rewriting normal form**
+(`FreeReduction.free_group_quotient_no_quot` 26/0) applied to polynomial ideals: division = `freeReduce`/
+reduction-fold; Buchberger = the **confluence completion** (S-polynomial = critical pair, criterion = "all
+critical pairs join"); reduced GB = the Quot-free canonical representative (`proj_section`/`freeReduce_idempotent`);
+ideal membership = the decidable word problem (`freeEquiv_iff_reduce_eq`:216); termination = the well-founded
+monomial order (`Lambek.no_infinite_descent`:273/`isPart_wf`). ★ The spine: polynomial ideal membership IS
+decidable = the **q=+1 confluent corner closed in full** — the decidable contrast to general groups' undecidable
+Novikov–Boone Side-B (q−1). Named GrobnerBasis/Buchberger/Spolynomial objects absent; buildable witness: a
+`Monomial:=List Nat` + well-founded monomialOrder (via isPart_wf) + reduceMod with order-drop (part_depth_succ_le)
+and idempotence (mirroring freeReduce_idempotent) — the polynomial-ideal analogue of proj_val_eq_iff.
+
+**Count.** 118 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
