@@ -91,11 +91,26 @@ untyped class into a closed dichotomy over a typed class, pushing the irreducibl
   > **D6** `op_ne_base`: `op x y h ≠ e₁ ∧ op x y h ≠ e₂` (op-results are never base points — true in
   > `Raw` by `depth`, the atoms being the floor).
   With D1+D3+D4+D6 the catamorphism is injective (atom/atom by `e_ne`; atom/slash by D6; slash/slash
-  by D3 + induction), so existence holds. The construction is then an injective catamorphism with the
-  `≠`-proof embedded (well-founded on `depth`); the Lean obligation is defining `map` and its
-  injectivity simultaneously. **This is the precise next target** — add D6 to `DStr`, prove
-  `rawDStr` satisfies it (`Raw.slash_ne_a/b` via depth), build the injective catamorphism, then
-  `raw_initial = ⟨existence, dhom_unique_pointwise⟩`.
+  by D3 + induction), so existence holds. **D6 added** (`op_ne_base`), `rawDStr` satisfies it
+  (`Raw.slash_ne_a/b`); the schema is now correct and **uniqueness + the negative branch are proven**
+  (`dhom_unique_pointwise`, `no_DStr_on_subsingleton`).
+
+  **Existence leg — deeper requirements found (two routes, each with a hidden cost):**
+  - *Route A — total-extension via `Lens.view`.* `cata := Lens.view ⟨e₁, e₂, opTotal⟩` where
+    `opTotal x y := if h : x = y then e₁ else op x y h`. Costs: (i) **`DecidableEq β`** (for the
+    `dite`), and (ii) **commutativity** — `Lens.view_slash` requires `hsym` (`opTotal` commutative),
+    which needs `op x y = op y x` (not given by D3, which is faithfulness *up to* swap, not the swap
+    equation). So Route A needs adding **D7 `op_comm`** + a `DecidableEq` hypothesis. Then injectivity
+    of `cata` is still a separate induction (using D3/D4/D6/`e_ne`), and `map_op` follows by collapsing
+    `opTotal` to `op` on the (injective ⟹ distinct) images.
+  - *Route B — direct injective catamorphism by well-founded recursion on `depth`.* Define `cata` and
+    `cata_inj` *simultaneously* (mutual WF recursion): at `slash x y h`, the `≠`-proof `cata x ≠ cata y`
+    comes from `cata_inj` on the strictly-smaller `x, y`. No `DecidableEq`/commutativity needed, but the
+    Lean engineering (mutual `termination_by depth`, the embedded proof) is the intricate part.
+  **Recommendation:** Route B is axiom-cleaner (keeps D1–D6, no D7/DecidableEq) and is the honest
+  target; Route A is a faster but heavier-hypothesis fallback. Either yields
+  `raw_initial = ⟨existence, dhom_unique_pointwise⟩`. This is research-grade Lean (a free-algebra
+  catamorphism into a faithful *partial*-operation structure), deferred as the precise next deposit.
 - ⏳ **The dichotomy theorem** (negative branch = named clause failure; positive = `generated_iso` for
   *free* generated N — note a generated-but-not-free N gets a surjection, not an iso), and
   **`kernel_devices_are_distinguishing_instances`** (Attack-1 recognition bundle).
