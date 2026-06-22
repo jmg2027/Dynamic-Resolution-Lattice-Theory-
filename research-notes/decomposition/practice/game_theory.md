@@ -7,7 +7,8 @@ two invariants, the q=±1 spine). The leverage hypothesis: combinatorial game th
 the calculus — it **consolidates three already-decomposed pieces** under the q=±1 tag: surreal.md's `C`
 (the directed iterated distinguishing), parity.md's character arrow in its **XOR/𝔽₂ form**, and the
 fold-to-normal-form machinery (`Raw.fold`/`raw_initial`). Honest grounding note up front: **no
-`Game`/`Nim`/`Grundy`/`mex` object exists in `lean/E213`** (grep-confirmed below) — exactly the same
+`Game`/`Nim`/`Grundy` object exists in `lean/E213`** (grep-confirmed below; `mex` *itself* is now built —
+`Lib/Math/Combinatorics/Mex.lean`, see anchors — but not yet applied on a `Game` type) — exactly the same
 absence surreal.md and knots.md recorded. The Lean-built legs are the directed distinguishing, the XOR
 character, the fold-to-normal-form, and the diagonal/least-missing engine; the named game object is the
 missing conceptual leg.*
@@ -145,13 +146,18 @@ datum.** Reasons it is confirmation, not stress:
    re-skin-guard-passing revelation: a *new* fact (where the character is PURE) read off the field, not
    a re-description.
 
-**Honest residual / the precise missing leg.** The named **`Game`/`Nim`/`Grundy`/`mex` object is
-ABSENT** from `lean/E213` (grep-confirmed: no `Grundy`, no `\bNim\b`, no `Sprague`, no `\bmex\b`; the
+**Honest residual / the precise missing leg.** The named **`Game`/`Nim`/`Grundy` object is
+ABSENT** from `lean/E213` (grep-confirmed: no `Grundy`, no `\bNim\b`, no `Sprague`; the `mex` *engine* is
+now built (`Mex.lean`), but no `Game` type applies it; the
 only `game` hits are an unrelated "pattern-catalog game" metaphor in
 `Lib/Math/Foundations/PatternCatalog/`). So:
-- the **`mex` function** (least Nat not in a finite set) is not built — the closest cousin is the
-  *bounded least-witness search* (`BolzanoWeierstrass.lean:26`, "linear least-witness search, pure, no
-  `Nat.find`"), the structural relative, but no `mex` proper;
+- the **`mex` function** (least Nat not in a finite set) is now **BUILT ∅-axiom**
+  (`Lib/Math/Combinatorics/Mex.lean`, 12/0 PURE): `mexFrom`/`mex` (a single linear scan, structural
+  recursion on the budget, no `Nat.find`/`omega`/`Classical` — modelled on `BolzanoWeierstrass`'s
+  `findFrom`), with `mexFrom_finds` (the scan lands on a non-member = the **bounded diagonal**),
+  `mexFrom_lt_mem` (minimality: every smaller value is a member), and
+  `mex_eq_zero_iff_zero_excluded` (P-position `G=0` ⟺ `0` is excluded — the q=+1 sink). The mex *engine*
+  is now grounded; the missing leg is only its application **on a `Game` type** (below);
 - the **recursive `G`-fold on a `Game` type** is not built — its *shape* is `Raw.fold`/`raw_initial`
   (built), but no `Game` inductive carries it;
 - the **Sprague–Grundy theorem as a stated `Game ≃ Nim` equivalence** is not built — its *content* is
@@ -166,17 +172,18 @@ target. **Verdict: PREDICTION (leverage) + PARTIAL.** A game = surreal's directe
 `raw_initial`/`Raw.fold`); game-sum = the XOR/𝔽₂ character arrow (parity, `psiNatPos_linear` PURE);
 P-positions `G=0` = the q=+1 fixed point vs N-positions = the q=−1 escape. Combinatorial game theory
 **consolidates surreal + parity's character + the normal-form/fold machinery under the q=±1 tag**, with a
-new purity-boundary datum on the nim-sum character. 53 decompositions in; EXTEND, no interior break.
+new purity-boundary datum on the nim-sum character (and the `mex` engine now BUILT ∅-axiom,
+`Mex.lean` 12/0 — the bounded diagonal). 58 decompositions in; EXTEND, no interior break.
 
 ---
 
-### Verified Lean anchors (file : line : theorem) — all grep-confirmed; Game/Nim/Grundy/mex ABSENT
+### Verified Lean anchors (file : line : theorem) — all grep-confirmed; Game/Nim/Grundy ABSENT, mex now BUILT
 
-- **Game/Nim/Grundy/mex ABSENT** (grep over `lean/E213`): `[Gg]rundy` → no files; `\bNim\b|Sprague` → no
-  matches; `\bmex\b` → no files; `\b[Gg]ame\b` → only `Lib/Math/Foundations/PatternCatalog/*`
-  ("pattern-catalog game" metaphor, unrelated) + `Meta/Tactic/*GuardTest.lean` comments. No `Game`/`Nim`
-  inductive, no `mex`/Grundy function, no Sprague–Grundy statement. The named field object is the missing
-  conceptual leg.
+- **Game/Nim/Grundy ABSENT** (grep over `lean/E213`): `[Gg]rundy` → no files; `\bNim\b|Sprague` → no
+  matches; `\b[Gg]ame\b` → only `Lib/Math/Foundations/PatternCatalog/*` ("pattern-catalog game" metaphor,
+  unrelated) + `Meta/Tactic/*GuardTest.lean` comments. No `Game`/`Nim` inductive, no `Grundy` function, no
+  Sprague–Grundy statement. The named field object is the missing conceptual leg; `mex` itself is now
+  built (`Mex.lean`, below) but not yet applied on a `Game` type.
 
 - `Lib/Math/Cohomology/Infrastructure/BoolXORFold.lean:32` : `psiNatPos` (XOR-fold over `Nat → Bool`) and
   **`:38` `psiNatPos_linear`** — `Ψ(v ⊕ w) = Ψ(v) ⊕ Ψ(w)`, the **𝔽₂ character homomorphism = game-sum =
@@ -204,8 +211,10 @@ new purity-boundary datum on the nim-sum character. 53 decompositions in; EXTEND
 - `Lib/Math/NumberTheory/ModArith/Zolotarev.lean:133` : `psign_mulPerm_hom` (the sign character is
   multiplicative) — parity.md's character arrow, the {±1}-valued sibling of the 𝔽₂^k nim-sum; `:142`
   `psign_mulPerm_qr`. (Cited PURE across the corpus / `quadratic_reciprocity.md`.)
-- `Lib/Math/Logic/BolzanoWeierstrass.lean:26` : "linear least-witness search (pure, no `Nat.find`)" — the
-  **closest built cousin of `mex`** (bounded least-index search), but not `mex` proper.
+- `Lib/Math/Combinatorics/Mex.lean` (12/0 PURE) : **`mex` BUILT** — `mexFrom`/`mex` (the least non-member
+  within a budget, the **bounded diagonal**), `mexFrom_finds:95`, `mexFrom_lt_mem:72` (minimality),
+  `mex_eq_zero_iff_zero_excluded` (P-position `G=0` ⟺ `0` excluded = q=+1 sink). Modelled on
+  `BolzanoWeierstrass.lean:26`'s `findFrom` (linear least-witness search, no `Nat.find`).
 - `../practice/surreal.md` (the game's `C` = directed iterated distinguishing; impartial = swap-trivial),
   `../practice/parity.md` (the character arrow, here in 𝔽₂^k), `../practice/cardinality.md` (the diagonal
   = mex at finite resolution), `../practice/ordinals.md` (the height ceiling the recursive game-sum hits)
