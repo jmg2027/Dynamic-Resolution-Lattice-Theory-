@@ -182,7 +182,15 @@ theorem*, because the repo built the δ⁰-cohomology of these graphs for the ph
 
 ## The precise missing leg (located, like `knots.md`/`spectral.md`)
 
-**An *arbitrary finite graph* Laplacian object `L = D − A` as a constructed matrix is absent;** what
+**[Updated — partially resolved]** A *constructed arbitrary-finite-graph* ℤ-Laplacian operator **does
+exist**: `WeightedGreen.lean:58` `wLap n w f x = Σ_y w(x,y)·(f y − f x)` (11/0 PURE), the weighted
+graph Laplacian over an arbitrary finite weighted vertex set, with the discrete Green/IBP identity
+(`weighted_green:91`), Dirichlet energy, gradient-flow `∇𝓕=−4Δ`, and mass conservation
+(`wlap_mass_conservation:125`). What remains genuinely absent is only (a) the `L = D − A` *matrix* form
+specifically (vs the operator `wLap`), and (b) the *stated* operator theorem `ker(wLap) = {constants}`
+on a connected graph (the pieces — `wlap_mass_conservation` + `GraphConnectivity.closed_eq_root`
+reachability — are present; the weld is unstated). Below, "absent" is superseded by `WeightedGreen` for
+the operator; the matrix form + the explicit kernel theorem are the residual. What
 is built is (i) the diffusion *kernel* abstractly over any `Adj : V → V → Prop`
 (`GraphConnectivity`, fully `d`-agnostic, PURE) — this carries the *connectivity = dim ker* leg
 without a matrix; and (ii) the *eigenvalue spectrum* of specific deployment graphs as hardcoded

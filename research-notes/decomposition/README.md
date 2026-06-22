@@ -1061,7 +1061,47 @@ Named `ToricVariety`/`NewtonPolytope`/`fan`/`mixedVolume`/`momentMap` absent (gr
 the unrelated NewtonGregory/NewtonInequalities). Buildable witness: `monVal : Monomial n → ℤⁿ` (per-axis
 vp-vector) + the Newton polytope as its image.
 
-**Count.** 75 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★ Symplectic geometry / Hamiltonian mechanics (`symplectic_geometry.md`) — lie_theory's q−1 + noether's q+1 fused on one object
+
+PREDICTION. Symplectic geometry = the **fusion of lie_theory's q=−1 antisymmetric bracket and noether's
+q=+1 det=1 conservation on one object** (`Mat2` at det=1 = Sp(2)=SL₂), bound by ω = the antisymmetric
+reading. The Poisson bracket = the Lie bracket (`Mat2Bracket.bracket_antisymm`:76/`jacobi`:118/`tr_bracket_zero`,
+10/0); Liouville's phase-volume preservation = Noether's det=1 (`NoetherCurrent.density_conserved_of_det_one`
+14/0, `det_holonomy_eq_one`); dω=0 = d²=0 (`dsq_zero_universal_delta4`). ★ Strong datum: the repo already
+*names* ω — `SignedCup.gram_hermitian_gravity_gauge_split`:127 (14/0) splits the Hermitian Gram into
+Re=metric (symmetric) ⊕ Im=`cup1_antisymmetric`=the symplectic form (antisymmetric, zero-diagonal), giving
+ω's three defining properties from existing PURE theorems. The two parent files live on opposite residue
+poles; symplectic geometry is where they are one object's two readings. Named symplecticForm/PoissonBracket/
+Hamiltonian/Darboux absent (⚠ false-friends flagged: Liouville function/number, Hamiltonian path/cycle).
+
+### ★ Random walks / harmonic functions (`random_walks.md`) — harmonic = Laplacian-kernel = martingale, one q=+1 object
+
+EXTEND + PREDICTION. Random walks fuse graph_theory's Laplacian kernel and martingales' q=+1
+conditional-expectation fixed point at **one q=+1 object**: harmonic function = Laplacian-kernel =
+martingale-on-the-walk are **three names for one thing**, with the mean-value property the identity arrow
+between them (`Δf=0 ⟺ Af=f ⟺ f(x)=avg_{y∼x}f(y) ⟺ E[f(X_{n+1})|X_n]=f(X_n)`). Maximum principle / Dirichlet
+uniqueness / harmonic=hitting-probability are forced by the q=+1 pole (no interior escape; residue on the
+boundary); recurrence/transience = the q=±1 tag (return vs escape-to-boundary). ★ Notable find:
+`WeightedGreen.lean` (11/0) ships a *constructed* arbitrary-finite-weighted-graph ℤ-Laplacian
+(`wLap`, `weighted_green` discrete Green/IBP, `wlap_mass_conservation`, gradient-flow ∇𝓕=−4Δ) — which
+graph_theory.md had recorded as absent (stale gap, now corrected). Also `GraphLaplacian` 16/0,
+`GraphConnectivity` 8/0. Named harmonic/Dirichlet/randomWalk objects absent. Buildable witness:
+`ker(wLap)={constants}` on a connected graph.
+
+### ★ Descriptive set theory (`descriptive_set_theory.md`) — the diagonal escape graded by ordinal height (+ a calibrated boundary)
+
+PREDICTION + located non-constructive boundary. The Borel/projective hierarchy = the **fold-height axis
+indexed by ordinals** (= the hierarchy, ordinals.md/`Lambek.isPart_wf`/`MuNuMirror.ascent_unbounded`) +
+the q=±1 complementation swap (Σ↔Π) + the **q=−1 diagonal escape** (analytic⊋Borel/Suslin =
+`object1_not_surjective`/`no_surjection_of_fixedpointfree` made a hierarchy theorem, projection-as-diagonal).
+New datum: the diagonal-escape *graded by ordinal height on sets*. The perfect-set property = cardinality's
+uncountability; determinacy = the q=±1 game tag (`Mex.mex_eq_zero_iff_zero_excluded`, ties game_theory). ★ The
+higher reaches (Borel/projective determinacy, perfect-set at projective levels) are a **calibrated
+non-constructive boundary** — large-cardinal/Choice-strength, located where the fold ascent leaves the finite
+signature, analogous to non-standard analysis's ultrafilter at LLPO. Named Borel/analytic/Suslin/Wadge
+objects absent (Borel hits are all Heine–Borel compactness).
+
+**Count.** 78 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
