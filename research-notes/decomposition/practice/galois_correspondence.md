@@ -18,8 +18,12 @@ roots-of-unity orthogonality orders (`RootOfUnityOrthogonality`/`GaussianOrthogo
 into a **grounded core** (the adjunction/closure skeleton; a concrete `Gal(ℚ(ζ₅)/ℚ)≅C₄` with its
 golden fixed subfield; A₅ as an actual object; the radical/cyclotomic orthogonality) and a **located
 break** (the solvability tower / derived series is built for both poles — `DerivedSeries.solvable_S3`
-(q=+1), 21/0 PURE, and `A5Perfect.a5_perfect`/`a5_not_solvable` (q=−1 — `[A₅,A₅]=A₅`), 9/0 PURE; only a
-general `isSolvable` predicate remains — the now-narrowed missing leg).
+(q=+1), 21/0 PURE, and `A5Perfect.a5_perfect`/`a5_not_solvable` (q=−1 — `[A₅,A₅]=A₅`), 9/0 PURE).
+The **general `isSolvable` predicate is now BUILT** (`Linalg213/Solvable.lean`, 65/0 PURE): the
+derived series as an iterated operator `derivedSeries step G k`, `isSolvable`/`isPerfect`, and the
+headline `perfect_nontrivial_not_solvable` (pure induction) unifying both poles as the two
+`ResidueTag` values (`solvability_two_poles`).  Strictly-smaller residual: the general `commClosure`
+(subgroup *generated* by commutators) for non-closed commutator sets.
 
 ## The decomposition (C / Reading / Residue)
 
