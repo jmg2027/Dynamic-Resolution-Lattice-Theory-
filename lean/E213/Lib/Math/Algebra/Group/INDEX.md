@@ -11,6 +11,7 @@ Blueprint: `blueprints/math/11_group_213.md` (retired).
 | `GroupAction.lean` | cyclic shift action; ℤ/5ℤ orbit witnesses | ∅-axiom |
 | `SU5Channels.lean` | SU(5) GUT integration: 5⊗5 = 25, 24 generators, d^(d²) link | ∅-axiom |
 | `Capstone.lean` | 5 cluster witnesses + `total_witness` | ∅-axiom |
+| `FreeReduction.lean` | free group = normal-form subtype `{w // Reduced w}`; colimit/ambient quotient ∅-axiom, no `Quot.sound` (Side-A witness of `colimit_quotient_synthesis.md`); π₁(⋁S¹) | ∅-axiom |
 | `Group.lean` | umbrella | — |
 
 ## 213-native paradigm

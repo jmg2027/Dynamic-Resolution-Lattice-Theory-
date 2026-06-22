@@ -3,5 +3,6 @@ import E213.Lib.Math.Algebra.Group.Symmetric
 import E213.Lib.Math.Algebra.Group.GroupAction
 import E213.Lib.Math.Algebra.Group.SU5Channels
 import E213.Lib.Math.Algebra.Group.Capstone
+import E213.Lib.Math.Algebra.Group.FreeReduction
 
 /-! Umbrella for Group Theory 213. -/

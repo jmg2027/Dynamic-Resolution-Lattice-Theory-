@@ -1,6 +1,8 @@
 # Frontier synthesis: the colimit / ambient-quotient corner — it SPLITS
 
-**Status**: resolved into a precise split (not closed, not open — *located*). The SYNTHESIS.md "single
+**Status**: split located; **Side A now BUILT ∅-axiom** (see "Named ∅-axiom Lean target" below —
+`Lib/Math/Algebra/Group/FreeReduction.lean`, the free-group normal-form quotient, no `Quot.sound`).
+Side B remains a theorem-grade (Novikov–Boone) obstruction. The SYNTHESIS.md "single
 recurring open corner" (the ambient-deformation / colimit quotient that broke verbatim in `knots.md` and
 `fundamental_group.md`) was attacked by a 3-school panel mirroring the constructive-wall panel. Memos:
 `colimit_quotient_categorical.md` (category theory), `colimit_quotient_constructive.md` (Bishop
@@ -58,12 +60,29 @@ quotient). It does **not** address §5.2, the **skein graded-relation slot** (a 
 *three distinct* constructions `L₊/L₋/L₀`) — a different shape (partially grounded by
 `leibniz_universal_delta4`), left to its own seat.
 
-## Named ∅-axiom Lean target (Side A, the buildable part)
-Build `BraidNormalForm` (or a free-reduction π₁): the subtype `{w // Irreducible w}` + `normalize` +
-`normalize_idempotent` + `normalize_eq_iff_equiv` (the word-problem decision on the confluent side), reusing
-`no_infinite_descent` (termination) + the `LensImage`/`proj_val_eq_iff` quotient-as-Σ pattern. This would
-promote one Side-A case from "buildable in principle" to a built ∅-axiom witness — the analogue of the
-modulated Banach engine that closed the wall.
+## Named ∅-axiom Lean target (Side A) — **BUILT**
+The free-reduction π₁ case is now a built ∅-axiom witness:
+`lean/E213/Lib/Math/Algebra/Group/FreeReduction.lean`
+(`namespace E213.Lib.Math.Algebra.Group.FreeReduction`).
+
+  * `FreeWord := List (Nat × Bool)` (signed-generator alphabet), `Reduced` (no adjacent inverse pair).
+  * `freeReduce : FreeWord → FreeWord` — a single `List.foldr push` (structural recursion on the input
+    list; the implicit ℕ-measure is the consumed length — **no** `omega`, **no** termination obligation).
+  * `freeReduce_reduced` (normal forms are reduced), `freeReduce_idempotent` (normalize is idempotent).
+  * `FreeEquiv u v := freeReduce u = freeReduce v` — a groupoid (`freeEquiv_refl/symm/trans` by `Eq`),
+    with `freeEquiv_iff_reduce_eq` the **word-problem decision** (normal forms compared by `List`-equality).
+  * `FreeGroup := {w // Reduced w}`, `proj w := ⟨freeReduce w, _⟩`, and the headline
+    **`proj_val_eq_iff : (proj u).val = (proj v).val ↔ FreeEquiv u v`** — the analogue of
+    `LensImage.proj_val_eq_iff`, i.e. `Quot.sound`'s content axiom-free.  `proj_section` (the normal-form
+    section is onto).
+  * Bundle `free_group_quotient_no_quot` ties (Σ-quotient + decidable word problem + idempotent normalize
+    + reducedness + section).
+
+Verified: `lake build` clean; `tools/scan_axioms.py` → **26 pure / 0 dirty**; `#print axioms` on a clean
+rebuild → all headlines (`proj_val_eq_iff`, `freeReduce_idempotent`, `freeEquiv_iff_reduce_eq`,
+`free_group_quotient_no_quot`, `proj_section`, `freeReduce_reduced`) "does not depend on any axioms".  No
+`Quot.sound`, no `Classical`, no Mathlib.  **Side A is now BUILT ∅-axiom** — the analogue of the modulated
+Banach engine that closed the constructive wall.  Side B (Novikov–Boone-grade obstruction) is unchanged.
 
 All cited theorems grep-verified; `LensImage.proj_val_eq_iff` independently re-confirmed `#print axioms` →
 no axioms.
