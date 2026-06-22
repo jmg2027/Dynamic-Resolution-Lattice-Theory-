@@ -228,6 +228,48 @@ atom-distinguishability}; `L` = a reading — *which form a category*: they **co
 weight}; `Residue` = `L`'s self-application surplus, tagged `q=±1` (escape/nilpotent vs
 converge/involutive/closure). **First genuine leverage**: entropy's form *predicted* from the parts.
 
-Next: push for more **leverage** (predictions/derivations, not just collapses) and the open Lean
-faithfulness-targets (`research-notes/frontiers/decomposition_calculus.md`). The standing bar: every
-decomposition ends in a Revelation, or it is dropped.
+## The leverage phase (batch 5: Noether, CLT/Gaussian, Fourier, adjunction) — what the calculus PREDICTS
+
+The bar rose from *collapse* (re-see X) to *leverage* (the calculus **predicts/derives a form or
+enables a result**, as entropy did). Honest verdict across the four (21 decompositions total):
+
+- **It predicts at the structural/skeleton level — form + *why* — and each prediction names a concrete
+  Lean target that would close it.** This is the honest boundary: the calculus is genuinely predictive
+  on the *discrete structure*, and the *full analytic/variational machine* is, in each case, a named
+  open target, not a hand-wave.
+  - **Noether** — predicts the conserved quantity *must be the `Aut(C)`-invariant character* (`q=+1`);
+    certified by `det_holonomy_eq_one`. Open: the continuous/variational current.
+  - **CLT/Gaussian** — predicts the Gaussian = the *convolve-and-rescale fixed point* (`q=+1` residue,
+    generalizing φ from `golden_ratio.md`); engine `banach_fixed_point` built. Open: "convolve-rescale
+    is a contraction".
+  - **Fourier** — predicts the dual `Ĉ ≅ C` (self-duality) and the order-`d` character `= L₂∘dlog`
+    (`qr_pow_iff_even_exp` *derives* it). Open: character orthogonality `Σχ = 0`.
+
+- **★ One arrow runs through everything.** The single `×↦·` / `×↦+` character is now proven (or
+  proof-shaped) to be the *same arrow* in: parity `L₂`, prime-valuation `vp_mul`, determinant
+  `det2_mul`, entropy additivity, Noether invariance, the Legendre/Fourier character `legendre_mul`.
+  Six "different" theorems are one construction-preserving reading read six ways — the calculus's
+  deepest, most reused unity.
+
+- **★ The calculus is itself a category of readings — and so far only its `q=+1` (converging/closure)
+  corner is built.** Promote to a core principle (`adjunction.md`): *readings form a category*
+  (`Lens.refines` the thin category, `LensIso` its groupoid); *adjoint reading-pairs generate
+  idempotent closure monads* (Galois `clo = G∘F` — `clo_extensive` = unit, `clo_idempotent` = `T²→T`,
+  `gc_fgf/gc_gfg` = triangle identities, *proved before being named*); and *initiality = the read-op*
+  (`raw_initial`: `Lens.view = Raw.fold` is the unique arrow out of `Raw`). The one earned prediction:
+  **universal properties live on closure-algebras** (`closed_iff_image`). The honest edge: the
+  *free/growing* monad corner (`Lens.bind`/Kleisli) is **not built** — the calculus has lived in the
+  two `q=±1` poles (converge/closure `q=+1`, escape/diagonal `q=−1`); the free corner is open.
+
+**Model v5 (stable enough to name)**: `C` = distinguishing + {direction `q=±1`, bidirectional
+fold-height, atom-distinguishability}; readings `L` **form a category** (compose in series; `Aut`
+self-families; adjoint pairs → closure monads; character-families/duals) carrying {resolution,
+bidirectional character-mode, weight}; `Residue` = self-application surplus tagged `q=±1`
+(escape/nilpotent vs converge/involutive/closure); `read = initiality` (`Lens.view = Raw.fold`). The
+**character arrow** and the **`q=±1` residue** are the two load-bearing invariants.
+
+Next: convert predictions to closed derivations via the named Lean targets (character orthogonality;
+convolution-contraction; continuous Noether current), and probe the un-built **free/growing corner**
+(does the distinguishing's *unbounded ascent* give the free monad the closure corner lacks?). Targets +
+frontier: `research-notes/frontiers/decomposition_calculus.md`. The standing bar: every decomposition
+ends in a Revelation, or it is dropped.

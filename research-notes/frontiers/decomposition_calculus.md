@@ -35,10 +35,22 @@ EXTEND). The next phase should prioritize **leverage** — decompositions that *
 - **the central limit / Gaussian** — forced by weight∘character at the resolution limit?
 - **Noether's theorem** (symmetry→conservation) — an `Aut(C)`-invariant = a conserved readout? (ties
   groups.md to physics.)
-- **adjunction/monad** — generalize galois.md's adjoint-pair to the full categorical adjunction (the
-  repo's readings-form-a-category lesson made explicit).
+- **adjunction/monad** — generalize galois.md's adjoint-pair to the full categorical adjunction.
 
-### Open Lean faithfulness-targets (would certify a current prose-only collapse)
+DONE (batch 5 / leverage phase — 21 decompositions): **noether** (PREDICTION, structural: conserved =
+Aut-invariant character, q=+1; variational current open), **gaussian_clt** (PREDICTION: Gaussian =
+convolve-rescale fixed point, generalizes φ; contraction lemma open), **fourier** (PARTIAL: self-duality
++ character-existence predicted; orthogonality open), **adjunction** (the repo proved the closure MONAD
+before naming it; the free/growing corner is the un-built edge). Key finding: ONE `×↦·` character arrow
+runs through parity/valuation/det/entropy/Noether/Fourier; the calculus is a category of readings living
+in the two q=±1 poles, only the q=+1 closure corner built.
+
+### Leverage-closing Lean targets (each promotes a batch-5 *prediction* to a closed *derivation*)
+- **character orthogonality `Σ_x χ(x)=0`** — closes `fourier.md`.
+- **"convolve-and-rescale is a contraction" → `banach_fixed_point`** — closes `gaussian_clt.md`.
+- **continuous/variational Noether current `∂_μ j^μ=0`** — closes `noether.md` (discrete skeleton built).
+- **the free/growing monad corner** (`Lens.bind`/Kleisli) — `adjunction.md`'s honest miss; probe whether
+  the distinguishing's unbounded ascent (`MuNuMirror.ascent_unbounded`) furnishes the free monad.
 
 ### Open Lean faithfulness-targets (would certify a current prose-only collapse)
 - `continuous_iff_preimage_dyadicopen` (`continuity.md` flags the open-set/preimage leg as prose).
