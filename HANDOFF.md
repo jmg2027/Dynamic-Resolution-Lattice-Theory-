@@ -111,11 +111,24 @@ skein + isotopy-quotient are named missing primitives)}.
   pointwise semiring laws, and `massN_toCoeffSeq_conv` (the multiplicative `×↦·` character). Residual:
   pointwise (extensional needs funext = forbidden).
 
-**Tally:** 38 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
-Lean-closed** (orthogonality 2/3/4/6, growing-corner, convolve-rescale contraction + completion-limit,
-discrete Noether-iff, modulated Banach engine/wall defeat, Carathéodory-as-`clo`, formal `q=±1` tag,
-`continuous_iff_preimage_dyadicopen`, the **det/tr=e₁/e₂ Vieta resolution**, the **formal power-series
-semiring**) + QR already-closed. The `det`/`tr` edge is now **dissolved**. `lake build E213` clean. Open frontier
+## ★ SEVENTH WAVE — symmetric spectral theorem, Lie bracket grounded, de Rham, information geometry
+- **2×2 symmetric spectral theorem** (`Mat2/Mat2SymmetricSpectrum.lean`, 9/0): `disc_symmetric_nonneg`
+  (symmetric `disc=(a−d)²+(2b)²≥0` ⟹ real spectrum, the `q=+1` corner; elliptic escape unavailable),
+  `disc_zero_iff_scalar`, `disc_symmetric_pos_of_nonscalar`. Closes spectral.md's eigenvalue-existence
+  residue for the symmetric case at the `disc≥0` level (the √disc *value* stays a Real213 cut).
+- **Lie bracket grounded** (`Mat2/Mat2Bracket.lean`, 10/0): `bracket_antisymm` (q=−1), `tr_bracket_zero`
+  (traceless/sl₂), `jacobi`, `bracket_leibniz` (derivation) — resolves lie_theory.md's "no named bracket".
+- **de Rham (`de_rham.md`)** — strongest consolidation: d²=0=∂²=0, **Stokes = `gauss_conservation_telescope`
+  (already ∅-axiom)**, wedge-Leibniz = `leibniz_universal_delta4`, H*_dR = homology's residue upward.
+- **Information geometry (`information_geometry.md`)** — KL = entropy-character's asymmetry residue (q=+1
+  at p=q), Fisher = its Hessian/curvature; PARTIAL (dyadic atom built, full functional+metric absent).
+
+**Tally:** 40 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
+Lean-closed** + Lean **groundings** of the spectral note (`Mat2SymmetricSpectrum`) and Lie note
+(`Mat2Bracket`). The `det`/`tr` edge dissolved; Stokes = the telescope. `lake build E213` clean. Open
+frontier: the `d>1` trace character / Killing form (`tr(ad∘ad)`), continuous Noether current, arbitrary-n
+orthogonality (`ℤ[ζ_n]`), the symmetric eigenvalue √-cut value (Real213), the full Gaussian density profile,
+KL functional + Fisher metric, the smooth-manifold form complex, the νF/free-monad carrier, isotopy/colimit. Open frontier
 (`decomposition_calculus.md` + `wall_synthesis.md` residual): variational Noether current, general-χ
 orthogonality at arbitrary n (needs `ℤ[ζ_n]`), the `tr`-character / `Rep(G)`-Maschke at `d>1`, the full
 Gaussian *density* profile (continuous L¹ metric), a formal-power-series semiring (weld the two `conv`
