@@ -449,8 +449,26 @@ honest gap as the Gaussian *profile*: the continuous integral operator `(Tf)(t)=
 `banach_fixed_point` as a `Contraction` (the discrete Euler-Picard step and the engine live separately) —
 a named promotion target, EXTEND only.
 
-**Count.** 32 worked decompositions + the `two_cells.md` meta-decomposition; one located partial-break
-(knots, refined to two precise missing primitives) + the `det`/`tr` edge; **seven** predictions, **five
-Lean-closed** (orthogonality 2/3/6, growing-corner, convolve-rescale contraction + dyadic completion-limit,
-discrete Noether-iff). The `q=+1` contraction residue spans φ/Gaussian/ODE; the Banach-engine "wall" has a
-converged ∅-axiom defeat plan (`research-notes/frontiers/wall_synthesis.md`).
+### Measure theory (`measure.md`) — the sharpest leverage: the repo's "no Choice" is a *derived prediction*
+
+A fresh decomposition of measure / σ-algebra / the Lebesgue integral. A measure = `probability.md`'s
+weight-reading run backward (the count/weight *before* the ratio fold); probability = the case
+`denominator = 2^E`. Surprise: measure theory is **already built** Choice-free and σ-algebra-free in
+`Analysis/Measure/` (35/0 PURE: `measureNum`, `measure_union_additive` via list `++`, `lebesgueStepNum`,
+`lp_two_singleton`). **The leverage** (PREDICTION, the sharpest in the notebook): the calculus *predicts*
+that classical measure theory's **Choice-dependence — non-measurable sets, Vitali, Banach–Tarski — is
+exactly the `q=−1` escape residue** of the weight-reading's *uncountable* self-cover (a Vitali selector =
+AC on an uncountable index = the forced fixed-point-free diagonal `object1_not_surjective`/`OneDiagonal`,
+the *same* diagonal as Cantor and Gödel). So the repo's finite-`List` measurable set sits in the **`q=+1`
+corner where the diagonal cannot arise** — "no Choice" = "stay at `q=+1`", and the design decision becomes
+a **structural prediction, not a taboo**. The `q=±1` residue tag now unifies Cantor/φ/Gödel/homology AND
+constructive-vs-non-measurable. Located break: `Lp` full `∀S` additivity leaks `Quot.sound` via `funext`
+(the propext/funext wall, `category_theory.md`) — only the pointwise version is PURE; Carathéodory's
+outer-measure has its predicted `clo` shape but is not instantiated (named open target).
+
+**Count.** 33 worked decompositions + the `two_cells.md` meta-decomposition; one located partial-break
+(knots, refined to two precise missing primitives) + the `det`/`tr` edge + the `Lp`/funext wall; **eight**
+predictions, **five Lean-closed** (orthogonality 2/3/6, growing-corner, convolve-rescale contraction +
+dyadic completion-limit, discrete Noether-iff). The `q=+1` contraction residue spans φ/Gaussian/ODE; the
+`q=±1` residue tag spans Cantor/φ/Gödel/homology/measure; the Banach-engine "wall" has a converged ∅-axiom
+defeat plan (`research-notes/frontiers/wall_synthesis.md`, implementation in progress).
