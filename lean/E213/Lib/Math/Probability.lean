@@ -21,6 +21,7 @@ import E213.Lib.Math.Probability.Distribution.BetaNormalized
 import E213.Lib.Math.Probability.Limit.CLTGeneric
 import E213.Lib.Math.Probability.Limit.ConvolveRescaleContraction
 import E213.Lib.Math.Probability.Limit.DyadicCompletion
+import E213.Lib.Math.Probability.Limit.ConvolveProfile
 import E213.Lib.Math.Probability.Inequality.Hoeffding
 import E213.Lib.Math.Probability.Inequality.ChernoffGrade
 import E213.Lib.Math.Cohomology.Bridge.CutExpFiniteTruncation

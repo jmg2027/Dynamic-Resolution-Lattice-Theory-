@@ -121,16 +121,20 @@ limit operator satisfying `climconv` for *every* Cauchy sequence — constructiv
 have to read each sequence's own unbounded convergence modulus; no fixed freeze schedule works for all
 inputs). This is the standard fact that a metric completion's limit operator is not total-computable — so
 the *engine wrapper* stays unreachable ∅-axiom, while the *content* (center = completion-limit of `Φ`) is
-delivered. Two pieces remain conceptual: a **convolution** operator on full weight-readings (the tree has
-masses `(num,den)` + the `joint` ×-character, no density type), and the full Gaussian **profile** (not
-just its center) as `Φ`'s fixed point.
+delivered. The **convolution operator on a full weight-profile** is now also built (`ConvolveProfile.lean`,
+20/0): a discrete `⋆` on `Profile = List Nat` with the moments (mass multiplicative, mean additive) proved
+∅-axiom — the finite generator the calculus names. One piece remains genuinely real-analytic: the full
+Gaussian **density profile** (the *shape between the lattice points*) as a single fixed-point object, which
+needs a continuous density space + an `L¹`/`L∞` (or characteristic-function) metric the repo lacks.
 
 **(C) The remaining gap — predicted-not-built.** What the Lean still does **not** contain:
-- **No convolution operator on full weight-profiles** (only `ProbabilityCut=(num,den)` masses + the
-  `joint` ×-character), hence **no theorem that the Gaussian *profile* is `Φ`'s fixed point** — the
-  contraction is proved on the centered dyadic statistic, not yet on the shape. The completeness
-  instance (`CompleteMetricModulus Dy`) that would route the fixed point through `banach_fixed_point`
-  rather than by-hand is also still open.
+- A **convolution operator on a weight-profile** is now built (`ConvolveProfile.lean`: discrete `⋆` on
+  `Profile = List Nat`, with mass-multiplicativity + mean-additivity + the `Φ_profile` doubling map, all
+  ∅-axiom). What remains is **the Gaussian *density profile* (the continuous shape) as `Φ`'s fixed
+  point** — the discrete profile + its moments are the finite generator; the continuous interpolant
+  between the lattice points needs a real-valued density space (no such type in the tree). The bare
+  completeness instance (`CompleteMetricModulus Dy`) routing the *center* through `banach_fixed_point`
+  is the principled wall (the modulated engine `completeDyMod` already delivers it).
 - The CLT files are honest about this: `CLTLimit.lean` says the generic modulus "depends on the
   sequence; the balanced specialisation collapses to the trivial modulus", and `Gaussian.lean`
   defers the real form — *"The `partialSum`-based Cauchy-modulus form of full CLT lives in
@@ -196,6 +200,7 @@ generator, the modulus is `picard_cauchy`'s `N(m)`.
 |---|---|---|
 | q=+1 fixed point = modulus-computed residue (the engine) | `Lib/Math/Analysis/BanachFixedPoint.lean : banach_fixed_point` (`:202`), `picard_cauchy` (`:154`), `banach_unique` (`:250`), `picard_step_geometric` (`:45`) | ∅-axiom (vein-C) ✓ |
 | **convolve⋆rescale IS a `Contraction` (the keystone leg)** | `Probability/Limit/ConvolveRescaleContraction.lean : Φ_contraction` (rescale = exact dyadic halving), `Φ_picard_cauchy` (picard_cauchy applied, modulus `N(m)=m`), `dyMet` (genuine `MetricModulus Dy`), `center_fixed`/`orbit_to_center` (q=+1 fixed point reached-by-none) | **∅-axiom ✓ (20/0)** |
+| **convolution `⋆` on a weight-PROFILE + preserved moments (the profile leg)** | `Probability/Limit/ConvolveProfile.lean : conv` (discrete `⋆` on `Profile=List Nat`), `mass_conv` (mass multiplies), `momentNum_conv`/`profileMean_conv` (mean of a sum = sum of means), `Φ_profile`/`mass_Phi_profile`/`momentNum_Phi_profile` (self-conv doubling: mass², mean×2), `fair_profile_doubled` (`[1,1]⋆[1,1]=[1,2,1]`) | **∅-axiom ✓ (20/0)** |
 | convolution = `×↦·` character on weights | `Probability/Foundation/Independence.lean : joint` (`:27`), `joint_assoc_num` (`:87`), `joint_comm_num` (`:53`) | `joint_assoc_num` ∅-axiom ✓ |
 | convolution = additive `+`-character (mean of a sum) | `Probability/Limit/LLN.lean : countTrue_append` (`:29`); `Probability/Foundation/Expectation.lean : discreteNum_append` (cited via `probability.md`) | ∅-axiom ✓ |
 | CLT centering attained structurally | `Probability/Distribution/Gaussian.lean : CLT_fair_centered` (`:74`) | ∅-axiom ✓ |
@@ -209,9 +214,18 @@ generator, the modulus is `picard_cauchy`'s `N(m)`.
   `Probability/Limit/ConvolveRescaleContraction.lean`; `picard_cauchy` is applied to it
   (`Φ_picard_cauchy`), and the `q=+1` fixed point is located (`center_fixed`/`orbit_to_center`).
 
+**Now also built (the profile convolution operator — `ConvolveProfile.lean`, 20/0):** a **genuine
+discrete convolution `⋆` on a weight-profile type** `Profile = List Nat` (`f[k]` = mass at position `k`),
+`conv (a::f) g = addL (scale a g) (0 :: conv f g)`, the additive twin of `joint`'s ×↦· character.  The
+**finite generator** (the moments the calculus names) is now a set of ∅-axiom theorems on the operator:
+`mass_conv : mass (f⋆g) = mass f · mass g` (normalization preserved); `momentNum_conv : momentNum (f⋆g)
+= momentNum f · mass g + mass f · momentNum g` — i.e. **the mean of a sum is the sum of the means**
+(`profileMean_conv`, the rescale's *centering* invariant carried by `⋆` itself); and the doubling map
+`Φ_profile f = f ⋆ f` with closed-form moment action `mass_Phi_profile : (mass f)²`,
+`momentNum_Phi_profile : 2·(momentNum f · mass f)` (mean doubles ⇒ the growth the `1/√2` rescale cancels).
+Numeric witness `fair_profile_doubled : [1,1] ⋆ [1,1] = [1,2,1]` (binomial row `n=2`).
+
 **Conceptual-only legs that remain (honest — predicted, not built):**
-- **No convolution operator on full weight-profiles** — the contraction is proved on the centered
-  dyadic statistic, not on a density/weight-function type (the tree has `(num,den)` masses + `joint`).
 - **No theorem "Gaussian *profile* = `Φ`'s fixed point"** and **no `CompleteMetricModulus Dy`** — so
   `banach_fixed_point` itself is not applied (a genuine Cauchy-completion of the dyadics is open;
   `picard_cauchy` + a by-hand orbit→center is used instead, no fabricated `climconv`).
