@@ -13,6 +13,7 @@ import E213.Lens.ProofISA
 import E213.Lens.ProofISADemo
 import E213.Lens.ResidueReentry
 import E213.Lens.OneDiagonal
+import E213.Lens.UniversalDistinguishing
 import E213.Lens.RawTopology
 import E213.Lens.SelfCompletion
 import E213.Lens.SelfReferenceThreeOutcomes
