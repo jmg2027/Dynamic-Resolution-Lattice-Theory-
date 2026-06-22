@@ -220,3 +220,15 @@ time-boxed ISA attack on a recognized open problem. The general-coprime-CRT exte
 full lattice form (lcm-meet) are now both closed; further *internal* Lean would be peripheral
 re-derivations, explicitly out of scope (`07_primacy.md` §7.1). The honest state: internal
 Line A is complete; Line B (exposure) is the remaining frontier.
+
+**Line B progress (this session).**
+- **B(a) paper** — `drafts/strict_zero_axiom_formalization_paper.md` extended: §5.2 generalized to
+  the lattice-iso form, a `propext`-leak bisection figure (Figure 1) added, corpus stats refreshed.
+- **B(b) open-problem attack** — *executed and reported, NULL*. Pre-registered a falsifiable bet
+  (direction #1 of Markov `G204`: a universal alternative linear reframe `αc+β`), ran it, and
+  **rejected** it: no universal prime-power form separates the residual root-fiber across 33 cases
+  to `c ≤ 10⁹` (`markov_lagrange/G206_preregistered_reframe_probe.md`). This is the substance test
+  working as designed — the framework subjected to an external falsifiable test it *could* have
+  passed, honestly reporting that it did not, rather than dressing a restatement as progress. The
+  Markov kernel's separator is non-elementary (class-number / fundamental-unit of `9c²−4`), out of
+  elementary reach; the conjecture stands.

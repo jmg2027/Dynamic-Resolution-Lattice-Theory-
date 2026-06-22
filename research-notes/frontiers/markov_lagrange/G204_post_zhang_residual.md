@@ -48,7 +48,16 @@ above (no good factor) — which is *why* `1325` is hard for Zhang too.
 3. **The genuine core** — class-number / fundamental-unit content of `9c²−4`.  Out of elementary reach;
    the 110-year-open conjecture itself.
 
+## Probe of direction #1 — NULL (G206)
+
+`G206_preregistered_reframe_probe.md` pre-registered and ran direction #1 (universal alternative
+linear reframe `αc+β`). Result: **rejected** — no universal prime-power linear form separates the
+residual family (checked to `c ≤ 10⁹`, 33 cases); neither order (H4) nor single-step neighbour
+reframe (H3) separates either. Confirms the class-number verdict computationally; not progress on
+the kernel. Directions #2 (conditional formalization) and #3 (the genuine core) stand.
+
 ## Pointers
 - Proven side: theorems above (`SternBrocotMarkov`, `MarkovUniqueness`, `MarkovPrimeFactor`).
+- Direction-#1 null result: `G206_preregistered_reframe_probe.md`.
 - Narrative arc: `G196`–`G203` (top-level) — ISA localization → families → Zhang → REFRAME.
 - Promotion due: the closed `pᵏ / 2pᵏ / 3c±2` arc → `theory/` chapter (mirrors `Lib/Math/.../Markov*`).
