@@ -14,8 +14,12 @@ fold-height, atom-distinguishability}; readings `L` form a **category** + {resol
 (which valuation/metric is "adjacent", `padic.md`), bidirectional character-mode, weight,
 iteration-character (nilpotent `∂` / idempotent `clo` / growing `S`)}; `Residue` = `L`'s
 self-application surplus, tagged `q = ±1` (escape/oscillate vs converge/fixed-point). **The boundary is
-now located** (`knots.md`, first partial-break): the normal form does *not* cover relations among
-distinct constructions (skein) or ambient-isotopy quotients — named missing primitives.
+now located** (`knots.md`, first partial-break; refined by `two_cells.md` to **v7.1**): readings form a
+**2-category** (the naturality shape of "relation among constructions" is the already-built 2-cell
+`view_factors_through_morphism`), and the missing-primitive list is sharpened to **(i) a graded-relation
+slot** (skein/Leibniz `Σ cᵢ·L(Cᵢ)=0`, partially grounded by `leibniz_universal_delta4` — a *promotion
+target*) and **(ii) the isotopy/colimit quotient** (genuine absence, at the un-built `q=−1` corner +
+absent ambient space).
 
 Six predictions, four now Lean-closed (orthogonality orders 2/3/6, growing-corner `succ_not_idempotent`,
 convolve-rescale `Φ_contraction`); the remaining targets are below.

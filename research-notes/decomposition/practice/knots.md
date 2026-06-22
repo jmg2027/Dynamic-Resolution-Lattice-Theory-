@@ -61,6 +61,14 @@ crossing is a directed distinguishing, `Bₙ` is an `Aut`-style composition fami
 calculus's own "forget the direction bit, keep the swap" (the same arrow that takes `det` to
 `|det|`). The trouble is concentrated in the **last two rows**.
 
+> **Follow-up (v7.1, `two_cells.md`):** a META-decomposition of natural transformations re-partitioned
+> this break into THREE shapes — and one of the two gaps below partly dissolves. The skein relation's
+> *algebraic form* (Gap 1) is the calculus's **graded-relation slot**, grounded in-repo by the Leibniz
+> rule `leibniz_universal_delta4` (`δ(α⌣β)=δα⌣β ⊕ α⌣δβ`) — distinct from the character arrow (its
+> two-term degenerate case), still a real new construct. The isotopy quotient (Gap 2) stands, relocated
+> to the un-built colimit/`q=−1` corner + an absent ambient-space construction. (The *naturality* shape
+> of "relation among constructions" turned out to be already-built — the 2-cell `view_factors_through_morphism`.)
+
 ## Verdict — **EXTEND on the braid group, BREAK on the knot invariant.** Honest split:
 
 The calculus **FITS the braid *group*** cleanly: a crossing is a directed distinguishing (over/under

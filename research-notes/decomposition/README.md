@@ -392,3 +392,30 @@ Two leverage targets closed in ∅-axiom Lean this wave (each promotes a batch-5
 The two invariants (character arrow, `q=±1` residue) and the four axes (direction, fold-height,
 resolution+base, iteration-character) are unchanged in the interior; the break adds an *exterior*
 marker. **30 decompositions, one located partial-break, six predictions, four Lean-closed.**
+
+### Refinement v7.1 (`two_cells.md`) — the break splits three ways; the calculus gains an explicit 2-cell layer
+
+A META-decomposition attacked the knots boundary by decomposing **natural transformations** themselves.
+Result: v7's break-item (a) "relations among distinct constructions" was a **conflation of three shapes**,
+and the calculus's status differs on each:
+- **naturality/homomorphism relations → DISSOLVE.** A natural transformation IS a **2-cell the category
+  of readings already admits**, ∅-axiom: `view_factors_through_morphism` (`Lens/Compose/Morphism.lean:37`)
+  is the naturality triangle `M.view = h∘L.view` *term for term*; `IsLensMorphism` (the component + the
+  two naturality squares), `refines_of_morphism` (a 2-cell *induces* a 1-cell — the 2-category interlock),
+  `LensIso` (invertible 2-cells, a groupoid), `dhom_unique_pointwise` (initiality forces the only 2-cell
+  out of `Raw`). **So readings form a 2-CATEGORY, not just a category** (1-cells = `refines`, 2-cells =
+  `IsLensMorphism`/`LensIso`) — this comes OUT of the missing list and is recorded as built structure.
+- **skein/Leibniz (graded three-term) relations → REAL, partially grounded.** A genuinely new construct:
+  a **graded-relation slot** — a fixed linear law `Σ cᵢ·L(Cᵢ)=0` among a *family* of distinct constructions
+  under *one* reading. NOT a 2-cell (relates readings of one C; this relates one reading of many C's) and
+  NOT the character arrow (its degenerate *two*-term case). In-repo instance: the cup-product Leibniz rule
+  `leibniz_universal_delta4` (`Cohomology/Delta/V4Capstone.lean:62`, PURE) — `δ(α⌣β)=δα⌣β ⊕ α⌣δβ`, same
+  shape as the skein relation. Grounded as a *derivation* law; the skein's crossing-resolution *move* is not.
+- **isotopy quotient → REAL and ABSENT.** Not a 2-cell, not a kernel-coincidence (`lensIso_iff_kernel_eq`),
+  not a closure (`clo`); a quotient by a relation no reading's kernel or self-application generates —
+  located precisely at the **un-built colimit/`q=−1` corner PLUS an absent ambient-space construction**.
+
+**Net v7→v7.1:** readings form a **2-category** (explicit, ∅-axiom); the "missing primitive" list shrinks
+from two coarse items to **(i) the graded-relation slot** (a *promotion target*, partially grounded by
+Leibniz) and **(ii) the isotopy/colimit quotient** (the genuine remaining absence). The two invariants and
+four axes are unchanged. The first break is real but smaller and more precisely mapped than v7 recorded.
