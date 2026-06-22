@@ -709,7 +709,20 @@ recurring verbatim in an independent field. That recurrence promotes the break f
 topological-quotient limit**: the precise missing leg is a single **ambient-deformation quotient primitive**
 serving both knots and π₁.
 
-**Count.** 51 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### Ergodic theory (`ergodic_theory.md`) — the q=+1 fixed point across five fields
+
+PREDICTION, the most consolidating note (gaussian_clt + differential_equations + measure + graph_theory +
+spectral, all at one `q=+1` fixed point): the **invariant measure = the q=+1 fixed point of `T_*`** (the same
+`banach_fixed_point` object as φ/Gaussian/ODE); the **ergodic theorem "time-average = space-average" = the
+q=+1 Birkhoff/LLN residue** (`balanced_LLN_modulus`, reached-by-none/modulus-narrowed; Birkhoff average = the
+LLN sample-mean `countTrue_append`); ★ **ergodicity = invariant functions constant = the dim-1 q=+1 kernel =
+graph_theory's Laplacian λ₀=0** (`pathLaplacian_const_kernel`/`closed_const`) — the load-bearing tie; mixing =
+the transfer operator's contraction/spectral gap. Honest correction: the "Markov stationary" tie is conceptual
+(`MarkovTree` is the Markov *Diophantine equation* `x²+y²+z²=3xyz`, not a transition matrix). Missing leg: no
+`measurePreserving`/`Birkhoff`/`Koopman`/`Ergodic` object (the Birkhoff average over an orbit `f∘Tⁱ` vs the
+LLN's over a `List`) — engines + ties built and PURE, the named field object open.
+
+**Count.** 52 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **thirteen**
 predictions, **twelve Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
