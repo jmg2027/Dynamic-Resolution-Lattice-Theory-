@@ -141,16 +141,22 @@ This is the brief's sharpest leverage and the **genuine missing leg**. The inten
 
 The two *ingredients* are real and PURE: the commutator/bracket is built
 (`Mat2Bracket`, 10/0 — `bracket_antisymm` is the q=−1 pair-swap, `tr_bracket_zero` lands it in the
-`sl` kernel, `jacobi`/`bracket_leibniz` the derivation pole), and A₅ is built (above). **But the
-*tower itself is absent*:** grep across all of `lean/E213` returns **zero** hits for
-`derived_series`/`derivedSeries`/`is_solvable`/`isSolvable`/`commutator_subgroup`/`perfect_group`.
-The repo's `bracket` is the **Lie-algebra commutator on `Mat2`** (a single difference `AB−BA`), *not*
-a **group-commutator-subgroup `[G,G]`** with an iterated derived series. So the tie is **predicted,
-not grounded**: the q=±1 reading is exactly right (terminating tower = q=+1 converge =
-`ResidueTag.converge`; A₅ non-terminating = q=−1 escape = `ResidueTag.escape`/`object1_not_surjective`
-flavour), and both endpoints (the commutator as q=−1 residue, A₅ as an object) are PURE, but the
-**connecting structure — the derived series, the iteration `[·,·]⁽ⁿ⁾`, and the proof `[A₅,A₅]=A₅` —
-is the located break.**
+`sl` kernel, `jacobi`/`bracket_leibniz` the derivation pole), and A₅ is built (above).
+
+**NOW GROUNDED for the closable instance** (`Algebra/Linalg213/DerivedSeries.lean`, 21/0 PURE): the
+solvability tower = the commutator-tower q=±1 is built for **S₃** on the repo's permutation group. The
+**group commutator** `gcomm op inv a b := a⁻¹b⁻¹ab` (distinct from the Lie `Mat2Bracket`) with
+`gcomm_id_iff_commute` (the group analogue of `[A,B]=0 ⟺ AB=BA`, the q=−1 commute-test); then the
+derived-series step `commSet`: **`derived_S3_step1 : [S₃,S₃]=A₃`**, **`derived_A3_step2 : [A₃,A₃]={e}`**,
+and **`solvable_S3 : commSet (commSet S3) = One`** — the derived series terminates in 2 steps, the
+**q=+1 converging tower** (justified by `A3_product_closed`/`A3_inverse_closed`: the commutator *set* of
+S₃ is already the closed subgroup A₃, so `commSet` IS `[G,G]` here, no generation step needed). The **A₅
+escape direction is probed** (`three_cycle_commutator_S5`: a 3-cycle realized as a commutator in S₅/A₅ =
+the q=−1 escape). **Residual** (the genuine remaining break): full **A₅ perfectness `[A₅,A₅]=A₅`** (the
+non-terminating quintic escape — needs the 60-element closure, beyond `decide`) and a **general
+`isSolvable` predicate** with a proven subgroup-generation step (S₃/A₃ are closable because their
+commutator sets are already closed — not true in general). So: q=+1 solvable tower BUILT for S₃; the
+q=−1 A₅-escape probed; full A₅-simplicity + general predicate the located residual.
 
 **Net.** Not a re-skin (it predicts the correspondence's form from `galois.md`/`convex_duality.md`'s
 closure and *finds a concrete field instance the prior notes missed*) and not a clean collapse-only
