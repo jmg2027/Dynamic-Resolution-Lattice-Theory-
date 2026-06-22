@@ -1,5 +1,6 @@
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.LensCore
+import E213.Lens.Initiality
 
 /-!
 # Lens.Number.Nat213.Generation — ℕ₊ is the leaves-Lens reading of iterated distinguishing (∅-axiom)
@@ -27,6 +28,7 @@ namespace E213.Lens.Number.Nat213.Generation
 open E213.Theory (Raw)
 open E213.Theory.Raw.Endomorphic (slashOrSelf)
 open E213.Lens.Number.Nat213.Raw (one succ numeral value value_numeral)
+open E213.Lens.Initiality
 
 /-- The local leaf-count `value` **is** the canonical leaves-Lens reading
     `Lens.leaves.view` (`Lens.leaves = ⟨1,1,(·+·)⟩`, the catamorphism).  `Raw.lean`'s comment as a
@@ -40,6 +42,20 @@ theorem succ_is_distinguishing (n : Raw) : succ n = slashOrSelf n Raw.b := rfl
 /-- The canonical leaves-Lens reading of the `n`-fold iterated distinguishing is `n + 1`. -/
 theorem leaves_numeral (n : Nat) : Lens.leaves.view (numeral n) = n + 1 := by
   rw [← value_eq_leaves]; exact value_numeral n
+
+/-- ★★★ **The count is the *forced* reading** — initiality (`Lens.view_unique`) at the arithmetic
+    level.  *Any* `g : Raw → Nat` that interprets each atom as `1` and a distinguishing (`slash`) as
+    addition is **identically** the leaf-count `value`.  So ℕ-counting is not one choice among
+    readings of the distinguishing — fixing "atom ↦ 1, distinguishing ↦ +" *forces* the whole
+    reading (uniqueness with teeth).  The "forced unfolding" of the corrected thesis, made literal
+    for arithmetic. -/
+theorem count_reading_forced (g : Raw → Nat)
+    (ha : g Raw.a = 1) (hb : g Raw.b = 1)
+    (hslash : ∀ (x y : Raw) (h : x ≠ y), g (Raw.slash x y h) = g x + g y) :
+    ∀ r : Raw, g r = value r := by
+  intro r
+  rw [value_eq_leaves]
+  exact Lens.view_unique Lens.leaves (fun u v => Nat.add_comm u v) g ha hb hslash r
 
 /-- ★★★ **Generation capstone.**  The positive natural `n + 1` is the canonical leaves-Lens reading
     (`Lens.leaves.view`) of the Raw obtained by `n`-fold `slash`-against-`b` (the distinguishing op,
