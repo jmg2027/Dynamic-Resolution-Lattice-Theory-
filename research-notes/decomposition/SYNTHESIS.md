@@ -177,13 +177,25 @@ See §5 — the recurring boundary.
 The breaks **recur verbatim across independent fields** — which is itself the strongest evidence they
 are real structural limits, not one-off gaps.
 
-1. **The ambient-deformation / isotopy quotient.** First found in `knots.md` (the knot = an
-   ambient-isotopy quotient the count/fold reading has no handle on), then recurred **verbatim** in
-   `fundamental_group.md` (π₁'s homotopy quotient breaks at *exactly* the same point). Not a
-   self-application residue, not a kernel-coincidence (`lensIso_iff_kernel_eq`), not a closure (`clo`).
-   The recurrence promotes it from a one-off to a **single missing primitive** — an ambient-deformation
-   quotient serving both knots and π₁ — located at the un-built colimit / `q=−1` corner plus an absent
-   ambient-space construction.
+1. **The ambient-deformation / isotopy quotient — now SPLIT (a 3-school panel, `colimit_quotient_synthesis.md`).**
+   First found in `knots.md`, recurred **verbatim** in `fundamental_group.md` (π₁'s homotopy quotient). A
+   panel (category-theory + Bishop constructive + rewriting) converged on a decisive **split**, the way the
+   constructive-wall panel dissolved its obstruction: a quotient by move-generated equivalence = a rewriting
+   system, and "quotient = normal forms" holds exactly when it is **confluent + terminating**.
+   - **Side A — INTERFACE DEFECT, buildable ∅-axiom now (no `Quot`):** confluent+terminating cases — braid
+     groups (Garside), free/surface π₁, the Kauffman-bracket Jones *state sum* — build as the normal-form
+     subtype `{t // Irreducible t}` + `normalize`. The repo *already ships* `Quot.sound`'s content axiom-free:
+     `Lens.Unified.LensImage` + `LensImage.proj_val_eq_iff` (`Unified.lean:163`, `#print axioms` → no axioms),
+     with termination from `no_infinite_descent` and confluence-for-free from `dhom_unique_pointwise`.
+     Constructively: the witnessed-deformation **groupoid** (homotopy-as-data, like `Real213`'s
+     regular-sequence-not-Cauchy-quotient).
+   - **Side B — GENUINE OBSTRUCTION, theorem-grade:** non-confluent / undecidable cases — general presented
+     π₁ (**Novikov–Boone**: the word problem is *undecidable*, so a `normalize` cannot exist), general
+     Reidemeister equivalence (no monotone confluent system), the ambient-S³ embedding (no term type). This
+     is a real ∅-axiom boundary witnessed by a classical undecidability theorem — not a missing 213 primitive.
+   So the "single missing primitive" was **two objects wearing one name**: a confluent quotient the calculus's
+   own engine already reaches, and an undecidable one no normal-form type can capture. Named buildable target:
+   a `BraidNormalForm`/free-reduction Side-A witness (the analogue of the modulated Banach engine).
 
 2. **The graded-relation slot** (skein / Leibniz). A fixed linear law `Σ cᵢ·L(Cᵢ)=0` among a *family*
    of distinct constructions under *one* reading — NOT a 2-cell, NOT the (two-term) character arrow.

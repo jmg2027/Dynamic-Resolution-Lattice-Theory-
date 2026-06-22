@@ -33,6 +33,12 @@ would certify current prose-only collapses (`continuous_iff_preimage_dyadicopen`
 formal `q=±1` residue tag uniting Cantor-escape and φ-convergence). See the note.
 **Update**: 32 decompositions + the `two_cells` meta (model v7.1: readings form a
 2-category); the `q=+1` contraction residue spans φ/Gaussian/ODE; five predictions Lean-closed.
+**Colimit-corner assessment** (`colimit_quotient_categorical.md`): the recurring open corner (knot
+isotopy / π₁ homotopy quotient) is an **interface defect** — a coequalizer = kernel of a normal-form
+map; the repo already ships the ∅-axiom quotient-as-Σ (`LensImage`/`proj_val_eq_iff = Iff.rfl`) and the
+termination floor (`no_infinite_descent`/`isPart_wf`). No `Quot.sound`/HIT/coinduction needed. The
+free-group/braid cases are buildable now; only the harder move-sets (a chosen confluent reduction) and
+the ambient `S³` (missing input, not a primitive) remain.
 
 ---
 
