@@ -164,5 +164,33 @@ of these meet. Open Lean targets surfaced: `continuous_iff_preimage_dyadicopen`;
 residue tag uniting `object1_not_surjective` and the φ Cassini law. (See
 `research-notes/frontiers/decomposition_calculus.md`.)
 
-Next: keep decomposing **fresh** mathematics and let it break/extend this map (groups/symmetry,
-probability/measure, homology, the Galois correspondence, …).
+## Refinements from the third batch (groups, probability) — the model held, and grew
+
+Both were chosen as potential model-breakers; both **EXTEND** with no new primitive — the model is
+robust:
+
+- **Readings COMPOSE — a reading can be a *family* closed under composition.** A **group** is
+  `⟨C | the closed family of C-preserving self-readings (Aut C), under composition⟩`; the four group
+  axioms are *forced* by "relabel-and-compose" (`Linalg213/PermGroup.lean`: identity/inverse/assoc/
+  closure as bare list identities), and a *character* is a number-readout *of* that family
+  (`mulPerm_comp` + `psign_mulPerm_hom`), one level apart. The abstract shape is the `LensIso` groupoid
+  (`lensIso_refl/symm/trans`). So the reading slot must be **closable under composition**; a single
+  reading is the trivial-group (`|Aut|=1`) case (`groups.md`).
+- **Readings can be *composite*, and `L` gains a `weight` parameter.** **Probability** is the first
+  *composite-reading* entry: `P = ratio ∘ count` (`ProbabilityCut` *is* the `QPair = Nat213×Nat213`
+  ratio container + a clamp — no `Ω`/σ-algebra type). **Independence = the multiplicative character**
+  `×↦·` (the same arrow as `vp_mul`/`det2_mul`/parity), **density = the resolution dial**, and
+  **expectation** is the genuine extension: a *value-weighted* count, the additive twin of
+  independence's multiplicative character (`Expectation.discreteNum_append` = linearity). So
+  `L` = reading + {resolution, character-mode, **weight**}; general measure = weight × resolution (an
+  open target the calculus *predicts*) (`probability.md`).
+
+**Model v3**: `C` = distinguishing + {direction, fold-height, atom-distinguishability}; `L` = a reading
+(possibly **composite**, possibly a **composition-closed family** = `Aut`) + {resolution, character-mode
+(bidirectional), **weight**}; `Residue` = `L`'s self-application surplus, tagged `q = ±1` (escape /
+converge). **Readings form a category** (they compose, they have automorphism families) — the
+single biggest structural lesson of batch 3. Thirteen decompositions in; no break yet.
+
+Next: keep decomposing **fresh** mathematics (homology / `∂²=0`, the Galois correspondence,
+ordinals/transfinite height, information/entropy) and let it break/extend this map. The standing bar:
+every decomposition ends in a Revelation, or it is dropped.

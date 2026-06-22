@@ -18,16 +18,15 @@ self-application surplus, tagged `q = ±1` (escape/oscillate vs converge/fixed-p
 ## Open directions
 
 ### Next fresh decompositions (the practice is the research)
-Targets chosen to *break/extend* the model, not confirm it:
-- **groups / symmetry** — is a group "the construction-preserving readings (automorphisms) of a
-  construction"? (tests character-mode as a *family*, not one reading.)
-- **probability / measure** — the count-reading *normalized*; does it need a new axis or fit
-  `⟨count | resolution⟩`? (a likely model-breaker — good.)
-- **homology / the boundary operator** — `∂² = 0` as a residue/character fact? (the repo has cohomology
-  Lean: `Cohomology/*`.)
-- **the Galois correspondence** — two readings whose fibres mirror (a `LensIso` of two
-  construction-families)?
-- **ordinals / well-ordering** — fold-height pushed transfinite; where does the finite-signature rule bite?
+DONE (batch 3, both EXTEND, no break): **groups** (a group = `⟨C | Aut C closed under composition⟩`,
+axioms forced — readings form a composition-closed family); **probability** (`P = ratio∘count`, first
+*composite* reading; `L` gains a `weight` parameter; independence = ×-character, expectation = its
+additive twin). Lesson: **readings form a category.** Remaining targets (chosen to *break/extend*):
+- **homology / the boundary operator** — `∂² = 0` as a residue/character fact? (repo `Cohomology/*`.)
+- **the Galois correspondence** — two readings whose fibres mirror (a `LensIso` of two `Aut`-families)?
+  (now sharper post-`groups.md`: Galois = an iso of two composition-closed reading-families.)
+- **ordinals / well-ordering** — fold-height pushed transfinite; where does the finite-signature bite?
+- **information / entropy** — a weighted count-reading's *residue* (probability.md's `weight` × log-character)?
 
 ### Open Lean faithfulness-targets (would certify a current prose-only collapse)
 - `continuous_iff_preimage_dyadicopen` (`continuity.md` flags the open-set/preimage leg as prose).

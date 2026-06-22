@@ -20,7 +20,11 @@ README.md = the spec: `OBJECT = ⟨Construction | Reading⟩`, Residue, the 4-st
 just re-skin — the design constraint that kept CT from being "abstract nonsense"). Key grounding: the
 calculus is the **positive form of CLAUDE.md's failure-mode catalog** (each failure = a missed
 decomposition). Frontier registered: `research-notes/frontiers/decomposition_calculus.md`.
-**Eleven worked decompositions** in `practice/` (all Lean-certified citations); model refined twice by
+**Thirteen worked decompositions** in `practice/` (all Lean-certified citations); +batch-3 `groups`
+(a group = `⟨C | Aut C closed under composition⟩`, axioms forced; EXTEND) + `probability`
+(`P = ratio∘count`, first *composite reading*; `L` gains a `weight` parameter; independence = ×-character,
+expectation = its additive twin; EXTEND). **Model v3 lesson: readings form a category — they compose and
+have automorphism families.** No model-break yet across 13 targets. Model refined three times by
 the practice (README "Refinements"): `C` = distinguishing + {direction→sign, fold-height→dim/degree,
 atom-distinguishability→×/+}; `L` = a reading + {resolution (→ a whole discipline = topology when made a
 condition), bidirectional character-mode (×↦+ valuation/log and +↦× exp, one arrow)}; **Residue is
