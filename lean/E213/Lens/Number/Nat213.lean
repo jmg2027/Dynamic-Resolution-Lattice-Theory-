@@ -13,6 +13,7 @@ import E213.Lens.Number.Nat213.Peano
 import E213.Lens.Number.Nat213.Divisibility
 import E213.Lens.Number.Nat213.Irreducible
 import E213.Lens.Number.Nat213.Factorization
+import E213.Lens.Number.Nat213.EuclidUnique
 import E213.Lens.Number.Nat213.Generation
 import E213.Lens.Number.Nat213.Raw
 import E213.Lens.Number.Nat213.RawCut
@@ -65,6 +66,10 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            every `Nat213` is a product of irreducibles.  Native
                            `Acc lt`/`wf_lt`, decidable `lt`/`Dvd` via a
                            constructive bounded search (no `Classical`).  Rung 2.
+    * `EuclidUnique`     — Euclid's lemma (`euclid`): an irreducible is prime;
+                           `prime_dvd_prod`.  Subtractive gcd with the scaled
+                           multiplicative spec (`gcd_exists_mul`) — the Bézout
+                           substitute that fits ℕ₊ (no zero).  Rung 3.
 
   ## Tower/
 

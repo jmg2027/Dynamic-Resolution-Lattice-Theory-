@@ -143,6 +143,13 @@ exterior and judged there** (the §5.1 wall: the inside cannot deliver this verd
 - **M1 (DONE this session)** — `Irreducible` over `Nat213` (`Irreducible.lean`, 18 PURE): `2,3,5`
   irreducible, `4` not, `irreducible_divisors`; `five_irreducible` via native `lt_succ_iff`
   enumeration + cofactor bound, whole cone `toNat`-free. Reuses `Divisibility` + `Order` (now native).
+- **M3 (DONE this session)** — Euclid's lemma over `Nat213` (`EuclidUnique.lean`, 7 PURE): `euclid`
+  (`p` irreducible, `p ∣ a·b → p ∣ a ∨ p ∣ b`) + `prime_dvd_prod` (`p ∣ ∏ L → p ∈ L`) — irreducibles
+  are *prime*. The no-zero/no-subtraction wall (Bézout needs ℤ; division-with-remainder needs a zero
+  remainder) is dissolved by the **internal handle**: a *subtractive* gcd (differences are
+  `lt`-witnesses, no zero), with gcd existence + the multiplicative law `gcd(c·a,c·b)=c·gcd(a,b)`
+  proved in one well-founded induction on `a+b` (`gcd_exists_mul`, spec quantified over `c`). This is
+  the §5.4 "look for the internal handle before declaring a wall" guard, working as designed.
 - **M2 (DONE this session)** — factorization existence (`Factorization.lean`, 18 PURE):
   `exists_factorization : ∀ n, ∃ l, (∀ p ∈ l, Irreducible p) ∧ prod l = n`, over `Nat213`. Both
   scouted pins honoured *constructively*: native `acc_lt`/`wf_lt` (no `Nat` measure) + a constructive

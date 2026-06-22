@@ -170,6 +170,17 @@ were honoured *constructively*: native `acc_lt`/`wf_lt` (structural recursion, n
 2 of the FTA-generated capstone. Next: M3 (uniqueness — Euclid's lemma `p ∣ ab → p ∣ a ∨ p ∣ b` via a
 native descent gcd / Bézout over `Nat213`, then list-permutation uniqueness of the factorization).
 
+**M3 DONE (same marathon) — Euclid's lemma / primality over `Nat213`.** `EuclidUnique.lean` (7 PURE):
+`euclid` (`p` irreducible, `p ∣ a·b → p ∣ a ∨ p ∣ b`) + `prime_dvd_prod` (`p ∣ ∏ L → p ∈ L`). The
+no-zero/no-subtraction wall I anticipated (Bézout needs ℤ; division-with-remainder needs a zero
+remainder) was **dissolved by an internal handle** (§5.4 guard, looked for before declaring a wall):
+a *subtractive* Euclidean gcd — every step subtracts smaller from larger, the difference being the
+`lt`-witness (`a<b ⟺ ∃k, a+k=b`), so it lives in ℕ₊ with no zero. gcd existence AND the multiplicative
+law `gcd(c·a,c·b)=c·gcd(a,b)` (the Bézout substitute Euclid needs) are proved in **one** well-founded
+induction on `a+b` (`gcd_exists_mul`, spec quantified over the scaling `c`). Rung 3 of the FTA-generated
+capstone. Next: M4 — uniqueness up to permutation (needs a native, propext-free `List` permutation /
+`erase` + `prod_erase`, then induction using `prime_dvd_prod` + `mul_left_cancel`).
+
 **M2 advance scouting (the two pins, both now discharged above):**
 - *Native well-foundedness is in hand* — `Acc lt` is provable over `Nat213` with **no `toNat`**, by
   structural recursion:
