@@ -149,13 +149,27 @@ skein + isotopy-quotient are named missing primitives)}.
   closure (f**=clo(f)); field content partially grounded (`CyclotomicFive.galois_group_is_C4`, golden subfield,
   A₅ built); solvability = the commutator tower q=+1 (terminating) vs quintic's A₅-escape q=−1 (iteration = open leg).
 
-**Tally:** 46 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
+## ★ TENTH WAVE — S₃ solvability tower, Curry–Howard, sheaf theory, tropical
+- **S₃ solvable, the q=+1 commutator-tower** (`Linalg213/DerivedSeries.lean`, 21/0): group commutator
+  `gcomm=a⁻¹b⁻¹ab`, `gcomm_id_iff_commute`, `derived_S3_step1` ([S₃,S₃]=A₃), `derived_A3_step2` ([A₃,A₃]={e}),
+  `solvable_S3` (2-step termination); A₅-escape probed. Grounds galois's solvability leg for S₃.
+- **Curry–Howard (`curry_howard.md`)** — the calculus is a type theory describing itself: ⟨C|L⟩=⟨proof|prop⟩,
+  normalization = fold-to-normal-form, strong normalization = `no_infinite_descent`'s q=+1 well-founded floor.
+- **Sheaf theory (`sheaf_theory.md`)** — gluing = q=+1 unique-amalgamation (= `dhom_unique_pointwise`), H^{>0} =
+  the q=−1 local-global obstruction (= de_rham's coboundary residue).
+- **Tropical (`tropical.md`)** — (max,+) = the ×↦+ character's idempotent T→0 limit; the repo's own docstrings
+  pre-classify `max` as the idempotent pole (`max_idem`, mirror of `succ_not_idempotent`).
+
+**Tally:** 49 decompositions + the `two_cells` meta + the formal `q=±1` tag; **thirteen predictions, twelve
 Lean-closed** + Lean **groundings** of spectral (`Mat2SymmetricSpectrum`), Lie (`Mat2Bracket`), representation
-(`Mat2Killing`), and graph (`GraphLaplacian`) notes. `lake build E213` clean. Open frontier: the solvability
-tower (derived series + A₅-simplicity), the Legendre transform object (weld `clo` at `Fix=Inv=(·)*`), continuous
-Noether current, arbitrary-n orthogonality (`ℤ[ζ_n]`), the symmetric eigenvalue √-cut value, the full Gaussian
-density profile, KL functional + Fisher metric, the smooth-manifold form complex, FOL object, Hilbert/Born,
-the νF/free-monad carrier, isotopy/colimit. Open frontier
+(`Mat2Killing`), graph (`GraphLaplacian`), and galois/solvability (`DerivedSeries`) notes. `lake build E213`
+clean. Open frontier: full A₅-simplicity + general isSolvable, the Legendre transform object (weld `clo` at
+`Fix=Inv=(·)*`), continuous Noether current, arbitrary-n orthogonality (`ℤ[ζ_n]`), the symmetric eigenvalue
+√-cut value, the full Gaussian density profile, KL functional + Fisher metric, the smooth-manifold form complex,
+FOL/λ-calculus objects, Hilbert/Born, presheaf/sheaf object, tropical semiring, the νF/free-monad carrier.
+
+NOTE (housekeeping): HANDOFF has accumulated many per-wave sections; a `/handoff` or `/doc-sync` consolidation
+pass would tidy it. The decomposition README + frontier `decomposition_calculus.md` are the canonical running index. Open frontier
 (`decomposition_calculus.md` + `wall_synthesis.md` residual): variational Noether current, general-χ
 orthogonality at arbitrary n (needs `ℤ[ζ_n]`), the `tr`-character / `Rep(G)`-Maschke at `d>1`, the full
 Gaussian *density* profile (continuous L¹ metric), a formal-power-series semiring (weld the two `conv`
