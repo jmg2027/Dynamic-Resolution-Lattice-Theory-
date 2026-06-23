@@ -66,12 +66,14 @@ full ring endomorphism, and `B`'s `q=+1` (fixed/converge) pole is its **fixed fi
 ## BUILT vs ABSENT
 
 - **BUILT (∅-axiom):** the additivity of Frobenius (`freshman_binom`), Fermat's little theorem
-  (`fermat`), and the unit-order divisibility (`ord_dvd_p_sub_one`) — the collapse and its `q=+1` fixed
-  core.
+  (`fermat`), the unit-order divisibility (`ord_dvd_p_sub_one`), and now the **fixed-point form
+  `aᵖ ≡ a (mod p)`** for *all* `a` — `Lib/Math/NumberTheory/ModArith/FermatFixedPoint.lean`
+  `fermat_fixed_point` (`a^p % p = a % p`) + `fermat_fixed_unit` (`0<a<p ⟹ a^p%p=a`), **PURE (2/0)**, the
+  explicit statement that Frobenius fixes the prime field.  The collapse and its `q=+1` fixed core.
 - **ABSENT (predicted-not-built):** the **named ring endomorphism** `frobenius : 𝔽_p-alg → 𝔽_p-alg` as a
   packaged additive-and-multiplicative map (only its two halves `freshman_binom` + `(xy)ᵖ=xᵖyᵖ` are built);
   the **Galois generation** `Gal(𝔽_{pⁿ}/𝔽_p)=⟨Frob⟩` (the residue's cyclic orbit, `galois.md`'s finite-field
-  case); `aᵖ≡a` as a stated corollary (only the `a^(p−1)≡1` unit form is isolated).
+  case).
 
 ## Touches the model?
 

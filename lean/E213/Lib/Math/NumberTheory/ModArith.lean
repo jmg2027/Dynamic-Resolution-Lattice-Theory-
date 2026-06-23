@@ -49,6 +49,7 @@ import E213.Lib.Math.NumberTheory.ModArith.Zolotarev
 import E213.Lib.Math.NumberTheory.ModArith.ZolotarevReduction
 import E213.Lib.Math.NumberTheory.ModArith.ZolotarevCycle
 import E213.Lib.Math.NumberTheory.ModArith.MulOrder
+import E213.Lib.Math.NumberTheory.ModArith.FermatFixedPoint
 import E213.Lib.Math.NumberTheory.ModArith.OrderPow
 import E213.Lib.Math.NumberTheory.ModArith.CoprimeOrder
 import E213.Lib.Math.NumberTheory.ModArith.MaxOrder
