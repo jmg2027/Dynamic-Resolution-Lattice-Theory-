@@ -83,17 +83,20 @@ The same structural fact appears in four frames:
   `Lens/Foundations/FlatOntologyClosure.object1_not_surjective`: pointings only
   converge, none lands on the limit.
 
-The fourth frame marks where `ω` is *complementary* to the residue
-itself.  The flat-ontology closure says the residue is reached by no
-approximant — the limit is outside every pointing's image.  The
-Teichmüller diagonal is the opposite case: here the limit *is* internally
-reached, because each digit settles at a finite stage, so the diagonal
-collects genuinely-attained values into a genuine `ZpSeq`.  The general
-rule (`object1_not_surjective`) is "the limit is reached by none";
-`ω(x)` is the special situation where the per-digit pointings each
-terminate, so the diagonal of attained digits is the limit.  Frobenius
-convergence is the case where "reached by none" relaxes to "reached
-digit-wise, assembled by the diagonal."
+The fourth frame is the **same diagonal move** as the residue, not its
+opposite.  By §1.0′ diagonalization *is* the residue: `ω` is read off the
+approximant family as its diagonal exactly as `object1_not_surjective`
+reads its surplus off any cover.  `ω(x)` is reached by **none** of the
+approximants — no finite iterate `iter x n` equals it (the essay's own
+"reached by none of the approximants", line 51) — so this is the residue
+framing, not its negation.  What is special is only the *codomain* of the
+diagonal: `ω`'s per-digit pointings each *terminate* at a finite stage, so
+the diagonal assembles a genuine `ZpSeq` (every digit `#eval`-able), where
+the Cantor diagonal assembles a predicate outside the cover.  Same move
+(diagonal = residue), different codomain (a settled sequence vs. an
+un-covered predicate) — `ω` is not a limit "internally reached" in
+contrast to the residue, it is one more diagonal the residue's own move
+exhibits.
 
 ## Open frontier
 

@@ -28,11 +28,12 @@ The tower's optimal precision at depth N is `O(log N)`.
 
 ## Narrative
 
-Classical reals ℝ live "at infinity" — a completion that 213's
-substrate doesn't natively have.  But 213 has a triangular tower
-of finite levels (level 0 = Cut at depth 0, level 1 = Cut at
-depth 1, ...), and any ℝ-value can be **encoded** as a path
-through the tower.
+An ℝ-value is a **Real213 cut reached by no finite stage** — a
+residue-internal pointing (an approximant sequence), not an exterior
+completion 213 lacks (no exterior, §5.1).  213 points at it as a path
+through a triangular tower of finite levels (level 0 = Cut at depth 0,
+level 1 = Cut at depth 1, ...); the value is **encoded** as that path,
+reached by none and converged to by the tower.
 
 - **AbsorbedByThree**: at each level, the three-fold structure
   (NS = 3) absorbs new information without growing the level count

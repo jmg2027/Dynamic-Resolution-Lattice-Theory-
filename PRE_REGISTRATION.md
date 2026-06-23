@@ -107,6 +107,17 @@ near-term experiment whose result DRLT cannot retro-adjust.
 > range. Still a **candidate** (the modulus `1/φ²` is not yet a forcing
 > theorem), so P2 is "candidate-derived at ~1.4% on J" — strong and
 > φ²-coherent, but not ppb-clean. Frontier: `ckm_rho_eta_apex.md`.
+>
+> 🔁 **Phase correction (later than the 2026-06-07 entries above).** The
+> CP *phase* `δ = π/φ²` cited in the entries above has since been **demoted
+> as structurally impossible** by Niven's theorem (a discrete CP phase has
+> rational cosine, only `0°/60°/90°`), and the phase is **forced to
+> `δ = 90°`** (the Cayley–Dickson `i`, `ℤ[i]^× = C₄`); the `1/φ²` is the
+> apex **modulus** `R_u`, not the phase (`theory/physics/cp_phase.md`,
+> `Mixing/CPPhaseC4Forcing` + `JarlskogApex`, ∅-axiom). The `J ≈ 3.12×10⁻⁵`
+> magnitude result is unchanged (`J` is built from the angles + modulus,
+> maximal at `δ=90°`); only the *phase value* is corrected. The earlier
+> entries are kept verbatim as the timestamped record.
 
 ---
 
