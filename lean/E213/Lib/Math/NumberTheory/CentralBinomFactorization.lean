@@ -1,4 +1,6 @@
 import E213.Lib.Math.NumberTheory.PrimePowFactorization
+import E213.Lib.Math.NumberTheory.BertrandWindow
+import E213.Lib.Math.NumberTheory.BinomChooseBridge
 import E213.Meta.Nat.PowBasic
 import E213.Meta.Nat.FloorLog
 
@@ -32,6 +34,10 @@ open E213.Meta.Nat.Valuation (vp)
 open E213.Meta.Nat.VpSeparation (dvd_iff_one_le_vp)
 open E213.Meta.Nat.PowBasic (one_le_pow)
 open E213.Meta.Nat.FloorLog (floorLog floorLog_le_of_lt_pow)
+open E213.Meta.Nat.NatDiv213 (two_cancel_lt div_add_mod_pure le_of_add_le_add_left_pure)
+open E213.Lib.Math.NumberTheory.BinomChooseBridge (binom_eq_choose)
+open E213.Lib.Math.NumberTheory.BertrandWindow (prime_not_dvd_central_binom_mid)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
 
 /-- **Every prime factor of `C(2n,n)` is `≤ 2n`.**  If `q ∣ C(2n,n)` then
     `1 ≤ vₚ(C)`, so `q = q¹ ≤ q^{vₚ(C)} ≤ 2n` (`prime_pow_vp_central_binom_le`).
@@ -77,6 +83,70 @@ theorem central_binom_pow_le_self {p n : Nat} (hp : IsPrime213 p) (hn : 1 ≤ n)
     have hp1 : p ^ 1 = p := Nat.pow_one p
     rw [he1, hp1]
     exact Nat.le_refl p
+
+/-! ## §5 — under the Bertrand negation, all prime factors are `≤ 2n/3` -/
+
+/-- Pure division helper: `c·a ≤ b → a ≤ b/c` (`c > 0`).  The `≤`-companion of
+    `NatDiv213.div_lt_of_lt_mul`, propext-free via `div_add_mod_pure`. -/
+private theorem le_div_of_mul_le {c a b : Nat} (hc : 0 < c) (h : c * a ≤ b) : a ≤ b / c := by
+  rcases Nat.lt_or_ge (b / c) a with hlt | hge
+  · exfalso
+    have h1 : b / c + 1 ≤ a := hlt
+    have h2 : c * (b / c) + c ≤ c * a := by
+      have e : c * (b / c) + c = c * (b / c + 1) := by ring_nat
+      rw [e]; exact Nat.mul_le_mul (Nat.le_refl c) h1
+    have hdm : c * (b / c) + b % c = b := div_add_mod_pure b c
+    have h3 : c * (b / c) + c ≤ c * (b / c) + b % c := by rw [hdm]; exact Nat.le_trans h2 h
+    have h4 : c ≤ b % c := le_of_add_le_add_left_pure h3
+    exact Nat.lt_irrefl c (Nat.lt_of_le_of_lt h4 (Nat.mod_lt b hc))
+  · exact hge
+
+/-- **The Bertrand-negation collapses the prime range.**  Assume *no* prime lies in
+    `(n, 2n]` (the negation of Bertrand's postulate at `n`, here as: no such prime
+    divides `C(2n,n)` — automatic since every prime in `(n,2n]` does divide it).
+    Then every prime factor `q` of `C(2n,n)` satisfies `3q ≤ 2n`, i.e. `q ≤ 2n/3`:
+    `q ≤ 2n` always; `q ≤ n` (else `q ∈ (n,2n]`); and `q ∉ (2n/3, n]` by the
+    vanishing window (`prime_not_dvd_central_binom_mid`, with `2n < 3q ≤ q²` for
+    `q ≥ 3`).  Needs `n ≥ 3` (small `n` go to the finite chain).  ∅-axiom. -/
+theorem central_binom_factor_le_div {q n : Nat} (hq : IsPrime213 q) (hn : 3 ≤ n)
+    (hnobig : ∀ p, IsPrime213 p → n < p → p ≤ 2 * n → False)
+    (hdvd : q ∣ binom (2 * n) n) : q ≤ 2 * n / 3 := by
+  have hn1 : 1 ≤ n := Nat.le_trans (by decide) hn
+  apply le_div_of_mul_le (by decide : 0 < 3)
+  rcases Nat.lt_or_ge (2 * n) (3 * q) with h3q | hge
+  · -- 2n < 3q is impossible: it would force the vanishing window, contradicting q ∣ C
+    have hq2n : q ≤ 2 * n := central_binom_prime_factors_le hq hn1 hdvd
+    have hqn : q ≤ n := by
+      rcases Nat.lt_or_ge n q with hlt | hge2
+      · exact (hnobig q hq hlt hq2n).elim
+      · exact hge2
+    have hq3 : 3 ≤ q := by
+      rcases Nat.lt_or_ge q 3 with hlt3 | hge3
+      · exfalso
+        have hq2 : q = 2 := Nat.le_antisymm (Nat.le_of_lt_succ hlt3) hq.1
+        rw [hq2] at h3q
+        have he : (3 : Nat) * 2 = 2 * 3 := by decide
+        rw [he] at h3q
+        exact Nat.lt_irrefl n (Nat.lt_of_lt_of_le (two_cancel_lt n 3 h3q) hn)
+      · exact hge3
+    have hsq : 2 * n < q * q := Nat.lt_of_lt_of_le h3q (Nat.mul_le_mul_right q hq3)
+    have hwin : ¬ q ∣ choose (2 * n) n :=
+      prime_not_dvd_central_binom_mid hq hn1 hqn h3q hsq
+    rw [binom_eq_choose (2 * n) n] at hdvd
+    exact absurd hdvd hwin
+  · exact hge
+
+/-- ★★★ **Bertrand-negation factorization.**  If no prime lies in `(n, 2n]`
+    (`n ≥ 3`), then `C(2n,n) = ∏_{p ≤ 2n/3, prime} p^{vₚ(C(2n,n))}` — the prime
+    range collapses from `≤ 2n` to `≤ 2n/3` (`central_binom_factor_le_div`).  This
+    is the step that makes the upper bound `C(2n,n) ≤ (2n)^{√(2n)}·4^{2n/3}`
+    available (the low block is primorial-bounded by `4^{2n/3}`).  ∅-axiom. -/
+theorem central_binom_factorization_le_two_thirds {n : Nat} (hn : 3 ≤ n)
+    (hnobig : ∀ p, IsPrime213 p → n < p → p ≤ 2 * n → False) :
+    binom (2 * n) n
+      = primePowProd (fun p => vp p (binom (2 * n) n)) (primesIn 0 (2 * n / 3)) :=
+  prod_prime_pow_eq (central_binom_pos n)
+    (fun _q hq hd => central_binom_factor_le_div hq hn hnobig hd)
 
 /-- ★★★ **Explicit prime factorization of the central binomial coefficient.**
     `C(2n,n) = ∏_{p ≤ 2n, prime} p^{vₚ(C(2n,n))}` — the FTA product form
