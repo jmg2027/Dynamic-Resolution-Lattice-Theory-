@@ -100,7 +100,7 @@ The 3-way bridge is recorded in
 The doctrine is not stylistic; it is the operational reading of
 the no-exterior axiom (`seed/AXIOM/05_no_exterior.md` §5.1).  Each
 realisation is a distinguishing — one Lens output of the same Raw
-substrate.  Picking one realisation as canonical would amount to
+structure.  Picking one realisation as canonical would amount to
 declaring one Lens preferable to the others, which is the
 "comparison frame" failure mode catalogued in `CLAUDE.md`.
 

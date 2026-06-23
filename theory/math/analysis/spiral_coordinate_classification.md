@@ -20,8 +20,8 @@ independent 213-native count-coordinates** plus a residue:
     (`ℤ`, `ℤ[i]`, `ℤ[ω]`), a count in **exactly** `{2, 4, 6}`.
 
 The **spiral** itself — the continued-fraction expansion engine (`x ↦ 1/(x − ⌊x⌋)`, the
-det-one floor universal to every real) — is the non-classifying substrate the two
-coordinates index.  The **residue** is layer `∞` (rate-free / non-holonomic presentations)
+det-one floor universal to every real) — is a per-scale distinguishing; the two
+coordinates are two count-Lens readings of it, not indices into a separate carrier.  The **residue** is layer `∞` (rate-free / non-holonomic presentations)
 together with the top-less depth tower.
 
 ## Lean source

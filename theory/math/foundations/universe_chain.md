@@ -276,9 +276,11 @@ losses (each tied to the quotient):
 
 The **fundamental loss is "atomic uniqueness"**: ℕ has
 `n = ⋆ + ⋆ + … + ⋆` as the unique atomic expression of an
-integer; ℤ has `n = (n + k, k)` for any `k ≥ 0`, so each ℤ-point
-is an equivalence class with **an entire fibre of representatives**.
-Witness: `npairToInt_translation_invariant` (∅-axiom).
+integer; ℤ is the **readout group of the difference-Lens** — the
+count-pair `(m, n) ↦ m − n` (the tuple IS the number, `06_lens_readings`
+§6.7), so the *directed* count `n = (n + k, k)` reads the same integer at
+every `k ≥ 0` (reduction-to-a-representative is a flattening Lens, not the
+default). Witness: `npairToInt_translation_invariant` (∅-axiom).
 
 ### `0` as emergent quotient artifact
 

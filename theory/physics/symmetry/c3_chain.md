@@ -58,13 +58,14 @@ used by the capstone lives in
 
 ## The narrative
 
-### 1. The substrate
+### 1. The K_{3,2}^{(c=2)} presentation
 
 K_{3,2}^{(c=2)} is the bipartite multigraph with NS = 3 spatial
 vertices, NT = 2 temporal vertices, and c = 2 edges between every
 (spatial, temporal) pair — total 3 × 2 × 2 = 12 edges.  In 213,
-this is the canonical Lattice substrate for physics (per
-`seed/AXIOM/` and the 213-Algebra catalog chiral cup ring catalog).
+this is the forced `(NS,NT,d)=(3,2,5)` distinguishing structure read
+at the free presentation `c = 2` (per `seed/AXIOM/` and the
+213-Algebra chiral cup ring catalog).
 
 Its automorphism group `Aut(K)` factors as:
 

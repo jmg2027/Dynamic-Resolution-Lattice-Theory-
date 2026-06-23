@@ -185,6 +185,42 @@ phantoms were *self-reinforcing* (chapter + essay + Lean docstring cite the
 same nonexistent module). Verified-clean chapters (large majority of
 citations) were left untouched.
 
+## Track A + B — theory/research consolidation (post-audit)
+**Track A** (primacy-coverage): new `catalogs/derivation-breadth.md` (domain →
+capstone → {closed / closed+frontier / frontier}, no restated PURE counts —
+points to STRICT_ZERO_AXIOM + scanner) and
+`research-notes/frontiers/cohomology_higher_structure.md` (the now-honest
+K_{3,2}/K_{3,3} higher-cohomology frontier, PROCESS.md sink rule).  Wired into
+catalogs/README, theory/INDEX, frontiers/INDEX.
+
+**Track B** (spine-conformance, NOT citations): a 4-agent fleet judged ~128
+canonical chapters (math/physics/lens/meta) against the spine — is each domain
+ONE `⟨C|L⟩⊕Residue` reconstruction from 구분+잔여, or drifted to a separate
+theory / forced map?  **Result: near-universal PASS** (35/35, 31/32, 28/30,
+32/33).  The fabrications were *citation* drift, not *spine* drift — the
+foundational framing held.  Genuine fixes applied (all verified against text):
+- **`lens/lattice.md`** (the one real bug): bottom/top were mislabeled
+  (`universal Lens`/`trivial Lens`) contradicting canonical `universal.md` —
+  corrected to bottom = `idLens` (kernel = Raw equality), top = `constLens`
+  (kernel = total); `universalLens` = per-congruence normalization map, not the
+  bottom.
+- substrate-noun / framing-priority slips re-threaded to the spine:
+  `algebra/gra_book.md` (subtitle "Universal Meta-Structure" → "graded-residue
+  reading of the one P-orbit"; "five independent domains" → free Lens-presentations
+  of one forced orbit), `analysis/{spiral_coordinate_classification, modulus,
+  multivariable}.md`, `foundations/universe_chain.md` (ℤ quotient/fibre-first →
+  difference-Lens readout), `cohomology/cup_ladder_graduation.md` ("cohomology-theoretic
+  origin" → "cohomology Lens-reading"), `meta/multiplicity_doctrine.md` ("Raw
+  substrate" → "Raw structure"), `lens/cardinality.md` (ZFC comparison frame
+  dropped), `physics/symmetry/c3_chain.md` (§1 "The substrate" → "The
+  K_{3,2}^{(c=2)} presentation").
+- sink-rule hygiene: `analysis/flux_m_v_t.md` dropped a "Per Gemini Pro / volatile
+  research-notes branch" citation (permanent tier must not cite research-notes).
+Remaining LOW notes left (stylistic, not drift): hadron/nuclear/higgs
+"atomic-substrate" wording (= atomic-integer factors in context),
+`modulus_structure.md` Option-B adjunction build-out (real closed Lean, framing-only),
+thin connector stubs (functional/classic_calc/cascade_calculus).
+
 ## Open / not done (next session)
 - **Audit the remaining `theory/` "Lean source" blocks** the fleet did not
   reach, and the `lean/E213/**/INDEX.md` count headers, for the same

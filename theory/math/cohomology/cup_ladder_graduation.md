@@ -131,8 +131,11 @@ Derivation requires:
   · The `cup_i` output degree `k + l − i`.
   · At `i = k − 1` with `k = l`: output `k + 1`. ★
 
-This is the cohomology-theoretic origin: the `cup_(k−1)` self-pairing
-at `H^k` lands at degree `k + 1`, matching the α-power graduation.
+This is the cohomology Lens-reading: the `cup_(k−1)` self-pairing
+at `H^k` lands at degree `k + 1`, a count-Lens readout of the forced
+2-skeleton truncation that matches the α-power graduation (physics,
+cohomology, Steenrod are three readings of one residue — none the
+origin of the others; cf. this chapter's "Honest scope").
 
 ## Implications for physical α_em
 

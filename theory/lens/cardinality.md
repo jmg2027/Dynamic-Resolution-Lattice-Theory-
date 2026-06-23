@@ -23,8 +23,8 @@ Different Lenses give different cardinalities:
 - **distinct-Lens** → count of distinguishable Raw equivalence classes
 - **bool-Lens** → 2 (per Bool213)
 
-None is "THE cardinality of Raw" — each is a Lens output.  Counterfactual
-to ZFC's commitment to "cardinality of a set" as foundational.
+None is "THE cardinality of Raw" — each is a Lens output (`object1_not_surjective`:
+no count is what Raw IS, since the residue is outside every view's image).
 
 ## Connection
 

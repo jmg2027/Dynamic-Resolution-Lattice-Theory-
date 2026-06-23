@@ -46,9 +46,9 @@ The function `f` is the modulus.  `StrongModulus` requires a bounded
 view-variation (cross-ratio) on the tail, not just eventual agreement;
 `DiagonalHasModulus` provides the
 diagonal trick to convert sequence-of-sequences moduli into
-single-sequence moduli; `DepthCompleteness` shows that any
-classically-converging sequence in 213's substrate has a
-computable modulus.
+single-sequence moduli; `DepthCompleteness` shows that any sequence whose views
+stabilise (the convergence IS the modulus, not a prior classical
+fact it certifies) has a computable modulus.
 
 ## How to verify
 

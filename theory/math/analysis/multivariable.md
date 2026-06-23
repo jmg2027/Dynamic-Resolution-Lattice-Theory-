@@ -16,9 +16,11 @@ the underlying Real213 cuts.
 
 ## Narrative
 
-The standard multivariable calculus apparatus (partial derivatives,
-gradients, Jacobians, Hessians) ports directly to Real213^n with
-the substitution **ε-δ → modulus**.
+Multivariable calculus is the `Nat^n → Nat` reading of the one
+`CoeffSeq` graded ring; partial derivatives, gradients, Jacobians,
+and Hessians are its count-Lens readouts (the apparatus that
+classically carries an **ε-δ** is here the **modulus** on each
+coordinate's underlying Real213 cut).
 
 Per the cross-domain unification (C6), multivariable calculus is one
 of the 9 paradigm domain instances of the `CoeffSeq` graded ring —

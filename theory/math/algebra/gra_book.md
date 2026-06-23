@@ -1,6 +1,6 @@
 # Graded Residue Arithmetic — Book
 
-**A Textbook Treatment of the Universal Meta-Structure of 213**
+**The graded-residue reading of the one P-orbit**
 
 Status: CLOSED (GRA Universality)
 Lean source: `lean/E213/Lib/Math/Algebra/GRA/` (8 files, ~1400 lines, 0 sorry)
@@ -81,9 +81,11 @@ Prerequisites: Basic familiarity with 213's P = [[2,1],[1,1]], K_{3,2}, and reso
 
 The answer turns out to be a 2×2 matrix P = [[2,1],[1,1]] with det=1,
 whose action generates a graded arithmetic on the natural numbers.
-This book develops that arithmetic — **Graded Residue Arithmetic (GRA)** —
-from first principles, proves its core theorems, and shows how it
-manifests across five independent mathematical domains.
+The grade is the depth of the residue's self-pointing P-orbit; this book
+develops that arithmetic — **Graded Residue Arithmetic (GRA)** — proves its
+core theorems, and shows that its five **Readings** are free Lens-presentations
+(multiplicity `c`) of the one forced orbit, not five independent domains that
+coincide.
 
 ### 0.2 Why "Graded Residue"?
 

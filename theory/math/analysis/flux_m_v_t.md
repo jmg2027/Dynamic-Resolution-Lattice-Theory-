@@ -60,10 +60,8 @@ trajectory-as-witness + ε-δ modulus.
 
 ### Telescoping = conservation
 
-Per Gemini Pro's observation (round-2 multi-agent debate in
-`claude/research-notes-organization-Gr3Tp`): FluxMVT's **dyadic
-telescoping** (each bracket cancels the next at the boundary) is
-the 213-native identity of:
+FluxMVT's **dyadic telescoping** (each bracket cancels the next at
+the boundary) is the 213-native identity of:
 - Gauss divergence theorem (∮ F · dA = ∭ div F dV)
 - Conservation laws (∂_μ J^μ = 0 → integrated flux invariant)
 
