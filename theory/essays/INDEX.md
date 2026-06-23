@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 108 essays are grouped into ten thematic sub-directories — distinct
+The 109 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -61,6 +61,14 @@ foundational distinguishing-necessity — `count_reading_forced` /
 faithfulness in multiplicative number theory; forced ⟺ a separating distinguishing
 axis, collapse under no-distinction; the additive count-Lens and the ×-count-Lens
 are the same act read on two axes, ×-atoms distinguishable where +-atoms aren't),
+`distinguishability_is_the_one_dial` (one parameter — whether the related atoms
+are distinguishable — at three resolutions: it forces relation arity to 2
+(`arity_two_forced`, the clause-4 distinctness gate), gives/kills commutativity
+(`append_comm` off vs `swap_changes_dim` on), and *is* the +/× gap
+(`prodL_one_atom_merges`: `×` collapses to `+` when atoms made indistinguishable);
+the same `slash` decision behind arity, commutativity, factorization, and
+`vp_separation` faithfulness — open frontier: generating the on-state, not just
+naming it),
 `multiplicativity_is_the_x_count_lens`,
 `addition_and_multiplication_are_two_faces_of_one_count`,
 `convolution_is_the_product_dual_to_a_cut` (a convolution = the product dual to a
