@@ -221,6 +221,22 @@ Remaining LOW notes left (stylistic, not drift): hadron/nuclear/higgs
 `modulus_structure.md` Option-B adjunction build-out (real closed Lean, framing-only),
 thin connector stubs (functional/classic_calc/cascade_calculus).
 
+**Track C** (tier discipline, `process` skill): sink-rule audit across all
+permanent tiers → **0 violations** after decoupling 3 research-notes note-file
+citations (one I had introduced in Track A): `k32_higher_cohomology.md`,
+`physics/foundations/atomic_constants.md`, and the `WhyDimFive.lean` docstring
+— each dropped the `research-notes/.../<note>.md` pointer (the content already
+lives in the permanent tier; the frontier note points *to* the chapter, not
+vice-versa).  Frontier-recording: recorded 2 open directions that lived only
+in chapter tails — `cup_leibniz_general.md` (the ∀(k,l) CupAW Leibniz above
+the closed fixed-bidegree family) and `gra_operad_level.md` (the conceptual-only
+E_n-operad Reading of GRA) — registered in `frontiers/INDEX.md`.  The other
+non-"closed"-Status chapters (cf_holonomicity, phi_pi_poles, eisenstein) already
+have frontier homes (pi_nonholonomicity, eisenstein_split_converse).  Remaining
+Track-C tail (next session): a full promote-side diff (closed `lean/E213/Lib`
+sub-trees lacking a `theory/` chapter) — the derivation-breadth map gives the
+coverage view to drive it.
+
 ## Open / not done (next session)
 - **Audit the remaining `theory/` "Lean source" blocks** the fleet did not
   reach, and the `lean/E213/**/INDEX.md` count headers, for the same

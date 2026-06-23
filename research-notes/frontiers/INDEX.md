@@ -459,6 +459,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   after the Phase-8 audit found these claimed-closed in prose with no Lean; the
   note bounds the frontier against the genuinely-closed 2/3/4-skeleton content and
   flags the smallest closable steps (`cohomology_higher_structure.md`).
+- `cup_leibniz_general` — **the ∀(k,l) self-referential lex-cup Leibniz**:
+  the uniform (parametric-in-bidegree) Cup-Leibniz closure above the closed
+  fixed-bidegree CupAW family.  Named only in the `cupaw.md` tail; now tracked
+  (`cup_leibniz_general.md`).
+- `gra_operad_level` — **the E_n-operad reading of GRA**: a 213-native ∅-axiom
+  formalization of GRA's operad-level Reading (`grade n = E_n`, `⊗_GRA` with
+  `trivial23` unit), currently conceptual-only in `gra_book.md` §3.4
+  (`gra_operad_level.md`).
 - `inequalities_positivity_fold_crossdomain` — **the curvature arc ↔ the proof-ISA arc**:
   A7 POSITIVITY's 2-D Cauchy–Schwarz (`cauchy_schwarz_2d`, depth-0 Lagrange square) and the
   curvature module's n-dim power-mean Cauchy–Schwarz (`cauchy_schwarz_gridZ`, per-rung SOS

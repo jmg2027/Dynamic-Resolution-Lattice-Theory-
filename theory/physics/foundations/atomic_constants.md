@@ -197,8 +197,7 @@ layer:
 The edge **multiplicity `c`** is **not** in this forced set: reading
 `c = 2` off the arity `k = 2` is a `decide`-coincidence of two distinct
 2's (arity-base `Fin 2` vs partition-slot `NT`), not a forcing — `c`
-stays a free presentation parameter (see Overview; authoritative status
-`research-notes/frontiers/atomic_c_multiplicity_forcing.md`).
+stays a free presentation parameter (see Overview).
 
 The two derivations (C2b cohomology + Raw-side combined chain)
 are different Lens readings of the same forced `(NS, NT, d)` triple,

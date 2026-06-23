@@ -197,8 +197,6 @@ and `Filled4CellExtension.H3_dim_at_4_skeleton`.
 
 ## Open frontier (unformalized)
 
-Live agenda + entry points: `research-notes/frontiers/cohomology_higher_structure.md`.
-
 The directions below are **not** in Lean — no `MasseyTripleH1Witness`,
 `MasseyTripleOmega`, `Filled5CellExtension`,
 `Filled5CellMultiExtension`, `Sq2At4Cell`, `AdemUniversal`,

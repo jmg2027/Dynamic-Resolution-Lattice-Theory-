@@ -7,8 +7,7 @@ import E213.Lib.Math.Cohomology.Examples.TopologyCompare
 `TopologyCompare.lean` shows that among the tested configs, the
 b_1 = 8 = 1/α_3 reading lands only at (NS,NT) = (3,2) read at
 presentation c = 2 (multiplicity `c` is a free presentation parameter,
-no value canonical — `theory/physics/foundations/atomic_constants.md`;
-`research-notes/frontiers/atomic_c_multiplicity_forcing.md`).  This file
+no value canonical — `theory/physics/foundations/atomic_constants.md`).  This file
 extends across d ∈ {4..7} and confirms d = 5 is doubly forced — the
 forcing is of the *dimension* d, the c = 2 only the presentation at
 which the b_1 = 8 value is read.
