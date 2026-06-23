@@ -18,6 +18,7 @@ import E213.Lib.Math.Logic.RealComparabilityLLPO
 import E213.Lib.Math.Logic.RealEqualityWLPO
 import E213.Lib.Math.Logic.RealApartnessMP
 import E213.Lib.Math.Logic.ChoiceLens
+import E213.Lib.Math.Logic.FiberSymmetry
 import E213.Lib.Math.Logic.ForcingToy
 import E213.Lib.Math.Logic.SectionCount
 
