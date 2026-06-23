@@ -1,8 +1,8 @@
 # lean/E213/ARCHITECTURE.md — 213 layer architecture (canonical)
 
-이 문서는 213 Lean library 의 **layer 구조**를 정의한다 — 어느 ring 이
-있고, 각자 무엇을 위한 것이며, 어떻게 import 가 흐르는지.  다른 모든
-문서 (INDEX.md, CLAUDE.md, sub-cluster README 등) 는 이 문서를 따른다.
+This document defines the **layer structure** of the 213 Lean library —
+which rings exist, what each is for, and how imports flow.  All other
+documents (INDEX.md, CLAUDE.md, sub-cluster READMEs, etc.) follow this one.
 
 ## Philosophical foundations (canonical preamble)
 
@@ -44,52 +44,59 @@ be read as code-organization vocabulary, not ontological claims.
 
 ## 0. Layer model
 
-213 은 **4 ring + Meta** 구조.  Meta 는 ring-independent (Lean 4 bridge).
+213 has a **4-ring + Meta** structure.  Meta is ring-independent (the Lean 4 bridge).
 
 ```
-Meta  ← ring-independent — Lean 4 와의 bridge.  어느 ring 도 사용 가능.
-        사용시 유의 (axiom-cost / ring-independence trade-off).
+Meta  ← ring-independent — the bridge to Lean 4.  Usable by any ring.
+        Use with care (axiom-cost / ring-independence trade-off).
 ─────────────────────────────────────────────────────────
-Lib    ← Lens API 만 사용                ↑
-Lens   ← Theory API 만 사용              │ import 방향
-Theory ← Term API 만 사용                │ (inward only)
-Term   ← Raw 구현체 (Tree 등)            │
+Lib    ← uses only the Lens API           ↑
+Lens   ← uses only the Theory API          │ import direction
+Theory ← uses only the Term API            │ (inward only)
+Term   ← Raw implementation (Tree, etc.)   │
 ─────────────────────────────────────────────────────────
 ```
 
-**Import 규칙** — 각 ring 내 file 은 다음만 사용 가능:
-  1. 자기 ring 안에서 정의된 것
-  2. **바로 아래** ring 의 API (정확히 한 단계 아래)
-  3. Meta 의 임의 file
+**Import rule** — a file in each ring may use only:
+  1. what is defined within its own ring
+  2. the API of the ring **directly below** (exactly one step down)
+  3. any file in Meta
 
-위 방향 import (예: Theory → Lib) 또는 다단계 점프 (예: Lib → Theory
-직접 — Lens API 우회) 는 모두 위반.  Layer audit 으로 검출.
+Upward imports (e.g. Theory → Lib) or multi-step jumps (e.g. Lib → Theory
+directly — bypassing the Lens API) are all violations.  Detected by the
+layer audit.
 
 | Ring | Role |
 |---|---|
-| `Term/`    | Raw 의 구현체 (Tree 등).  Theory 에 공개할 API 구현부. |
-| `Theory/`  | Term API 통해 Raw 의 axiom + 구조 정의.  Lens 에 공개할 API 구현부. |
-| `Lens/`    | Theory API 통해 Lens 들 정의.  Lib 에 공개할 API 구현부. |
-| `Lib/`     | Lens API 통해 수학/물리 콘텐츠 구현. |
-| `Meta/`    | Lean 4 와의 bridge.  Ring 무관 — 어느 ring 도 사용 가능. |
+| `Term/`    | Implementation of Raw (Tree, etc.).  The API surface exposed to Theory. |
+| `Theory/`  | Defines Raw's axiom + structure via the Term API.  The API surface exposed to Lens. |
+| `Lens/`    | Defines the Lenses via the Theory API.  The API surface exposed to Lib. |
+| `Lib/`     | Implements math/physics content via the Lens API. |
+| `Meta/`    | The bridge to Lean 4.  Ring-independent — usable by any ring. |
 
-> **Spec 원문** (Mingu Jeong, 2026-05-12):
+> **Spec (original, Mingu Jeong, 2026-05-12):**
 > 「해당 링에는 해당 링 아래에서 받아온 api 혹은 Meta (meta 는 링에서
 > 벗어나서 존재할 수 있는 친구들.  Lean4 와의 브릿지라고 생각할 수
 > 있음) 혹은 해당 링 안에서 정의된 것들만을 사용할 수 있다.  api 로
 > 위쪽 링으로 올릴 수 있다.」
+>
+> *Translation:* "A given ring may use only the API received from the
+> ring below it, or Meta (Meta being the things that can exist outside
+> the rings — think of it as the bridge to Lean 4), or things defined
+> within the ring itself.  Via the API, results can be lifted up to the
+> ring above."
 
-## 1. Ring 정의
+## 1. Ring definitions
 
-### Term/  (Raw 구현체)
+### Term/  (Raw implementation)
 
-**Role**: Lean 4 안에서 213 의 Raw 를 표현하는 기계.  Deep-embedded
-`Tree` + `Term` type + 전체함수 (compare, eval, normal form).  이
-ring 안에서 **0-axiom 으로 닫힘** — propext, Quot.sound,
-Classical.choice 등 외부 axiom 비사용.
+**Role**: The machine representing 213's Raw inside Lean 4.  Deep-embedded
+`Tree` + `Term` type + total functions (compare, eval, normal form).
+**Closed under 0-axiom** within this ring — no external axioms (propext,
+Quot.sound, Classical.choice, etc.).
 
-**Key property**: 모든 Term 정리가 *literally 0-axiom*.
-`tools/kernel_regress.sh` 로 검증.
+**Key property**: Every Term theorem is *literally 0-axiom*.
+Verified by `tools/kernel_regress.sh`.
 
 **Public API**: `Term/API.lean` re-exports K1–K4:
   * **K1 — Data**: `Term`, `Term.eval`, `Term.{nS, nT, d, c}`
@@ -102,9 +109,9 @@ Classical.choice 등 외부 axiom 비사용.
 
 ### Theory/  (Raw axiom + forced-shape proofs)
 
-**Role**: 213 axiom 자체 — `Raw` type + 4-clause definitional
-commitments (a, b, slash, slash_comm).  이 commitment 의 결과로
-forced shape uniqueness 증명.  **Term API 만 사용**.
+**Role**: The 213 axiom itself — `Raw` type + 4-clause definitional
+commitments (a, b, slash, slash_comm).  Forced-shape uniqueness proofs
+follow from these commitments.  **Uses only the Term API**.
 
 **Sub-clusters**:
   * `Theory/Raw/`       — public Raw API (Core, Slash, Swap,
@@ -126,47 +133,47 @@ forced shape uniqueness 증명.  **Term API 만 사용**.
 
 ### Lens/  (Catamorphism algebra)
 
-**Role**: Lens framework — Raw → α 의 catamorphism
-(`Lens.view = Raw.fold`).  Universal "viewing" 기계.
-**Theory API 만 사용**.
+**Role**: The Lens framework — the catamorphism `Raw → α`
+(`Lens.view = Raw.fold`).  The universal "viewing" machine.
+**Uses only the Theory API**.
 
-Lens layer 는 다른 ring 들 보다 **확장이 빈번** — 새 lens 추가,
-새 codomain, 새 property predicate 등.  따라서 API discipline 도
-**2-tier**:
+The Lens layer is **extended more frequently** than the other rings —
+new lenses, new codomains, new property predicates, etc.  So its API
+discipline is **2-tier**:
 
-#### Tier 1 — Core API (안정, `Lens/API.lean`)
+#### Tier 1 — Core API (stable, `Lens/API.lean`)
 
-외부 consumer 가 반드시 import.  Lens 의 **본질만** — 새 lens
-추가시에도 안 바뀜.
+Every external consumer must import this.  **Only the essence** of Lens —
+unchanged even when new lenses are added.
 
   * **HV1 — Type**: `Lens (α : Type)`, `Lens.view`, `Lens.mk`,
     projections
   * **HV2 — Basic algebra**: `Lens.equiv`, `Lens.refines` + closures,
     `Lens.compose` (functor-like)
   * **HV3 — Universal property**: `Universal.universalLens`,
-    `Universal.Flat`, `Universal.factorization` — *모든
-    distinguishability framework 가 Raw 위 lens 로 factor* 의 정리
+    `Universal.Flat`, `Universal.factorization` — the theorem that
+    *every distinguishability framework factors through a lens on Raw*
 
-#### Tier 2 — 확장 sub-API (필요시 import)
+#### Tier 2 — extension sub-APIs (import as needed)
 
-확장 자주 일어나는 영역은 영역별 별도 import.
+Areas where extension happens often get their own per-area import.
 
-  * `Lens/Instances.lean`     — 25+ concrete lens 카탈로그
+  * `Lens/Instances.lean`     — catalog of 25+ concrete lenses
   * `Lens/Lattice.lean`       — join / meet / Family lattice
   * `Lens/Compose.lean`       — composition operators
   * `Lens/Properties.lean`    — predicate catalog (IsLeaf, IsBoolValued, …)
   * `Lens/Codomain.lean`      — *(TBD)* codomain type catalog
                                 (Bool213, Nat213, Int213, …)
 
-외부 consumer 패턴:
+External consumer pattern:
 ```lean
-import E213.Lens.API                  -- 핵심 (필수)
-import E213.Lens.Instances            -- instance catalog 필요시
-import E213.Lens.Lattice              -- lattice 정리 필요시
+import E213.Lens.API                  -- core (required)
+import E213.Lens.Instances            -- if the instance catalog is needed
+import E213.Lens.Lattice              -- if lattice theorems are needed
 -- …
 ```
 
-#### Sub-clusters (현재 디렉토리)
+#### Sub-clusters (current directories)
 
   * `Lens/Algebra/`          — Lens-kernel theory (Congruence,
                                 Corresp, IdLensEq, internal:
@@ -194,11 +201,12 @@ import E213.Lens.Lattice              -- lattice 정리 필요시
                                 Q213/Q213_3, Padding, TripleCapstone)
   * `Lens/Internal/`         — internal proof infra
 
-(9 sub-clusters: Axiom Lenses + Internal 별도 유지로 9.)
+(9 sub-clusters: Axiom Lenses + Internal kept separate makes 9.)
 
 ### Lib/  (Mathematics + Physics content)
 
-**Role**: 213 위에서 구현된 수학/물리 콘텐츠.  **Lens API 만 사용**.
+**Role**: Math/physics content implemented on top of 213.  **Uses only
+the Lens API**.
 
 Two bounded contexts:
   * `Lib/Math/`     — 213-native mathematics (11 thematic super-clusters)
@@ -238,19 +246,19 @@ the sub-trees of one mathematical area:
 Each Lib sub-tree carries a `Bridge.lean` for cross-context citation
 (anti-corruption layer pattern).  `theory/math/` mirrors this hierarchy.
 
-### Meta/  (Ring 무관 — Lean 4 bridge)
+### Meta/  (Ring-independent — Lean 4 bridge)
 
-**Role**: 링 아키텍처에 구애받지 않는 것들.  Lean 4 와의 bridge.
-어느 ring 도 import 가능 — 그러나 사용시 신중 (axiom-cost,
-ring-independence 등 trade-off 존재).
+**Role**: Things independent of the ring architecture.  The bridge to
+Lean 4.  Importable by any ring — but use carefully (trade-offs exist:
+axiom-cost, ring-independence, etc.).
 
-**현재 내용**:
-  * `Meta/Nat/`           — ring-independent Nat 보조정리 (8 파일)
+**Current contents**:
+  * `Meta/Nat/`           — ring-independent Nat lemmas (8 files)
   * `Meta/Tactic/`        — meta-level tactics
                              (DeriveConjugationCodomain,
                               VerifyConjugation, NativeGuard,
                               PureGuard)
-  * `Meta/Int213/`        — Lean Int 위 ∅-axiom helpers
+  * `Meta/Int213/`        — ∅-axiom helpers over Lean Int
   * `Meta/Algebra213/`    — Ring213/StarRing213/CDDouble functor
                              typeclass tower
   * **Top-level**: SelfRecognising (codomain typeclass hierarchy),
@@ -260,57 +268,57 @@ ring-independence 등 trade-off 존재).
 **Public API**: `Meta/API.lean` bundles ME-1 SelfRecognising +
 ME-2 AxiomMinimality + ME-3 LensInternality.  UniversalLens
 witnesses live under `Lens/Universal/` with `Lens.API` (HV6) as
-public surface.  Tactic 은 separate import (cross-cutting).
+public surface.  Tactic is a separate import (cross-cutting).
 
 ## 2. Discipline conventions
 
-### Import 규칙 (★ 가장 중요)
+### Import rule (★ most important)
 
-각 ring 내 file 은 다음만 사용 가능:
-  1. 자기 ring 내 다른 file
-  2. **바로 아래** ring 의 `API.lean` (reach-in 보다 API 권장)
-  3. Meta 의 임의 file
+A file in each ring may use only:
+  1. another file in its own ring
+  2. the `API.lean` of the ring **directly below** (API preferred over reach-in)
+  3. any file in Meta
 
-**금지**:
-  * 위 방향 import (Theory → Lib, Lens → Lib 등) — spec 직접 위반
-  * 다단계 점프 (Lib → Theory 직접 — Lens API 통해야)
+**Forbidden**:
+  * Upward imports (Theory → Lib, Lens → Lib, etc.) — a direct spec violation
+  * Multi-step jumps (Lib → Theory directly — must go through the Lens API)
 
 ### API.lean per ring
 
-모든 framework ring 은 explicit `<Ring>/API.lean` 보유:
+Every framework ring has an explicit `<Ring>/API.lean`:
   * `Term/API.lean`    (K1–K4)
   * `Theory/API.lean`  (TH-A + TH-B)
   * `Lens/API.lean`    (HV1–HV6)
   * `Meta/API.lean`    (ME-1 .. ME-4)
 
-Downstream consumer (위 layer) 는 API.lean import 권장 — 내부
-refactor 안전성 확보.  reach-in (specific sub-file 직접 import) 는
-code-review smell.
+A downstream consumer (the layer above) should import `API.lean` — for
+safety against internal refactors.  Reach-in (importing a specific
+sub-file directly) is a code-review smell.
 
 ### Internal/ per ring
 
-Implementation detail 은 `<Ring>/Internal/` 안에.  Ring 외부에서
-직접 import 는 smell.  현재:
+Implementation details go in `<Ring>/Internal/`.  Importing directly
+from outside the ring is a smell.  Currently:
   * `Term/Internal/Tree*`     — Tree (inductive) + cmp, swap, fold,
                                  depth, leaves, fold_swap_hom,
                                  fold_signed_swap (all Tree-level,
                                  ∅-axiom).  Namespace
                                  `E213.Term.Internal` (path-aligned).
   * `Meta/Int213/`, `Meta/Algebra213/` — Int / Ring213 typeclass
-                                 helpers (ring-independent so Meta 거주)
+                                 helpers (ring-independent, so they live in Meta)
   * `Lens/Internal/Algebra/`  — FreeAudit, FourDistinct,
                                  SwapInvariant, Space
 
-File 들은 `E213.<Ring>.Internal.<sub>` namespace 사용.
+These files use the `E213.<Ring>.Internal.<sub>` namespace.
 
-### Bridge.lean for cross-context (Lib 내부)
+### Bridge.lean for cross-context (within Lib)
 
-한 bounded context (Math, Physics) 의 file 이 다른 context 의
-결과를 인용할 때는 explicit `Bridge.lean` 통해:
+When a file in one bounded context (Math, Physics) cites a result from
+another context, it goes through an explicit `Bridge.lean`:
   * `Lib/Math/Cohomology/AlphaEMBridge.lean`
   * `Lib/Physics/<Cluster>/Bridge.lean` (12 sub-clusters)
 
-Anti-corruption layer pattern — cross-context reference 가 explicit,
+Anti-corruption layer pattern — cross-context reference is explicit,
 named, grep-discoverable.
 
 ### Naming
@@ -383,7 +391,7 @@ scanner (`tools/ast_shape_scan.py`).
   * `crates/lens/`    ↔ `lean/E213/Lens/`
   * `crates/app/`     ↔ `lean/E213/Lib/`
 
-Rust 는 numerical / search-engine companion ("calculator for when
-Lean takes too long"), re-implementation 이 아님.  모든 Rust 결과는
-Lean 정리를 가리켜야 (`rust-engine/whitelist.toml` +
+Rust is a numerical / search-engine companion ("a calculator for when
+Lean takes too long"), not a re-implementation.  Every Rust result must
+point to a Lean theorem (`rust-engine/whitelist.toml` +
 `tools/verify-citations`).
