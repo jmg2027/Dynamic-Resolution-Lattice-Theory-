@@ -1,6 +1,8 @@
 import E213.Lib.Math.NumberTheory.PrimePowFactorization
 import E213.Lib.Math.NumberTheory.BertrandWindow
 import E213.Lib.Math.NumberTheory.BinomChooseBridge
+import E213.Lib.Math.NumberTheory.Primorial
+import E213.Lib.Math.NumberTheory.IntSqrt
 import E213.Meta.Nat.PowBasic
 import E213.Meta.Nat.FloorLog
 
@@ -25,9 +27,15 @@ All ∅-axiom.
 
 namespace E213.Lib.Math.NumberTheory.CentralBinomFactorization
 
-open E213.Lib.Math.NumberTheory.PrimePowFactorization (primePowProd prod_prime_pow_eq)
+open E213.Lib.Math.NumberTheory.PrimePowFactorization
+  (primePowProd prod_prime_pow_eq primePowProd_append
+   primePowProd_le_pow_length primePowProd_le_listProd primesIn_length_le)
 open E213.Lens.Number.Nat213.MultSystem (binom)
-open E213.Lens.Number.Nat213.MultSystemValue (central_binom_pos primesIn)
+open E213.Lens.Number.Nat213.MultSystemValue
+  (central_binom_pos primesIn mem_primesIn_prime mem_primesIn_gt
+   primesIn_split listProd listProd_append listProd_pos)
+open E213.Lib.Math.NumberTheory.Primorial (primorial_le_four_pow)
+open E213.Lib.Math.NumberTheory.IntSqrt (isqrt isqrt_bracket)
 open E213.Lens.Number.Nat213.ChebyshevLower (prime_pow_vp_central_binom_le vp_central_binom_le_floorLog)
 open E213.Meta.Nat.VpMul (IsPrime213)
 open E213.Meta.Nat.Valuation (vp)
@@ -147,6 +155,77 @@ theorem central_binom_factorization_le_two_thirds {n : Nat} (hn : 3 ≤ n)
       = primePowProd (fun p => vp p (binom (2 * n) n)) (primesIn 0 (2 * n / 3)) :=
   prod_prime_pow_eq (central_binom_pos n)
     (fun _q hq hd => central_binom_factor_le_div hq hn hnobig hd)
+
+/-! ## §6 — the Erdős upper bound `C(2n,n) ≤ 4^{2n/3}·(2n)^{√(2n)}` -/
+
+/-- Pure pow-monotone-in-exponent: `1 ≤ a → m ≤ n → aᵐ ≤ aⁿ` (induction on the gap;
+    `aᵏ⁺¹ = aᵏ·a ≥ aᵏ`). -/
+private theorem pow_le_pow_right_le {a : Nat} (ha : 1 ≤ a) :
+    ∀ {m d : Nat}, a ^ m ≤ a ^ (m + d) := by
+  intro m d
+  induction d with
+  | zero => exact Nat.le_refl _
+  | succ k ih =>
+      have hpow : a ^ (m + (k + 1)) = a ^ (m + k) * a := by
+        rw [← Nat.add_assoc]; exact Nat.pow_succ a (m + k)
+      rw [hpow]
+      calc a ^ m ≤ a ^ (m + k) := ih
+        _ = a ^ (m + k) * 1 := (Nat.mul_one _).symm
+        _ ≤ a ^ (m + k) * a := Nat.mul_le_mul (Nat.le_refl _) ha
+
+private theorem pow_le_pow_of_le {a m n : Nat} (ha : 1 ≤ a) (h : m ≤ n) : a ^ m ≤ a ^ n := by
+  obtain ⟨d, hd⟩ := Nat.le.dest h
+  rw [← hd]; exact pow_le_pow_right_le ha
+
+/-- ★★★ **The Erdős upper bound.**  If no prime lies in `(n, 2n]` (`n ≥ 3`, and the
+    arithmetically-true `√(2n) ≤ 2n/3`), then
+
+      `C(2n,n) ≤ 4^{2n/3} · (2n)^{√(2n)}`.
+
+    Split the collapsed product `∏_{p ≤ 2n/3} p^{vₚ(C)}` at `√(2n)`:
+    - primes `≤ √(2n)`: each block `p^{vₚ(C)} ≤ 2n` (Kummer), and there are
+      `≤ √(2n)` of them, so the low part is `≤ (2n)^{√(2n)}`;
+    - primes `√(2n) < p ≤ 2n/3`: `vₚ(C) ≤ 1` (since `p² > 2n`), so `p^{vₚ(C)} ≤ p`,
+      and `∏ p ≤ ∏_{p ≤ 2n/3} p ≤ 4^{2n/3}` (primorial).
+    Contradicts `4ⁿ ≤ (2n+1)·C(2n,n)` for large `n` — the crossover (item 3).  ∅-axiom. -/
+theorem central_binom_upper_bound {n : Nat} (hn : 3 ≤ n)
+    (hsplit : isqrt (2 * n) ≤ 2 * n / 3)
+    (hnobig : ∀ p, IsPrime213 p → n < p → p ≤ 2 * n → False) :
+    binom (2 * n) n ≤ 4 ^ (2 * n / 3) * (2 * n) ^ (isqrt (2 * n)) := by
+  have hn1 : 1 ≤ n := Nat.le_trans (by decide) hn
+  have h2n1 : 1 ≤ 2 * n := Nat.le_trans hn1 (by rw [Nat.two_mul]; exact Nat.le_add_left n n)
+  have hfact : binom (2 * n) n
+      = primePowProd (fun p => vp p (binom (2 * n) n)) (primesIn 0 (2 * n / 3)) :=
+    central_binom_factorization_le_two_thirds hn hnobig
+  have hsp : primesIn 0 (2 * n / 3)
+      = primesIn (isqrt (2 * n)) (2 * n / 3) ++ primesIn 0 (isqrt (2 * n)) :=
+    primesIn_split (Nat.zero_le _) hsplit
+  rw [hfact, hsp, primePowProd_append]
+  -- low block ≤ (2n)^{√2n}
+  have hlow : primePowProd (fun p => vp p (binom (2 * n) n)) (primesIn 0 (isqrt (2 * n)))
+      ≤ (2 * n) ^ (isqrt (2 * n)) := by
+    have hb := primePowProd_le_pow_length (fun p => vp p (binom (2 * n) n)) (2 * n)
+      (ps := primesIn 0 (isqrt (2 * n)))
+      (fun p hp => prime_pow_vp_central_binom_le (mem_primesIn_prime hp) hn1)
+    exact Nat.le_trans hb (pow_le_pow_of_le h2n1 primesIn_length_le)
+  -- high block ≤ 4^{2n/3}
+  have hhigh : primePowProd (fun p => vp p (binom (2 * n) n)) (primesIn (isqrt (2 * n)) (2 * n / 3))
+      ≤ 4 ^ (2 * n / 3) := by
+    have hb := primePowProd_le_listProd (fun p => vp p (binom (2 * n) n))
+      (ps := primesIn (isqrt (2 * n)) (2 * n / 3))
+      (fun p hp => by
+        have hpp : IsPrime213 p := mem_primesIn_prime hp
+        have hgt : isqrt (2 * n) < p := mem_primesIn_gt hp
+        have hKp : isqrt (2 * n) + 1 ≤ p := hgt
+        have hsq : 2 * n < p * p :=
+          Nat.lt_of_lt_of_le (isqrt_bracket (2 * n)).2 (Nat.mul_le_mul hKp hKp)
+        exact central_binom_pow_le_self hpp hn1 hsq)
+    have hmono : listProd (primesIn (isqrt (2 * n)) (2 * n / 3)) ≤ listProd (primesIn 0 (2 * n / 3)) := by
+      rw [hsp, listProd_append]
+      exact Nat.le_mul_of_pos_right _
+        (listProd_pos (fun p hp => Nat.lt_of_lt_of_le (by decide) (mem_primesIn_prime hp).1))
+    exact Nat.le_trans (Nat.le_trans hb hmono) (primorial_le_four_pow (2 * n / 3))
+  exact Nat.mul_le_mul hhigh hlow
 
 /-- ★★★ **Explicit prime factorization of the central binomial coefficient.**
     `C(2n,n) = ∏_{p ≤ 2n, prime} p^{vₚ(C(2n,n))}` — the FTA product form
