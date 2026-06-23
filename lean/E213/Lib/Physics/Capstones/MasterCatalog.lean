@@ -75,9 +75,9 @@ open E213.Lib.Physics.AlphaEM.Prefactors
 
 /-- ★★★ MASTER CATALOG ★★★
 
-  Accumulated findings of the 37-file Physics track.  A single (NS, NT, d, c) =
-  (3, 2, 5, 2) atomicity *simultaneously* forces the atoms that appear in
-  *every* expression. -/
+  Accumulated findings of the 37-file Physics track.  A single atomic shape
+  (NS, NT, d) = (3, 2, 5) (read at presentation c = 2, a free parameter)
+  *simultaneously* forces the atoms that appear in *every* expression. -/
 theorem master_atomic_catalog :
     -- (NS² - 1) = 8 — α_3, λ_H
     (NS * NS - 1 = 8)

@@ -36,8 +36,10 @@ The full Loeschian theorem (`a²+ab+b² = n` solvable ⟺ every prime `≡ 2 (mo
 itself — the real number `Z(1)`-regulator / the `Γ(1/3)` constant — needs either the cube
 `AGM` (whose geometric-mean step is exactly `b·(a²+ab+b²)/3`, the disc-`−3` form again, but
 with a cube root that leaves clean `ℤ`-arithmetic) or the analytic value `L(1,χ₋₃) = π/√27`.
-Neither is reached from inside the `ℕ`/`ℤ` reflection provers; the reachable handle is the
-form's arithmetic — the character — and that is what is pinned.
+Neither is reached from inside the `ℕ`/`ℤ` reflection provers (a tool scope, not an
+exterior): the period value is a `Real213` cut reached by no approximant (§5.1) — the cube
+`AGM` is exactly its residue-internal pointing — and the reachable *arithmetic* handle here
+is the form's character, which is what is pinned.
 
 All zero-axiom.
 -/

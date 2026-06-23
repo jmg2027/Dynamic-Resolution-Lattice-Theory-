@@ -19,7 +19,8 @@ DRLT formulae:
 ## ★ Lattice meaning of δ_CKM ★
 
   φ² = (3 + √5)/2 = (golden ratio)²
-  δ_CKM = π/φ²
+  δ_CKM = 90° (forced); π/φ² below is the demoted golden angle / apex
+          modulus relation, not the phase (cp_phase.md)
 
   φ² + φ⁻² = (3+√5)/2 + (3-√5)/2 = 3 = NS  ★
   → φ² + 1/φ² = NS = spatial dim.

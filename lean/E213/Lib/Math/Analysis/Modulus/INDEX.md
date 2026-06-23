@@ -22,11 +22,11 @@ differentiation machinery.
   - `Translation.lean`            — modulus-translation lemma
 
 ### Capstone
-  - `G40Capstone.lean`            — G40 modulus capstone
+  - `Capstone.lean`              — modulus capstone
 
 ## Where to add new files
 
   - New HasModulus instance  → `<Seq>HasModulus.lean`
   - Bounding lemma           → `HasModulusBounds*`
   - Diagonal / completeness  → `Diagonal*` / `Depth*`
-  - Capstone                 → `G<N>Capstone`
+  - Capstone                 → `Capstone`

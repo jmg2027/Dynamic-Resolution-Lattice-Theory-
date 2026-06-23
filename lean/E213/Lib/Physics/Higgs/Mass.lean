@@ -28,8 +28,9 @@ DRLT formula:
   → The same (d-1) = 4 cofactor appears in *all* of
     α_em IR, m_μ/m_e, Cabibbo, and m_H corrections.
 
-  (d-1) = 4, forced by single atomicity (NS, NT, d, c) = (3, 2, 5, 2),
-  is the common building block in *five precision formulas*.
+  (d-1) = 4, forced by the single atomic shape (NS, NT, d) = (3, 2, 5)
+  (read at presentation c = 2, a free parameter), is the common building
+  block in *five precision formulas*.
 -/
 
 namespace E213.Lib.Physics.Higgs.Mass

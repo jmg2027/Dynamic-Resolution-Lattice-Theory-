@@ -76,7 +76,8 @@ theorem cosmo_hierarchy_atomic :
     Hadron (d+1 step in m_p/m_π)
     Cosmological (d^(d²) suppression)
 
-  *Single atomicity* (3, 2, 5, 2) forces all hierarchies. -/
+  *Single atomic shape* (NS, NT, d) = (3, 2, 5) (at presentation c = 2,
+  free) forces all hierarchies. -/
 theorem hierarchy_towers_master :
     -- Lepton tower
     (base_prefactor = 16) ∧ (NS * 2 = 3 * NT)
