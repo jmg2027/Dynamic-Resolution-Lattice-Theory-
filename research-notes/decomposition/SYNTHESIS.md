@@ -115,6 +115,20 @@ steps), `−1` = the bracket runs (reached by none).  The static tag (`±1` sign
 dynamic tag (descent terminates / not) are one — the Legendre `(a/p)` of finding (i) is the static face,
 Euclidean termination the dynamic face, of the single `q=±1` object.
 
+**Refinement (a tested distinction, not a forced merge): two fixed-point engines, two reach-modes.**  This
+*Euclidean* engine (residue = remainder, fed back) is **not** the same as the **Banach/contraction engine**
+(the `q=+1` convergence family — φ, the Gaussian `Φ_contraction`, the ODE Picard flow, Markov's stationary
+`π`, the Bellman value).  Both "iterate to a fixed point", but the reach differs and the difference is exactly
+`q`:
+- **Euclidean** — the fixed point (residue `0`) is **exact and reached in finitely many steps** (`q=+1`,
+  gcd) or **reached by no step at all** (`q=−1`, irrational CF / primes).  Discrete: hit `0` or never.
+- **Banach** — the fixed point is the **Cauchy limit, reached by none but approached to every scale**
+  (`banach_fixed_point`, `picard_cauchy`); always `q=+1` *under contraction*, the limit a `Real213` cut.
+So the `q=−1` of an irrational CF (descent never terminates) and the `q=+1` of a Banach contraction (limit
+reached by none) are **both "reached by none" yet opposite tags** — because the tag is on *termination of the
+descent*, not on *convergence of the value*.  The honest split: Euclidean `q` = does the exact fixed point
+arrive in finite time; Banach `q` = is the map a contraction.  Two engines, not conflated.
+
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
 Homological algebra (`practice/homological_algebra.md`) does not add a field; it **names the operation
 the calculus has been running since batch 4**. A **derived functor** `Ext^n`/`Tor_n` *is* `Residue(L,C)`
