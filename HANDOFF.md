@@ -237,7 +237,26 @@ Track-C tail (next session): a full promote-side diff (closed `lean/E213/Lib`
 sub-trees lacking a `theory/` chapter) — the derivation-breadth map gives the
 coverage view to drive it.
 
+## New paper — `papers/the_residue_of_distinguishing.md` (spine-only)
+A tight single-thread paper (vs the breadth-survey `the_213_programme.md`):
+one argument carried from the primitive (distinguishing) → the one theorem it
+forces (the residue = faithful-but-never-total self-cover,
+`object1_not_surjective`) → no-exterior closure → four-clause Raw → forced
+`(N_S,N_T,d)=(3,2,5)` → `⟨C|L⟩⊕Residue` calculus → the cross-route-agreement
+*signature* of breadth (one phenomenon, not a domain catalogue) → empty-axiom
+contract. **Every citation grep-verified ∅-axiom** (17 theorem names + 15 paths
+all resolve). The discipline caught one drift mid-draft: `α_2 = 1/(N_S·N_T·d)
+= 1/30` is an invented structural form (the Lean proves `prefactor = 12·N_T =
+d²−1 = 24`; "1/30" is only a numeric comment) — same trap as the audited Cabibbo
+`d²−N_S`; dropped, kept only the four airtight observables (1/α_3=8, Q=2/3,
+N_gen=3, invAlphaEm precision). Sole author Mingu Jeong; Claude in the closing
+acknowledgment only. Registered in `papers/README.md`. (Note: the older
+`the_213_programme.md` still carries pre-audit drift — Cabibbo `d/(d²−N_S)`,
+"Real213 ~57 modules"→211 — left for a future audit pass.)
+
 ## Open / not done (next session)
+- **`papers/the_213_programme.md` audit**: bring it to the verified standard
+  (Cabibbo `d/(d²−d+NT)`, Real213 211 not ~57, re-check §6/§7 citations).
 - **Audit the remaining `theory/` "Lean source" blocks** the fleet did not
   reach, and the `lean/E213/**/INDEX.md` count headers, for the same
   fabricated-citation / stale-count drift.

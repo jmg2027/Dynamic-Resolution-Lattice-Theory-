@@ -12,6 +12,16 @@ external audience, not a replacement for it.
 
 ## Contents
 
+- `the_residue_of_distinguishing.md` — **The Residue of Distinguishing.**
+  The spine, not a survey: a single argument carried from one primitive
+  (distinguishing) through the one theorem it forces (the residue, a
+  faithful-but-never-total self-cover), the no-exterior closure, the
+  four-clause Raw, the forced `(N_S,N_T,d)=(3,2,5)`, the `⟨C|L⟩⊕Residue`
+  calculus, the cross-route-agreement signature of breadth, and the
+  empty-axiom contract. Where `the_213_programme.md` catalogues what the
+  residue rebuilds, this paper proves the one thing the catalogue rests on.
+  Every citation is a verified ∅-axiom theorem.
+
 - `the_213_programme.md` — **The 213 Programme: Mathematics from the
   Residue of Distinguishing.** The flagship survey for mathematicians: the
   residue-as-theorem, the four-clause Raw axiom, three-direction
