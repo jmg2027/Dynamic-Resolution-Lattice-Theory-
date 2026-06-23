@@ -192,7 +192,14 @@ layer:
     `Reachable k` + capstone `arity_2_unique_via_k_ge_3_vacuous`).
     Companion to `ArityForcing.lean` (which handles the concrete
     k = 3 case); CombinatorialArity is the ∀ k ≥ 3 generalisation
-    — 5 PURE.
+    — 5 PURE.  The **lower half** — arity-0/1 *degeneracy* and base-2
+    *minimality*, previously code comments — is now closed in
+    `Theory/Atomicity/ArityForcingComplete.lean` (7 PURE):
+    `arity_two_forced` (`k = 2` is the unique arity that is both a
+    genuine distinction `2 ≤ k` and non-vacuous on the minimal
+    2-element base `k ≤ 2`) and `base_two_minimal`.  Scoped honestly
+    as a characterization *given* the clause-4 distinctness gate (the
+    gate **is** no-self-pairing), not an unconditional claim.
 
 The edge **multiplicity `c`** is **not** in this forced set: reading
 `c = 2` off the arity `k = 2` is a `decide`-coincidence of two distinct
