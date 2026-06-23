@@ -28,12 +28,12 @@ All ∅-axiom.
 namespace E213.Lib.Math.NumberTheory.CentralBinomFactorization
 
 open E213.Lib.Math.NumberTheory.PrimePowFactorization
-  (primePowProd prod_prime_pow_eq primePowProd_append
+  (primePowProd prod_prime_pow_eq primePowProd_append mem_primesIn
    primePowProd_le_pow_length primePowProd_le_listProd primesIn_length_le)
 open E213.Lens.Number.Nat213.MultSystem (binom)
 open E213.Lens.Number.Nat213.MultSystemValue
-  (central_binom_pos primesIn mem_primesIn_prime mem_primesIn_gt
-   primesIn_split listProd listProd_append listProd_pos)
+  (central_binom_pos primesIn mem_primesIn_prime mem_primesIn_gt mem_primesIn_le
+   primesIn_split listProd listProd_append listProd_pos four_pow_le_succ_mul_central_binom)
 open E213.Lib.Math.NumberTheory.Primorial (primorial_le_four_pow)
 open E213.Lib.Math.NumberTheory.IntSqrt (isqrt isqrt_bracket)
 open E213.Lens.Number.Nat213.ChebyshevLower (prime_pow_vp_central_binom_le vp_central_binom_le_floorLog)
@@ -226,6 +226,40 @@ theorem central_binom_upper_bound {n : Nat} (hn : 3 ≤ n)
         (listProd_pos (fun p hp => Nat.lt_of_lt_of_le (by decide) (mem_primesIn_prime hp).1))
     exact Nat.le_trans (Nat.le_trans hb hmono) (primorial_le_four_pow (2 * n / 3))
   exact Nat.mul_le_mul hhigh hlow
+
+/-! ## §7 — Bertrand for large `n`, reduced to the crossover inequality -/
+
+/-- ★★★ **Bertrand's postulate for large `n`, modulo the crossover.**  Given the two
+    pure-`Nat` facts that hold for `n ≥ N₀` — `√(2n) ≤ 2n/3` and the **crossover**
+    `(2n+1)·4^{2n/3}·(2n)^{√(2n)} < 4ⁿ` — there is a prime `p` with `n < p ≤ 2n`.
+
+    Constructive (no `by_contra`/Classical): case on whether `primesIn n (2n)` is
+    empty.  Nonempty ⟹ its head is the witness.  Empty ⟹ no prime in `(n,2n]`, so
+    the Erdős upper bound `C(2n,n) ≤ 4^{2n/3}·(2n)^{√(2n)}` holds; combined with the
+    lower bound `4ⁿ ≤ (2n+1)·C(2n,n)` and the crossover, `4ⁿ < 4ⁿ` — contradiction.
+    The remaining work for full Bertrand is purely discharging the two hypotheses
+    (the asymptotic, `n ≥ N₀`) + a finite prime chain for `n < N₀`.  ∅-axiom. -/
+theorem exists_prime_in_window {n : Nat} (hn : 3 ≤ n)
+    (hsplit : isqrt (2 * n) ≤ 2 * n / 3)
+    (hcross : (2 * n + 1) * (4 ^ (2 * n / 3) * (2 * n) ^ (isqrt (2 * n))) < 4 ^ n) :
+    ∃ p, IsPrime213 p ∧ n < p ∧ p ≤ 2 * n := by
+  cases hl : primesIn n (2 * n) with
+  | cons q rest =>
+      have hmem : q ∈ primesIn n (2 * n) := by rw [hl]; exact List.Mem.head rest
+      exact ⟨q, mem_primesIn_prime hmem, mem_primesIn_gt hmem, mem_primesIn_le hmem⟩
+  | nil =>
+      exfalso
+      have hnobig : ∀ p, IsPrime213 p → n < p → p ≤ 2 * n → False := by
+        intro p hp h1 h2
+        have hpm : p ∈ primesIn n (2 * n) := mem_primesIn hp h1 h2
+        rw [hl] at hpm; nomatch hpm
+      have hlow : 4 ^ n ≤ (2 * n + 1) * binom (2 * n) n :=
+        four_pow_le_succ_mul_central_binom n
+      have hupp : binom (2 * n) n ≤ 4 ^ (2 * n / 3) * (2 * n) ^ (isqrt (2 * n)) :=
+        central_binom_upper_bound hn hsplit hnobig
+      have hcomb : 4 ^ n ≤ (2 * n + 1) * (4 ^ (2 * n / 3) * (2 * n) ^ (isqrt (2 * n))) :=
+        Nat.le_trans hlow (Nat.mul_le_mul (Nat.le_refl (2 * n + 1)) hupp)
+      exact Nat.lt_irrefl _ (Nat.lt_of_lt_of_le hcross hcomb)
 
 /-- ★★★ **Explicit prime factorization of the central binomial coefficient.**
     `C(2n,n) = ∏_{p ≤ 2n, prime} p^{vₚ(C(2n,n))}` — the FTA product form
