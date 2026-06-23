@@ -27,7 +27,7 @@ what quotient-size?* The reading has named ends.
 ## Derivation
 
 The two ends are the same object — `det` as quotient-characteristic — read at opposite
-extremes, and the **sharpening matters**: "나누어 떨어진다 (divides evenly)" names the
+extremes, and the **sharpening matters**: "divides evenly" names the
 `det = ±1` *unit* end, **not** `det = 0`. Clean division is the quotient *closing* with a unit;
 `det = 0` is the quotient *failing to close* (a free direction survives, the cokernel is
 infinite). They are not the same intuition — they are the poles of one.
@@ -65,8 +65,8 @@ it names the spectrum `{0 : collapse, ±1 : unit-iso, other : proper quotient}` 
 
 The alternating property's natural home is **antisymmetrization**, not cofactor cancellation.
 In the Leibniz reading `det M = Σ_σ sign(σ) · Πᵢ M[i, σ(i)]`, a row swap is `σ ↦ σ∘τ` and
-`sign(σ∘τ) = −sign(σ)`, so coincident pointings cancel *structurally* — "겹친 pointing은 구별을
-안 만든다" is the syntax, not a lemma. The cofactor route reaches the same `0` by a column-skip
+`sign(σ∘τ) = −sign(σ)`, so coincident pointings cancel *structurally* — "overlapping pointings
+make no distinction" is the syntax, not a lemma. The cofactor route reaches the same `0` by a column-skip
 involution: `Linalg213/DetN.colShift_comm` (deleting two columns in either order is the same)
 pairs the terms `(j=a, k=b−1)` and `(j=b, k=a)` with opposite `altSign` and equal double-minor
 (`detMinorMinor_comm`). The pairing-cancellation **is** `sign(σ∘τ) = −sign(σ)` read through a

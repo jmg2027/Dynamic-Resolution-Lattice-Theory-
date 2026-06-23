@@ -10,6 +10,10 @@ Mingu's full elaboration :
 >  압착(Squashing)해버렸습니다.  직교하던 90도 축(Y축)이 압착
 >  과정에서 기하학적으로 접히면서, 졸지에 X축의 180도 반대
 >  방향인 것처럼 보이게 된 것입니다."
+>  (Translation: "ZFC squashed the 2D SignedCut plane onto a 1D line
+>  orthogonal to the 45° diagonal.  As the once-orthogonal 90° axis
+>  (the Y-axis) folded geometrically during the squashing, it abruptly
+>  came to look as if it were the 180°-opposite direction of the X-axis.")
 
 The `(a + c, b + c) ~ (a, b)` cancellation equivalence  IS
 the **gauge freedom** along the 45° diagonal.  In 2D SignedCut

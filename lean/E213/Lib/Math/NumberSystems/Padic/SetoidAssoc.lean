@@ -157,8 +157,8 @@ theorem zp_add_zero_left_equiv (p : Nat) (hp : 0 < p) (x : ZpSeq p) :
 
 /-- ★★★★★ **Setoid-level ring laws for Zp.add capstone**.
 
-    Closes the open follow-up "Zp.add 결합법칙을 LensMap composition
-    law로 추상화한 chain".  All three ring laws (assoc, comm, zero)
+    Closes the open follow-up "the chain abstracting Zp.add's
+    associativity law into a LensMap composition law".  All three ring laws (assoc, comm, zero)
     realized at the Setoid level via:
 
       (a) Truncation arithmetic (Pattern: Residual Induction)

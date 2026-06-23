@@ -9,9 +9,9 @@ import E213.Lib.Math.Geometry.TriangularTower.AbsorbedByThree
 5 cluster witnesses + total bundle.
 
 Synthesis of Mingu's three insights:
-  1. 25-층 삼각형 건물 = narrowing tower
-  2. 각 층 최적 비트 정밀도 (3의 크기) 존재
-  3. 2가 잃는 게 아니라 3이 *가져가는* 것 (absorption)
+  1. 25-level triangular building = narrowing tower
+  2. each level has an optimal bit precision (size of 3)
+  3. 2 doesn't lose, 3 *takes* it (absorption)
 
 Plus the squashed-ℝ interpretation: ZFC ℝ = level-2 with
 absorbed 3-axes from 23 levels above.

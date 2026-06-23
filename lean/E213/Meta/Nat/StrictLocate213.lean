@@ -7,7 +7,7 @@ import E213.Meta.Nat.PureNat
 **strict** order `<` (precedence, "right after"), never `≤`.  `≤` already
 contains `=` — `a ≤ b ↔ a < b ∨ a = b` — so a `≤`-sandwich presupposes the
 very `=` it pretends to derive: circular, and the sandwich is then
-pointless ("등호 있는 부등호를 쓰면 샌드위치를 뭐하러 해").
+pointless ("if you use an inequality that includes equality, why bother with the sandwich").
 
 With no number concept and no `=`, the only way to point at a specific list
 element is "**the element right after `a` and right before `b`**", and that

@@ -155,7 +155,7 @@ The three `det = 1` faces share one geometric frame: **product of two reflection
 (`disc < 0`, intersecting mirrors → rotation, `FoldReflections`), parabolic `T = Aₚ·Bₚ`
 (`disc = 0`, parallel mirrors → translation, the difference-Lens depth-1 rung), hyperbolic
 `G = A·B` (`disc > 0`, ultraparallel mirrors → boost).  The two elliptic generators then give the
-modular group: `S` (projective order 2, the 영무한대 swap of the folds) and `U` (projective order 3,
+modular group: `S` (projective order 2, the zero-infinity swap of the folds) and `U` (projective order 3,
 the Eisenstein 3-cycle `∞↦0↦−1↦∞`) realize `PSL(2,ℤ) = ℤ₂ * ℤ₃`
 (`EllipticCycleFixtures.elliptic_generators_are_two_and_three`).  φ lives on the boost
 (`|tr| > 2`); π lives on the rotation (`|tr| < 2`) taken to an irrational angle — where the periodic

@@ -8,6 +8,10 @@ import E213.Lens.Number
 User insight: "2와 3은 진짜 직교하면 서로 힘을 받을 수
 없다.  1이 접착제이고 회전축.  2-3 spiral이 1의 rotation에서 나옴.
 2-1-3은 불가분 — 하나만으론 무력, 둘 있으면 셋째 자동 도출."
+(Translation: "If 2 and 3 are truly orthogonal, they cannot exert force
+on each other.  1 is the glue and the rotation axis.  The 2-3 spiral
+arises from the rotation of 1.  2-1-3 is indivisible — any one alone is
+powerless; with two present, the third is automatically derived.")
 
 The Möbius P matrix `[[2, 1], [1, 1]]` directly encodes this:
 - top-left entry: **2** (= NT)
@@ -65,6 +69,8 @@ theorem ns_nt_product : NS * NT = 6 := by decide
 
     User insight: "det가 나누기랑 역할이 똑같잖아.
     진짜 det가 1성분 맞네"
+    (Translation: "det plays the same role as division.  So det really
+    is the 1-component.")
 
     Determinant computation `ad - bc` uses BOTH fold families:
     - mul (within-axis closed)

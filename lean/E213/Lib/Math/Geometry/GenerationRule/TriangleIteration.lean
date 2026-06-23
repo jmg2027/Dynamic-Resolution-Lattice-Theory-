@@ -3,6 +3,7 @@
 
 Mingu's hypothesis:
 > "초항이 1이고 a_n+1 = a_n C 2 + a_n"
+> (Translation: "First term is 1, and a_n+1 = a_n C 2 + a_n")
 
 Reading `a_n C 2` as `C(a_n, 2)` = binomial coefficient
 "choose 2 from a_n" = `a_n · (a_n − 1) / 2`:

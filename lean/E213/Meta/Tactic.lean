@@ -15,7 +15,7 @@ import E213.Meta.Tactic.VerifyConjugation
 
 /-! Spec-as-code entry point for `E213.Meta.Tactic`.
 
-  Meta layer tactics — Lean 4 와의 bridge.  Ring-independent
+  Meta layer tactics — bridge with Lean 4.  Ring-independent
   per `ARCHITECTURE.md`.  Two families coexist:
 
   ## A. 213-native arithmetic tactics

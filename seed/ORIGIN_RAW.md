@@ -5,7 +5,7 @@
 `ORIGIN.md` records the **physics** chain (Zeno → pixels → DRLT) from
 which the repo began.  This file records the **axiom-side companion**:
 the originator's dialogue in which the Raw axiom's four clauses are
-rebuilt from the single notion *difference* (다름) — minimal contrast,
+rebuilt from the single notion *difference* — minimal contrast,
 reification of the difference, direction-freedom, no self-pair — and
 then extended past the written corpus into an **asynchronous event
 reading** of Raw growth (no global clock; two pure event kinds; the

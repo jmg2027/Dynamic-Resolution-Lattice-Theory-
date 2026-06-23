@@ -7,9 +7,9 @@ Replacements for Lean-core `Nat.*` lemmas that bring `propext` (or
 `Quot.sound`) into downstream theorems.  Every theorem here is
 verified `#print axioms` ∅.
 
-**Naming note**: 이 헬퍼들은 Lean 의 `Nat` 위에서 작동한다 (type
-`Nat213` 과 구별).  213-native positive nat 타입은
-`Lens.Number.Nat213.{Raw, Peano}` 에 있음.
+**Naming note**: these helpers operate over Lean's `Nat` (distinct
+from the type `Nat213`).  The 213-native positive nat type is in
+`Lens.Number.Nat213.{Raw, Peano}`.
 
 Companion to `Omega213.lean` (linear arithmetic tactic) and
 `Fin213.lean` (Fin-construction helpers).  See

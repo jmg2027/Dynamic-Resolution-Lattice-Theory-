@@ -9,6 +9,10 @@ Mingu's deep insight:
 > "근데 양수에서 음수로 확장하는게 복소수로 확장하는거랑 같은
 >  기저 추가인게 참 신기하네... 그럼 음수가 사실 180도가 아니라
 >  90도인거고 그런건가"
+> (Translation: "But it's really fascinating that extending from
+>  positives to negatives is the same basis-addition as extending
+>  to the complex numbers... so does that mean a negative is
+>  actually not 180° but 90°?")
 
 213-native answer: **YES, structurally**.  Both "negative" and
 "imaginary" occupy the **same orthogonal pair slot** `(0, 1)`.

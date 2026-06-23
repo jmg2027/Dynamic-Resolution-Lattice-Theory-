@@ -110,7 +110,7 @@ generator `U = [[0,−1],[1,1]]` (projective order 3, `U³ = −I`), whose Möbi
 a fixed-point-free **3-cycle** `∞ ↦ 0 ↦ −1 ↦ ∞` on the Eisenstein fixture `{∞, 0, −1}`
 (`EllipticCycleFixtures.uCyc`, `elliptic_generators_are_two_and_three`).  So the two elliptic
 generators realize the two cyclic fixtures whose projective orders `2, 3` are the free factors
-`PSL(2,ℤ) = ℤ₂ * ℤ₃` — the **ℤ₂ from the folds** (the 영무한대 swap), the **ℤ₃ from Eisenstein**.  The
+`PSL(2,ℤ) = ℤ₂ * ℤ₃` — the **ℤ₂ from the folds** (the zero-infinity swap), the **ℤ₃ from Eisenstein**.  The
 fold lens reaches the full modular group: `0 = ∞` and the two folds at the bottom, `PSL(2,ℤ)` as the
 group of their swaps.
 

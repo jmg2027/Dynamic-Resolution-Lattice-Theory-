@@ -73,7 +73,7 @@ theorem lensIso_iff_kernel_eq {α β : Type} (L : Lens α) (M : Lens β) :
 /-- **Equivalence class** as a subtype: the fiber of `L.view`
     at a value `a : α`.  This is 213's representation of the
     quotient — no Quot.sound required, just the Raw subtype.
-    The 동치류 of `r` is `LensFiber L (L.view r)`. -/
+    The equivalence class of `r` is `LensFiber L (L.view r)`. -/
 def LensFiber {α : Type} (L : Lens α) (a : α) : Type :=
   { r : Raw // L.view r = a }
 
@@ -92,7 +92,7 @@ theorem fibers_complete {α : Type} (L : Lens α) (r : Raw) :
     both combines symmetric) realises the Lens-arrow `L.refines
     M`.  Restatement of `refines_of_morphism` at the unification
     layer.  The homomorphism IS the refinement-arrow witness;
-    there is no separate "준동형" object — only this arrow. -/
+    there is no separate "homomorphism" object — only this arrow. -/
 theorem morphism_is_arrow {α β : Type} (L : Lens α) (M : Lens β)
     (h : α → β)
     (hLsym : ∀ u v : α, L.combine u v = L.combine v u)

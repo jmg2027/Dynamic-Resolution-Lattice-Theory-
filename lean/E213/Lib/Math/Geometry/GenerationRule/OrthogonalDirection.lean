@@ -6,6 +6,9 @@ import E213.Lib.Math.Geometry.GenerationRule.GenerationCount
 Mingu's question:
 > "(2+3)^25의 의미가 2,3 둘이 별개의 직교하는 축으로 올라가는게
 >  아니라 2+3인거가 직교하는 축으로 올라가는건가?"
+> (Translation: "Does `(2+3)^25` mean that 2 and 3 climb as two
+>  separate orthogonal axes — or that the *2+3* itself climbs as
+>  the orthogonal axis?")
 
 **Answer: neither, but closer to the second.**
 

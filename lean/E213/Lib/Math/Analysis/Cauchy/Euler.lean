@@ -18,7 +18,7 @@ Consolidated Euler-cut family (CLAUDE.md rule 7):
 | `EulerGenericPure` | parametric template for arbitrary b |
 | `EulerCombinatorialPure` | combinatorial Euler bounds |
 
-Per-section namespaces preserved.  PURE 진화: Seq → Sharper →
+Per-section namespaces preserved.  PURE evolution: Seq → Sharper →
 KernelFree → Pure (final ∅-axiom form).
 -/
 

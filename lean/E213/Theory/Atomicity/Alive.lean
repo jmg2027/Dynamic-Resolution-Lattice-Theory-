@@ -14,9 +14,9 @@ no self-pair `x/x`) **applied recursively at the count-Lens group
 level**.
 
 User insight:
-  > "Raw는 트리 형태가 아니다.  모든 Raw는 연산이기도 하고 객체이기도
-  >  하기 때문 — 즉 애초에 연산과 객체도 정의되지 않은 상태이다."
-  > "객체 간의 관계도 객체일거고.  타입도 객체일거고."
+  > "Raw is not in tree form.  Because every Raw is both an operation and
+  >  an object — that is, operation and object are not even defined to begin with."
+  > "The relation between objects would also be an object.  The type would also be an object."
 
 If every Raw event is simultaneously operation and object, Clause 4
 is not restricted to atomic Raw distinguishables — it applies at

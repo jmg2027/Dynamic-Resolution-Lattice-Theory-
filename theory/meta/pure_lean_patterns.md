@@ -21,7 +21,7 @@ needs.
 **Witness**: `Lib/Math/NumberSystems/Padic/NegInvolutionFull.lean` +
 `NegInvolutionPreserve.lean`.
 
-  `Zp.neg`의 carry at position k+1 turns out to be
+  The `Zp.neg` carry at position k+1 turns out to be
   `1` iff `all_zero_below x (k+1) = true` (all digits below k+1
   are zero) — a single Bool, regardless of how many digits.
 

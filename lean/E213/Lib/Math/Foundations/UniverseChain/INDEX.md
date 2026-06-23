@@ -44,9 +44,9 @@ Theorems are split across the current 4-ring layout:
 102 ∅-axiom theorems in the extension.
 
 **Step 0 (Residue)** formalises Mingu's articulation
-> "구분을 하면 항상 잔여물이 남는거 아냐?"
+> "doesn't distinguishing always leave a residue?"
 
-= G29 point 3 ("그 짝도 다시 가리킬 수 있다")
+= G29 point 3 ("that pair too can be pointed at again")
 = the type signature `slash : (x y : Raw) → x ≠ y → Raw`.
 
 The codomain `Raw` of `slash` makes the residue an inhabitant of

@@ -5,7 +5,7 @@ import E213.Lib.Math.Foundations.UniverseChain.PairAxes
 # Step 3.5 — Triangle recurrence bridge (∅-axiom)
 
 Mingu's chain step:
-> "관계도 또 다른 관계 ⇒ 2+1 규칙 (둘 + 짝)
+> "a relation is yet another relation ⇒ the 2+1 rule (the two + the pair)
 >  ⇒ a_{n+1} = a_n + C(a_n, 2)"
 
 This file bridges the existing `triIter 2 n` sequence

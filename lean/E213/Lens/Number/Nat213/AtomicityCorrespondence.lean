@@ -4,8 +4,8 @@ import E213.Theory.Raw.API
 /-!
 # Lens.Number.Nat213.AtomicityCorrespondence — 2/3/5 in lens fractal
 
-User question: "프랙탈성의 원자가 Raw의 슬래시 어쩌구
-인거면, atomicity에서 증명된 2, 3과 d=5는 뭣일까?"
+User question: "If the atom of fractality is Raw's slash-or-whatever,
+then what are the 2, 3 and d=5 proved in atomicity?"
 
 Connects the lens-fractal structure to the atomicity result:
 

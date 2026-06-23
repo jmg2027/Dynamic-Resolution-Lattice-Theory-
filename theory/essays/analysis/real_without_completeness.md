@@ -1,6 +1,6 @@
 # Is a real number graspable without completeness?
 
-Triggering question: *실수란 무엇인가 — 완비성 없이 실수가 손에 잡히는가?*
+Triggering question: *What is a real number — is a real graspable without completeness?*
 
 A real `x` is a decision procedure `c : ℕ → ℕ → Bool`, `c m k = ⟦x ≤ m/k⟧`.
 The procedure *is* the real. The limit is the cut the procedure already

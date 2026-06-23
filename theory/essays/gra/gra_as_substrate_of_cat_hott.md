@@ -2,8 +2,8 @@
 
 ## Triggering question
 
-> "카테고리나 HoTT 같은 역할을 GRA 가 더 본질적인 자리에서
-> 수행할 수도 있겠는데."
+> "GRA might perform the role of something like Category theory or HoTT
+> from a more fundamental position."
 
 Could the (2, 3)-graded residue arithmetic occupy the position
 that Category theory and Homotopy Type Theory are normally

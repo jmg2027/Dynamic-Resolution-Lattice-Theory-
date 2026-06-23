@@ -9,8 +9,9 @@ import E213.Lib.Math.NumberSystems.SignedCut.Hurwitz.HurwitzFailure
 Bundle of re-exported witnesses for the generalised Cayley-Dickson
 tower algebra (each conjunct is an existing lemma):
 
-> "이 일반화된 대수와 그 성질들(잃는것 남는것 모두)가
->  수 체계의 전부 + 213 대수인듯"
+> "this generalised algebra and its properties (both what is lost
+>  and what remains) seem to be the whole of the number systems + the
+>  213 algebra"
 
   * Quaternion / Octonion mul rules (levels 2, 3).
   * Hurwitz norm-product magnitude bound (level 1; positive

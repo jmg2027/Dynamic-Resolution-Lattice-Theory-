@@ -11,10 +11,10 @@ and the Möbius-orbit canonical-form chain in
 
 In 213 the four classical concepts —
 
-  · **equivalence relation** (동치)
-  · **equivalence class** (동치류)
-  · **isomorphism** (동형)
-  · **homomorphism** (준동형)
+  · **equivalence relation**
+  · **equivalence class**
+  · **isomorphism**
+  · **homomorphism**
 
 — are decompositions of one residue-internal object: the
 **Lens-arrow**.  None is added on top of Raw; all four are

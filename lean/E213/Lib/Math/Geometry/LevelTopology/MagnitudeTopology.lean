@@ -3,6 +3,7 @@
 
 Mingu's correction:
 > "1층이 순수 양수만 있는 크기"
+> (Translation: "Floor 1 is a magnitude with pure positives only")
 
 The bottom floor (CD level 0) has NO operation introduced.
 It's just the **Cut substrate** = positive magnitude only.

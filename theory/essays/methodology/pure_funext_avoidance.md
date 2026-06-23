@@ -1,90 +1,99 @@
-# PURE Lean에서 funext-blocked 정리를 닫는 다섯 패턴
+# Five patterns for closing funext-blocked theorems in PURE Lean
 
-`Eq : (Nat → α) → (Nat → α) → Prop`을 "두 함수의 모든 출력이 같다"로 만들려면 `funext`가 필요한데, 그 axiom은 `propext`를 동반한다.  213은 *외부에서 함수를 점검하는 관찰자*가 없으므로 (`seed/AXIOM/05_no_exterior.md` §5.1), funext-style 함수 동일성을 직접 주장할 수 없다.  대신 **각 distinguishing event에서 일치한다**는 pointwise 사실들을 모아서, 그것이 *어떻게 묶여 있는지* 구조 레벨에서 표현한다.  다섯 패턴은 그 묶음 방법이다.
+Making `Eq : (Nat → α) → (Nat → α) → Prop` mean "all outputs of the two functions agree"
+requires `funext`, and that axiom drags `propext` along with it.  213 has *no observer who
+inspects functions from outside* (`seed/AXIOM/05_no_exterior.md` §5.1), so it cannot assert
+funext-style function identity directly.  Instead it gathers the pointwise facts **that they
+agree at each distinguishing event** and expresses, at the structural level, *how those facts
+are bundled*.  The five patterns are that bundling method.
 
-## 213-native 정의
+## 213-native definition
 
-함수 동일성은 213에서 **trajectory의 endpoint 일치**다.  두 trajectory가 같은 입력에서 출발해 같은 distinguishing 출력에 도달하면, 그 두 trajectory는 *같다고 인정된다* — 함수 자체가 같다는 별도의 주장 없이.  네 패턴은 이 trajectory-endpoint 일치를 **구조적으로 코드화**하는 네 가지 형태다.
+In 213, function identity is **agreement of trajectory endpoints**.  If two trajectories
+start from the same input and arrive at the same distinguishing output, those two
+trajectories are *recognized as equal* — with no separate claim that the functions
+themselves are equal.  The four patterns are four forms that **structurally encode** this
+trajectory-endpoint agreement.
 
-## 도출
+## Derivation
 
-**State Accumulator** (`lean/E213/Lib/Math/NumberSystems/Padic/NegInvolutionFull.lean` + `NegInvolutionPreserve.lean`).  `Zp.neg ∘ Zp.neg = id`의 carry-chain은 polynomially blow up하는 것처럼 보였다.  단일 Bool `all_zero_below x k`로 압축하니 매 단계 분기가 2개로 고정됐다.  `neg_carry_eq_state`가 carry를 state로 환원하고, `neg_preserves_state`가 `Zp.neg`가 state를 보존함을 보이고, `zp_neg_neg_digit_at`이 모든 k에서 `((Zp.neg(Zp.neg x)).digits k).val = (x.digits k).val`을 증명한다.  Trajectory의 *기억해야 할 부분*이 항상 1 bit라는 발견 — 이것이 carry chain의 213-native 핵심.
+**State Accumulator** (`lean/E213/Lib/Math/NumberSystems/Padic/NegInvolutionFull.lean` + `NegInvolutionPreserve.lean`).  The carry-chain of `Zp.neg ∘ Zp.neg = id` looked like it would blow up polynomially.  Compressing it to a single Bool `all_zero_below x k` fixed the branching at 2 per step.  `neg_carry_eq_state` reduces the carry to a state, `neg_preserves_state` shows that `Zp.neg` preserves the state, and `zp_neg_neg_digit_at` proves `((Zp.neg(Zp.neg x)).digits k).val = (x.digits k).val` at every k.  The discovery that the *part of the trajectory that must be remembered* is always 1 bit — this is the 213-native core of the carry chain.
 
-**Bundled Subtype** (`lean/E213/Lib/Math/NumberSystems/Real213/ValidCut/IntValidCut.lean`).  `cutSum_assoc`의 precision-doubling artifact (`cutSum (cutSum cx cy) cz`가 cx를 `4k`에서 읽고, `cutSum cx (cutSum cy cz)`는 `2k`에서 읽음)는 일반 cut에서는 막힌다.  `IntValidCut := { cut, represents, is_integer }`로 cut에 "정수를 represent한다"는 cutEq 증명을 같이 묶으면, 두 association이 모두 `constCut ((a+b)+c) 1`로 환원돼 `Nat.add_assoc`이 마무리.  Invariant를 hypothesis로 들고 다니지 않고 *구조 안에* 묶는다 — 동일성의 trajectory를 type-level에서 폐쇄.
+**Bundled Subtype** (`lean/E213/Lib/Math/NumberSystems/Real213/ValidCut/IntValidCut.lean`).  The precision-doubling artifact of `cutSum_assoc` (`cutSum (cutSum cx cy) cz` reads cx at `4k`, while `cutSum cx (cutSum cy cz)` reads it at `2k`) is blocked for a general cut.  If one bundles into the cut, via `IntValidCut := { cut, represents, is_integer }`, a cutEq proof that "it represents an integer", then both associations reduce to `constCut ((a+b)+c) 1` and `Nat.add_assoc` finishes.  The invariant is bundled *into the structure* rather than carried as a hypothesis — closing the identity trajectory at the type level.
 
-**Setoid Category** (`lean/E213/Lib/Math/NumberSystems/Padic/SetoidFramework.lean` + `SetoidAlgebra.lean` + `ZpSqrtDSetoid.lean`).  `ZpSeqEquiv x y := ∀ k, x.digits k = y.digits k`는 pointwise 일치를 *함수의 동치*로 부르기로 한 결정이다.  `Setoid (ZpSeq p)` 인스턴스가 이 결정을 type-level에서 명시하고, `LensMap`이 *동치를 보존하는* morphism을 묶는다.  `zp_neg_neg_equiv_id`는 `Zp.neg ∘ Zp.neg`와 `id`가 *함수로서 동치*임을 funext 없이 진술한다.  함수 동일성이 `Eq`가 아니라 *명시적 동치 관계*로 환원.
+**Setoid Category** (`lean/E213/Lib/Math/NumberSystems/Padic/SetoidFramework.lean` + `SetoidAlgebra.lean` + `ZpSqrtDSetoid.lean`).  `ZpSeqEquiv x y := ∀ k, x.digits k = y.digits k` is the decision to call pointwise agreement *equivalence of functions*.  The `Setoid (ZpSeq p)` instance makes this decision explicit at the type level, and `LensMap` bundles *equivalence-preserving* morphisms.  `zp_neg_neg_equiv_id` states that `Zp.neg ∘ Zp.neg` and `id` are *equivalent as functions* without funext.  Function identity is reduced not to `Eq` but to an *explicit equivalence relation*.
 
-**Residual Induction** (`lean/E213/Lib/Math/NumberSystems/Padic/HenselResidual.lean`, surfacing 기존 `Padic/Hensel.lean`).  Hensel-lifted 역원 `Y_n`의 정확성을 carry chain으로 보이려는 시도는 막히지만, truncation `(X_n · Y_n).trunc (n+1) = 1`의 *잔여항 recurrence*는 carry를 우회한다.  `Zp.mul_invSeq_correct`이 모든 level n에서 truncation 일치를 증명하고, `Zp.invSeq_succ_trunc_extend`가 level n→n+1 lift를 일반적 Nat/Int 산술로만 표현.  Carry-chain의 무한 루프 대신 truncation 단위 *대수적* recurrence.
+**Residual Induction** (`lean/E213/Lib/Math/NumberSystems/Padic/HenselResidual.lean`, surfacing the existing `Padic/Hensel.lean`).  An attempt to show the correctness of the Hensel-lifted inverse `Y_n` via a carry chain is blocked, but the *residual-term recurrence* of the truncation `(X_n · Y_n).trunc (n+1) = 1` bypasses the carry.  `Zp.mul_invSeq_correct` proves the truncation agreement at every level n, and `Zp.invSeq_succ_trunc_extend` expresses the level n→n+1 lift in general Nat/Int arithmetic alone.  An *algebraic* recurrence in truncation units, instead of the infinite loop of a carry chain.
 
-**Inductive cong constructor**.  함수-typed argument를 가진 inductive predicate `P`에서, 어떤 후보 함수 `candidate`가 target `v`와 *pointwise 같지만 함수 literal로는 다른* 경우 (`candidate v = ⊕ᵢ bᵢ·gᵢ` 같은 generator XOR-add 구성), `funext` 없이는 `P v`에 도달할 수 없는 듯 보인다.  해결: `P` inductive type에 pointwise 동치를 전파하는 새 constructor를 추가
+**Inductive cong constructor**.  In an inductive predicate `P` with a function-typed argument, when some candidate function `candidate` is *pointwise equal to* the target `v` *but a different function literal* (a generator XOR-add construction like `candidate v = ⊕ᵢ bᵢ·gᵢ`), it appears one cannot reach `P v` without `funext`.  Solution: add to the `P` inductive type a new constructor that propagates pointwise equivalence
 ```
 | cong (v w : EnrichedFaceVal c) (h : ∀ s t m, v s t m = w s t m) :
     P w → P v
 ```
-— pointwise 동치를 *inductive 구조 자체*에 묶어 witness가 pointwise-eq 동치류 전체에 전파되게 함.  Setoid Category가 *외부* 동치 관계로 함수 동일성을 환원하는 데 비해, cong constructor는 *inductive type 안에* 동치를 embedding한다 — pointwise 사실이 *그 자리에서* membership 자격을 부여 (predicate가 동치류에서 정의된다는 것을 *형태*가 명시).
+— bundling pointwise equivalence *into the inductive structure itself* so that the witness propagates across the entire pointwise-eq equivalence class.  Whereas the Setoid Category reduces function identity via an *external* equivalence relation, the cong constructor embeds the equivalence *inside the inductive type* — a pointwise fact confers membership eligibility *on the spot* (the *shape* makes explicit that the predicate is defined on equivalence classes).
 
 ## Dual function
 
-이 네 패턴은 classical Lean의 funext 우회 트릭이면서, *동시에* 213의 trajectory-witness 원칙의 구체화다 — *함수가 같다*가 아니라 *trajectory의 distinguishing endpoint가 일치한다*가 213의 동일성이다. Funext가 강제하는 packaging("두 함수가 모든 점에서 같으면 그들은 같다")을 벗기고 나면 남는 것이 바로 G2의 trajectory-as-witness, 즉 *동일성은 도달하는 distinguishing의 일치다*라는 입장.
+These four patterns are funext-bypass tricks of classical Lean while *at the same time* being concretizations of 213's trajectory-witness principle — 213's identity is *the distinguishing endpoints of trajectories agree*, not *the functions are equal*.  Once you strip away the packaging that funext enforces ("if two functions agree at every point they are equal"), what remains is exactly G2's trajectory-as-witness, namely the stance that *identity is the agreement of the distinguishing reached*.
 
 ## Cross-frame connections
 
-같은 구조적 사실의 다섯 가지 표현:
-  - **State Accumulator** = §5 self-pointing이 *현재 상태를 통해서만* 다음 step에 영향을 미친다 (외부 history 참조 없음).
-  - **Bundled Subtype** = §8.4 dichotomy avoidance의 type-level 실현 (가정을 외부 hypothesis로 두지 않고 구조 안에 묶음).
-  - **Setoid Category** = 동일성을 별도 외부 판정자 없이 *내부 관계*로 정의.
-  - **Residual Induction** = G2 trajectory-as-witness가 carry chain 대신 truncation에서 작동.
-  - **Inductive cong constructor** = inductive 구조 *안에* 동치류를 embedding — Setoid가 외부 관계를 type-level로 끌어들이는 데 비해, cong은 동치 자체를 inductive type의 한 case로 만든다 (predicate가 동치류에서 정의된다는 것을 *형태*가 명시).
+Five expressions of the same structural fact:
+  - **State Accumulator** = §5 self-pointing affects the next step *only through the current state* (no external history reference).
+  - **Bundled Subtype** = type-level realization of §8.4 dichotomy avoidance (bundling the assumption into the structure rather than leaving it as an external hypothesis).
+  - **Setoid Category** = defining identity as an *internal relation* with no separate external adjudicator.
+  - **Residual Induction** = G2 trajectory-as-witness operating on truncation instead of the carry chain.
+  - **Inductive cong constructor** = embedding the equivalence class *inside* the inductive structure — whereas the Setoid pulls an external relation up to the type level, cong makes the equivalence itself one case of the inductive type (the *shape* makes explicit that the predicate is defined on equivalence classes).
 
-다섯 패턴 모두 *내부 일관성에서 동일성을 유추한다*는 같은 213-native 입장에서 파생된다.  Funext 부재는 *결함*이 아니라 213이 외부 관찰자에게 함수 동일성을 양도하지 않는다는 *입장*의 직접 결과.
+All five patterns derive from the same 213-native stance that *identity is inferred from internal consistency*.  The absence of funext is not a *defect* but the direct result of the *stance* that 213 does not cede function identity to an external observer.
 
 ## Closed follow-ups
 
-원래 essay 작성 시점의 두 follow-up은 모두 closed:
+Both follow-ups from the time the original essay was written are now closed:
 
-- **Zp.add 결합법칙을 LensMap composition law로 추상화** — `Lib/Math/NumberSystems/Padic/SetoidAssoc.lean` (8 PURE).  `Zp.add_trunc` (Residual Induction)으로 truncation 단위 결합법칙을 환원, `digits_eq_of_trunc_eq`로 digit-equality 추출, `zp_add_setoid_monoid_capstone`이 monoid 구조 (assoc + comm + zero) 전체를 Setoid 레벨에서 묶음 (`zp_add_setoid_group_capstone`이 `x+(−x)≈0`까지 더해 가법 아벨군 완성).  핵심: trunc-level 결합법칙은 `Nat.add_assoc + add_mod_gen` chain.
+- **Abstracting Zp.add associativity into a LensMap composition law** — `Lib/Math/NumberSystems/Padic/SetoidAssoc.lean` (8 PURE).  Reduces associativity to truncation units via `Zp.add_trunc` (Residual Induction), extracts digit-equality via `digits_eq_of_trunc_eq`, and `zp_add_setoid_monoid_capstone` bundles the entire monoid structure (assoc + comm + zero) at the Setoid level (`zp_add_setoid_group_capstone` adds `x+(−x)≈0` to complete the additive abelian group).  Core: trunc-level associativity is the `Nat.add_assoc + add_mod_gen` chain.
 
-  - **가환환까지 — 곱셈 Setoid 항등식** (`SetoidMul.lean`, 7 PURE).  같은 `of_trunc_all` lift를 곱셈의 ring-quotient 정리(`Zp.mul_trunc_comm`/`mul_trunc_assoc`/`mul_add_trunc`/`add_mul_trunc`, 그리고 `mul_trunc_one_left`)에 적용해 `zp_mul_comm_equiv`/`zp_mul_assoc_equiv`/`zp_mul_one_left_equiv`(곱셈 가환 monoid) + 좌·우 분배(`zp_mul_add_distrib_equiv`/`zp_add_mul_distrib_equiv`)를 Setoid 레벨에서 닫음.  `zp_setoid_commRing_capstone`이 가법 아벨군 + 곱셈 monoid + 분배를 한 정리로 묶어 **`(ZpSeq p, ZpSeqEquiv)`가 가환환**임을 funext·propext 없이 진술.  곱셈 자체가 `ZpSeqEquiv`를 보존한다는 `SetoidAlgebra.mul_respects`와 합치면 몫 위의 환 구조 전체.
+  - **Up to a commutative ring — the multiplicative Setoid identities** (`SetoidMul.lean`, 7 PURE).  Applying the same `of_trunc_all` lift to the multiplication ring-quotient theorems (`Zp.mul_trunc_comm`/`mul_trunc_assoc`/`mul_add_trunc`/`add_mul_trunc`, and `mul_trunc_one_left`) closes `zp_mul_comm_equiv`/`zp_mul_assoc_equiv`/`zp_mul_one_left_equiv` (multiplicative commutative monoid) + left/right distributivity (`zp_mul_add_distrib_equiv`/`zp_add_mul_distrib_equiv`) at the Setoid level.  `zp_setoid_commRing_capstone` bundles the additive abelian group + multiplicative monoid + distributivity into one theorem, stating that **`(ZpSeq p, ZpSeqEquiv)` is a commutative ring** without funext/propext.  Combined with `SetoidAlgebra.mul_respects` (that multiplication itself preserves `ZpSeqEquiv`), this is the full ring structure on the quotient.
 
-- **`cutSum_assoc`을 integer-extended 너머로** — `Lib/Math/NumberSystems/Real213/ValidCut/HalfValidCut.lean` (11 PURE).  IntValidCut(b=1)을 HalfValidCut(b=2)로 확장.  `cutSum_half_general`이 b=2에서도 bidirectional cutEq를 제공하므로 same pattern (bundled subtype + Nat.add_assoc)이 closure.
+- **Pushing `cutSum_assoc` beyond integer-extended** — `Lib/Math/NumberSystems/Real213/ValidCut/HalfValidCut.lean` (11 PURE).  Extends IntValidCut(b=1) to HalfValidCut(b=2).  Since `cutSum_half_general` provides bidirectional cutEq at b=2 too, the same pattern (bundled subtype + Nat.add_assoc) gives closure.
 
-## b ≥ 3 cutSum_assoc — 진단의 진행
+## b ≥ 3 cutSum_assoc — progress of the diagnosis
 
-원래 "새 정리 작성"으로 분류했던 `b ≥ 3` 의 backward direction은 *cutSum 구현의 hardcode artifact*.  `Lib/Math/NumberSystems/Real213/Sum/CutSumAssocB3.lean` (7 PURE)이 현상을 문서화:
+The backward direction at `b ≥ 3`, originally classified as "write a new theorem", is a *hardcode artifact of the cutSum implementation*.  `Lib/Math/NumberSystems/Real213/Sum/CutSumAssocB3.lean` (7 PURE) documents the phenomenon:
 
-  · **Forward universal**: `cutSum_same_denom_forward`가 임의 `b ≥ 1`에서 성립.
-  · **Backward 반례** at `b ∈ {3, 4, 5}`: 예를 들어 `a = 2, c = 1, b = 3, m = 1, k = 1`에서 `constCut 3 3 1 1 = true`이지만 `cutSum (constCut 2 3) (constCut 1 3) 1 1 = false` (decide-검증).
-  · **Eventual agreement**: `m ≥ 10` 같은 충분한 정밀도에서는 양쪽이 일치.
-  · **Meta capstone** `b_ge_3_assoc_meta`: 위 4개를 한 정리로 묶음.
+  · **Forward universal**: `cutSum_same_denom_forward` holds at any `b ≥ 1`.
+  · **Backward counterexample** at `b ∈ {3, 4, 5}`: for example, at `a = 2, c = 1, b = 3, m = 1, k = 1`, `constCut 3 3 1 1 = true` but `cutSum (constCut 2 3) (constCut 1 3) 1 1 = false` (decide-verified).
+  · **Eventual agreement**: at sufficient precision such as `m ≥ 10`, both sides agree.
+  · **Meta capstone** `b_ge_3_assoc_meta`: bundles the above 4 into one theorem.
 
-상세 분석은 `essays/bool_assoc_failure_meaning.md`.  핵심: `cutSum`의 factor-2 hardcode가 (NS, NT) = (3, 2) atom 중 NT만 반영하고 NS를 빠뜨림.  framework "바깥"의 문제가 아니라 *cutSum 구현이 213의 (3, 2) commitment를 under-realize* 한 것 — `Physics/Foundations/AtomicConstantsParametricFullIff.lean` `c2b_full_iff` + `Theory/Atomicity/Five.lean` `atomic_iff_five`가 (3, 2) → 모든 real 판정 chain을 이미 증명.
+Detailed analysis in `essays/bool_assoc_failure_meaning.md`.  Core: `cutSum`'s factor-2 hardcode reflects only NT of the (NS, NT) = (3, 2) atom and drops NS.  Not a problem "outside" the framework but the cutSum implementation *under-realizing 213's (3, 2) commitment* — `Physics/Foundations/AtomicConstantsParametricFullIff.lean` `c2b_full_iff` + `Theory/Atomicity/Five.lean` `atomic_iff_five` already prove the (3, 2) → every real decision chain.
 
-**Closure 진척**: `Lib/Math/NumberSystems/Real213/Sum/CutSumN.lean` (6 PURE)이 parametric `cutSumN N` (factor-N search granularity) 정의 + 임의 N > 0에서 `cutSumN_same_denom` bidirectional 증명.  `Lib/Math/NumberSystems/Real213/ValidCut/ThirdValidCut.lean` (15 PURE)이 b = 3 결합법칙을 IntValidCut/HalfValidCut 패턴으로 닫음 — `cutSumN_assoc_thirdValidCut` (full assoc), `cutSumN_comm_thirdValidCut`, `thirdvalidcut_full_assoc_capstone`.  CutSumAssocB3의 반례 (a=2, c=1, m=1, k=1)가 `cutSumN 3`에서는 true임을 `cutSumN_3_2_1_at_1_1`이 decide-검증.
+**Closure progress**: `Lib/Math/NumberSystems/Real213/Sum/CutSumN.lean` (6 PURE) defines the parametric `cutSumN N` (factor-N search granularity) + proves `cutSumN_same_denom` bidirectional at any N > 0.  `Lib/Math/NumberSystems/Real213/ValidCut/ThirdValidCut.lean` (15 PURE) closes b = 3 associativity via the IntValidCut/HalfValidCut pattern — `cutSumN_assoc_thirdValidCut` (full assoc), `cutSumN_comm_thirdValidCut`, `thirdvalidcut_full_assoc_capstone`.  `cutSumN_3_2_1_at_1_1` decide-verifies that the CutSumAssocB3 counterexample (a=2, c=1, m=1, k=1) is true under `cutSumN 3`.
 
-미완: `is_native` wrapper (`b ∈ ⟨2, 3⟩` multiplicative monoid 게이트) — b ∈ {1, 2, 3} 각각의 closure는 닫혔으나 일반 multiplicative composite (b = 6, 9, 12, ...)의 통합 wrapper는 follow-up.
+Open: the `is_native` wrapper (the `b ∈ ⟨2, 3⟩` multiplicative monoid gate) — the closure for each of b ∈ {1, 2, 3} is closed, but a unified wrapper for general multiplicative composites (b = 6, 9, 12, ...) is a follow-up.
 
 ## Provenance
 
-이 네 패턴은 external LLM (Gemini Pro) 자문에서 *architectural-level 처방*으로 제안됐고, PURE Lean에서 그대로 구현됐다.  자문 프롬프트는 5개 블로커를 구체적 Lean 파일 / 정리 / 시도-실패 경로와 함께 명시; 응답은 패턴 4개 + 장기 항목 1개 (higher cohomology).  46 chapter closure / 550 PURE / 0 DIRTY가 이 한 자문 cycle의 결과.
+These four patterns were proposed as *architectural-level prescriptions* in a consultation with an external LLM (Gemini Pro), and were implemented as-is in PURE Lean.  The consultation prompt specified 5 blockers together with concrete Lean files / theorems / tried-and-failed paths; the response was 4 patterns + 1 long-term item (higher cohomology).  46-chapter closure / 550 PURE / 0 DIRTY was the result of this single consultation cycle.
 
-| 패턴 | Lean 실현 | 블로커 |
+| Pattern | Lean realization | Blocker |
 |---|---|---|
 | State Accumulator | `NegInvolutionFull` + `NegInvolutionPreserve` | Zp.neg involution |
 | Bundled Subtype | `ValidCutFramework` + `IntValidCut` | cutSum_assoc |
 | Setoid Category | `SetoidFramework` + `SetoidAlgebra` + `ZpSqrtDSetoid` | funext-free function eq |
 | Residual Induction | `HenselResidual` (surfacing `Padic/Hensel`) | Hensel correctness |
-| Inductive cong constructor | inductive predicate에 pointwise-eq `cong` case 추가 | function-typed argument candidate-to-target bridge |
+| Inductive cong constructor | add a pointwise-eq `cong` case to the inductive predicate | function-typed argument candidate-to-target bridge |
 
-External LLM이 213의 입장을 명시적으로 알지 않더라도, *MLTT 내부에서 extensionality를 어떻게 다루는가*라는 동일 구조 문제에 대한 architectural 통찰이 곧장 213-native 실현으로 번역된 사례.
+A case where, even without the external LLM explicitly knowing 213's stance, an architectural insight into the same structural problem of *how to handle extensionality inside MLTT* translated straight into a 213-native realization.
 
-## Lens-arrow 측의 자매 chapter — Pattern P1 ↔ Inductive cong constructor
+## The sister chapter on the Lens-arrow side — Pattern P1 ↔ Inductive cong constructor
 
-`theory/lens/dirty_recovery_patterns.md` 는 DIRTY (propext / Quot.sound)를 PURE Lens-arrow statement로 환원하는 다섯 패턴 (P1-P5)을 제시한다.  본 essay의 다섯 패턴과 **layer가 다르지만 구조가 같다**:
+`theory/lens/dirty_recovery_patterns.md` presents five patterns (P1-P5) that reduce DIRTY (propext / Quot.sound) to a PURE Lens-arrow statement.  They are at **a different layer but the same structure** as this essay's five patterns:
 
-  · **P1 (Lens-Eq → LensIso via eqPW)** ↔ 본 essay의 **Inductive cong constructor**.  P1은 `L = M : Lens α` 라는 funext-요구 주장을 `LensIso L M` (= `∀ x y, L.equiv x y ↔ M.equiv x y`)로 환원하고, bridge `lensIso_of_eqPW`가 pointwise eq proof + symmetric-combine 가정만으로 닫는다.  Inductive cong constructor는 같은 *pointwise-equality-as-bridge* 원리를 임의 inductive predicate (predicate가 function-typed argument를 가질 때)으로 일반화한다 — `InPrimaryCupSpanPlusBoundary`가 그 예시.
-  · P2 (mutual morphism → LensIso): Setoid Category의 자매 — *동치를 외부 관계로 명시*하는 대신 *mutual morphism pair*가 자연스러운 곳에서 적용.
-  · P3 (Quot → LensImage): Bundled Subtype의 Lens-level 변종 — Σ-type representation이 `Quot.sound`를 회피.
-  · P4 (slash-cong 주장 → kernel 상속): universalLens 역방향의 `=`-form을 분리 — recovery 가능 영역과 sealed `=`-shim을 구분.
-  · P5 (Prop-codomain Lens-`equiv` → `equivR` / `refinesR`): "L 아래 동일"의 213-native 의미는 pointwise `↔` (distinguishing-equivalence)이며 PURE.  `view x = view y` (Lean `=`)는 Prop/함수 identity를 추가로 import하는 것 — universalLens 역방향이 structural이 아니라 statement-shape cost임을 보인다 (`universalLens_kernel_eq_E_R` PURE).
+  · **P1 (Lens-Eq → LensIso via eqPW)** ↔ this essay's **Inductive cong constructor**.  P1 reduces the funext-requiring claim `L = M : Lens α` to `LensIso L M` (= `∀ x y, L.equiv x y ↔ M.equiv x y`), and the bridge `lensIso_of_eqPW` closes it using only a pointwise eq proof + a symmetric-combine assumption.  The Inductive cong constructor generalizes the same *pointwise-equality-as-bridge* principle to an arbitrary inductive predicate (when the predicate has a function-typed argument) — `InPrimaryCupSpanPlusBoundary` is its example.
+  · P2 (mutual morphism → LensIso): sister of the Setoid Category — applies where a *mutual morphism pair* is natural instead of *making the equivalence explicit as an external relation*.
+  · P3 (Quot → LensImage): a Lens-level variant of the Bundled Subtype — a Σ-type representation avoids `Quot.sound`.
+  · P4 (slash-cong claim → kernel inheritance): separates out the `=`-form of the universalLens reverse direction — distinguishing the recoverable region from the sealed `=`-shim.
+  · P5 (Prop-codomain Lens-`equiv` → `equivR` / `refinesR`): the 213-native meaning of "identical under L" is pointwise `↔` (distinguishing-equivalence) and is PURE.  `view x = view y` (Lean `=`) imports Prop/function identity additionally — showing that the universalLens reverse direction is not a structural but a statement-shape cost (`universalLens_kernel_eq_E_R` PURE).
 
-두 방향 (Padic / Real213 vs Lens-algebra)이 같은 *pointwise-distinguishing-as-equivalence* 원리에서 파생된다.  Lens-arrow가 unified_equivalence.md의 single concept (동치 / 동치류 / 동형 / 준동형의 213-native 통합 object)이듯, **cong constructor도 같은 single concept이 inductive predicate level에서 manifest되는 형태** — 외부 axiom 없이 *내부 구조*가 동치류 closure를 표현.
+The two directions (Padic / Real213 vs Lens-algebra) derive from the same *pointwise-distinguishing-as-equivalence* principle.  Just as the Lens-arrow is the single concept of unified_equivalence.md (the 213-native unified object of equivalence / equivalence class / isomorphism / homomorphism), **the cong constructor is the form in which that same single concept manifests at the inductive predicate level** — the *internal structure* expressing equivalence-class closure without external axioms.

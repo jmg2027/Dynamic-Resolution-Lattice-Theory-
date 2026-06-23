@@ -47,4 +47,4 @@
   commutativity / associativity per CD-doubling step (CDTower
   documents).
 
-PURE 진행: see STRICT_ZERO_AXIOM.md.
+PURE progress: see STRICT_ZERO_AXIOM.md.

@@ -3,7 +3,7 @@ import E213.Theory.Raw.API
 /-!
 # Raw inhabitants by depth — the honest count (∅-axiom)
 
-Mingu's request: "Raw가 쭉쭉 만들어지는게 어케 생긴건지 있는 그대로 증명".
+Mingu's request: "prove, exactly as it is, how Raw gets built up step after step".
 
 Compute Raw's actual canonical inhabitants at each depth via
 explicit enumeration.  No assumption that the shape is K_{3,2}^(c=2)

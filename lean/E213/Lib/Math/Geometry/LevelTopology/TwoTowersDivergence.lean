@@ -3,6 +3,8 @@
 
 Mingu's correction:
 > "케일리 딕슨 타워로 맵핑하면 안맞지 거긴 음수를 직교라고 안두는데"
+> (Translation: "Mapping it onto the Cayley-Dickson tower won't
+>  fit — there, negatives aren't treated as orthogonal")
 
 **Classical CD**: ℝ as base (sign internal, not orthogonal).
 **213 framework**: magnitude + sign as separate floors.

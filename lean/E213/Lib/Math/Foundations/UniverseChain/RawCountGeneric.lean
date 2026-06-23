@@ -3,7 +3,7 @@ import E213.Lib.Math.Foundations.UniverseChain.RawRecurrence
 /-!
 # Generic Raw count for arbitrary atom count (∅-axiom)
 
-Mingu's question: "이거 3개 점에서 시작해도 똑같지 구조가?" — yes,
+Mingu's question: "is the structure the same even if we start from 3 points?" — yes,
 recurrence form is **N-generic**:
 
   **|S_n| = N + C(|S_{n-1}|, 2)**, |S_0| = N

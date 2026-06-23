@@ -8,7 +8,7 @@ The binary odometer (`Theory/Raw/Odometer`) carries in base `2` (`1 + 1 = 10`). 
 **Zeckendorf / golden adic**, place values `fib 2, fib 3, fib 4, … = 1, 2, 3, 5, 8, …`, digits
 `∈ {0,1}` with *no two consecutive 1s*.  Its carry is `011 → 100` — the Fibonacci recurrence
 `fib (i+4) = fib (i+2) + fib (i+3)` lifting one rung of the spiral, the residue unit `+1` made a
-base change ("2의 결과가 3": `fib 2 + fib 3 = fib 4`, i.e. `1 + 2 = 3`).
+base change ("the result of 2 is 3": `fib 2 + fib 3 = fib 4`, i.e. `1 + 2 = 3`).
 
 This file states that carry as a **value-preserving** rewrite on Fibonacci-base digit lists: two
 consecutive `1`s at rungs `(i, i+1)` rewrite to a single `1` carried into rung `i+2` (incrementing
@@ -70,7 +70,7 @@ theorem fibValFrom_carry (i d : Nat) (rest : List Nat) :
        (`zeck_carry_weight`): the Fibonacci recurrence, the `+1` lifting one spiral rung;
     2. **value-preservation** — the `011 → 100` rewrite leaves the Zeckendorf value unchanged
        (`fibValFrom_carry`): the odometer step is exact;
-    3. **the ground instance** — `fib 2 + fib 3 = fib 4`, i.e. `1 + 2 = 3` ("2의 결과가 3");
+    3. **the ground instance** — `fib 2 + fib 3 = fib 4`, i.e. `1 + 2 = 3` ("the result of 2 is 3");
     4. **admissibility = Cassini** — no two consecutive `1`s is the Cassini `W = ±1` / `det P = 1`
        digit law (`fib_cassini_norm`), the µF floor written in digits.
 

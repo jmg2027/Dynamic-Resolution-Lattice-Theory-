@@ -6,7 +6,7 @@ import E213.Lib.Math.Algebra.Mobius213.Px.POrbitClosure
 import E213.Meta.Nat.NatRing213
 
 /-!
-# Mobius213.Px.MobiusSelfForm — "모습 자체가 뫼비우스 행렬"
+# Mobius213.Px.MobiusSelfForm — "the form itself is the Möbius matrix"
 
 The form itself IS the Möbius matrix: P = [[2,1],[1,1]] is a
 **fixed point of its own description functor**.
@@ -36,7 +36,7 @@ In integer terms, T maps the pair (fib(2n+2), fib(2n+1)) to
 
 This iteration + uniqueness + self-reference yields: P is
 simultaneously the framework's object, its theory, and its
-notation.  "모습 자체가 뫼비우스 행렬이네."
+notation.  "The form itself is the Möbius matrix."
 
 All declarations PURE (∅-axiom).
 -/
@@ -241,7 +241,7 @@ The **describe-then-reconstruct** cycle for P:
 Therefore: P → orbit → invariants → P.  The cycle closes.
 P is a fixed point of its own description functor.
 
-"모습 자체가 뫼비우스 행렬이네" — the form itself IS the matrix. -/
+"The form itself is the Möbius matrix" — the form itself IS the matrix. -/
 
 /-- ★★★★★★★★★★★★ **Self-reconstruction master**.
 

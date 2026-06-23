@@ -3,6 +3,7 @@
 
 Mingu's hypothesis check:
 > "3²⁵(수평) + 2²⁵(수직) ~ 5²⁵?"
+> (Translation: "3²⁵ (horizontal) + 2²⁵ (vertical) ~ 5²⁵?")
 
 **No** — pure addition fails by ~8 orders of magnitude.
 **Yes** under binomial expansion: `(3+2)²⁵ = 5²⁵` exactly.

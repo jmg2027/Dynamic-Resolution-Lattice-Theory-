@@ -8,8 +8,8 @@ Continuity in 213 = "output bit `N` is determined by reading
 on the dyadic tree.
 
 Mingu's formulation:
-> "출력의 특정 비트를 확정하기 위해 입력의 비트를 무한히 읽을
->  필요가 없다 (유한 깊이 M에서 결정된다)"
+> "to fix a particular bit of the output, there is no need to read
+>  infinitely many bits of the input (it is determined at finite depth M)"
 
 This module formalizes this **information-theoretic closure**
 as the structural definition of continuity in 213.

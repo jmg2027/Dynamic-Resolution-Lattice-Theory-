@@ -2,8 +2,8 @@
 
 ## Triggering question
 
-> "P는 왜 자기 자신의 설명 함자(description functor)의 고정점인가?
->  형식(모습)이 곧 행렬이라는 것은 무엇을 의미하는가?"
+> "Why is P a fixed point of its own description functor?
+>  What does it mean that the form (the appearance) IS the matrix?"
 
 ## 213-native answer
 

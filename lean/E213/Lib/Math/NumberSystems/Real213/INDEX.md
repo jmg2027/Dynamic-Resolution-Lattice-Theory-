@@ -314,4 +314,4 @@ The thematic notes below correspond to the directories in the table above
 - Real213 marathon: ~90% PURE — most CutSum/CutMul/Lattice
   paths propext-free via pointwise eq + ChainToCut bridge.
 
-PURE 진행: see STRICT_ZERO_AXIOM.md.
+PURE progress: see STRICT_ZERO_AXIOM.md.

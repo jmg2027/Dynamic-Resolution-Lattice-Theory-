@@ -2,9 +2,9 @@
 
 ## Triggering question
 
-> "그래프의 walk-length, 코호몰로지의 cup-length, HoTT의 truncation,
->  operad의 chromatic height, 해석학의 resolution exponent —
->  이것들이 왜 같은 것인가?  '같다'는 것은 어떤 의미인가?"
+> "The walk-length of a graph, the cup-length of cohomology, the truncation
+>  of HoTT, the chromatic height of an operad, the resolution exponent of
+>  analysis — why are these the same thing?  What does 'the same' mean?"
 
 ## 213-native answer
 

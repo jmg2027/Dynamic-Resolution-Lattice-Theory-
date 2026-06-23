@@ -7,7 +7,7 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Leibniz universal — HONEST NEGATIVE finding
 
-User: hard deferred items 될때까지 고고.  Attempted to lift
+User: keep going until the hard deferred items are done.  Attempted to lift
 Cup Leibniz `δ(α ⌣ β) = δα ⌣ β XOR α ⌣ δβ` to Prop-level
 ∀ α β : Cochain 5 1 via pattern enumeration (32 × 32 × 10
 = 10240 cases).

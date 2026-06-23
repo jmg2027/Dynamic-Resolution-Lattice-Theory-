@@ -3,8 +3,8 @@ import E213.Lib.Physics.Simplex.Counts
 /-!
 # Mobius213.Px.POrbitClosure — non-atomic primes are P-orbit-derived
 
-User insight (decisive): *"P(x)는 동적=정적으로 치환할 수 있는
-가장 아토믹한 도구"* — P is the most atomic primitive
+User insight (decisive): *"P(x) is the most atomic tool that can
+interchange dynamic and static"* — P is the most atomic primitive
 identifying dynamic and static.  The "non-atomic" primes
 appearing in mod-p periods (7 in mod-13, etc.) are NOT
 external intrusions; they emerge from the Lucas-Pell trace

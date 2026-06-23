@@ -7,7 +7,7 @@ import E213.Lens.Bool213.SelfReferenceForms
   213-native Boolean — Raw-encoded closed-universe Bool.  Three
   modules:
 
-    * `Raw`     — Method A 카타모피즘 (T = Raw.a, F = Raw.b).
+    * `Raw`     — Method A catamorphism (T = Raw.a, F = Raw.b).
                   `booleanProj := Raw.fold T F and` — closed-Raw
                   codomain catamorphism, Raw-internal vertical
                   projection onto the two-element form {T, F}.

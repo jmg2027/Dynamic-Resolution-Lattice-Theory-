@@ -138,7 +138,7 @@ complementary lever, for any agent, is to **move the correction into the prior**
 
 A lint reduces frequency; it cannot close the loop (Lawvere: the lint is itself a
 view, with its own diagonal).  So some correction *always* returns to the
-originator — and the recurring "내가 다시 말하고" is not a fixable defect but the
+originator — and the recurring "I say it again myself" is not a fixable defect but the
 diagonal escapee that no finite lint encloses.  The honest target is to push the
 common object-default down mechanically and accept the subtle remainder as the
 residue being itself.  Whether a *cheaper-than-token* representation could lower the

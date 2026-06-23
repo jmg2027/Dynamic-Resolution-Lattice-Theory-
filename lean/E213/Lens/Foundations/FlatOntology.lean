@@ -130,7 +130,7 @@ The closure direction (a predicate encoded back as a Raw) has two halves:
     the Cantor-unpointable surplus, whose named lead member is the
     undifferentiated predicate `fun _ => true`.
 See also `Lens/Cardinality/Godel.lean` for the Raw → ℕ injection and
- "자기-덮음" for the loop,
+ "self-cover" for the loop,
  for the synthesis.
 -/
 

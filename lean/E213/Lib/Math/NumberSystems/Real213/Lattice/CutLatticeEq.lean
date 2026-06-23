@@ -43,19 +43,19 @@ theorem cutMin_cutEq_right (cx cy cy' : Nat → Nat → Bool)
   show (cx m k || cy m k) = (cx m k || cy' m k)
   rw [h m k]
 
-/-- 보조: `(a && b) = true → a = true`.  PURE — propext 없음. -/
+/-- Helper: `(a && b) = true → a = true`.  PURE — no propext. -/
 private theorem and_left_of_eq_true {a b : Bool} (h : (a && b) = true) : a = true :=
   match a, h with
   | true, _ => rfl
   | false, h => Bool.noConfusion h
 
-/-- 보조: `(a && b) = true → b = true`.  PURE. -/
+/-- Helper: `(a && b) = true → b = true`.  PURE. -/
 private theorem and_right_of_eq_true {a b : Bool} (h : (a && b) = true) : b = true :=
   match a, h with
   | true, h => h
   | false, h => Bool.noConfusion h
 
-/-- 보조: `a = true → b = true → (a && b) = true`. -/
+/-- Helper: `a = true → b = true → (a && b) = true`. -/
 private theorem and_intro_eq_true {a b : Bool}
     (ha : a = true) (hb : b = true) : (a && b) = true := by
   rw [ha, hb]; rfl
@@ -78,18 +78,18 @@ theorem cutMax_cutLe_right (cx cy1 cy2 : Nat → Nat → Bool)
   exact and_intro_eq_true (and_left_of_eq_true h_max')
                           (h m k (and_right_of_eq_true h_max'))
 
-/-- 보조: `(a || b) = true → a = true ∨ b = true`.  PURE. -/
+/-- Helper: `(a || b) = true → a = true ∨ b = true`.  PURE. -/
 private theorem or_cases_eq_true {a b : Bool} (h : (a || b) = true) :
     a = true ∨ b = true :=
   match a, h with
   | true, _ => Or.inl rfl
   | false, h => Or.inr h
 
-/-- 보조: `a = true → (a || b) = true`. -/
+/-- Helper: `a = true → (a || b) = true`. -/
 private theorem or_intro_left {a b : Bool} (h : a = true) : (a || b) = true := by
   rw [h]; rfl
 
-/-- 보조: `b = true → (a || b) = true`. -/
+/-- Helper: `b = true → (a || b) = true`. -/
 private theorem or_intro_right {a b : Bool} (h : b = true) : (a || b) = true := by
   rw [h]; cases a <;> rfl
 

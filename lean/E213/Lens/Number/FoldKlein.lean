@@ -14,7 +14,7 @@ is the **third non-identity involution** — it **swaps both** orbits at once (`
 is the **Klein four-group** `ℤ/2 × ℤ/2` acting on the fixture, and the three non-identity elements are
 completely distinguished by **which orbit they fix**:
 
-  - `negQ` — fixes `{0, ∞}` (the 영무한대 / hole pair), swaps `{±1}`;
+  - `negQ` — fixes `{0, ∞}` (the zero-infinity / hole pair), swaps `{±1}`;
   - `recQ` — fixes `{±1}` (the units), swaps `{0, ∞}`;
   - `bothSwap` — fixes **neither** (the antipode, fixed-point-free).
 

@@ -244,8 +244,8 @@ sub-tree.  Implications:
   - **Drop session-residue suffixes**: `*Mega`, `*Showcase`, `*Catalog`,
     `*Final`, `*Higher`, `*High`, `*Coverage`, `*More`, `*Generic`,
     `*Mid` (when not topical), `*Combinator`, `*Decide`.
-  - **Drop `Phase XX`-named files**: per CLAUDE.md "phase 같은 이해할
-    수 없는 중간 과정 내용들은 삭제 필요".  Real content gets a topic
+  - **Drop `Phase XX`-named files**: per CLAUDE.md "incomprehensible
+    intermediate-process content like phases needs to be deleted".  Real content gets a topic
     name (e.g., `PhaseACMinimumProposition` → `MinimumProposition`).
     Pure-bundle Phase capstones get deleted outright.
   - **Each file = one coherent topic** (CLAUDE.md repo organization §1).

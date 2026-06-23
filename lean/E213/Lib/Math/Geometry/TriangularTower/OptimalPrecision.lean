@@ -6,6 +6,9 @@ import E213.Lib.Math.Geometry.TriangularTower.PropertySurvival
 Mingu's insight:
 > "각 층에 꼭 맞는 비트정밀도(3의 크기)가 있을거같아.
 >  그러면 그 층에서는 성질이 버려지지 않겠지"
+> (Translation: "I think each level has a bit-precision (the size
+>  of 3) that fits it exactly.  Then at that level no property
+>  would be discarded.")
 
 213-native: in `(3+2)²⁵ = Σ C(25,k) · 3^k · 2^(25-k)`, each
 term `k` represents a partition with `k` S-doublings (3-axis

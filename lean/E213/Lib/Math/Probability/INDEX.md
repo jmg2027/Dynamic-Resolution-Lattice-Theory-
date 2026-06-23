@@ -1,6 +1,6 @@
 # Probability 213 — Module Index (sub-organized 2026-05-13)
 
-Atomic dyadic probability — σ-algebra 없음, σ-additivity 없음.
+Atomic dyadic probability — no σ-algebra, no σ-additivity.
 25 files in 5 sub-clusters.
 
 ## Sub-clusters

@@ -238,7 +238,7 @@ theorem diff_sumf (f : Nat → Nat) (d : Nat) : diff (sumf f) d = f (d + 1) := b
 
 The increase from adding a base is **not** a per-degree comparison; it is the
 comparison of the *running totals*.  `totalCount k N = Σ_{n=0}^{N} monoCount k n`
-= the number of monomials of degree ≤ N over `k` bases ("모든 갯수").  Elegantly,
+= the number of monomials of degree ≤ N over `k` bases ("all the counts").  Elegantly,
 this cumulative total over `k` bases equals the per-degree count over `k+1`
 bases — the dimension shift `Σ` performs. -/
 
@@ -374,7 +374,7 @@ theorem monoCount_closed : ∀ (k N : Nat), monoCount (k + 1) N = binom (N + k) 
       rw [sumf_congr (fun i => monoCount (k + 1) i) (fun i => binom (i + k) k)
             (fun i => monoCount_closed k i) N, hockey k N, Nat.add_assoc N k 1]
 
-/-- **The count formula** (the user's "공식"): the total number of monomials of
+/-- **The count formula** (the user's "formula"): the total number of monomials of
     degree ≤ `N` over `k` bases is `C(N+k, k)`.  `totalCount k N = binom (N+k) k`.
     With `totalCount_base_increment`, the per-base increase `C(N+k+1, k+1) −
     C(N+k, k) = C(N+k, k+1)` is Pascal's identity. -/

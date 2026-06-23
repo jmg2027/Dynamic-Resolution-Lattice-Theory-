@@ -36,7 +36,7 @@ Therefore LHS = `(Q00·Q01 + Q01² + 1) + Q01·Q00 = 2·Q00·Q01 + Q01² + 1` = 
 
 The Farey property IS `det(P^n) = 1` in different clothing.
 
-## Conceptual content: "모습 자체가 뫼비우스 행렬"
+## Conceptual content: "the form itself is the Möbius matrix"
 
 The identity `det = 1` manifests simultaneously as:
   (a) Matrix determinant preservation under P-iteration.
@@ -151,7 +151,7 @@ Q-sequence recurrence definitions. -/
     (c) Farey neighbour: `fib(2n+2)·fib(2n+1) = fib(2n)·fib(2n+3) + 1`
 
     All three are the SAME identity (det P^n = 1) viewed through
-    different Lenses.  "모습 자체가 뫼비우스 행렬" — the form
+    different Lenses.  "the form itself is the Möbius matrix" — the form
     (det = 1) IS the Möbius matrix's defining property, and it
     manifests identically at every level. -/
 theorem det_one_four_readings (n : Nat) :

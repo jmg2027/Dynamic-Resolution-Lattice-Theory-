@@ -96,7 +96,7 @@ def OpWord.apply : OpWord → Type → Type
   | .A w,   T => Aggregate (w.apply T)
   | .F w,   T => Forced    (w.apply T)
 
-/-! ## 213-원론 Anchors
+/-! ## 213-foundational Anchors
 
 Every game in the catalog is a **signature on type slots** built
 from a small set of type-theoretic primitives admitted by 213's

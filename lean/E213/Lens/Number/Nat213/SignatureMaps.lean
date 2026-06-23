@@ -15,10 +15,10 @@ value (chartChain r₀ r' h n) = value r₀ + n · value r'
 i.e. **first term `value r₀`, interval `value r'`**.  ℕ⁺'s signature is
 exactly the three data of this readout:
 
-  1. **순서 / order** — the chain is strictly increasing (`<`);
-  2. **일정한 간격 / constant interval** — the forward difference is a
+  1. **order** — the chain is strictly increasing (`<`);
+  2. **constant interval** — the forward difference is a
      single constant `d`;
-  3. **초항 = 간격 / first = interval** — the seed value equals the step.
+  3. **first = interval** — the seed value equals the step.
 
 A *map* `φ : Nat → Nat` (position ↦ value) is classified by **how many
 of the three it preserves**.  This file proves that the answer is a
@@ -52,7 +52,7 @@ The theorems below establish each transition rigorously:
 Raw-level anchors tying the tower back to the residue:
 
   - `chartChain_is_affine` — the general chart **is** the affine map,
-    with `a = value r₀` (초항) and `d = value r'` (간격);
+    with `a = value r₀` (first term) and `d = value r'` (interval);
   - `chartChain_firstEqInterval` — when seed-value = step-value, the
     chart collapses to the scaling `n ↦ value r' · (n+1)`.
 
@@ -76,7 +76,7 @@ def affine (a d n : Nat) : Nat := a + d * n
 
 The defining property of ℕ⁺'s signature is a *single* forward
 difference `d`.  Telescoping that constant difference reconstructs the
-whole map as affine.  This is the precise sense in which "일정한 간격"
+whole map as affine.  This is the precise sense in which "constant interval"
 generates the 2-parameter chart family. -/
 
 /-- **Constant interval ⟹ affine.**  If `φ` has constant forward
@@ -102,7 +102,7 @@ theorem affine_constInterval (a d : Nat) :
 /-! ## Order layer — `d ≥ 1` ⟹ strictly monotone
 
 Order is the *weakest* of the three: any constant-interval map with a
-positive step is already an order-embedding.  So "순서" sits at the base
+positive step is already an order-embedding.  So "order" sits at the base
 of the tower, automatically satisfied the moment the interval is a
 genuine distinguishing (`d ≥ 1`). -/
 
@@ -129,8 +129,8 @@ diagonal `a = d` of the affine family.  Imposing it collapses the
 
 /-- **First = interval ⟹ scaling.**  A constant-interval map whose first
     term equals its interval `d` is the pure scaling `n ↦ d·(n+1)` —
-    `d` times the canonical ℕ⁺ chain.  This is the "곱 사상" the signature
-    licenses. -/
+    `d` times the canonical ℕ⁺ chain.  This is the "multiplicative map" the
+    signature licenses. -/
 theorem firstEqInterval_scaling (φ : Nat → Nat) (d : Nat)
     (hint : ∀ n, φ (n + 1) = φ n + d) (hfirst : φ 0 = d) :
     ∀ n, φ n = d * (n + 1) := by
@@ -249,7 +249,7 @@ general chart **is** the affine map, and the first = interval coincidence
 **is** the scaling collapse, at the level of the Raw readout. -/
 
 /-- **The general chart is the affine map.**  `value r₀` is the first
-    term (초항), `value r'` the interval (간격). -/
+    term (first term), `value r'` the interval. -/
 theorem chartChain_is_affine (r₀ r' : Raw) (h : r₀ ≠ r') (n : Nat) :
     Raw.value (chartChain r₀ r' h n)
       = affine (Raw.value r₀) (Raw.value r') n := by
@@ -289,7 +289,7 @@ At the base, `affine_strictMono` shows affine maps with `d ≥ 1` preserve
 order, but the converse is **false**: there are order-embeddings that are
 not affine.  `tri_strictMono` + `tri_not_constInterval` exhibit one — the
 triangular-number map `tri` is strictly increasing yet has no constant
-interval (hence is not affine).  So "그 외가 없다" *fails* at the order
+interval (hence is not affine).  So "there is nothing else" *fails* at the order
 layer; the order-only class is irreducibly infinite, which is the
 structural content of order being the weakest signature datum. -/
 
@@ -338,7 +338,7 @@ theorem tri_strictMono {m n : Nat} (h : m < n) : tri m < tri n := by
 
 /-- **`tri` has no constant interval** — hence is not affine, yet (by
     `tri_strictMono`) preserves order.  This proves the order-only class
-    contains maps *outside* the affine family: "그 외가 있다". -/
+    contains maps *outside* the affine family: "there is something else". -/
 theorem tri_not_constInterval : ¬ ∃ d, ∀ n, tri (n + 1) = tri n + d := by
   intro h
   obtain ⟨d, hd⟩ := h
@@ -680,7 +680,7 @@ theorem triPos_step (n : Nat) : triPos (n + 1) = triPos n + (n + 1) := by
   rw [Nat.add_right_comm]
 
 /-- **`triPos` has no constant interval** — a ℕ⁺-valued order-embedding
-    outside the affine family.  "그 외가 있다", entirely on ℕ⁺. -/
+    outside the affine family.  "there is something else", entirely on ℕ⁺. -/
 theorem triPos_not_constInterval :
     ¬ ∃ d, ∀ n, triPos (n + 1) = triPos n + d := by
   intro h

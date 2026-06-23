@@ -13,9 +13,9 @@ Raw-internal projection onto the two-element canonical form
                     fixed-point characterisation).
   - `SelfReferenceForms.lean` — Bool-style vs Nat-style self-reference
                     (liar oscillation vs Lambek fixed point).
-  - `System.lean` — 메타 (T, F) pattern; arbitrary distinct Raw
+  - `System.lean` — meta (T, F) pattern; arbitrary distinct Raw
                     pair gives valid system; iso preserves
-                    not / and (Nat213 의 NumberingSystem과 평행).
+                    not / and (parallel to Nat213's NumberingSystem).
 
 ## Top-level
 
@@ -24,9 +24,9 @@ Raw-internal projection onto the two-element canonical form
 ## Where to add new files
 
   - New Bool variant       → `Bool213/<Method>.lean`
-  - Boundary mapping       → 직접 `Raw.lean` 에 추가
-  - Lens characterisation  → `Bool213/Lenses.lean` (Nat213/Lenses
-                              과 평행한 패턴 — 필요 시)
+  - Boundary mapping       → add directly to `Raw.lean`
+  - Lens characterisation  → `Bool213/Lenses.lean` (pattern parallel to
+                              Nat213/Lenses — if needed)
 
 ## Discipline
 
@@ -34,6 +34,6 @@ All theorems ∅-axiom (verified via `tools/scan_axioms.py`).
 
 ## Distinction from existing Lens Bool files
 
-  - `Lens.Instances.Bool` 등은 Bool *codomain Lens 인스턴스* (AND/OR/
-    XOR lens 등).  여기 `Bool213` 은 Bool *type 의 Raw-인코딩 자체*
-    (213-native).  서로 다른 의미.
+  - `Lens.Instances.Bool` etc. are Bool *codomain Lens instances* (AND/OR/
+    XOR lens, etc.).  Here `Bool213` is the *Raw-encoding of the Bool type
+    itself* (213-native).  Different meanings.

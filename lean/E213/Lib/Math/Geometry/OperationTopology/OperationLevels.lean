@@ -4,7 +4,12 @@
 Mingu's synthesis:
 > "2를 연산 3을 하나하나라고 생각할수가 있을테고,
 >  2의 연산의 성질들이 3으로 한층마다 표현되는거임"
+> (Translation: "You can think of 2 as the operation and 3 as the
+>  individual elements; the operational properties of 2 are
+>  expressed via 3 at each level.")
 > "1층은 +만, 2층은 -, 3층은 i, ..., 25층까지"
+> (Translation: "Floor 1 is + only, floor 2 is -, floor 3 is i,
+>  ..., up to floor 25.")
 
 213-native: each CD level `n ∈ {1..25}` introduces ONE new
 operational property of the binary force (2-axis), expressed

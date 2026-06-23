@@ -6,9 +6,10 @@ import E213.Lib.Math.NumberSystems.Real213.ExpLog.GeomSeriesIdentity
 # SignedCut — Continuous-x Cauchy convergence (∅-axiom)
 
 Closes the residual from PR #61:
-  "연속-x 수렴 증명 — 구조적 fixpoint는 닫혔으나 값
-   `S_∞ = signedGeomLimitOf x`이 `geomPartialSum x N`과
-   `N → ∞`에서 일치한다는 실질적 Cauchy modulus 논증"
+  "Continuous-x convergence proof — the structural fixpoint is
+   closed, but the substantive Cauchy-modulus argument that the value
+   `S_∞ = signedGeomLimitOf x` agrees with `geomPartialSum x N`
+   as `N → ∞`"
 
 213-native paradigm: convergence is **structural fixpoint
 preservation across depths**, not analytic limit existence.

@@ -8,9 +8,9 @@ import E213.Lib.Math.Algebra.CayleyDickson.Tower.Order4Monopoly_L6T
 /-!
 # Tower ascent: meta-level fixed point at infinity
 
-Question (user,): "Tower를 계속 올라가면 어떻게 되는지
-관찰해보자.  무한히 올라가는지, 어디서 멈추는지, 메타적으로 고정점이
-있는지."  (Observe what happens as we ascend the tower.  Does it
+Question (user,): "Let us observe what happens as we keep
+ascending the tower.  Whether it ascends infinitely, where it stops,
+whether there is a meta-level fixed point."  (Observe what happens as we ascend the tower.  Does it
 ascend infinitely?  Stop somewhere?  Is there a meta-level fixed
 point?)
 

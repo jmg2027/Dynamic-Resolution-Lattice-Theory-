@@ -6,6 +6,10 @@ Mingu's "narrowing tower" insight:
 > "건물은 위를 더 넓게 만들수없잖아? 보통 위가 더 작아지잖아?
 >  ...실제로 위로 올라갈수록 아래에 있던 것들이 사라지는 이유가
 >  이거일거임"
+> (Translation: "You can't make a building wider toward the top,
+>  right?  Usually the top gets smaller, right?  ...the reason
+>  things from below actually disappear as you climb upward is
+>  probably this.")
 
 213-native formalisation: at each CD level, the surviving
 algebraic properties form a **decreasing sequence**.  Each level

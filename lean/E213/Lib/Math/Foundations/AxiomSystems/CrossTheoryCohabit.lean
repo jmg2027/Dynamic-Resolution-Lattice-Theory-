@@ -14,8 +14,8 @@ application on the same substrate.
 
 Spec note:
 
-> "ZFC와 Peano가 213 안에서 cohabit 가능 — 둘 다 derived view,
->  conflict 없음.  같은 Raw 의 다른 lens projection 들."
+> "ZFC and Peano can cohabit inside 213 — both are derived views,
+>  no conflict.  Different lens projections of the same Raw."
 
 This file demonstrates concrete cohabitation: take a Raw expression
 `r := slash a b h`, and observe that distinct Lens views give

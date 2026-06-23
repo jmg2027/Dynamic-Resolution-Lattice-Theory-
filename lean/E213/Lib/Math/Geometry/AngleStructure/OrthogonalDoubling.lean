@@ -8,6 +8,10 @@ Mingu's elaboration (part 3):
 > "Cayley-Dickson 타워를 한 층 올라갈 때마다 벌어지는 일은,
 >  기존의 공간 전체에 대해 새롭게 90도로 직교하는 축을 기계적으로
 >  하나 더 세우는 작업 그 이상도 이하도 아닙니다."
+> (Translation: "What happens each time you climb one level of the
+>  Cayley-Dickson tower is nothing more and nothing less than
+>  mechanically erecting one more axis, newly 90°-orthogonal to
+>  the entire existing space.")
 
 Each CD level doubles the dimension by adding ONE 90°-orthogonal
 axis to the existing space:

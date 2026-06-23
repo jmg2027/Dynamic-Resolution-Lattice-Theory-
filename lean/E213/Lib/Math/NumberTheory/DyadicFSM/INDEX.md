@@ -10,10 +10,10 @@ marathon adds FLT, Frobenius, F_{p²}, Binet-bridge infrastructure.
 |---|---|---|
 | `ArithFSM/` | 10 + 3 Mod buckets | per-modulus ArithFSM (Mod{Small,Medium,Large}) + Hierarchy + Hardness + V1/V3 helpers + `InvertibleArithFSM2` (G119 Phase 2 abstraction) |
 | `BitFSM/` | 2 | Bound, Converse |
-| `Fib/` | 4 (post-consolidation) | Fibonacci FSMmod (8 primes 통합) + PellRelation + Pisano8 + PisanoCapstone |
-| `Pell/` | 11 | Pell x²-Dy²=1 family + ProperMod (5 primes 통합) + Bounds/Lens |
+| `Fib/` | 4 (post-consolidation) | Fibonacci FSMmod (8 primes consolidated) + PellRelation + Pisano8 + PisanoCapstone |
+| `Pell/` | 11 | Pell x²-Dy²=1 family + ProperMod (5 primes consolidated) + Bounds/Lens |
 | `Pisano/` | 2 | Pisano-period predictors (Predictor, PredictorChain) |
-| `Trib/` | 4 (post-consolidation) | Tribonacci FSMmod (3 primes 통합) + CRT capstones |
+| `Trib/` | 4 (post-consolidation) | Tribonacci FSMmod (3 primes consolidated) + CRT capstones |
 | `Legendre/` | 1 (consolidated) | Legendre-symbol Pisano variants (Pisano/Ext/Small/V13_19/V213) |
 | `Archive/` | 2 | EdgeSignature, SubwordComplexity (historical) |
 | `Product/` | 7 | ProductFSM{,Period,PeriodDvd,Run}, ProductHelpers, LCMClosure, CrossClassLens |

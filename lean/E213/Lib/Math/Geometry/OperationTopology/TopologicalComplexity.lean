@@ -6,6 +6,9 @@ import E213.Lib.Math.Geometry.OperationTopology.OperationLevels
 Mingu's insight:
 > "제일 낮은 층의 구조? 숫자? 수 정밀도? 가 제일 낮고
 >  (그래도 되니까) 높은 층으로 갈수록 복잡한 토폴로지를 가져야"
+> (Translation: "The structure? number? numeric precision? of the
+>  lowest level is the lowest, and (since that's allowed) the
+>  higher the level, the more complex a topology it must have.")
 
 213-native: each CD level's 3-axis topology has just enough
 complexity to express the level's introduced operational

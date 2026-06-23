@@ -3,6 +3,7 @@
 
 Mingu's revised hypothesis:
 > "2^25 × 3^25 = 5^25, 전부 카르테시안 곱"
+> (Translation: "2^25 × 3^25 = 5^25, all of it a Cartesian product")
 
 **Status: Numerically wrong by factor ~95.**
 

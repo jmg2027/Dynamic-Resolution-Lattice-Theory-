@@ -7,6 +7,8 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.Hurwitz213
 
 User directive: "이걸 자연스럽게 대수기하학 혹은
 코호몰로지로 연결시켜보셈"
+(Translation: "Connect this naturally to algebraic geometry or
+cohomology.")
 
 Three key connections:
 

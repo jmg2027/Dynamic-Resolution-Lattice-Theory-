@@ -33,8 +33,8 @@ closure of P-invariants is ALL of ℕ — trivially, because
 
 ## Key insight (user observation)
 
-> "모든 자연수들을 P 자체로 생성하는 이론을 만들어보자
->  (7 같은 수도 다 만들 수 있음)"
+> "let us build a theory that generates all the natural numbers from
+>  P itself (numbers like 7 can all be built too)"
 
   · 7 = 2 + 2 + 3 (also = L(2) = trace(P²)).  Three P-entries.
   · 11 = 2·1 + 3·3 = 2+3+3+3.  Four P-entries (optimal).

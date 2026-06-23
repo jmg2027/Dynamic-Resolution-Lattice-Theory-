@@ -17,7 +17,7 @@ implementation (the `Tree`/`Term` encoding underlying `Theory.Raw`).
 **K1 — Data API**:
   - `Term` (deep-embedded AST of 213's syntactic objects)
   - `Term.eval`, `Term.{nS, nT, d, c}` (atomic constants)
-  - `Tree`, `Tree.cmp`, `Tree.canonical` (Raw 의 구현체 — used by
+  - `Tree`, `Tree.cmp`, `Tree.canonical` (implementation of Raw — used by
     `Theory.Raw.Core` to define `Raw := {t : Tree // canonical t}`)
 
 **K2 — Computation API** (Bool-returning total functions, ∅-axiom):

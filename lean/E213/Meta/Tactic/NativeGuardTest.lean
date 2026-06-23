@@ -48,7 +48,7 @@ open E213.Meta.Tactic.NativeGuard
 #guard_native E213.Lib.Math.Foundations.PatternCatalog.Algebra.OpWord.append_nil
 #guard_native E213.Lib.Math.Foundations.PatternCatalog.Algebra.OpWord.aggCount_append
 
--- Anchor records (213-원론 anchors)
+-- Anchor records (213-foundations anchors)
 #guard_native E213.Lib.Math.Foundations.PatternCatalog.Algebra.Locality.anchor
 #guard_native E213.Lib.Math.Foundations.PatternCatalog.Algebra.AggregateOp.anchor
 #guard_native E213.Lib.Math.Foundations.PatternCatalog.Algebra.ForcedOp.anchor

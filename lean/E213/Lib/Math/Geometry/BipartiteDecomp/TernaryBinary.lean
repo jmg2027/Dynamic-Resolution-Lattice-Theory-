@@ -6,6 +6,9 @@ Mingu's FSM 3-component intuition:
 > "다이아딕에 멈춤이라는게 추가된거라고 해야하나 아니면
 >  다이아딕 방향+상태 라는 세가지 컴포넌트를 이야기한다고
 >  해야하나"
+> (Translation: "Should I say a 'halt' has been added to the
+>  dyadic, or should I say we're talking about three components —
+>  dyadic direction + state?")
 
 213-native interpretation: the K_{3,2}^{(c=2)} bipartite
 substrate has TWO orthogonal axes:

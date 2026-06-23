@@ -4,7 +4,7 @@ import E213.Lib.Math.NumberSystems.Real213.ModularGeometry.FoldReflections
 # The two elliptic generators as cyclic fixtures — ℤ₂ from the folds, ℤ₃ from Eisenstein
 
 `FoldReflections` showed the two folds' product is `S` (`N · R = S`), the order-4 elliptic generator
-with `S² = −I` — **projective order 2**, acting on the four-point fixture as the 영무한대 swap.  The
+with `S² = −I` — **projective order 2**, acting on the four-point fixture as the zero-infinity swap.  The
 modular group has a *second* elliptic generator `U = [[0, −1], [1, 1]]` (order 6, `U³ = −I` —
 **projective order 3**, the Eisenstein/order-6 axis).  Its Möbius action `z ↦ −1/(z+1)` is a
 fixed-point-free **3-cycle** on the small fixture `{∞, 0, −1}`:
@@ -13,7 +13,7 @@ fixed-point-free **3-cycle** on the small fixture `{∞, 0, −1}`:
 
 So the two elliptic generators of `PSL(2,ℤ)` realize the two cyclic fixtures whose projective orders
 are `2` and `3` — exactly the free factors `PSL(2,ℤ) = ℤ₂ * ℤ₃` (`ModularElliptic`).  The `ℤ₂` factor
-is the folds' product `S` (the 영무한대 swap, `FoldReflections`); the `ℤ₃` factor is `U`'s
+is the folds' product `S` (the zero-infinity swap, `FoldReflections`); the `ℤ₃` factor is `U`'s
 Eisenstein 3-cycle.  The matrix orders `4` and `6` halve/third to the projective orders `2` and `3`
 because the central `−I` (the Cassini sign) acts trivially on the projective line — the same
 order-reduction the fold fixture sees.
@@ -59,7 +59,7 @@ theorem U_proj_order_3 :
   refine ⟨?_, ?_⟩ <;> decide
 
 /-- ★★★★ **The two elliptic generators are the ℤ₂ and ℤ₃ of `PSL(2,ℤ) = ℤ₂ * ℤ₃`.**  `S`
-    (projective order 2, `S² = −I`) is the folds' product — the 영무한대 swap of `FoldReflections`;
+    (projective order 2, `S² = −I`) is the folds' product — the zero-infinity swap of `FoldReflections`;
     `U` (projective order 3, `U³ = −I`) is a fixed-point-free 3-cycle on the Eisenstein fixture
     `{∞, 0, −1}`.  Their projective orders `2, 3` are the free factors of the modular group; the
     matrix orders `4, 6` reduce to them through the central `−I`. -/

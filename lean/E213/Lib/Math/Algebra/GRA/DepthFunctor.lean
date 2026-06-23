@@ -81,7 +81,7 @@ the discrete category on `Nat → Nat`.
 -/
 
 /-- A (2, 3)-GRA model: `gen1 = 2`, `gen2 = 3`.  This packages the
-    "GRACat 의 (2, 3)-sub-category" objects. -/
+    "(2, 3)-sub-category of GRACat" objects. -/
 structure GRA23 where
   /-- The underlying model. -/
   model : GRAModel

@@ -7,9 +7,9 @@ import E213.Lib.Math.Geometry.OperationTopology.TopologicalComplexity
 5 cluster witnesses + total bundle.
 
 Mingu's complete synthesis:
-  * 2 = 연산 (operation)
-  * 3 = 원소 / topology (information network)
-  * Each level = 2의 한 연산 성질을 3의 topology로 표현
+  * 2 = operation (연산)
+  * 3 = element / topology (information network)
+  * Each level = one operational property of 2 expressed via 3's topology
   * 25 operation levels; topological complexity total 325.
 -/
 

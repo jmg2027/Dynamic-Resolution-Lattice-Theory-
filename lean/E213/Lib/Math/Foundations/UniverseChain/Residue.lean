@@ -5,9 +5,11 @@ import E213.Theory.Raw.API
 
 Mingu's articulation:
 > "구분을 하면 항상 잔여물이 남는거 아냐?"
+> (Translation: "Whenever you distinguish, a residue is always left over, right?")
 
 Direct reading point 3:
 > "그 짝도 다시 가리킬 수 있다."
+> (Translation: "That pair can again be pointed at.")
 
 ## Formalization
 
@@ -25,10 +27,10 @@ The four G29 points map to Raw's constructor + its hypotheses:
 
 | G29 point                            | Raw / slash form               |
 |--------------------------------------|--------------------------------|
-| 1. 두 가지가 서로 다르게 나타난다     | `Raw.a`, `Raw.b`, `a ≠ b`      |
-| 2. 이 둘을 짝지을 수 있다             | `Raw.slash _ _ _` constructor  |
-| 3. 그 짝도 다시 가리킬 수 있다        | `slash`'s codomain = `Raw`     |
-| 4. 자기 자신과는 짝지을 수 없다        | `(h : x ≠ y)` precondition     |
+| 1. Two things appear as distinct       | `Raw.a`, `Raw.b`, `a ≠ b`      |
+| 2. These two can be paired             | `Raw.slash _ _ _` constructor  |
+| 3. That pair can again be pointed at   | `slash`'s codomain = `Raw`     |
+| 4. A thing cannot be paired with itself| `(h : x ≠ y)` precondition     |
 
 Step 0 of the deductive chain — *prior to* Atomicity.  All
 subsequent steps (atomicity → 5, recursion to d², configCount)

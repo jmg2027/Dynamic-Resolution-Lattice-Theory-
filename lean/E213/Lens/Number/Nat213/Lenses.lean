@@ -212,8 +212,8 @@ theorem multi_lens_spectrum_on_rawAB :
 /-- ★★★ FRACTAL DUALITY: Resolution = lens, Shape = Nat213.
     Different lenses (= different resolutions) give different
     values, but ALL values are Nat213-shaped (= `succ^n one`).
-    This captures the user's observation: "Raw가 프랙탈이어야
-    한다는 뜻" — Raw IS fractal under Nat213-lens-resolution. -/
+    This captures the user's observation: "it means Raw
+    must be fractal" — Raw IS fractal under Nat213-lens-resolution. -/
 theorem fractal_duality (L1 L2 : Nat213Lens) (r : Raw) :
     -- Both apply to give Nat213 elements (shape preserved)
     -- (This is trivially true by typing — but documents the claim)

@@ -15,14 +15,14 @@ extends naturally to a third domain (Cauchy sequence + modulus).
 | **CauchyCutSeq** | **structure** | **cauchyProj** | **constant sequence at limit** |
 
 
-## 정의
+## Definition
 
-`cauchyProj ccs := constCauchyCutSeq ccs.limit` — Cauchy seq 를
-"limit 에서 constant" 형태로 normalize.
+`cauchyProj ccs := constCauchyCutSeq ccs.limit` — normalizes a Cauchy seq
+into "constant at limit" form.
 
-## 성질 (다른 도메인과 평행)
+## Properties (parallel across domains)
 
-  - **closure**: `cauchyProj ccs` 가 항상 constCauchyCutSeq image.
+  - **closure**: `cauchyProj ccs` is always a constCauchyCutSeq image.
   - **idempotence**: `cauchyProj² = cauchyProj` (functional eq, rfl).
   - **boundary commutativity**: `(cauchyProj ccs).limit = ccs.limit`.
 -/
@@ -37,37 +37,37 @@ def cauchyProj (ccs : CauchyCutSeq) : CauchyCutSeq :=
   constCauchyCutSeq ccs.limit
 
 /-- **Boundary commutativity**: `(cauchyProj ccs).limit = ccs.limit`.
-    수직-외부 (limit) 와 수직-내부 (cauchyProj) 의 호환.  rfl. -/
+    Compatibility of vertical-external (limit) and vertical-internal (cauchyProj).  rfl. -/
 theorem cauchyProj_limit (ccs : CauchyCutSeq) :
     (cauchyProj ccs).limit = ccs.limit := rfl
 
-/-- **Idempotence**: `cauchyProj² = cauchyProj`.  CauchyCutSeq 구조 위
-    full equality, rfl (constCauchyCutSeq ∘ limit ∘ constCauchyCutSeq ∘ limit
+/-- **Idempotence**: `cauchyProj² = cauchyProj`.  Full equality on the
+    CauchyCutSeq structure, rfl (constCauchyCutSeq ∘ limit ∘ constCauchyCutSeq ∘ limit
     = constCauchyCutSeq ∘ limit). -/
 theorem cauchyProj_idempotent (ccs : CauchyCutSeq) :
     cauchyProj (cauchyProj ccs) = cauchyProj ccs := rfl
 
-/-- **Image predicate**: ccs 가 cauchyProj image — 즉 constCauchyCutSeq
-    형태.  "ccs.cs i = ccs.limit for all i" (informally). -/
+/-- **Image predicate**: ccs is a cauchyProj image — i.e. constCauchyCutSeq
+    form.  "ccs.cs i = ccs.limit for all i" (informally). -/
 def IsConstAtLimit (ccs : CauchyCutSeq) : Prop :=
   ccs = cauchyProj ccs
 
-/-- Constant-at-limit 면 cauchyProj 의 fixed point.  trivially. -/
+/-- If constant-at-limit, then a fixed point of cauchyProj.  trivially. -/
 theorem cauchyProj_id_of_isConst (ccs : CauchyCutSeq)
     (h : IsConstAtLimit ccs) : cauchyProj ccs = ccs := h.symm
 
-/-- 역방향: cauchyProj fixed point 면 constant-at-limit. -/
+/-- Converse: if a cauchyProj fixed point, then constant-at-limit. -/
 theorem isConst_of_cauchyProj_id (ccs : CauchyCutSeq)
     (h : cauchyProj ccs = ccs) : IsConstAtLimit ccs :=
   h.symm
 
-/-- **Fixed-point ↔ image** (Bool213 / RawCut 와 평행 — post-Option-C
-    Nat213 는 Nat 측 projection 이라 이 패턴 적용 안 함). -/
+/-- **Fixed-point ↔ image** (parallel to Bool213 / RawCut — post-Option-C
+    Nat213 is a Nat-side projection, so this pattern does not apply there). -/
 theorem cauchyProj_id_iff_isConst (ccs : CauchyCutSeq) :
     cauchyProj ccs = ccs ↔ IsConstAtLimit ccs :=
   ⟨isConst_of_cauchyProj_id ccs, fun h => (cauchyProj_id_of_isConst ccs h)⟩
 
-/-- 작동 시범: constCauchyCutSeq 의 cauchyProj 는 자기 자신. -/
+/-- Worked demonstration: the cauchyProj of a constCauchyCutSeq is itself. -/
 example (c : Nat → Nat → Bool) :
     cauchyProj (constCauchyCutSeq c) = constCauchyCutSeq c := rfl
 

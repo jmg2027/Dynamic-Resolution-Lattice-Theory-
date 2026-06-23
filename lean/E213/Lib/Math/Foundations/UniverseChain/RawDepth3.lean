@@ -4,7 +4,7 @@ import E213.Lib.Math.Foundations.UniverseChain.RawBipartition
 # Raw inhabitants at depth ≤ 3 (∅-axiom)
 
 Mingu's description:
-> "점 두개 → 선 → 점 → 다른 점들과 연결 → 또 점 → ..."
+> "two points → line → point → connect with other points → another point → ..."
 
 Raw at depth ≤ 3: 12 canonical inhabitants.
 

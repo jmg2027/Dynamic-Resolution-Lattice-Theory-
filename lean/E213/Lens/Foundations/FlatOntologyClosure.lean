@@ -7,7 +7,7 @@ import E213.Lens.Cardinality.Cantor
 `FlatOntology` realises every sort (object / type / relation / function / Lens)
 as one primitive: a decidable predicate on `Raw^n`.  It defers the *closure*
 direction — encoding a predicate back as a Raw (`seed/AXIOM/06_lens_readings.md`
-§6.3; "자기-덮음").
+§6.3; "self-cover").
 
 This file records the *limit* shape of that closure:
 
@@ -73,7 +73,7 @@ theorem self_covering_closure :
 /-! ## A concrete residue witness — the undifferentiated predicate
 
 `object1_not_surjective` is the abstract gap (Cantor).  Here is a *named*
-inhabitant of it, tying the gap to the session's "미분화 / undifferentiated"
+inhabitant of it, tying the gap to the session's "undifferentiated"
 notion: the **constant-true predicate** `fun _ => true` — the predicate that
 draws no distinction at all (the `Raw → Bool` shadow of `constLens`) — is not in
 the image of `Object1`.  Each `Object1 r` is true at exactly one Raw, so it can

@@ -19,11 +19,11 @@ only from the immediately-below ring's `API.lean` (and from Meta).
 See `ARCHITECTURE.md` (this directory) for the canonical spec.
 
 ```
-Term/     ★ 17 files — Raw 의 구현체 (deep-embedded Tree
+Term/     ★ 17 files — implementation of Raw (deep-embedded Tree
             substrate, Bool comparators, Sound bridges, Pair/Rat,
             Decide, Demo, MonomialAxioms).  ★ literally 0-axiom.
   ↓
-Theory/   24 files — 213 axiom 자체 (Raw + 4-clause commitments)
+Theory/   24 files — the 213 axiom itself (Raw + 4-clause commitments)
             + Atomicity (forced d=5, (NS,NT)=(3,2))
             + CDDouble (generic Order-4 mechanism)
             + Raw sub-cluster (Slash/Swap/Fold/FoldSwap/Levels/
@@ -60,7 +60,7 @@ Meta/    37 files (ring-independent) — Lean 4 bridge.
 
 | Layer | Files | Role | Axiom load |
 |---|---|---|---|
-| Term/      | 17  | Raw 의 구현체 (Tree, Term, comparators)  | ★ 0  |
+| Term/      | 17  | implementation of Raw (Tree, Term, comparators)  | ★ 0  |
 | Theory/    | 24  | Raw axiom + Atomicity + CDDouble         | mostly 0 |
 | Lens/      | 144 | Lens framework + sub-clusters            | mostly 0 |
 | Lib/Math/  | 727 | 213-native mathematics (42 sub-clusters) | mixed |

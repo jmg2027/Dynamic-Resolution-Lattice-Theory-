@@ -18,7 +18,7 @@ Two trichotomies sit on opposite sides of the cross-determinant story:
     parabolic), the elliptic generator `U = [[0,−1],[1,1]]` (`tr²−4 = −3`, elliptic).
 
 The discriminants `{+5, 0, −3}` agree on both sides.  This file supplies the structural
-reason the agreement is forced — the content of "교차행렬식의 수체 읽기" (*the number-field
+reason the agreement is forced — the content of "the number-field reading of the cross-determinant" (*the number-field
 reading of the cross-determinant*): the bridging object is the **fixed-point form** of a
 Möbius map.
 

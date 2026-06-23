@@ -146,7 +146,7 @@ structure ForcedValueWitness (Param : Type) where
     Captures `Math/AxiomSystems/`: same Raw expression validates
     Peano-theorem AND ZFC-theorem AND depth-theorem at once.
     Per Mingu Jeong:
-      "다른 수학 이론들 심지어 공리계라는 것도 렌즈들의 조합인거지"
+      "different mathematical theories, even axiom systems, are combinations of Lenses"
 
     Structurally this is **Catamorphism × Catamorphism** plus a
     Forced-Uniqueness witness of cohabitation.  Emergent, not

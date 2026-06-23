@@ -15,8 +15,13 @@ The user's structural insights:
 
   > "Raw는 트리 형태가 아니다.  모든 Raw는 연산이기도 하고 객체이기도
   >  하기 때문 — 즉 애초에 연산과 객체도 정의되지 않은 상태이다."
+  >  (Translation: "Raw is not in tree form.  Because every Raw is both an
+  >  operation and an object — i.e. operation and object are not even
+  >  defined to begin with.")
   >
   > "객체 간의 관계도 객체일거고. 타입도 객체일거고."
+  >  (Translation: "The relation between objects will also be an object.
+  >  The type will also be an object.")
 
 If every Raw event is *simultaneously* operation and object, then
 Clause 4 (no `x/x`) is not restricted to atomic Raw distinguishables
@@ -40,6 +45,9 @@ but the **count-Lens readout of Clause 4 applied recursively**.
 > "Alive (parity a = true ∧ parity b = true)는 cohomological-fermion
 >  parity의 postulate이며 Raw에서 derive되지 않음 — Raw → 5 chain의
 >  단일 최대 gap."
+>  (Translation: "Alive (parity a = true ∧ parity b = true) is a postulate
+>  of cohomological-fermion parity and is not derived from Raw — the single
+>  largest gap in the Raw → 5 chain.")
 
 After this file:
 

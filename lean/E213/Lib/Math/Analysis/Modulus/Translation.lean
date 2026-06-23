@@ -5,9 +5,9 @@ import E213.Lib.Math.Geometry.Topology.Continuity
 
 Mingu's insight :
 
-> "ZFC의 ε-δ 논법을 213 프레임워크로 번역하면, 위상수학 모듈에서
->  직접 정의했던 '이산적 깊이 모듈러스(Nat → Nat)'라는 명시적
->  함수로 정확히 1:1 대응됩니다."
+> "when ZFC's ε-δ method is translated into the 213 framework, it
+>  corresponds exactly 1:1 to the explicit function 'discrete depth
+>  modulus (Nat → Nat)' that we defined directly in the topology module."
 
 213-native paradigm: continuity is *not* an existence claim, it
 is **an explicit function**.  The ZFC `∀ε ∃δ, |x − y| < δ →

@@ -147,6 +147,6 @@ STRICT_ZERO_AXIOM.md track records examples of (a); the omega213
 module is a (b) framework starting point.
 
 User authorization (2026-05-01):
-> "필요하면 오메가213처럼 213 네이티브 확장들 정의해서 하는 식으로
->  하믄 되어여" — extend the 213-native toolkit when standard
+> "If needed, just define 213-native extensions like omega213 and proceed
+>  that way" — extend the 213-native toolkit when standard
 > tactics block strict-zero.

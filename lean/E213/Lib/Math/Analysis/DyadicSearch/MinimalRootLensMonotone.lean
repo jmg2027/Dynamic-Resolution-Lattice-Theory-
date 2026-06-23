@@ -243,7 +243,7 @@ rational ordering — including all `dyadicCut`s), it suffices to
 verify x's value at the single unit-precision query (0, 1).
 
 This is the Layer 3b structural translation: the user's
-"부호 변화 불변량을 cutEq라는 렌즈의 언어로 번역" — the unit-precision
+"translate the sign-change invariant into the language of the cutEq lens" — the unit-precision
 sign change `f rightCut 0 1 = true`, when paired with `RatioCut`
 on the f-image, is *automatically* a global cutEq with the zero cut. -/
 

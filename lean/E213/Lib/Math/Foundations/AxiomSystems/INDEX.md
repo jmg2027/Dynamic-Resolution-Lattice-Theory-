@@ -3,8 +3,8 @@
 ★★★ **G12 Tier 5 (C1-C4) ENDGAME demonstration** ★★★
 
 Different mathematical theories — even axiom systems — are
-combinations of Lenses (다른 수학 이론들 심지어 공리계라는 것도
-렌즈들의 조합).
+combinations of Lenses (different mathematical theories, even axiom
+systems, are combinations of Lenses).
 
 Critically: 213's Raw is **forced uniquely** (Atomicity proofs).
 There is NOT a "choice" of Raw bases.  All classical foundations

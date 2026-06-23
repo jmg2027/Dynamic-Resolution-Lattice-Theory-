@@ -9,7 +9,7 @@ negation **fixes** the `{0, ∞}` pair.  Here both folds meet on the **shared fo
 `{∞, 0, +1, −1}` — the reciprocal-closed core of `ℤ̂` (the only integers with an integer reciprocal,
 plus the hole `0` and its twin `∞`) — where both are total involutions and the duality is exact:
 
-  - **negation** `negQ`: **fixes** the `{0, ∞}` pair (the 영무한대 / hole pair), **swaps** the
+  - **negation** `negQ`: **fixes** the `{0, ∞}` pair (the zero-infinity / hole pair), **swaps** the
     `{+1, −1}` pair (the units);
   - **reciprocal** `recQ`: **swaps** the `{0, ∞}` pair, **fixes** the `{+1, −1}` pair.
 
@@ -61,19 +61,19 @@ def Swapped (f : Q4 → Q4) (a b : Q4) : Prop := f a = b ∧ f b = a
 
 /-! ## The exact duality -/
 
-/-- ★★ Negation **fixes** the 영무한대 pair `{0, ∞}`. -/
+/-- ★★ Negation **fixes** the zero-infinity pair `{0, ∞}`. -/
 theorem negQ_fixes_zeroInf : BothFixed negQ .zero .inf := ⟨rfl, rfl⟩
 
 /-- ★★ Negation **swaps** the unit pair `{+1, −1}`. -/
 theorem negQ_swaps_units : Swapped negQ .one .negOne := ⟨rfl, rfl⟩
 
-/-- ★★ Reciprocal **swaps** the 영무한대 pair `{0, ∞}`. -/
+/-- ★★ Reciprocal **swaps** the zero-infinity pair `{0, ∞}`. -/
 theorem recQ_swaps_zeroInf : Swapped recQ .zero .inf := ⟨rfl, rfl⟩
 
 /-- ★★ Reciprocal **fixes** the unit pair `{+1, −1}`. -/
 theorem recQ_fixes_units : BothFixed recQ .one .negOne := ⟨rfl, rfl⟩
 
-/-- The fixed points of negation are exactly the 영무한대 pair `{0, ∞}`. -/
+/-- The fixed points of negation are exactly the zero-infinity pair `{0, ∞}`. -/
 theorem negQ_fixed_iff (x : Q4) : negQ x = x ↔ x = .zero ∨ x = .inf := by
   cases x <;> exact ⟨by decide, by decide⟩
 
@@ -81,7 +81,7 @@ theorem negQ_fixed_iff (x : Q4) : negQ x = x ↔ x = .zero ∨ x = .inf := by
 theorem recQ_fixed_iff (x : Q4) : recQ x = x ↔ x = .one ∨ x = .negOne := by
   cases x <;> exact ⟨by decide, by decide⟩
 
-/-- ★★★★ **The two folds are mirror images on the fixture.**  Negation fixes the 영무한대 pair
+/-- ★★★★ **The two folds are mirror images on the fixture.**  Negation fixes the zero-infinity pair
     `{0, ∞}` and swaps the units `{±1}`; reciprocal swaps `{0, ∞}` and fixes `{±1}`.  Each ℤ/2 fold
     fixes the orbit the other swaps — the additive and multiplicative folds exchange the roles of the
     hole pair and the unit pair. -/

@@ -6,6 +6,8 @@ import E213.Lib.Math.Geometry.TriangularTower.PropertySurvival
 Mingu's reframing:
 > "혹시 2가 하나씩 올라갈수록 잃는게 아니라 3이 가져가는거
 >  인거 아닐까?"
+> (Translation: "Maybe, as 2 climbs one step at a time, it's not
+>  *losing* anything — it's 3 that's *taking* it?")
 
 213-native: at each CD level, the algebraic property doesn't
 *vanish* — the **3-axis (information capacity) absorbs it**.

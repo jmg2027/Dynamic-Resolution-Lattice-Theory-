@@ -8,6 +8,10 @@ The user's framing (Mingu): "f가 특정 패턴을 만족할 때 signedLeftOracl
 alwaysTrue로 환원되는 조건을 명시화하는 것은, 복잡한 함수 연산을 단순한
 상구조(Image)로 붕괴시키는 213 특유의 'Morphism 붕괴'를 보여주는
 핵심 작업."
+(Translation: "Making explicit the condition under which signedLeftOracle
+reduces to alwaysTrue when f satisfies a particular pattern is the core
+task that exhibits the 213-specific 'Morphism collapse' — collapsing a
+complex function computation onto a simple image structure (Image).")
 
 ## What's closed here
 
@@ -120,7 +124,7 @@ theorem signedLeftOracle_midCut_eq_alwaysTrue
     ConsistentOracle on `db` is *constructible* by structurally
     reducing to `numA_zero_alwaysTrue_ConsistentOracle db`.
 
-This is the user's "Morphism 붕괴" — f's complex computation
+This is the user's "Morphism collapse" — f's complex computation
 collapses to a constant-Bool image once its unit-precision pattern
 aligns with the bracket's natural alwaysTrue trajectory. -/
 def signedLeft_collapseTo_alwaysTrue_ConsistentOracle
