@@ -87,7 +87,7 @@ decide.
 
 ## §4 Direction A — Restricted depth-2 cut-off
 
-Extends `cutoff_marathon_at_depth_1` from depth 1 (M_1 = 3125) to
+Extends `asymptotic_cutoff_capstone_at_depth_1` from depth 1 (M_1 = 3125) to
 a restricted depth 2.  Trees `(a opL b) opOut (c opR d)` with
 **outer op ∈ {+, *}** (no outer ^).
 
@@ -489,7 +489,7 @@ the explicit depth-3 witness `2^(3^2) + 3^2`.
 
   · `cardinality_cutoff_principle.md` — methodology chapter.
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanFullCutoff.lean`
-    — depth-1 cut-off substrate (28 PURE, predecessor).
+    — depth-1 cut-off substrate (23 PURE, predecessor).
   · `lean/E213/Lib/Math/Cohomology/Fractal/AurifeuilleanLUnbounded.lean`
     — Direction B (20 PURE).
   · `lean/E213/Lib/Math/Cohomology/Fractal/HunterAtomicClosure.lean`

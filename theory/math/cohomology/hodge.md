@@ -4,7 +4,7 @@
 
 ## Overview
 
-Δ-Laplacian + ⋆-involution machinery. 9 + 1 files including
+Δ-Laplacian + ⋆-involution machinery. 11 files including
 `InvolutionTemplate` — a unified template that the Prop/Prop52/53/54
 involutions instantiate.  Hodge involution `⋆⋆ = id` on 5 Δ⁴ strata
 (the 213-native (p,p)-decomposition).

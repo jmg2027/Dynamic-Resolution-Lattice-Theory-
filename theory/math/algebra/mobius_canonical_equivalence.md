@@ -1,13 +1,10 @@
 # Möbius Canonical Equivalence on Cuts
 
 **Status**: Closed across 5 distinct equality domains + 3
-sequential closure arcs + 11-domain signature axis catalog
-(~26 files, 191 PURE / 0 DIRTY).  Grand unification master at
-`Lib/Math/Mobius213GrandUnification.grand_unification` bundles
-ten distinct readings of `P = [[2,1],[1,1]]`; signature axis
-catalog at `Lib/Math/Mobius213SignatureAxisCatalog*` enumerates
-55 PURE Lean-verified axes across 11 math/physics domains
-where the `(NS, NT, det) = (3, 2, 1)` signature appears.
+sequential closure arcs.  Grand unification master at
+`Lib/Math/Algebra/Mobius213GrandUnification.grand_unification` bundles
+ten distinct readings of `P = [[2,1],[1,1]]` where the
+`(NS, NT, det) = (3, 2, 1)` signature appears.
 
 ## Overview
 
@@ -333,22 +330,23 @@ along axes that the original closure left open:
     Type D asymptote `(1, 1)` is two copies of `det P`.
 
 The grand unification capstone
-(`Lib/Math/Mobius213GrandUnification.grand_unification`)
+(`Lib/Math/Algebra/Mobius213GrandUnification.grand_unification`)
 bundles all the per-domain master theorems into a single
 ∅-axiom-verified 10-conjunct statement, the ultimate witness
 that `P = [[2,1],[1,1]]` carries every reading the framework
 admits.
 
-## Signature axis catalog (55 PURE across 11 domains)
+## Signature axis readings
 
-Beyond the three arcs, the signature axis catalog
-(`Lib/Math/Mobius213SignatureAxisCatalog*`) systematically
-enumerates every framework-internal reading where the atomic
-signature `(NS, NT, det) = (3, 2, 1)` is visible.  Modeled on
+Beyond the three arcs, the atomicity anchor
+(`Lib/Math/NumberSystems/Real213/Mobius/Mobius213AtomicityAnchor.lean`,
+bundled by `Mobius213UnificationCapstone.lean`) records the
+framework-internal readings where the atomic signature
+`(NS, NT, det) = (3, 2, 1)` is visible.  Modeled on
 `Theory.SixTheorem` (10 readings of `6 = NS·NT`) but extended
-to the full signature across all math/physics domains.
+to the full signature across math/physics domains.
 
-**The first master** (29 PURE, 20-conjunct) covers 6 domains:
+The readings group as follows:
 
 | Domain | Axes | Examples |
 |---|---:|---|
@@ -359,7 +357,7 @@ to the full signature across all math/physics domains.
 | Resolution-limit | 3 | d² = 25, N_U = 5²⁵, fractal level = NT |
 | Atomicity-anchor | 1 | 6-conjunct cross-frame from `Mobius213AtomicityAnchor` |
 
-**The second master** (26 PURE, 23-conjunct) covers 5 more domains:
+Further domains:
 
 | Domain | Axes | Examples |
 |---|---:|---|
@@ -369,13 +367,10 @@ to the full signature across all math/physics domains.
 | Physics couplings | 6 | α_3 channel = 8 (gluon octet), α_GUT = d², color SU(NS), spacetime |
 | Information | 3 | 2^d = 32, 2^(NS·NT·c) = 4096, N_U = 5²⁵ |
 
-**Total: 55 PURE Lean-verified axes spanning 11 domains.**
-
-The catalog's mathematical content: every framework reading of
+The mathematical content: every framework reading of
 the atomic signature lands on the same integer invariants
 `{NS, NT, det, d, NS·NT, NS²-1, ...}`.  No external axis
-produces different signature data — Lean-verified across 11
-distinct domains.  Operational form of
+produces different signature data.  Operational form of
 `seed/AXIOM/05_no_exterior.md` §5.1.
 
 The catalog also realises a **6th P-signature reading**
@@ -405,9 +400,9 @@ occurrences, coefficient extraction).  Companion essay:
     natural follow-up.
   · **Higher cohomology + Möbius P**: H¹(K_{3,2}^(c=2)),
     H²(K_{3,2}^(c=2)), and Steenrod operations under
-    state-class projection.  Existing infrastructure in
-    `Cohomology/Bipartite/H1K.lean`, `SteenrodSquaresAtOmega
-    .lean` could host the bridge.
+    state-class projection.  `Cohomology/Bipartite/SteenrodSquaresAtOmega.lean`
+    exists; the bridge would also need a dedicated H¹(K) module
+    (not yet present).
 
 ## How to verify
 

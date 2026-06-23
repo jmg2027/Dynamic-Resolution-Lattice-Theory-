@@ -32,7 +32,7 @@ The shared object is the `CoeffSeq = Nat → Nat` graded ring with
   - `ParadigmDomain.lean` — Step 3: `ParadigmWitness` typeclass
   - `ParadigmDomainGraded.lean` — Step 4: shared `trunc_op` operator
   - `ParadigmDomainGradedRing.lean` — Step 5: graded-ring instantiation via `CoeffSeq`
-- **Domain capstones cited**: `Lib/Math/{Probability, Information, Logic, Combinatorics}/Capstone.lean`
+- **Domain capstones cited**: `Lib/Math/Logic/Capstone.lean`, `Lib/Math/Combinatorics/Capstone.lean`
 - **∅-axiom status**: all PURE
 
 ## The narrative
@@ -64,8 +64,8 @@ is carried by the graded-ring instantiation (Steps 3-5 below).
 ```lean
 structure ParadigmWitness where
   truncation_grade : Nat
-  truncation_holds : Prop
-  atom_decidable    : Decidable truncation_holds
+  truncation_holds : Bool
+  atom_decidable   : Bool
 ```
 
 9 domain instances all uniform with `truncation_grade = 5` (= d).

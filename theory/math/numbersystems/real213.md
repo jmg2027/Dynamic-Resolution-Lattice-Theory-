@@ -1,14 +1,16 @@
-# Real213 — Dedekind-Cut Real Numbers (213-native)
+# Real213 — Constructive Cauchy Real Numbers (213-native)
 
-**Status**: Closed (57 files in 7 sub-clusters).
+**Status**: Closed (211 files in 7 sub-clusters).
 
 ## Overview
 
-**Real213** is the 213-native real-number type, built as a
-**Dedekind cut on dyadic rationals** with finite precision at every
-operation.  No completion-at-infinity: every Real213 value is a
-sequence of dyadic brackets at progressively finer levels, with
-the value's identity = the limit predicate on the bracket sequence.
+**Real213** is the 213-native real-number type, built as an
+**approximant sequence paired with an explicit modulus** — a
+constructive Cauchy real, finite precision at every operation.  No
+completion-at-infinity: every Real213 value is a `Raw`-valued
+sequence whose modulus certifies how fast its cut-decisions stabilize,
+with the value's identity = agreement of those cut-decisions at every
+`(m, k)` threshold.
 
 Standard `ℝ`-theorems (Cauchy completeness, IVT, MVT, ε-δ
 continuity) all hold in Real213 with **explicit modulus
@@ -16,7 +18,7 @@ functions** instead of existential ε-δ quantifiers.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Real213/` (57 files, 7 sub-clusters)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberSystems/Real213/` (211 files, 7 sub-clusters)
 - **Umbrella**: `Real213.lean`
 - **∅-axiom status**: PURE on production critical path
 
@@ -44,23 +46,29 @@ is an existential.  In 213's substrate, there is no "at infinity"
 The naive workaround (use only ℚ, lose continuity) is wrong:
 DRLT physics needs continuity-style reasoning (precision brackets
 that tighten, MVT for the strong coupling, ...).  The right
-solution: keep the **Dedekind cut** primitive (which works in 213)
-but replace "the cut **is** the real" with "the cut **encodes** the
-real as a typed protocol".
+solution: carry the approximant **sequence** together with an
+explicit **modulus** that certifies its stabilization, so "the real"
+is a typed protocol producing a decision at every finite depth rather
+than a completed limit.
 
 ### Real213 type
 
 ```
-Real213 := { lower : Set ℚ // ValidCut lower }
+structure Real213 where
+  xs      : Nat → Raw
+  modulus : HasModulus xs
 ```
 
-where `ValidCut` enforces:
-1. Lower set is downward-closed
-2. Lower set has no maximum (open above)
-3. Lower set is bounded (cut is finite)
+(`lean/E213/Lib/Math/NumberSystems/Real213/Core/Core.lean`.)  Each
+element is a constructive Cauchy sequence with an explicit modulus.
+The cut tables it works through are `Cut := Nat → Nat → Bool`
+functions — for each rational threshold `(m, k)`, the Bool decision
+"is the value below this threshold?" — **not** lower-sets of ℚ.
 
-All three are **decidable** in 213's substrate.  Real213 equality
-is `cutEq`: same lower set.
+Real213 equivalence (`Real213.equiv`) holds when two sequences make
+the same `orderProj m k` decision at every `(m, k)` threshold past
+some index.  The quotient is left as a setoid rather than taken with
+`Quot.sound`.
 
 ### Operations
 

@@ -1,6 +1,6 @@
 # Yang-Mills + Weinberg Angle
 
-**Status**: Closed (5 files).
+**Status**: Closed (6 files).
 
 ## Overview
 
@@ -10,7 +10,7 @@ electroweak sector within the atomic substrate.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Physics/YangMills/` (5 files)
+- **Sub-tree**: `lean/E213/Lib/Physics/YangMills/` (6 files)
 - **Umbrella**: `YangMills.lean`
 - **∅-axiom status**: PURE
 
@@ -21,10 +21,12 @@ under the atomic-substrate readings.  `SU5Roots.lean` enumerates
 the 24 SU(5) roots; `WZBosons.lean` predicts the W mass to
 within experimental bracket.
 
-The Weinberg angle `sin² θ_W = 3/8` (tree-level) emerges as the
-ratio of SU(2) generators to SU(2) + U(1) generators in the atomic
-substrate; running corrections derived via the coupling-spectrum
-machinery (theory/physics/couplings.md).
+The Weinberg angle (`WeinbergAngle.lean`) is
+`sin² θ_W = 30 / (30 + 60·ζ(2)) = 1/(1 + 2·ζ(2)) ≈ 0.2331` bare,
+refined to ≈ 0.2312, against the observed 0.23121.  It emerges as
+`α_em / α_2` with `1/α_2 = 30` and `1/α_em(M_Z) = 30 + 60·ζ(2)`;
+running corrections derived via the coupling-spectrum machinery
+(theory/physics/couplings.md).
 
 ## Mass gap (213 completion)
 

@@ -4,7 +4,7 @@
 
 ## Overview
 
-213-native cochain complex foundation. 4 files. `Cochain n k := Fin (binom n k) → Bool` — free ℤ/2-module on the k-subset basis. Foundation for all higher cup/Hodge work.
+213-native cochain complex foundation. 5 files. `Cochain n k := Fin (binom n k) → Bool` — free ℤ/2-module on the k-subset basis. Foundation for all higher cup/Hodge work.
 
 ## Lean source
 

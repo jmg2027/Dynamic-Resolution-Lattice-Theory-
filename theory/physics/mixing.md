@@ -16,7 +16,7 @@ eigenvalue), *not* as the CP phase.
 
 The mixing observables read the atomic shape under three Lenses:
 
-- **Cabibbo angle**: `λ = 5/22 = d / (d² − NS)` — the canonical
+- **Cabibbo angle**: `λ = 5/22 = d / (d² − d + NT)` — the canonical
   213 value (catalog falsifier; `5/22 ± 1 %`).  The Wolfenstein
   `A` parameter is a *separate* quantity (`A = φ/c`); it is not the
   Cabibbo angle and should not be conflated with `λ`.

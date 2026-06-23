@@ -16,7 +16,7 @@ chapters of the corpus.  The two are not parallel coincidences on
 the number 8; they are two count-Lens readings of the same Sym(3)
 action on the same K_{3,2}^{(c=2)} cohomological substrate.
 
-The shared decomposition is anchored by `Sym3IrrepDecomp.fixedSize_eq_4`
+The shared decomposition is anchored by `OctetModule.fixedSize_eq_4`
 and the gauge reading `c3_chain_master` (both PURE).  This chapter is
 the narrative companion.
 
@@ -69,7 +69,7 @@ gauge-content Lens.  Lean anchor: `c3_chain_master`.
 
 The two readings share one PURE Sym(3) substrate:
 
-- `Sym3IrrepDecomp.fixedSize_eq_4` — the dim-2 trivial-isotypic
+- `OctetModule.fixedSize_eq_4` — the dim-2 trivial-isotypic
   subspace (4 fixed cochains) of H¹(K_{3,2}^{(c=2)}) over F₂.
 - `c3_chain_master` — the gluon-octet reading `1/α_3 = dim H¹ =
   NS² − 1 = 8 = dim adj SU(3)`.

@@ -33,8 +33,7 @@ powers. Proven ∅-axiom over coprime products:
 
 - `DivisorMultiplicative.sigma_mul`, `tau_mul` — σ, τ multiplicative.
 - `GeneralizedDivisorSum.sigmaK_mul` — σ_k multiplicative, **all k**.
-- The engine is `DivisorProductReindex.divisor_product_reindex` /
-  `DivisorMultiplicative.divisor_product_reindex` — the sparse-fiber grid
+- The engine is `DivisorMultiplicative.divisor_product_reindex` — the sparse-fiber grid
   reindex `divisorSum (a·b) f = Σ_{i<a}Σ_{k<b} dvdInd i a · dvdInd k b ·
   f((i+1)(k+1))`, the combinatorial heart of every multiplicativity proof.
 
@@ -172,8 +171,9 @@ identities stated as ring equations against the convolution unit `ε(n) = [n=1]`
   (`coprime_two_pow_mersenne`) + σ-multiplicativity. Concrete: `6, 28, 496`
   (`perfect_6/28/496`).
 - **Even perfect ⟹ triangular**: every even perfect number `2^k·q` is the triangular
-  number `T_q` (`even_perfect_triangular`) — fusing the divisor theory with the figurate
-  identities of `convolution_generating_functions.md`.
+  number `T_q`, stated as the triangular-number identity
+  `2·(2^k·(2^{k+1}−1)) = (2^{k+1}−1)·((2^{k+1}−1)+1)`
+  (`even_perfect_triangular`, self-contained Nat arithmetic).
 - **The trichotomy**: `perfect_abundant_deficient_trichotomy` (every `n` is exactly one of
   perfect / abundant `2n<σ(n)` / deficient `σ(n)<2n`), and **primes are deficient**
   (`prime_deficient`). Concrete witnesses `abundant_12/18/20`, `deficient_8/9/10`.

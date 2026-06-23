@@ -1,6 +1,6 @@
 # Cauchy / Euler / Wallis / Pell Sequences
 
-**Status**: Closed (7 files).
+**Status**: Closed (69 files).
 
 ## Overview
 
@@ -12,14 +12,14 @@ existential ε-δ.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Analysis/Cauchy/` (7 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Analysis/Cauchy/` (69 files)
 - **∅-axiom status**: PURE
 
 | Group | Files |
 |---|---|
-| Generic + properties | `GenericFamily`, `Properties` |
-| Classical families | `Euler`, `Wallis`, `Pell` |
-| Convergence | `MonotoneBounded`, `Archimedean` |
+| Generic | `GenericFamily` |
+| Classical families | `Euler`, `Wallis`, `PellSeq` |
+| Convergence | `MonotonicBounded`, `Archimedean` |
 
 ## Narrative
 
@@ -30,7 +30,7 @@ Cauchy s := { f : Nat → Nat // ∀ N k l, k ≥ f N → l ≥ f N → |s_k - s
 ```
 
 The modulus `f` is **part of the witness** — no Skolemization
-needed.  `MonotoneBounded.lean` proves: every monotone bounded
+needed.  `MonotonicBounded.lean` proves: every monotone bounded
 sequence is Cauchy with explicit modulus.  `Archimedean.lean`
 provides the Archimedean property for Real213 cuts.
 
@@ -39,7 +39,7 @@ provides the Archimedean property for Real213 cuts.
 - **Euler**: e ≈ 2.71828... As `Σ 1/k!` with explicit truncation
   bound
 - **Wallis**: π/2 as the Wallis product with explicit bracket
-- **Pell**: Pell numbers as DyadicFSM output, used for √2 brackets
+- **PellSeq**: Pell numbers as DyadicFSM output, used for √2 brackets
 
 These are the **finite-rational bracket** versions of standard
 transcendentals — same content, different packaging (per G6 §0

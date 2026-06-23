@@ -4,7 +4,7 @@
 
 ## Overview
 
-Concrete worked examples. 10 files: BettiKernel, K5, Diamond{Shape,Audit}, EulerClosed, TopologyCompare, EncodingBijection{,52}, SimplexBasis, WhyDimFive.
+Concrete worked examples. 8 files: BettiKernel, NonzeroBetti, K5, EulerClosed, TopologyCompare, EncodingBijection, SimplexBasis, WhyDimFive.
 
 ## Lean source
 

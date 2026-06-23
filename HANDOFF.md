@@ -109,7 +109,89 @@ A critical-fleet review (consistency / claims-vs-Lean / meta-principle) of
 The single seam I introduced (§2.4 clause-3 mis-citing α) was caught by the
 verification agent and corrected. Build clean throughout (only prose/docstrings).
 
+## 대격변 part 2 — systemic fabricated-Lean-citation sweep (Phase 8)
+A deep "verify-prose-against-Lean" fleet (skeptical-mathematician agents,
+every cited theorem/def/path/count grep-checked against the actual tree)
+surfaced a **systemic drift**: numerous `theory/` chapters cited Lean
+files/theorems that **do not exist**, several presented with fabricated
+PURE counts — a falsifiability-contract violation (a "PROVED ∅-axiom"
+claim must point at a real PURE theorem). ~70 findings across ~40 chapters;
+every fix re-verified against Lean before editing (agents can hallucinate).
+
+**Worst fabrications (rewritten by hand, verified):**
+- `cohomology/k32_higher_cohomology.md` — kept the genuinely formalised
+  content (face dependence b_1=6/b_2=1, ω Sym(3)-invariance, cup_1/cup_2
+  ladder, Steenrod-Whitehead bridge, L²-trace, Sq⁰/Sq¹ + vacuous Sq¹·Sq¹=0);
+  moved the fabricated tail (`AdemUniversal`, `CartanAtTruncation`,
+  `MasseyTripleH1Witness/Omega`, `Filled5Cell*`, `Sq2At4Cell`, all
+  `V33`/`K_{3,3}` — none exist) into an explicit "Open frontier
+  (unformalized)" section, stripping all false PROVED-Lean + PURE claims.
+- `cohomology/bipartite.md` — fabricated `BettiOneUniversal`/`PathCoboundary`/
+  `KEdgeCochain`/`KerSizeUniversal.ker_iff_constant` → real
+  `EulerAndCapstone.b1Formula`/`eulerChar`/`parametric_close_capstone` +
+  `universal_kernel_close`.
+- `analysis/ode.md` — fabricated `Lib/Math/ODE/` + integral-Picard/Lipschitz/
+  Picard-Lindelöf → real Nat-discrete `Analysis/ODE/` (12 files),
+  `picardIterate`/`picard_const`/`picard_exp`.
+
+**Fabrications fixed by guarded fix-fleet (each agent re-verified before edit):**
+- physics: `mass.md` (NoFourthGen→`drlt_no_4th_gen_falsifier`),
+  `symmetry/c3_chain.md` (12 nonexistent Sym3On*/Iota* modules; octet reframed
+  to OctetModule rank-8 NS²−1, not graph-b₁; 24→13 files; (f)/(h) conjuncts),
+  `yang_mills.md` (sin²θ_W 3/8→30/(30+60ζ(2))≈0.2331), `mixing.md` (Cabibbo
+  d²−NS→d²−d+NT), `cosmology.md` (drop Hubble; 8→7), `couplings.md` (3 wrong
+  filenames; TripleCoupling not merged), `capstones.md`/`foundations.md`/
+  `alpha_em/precision_derivation.md` (counts; AdemUniversal/CartanAtTruncation
+  rows deleted), `simplex.md`.
+- foundations/meta/algebra: `cross_domain_unification.md` (ParadigmWitness
+  Prop/Decidable→Bool/Bool; wrong capstone paths), `pattern_catalog.md`
+  (5 nonexistent *Pattern types), `universe_chain.md` (Nat213 "3+2 ctors"→
+  `{n//1≤n}` subtype; `add_emergence`, `RotationGeometry.lean`,
+  `Nat213.atomicity` nonexistent), `choice.md` (CanonicalTruthChar "the only
+  propext"→SemanticAtom root), `cardinality_cutoff_{principle,applications}.md`
+  (cutoff_marathon→asymptotic_cutoff_capstone; Adem/Cartan rows),
+  `methodology_patterns.md` (gap_e7_eq_5443 is a def), `mobius_canonical_
+  equivalence.md` + essay `every_axis_sees_p.md` + Lean docstring
+  `Px/DecompositionCatalog.lean` (triple-cited nonexistent
+  `Mobius213SignatureAxisCatalog`/"55 PURE axes"), `algebra_tower.md`
+  (algebra_tower_capstone→`capstone_loaded`:True; paths; 50→120/12→42),
+  `group.md` (5→6).
+- numbertheory/numbersystems: `real213.md` (Set ℚ cut→approximant+modulus
+  structure; 57→211), `complex.md` (ComplexCut→Cut×Cut pair), `hyper.md`
+  (verified — tetration IS built via HyperLadder, fix only false cites),
+  `dyadic_fsm.md` (UniversalPhase*, Predictor8–23 nonexistent; ∀p overclaim;
+  dir table), `modular_arithmetic.md` (frob_ring_hom/fp2_ring_axioms
+  nonexistent; 13→62), `fibonacci_5adic_valuation.md` (13→14),
+  `multiplicative_divisor_theory.md`, `quadratic_reciprocity.md`.
+- analysis: `measure.md` (cup-as-measure fabricated→dyadic-bracket counting),
+  `minimal_root.md` (MinimalRootLens def→MinimalRootCut; 2 nonexistent
+  theorems), `modulus.md` (StrongModulus "monotone" wrong; 10→9;
+  HasModulusBoundsExtra phantom), `markov_spectrum.md` (10→13/19→22),
+  `multivariable.md`, `cauchy.md` (7→69; Pell→PellSeq; Monotone→Monotonic),
+  `cf_holonomicity`/`cfinite`/`refined_completability`/`tower_native` counts+paths.
+- cohomology counts + misc: sym3_spine (Sym3IrrepDecomp→OctetModule),
+  cup (SelfRefDepth path), fractal/cochain/universal/hodge/examples counts,
+  `combinatorics/logic.md` (retired R1–R5 frame dropped), `tactic.md`/
+  `extras.md` (Ring213 vs hurwitz_ring; Nat not Real213), `probability.md`/
+  `information.md` (Event=ProbabilityCut not Cochain; counts),
+  `combinatorics.md` (7→~85), `reverse_math_213.md` (10→28).
+
+**Method note / lesson**: the recurring failure is *plausible-but-nonexistent*
+Lean citations (invented theorem families, doubled file counts, type sigs that
+don't match). Every chapter's "Lean source" block must be grep-checked; a PURE
+claim that doesn't resolve to a real `#print axioms`-clean theorem is
+`sorry`-equivalent and must be downgraded to "open/unformalized". Several
+phantoms were *self-reinforcing* (chapter + essay + Lean docstring cite the
+same nonexistent module). Verified-clean chapters (large majority of
+citations) were left untouched.
+
 ## Open / not done (next session)
+- **Audit the remaining `theory/` "Lean source" blocks** the fleet did not
+  reach, and the `lean/E213/**/INDEX.md` count headers, for the same
+  fabricated-citation / stale-count drift.
+- Consider a CI lint: parse backticked `Foo.bar` / `Path/X.lean` citations in
+  `theory/**.md` and fail if they don't resolve in `lean/E213` (would have
+  caught every Phase-8 finding mechanically).
 - (Lean docstring body now fully read file-by-file — above.)
 - **Stale INDEX counts**: fixed (ModArith 13→62 w/ full re-enumeration; FluxMVT
   23→27; DyadicSearch 12→13; ArithFSM 14→15; DyadicFSM Pisano row 9→2).

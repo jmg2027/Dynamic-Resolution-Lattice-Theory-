@@ -5,8 +5,9 @@
 ## Overview
 
 213-native multivariable calculus on Real213^n: partial derivatives,
-gradients, Jacobians, the chain rule.  All operations carry
-**explicit modulus** tracking per coordinate.
+gradients, Jacobians, the chain rule.  Operations act on `MultiCut n`
+cut functions, with convergence handled by the modulus discipline of
+the underlying Real213 cuts.
 
 ## Lean source
 

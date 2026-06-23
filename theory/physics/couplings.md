@@ -16,12 +16,12 @@ Dyson structure, asymptotic freedom, **θ_QCD**.
 
 | Group | Files | Topic |
 |---|---|---|
-| Unification | `AlphaGUT`, `RunningGap` | α_GUT = 6/(25·π²); IR/UV gap |
-| α_QCD running | `AlphaStrongRunning`, `AsymptoticFreedom` | β-function running |
-| Spectrum | `CouplingSpectrum`, `PhotonKernel` | unified coupling spectrum |
-| Confinement | `ColorConfinement`, `Dyson` | confinement + Dyson structure |
+| Unification | `AlphaGUT`, `GUTUnification`, `RunningGap` | α_GUT = 6/(25·π²); IR/UV gap |
+| α_QCD running | `AsymptoticFreedom`, `RunningGap` | β-function running |
+| Spectrum | `SpectrumComplete`, `PhotonKernel`, `ClosedPropagator` | unified coupling spectrum |
+| Confinement | `ColorConfinement`, `DysonStructure` | confinement + Dyson structure |
 | θ-angle | `ThetaQCD` | θ_QCD < J·α⁴ falsifier |
-| `TripleCoupling` | absorbed (per CONSOLIDATION_PROTOCOL.md) | merged |
+| Triple vertex | `TripleCoupling` | triple-coupling vertex |
 
 ## Narrative
 

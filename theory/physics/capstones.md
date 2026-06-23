@@ -1,6 +1,6 @@
 # Physics Capstones
 
-**Status**: Closed (7 files).
+**Status**: Closed (5 files).
 
 ## Overview
 
@@ -11,7 +11,7 @@ catalogs/.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Physics/Capstones/` (7 files)
+- **Sub-tree**: `lean/E213/Lib/Physics/Capstones/` (5 files)
 - **Umbrella**: `Capstones.lean`
 - **∅-axiom status**: PURE
 
@@ -22,9 +22,10 @@ bundled `∧`-conjuncts of theorems proven elsewhere in
 `Lib/Physics/`.  This is the **single-citation interface** for
 downstream consumers:
 
-- `pure_atomic_observables` — sub-bundle of PURE observables only
-  (filters out items with sealed-by-design axiom dependencies)
-- `master_catalog` — top-level master indexing every theorem
+- `pure_atomic_observables_capstone` — sub-bundle of PURE
+  observables only (filters out items with sealed-by-design axiom
+  dependencies)
+- `master_atomic_catalog` — top-level master indexing every theorem
   reachable via this layer
 
 These capstones make it **one import** to verify "DRLT predicts

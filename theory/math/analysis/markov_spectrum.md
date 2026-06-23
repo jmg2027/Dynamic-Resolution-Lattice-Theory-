@@ -2,7 +2,7 @@
 
 **Status**: Closed for the first two spectrum values and the tree engine; the full spectrum
 is the documented continuation.  Source of truth (all ∅-axiom):
-`lean/E213/Lib/Math/NumberSystems/Real213/{GoldenFormMarkov, MarkovTree}` (19 PURE / 0 dirty).
+`lean/E213/Lib/Math/NumberSystems/Real213/{GoldenFormMarkov, MarkovTree}` (22 PURE / 0 dirty).
 
 ## Overview
 
@@ -122,4 +122,4 @@ cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Markov.GoldenFormMarkov
 python3 tools/scan_axioms.py E213.Lib.Math.NumberSystems.Real213.Markov.MarkovTree
 ```
-Reports `9 pure / 0 dirty` and `10 pure / 0 dirty`.
+Reports `9 pure / 0 dirty` and `13 pure / 0 dirty`.

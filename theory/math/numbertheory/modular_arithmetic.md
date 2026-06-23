@@ -1,6 +1,7 @@
 # Modular Arithmetic 213
 
-**Status**: Closed (13 files.
+**Status**: Closed (62 files — core CRT/Bezout/FLT cluster plus the
+universal-Pisano and Padic extensions documented below).
 
 ## Overview
 
@@ -21,9 +22,9 @@ universal-Pisano programme).
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/NumberTheory/ModArith/` (13 files)
+- **Sub-tree**: `lean/E213/Lib/Math/NumberTheory/ModArith/` (62 files)
 - **Umbrella**: `ModArith.lean`
-- **∅-axiom status**: PURE (all 13)
+- **∅-axiom status**: PURE
 
 | Group | Files | Topic |
 |---|---:|---|
@@ -78,12 +79,12 @@ uses `(a + b√5)(c + d√5) = (ac + 5bd) + (ad + bc)√5` interpreted
 mod `p`.  Key results:
 
 - **Ring structure**: additive group + commutative multiplication
-  + distributivity (`fp2_ring_axioms`)
-- **Frobenius** `φ : F_{p²} → F_{p²}`, `x ↦ x^p`:
-  - additive: `(x + y)^p = x^p + y^p`  (`frob_add`, follows from
+  (`fp2Add_comm`, `fp2Mul_comm`)
+- **Frobenius** `φ : F_{p²} → F_{p²}`, `x ↦ x^p`
+  (`fp2Frob_zero`, `fp2Frob_one`):
+  - additive: `(x + y)^p = x^p + y^p`  (`fp2Frob_add`, follows from
     freshman's dream in `F_{p²}`)
-  - multiplicative: `(x · y)^p = x^p · y^p`  (`frob_mul`)
-  - thus a ring homomorphism (`frob_ring_hom`)
+  - multiplicative: `(x · y)^p = x^p · y^p`  (`fp2Frob_mul`)
 - **`√5 ↦ ±√5` under Frobenius**: by FLT in `F_p`,
   `√5^p = √5 · 5^((p-1)/2) = ± √5`, sign = Legendre symbol
   `(5/p)`.  Drives the **split vs inert** dichotomy that the Pell

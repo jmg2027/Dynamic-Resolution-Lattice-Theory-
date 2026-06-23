@@ -57,9 +57,10 @@ not as documentation but as actual `def`s and `theorem`s that other
 sub-trees instantiate.  `Lib/Math/Foundations/PatternCatalog/` is the formal
 realization.
 
-The five named patterns are the minimal generating set: every
-recurring 213 pattern is built from `Core ∘ {Algebra, CrossAxis,
-Instance, Span}` compositions.
+The catalog is organized as five modules — `Core` (witness
+combinators), `Algebra` (operator-word algebra), `CrossAxis`,
+`Instance` (concrete demos), and `Span` — each recording the
+declarations other sub-trees instantiate.
 
 ### Catalog usage
 
@@ -72,16 +73,15 @@ Other sub-trees cite the catalog rather than reinventing patterns:
 
 ## Key results
 
-| Theorem / Def | Module | Statement |
+| Declaration | Module | Statement |
 |---|---|---|
-| `Pattern` core combinator | `Core` | Base combinator type |
-| `AlgebraPattern` | `Algebra` | Algebraic pattern entry |
-| `CrossAxisPattern` | `CrossAxis` | NS × NT cross-axis entry |
-| `InstancePattern` | `Instance` | Instance scaffold |
-| `SpanPattern` | `Span` | Span entry |
+| `LocalityWitness`, `CapstoneBundle`, `InterfaceWitness`, `CatamorphismWitness`, `DynamicalWitness`, `ForcedValueWitness`, `CohabitationWitness`, `Aggregate` | `Core` | Base witness combinators |
+| `OpWord`, `Primitive`, `GameAnchor` | `Algebra` | Operator-word algebra + primitive anchors |
+| `CrossAxisCell`, `CrossAxisSpecimen` | `CrossAxis` | NS × NT cross-axis entries |
+| (instance demos) | `Instance` | Concrete witness instances |
+| `SpanResult`, `EscapeCandidate` | `Span` | Span verdict + escape candidates |
 
-(Pattern catalog is small by design — five named entries.  The
-content is in their *use* across other sub-trees, not in their
+(The content is in their *use* across other sub-trees, not in their
 own depth.)
 
 ## ParadigmDomain bridge — closed (ParadigmBridge.lean)

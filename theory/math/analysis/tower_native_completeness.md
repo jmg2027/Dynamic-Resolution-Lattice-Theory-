@@ -5,7 +5,7 @@
 IntensionalCompletability, ScalingOrbit, FloorReferenceForm}`,
 `lean/E213/Lib/Math/Analysis/Cauchy/{DepthClosure, DepthCoordGenerator, DepthCeilingResidue}`,
 `lean/E213/Lib/Math/Algebra/CayleyDickson/Integer/{EisensteinSignature, ParabolicSignature}`,
-`lean/E213/Lib/Math/FiveFloorUnification`.
+`lean/E213/Lib/Math/Algebra/FiveFloorUnification`.
 
 ## Overview
 
@@ -379,7 +379,7 @@ for M in \
   E213.Lib.Math.Analysis.Cauchy.DepthCoordGenerator \
   E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSignature \
   E213.Lib.Math.Algebra.CayleyDickson.Integer.ParabolicSignature \
-  E213.Lib.Math.FiveFloorUnification \
+  E213.Lib.Math.Algebra.FiveFloorUnification \
   E213.Lib.Math.NumberSystems.Real213.Completability.TowerNativeCompleteness ; do
     python3 tools/scan_axioms.py $M
 done

@@ -54,9 +54,8 @@ declarations.
 ### Smell #3: incremental scaffold theorems
 
 Symptom: single-equation stepping-stone theorems toward a master
-theorem (`gap_e7_eq_5443`, `pi5_gap_e7_eq_5446`,
-`..._distance_eq_3`) that all appear verbatim as conjuncts of the
-master.
+theorem (`pi5_gap_e7_eq_5446`, `..._distance_eq_3`) that all
+appear verbatim as conjuncts of the master.
 
 Treatment: delete incrementals not referenced from outside — the
 master's conjunct suffices.  Keep only incrementals with external

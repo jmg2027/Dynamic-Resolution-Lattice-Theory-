@@ -1,16 +1,16 @@
 # Cosmology
 
-**Status**: Closed (8 files; F26 η_B falsifier).
+**Status**: Closed (7 files; F26 η_B falsifier).
 
 ## Overview
 
-Cosmological observables: **Hubble constant**, N_eff (effective
-neutrino species), dark energy, gravity shadow, horizon information.
-Includes **F26 falsifier**: `η_B · 10¹⁰ ∈ [5, 7]` (baryon-to-photon ratio).
+Cosmological observables: N_eff (effective neutrino species), dark
+energy, e-folds, horizon information.  Includes **F26 falsifier**:
+`η_B · 10¹⁰ ∈ [5, 7]` (baryon-to-photon ratio).
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Physics/Cosmology/` (8 files)
+- **Sub-tree**: `lean/E213/Lib/Physics/Cosmology/` (7 files)
 - **Umbrella**: `Cosmology.lean`
 - **∅-axiom status**: PURE
 
@@ -28,7 +28,7 @@ called `N_U`; per N_U re-derivation Round 3 one value of the parametric
 ratio) × 10¹⁰ brackets to [5, 7].  Measured ~6.1 sits in bracket.
 Measured value outside [5, 7] · 10⁻¹⁰ would falsify.
 
-Hubble constant, N_eff, dark energy density similarly bracketed.
+N_eff, dark energy density, and e-folds similarly bracketed.
 
 ## Connection
 

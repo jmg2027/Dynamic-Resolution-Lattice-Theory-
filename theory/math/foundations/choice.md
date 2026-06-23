@@ -9,9 +9,12 @@ Bootstrap witnesses for choice-like operations **without invoking
 need choice, the bootstrap witness provides the explicit
 constructive alternative.
 
-Includes `CanonicalTruthChar.lean` — the **only** pre-existing
-`propext` usage in production code (sealed-by-design per
-`STRICT_ZERO_AXIOM.md`).
+Includes `CanonicalTruthChar.lean`, which **inherits** the
+`propext` seal (sealed-by-design per `STRICT_ZERO_AXIOM.md`).  The
+genuine `propext` root is `E213.Lens.Foundations.SemanticAtom`'s
+Prop-as-distinguishing thesis (`propAsDistinguishing`); several
+modules carry that seal (`SemanticAtom`, `BoolProp`, the Lens
+kernel), and `CanonicalTruthChar` is one of them — not the only one.
 
 ## Lean source
 
@@ -33,10 +36,10 @@ approach: **provide the construction**.  When a construction is
 genuinely missing, the call must be sealed-by-design with explicit
 justification.
 
-`CanonicalTruthChar` is the one such sealed entry: it characterises
-truth via propositional extensionality.  Avoiding this would
-require a deeper refactor of the equality reasoning; the seal
-documents the dependency.
+`CanonicalTruthChar` inherits the `propext` seal: it characterises
+truth via propositional extensionality, the same Prop-as-distinguishing
+thesis sealed at `SemanticAtom`.  Avoiding this would require a deeper
+refactor of the equality reasoning; the seal documents the dependency.
 
 ## Connection
 

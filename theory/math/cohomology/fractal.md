@@ -1,7 +1,7 @@
 # Fractal-lens Cardinality — the N_U family
 
 **Status**: Closed in `lean/E213/Lib/Math/Cohomology/Fractal/`
-(5 files, 79 theorems, all strict ∅-axiom PURE).
+(31 files, 79 theorems, all strict ∅-axiom PURE).
 
 ## Overview
 
@@ -43,7 +43,7 @@ The physics lens selects the slice `(d, n) = (5, 2)`:
     `Lib/Math/Foundations/ResolutionLimit.lean`.
 
 The single canonical citation point is the umbrella
-`Lib/Math/Cohomology/Fractal.lean`, which re-exports the five
+`Lib/Math/Cohomology/Fractal.lean`, which re-exports the
 sub-modules.  No `def N_U` exists anywhere in the source; the
 display alias `abbrev N_U := configCountD 5 2` is the only
 binding of the name.
@@ -52,7 +52,7 @@ binding of the name.
 
 - **Umbrella**: `lean/E213/Lib/Math/Cohomology/Fractal.lean`
 - **Tree INDEX**: see umbrella docstring
-- **File count**: 5 .lean files
+- **File count**: 31 .lean files
 - **∅-axiom status**: 79 PURE / 0 DIRTY
 
 ### Files

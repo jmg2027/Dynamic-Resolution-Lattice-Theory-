@@ -4,7 +4,7 @@
 **orbit dimension = recurrence order** equivalence, and the **Hadamard (pointwise) product**
 `s·t` (the full ring — closed via integer Cayley–Hamilton) are all closed.  So the **C-finite
 sequences are a commutative ring** under `+` and pointwise `·`.  Source of truth (all ∅-axiom):
-`lean/E213/Lib/Math/Analysis/Cauchy/OrbitDimension.lean` (32 PURE), `CFiniteRing.lean` (82 PURE), and
+`lean/E213/Lib/Math/Analysis/Cauchy/OrbitDimension.lean` (33 PURE), `CFiniteRing.lean` (82 PURE), and
 `CFiniteHadamard.lean` (21 PURE, the Hadamard product), on the `Linalg213` determinant +
 Cayley–Hamilton tower.
 
@@ -207,4 +207,4 @@ cd ..
 python3 tools/scan_axioms.py E213.Lib.Math.Analysis.Cauchy.OrbitDimension
 python3 tools/scan_axioms.py E213.Lib.Math.Analysis.Cauchy.CFiniteRing
 ```
-Reports `32 pure / 0 dirty` and `82 pure / 0 dirty`.
+Reports `33 pure / 0 dirty` and `82 pure / 0 dirty`.

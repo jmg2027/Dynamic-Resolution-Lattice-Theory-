@@ -18,16 +18,16 @@ encodes this as its algebraic invariants
 
   `(trace, det, disc) = (NS, NS−NT, NS+NT) = (3, 1, 5)`
 
-(`Lib/Math/Algebra/Mobius213.lean` + `Lib/Math/Mobius213OneAsGlue.lean`).
+(`Lib/Math/Algebra/Mobius213.lean` + `Lib/Math/Algebra/Mobius213OneAsGlue.lean`).
 **Every other framework reading** — cohomological, topological,
 combinatorial, number-theoretic, physics-coupling, information-
 theoretic — projects onto the same set of integers.
 
-This is verified ∅-axiom by 55 Lean theorems in
-`Lib/Math/Algebra/Mobius213SignatureAxisCatalog`, spanning
-11 distinct domains.  The catalog's master statements
-(`signature_axis_master_phase_1`, `…_phase_2`) bundle them as
-20-conjunct and 23-conjunct ∅-axiom propositions.
+This is verified ∅-axiom by the Möbius unification capstone
+(`Lib/Math/Algebra/Mobius213GrandUnification.grand_unification`,
+with the atomicity anchor in
+`Lib/Math/NumberSystems/Real213/Mobius/Mobius213AtomicityAnchor.lean`),
+bundling the per-domain readings into a single ∅-axiom proposition.
 
 ## Derivation
 
@@ -66,7 +66,7 @@ the same data through every formalised subsystem:
     Nat with an alive `2a + 3b` decomposition.
   · `Physics/Symmetry/GluonChannelInterpretation.eight_fold_QCD_identification`
     — `b₁(K_{3,2}^(c=2)) = NS² − 1 = 8` (gluon octet).
-  · `Lib/Math/Mobius213ModFive.P_pow_5_eq_neg_I_mod_5` — `P⁵
+  · `Lib/Math/Algebra/Mobius213ModFive.P_pow_5_eq_neg_I_mod_5` — `P⁵
     ≡ -I (mod 5)`; `P¹⁰ ≡ I (mod 5)` (pentagonal closure +
     full period); the integer `5` appears as both `disc P`
     and the mod-5 period generator.
@@ -83,10 +83,9 @@ the same data through every formalised subsystem:
     `α_3 = NS² − 1 = 8`, `α_2 = 12·NT = 24`, `α_1 = 12·NS =
     36`, `α_GUT = d² = 25`.
 
-The signature axis catalog formalises all of these (and more)
-as 55 ∅-axiom-verified theorems in one Lean module pair, with
-two master bundles capturing the 20-conjunct + 23-conjunct
-cumulative content.
+The Möbius unification capstone formalises these (and more) as
+∅-axiom-verified readings, bundling the per-domain content into
+one master proposition.
 
 ## Dual function
 
@@ -103,10 +102,9 @@ algebraic shadow `P` records them simultaneously (the shared
 cofactor is structural in the residue, not in any one Lens —
 `seed/AXIOM/06_lens_readings.md` §6.8).
 
-The catalog's `≈55 axes from 11 distinct domains all yielding
-the same integer set` is the operational content of *single-
-object generativity*: not a metaphor, but a Lean-verified
-proposition.
+The reading `every framework axis yields the same integer set`
+is the operational content of *single-object generativity*: not
+a metaphor, but a Lean-verified proposition.
 
 ## Canonical basis interpretation
 
@@ -164,7 +162,7 @@ conclusion.
 fixed point") and `seed/AXIOM/05_no_exterior.md` §5.6
 ("Möbius P as algebraic representation of self-pointing")
 identify P as the framework's canonical self-description.
-The catalog quantifies this: *55 ways P describes itself*,
+The capstone quantifies this: *many ways P describes itself*,
 none of which yields data outside `{NS, NT, det}` and their
 derived integers.
 

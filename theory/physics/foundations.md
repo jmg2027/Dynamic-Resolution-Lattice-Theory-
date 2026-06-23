@@ -1,6 +1,6 @@
 # Physics Foundations
 
-**Status**: Closed (22 files).
+**Status**: Closed (19 files).
 
 ## Overview
 
@@ -12,7 +12,7 @@ patterns (Fibonacci, golden ratio, Koide).
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Physics/Foundations/` (22 files)
+- **Sub-tree**: `lean/E213/Lib/Physics/Foundations/` (19 files)
 - **Umbrella**: `Foundations.lean`
 - **∅-axiom status**: PURE
 

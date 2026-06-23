@@ -34,7 +34,7 @@ observed.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Physics/AlphaEM/` (23 .lean files)
+- **Sub-tree**: `lean/E213/Lib/Physics/AlphaEM/` (41 .lean files)
 - **Umbrella**: `lean/E213/Lib/Physics/AlphaEM.lean`
 - **Master capstones**:
   - `GramStructuralCapstone.invAlphaEm_precision_theorem` — 0.2 ppb structural precision (π² literal input)
@@ -45,7 +45,7 @@ observed.
 - **Tree INDEX**: `lean/E213/Lib/Physics/AlphaEM/INDEX.md`
 - **∅-axiom status**: all listed master theorems PURE
 
-### File map (23 files, 4 sub-clusters)
+### File map (4 sub-clusters; table below is not exhaustive of all 41 files)
 
 | Sub-cluster | Files | Purpose |
 |---|---|---|
@@ -177,8 +177,6 @@ of independent gluon channels."*
 | `steenrod_squares_at_omega_master` | `Bipartite/SteenrodSquaresAtOmega` | Sq^0(ω) = ω, Sq^1(ω) = δ²(ω), Adem Sq^1·Sq^1 = 0 |
 | `steenrod_ladder_alpha_power_master` | `AlphaEM/SteenrodLadderAlphaPower` | α-power = Sq ladder depth + 2 = (k-1) + 2 = k+1 (three-reading equivalence) |
 | `cup_ladder_universal_k_master` | `AlphaEM/CupLadderUniversalK` | Universal-k arithmetic: ∀ k ≥ 1, all three readings give k+1 |
-| `cartan_at_truncation_master` | `Bipartite/CartanAtTruncation` | Cartan formula at C⁵ truncation (both sides vacuously zero) |
-| `adem_universal_master` | `Bipartite/AdemUniversal` | Universal Adem at truncation: ALL Sq^a·Sq^b relations vacuous beyond C³ |
 | `filled4cell_extension_master` | `Bipartite/Filled4CellExtension` | 4-skeleton extension via σ⁴; δ³; H³ = 0 at 4-skeleton (truncation collapse) |
 | `max_alpha_power_bound_master` | `AlphaEM/MaxAlphaPowerBound` | Max α-power = top dim + 1; physical 2-skeleton ceiling = 3 (matches H² ω) |
 | `fractal_zeta_convergence_master` | `FractalLevelZetaConvergence` | ζ_K(1) brackets ζ(2) with monotonicity |
@@ -360,13 +358,6 @@ differentials is the open frontier.
   · `Physics/AlphaEM/CupLadderUniversalK.lean` (10 PURE)
     — universal-k three-reading equivalence (∀ k ≥ 1);
     arithmetic side of the cup-ladder graduation universal in k
-  · `Math/Cohomology/Bipartite/CartanAtTruncation.lean` (10 PURE)
-    — Cartan formula at C⁵ truncation (vacuous); completes the
-    Steenrod-algebra truncation picture at K_{3,2}^{(c=2)} 3-skeleton
-  · `Math/Cohomology/Bipartite/AdemUniversal.lean` (14 PURE)
-    — universal Adem at truncation; EVERY Adem relation Sq^a·Sq^b
-    vacuous beyond C³ (Sq¹·Sq¹ at C⁴, Sq²·Sq² = Sq³·Sq¹ at C⁶,
-    Sq³·Sq² = Sq⁴·Sq¹ + Sq⁵ at C⁷, universal ∀ k)
   · `Math/Cohomology/Bipartite/Filled4CellExtension.lean` (10 PURE)
     — 4-skeleton extension via single 4-cell σ⁴; δ³ coboundary;
     H³ = 0 at 4-skeleton (truncation-collapse continues)

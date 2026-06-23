@@ -229,7 +229,7 @@ For the canonical setting `front = [0..k-1]`, `back = [k..d-1]`,
 
 The d = 5 catalog (`basisDepth4Sig_unique_survivor` and per-bidegree
 uniqueness contracts) and d = 6 spot checks
-(`SelfRefDepthExtended.lean`) are now **corollaries** of this
+(`Cup/SelfRefDepth.lean`) are now **corollaries** of this
 structural ∀d theorem.
 
 ## Cup-atomic subalgebra — δ-closed cochain pair classification

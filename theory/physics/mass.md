@@ -20,9 +20,10 @@ Lepton mass ratios satisfy the Koide formula:
 derived from atomic-substrate cup-channel decomposition (per
 foundations chapter, Koide section).
 
-`NoFourthGen.lean` is the structural impossibility witness for a
-4th fermion generation — ties to Simplex chapter (3-generation
-structural count).
+`drlt_no_4th_gen_falsifier` (`Lib/Physics/Simplex/Generations.lean`)
+is the structural witness against a 4th fermion generation: it
+proves `N_gen = C(NS, NT) = C(3, 2) = 3` — ties to the Simplex
+chapter (3-generation structural count).
 
 ## Connection
 

@@ -18,9 +18,9 @@ real-log capstone, aggregator capstone.
 
 These are mathematical primitives that don't fit cleanly into a
 single domain sub-tree:
-- **CauchySchwarz** — `(Σ a_i b_i)² ≤ (Σ a_i²)(Σ b_i²)` for Real213
-  vectors; used in atomic_constants (AM-GM `2mn ≤ m² + n²` derives
-  via this)
+- **CauchySchwarz** — `(Σ a_i b_i)² ≤ (Σ a_i²)(Σ b_i²)` for Nat-valued
+  vectors (base case `2·a·b ≤ a² + b²` for `a, b : Nat`); used in
+  atomic_constants (AM-GM `2mn ≤ m² + n²` derives via this)
 - **InnerCauchy** — Cauchy-Schwarz for inner-product spaces
 - **LpOneCollapse** — Lp norm collapse to L1 at p=1
 - **HoeffdingFiniteN** — Hoeffding inequality with explicit finite-N

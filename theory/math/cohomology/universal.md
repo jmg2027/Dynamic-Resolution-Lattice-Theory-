@@ -4,8 +4,7 @@
 
 ## Overview
 
-`δ²=0` Prop-level universal lift. 8 + 1 files (Pattern10 added
-the 10th in the universal-pattern catalog).  Generic
+`δ²=0` Prop-level universal lift. 10 files.  Generic
 δ² = 0 closure parametric in (n, k).
 
 ## Lean source

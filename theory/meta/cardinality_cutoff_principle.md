@@ -78,9 +78,9 @@ The match slice: **only `L_1 = 29 ∈ H_1`** (in fact `∈ H_2` if we
 require non-generator depth ≥ 1).  This is the **single
 coincidence** that the chain isolated.
 
-Lean realisation: `cutoff_marathon_at_depth_1` in
+Lean realisation: `asymptotic_cutoff_capstone_at_depth_1` in
 `Lib/Math/Cohomology/Fractal/AurifeuilleanFullCutoff.lean`
-(28 PURE / 0 DIRTY).
+(23 PURE / 0 DIRTY).
 
 ## §4 The literal-vs-refined distinction
 
@@ -219,7 +219,7 @@ methodology as a research technique, not a one-off.
     "Steenrod operations remain non-vacuous at higher dim" fails
     because `Sq²(ω) = ω ⌣_0 ω` lands in `C⁴ = ∅`; (c) **prove the
     refined form** as the per-operation vacuity ladder
-    (`SteenrodSquaresAtOmega`, `AdemUniversal`, `CartanAtTruncation`).
+    (`SteenrodSquaresAtOmega`).
     The literal failure is the disappearance of the cochain target
     space at the skeleton extension.
 

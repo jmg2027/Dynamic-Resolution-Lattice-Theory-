@@ -26,20 +26,33 @@ the FSM's accumulated state.
 | `ArithFSM/` (10 + 3 Mod buckets) | Per-modulus arithmetic FSM (`Mod{Small,Medium,Large}`) + `Hierarchy` + `Hardness` + helpers + `InvertibleArithFSM2` abstraction template |
 | `Pell/` | Pell sequence FSM (Pell numbers, Pell-Lucas) |
 | `Fib/` | Fibonacci FSM (Fibonacci, Lucas, Tribonacci) |
-| `Pisano/` | Pisano periods (per-modulus, parametric predictors) |
-| `Legendre/` | Legendre symbol via FSM |
-| `PellMatrix*` (5 files) | Pell matrix Cayley-Hamilton + action + cases + inverse + pigeonhole bridging to the Pisano-prime universal closure |
-| `FLT/` (8 files) | Binomial / BinomialTheorem / ChoosePrime / FreshmanDream / FLTPrimary / FLTMain / PhiFLT / Sum — Fermat's Little Theorem chain (split + inert prime cases) feeding the Pisano-period closure |
-| `Capstones/` | Master theorems per family |
+| `Pisano/` | Pisano periods (`Predictor` + `PredictorChain` per-prime) |
+| `Signature/` | Sequence signature FSMs |
+| `Fib/` | Fibonacci / Lucas / Tribonacci FSM (+ `Capstone`, `PisanoCapstone`) |
+| `Pell/` | Pell sequence FSM (+ `Capstone`) |
+| `BitFSM/` | Bit-level FSM primitives |
+| `FLT/` (15 files) | Fermat's Little Theorem chain (split + inert prime cases) feeding the Pisano-period closure |
+| `Tier/` | Tiered closure assembly |
+| `Forward/` | Forward-direction predictors |
+| `Product/` | Product / convolution FSMs |
+| `Trib/` | Tribonacci family (+ `Capstone`) |
+| `ArithFSM/` | Arithmetic FSM sub-cluster |
+
+Capstones are per-family files (`Pell/Capstone.lean`, `Trib/Capstone.lean`,
+`Fib/PisanoCapstone.lean`), not a single `Capstones/` directory.  The
+Legendre symbol is a single file `Legendre.lean`, not a directory.
+`PellMatrix*` (5 top-level files) provide the Pell matrix
+Cayley-Hamilton + action + cases + inverse + pigeonhole structure.
 
 Top-level additions (Pell-Fibonacci universal closure):
 - `BinetBridge` — `FLT(φ) + FLT(ψ) → F_{p−1} ≡ 0 (mod p)` bridge
 - `PellFibBridge` — Pell ↔ Fibonacci coupled identities
 - `PhiMod5`, `PsiMod5` — `φ ≡ ψ ≡ (1 + √5) / 2 (mod 5)` per-residue
 - `MulOrderPigeonhole` — existential multiplicative order via pigeonhole
-- `UniversalPhase32`, `UniversalPhase33`, `UniversalPhase4` —
-  split / inert / Legendre-dispatch components of the universal-in-`p`
-  Pisano-period prediction
+- `UniversalSplit` — `universal_split_case` + `phase_3_2_at_11_universal`,
+  the parametric split-case template instantiated at recorded primes
+- `BinetBridge` — `binet_F_p_minus_1_zero`, the `FLT(φ) + FLT(ψ)`
+  bridge to `F_{p−1} ≡ 0 (mod p)`
 
 Companion Meta modules (Lean-4 bridge, ring-independent):
 - `Meta/Nat/ModPow213.lean` — modular exponentiation with period reduction
@@ -69,9 +82,10 @@ are realized as a 2-state FSM:
 - Input bit = which Pell index we're computing toward
 - Transition = (a, b) → (2a + b, a)
 
-The Pell FSM proves `P_n` satisfies the Möbius matrix identity
-`[[2, 1], [1, 0]]^n = [[P_{n+1}, P_n], [P_n, P_{n-1}]]` directly
-at the FSM level.
+The Pell FSM proves the `P_n` recurrence directly at the FSM level
+via the transition `(a, b) ↦ (2a + b, a)`.  The matrix-level
+realization uses `M = [[2, 1], [1, 1]]` (`PellMatrix`), satisfying
+`x² − 3x + 1` Cayley-Hamilton (`pellCoeff`).
 
 ### Pisano periods
 
@@ -79,15 +93,17 @@ Pisano (n) = period of Fibonacci modulo n.  As an FSM, Pisano (n)
 is the FSM's cycle length on the Fibonacci-mod-n transition.
 **Decidable in O(n²)** by detecting cycle return to initial state.
 
-`Pisano/` provides per-n decided values for n ≤ ~100, plus
-parametric **Predictor** files (Predictor8/11/14/17/20/22/23) that
-prove the bridge "predicted period from prime p ⇒ Pisano period
-matches" for specific prime cases, with Predictor23 closing the
-23-prime case via the `F_{p²}` Frobenius FLT bridge.
+`Pisano/` provides the parametric predictor `Predictor.lean`
+(`pisano_predict`) plus `PredictorChain.lean`, which discharges the
+bridge "predicted period from prime p ⇒ Pisano period matches" at
+each enumerated prime as `pisano_at_3 … pisano_at_37`.  The 23-prime
+case is `pisano_at_23`, closed via the `F_{p²}` Frobenius FLT bridge.
 
 ### PellMatrix infrastructure
 
-The Pell sequence's matrix realization [[2,1],[1,0]]^n is upgraded
+The Pell matrix `M = [[2, 1], [1, 1]]` satisfies the characteristic
+polynomial `x² − 3x + 1 = 0`, so by Cayley-Hamilton `M^k =
+pellCoeff.1 · M + pellCoeff.2 · I` (`pellCoeff`).  This is upgraded
 from per-step FSM transitions to a **matrix-level Cayley-Hamilton +
 action + inverse + pigeonhole** structure:
 
@@ -112,9 +128,13 @@ driven by `legendre213 5 p` (the Legendre symbol of 5 mod `p`):
 - `legendre213 5 p = 1` (split, QR) →  predict = `(p−1) / 2`
 - `legendre213 5 p = 2` (inert, NQR) →  predict = `p + 1`
 
-This holds universally in `p` (any prime `p ≥ 2`), with no
-per-prime evidence required.  The route splits on the Legendre
-symbol and recombines at the universal dispatch:
+`universal_split_case` / `universal_flt_main` are parametric
+**templates** consuming per-prime hypotheses (`h_sqrt5`,
+`h_phi_pow_psi`, `h_prime_gcd`) discharged by `decide` only at the
+enumerated primes (3, 5, 7, 11; 19).  So this is a parametric
+template closed at the recorded primes — the unconditional
+`∀ prime p` Pisano closure is not yet assembled.  The route splits
+on the Legendre symbol and recombines at the universal dispatch:
 
 **Split case (`5 ≡ □ mod p`).** When 5 is a quadratic
 residue mod `p`, the golden ratio `φ = (1 + √5) / 2` lives in

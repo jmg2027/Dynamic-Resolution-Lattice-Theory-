@@ -1,6 +1,6 @@
 # Modulus Combinators
 
-**Status**: Closed (10 files, capstone `Modulus.Capstone`).
+**Status**: Closed (9 files, capstone `Modulus.Capstone`).
 
 ## Overview
 
@@ -15,13 +15,13 @@ is the canonical example.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Analysis/Modulus/` (10 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Analysis/Modulus/` (9 files)
 - **Capstone**: `Modulus/Capstone.lean`
 - **∅-axiom status**: PURE
 
 | Group | Files |
 |---|---|
-| Core predicate | `HasModulus`, `HasModulusBoundsExtra`, `StrongModulus` |
+| Core predicate | `HasModulus`, `StrongModulus` |
 | Diagonal / depth / info | `DiagonalHasModulus`, `DiagonalIrrelevance`, `DepthCompleteness`, `InfoClosure` |
 | Concrete witnesses | `PellHasModulus`, `Translation` |
 | Capstone | `Modulus.Capstone` |
@@ -42,8 +42,9 @@ becomes
 HasModulus s := { f : Nat → Nat // ∀ N k, k ≥ f N → |s_k| < 1/2^N }
 ```
 
-The function `f` is the modulus.  `StrongModulus` requires the
-function to be **monotone**; `DiagonalHasModulus` provides the
+The function `f` is the modulus.  `StrongModulus` requires a bounded
+view-variation (cross-ratio) on the tail, not just eventual agreement;
+`DiagonalHasModulus` provides the
 diagonal trick to convert sequence-of-sequences moduli into
 single-sequence moduli; `DepthCompleteness` shows that any
 classically-converging sequence in 213's substrate has a

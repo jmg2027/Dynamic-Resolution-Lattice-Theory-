@@ -4,8 +4,10 @@
 
 ## Overview
 
-Complex numbers `ℂ` in 213 as `ComplexCut := SignedCut × SignedCut`,
-i.e., L2 of the Cayley-Dickson tower on Real213.
+Complex numbers `ℂ` in 213 as
+`ComplexCut := (Nat → Nat → Bool) × (Nat → Nat → Bool)`, a
+`(real, imag)` pair of Cut functions — L1 of the Cayley-Dickson
+tower on the `Cut`-level reals.
 
 ## Lean source
 
@@ -14,16 +16,17 @@ i.e., L2 of the Cayley-Dickson tower on Real213.
 
 ## Narrative
 
-`ComplexCut := SignedCut × SignedCut` (pair of signed cuts).
-Operations as standard complex arithmetic:
+`ComplexCut := (Nat → Nat → Bool) × (Nat → Nat → Bool)` — the
+`(real, imag)` pair of Cut functions (`re := z.1`, `im := z.2`).
+The tuple **is** the number: the two axes are real, and the `+` in
+`a + bi` is not ℕ's `+`.  Operations as standard complex arithmetic:
 
 ```
 (a + bi)(c + di) = (ac − bd) + (ad + bc)i
 ```
 
-realized as `SignedCut`-arithmetic on the components.  No new
-substrate primitive (per the SignedCut chapter); ℂ is structurally
-the same construction at L2 of the CD tower.
+realized by `cAdd`/`cMul` on the component cuts.  No new substrate
+primitive; ℂ is the first Cayley-Dickson level on `Cut`.
 
 Classical residue theory needed for α_em C5 reduces to
 finite-bracket sums in this representation.

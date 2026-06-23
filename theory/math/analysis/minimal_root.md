@@ -17,8 +17,9 @@ This is G2 (trajectory-as-object) applied to bisection: the
 locatedness assumption that haunts Bishop-style IVT is replaced by
 a **structural type-level commitment from the oracle**.
 
-The single citable Lean definition is `MinimalRootLens ∈
-Analysis/DyadicSearch/MinimalRootLens.lean`.
+The single citable Lean readout definition is `MinimalRootCut ∈
+Analysis/DyadicSearch/MinimalRootLens.lean` (the `MinimalRootLens`
+module).
 
 ## Lean source
 
@@ -64,7 +65,7 @@ ConsistentOracle f := the typed commitment that, at each
                      refinements (no flip-flop)
 ```
 
-Given a `ConsistentOracle`, the `MinimalRootLens` is the
+Given a `ConsistentOracle`, the `MinimalRootCut` is the
 deterministic readout: at each step, take the left half if the
 sign-witness allows, else the right.  The infinite trajectory
 **is** the root cut — not "converges to" the root, but **is** the
@@ -108,10 +109,11 @@ machinery directly.
 | `DyadicBracket` | `DyadicBracket` | Type of dyadic bracket sequences |
 | `DyadicTrajectory` | `DyadicTrajectory` | Bisection trajectory in Real213 |
 | `ConsistentOracle f` | `ConsistentOracle` | Typed sign-consistency protocol |
-| `MinimalRootLens` | `MinimalRootLens` | Trajectory-as-witness Lens |
+| `MinimalRootCut` | `MinimalRootLens` | Trajectory-as-witness readout |
 | `MinimalRootLensMonotone` | `MinimalRootLensMonotone` | Monotone refinement |
-| `unit_consistent_oracle` | `UnitConsistentOracles` | Unit-interval instances |
-| `signedLeftCollapse` | `SignedLeftCollapse` | Always-prefer-left collapse |
+| `unitAlwaysTrue_ConsistentOracle` | `UnitConsistentOracles` | Unit-interval instance |
+| `signedLeft_collapseTo_alwaysTrue_ConsistentOracle` | `SignedLeftCollapse` | Always-prefer-left collapse |
+| `signedLeftOracle_eq_alwaysTrue_traj` | `SignedLeftCollapse` | Signed-left trajectory agreement |
 | Base IVT | `IVT` | Classical statement in 213-native form |
 
 ## Multi-variate bisection — closed (MultiVarBisection.lean)

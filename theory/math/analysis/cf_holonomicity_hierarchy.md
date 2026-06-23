@@ -152,7 +152,7 @@ is *conjectured* to reach.
 
 ### A second, orthogonal certificate — bounded sequences by the zero-run argument
 
-Growth is not the only ∅-axiom route into tier 3.  `Cauchy/ZeroRunNonHolonomic.lean` (3 PURE)
+Growth is not the only ∅-axiom route into tier 3.  `Cauchy/ZeroRunNonHolonomic.lean` (6 PURE)
 gives a certificate that works on **bounded** sequences, via the **homogeneity** of a
 P-recursive recurrence rather than its size.  A holonomic integer sequence obeys a homogeneous
 recurrence `lead(n)·a(n+k) = Σᵢ qᵢ(n)·a(n+i)` with `lead` a nonzero polynomial (so `lead(n) ≠ 0`
@@ -162,7 +162,7 @@ long zero-runs at arbitrarily large positions* and *infinitely many nonzero term
 non-holonomic (`HomogRec` abstracts the homogeneous-recurrence class; non-membership is the
 certificate — no growth, no `funext`, no analysis).
 
-`Cauchy/ZeroRunNonHolonomicWitness.lean` (18 PURE) inhabits it with the **indicator of the
+`Cauchy/ZeroRunNonHolonomicWitness.lean` (24 PURE) inhabits it with the **indicator of the
 powers of two** `χ` (`chi_nonHolonomic : ¬ HomogRec χ`): the gaps between consecutive powers of
 two grow without bound, giving arbitrarily long zero-runs, while the powers themselves are
 infinitely many `1`s.  So `χ` is **bounded** (values `{0,1}`) yet non-holonomic — the sparse

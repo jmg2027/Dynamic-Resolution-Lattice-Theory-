@@ -63,7 +63,7 @@ The cross-determinant bridge reads the **representation**, not the bare real.  A
 whole rescaling orbit of presentations `(a, d) ↦ (c·a, c·d)`, and the two come apart along
 it:
 
-  * `crossdet_rescale_antitone` — `CrossDetSmall (c²·W) (c·d) → CrossDetSmall W d` for
+  * `crossDetSmall_rescale_antitone` — `CrossDetSmall (c²·W) (c·d) → CrossDetSmall W d` for
     `c ≥ 1`: the cross-determinant scales `c²` against a denominator scaling `c`, so
     rescaling *up* only loses the bridge.  The **gcd-reduced** presentation is the
     canonical (easiest) place to test `CrossDetSmall` — the test is antitone down the
@@ -99,7 +99,7 @@ the height tower's ceiling is the residue read at the scale of divergence-comple
 |---|---|---|
 | `completability_grade` | `CompletabilityGrade` | lex `(height, rate)`: down free, within free ⟺ `r<q`, up broken |
 | `height_is_omega_coordinate` | `CompletabilityGrade` | every exponential-tower step up breaks `CrossDetSmall` |
-| `crossdet_rescale_antitone` | `IntensionalCompletability` | rescaling up only loses the bridge (reduced canonical) |
+| `crossDetSmall_rescale_antitone` | `IntensionalCompletability` | rescaling up only loses the bridge (reduced canonical) |
 | `modulus_rescale_invariant` | `IntensionalCompletability` | completion is gauge-invariant (cut's truth) |
 | `refined_completability_engine` | `RefinedCompletabilityEngine` | both axes as one engine |
 | `height_tower_no_top` | `HeightTowerResidue` | the height tower's diagonal escapes every level |

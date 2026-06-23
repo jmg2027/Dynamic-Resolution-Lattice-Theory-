@@ -27,9 +27,9 @@ sub-face inventory.
 Total non-empty sub-simplices = `2^5 − 1 = 31` (Mersenne).
 
 The **3-generation** structure (3 fermion families in the Standard
-Model) emerges as: there are exactly 3 distinct dim-2 substructures
-modulo the bipartite NS × NT symmetry.  Each generation = one
-sub-class.
+Model) emerges as `N_gen = C(NS, NT) = C(3, 2) = 3` — the binomial
+count derived in `Lib/Physics/Simplex/Generations.lean`
+(`drlt_no_4th_gen_falsifier`).  Each generation = one of the three.
 
 `SubInventory.lean` enumerates the sub-simplex counts; `FaceTerms.lean`
 provides the face-by-face cup-product breakdown used in α_em
