@@ -48,9 +48,21 @@ invariants (A character, B `q=±1` tag) are structured — see `SYNTHESIS.md` §
 **Settled**: (iv) B = A's 2-torsion where a character exists, bare diagonal escape
 where none does (B broader domain, A richer where present); (v) the modulus is NOT
 a third invariant — it is the finite signature of B's `q=+1`-reached-by-none pole.
-**Open**: is B itself reducible (pole-order as a sub-invariant?); do all
-character-free residues reduce to the one Lawvere diagonal (measure?); A's other
-collapse points beyond Frobenius. See the note.
+**Open**: A's other collapse points beyond Frobenius (Q1/Q2 settled by the seminar below).
+See the note.
+
+### "No walls, only free Lens parameters" seminar  (`no_walls_seminar/INDEX.md`)
+**Main arc COMPLETE (R1–R6, 2026-06-23); 9 ∅-axiom modules, all PURE.**  Grew the
+choice-as-free-σ correction into a self-grounding theory of the calculus's boundaries:
+the **tetrachotomy `∅/0/1/many`** (absence/wall/forced/free) = the section-count of the
+reading-fibration over `C`; one internal founding wall (the diagonal); free parameters =
+selection-σ (forcing) / height-h (large cardinals); **self-grounding PROVED**
+(`MasterClassifierNoGo.master_classifier_is_the_wall`); the normal form `⟨C|L⟩ ⊕ Residue`
+is itself the tetrachotomy; **self-classification is idempotent** (the tetrachotomy is its
+fixed point).  Folded into `SYNTHESIS.md` §2 (vii′)–(xi).  **R7+ open** (`no_walls_seminar/INDEX.md`):
+the general idempotence theorem is ABSENT-by-self-grounding (it is the wall — the closing
+negative); a partial decidable idempotence below the wall; whether the height-axis is
+one-way-free (Gödel II) as a new fact or the escape/converge asymmetry on the strength axis.
 
 ---
 

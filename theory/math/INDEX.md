@@ -53,7 +53,11 @@ sandwich-first, the commuting square, layer constants),
 
 ### `logic/` — reverse mathematics / omniscience ledger
 `reverse_math_213` (the `Lib/Math/Logic/` mirror — LPO/WLPO/MP/LLPO, the König
-selection cost, `WKL ⟺ Heine–Borel`, the object-level axiom-cost ledger).
+selection cost, `WKL ⟺ Heine–Borel`, the object-level axiom-cost ledger);
+`no_walls_only_parameters` (the tetrachotomy `∅/0/1/many` = absence/wall/forced/free —
+choice/forcing/large-cardinals as free Lens parameters, the one internal diagonal wall,
+the self-grounding *theorem* `master_classifier_is_the_wall`, and self-classification's
+idempotent fixed point; nine ∅-axiom modules).
 
 ### `tactic/` — `tactic`, `extras` (math-side infra).
 

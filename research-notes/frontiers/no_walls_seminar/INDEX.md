@@ -7,7 +7,9 @@ Seed: the originator's correction that the axiom of choice / LLPO is not a wall 
 generalizes it — through continuous multi-agent discussion (proposer / builder / skeptic / classifier
 roles, responding to each other across rounds, the way a mathematician team works over months).
 
-**MAIN ARC COMPLETE (R1–R3, 2026-06-23).**  Result: the boundary-structure of the calculus is the
+**MAIN ARC COMPLETE (R1–R6) — PROMOTED to `theory/math/logic/no_walls_only_parameters.md`.**  Only the R7+ tail (the general idempotence theorem = the wall, ABSENT-by-self-grounding; a partial decidable idempotence below the wall) remains open here.
+
+**(earlier note)** R1–R3 capstone:  Result: the boundary-structure of the calculus is the
 **tetrachotomy** `∅/0/1/many` (absence/wall/forced/free) — one axis-polymorphic wall (the diagonal),
 free parameters classified by fiber-order (forcing/large-cardinals), the whole thing **self-grounding**
 (classify-of-itself = the wall, no regress, no exterior).  5 ∅-axiom modules built; `SYNTHESIS.md` §2
