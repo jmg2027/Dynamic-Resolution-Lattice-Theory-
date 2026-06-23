@@ -59,9 +59,37 @@ genuine drift. Five commit batches (`d6b04a8`, `6e4e5cf`, `5da401a`, `de10c19`,
 `AtomicBase.lean` rename rationale (prevents regression), markov `G199`,
 PMNS `δ_CP=195°`.
 
+## Marathon part 2 — full Lean docstring body read file-by-file
+An 8-agent fleet (+ nested sub-agents) genuinely read the module/theorem
+docstrings of the **entire** Lean tree (NumberSystems incl. Real213, NumberTheory,
+Algebra incl. CayleyDickson/Mobius/GRA/Icosahedral, Analysis, Cohomology incl.
+Cup/CupAW, Lib/Physics, Lens/Theory/Term, Combinatorics/Geometry/Foundations/Meta/
+Probability/Logic/Tactic/Order). Fixes (batch 6, build-clean):
+- **Apex/Jarlskog cluster** (`Mixing/{JarlskogApex,ApexCPMechanism,ApexPiInternal,
+  CPViolation}`): δ=π/φ² was still presented as the derived phase; tagged as the
+  demoted apex-angle posit (forced δ=90°; 1/φ²=modulus). ApexPiInternal's
+  "π is a Real213 cut" internality point preserved.
+- Layer/substrate framing: `Theory/Raw/PrimitiveTower` ("Lens sitting above"),
+  `Lens/SelfReferenceThreeOutcomes` ("Raw substrate"), `Term/API`, several
+  `SignedCut/*` ("real layer"/"Layer bridge"), `Symmetry/INDEX` "(substrate)".
+- `Lens/AxiomLenses/INDEX` ZFC-ranking ("structural foundations precede ZFC") +
+  fog ENDGAME header; `Bool213/Raw` legacy-deletion note + iso-pluralism.
+- NumberTheory: `TierBridge` "outside framework"→reached-by-none; `ModArith/INDEX`
+  "substrate for"→"reused by"; broken `Conjecture.lean`→`PeriodClosure.lean`
+  citation (2 INDEX); commit-hash cruft in `Pell/Proper8` + `Fib/Pisano8`.
+- Cohomology: `CupAW/Leibniz5_1_2` "marathon note Phase 10" cruft.
+
+Verified false positives (correctly NOT changed): all 4 CayleyDickson/Integer
+flags (honest "∅-axiom-correct ≠ 213-native" caveats + geometry-as-Lens-reading);
+SignedCut Core/Equivalence + GaussTuple (correct no-quotient disclaimers); the
+Algebra parent's 3 recollection-based flags (Icosahedral golden-phase,
+GrandUnification "generates the framework", ModFive c-forcing) — **none of the
+claimed phrases exist in the files** (grep-verified). Real213/Analysis/Mobius-GRA/
+Combinatorics/Geometry/Meta clusters: 0 findings. "substrate" as the neutral
+Nat/dyadic/Raw *carrier* idiom (≈60+ uses) is established and clean.
+
 ## Open / not done (next session)
-- The ~1900 non-doctrinal Lean docstrings were grep-swept, not exhaustively read
-  file-by-file — a remaining genuine-read body (came back clean on signatures).
+- (Lean docstring body now fully read file-by-file — above.)
 - Low-priority doc-sync count nits (org-audit territory, deliberately not touched
   to avoid fragile recounts): `theory/meta/cardinality_cutoff_applications.md`
   "ten files / 291 PURE" internal mismatch; `Analysis/DyadicSearch/INDEX.md`
