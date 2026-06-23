@@ -50,9 +50,16 @@ reading the corpus directly. Durable program note: **`research-notes/frontiers/t
   4. **`lean/E213/Meta/Nat/UnitBox.lean`** (5 PURE, new) — generated
      `×`-**associativity** (`mul_assoc_from_box`, the 3-D unit-box double-count,
      verified `Nat.mul_assoc`-free) joining `UnitGrid.mul_comm_from_grid`.
-     **Multiplicative monoid `(ℕ,·,1)` fully generated** too. So BOTH commutative
-     monoids are now generated disciplines — the concrete ∅-axiom "forced-not-authored"
-     at the level of the two basic algebraic structures.
+     **Multiplicative monoid `(ℕ,·,1)` fully generated.**
+  5. **`lean/E213/Meta/Nat/UnitDistrib.lean`** (4 PURE, new) — generated **both
+     distributive laws** (`mul_add_from_grid` left, via the grid width-split,
+     `Nat.mul_add`-free; `add_mul_from_grid` right, from the generated left-distrib +
+     ×-comm). **⟹ the entire commutative semiring `(ℕ,+,·,0,1)` is now a fully
+     generated discipline** — both monoids (comm+assoc) + both distributive bridges,
+     every equational law the count-shadow of a unit-structure double-count, none
+     presupposing the Nat law it produces. The complete algebraic foundation of
+     elementary arithmetic, *generated* — the strongest concrete ∅-axiom realization
+     of "forced-not-authored."
 - **The named frontier (next):** Raw's own descent is ADDITIVE (`slash → +`,
   `leaves_slash`), so it generates the additive monoid; FTA's descent is MULTIPLICATIVE
   (`n/minFac`, `Nat.strongRecOn`), a *different Lens* the additive peel cannot provide.
@@ -60,11 +67,12 @@ reading the corpus directly. Durable program note: **`research-notes/frontiers/t
   ×-atom/prime-distinguishability structure / `exp`/`vp` ×-count-Lens). Counting (+)
   is generated; factoring (×) is the open frontier — the precise next target for
   "generation, not re-derivation." (Recorded in `the_genesis_seam.md` Round 2.7.)
-- **Next-session deliverables (in the genesis-seam note Round 2.8):** (a) generate
-  **distributivity** `a·(b+c) = a·b + a·c` as a unit-grid block-split (the bridge law
-  coupling + and ×, after which primality/FTA is the deep frontier — the monoid *laws*
-  are now generated, the *arithmetic coupling them* is not); (b) the deep frontier — a
-  Raw-native *multiplicative descent* / prime-atom (`exp`/`vp`) structure for FTA;
+- **Next-session deliverables (genesis-seam Round 2.9):** the equational semiring is
+  done; the next layers are (a) the **order** `≤` as the count-shadow of the unit-list
+  prefix/sublist relation (→ ordered semiring); (b) the **deep frontier** — primality /
+  unique factorization (FTA), which needs *distinguishable* `×`-atoms (primes, the dual
+  of the indistinguishable additive units), i.e. a Raw-native multiplicative descent /
+  `exp`/`vp` vector — this is where generation meets the genuinely hard mathematics;
   (c) build the completion-engine classifier tool; (d) tighten check_citations
   qualified-name false positives.
 - **The only §5.1-legal exterior verdict** (meta + red-team): the strict-∅-axiom,
