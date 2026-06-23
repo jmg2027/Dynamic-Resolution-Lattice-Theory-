@@ -190,6 +190,46 @@ pattern; it *instantiated it cleanly and named the residual input sharply*. That
 the honest form of progress here: not "the gap is gone" but "the gap is now a single,
 cited, minimal assumption (clause 4) instead of a buried comment."
 
+## Round 2.5 — the sharpening that bites the framework's own flagship
+
+Applying the completion-engine criterion immediately produced a non-trivial,
+*self-incriminating* finding (the discipline working as intended):
+
+**`Nat213 := { n : Nat // 1 ≤ n }` is a Nat *subtype* (`Lens/Number/Nat213/Core.lean:32`).**
+Therefore its recursion and well-foundedness are **inherited from `Nat`** — there is
+no separate "`Nat213.acc_lt`" engine; it *is* `Nat`'s. So **typing a development over
+`Nat213` does not migrate the completion-engine off the kernel's `Nat`.** The naive
+form of the breakthrough (Nat213-own vs Nat-borrowed) collapses — they are the same
+engine.
+
+The genuine native engine — the distinguishing's *own* well-foundedness — is **Raw's
+descent**: `Theory/Raw/MuNuMirror.lean`'s `isPart_wf` / `no_infinite_descent` /
+`ascent_total_descent_partial` (the Lambek peel: every descent terminates, the ascent
+is unbounded). *That* grounds without borrowing `Nat`. So the corrected criterion:
+
+> **A result is generated (not borrowed) to the degree its proof cone's recursion
+> grounds in `Raw`'s own descent well-foundedness (`isPart_wf` / `no_infinite_descent`)
+> rather than the kernel's `Nat` well-foundedness — and routing through `Nat213` does
+> NOT count as native, because `Nat213 ⊂ Nat` inherits `Nat`'s engine.**
+
+The bite: by this corrected test, **even the descent leg's FTA-over-`Nat213` likely
+does not pass** — `FTAUniqueness`/`PrimeFactorization` import `Nat`-based `vp`
+machinery (`Meta/Nat/VpMul`, `VpSeparation`) and recurse on `Nat`, and the `Nat213`
+carrier is itself a `Nat` subtype. The G206 `toNat`-purge removed the explicit
+*casts*, but the *completion-engine* stayed `Nat`'s. (Hypothesis to verify rigorously
+next session by tracing the actual recursion in `PrimeFactorization`/`FTAUniqueness` —
+do they elaborate against `Nat`'s `WellFounded` or anything `Raw`-native? Almost
+certainly `Nat`'s.)
+
+This is the honest, sharp form of the genesis seam: the *only* results that pass the
+strict generation test are those recursing on `Raw`'s `isPart_wf` directly — currently
+confined to the `Theory/Raw` layer itself, **not** the reconstructed number-theory
+disciplines. "Mathematics generated from the residue" is, by the strict
+completion-engine criterion, true at the `Raw`-descent layer and **not yet** true for
+any deep discipline. The real generation frontier, named precisely for the first time:
+**re-ground a discipline's recursion on `Raw.isPart_wf`, not merely type it over a
+`Nat` subtype.** That is the bar the descent leg was reaching for and has not cleared.
+
 ## The exterior deliverable (the only §5.1-legal verdict)
 
 Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
