@@ -60,5 +60,16 @@ fog (unfold every term or cite a theorem); no false witnesses; no forcible maps.
   `MasterClassifierNoGo.lean` (7/0): `master_classifier_is_the_wall` (a master classifier that decides the
   diagonal AND is a row of its own cover is impossible) + `self_grounding_capstone`. The general `tagOf`
   over all `Type` stays ABSENT and *its un-buildability is the theorem*. Self-grounding proved, not assumed.
-- **R5+ (open):** a partial decidable `tagOf` below the wall (the buildable part); base×fiber coupling;
-  `GenericAsCut`.
+- **R5 (2026-06-23) — the reflexive residue (conceptual, `R5_base_fiber_coupling.md`):** three positives,
+  all grep-verified, no new Lean build. (1) `tagOf` itself decomposes `⟨fibration | count-sections⟩ ⊕ wall` —
+  Residue' = the proven un-buildable master classifier (`master_classifier_is_the_wall`, 7/0). (2) **base×fiber
+  coupling CONFIRMED**: the free/wall fiber is `Bool` (2-valued = q=±1) *because* the forced atom NT = 2 — the
+  `Fin 2` base that forces arity-2 (`CombinatorialArity`/`ArityForcing`) is the same `2` as the `Bool` fiber's
+  cardinality and the `not`-involution's domain; `#free-fiber-values = NT`. The welded one-`∀`-theorem form is
+  the located ABSENT item. (3) **forced = tag-1 / free = tag-many UNIFIES C/L with the tetrachotomy**: the
+  `1`/`many` cut *is* the construction/Lens boundary (`forced_exists_unique`↔`pair_forcing`,
+  `free_two_sections`↔`ChoiceLens`); the tetrachotomy classifies its own normal form. R6: weld
+  `fiberArity(freeFib) = NT` (NT from `PairForcing`, not literal `2`) + ask whether the coupling-reading is
+  itself tag-1 (rigid) or tag-many (free).
+- **R6+ (open):** weld the base×fiber coupling into one parametric theorem (`fiber arity = NT`); a partial
+  decidable `tagOf` below the wall (the buildable part); `GenericAsCut`.

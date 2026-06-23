@@ -74,7 +74,7 @@ built `qbinom` at `q=−1` gives the Lucas/fermionic count `C(⌊n/2⌋,⌊k/2�
 a sign-swap — so the deformation-`q` (a scaling dial on the *count*) and the tag-`q` (a discrete ±1 swap bit
 on the *residue*) are different objects sharing only the ±1 *locus* by **containment**, aligned only at `q=+1`.
 
-### ★ Seven structural findings on the invariants (2026-06-23)
+### ★ Eleven structural findings on the invariants (2026-06-23)
 
 **(i) The `q=±1` tag's origin and name — quadratic residues** (`modular_arithmetic.md`).  The tag is not
 named "residue + a ±1 bit" by analogy: its **first instance is the Legendre symbol** `(a/p) ∈ {+1,−1}` on
@@ -271,6 +271,29 @@ the diagonal (`c a = !(f a a)`) *and* is a row of its own cover (`∃ k, f k = c
 `not`-fixed-point, impossible; `self_grounding_capstone` bundles it as `one_diagonal_generates` at the
 classifier's own domain.  The general `tagOf` over all `Type` stays ABSENT and **its un-buildability *is* the
 theorem** — self-grounding proved, not assumed.
+
+**(xi) The reflexive closure — the normal form `⟨C|L⟩ ⊕ Residue` is *itself* a tetrachotomy reading; the
+forced base shapes the free-fiber arity** (R5, `frontiers/no_walls_seminar/R5_base_fiber_coupling.md` +
+builds `TagOfDecidable`/`GenericAsCut`).  Apply the tetrachotomy to the normal form's own three pieces:
+- **`C` = tag-`1` (forced):** the construction axes are *uniquely* forced — `forced_exists_unique`
+  (`SectionCount.lean:134`) ↔ `pair_forcing` (`Theory/Atomicity/PairForcing.lean:189`, count `= 1`).
+- **`L`-parameters = tag-`many` (free):** `free_two_sections` (`SectionCount.lean:159`) ↔
+  `ChoiceLens.choice_is_free_lens_parameter`.
+- **`Residue` = tag-`0` (wall):** `master_classifier_is_the_wall` (R4).  **absence = `∅`.**
+So the calculus **classifies its own normal-form components by its own four-way tag** — the reflexive
+closure beyond R4.  The `⟨C|L⟩` construction/Lens boundary *is* the `1`-vs-`many` sub-cut of the
+tetrachotomy.  **Base→fiber coupling (grounded):** the free/wall fiber is `Bool` = 2-valued, and that `2`
+is the **forced atom `NT = 2`** (`CombinatorialArity.pigeonhole_fin_to_fin2:58`, `reachable_only_object:115`)
+— the free σ's binary-ness (`ChoiceLens.F := Bool`), the wall's `not` modifier, and the swap-involution
+(`FiberSymmetry.swap = not`) all live on that *same forced 2-element set*: **#free-fiber-values = `NT`**, the
+forced base fixes the free parameter's arity.  **Two reached-by-none poles:** the wall (tag-`0`,
+reached-by-none *negatively*, `object1_not_surjective`) and the **generic** (tag-`many`'s positive limit,
+`GenericAsCut.generic_is_reached_by_none_cut` 12/0 = a `Real213`-cut shape) — i.e. `escape`(q−1)/`converge`(q+1)
+of `B`.  And the classifier is **total below the wall** (`TagOfDecidable.tagOf_never_wall` 12/0: tag-`0` is
+structurally unreachable on decidable fibers) — the wall appears *only* at the `Type`-valued self-cover.
+ABSENT (R6): the welded parametric theorem `fiber Fin(NT)` with `NT` *supplied by* `PairForcing` (section-count
+`many` ⟺ `NT ≥ 2`), turning "the same constant `2` recurs" into "the forced `NT` parametrically determines
+free-fiber arity".
 
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
