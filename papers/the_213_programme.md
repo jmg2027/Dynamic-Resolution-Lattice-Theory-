@@ -32,7 +32,7 @@ is read as a pair `⟨C | L⟩` — a construction `C` and a reading (Lens) `L`
 imposes; Raw is the initial object in the category of such readings, so
 *every* distinguishing framework factors through it uniquely. From this
 single move we rebuild, axiom-free, a substantial swath of mathematics:
-the natural numbers (with `ℤ` and `ℚ` as two quotient choices on one
+the natural numbers (with `ℤ` and `ℚ` as two pair-readings on one
 container), the real and `p`-adic numbers via explicit moduli rather than
 ε-δ, the Cayley–Dickson tower, a cohomology programme on a parametric
 bipartite multigraph, and a graded arithmetic (GRA) under which category
@@ -301,9 +301,11 @@ catalog (`theory/INDEX.md`, 259 chapters) the detail.
 simplest Raw move producing a new element (`slash` with `b`), and
 `Nat213` carries both a Raw-chain and a Peano presentation with a verified
 bijection (`Lens/Number/Nat213/`). On top of one container `ℕ²`, `ℤ` and
-`ℚ` appear as **two quotient choices** — the additive diagonal
-`(a,b) ↦ a − b` gives `ℤ`, the multiplicative diagonal
-`(a,b) ~ (c,d) ⟺ ad = bc` gives `ℚ₊` — exhibiting the addition/
+`ℚ` appear as **two pair-readings (folds)** — the additive fold
+`(a,b) ↦ a − b` reads `ℤ`, the multiplicative fold reads `ℚ₊`
+(with `(a,b) ~ (c,d) ⟺ ad = bc` the *relation* among pairs, not their
+identity: the tuple **is** the number, and reduction to a representative
+is a flattening Lens, not the default) — exhibiting the addition/
 multiplication duality the framework reads off without external choice
 (`Nat213/Tower/`). The three unit axes of `ℕ³ → ℤ²` sum to zero,
 realizing `1 + ω + ω² = 0` at the number-theory level

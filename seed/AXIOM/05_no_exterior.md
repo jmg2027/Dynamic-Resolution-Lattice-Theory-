@@ -274,8 +274,9 @@ fixed point is φ (this section).  In the algebra tower, each
 type's Moufang-failure rate converges as
 `1 − (1/2) · (1/φ)^rank` — expressible exactly over Z[√5], with
 the rank determined by the Cayley–Dickson layer.  In DRLT
-physics, the CKM phase δ contains a `π/φ²` factor, the Cabibbo
-angle's Wolfenstein structure contains `φ/c`, and several
+physics, the CKM apex modulus `R_u` contains a `1/φ²` factor (the
+CP phase itself is forced to `δ = 90°`, not golden — `theory/physics/cp_phase.md`),
+the Cabibbo angle's Wolfenstein structure contains `φ/c`, and several
 neutrino mass ratios are golden-ratio readings of the simplex
 combinatorics.  None of these are coincidences in need of
 reconciliation; they are the same Lens result — the matrix's

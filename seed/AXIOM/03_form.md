@@ -174,8 +174,10 @@ take to be unrelated domains.  In Cayley–Dickson algebra-tower
 asymptotics, every base type's Moufang-failure rate converges as
 `1 − (1/2) · (1/φ)^rank` — expressible exactly over Z[√5], with
 no transcendental constants required.  In DRLT physics, the same
-φ governs the CKM phase δ (as π/φ²), the Cabibbo angle's
-Wolfenstein structure, and several neutrino mass ratios.  In
+φ governs the CKM apex modulus `R_u = 1/φ²` (the CP phase itself
+is forced to `δ = 90°`, not golden — by Niven + the Cayley–Dickson
+`i`, `theory/physics/cp_phase.md`), the Cabibbo angle's Wolfenstein
+structure, and several neutrino mass ratios.  In
 modular arithmetic, the same φ is the limit of consecutive-
 Fibonacci ratios, with the modulus periodicity controlled by the
 same matrix `P`.
