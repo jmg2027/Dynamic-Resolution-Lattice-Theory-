@@ -137,6 +137,28 @@ distribution (−1) are one engine; its meta-undecidability (halting) = the one 
 is more primitive (survives where `A` doesn't); Frobenius (#141) is the sharpest case (A = full ring endo,
 B's fixed pole = the fixed field 𝔽_p).
 
+**★★ "No walls" seminar — CAPSTONE (2026-06-23, multi-agent, 3 rounds; `frontiers/no_walls_seminar/`).**
+The originator's choice-correction ("don't refuse AC/LLPO — decompose the choice act into a free Lens
+parameter σ") was developed by a sustained multi-round mathematician-team discussion into a **self-grounding
+structural theory of the calculus's boundaries**, folded into `SYNTHESIS.md` §2 (vii′)–(x):
+- **The tetrachotomy `∅/0/1/many` = absence/wall/forced/free** — the boundary-structure is ONE
+  classification, the section-count of the reading-fibration over `C`, governed by §5.x.  `∅` absence (no
+  fiber: `C` unbuilt/missing input, §5.4) | `0` wall (the diagonal, inhabited self-cover no section) | `1`
+  forced (the atoms `C=(NS,NT,d,c)`) | many free (the Lens params σ/base/modulus).  ∅/0 cut = fiber
+  inhabitation.
+- **One axis-polymorphic wall** (the diagonal: Cantor/Russell/Gödel/halting/Burali-Forti/generic).  Free
+  pole's symmetry = its fiber's order (unordered → forcing; well-ordered → large cardinals = the two
+  independence axes).  Genericity = the height-limit of a free σ (converge cut, not the diagonal).
+- **SELF-GROUNDING:** `classify` is a Lens; applied to itself it collapses (no regress) + lands on the wall
+  (count 0) = the founding residue (`distinguishing_always_leaves_residue`).  The master/abstract classifier
+  is ABSENT *thrice over* (SectionCount.tagOf, FiberSymmetry biconditional, J's meta-classifier) for the
+  same reason — building it = deciding the diagonal.  The theory builds every concrete instance ∅-axiom but
+  not its own master classifier *because that is the wall* — the sharpest form of "213 assumes nothing".
+- **5 ∅-axiom modules BUILT** (all verified PURE): `ChoiceLens` 12/0, `ForcingToy` 12/0 (forcing =
+  σ-adjunction), `SectionCount` 16/0, `FiberSymmetry` 12/0, `SectionCountWithAbsence` 13/0 (the
+  tetrachotomy).  R4+ open frontiers recorded (partial `tagOf` below the wall; base×fiber coupling;
+  `GenericAsCut`).  `SYNTHESIS.md` §2 now **ten** structural findings.
+
 **Five calibrated boundaries** now located
 (nonstandard/LLPO, CFT/bundle, descriptive-set/large-cardinals, Stone/ultrafilter, Berkovich/seminorm-completeness) — all converging on the one ultrafilter/LLPO/choice point: the no-exterior axiom, tested at its hardest
 points, yields a *calibrated* remainder on the corpus's own strength ledger, never an uncalibrated wall.
