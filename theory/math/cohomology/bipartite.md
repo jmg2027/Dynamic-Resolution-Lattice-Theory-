@@ -126,9 +126,10 @@ bridge (`im_pathDelta_card` is the path-graph instance; `|im|` is
 `c`-independent, the `c=1` edge set suffices).  The rank relations are
 then exact ∅-axiom arithmetic (`2^(m+1) = 2 · 2^m`,
 `2^E = 2^(V−1) · 2^{b₁}` with `E = (V−1) + b₁`), giving
-`dim H¹ = b₁ = E − V + 1`.  For the forced `K_{3,2}^{(c=2)}`
+`dim H¹ = b₁ = E − V + 1`.  At the presentation `c=2` of `K_{NS,NT}^{(c)}`
 (`betti_one_K32`, `im_edgeCochain_K32` = `2^4`): `V = 5`, `E = 12`,
-`b₁ = 8 = NS² − 1 = 1/α₃`.
+`b₁ = 8 = NS² − 1 = 1/α₃` — the `c` here a free presentation choice (it
+re-presents `NS²−1`), not a forced datum.
 
 The same conclusion is also reached through the abstract
 graph-connectedness induction of

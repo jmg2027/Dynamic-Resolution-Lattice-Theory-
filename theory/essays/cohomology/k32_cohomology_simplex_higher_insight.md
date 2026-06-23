@@ -11,7 +11,8 @@ Fibonacci numbers.
 ## 213-native definition: one fixed point where two axes meet
 
 Two axes — algebra and cohomology — close independently and
-meet at the canonical lattice K₃,₂^{(c=2)}:
+meet at the lattice K₃,₂^{(c)} (read at presentation `c=2`; `c` is a free
+presentation parameter, not a forced datum):
 
 1. **Algebra (P-orbit)** (`CharPolySelf` + `POrbitRing` +
    `OrbitForcing` + `PeriodDepthBounds` + `CrossProductAxes`):
@@ -130,7 +131,7 @@ Sym3IrrepDecomp.fixedSize_eq_4 : Sym(3)-fixed cardinality = 4
 
 Six theorems, all ∅-axiom PURE, all issuing from the same
 (2, 1, 3).  The framework is the self-pointing structure of one
-matrix P and its canonical lattice K₃,₂^{(c=2)}; the cohomology
+matrix P and its lattice K₃,₂^{(c)} (here at `c=2`); the cohomology
 simplex is that self-pointing unfolded skeleton by skeleton.
 
 ## Cross-references

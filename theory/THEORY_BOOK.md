@@ -441,16 +441,20 @@ it carries a genuine non-coboundary H²-class (it is *pre-distinguishing*
 on the multiplicity axis, not empty).  See
 `theory/physics/foundations/atomic_constants.md`.
 
-### III.3 K_{3,2}^{(c=2)} — the canonical lattice
+### III.3 K_{NS,NT}^{(c)} — the bipartite lattice
 
-The forced atomic data names a unique bipartite multigraph:
-`K_{3, 2}^{(c=2)}`.  3 vertices on the NS side, 2 on the NT
-side, 2 edges per (NS, NT) pair.  Total: 12 edges.
+The forced atomic data `(NS, NT) = (3, 2)` names a bipartite multigraph
+`K_{NS, NT}^{(c)}`: 3 vertices on the NS side, 2 on the NT side, with `c`
+edges per (NS, NT) pair.  The multiplicity `c` is a **free
+Lens-presentation parameter** — not a forced fourth datum, removable from
+every observable; results are proved parametrically in `c`, no value
+canonical.
 
-This is **the** 213-native combinatorial object.  Every
-algebraic / cohomological / physical result downstream is a
-property of `K_{3, 2}^{(c=2)}` or its self-cup
-(`K_{3, 2}^{(c=2)} ↪ Δ⁴`, the 4-simplex with 5 vertices).
+This bipartite object is the 213-native combinatorial lattice; downstream
+algebraic / cohomological / physical results are properties of
+`K_{NS, NT}^{(c)}` or its self-cup (`↪ Δ⁴`, the 4-simplex with 5 vertices),
+read at a chosen presentation `c` (commonly `c = 2`, which re-presents
+`NS² − 1`).
 
 ### III.4 Möbius P
 
@@ -1122,7 +1126,7 @@ Architectural canonical: `lean/E213/ARCHITECTURE.md`.
 | **Atom** | `Raw.a` or `Raw.b` |
 | **Atomicity** | Pell-Lucas-Möbius forcing of `(NS, NT, c, d) = (3, 2, 2, 5)` |
 | **(NS, NT, c, d)** | `(3, 2, 2, 5)` — uniquely forced |
-| **K_{NS, NT}^{(c)}** | Canonical bipartite multigraph; `K_{3, 2}^{(c=2)}` is the unique 213-canonical |
+| **K_{NS, NT}^{(c)}** | The bipartite multigraph; `c` is a free presentation parameter (no value canonical), commonly read at `c = 2` |
 | **Δⁿ** | n-simplex; `Δ⁴` is the (c=2) dual filling |
 | **Möbius P** | `[[2, 1], [1, 1]]` — the algebraic crystallisation of atomic data |
 | **N_U** | `d^(d²) = 5²⁵` — count-Lens output at fractal level 2 |

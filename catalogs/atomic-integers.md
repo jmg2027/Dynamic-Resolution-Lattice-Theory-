@@ -1,6 +1,8 @@
 # Atomic Integers Catalog
 
-Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
+Integers expressible via 213 atomic primitives — the forced axes NS=3, NT=2,
+d=5 (the multiplicity c is a free presentation parameter, commonly c=2, not a
+forced primitive).
 
 ## Small integers (1-30)
 
