@@ -56,9 +56,12 @@ gap).  **Wave 42 (132→135):** symmetric functions (Λ = the universal home of 
 keeps rediscovering — det/tr=e₁/e₂, Chern, Newton; consolidating capstone), optimal control (value fn = the q+1
 Bellman-contraction fixed point, Pontryagin = Noether), quantum information (no-cloning = q−1 no-surjection,
 ⊗ = monoidal grade, vN entropy = ×↦+ character). **Two ∅-axiom actions this turn:** (1) BUILT Newton's
-identities `newton_id_p2`/`newton_id_p3` (3-variable `p₂=e₁p₁−2e₂`, `p₃=e₁p₂−e₂p₁+3e₃`) in
-`NewtonInequalities` (5/0→7/0) — and found the all-degrees Newton–Girard recurrence for the 2-element spectrum
-ALREADY built (`Mat2TraceRecurrence.trace_recurrence` 5/0, `p_{n+2}=e₁p_{n+1}−e₂p_n`); (2) CORRECTED a
+identities `newton_id_p2`/`newton_id_p3`/`newton_id_p4` (3-variable `p₂=e₁p₁−2e₂`, `p₃=e₁p₂−e₂p₁+3e₃`,
+`p₄=e₁p₃−e₂p₂+e₃p₁`) in `NewtonInequalities` (5/0→8/0) + `trace_sq` (`tr(M²)=tr²−2det`, the matrix-level
+degree-2 power sum from Cayley–Hamilton) in `Mat2TraceRecurrence` (5/0→6/0) — and found the all-degrees
+Newton–Girard recurrence for the 2-element spectrum ALREADY built (`Mat2TraceRecurrence.trace_recurrence`,
+`p_{n+2}=e₁p_{n+1}−e₂p_n`).  So the power-sum↔elementary `×↦+↔×↦·` bridge is now closed at degrees 2,3,4 (3-var)
+and all degrees (2-element matrix spectrum); (2) CORRECTED a
 false-friend: the proposed `no_universal_qubit_copier` witness is Cantor (a no-universal-realizer fact at
 `Qubit:=Bool`), NOT no-cloning — basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the
 amplitude residue, stays predicted-not-built.  Prediction tally now **13/14 Lean-closed**.  SYNTHESIS at
