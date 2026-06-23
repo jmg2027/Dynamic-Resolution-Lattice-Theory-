@@ -304,6 +304,38 @@ extension of it. The additive monoid generating while FTA does not is not a fail
 it is the criterion correctly locating the boundary: **counting (+) is generated;
 factoring (×) is the open frontier.**
 
+## Round 2.8 — both commutative monoids now fully generated
+
+Extending Round 2.7 the same night: the **multiplicative monoid `(ℕ, ·, 1)` is now
+fully generated too**, parallel to the additive one.
+
+- `+`-comm (`UnitList.add_comm_from_append`) + `+`-assoc (`add_assoc_from_append`,
+  this session) — additive monoid, count-shadow of unit-list append laws.
+- `×`-comm (`UnitGrid.mul_comm_from_grid`) — the grid-transpose double-count, already
+  present.
+- `×`-assoc (`UnitBox.mul_assoc_from_box`, **new this session**, `Meta/Nat/UnitBox.lean`,
+  5 PURE) — the 3-D unit-box double-count: an `a×b×c` box of indistinguishable units
+  counted as one `(a·b)×c` grid gives `(a·b)·c`; counted as `a` boxes of `b·c` cells
+  gives `a·(b·c)`; same units, so equal. **Cone verified `Nat.mul_assoc`-free** (uses
+  `add_assoc`/`add_comm` — a *different*, already-generated law — and `succ_mul`/
+  `zero_mul`, upstream of `mul_assoc`); generated, not borrowed.
+
+So both commutative monoids — the additive AND the multiplicative — are now
+*generated* disciplines by the strict derives-not-presupposes test: every monoid law
+is the count-shadow of a unit-structure double-count proved by induction alone, none
+presupposing the Nat law it produces. This is the concrete, ∅-axiom realization of
+"forced-not-authored" at the level of the two basic algebraic structures.
+
+**What is still NOT generated (the boundary stays sharp):** unique *factorization*
+(FTA) — the *distributive* interaction `×`/`+` and the prime-atom structure. The
+monoid *laws* are generated (comm, assoc of each operation in isolation); the
+*arithmetic that couples them* (distributivity, primality, factorization) is the
+remaining frontier, and it is where the `×`-atom distinguishability (the `exp`/`vp`
+Lens) genuinely enters. Next concrete target: generate **distributivity**
+`a·(b+c) = a·b + a·c` as a unit-structure double-count (a `b+c`-wide grid split into a
+`b`-block and a `c`-block) — the bridge law, after which primality/FTA is the deep
+frontier.
+
 ## The exterior deliverable (the only §5.1-legal verdict)
 
 Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
