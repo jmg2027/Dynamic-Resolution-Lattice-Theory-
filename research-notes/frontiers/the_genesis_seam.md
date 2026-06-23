@@ -458,6 +458,16 @@ re-derivation capstone (`quadratic_reciprocity`) should be borrowed. This *is* t
 genesis metric, in its only defensible form. (Supersedes the PART-A
 `tools/genesis_metric.py` sketch above, which the red-team retired.)
 
+## Promotion status (closed part → permanent)
+
+The *closed* part of this program — the generated ordered commutative semiring + the
+operation tower + the ×-count-Lens and the exact +/× duality — is promoted to the
+permanent chapter **`theory/math/numbersystems/arithmetic_generation.md`** (mirror of
+the `Meta/Nat` generation files). This note now tracks only the **open frontier**: a
+Raw-native *multiplicative descent* (prime-distinguishability / `exp`/`vp`) that would
+let unique factorization (FTA) be *generated* rather than completed on the borrowed,
+non-structural `Nat.strongRecOn` — the precise terminus of "generated vs borrowed."
+
 ## Cross-refs
 
 - `research-notes/frontiers/the_descent_leg.md` — the one genuine generation arc
