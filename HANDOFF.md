@@ -88,6 +88,27 @@ claimed phrases exist in the files** (grep-verified). Real213/Analysis/Mobius-GR
 Combinatorics/Geometry/Meta clusters: 0 findings. "substrate" as the neutral
 Nat/dyadic/Raw *carrier* idiom (≈60+ uses) is established and clean.
 
+## 대격변 — deep refinement of the axiom corpus (verified)
+A critical-fleet review (consistency / claims-vs-Lean / meta-principle) of
+`seed/AXIOM/` surfaced genuine deep issues; all fixed and **verified coherent**:
+- **Internal tensions**: clauses 3/4 'encoding cost' vs §10.3-α/§3.3 (→ axiom-level
+  absences, declared: clause 4 = α, clause 3 = β-machinery+γ-law, matching §10.3);
+  §1.0′ 'residue is the primitive' vs §1.1 (→ 'primitive' = methodological proof-move,
+  not ontological); §3.4 mislabeled 3→4 edge (→ forcing fan walked as 1→2→3→4,
+  clause 4 forced by clause 1).
+- **Overclaims vs Lean** (35 theorems verified): §4.1 invented a 'symmetry' minimality
+  case (none exists); §3.5 attributed Fibonacci to PairForcing (count-only) + cited a
+  non-existent phi_squared_eigenvalue (→ char-poly witnesses; repaired Mobius213
+  docstring); §8.5/suite falsifier count 27/26 → actual 25; §1.1 stale MuNuMirror path.
+- **Meta-principle**: removed the '213 vs ZFC / every other foundation' comparison
+  frames from §5.2, §6.3, §4.2, and the boot-pinned the_form_of_the_residue.md.
+- **Redundancy**: φ-cross-domain list (drifted) consolidated to §3.5; §5.5 self-
+  completion de-duplicated; §6.4 Lean manifest compressed to capstones + pointer.
+- **Status tag**: §1.0 now carries 'claim under test, not a shield' (§5.4/§8).
+- Spine-adjacent: CLOSED_FORM_SPEC unpinnable counts → ledger refs.
+The single seam I introduced (§2.4 clause-3 mis-citing α) was caught by the
+verification agent and corrected. Build clean throughout (only prose/docstrings).
+
 ## Open / not done (next session)
 - (Lean docstring body now fully read file-by-file — above.)
 - **Stale INDEX counts**: fixed (ModArith 13→62 w/ full re-enumeration; FluxMVT
