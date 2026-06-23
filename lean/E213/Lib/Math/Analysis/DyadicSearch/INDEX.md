@@ -4,7 +4,7 @@ Dyadic-bracket Intermediate Value Theorem on Real213 cuts.  Includes
 G31 trajectory-as-witness `MinimalRootLens` (Layer 3c morphism-
 collapse closure) — connects to DRLT physics observables.
 
-## Files (12)
+## Files (13)
 
 ### Core mechanics (4)
   - `DyadicBracket.lean`        — DyadicBracket type
@@ -21,7 +21,10 @@ collapse closure) — connects to DRLT physics observables.
   - `ConsistentOracle.lean`        — consistent-oracle predicate
   - `UnitConsistentOracles.lean`   — unit-interval oracles
   - `SignedLeftCollapse.lean`      — signed-left collapse
+
+### Capstone + multivariate (4)
   - `MinimalRootCapstone.lean` — minimal-root closure capstone
+  - `MultiVarBisection.lean` — multi-variate bisection
   - `MultiVarRigor.lean` — multi-variate bisection coordinate independence
   - `RootCertificate.lean` — full root packaging
 

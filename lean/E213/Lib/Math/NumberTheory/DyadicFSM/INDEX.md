@@ -12,7 +12,7 @@ marathon adds FLT, Frobenius, F_{p²}, Binet-bridge infrastructure.
 | `BitFSM/` | 2 | Bound, Converse |
 | `Fib/` | 4 (post-consolidation) | Fibonacci FSMmod (8 primes 통합) + PellRelation + Pisano8 + PisanoCapstone |
 | `Pell/` | 11 | Pell x²-Dy²=1 family + ProperMod (5 primes 통합) + Bounds/Lens |
-| `Pisano/` | 9 | Pisano-period predictors (step-by-step extension chain) |
+| `Pisano/` | 2 | Pisano-period predictors (Predictor, PredictorChain) |
 | `Trib/` | 4 (post-consolidation) | Tribonacci FSMmod (3 primes 통합) + CRT capstones |
 | `Legendre/` | 1 (consolidated) | Legendre-symbol Pisano variants (Pisano/Ext/Small/V13_19/V213) |
 | `Archive/` | 2 | EdgeSignature, SubwordComplexity (historical) |

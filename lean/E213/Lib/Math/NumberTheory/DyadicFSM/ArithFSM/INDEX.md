@@ -4,7 +4,7 @@ Captures Pell-like sequences for algebraic irrationals as
 multi-state arithmetic recurrences `ArithFSM2 n` with state vector
 `Fin n × Fin n` updating via a linear recurrence mod `n`.
 
-## Files (14)
+## Files (15)
 
 ### Versioned development line
   - `V1.lean`         — V1: initial form
@@ -21,10 +21,11 @@ multi-state arithmetic recurrences `ArithFSM2 n` with state vector
   - `ModLarge.lean`  — large N
 
 ### Structural
-  - `Signature.lean`  — ArithFSM2 signature shape
-  - `Hierarchy.lean`  — hierarchy across versions
-  - `Hardness.lean`   — generic-hardness lemma
-  - `ToBitFSM.lean`   — ArithFSM2 → BitFSM conversion
+  - `Signature.lean`          — ArithFSM2 signature shape
+  - `Hierarchy.lean`          — hierarchy across versions
+  - `Hardness.lean`           — generic-hardness lemma
+  - `ToBitFSM.lean`           — ArithFSM2 → BitFSM conversion
+  - `InvertibleArithFSM2.lean` — invertible ArithFSM2 variant
 
 ## Top-level
 

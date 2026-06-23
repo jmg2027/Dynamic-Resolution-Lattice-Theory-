@@ -4,7 +4,7 @@
 Tracks *flux through endpoints* instead of tangent slopes — works
 in the 213 substrate (no exact derivatives, only bracketed cuts).
 
-## Files (23)
+## Files (27)
 
 ### Flux core (5)
   - `FluxCut.lean`        — flux as a cut-level value
@@ -13,7 +13,7 @@ in the 213 substrate (no exact derivatives, only bracketed cuts).
   - `FluxEquiv.lean`      — flux-equivalence relation
   - `FluxEquivOps.lean`   — ops compatible with flux-equiv
 
-### MVT witnesses (6)
+### MVT witnesses (7)
   - `FluxMVT.lean`                     — generic flux-MVT
   - `FluxMVTConcrete.lean`             — concrete witness
   - `FluxMVTWitness.lean`              — witness builder
@@ -35,6 +35,12 @@ in the 213 substrate (no exact derivatives, only bracketed cuts).
   - `FluxFTC.lean`        — fundamental-theorem-of-calculus, flux form
   - `FTCRiemann.lean`     — Riemann-form FTC
   - `FluxSeries.lean`     — flux applied to series
+
+### Bracket + telescope machinery (4)
+  - `AdjacentSternBrocotBridge.lean` — adjacent Stern-Brocot bridge
+  - `TelescopingConservation.lean`   — telescoping conservation law
+  - `UnitBracketReduce.lean`         — unit-bracket reduction
+  - `UnitBracketReduceSum.lean`      — unit-bracket reduction (sum form)
 
 ## Top-level
 
