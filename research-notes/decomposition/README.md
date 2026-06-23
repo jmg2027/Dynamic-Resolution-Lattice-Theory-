@@ -1972,7 +1972,23 @@ static face = Legendre `(a/p)` (finding i), dynamic face = Euclidean termination
 undecidability (the diagonal). ABSENT: named TuringMachine/halts/Collatz + the packaged undecidability statement
 (only the abstract diagonal built, as in godel.md).
 
-**Count.** 139 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ Cayley–Dickson tower (`cayley_dickson.md`) — iterated doubling; residue = the law lost each step; BOTH invariants
+
+EXTEND (the cleanest place both invariants are load-bearing in one object). C = iterated doubling α↦CDDouble α
+(CDDouble:44, dim 1,2,4,8,16…) — ℝ/ℂ/ℍ/𝕆 are ONE construction at four depths, not four objects. L = conjugation
+`conj` (CDDouble:63), the **q=±1 involution** (fixed=reals q=+1/trace; anti-fixed=imaginaries q=−1, doubling each
+step), defining the norm N(x)=x·x̄. Residue = the law LOST per doubling: order (ℝ→ℂ) → commutativity (ℂ→ℍ) →
+associativity (ℍ→𝕆) → alternativity+composition (𝕆→𝕊, zero divisors). **What survives = the q=+1 kept laws,
+proved ∅-axiom**: alternativity/flexibility through 𝕆 (`cd_alt_left`:26/`cd_alt_right`:111/`cd_flexible`:131,
+CDDoubleAlternative 3/0) + **the multiplicative norm character N(xy)=N(x)N(y)** (`diag_collapse`:80,
+`hurwitz_cross`:119, CDDoubleMoufang 23/0) = **Invariant A (×↦·) on norms**. **Hurwitz** (normed division algebras
+only dim 1,2,4,8) = the q-tagged TERMINATION: the ×↦· norm character survives 4 doublings (q=+1, depths 0–3) then
+breaks (q=−1, 𝕊). Collapse: four number systems = one ⟨double|conj⟩, the differences = the residues (lost laws).
+Forcing: BOTH invariants meet — conj (q=±1, drives doubling) + norm (×↦·, preserved only to depth 3). ABSENT:
+named terminus (𝕊 zero divisors / norm fails at depth 4) + packaged Hurwitz statement (survivors built, terminus
+predicted-not-built).
+
+**Count.** 140 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **fourteen**
 predictions, **thirteen Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +

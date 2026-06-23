@@ -5,7 +5,7 @@
 
 ## ★★ CURRENT STATE (2026-06-22, 42-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
 The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
-now spans **139 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+now spans **140 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
 converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
 `ResidueTag.lean`) + the reflexive deepening (homological algebra names the calculus's own residue-taking
 operation; spectral sequences = that operation ITERATED). Canonical indices: **`SYNTHESIS.md`** (the capstone
@@ -65,7 +65,7 @@ and all degrees (2-element matrix spectrum); (2) CORRECTED a
 false-friend: the proposed `no_universal_qubit_copier` witness is Cantor (a no-universal-realizer fact at
 `Qubit:=Bool`), NOT no-cloning — basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the
 amplitude residue, stays predicted-not-built.  Prediction tally now **13/14 Lean-closed**.  SYNTHESIS at
-**v4 (count 139)**.
+**v4 (count 140)**.
 
 **Bertrand / prime-distribution arc (2026-06-23, course-corrected):** built the entire *structural* content
 of Erdős's Bertrand proof ∅-axiom — `PrimePowFactorization.lean` (10/0: `prod_prime_pow_eq`, the explicit
@@ -101,6 +101,17 @@ pole).  **Decidability of the q=±1 termination tag is GRADED by the well-founde
 modulus is the boundary between a readable q and the diagonal q.  Cantor/Gödel/Turing = count/provability/
 termination-Lens of ONE residue (`one_diagonal_generates`).  Unifies the residue-tag spine and the one-diagonal
 spine: the dynamic q=±1 tag and the diagonal are one object.
+
+**Decomposition #140 `cayley_dickson.md` (2026-06-23):** the CD tower ℝ→ℂ→ℍ→𝕆 = iterated doubling (`CDDouble`),
+the cleanest place BOTH invariants are load-bearing.  L = `conj` (the q=±1 involution; anti-fixed imaginaries
+double each step).  Residue = the law LOST per doubling (order→comm→assoc→alternativity).  Survivors proved
+∅-axiom = the q=+1 kept laws: alternativity/flexibility (`cd_alt_left`/`cd_alt_right`/`cd_flexible`,
+CDDoubleAlternative 3/0) + the **multiplicative norm character N(xy)=N(x)N(y)** (`diag_collapse`/`hurwitz_cross`,
+CDDoubleMoufang 23/0 = Invariant A ×↦· on norms).  Hurwitz (dim 1,2,4,8) = q-tagged termination: the ×↦· norm
+character survives 4 doublings (q=+1) then breaks at 𝕊 (q=−1, zero divisors).  ABSENT: named terminus + packaged
+Hurwitz.  Tested-refinement also added to SYNTHESIS §2 (iii): the Euclidean engine (finite-reach fixed point)
+vs the Banach engine (reached-by-none limit) are TWO engines, not conflated — the tag is on descent-termination,
+not value-convergence.
 
 **SYNTHESIS §2 deepened (2026-06-23):** THREE invariant-level findings folded into the canonical inventory —
 (i) the `q=±1` tag's ORIGIN = the Legendre symbol on `(ℤ/p)*` (quadratic residue; whence the name; q^k=1

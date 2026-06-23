@@ -1,7 +1,7 @@
 # The 213 Decomposition Calculus — capstone synthesis (v4)
 
 **Status**: Tier-1 capstone of the decomposition cluster (`README.md` = the technique + per-field
-log; `practice/*.md` = the 139 worked decompositions; `FRONTIER_AUDIT.md` = the honesty pass;
+log; `practice/*.md` = the 140 worked decompositions; `FRONTIER_AUDIT.md` = the honesty pass;
 `frontiers/colimit_quotient_synthesis.md` + the 3 panel memos = the open edge, now half-built). This
 document does not add a decomposition — it makes the whole corpus legible as one statement. Every Lean
 name cited below was grep-verified to exist in `lean/E213/` and scanned ∅-axiom via `tools/scan_axioms.py`;
@@ -22,7 +22,7 @@ read through a **Lens** `L` (which feature you project to — count, order, diff
 sign), leaving a **Residue** (what `L` forces but cannot capture). A theorem is a property `P(⟨C|L⟩)`;
 the payoff is *collapse* — two superficially different theorems shown to share `(C, L)` and so be one.
 The Lean encoding (`Raw`, `Lens`, `Lens.view = Raw.fold`) is the faithfulness-check, not the
-deliverable. The headline finding, after **139 worked decompositions across ~16 disciplines**, is that this
+deliverable. The headline finding, after **140 worked decompositions across ~16 disciplines**, is that this
 wide front does not need 132 different ideas: it converges on a **small invariant set** — one *character
 arrow*, one *q=±1 residue tag*, and (the deepest reflexive turn) one *residue-taking operation* (now shown
 both self-composable — spectral sequences — and self-dual — the μ/ν catamorphism/anamorphism closure,
@@ -36,7 +36,7 @@ operation** (§2, §6).
 
 ## 2. The invariant set — the complete inventory
 
-The 139 decompositions converge on **two load-bearing invariants** plus **one structured frame** (the
+The 140 decompositions converge on **two load-bearing invariants** plus **one structured frame** (the
 read-off axes of `C` and the parameters of `L`) — and one reflexive addition: the calculus naming its own
 residue operation. Each is cashed by a verified Lean theorem.
 
