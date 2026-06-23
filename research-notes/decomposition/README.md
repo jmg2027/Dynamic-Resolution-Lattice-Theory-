@@ -1940,7 +1940,22 @@ instance here — quadratic residues. Also Wilson (50/0), Euler. Collapse: "the 
 Residue" (213) = Lens image vs dropped quotient, one division. ABSENT: Dirichlet (residue-class distribution,
 sibling of `prime_distribution.md`), general `(ℤ/m)*` cyclicity, higher-power residue symbols (q^k=1).
 
-**Count.** 137 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ gcd / Euclidean algorithm (`gcd_euclidean.md`) — the residue Lens iterated to its q=+1 fixed point
+
+EXTEND (the residue-Lens triptych's keystone). C = a pair of counts (a,b); L = the Euclidean step
+(a,b)↦(b, a%b) = the residue Lens (`modular_arithmetic.md`) fed back + swap — verbatim `gcdFuel` (NatHelper:618,
+`gcdFuel n (b%(a+1)) (a+1)`); the **q=+1 fixed point** (residue hits 0) is gcd, dropped part = the coprime
+cofactors a/g,b/g. **Dynamic = static, one object**: gcd computed as the terminating fixed point (well-founded
+modulus `M(a,b)=max a b + a` strictly decreases, fuel `2(a+b)+1`, total ∅-axiom) IS the **divisibility-lattice
+meet** (`gcd213_greatest` Gcd213 33/0: GLB universal property), and **that lattice = the count-Lens refinement
+lattice** (`leavesModNat_lcm` LensLcmMeet 4/0: refines=∣, meet=lcm; CRT = coprime case). **Forcing**: gcd
+(terminate, q=+1) and prime distribution (`exists_prime_gt`, never-terminate, q=−1) are the **two faces of
+iterating the residue Lens** — the descent modulus forces q=+1; its absence (no top atom) is the q=−1 prime
+side. Completes the triptych `modular_arithmetic` (the Lens) → `gcd_euclidean` (terminating iteration) →
+`prime_distribution` (non-terminating iteration). ABSENT: packaged Bézout `gcd=ax−by` identity; the CF bridge
+(Euclidean quotients = continued fraction of a/b, `continued_fractions.md`).
+
+**Count.** 138 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **fourteen**
 predictions, **thirteen Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +

@@ -5,7 +5,7 @@
 
 ## ★★ CURRENT STATE (2026-06-22, 42-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
 The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
-now spans **137 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+now spans **138 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
 converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
 `ResidueTag.lean`) + the reflexive deepening (homological algebra names the calculus's own residue-taking
 operation; spectral sequences = that operation ITERATED). Canonical indices: **`SYNTHESIS.md`** (the capstone
@@ -65,7 +65,7 @@ and all degrees (2-element matrix spectrum); (2) CORRECTED a
 false-friend: the proposed `no_universal_qubit_copier` witness is Cantor (a no-universal-realizer fact at
 `Qubit:=Bool`), NOT no-cloning — basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the
 amplitude residue, stays predicted-not-built.  Prediction tally now **13/14 Lean-closed**.  SYNTHESIS at
-**v4 (count 137)**.
+**v4 (count 138)**.
 
 **Bertrand / prime-distribution arc (2026-06-23, course-corrected):** built the entire *structural* content
 of Erdős's Bertrand proof ∅-axiom — `PrimePowFactorization.lean` (10/0: `prod_prime_pow_eq`, the explicit
@@ -85,6 +85,19 @@ disambiguation**: classical "residue" (remainder) = Lens *image*; 213 Residue = 
 halves of one division.  CRT = coprime residue-Lens family jointly faithful (`crt_unique`).  **The `q=±1` tag's
 origin**: the Legendre symbol `(a/p)∈{±1}` IS the tag on `(ℤ/p)*` (quadratic *residue* = q=+1 square) —
 `euler_dichotomy`/`legendre_mul` = the tag + its multiplicativity; whence the word "residue."
+
+**Decomposition #138 `gcd_euclidean.md` (2026-06-23):** gcd = the residue Lens ITERATED to its `q=+1`
+terminating fixed point (`gcdFuel n (b%(a+1)) (a+1)`, well-founded modulus `M=max a b + a`).  Dynamic
+(algorithm) = static (divisibility-lattice meet, `gcd213_greatest`), and that lattice = the count-Lens
+refinement lattice (`leavesModNat_lcm`: refines=∣, meet=lcm, CRT=coprime case).  Completes the **residue-Lens
+triptych**: `modular_arithmetic` (the Lens) → `gcd_euclidean` (terminating iteration, q=+1) →
+`prime_distribution` (non-terminating iteration, q=−1) — the two faces of iterating `%`.
+
+**SYNTHESIS §2 deepened (2026-06-23):** two invariant-level findings folded into the canonical inventory —
+(i) the `q=±1` tag's ORIGIN = the Legendre symbol on `(ℤ/p)*` (quadratic residue; whence the name; q^k=1
+extension = cyclic power-residue); (ii) the **residue-location law**: a faithful coordinate Lens relocates its
+residue to the basis it presupposes (L_vp faithful → residue = prime distribution); specific to
+many-distinguishable-atom bases (×-atoms).
 
 **Five calibrated boundaries** now located
 (nonstandard/LLPO, CFT/bundle, descriptive-set/large-cardinals, Stone/ultrafilter, Berkovich/seminorm-completeness) — all converging on the one ultrafilter/LLPO/choice point: the no-exterior axiom, tested at its hardest
