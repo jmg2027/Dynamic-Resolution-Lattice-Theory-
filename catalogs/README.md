@@ -15,6 +15,7 @@ Lookup tables for the 213 library.  grep-able.
   internal-hubs.md       top E213-internal load-bearing lemmas (surface + Expr level)
   falsifier-roster.md    135 decide-verified impossibility theorems (automated catalog)
   correspondence-surface.md  propext / Quot.sound classification — the classical-correspondence surface (A) + thesis (B) + equivR-recoverable (C) + backlog (D) + plumbing (E)
+  derivation-breadth.md  domain → capstone → {closed / closed+frontier / frontier} coverage map (primacy = breadth, §7.1)
 
 ## Usage
 

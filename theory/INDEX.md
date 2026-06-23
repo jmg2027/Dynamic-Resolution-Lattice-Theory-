@@ -120,6 +120,7 @@ Foundational spec corpus:
 
 Catalogs/:
 
+- `catalogs/derivation-breadth.md` — domain-level coverage map (closed / frontier), the primacy-breadth view (§7.1)
 - `catalogs/abstraction-candidates.md` — abstraction roster
 - `catalogs/cross-domain-identifications.md` — cross-domain identifications
 - `catalogs/falsifier-roster.md` — 135-falsifier catalog

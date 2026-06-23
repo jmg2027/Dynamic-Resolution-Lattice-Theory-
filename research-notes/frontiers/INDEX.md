@@ -453,6 +453,12 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   §0.5 tracks per-conjecture (C1–C6) closure status + promoted chapters.  Active
   scratch — Lean docstrings cite its §C## conjecture labels
   (`research-notes/frontiers/G35`).
+- `cohomology_higher_structure` — **the K_{3,2}/K_{3,3} higher-cohomology frontier**:
+  Steenrod ladder beyond Sq¹, universal Adem/Cartan, explicit Sq², 5-skeletons,
+  Massey products (H¹- and H²-triples), K_{3,3} secondary cohomology.  Recorded
+  after the Phase-8 audit found these claimed-closed in prose with no Lean; the
+  note bounds the frontier against the genuinely-closed 2/3/4-skeleton content and
+  flags the smallest closable steps (`cohomology_higher_structure.md`).
 - `inequalities_positivity_fold_crossdomain` — **the curvature arc ↔ the proof-ISA arc**:
   A7 POSITIVITY's 2-D Cauchy–Schwarz (`cauchy_schwarz_2d`, depth-0 Lagrange square) and the
   curvature module's n-dim power-mean Cauchy–Schwarz (`cauchy_schwarz_gridZ`, per-rung SOS
