@@ -64,9 +64,21 @@ reading the corpus directly. Durable program note: **`research-notes/frontiers/t
      `≤` born as unit-list extension (`le_iff_unit_extension`), `+`-monotonicity
      (`add_le_add_right`, `Nat.add_le_add_right`-free) from the same `append_comm`
      indistinguishability as `+`-comm. **⟹ the ordered commutative semiring
-     `(ℕ,+,·,0,1,≤)` is now generated.** Everything generated so far is
-     additive/counting content; the multiplicative-atom (prime) structure is the
-     deep frontier.
+     `(ℕ,+,·,0,1,≤)` is generated.**
+  7. **`lean/E213/Meta/Nat/ProdCount.lean`** (7 PURE, new — the multiplicative
+     marathon) — the **×-count-Lens** `prodL : List Nat → Nat`, dual to the additive
+     `count`, built on the *generated* `mul_assoc`/`mul_comm` (not `Nat.mul_*`):
+     `prodL_append` (append↦×), `prodL_swap` (multiset-invariant), `prodL_replicate`
+     (`p^k`), `pow_add` (∅-axiom on generated mul_assoc). **The +/× duality made exact:**
+     `prodL_two_atoms` (distinguishable atoms keep the exponent vector `p^j·q^k`) vs
+     `prodL_one_atom_merges` (set `q=p` and `×` merges to `p^(j+k)`, exactly the additive
+     `j+k`). So **`×` *is* `+` when atoms are made indistinguishable; the entire excess of
+     `×` (the exponent vector, hence FTA) is exactly the *distinguishability* of primes.**
+     The genesis-seam thesis, backed by Lean: the additive/equational/order structure is
+     *generated* (structural descent); the multiplicative-atom (prime) structure is a
+     genuinely second Lens whose uniqueness (FTA) exists ∅-axiom but completes on a
+     *non-structural* descent (`n→n/minFac`, `Nat.strongRecOn`) — the precise terminus of
+     "generated vs borrowed." (genesis-seam Round 3.)
 - **The named frontier (next):** Raw's own descent is ADDITIVE (`slash → +`,
   `leaves_slash`), so it generates the additive monoid; FTA's descent is MULTIPLICATIVE
   (`n/minFac`, `Nat.strongRecOn`), a *different Lens* the additive peel cannot provide.
