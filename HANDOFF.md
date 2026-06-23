@@ -60,6 +60,13 @@ reading the corpus directly. Durable program note: **`research-notes/frontiers/t
      presupposing the Nat law it produces. The complete algebraic foundation of
      elementary arithmetic, *generated* — the strongest concrete ∅-axiom realization
      of "forced-not-authored."
+  6. **`lean/E213/Meta/Nat/UnitOrder.lean`** (3 PURE, new) — generated the **order**:
+     `≤` born as unit-list extension (`le_iff_unit_extension`), `+`-monotonicity
+     (`add_le_add_right`, `Nat.add_le_add_right`-free) from the same `append_comm`
+     indistinguishability as `+`-comm. **⟹ the ordered commutative semiring
+     `(ℕ,+,·,0,1,≤)` is now generated.** Everything generated so far is
+     additive/counting content; the multiplicative-atom (prime) structure is the
+     deep frontier.
 - **The named frontier (next):** Raw's own descent is ADDITIVE (`slash → +`,
   `leaves_slash`), so it generates the additive monoid; FTA's descent is MULTIPLICATIVE
   (`n/minFac`, `Nat.strongRecOn`), a *different Lens* the additive peel cannot provide.
