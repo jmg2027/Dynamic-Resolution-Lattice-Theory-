@@ -42,13 +42,17 @@ reading the corpus directly. Durable program note: **`research-notes/frontiers/t
      audit missed; fixed the 2 real phantoms (V32.lean→Bipartite.lean; phantom
      NodupAsClause4 "12 PURE"→Future-candidate). PATH check is a hard signal;
      qualified-name check is advisory.
-  3. **`lean/E213/Meta/Nat/UnitList.lean`** (now 12 PURE) — **the first concrete
-     GENERATION result** passing the strict "derives-not-presupposes" test: generated
-     `+`-**associativity** (`add_assoc_from_append`, via `append_assoc` + a
-     `Nat.add_assoc`-free count homomorphism `count_append_fwd`) to join the existing
-     `+`-commutativity (`add_comm_from_append`). The **additive monoid `(ℕ,+,0)` is now
-     fully generated** — every law is the count-shadow of a unit-list append law proved
-     by bare induction, none presupposing the Nat law it produces.
+  3. **`lean/E213/Meta/Nat/UnitList.lean`** (now 12 PURE) — **first concrete
+     GENERATION result** (derives-not-presupposes): generated `+`-**associativity**
+     (`add_assoc_from_append`, via `append_assoc` + a `Nat.add_assoc`-free count
+     homomorphism `count_append_fwd`) joining the existing `+`-comm
+     (`add_comm_from_append`). **Additive monoid `(ℕ,+,0)` fully generated.**
+  4. **`lean/E213/Meta/Nat/UnitBox.lean`** (5 PURE, new) — generated
+     `×`-**associativity** (`mul_assoc_from_box`, the 3-D unit-box double-count,
+     verified `Nat.mul_assoc`-free) joining `UnitGrid.mul_comm_from_grid`.
+     **Multiplicative monoid `(ℕ,·,1)` fully generated** too. So BOTH commutative
+     monoids are now generated disciplines — the concrete ∅-axiom "forced-not-authored"
+     at the level of the two basic algebraic structures.
 - **The named frontier (next):** Raw's own descent is ADDITIVE (`slash → +`,
   `leaves_slash`), so it generates the additive monoid; FTA's descent is MULTIPLICATIVE
   (`n/minFac`, `Nat.strongRecOn`), a *different Lens* the additive peel cannot provide.
@@ -56,11 +60,13 @@ reading the corpus directly. Durable program note: **`research-notes/frontiers/t
   ×-atom/prime-distinguishability structure / `exp`/`vp` ×-count-Lens). Counting (+)
   is generated; factoring (×) is the open frontier — the precise next target for
   "generation, not re-derivation." (Recorded in `the_genesis_seam.md` Round 2.7.)
-- **Next-session deliverables (in the genesis-seam note):** (a) generate the
-  MULTIPLICATIVE monoid the way the additive one was generated (×-comm/assoc as the
-  shadow of a distinguishable-atom multiset structure, or via the `vp` exp-Lens
-  transporting × to the generated +); (b) build the completion-engine classifier
-  tool; (c) tighten check_citations qualified-name false positives.
+- **Next-session deliverables (in the genesis-seam note Round 2.8):** (a) generate
+  **distributivity** `a·(b+c) = a·b + a·c` as a unit-grid block-split (the bridge law
+  coupling + and ×, after which primality/FTA is the deep frontier — the monoid *laws*
+  are now generated, the *arithmetic coupling them* is not); (b) the deep frontier — a
+  Raw-native *multiplicative descent* / prime-atom (`exp`/`vp`) structure for FTA;
+  (c) build the completion-engine classifier tool; (d) tighten check_citations
+  qualified-name false positives.
 - **The only §5.1-legal exterior verdict** (meta + red-team): the strict-∅-axiom,
   Mathlib-free corpus pitched as *axiom-base-minimization to none-beyond-CIC*, NOT as
   "a new foundation." Sharpest pitch in the note.
