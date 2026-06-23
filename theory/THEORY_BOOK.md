@@ -303,13 +303,16 @@ canonically.
 
 **Universal Lens — canonical normalization form**.
 `lean/E213/Lens/Universal/QuotLens.lean` constructs
-`universalLens : Lens (Raw → Prop)` whose view is *injective*
-modulo Lens-equivalence — every Lens M satisfies
-`(universalLens M.equiv).equivR r r' ↔ M.equiv r r'` (theorem
-`universalLens_recovers_R`), stated on the Reading-equivalence
-`equivR` (pointwise `↔`), so ∅-axiom.  `universalLens` is therefore
-the canonical normalised form of any Lens; `universalLens_idempotent_R`
-confirms applying twice yields the same kernel.
+`universalLens : Lens (Raw → Prop)`, the per-congruence
+normalization map: for a slash-congruence `E` its kernel is exactly
+`E`, and for any Lens `M`, `universalLens M.equiv` has kernel exactly
+`M.equiv` — `(universalLens M.equiv).equivR r r' ↔ M.equiv r r'`
+(theorem `universalLens_recovers_R`), stated on the
+Reading-equivalence `equivR` (pointwise `↔`), so ∅-axiom.  So
+`universalLens` is the canonical normalised form of any Lens (its
+view is injective *only* when the kernel is equality, i.e. the
+`idLens` bottom); `universalLens_idempotent_R` confirms applying
+twice yields the same kernel.
 
 **Lens composition suite**.
 `lean/E213/Lens/Compose/{Morphism, OnLens, OnLensImage,
