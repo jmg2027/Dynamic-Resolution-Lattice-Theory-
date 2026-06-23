@@ -317,12 +317,14 @@ DRLT-observable mixing matrices **structurally from chain values**:
   · ★ `fibonacci_cassini_eq_chain`: `F₅·F₃ − F₄² = d · NT − NS² = 1`
     — Cassini identity at d=5 IS the chain glue identity (the
     Möbius P det = 1 statement).
-  · `delta_ckm_rational`: `δ_CKM ≈ 176/147 rad` (Fibonacci
-    convergent rational for π/φ²).
+  · `delta_ckm_rational`: `176/147 rad` is a Fibonacci-convergent
+    rational for the golden angle `π/φ²` (the *demoted* CP-phase posit;
+    the forced CKM phase is `δ = 90°`, `theory/physics/cp_phase.md`).
   · ★★★★★ `physics_deployment_capstone` bundles all eight.
 
-Every observable on the RHS is a **closed function of chain values
-`(NS, NT, d, c) = (3, 2, 5, 2)`** — no additional inputs.
+Every observable on the RHS is a **closed function of the forced shape
+`(NS, NT, d) = (3, 2, 5)`** (read at presentation `c = 2`, a free
+parameter) — no additional inputs.
 
 ## Open frontier
 

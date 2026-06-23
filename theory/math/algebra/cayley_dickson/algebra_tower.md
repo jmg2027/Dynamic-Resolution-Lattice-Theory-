@@ -171,7 +171,7 @@ Other types (E) **rejected** with explicit witness
 
 The same φ appears in:
 - **Algebra tower asymptote** (this chapter)
-- **DRLT physics**: CKM δ = π/φ², Cabibbo A = φ/c, ν m₃/m₂
+- **DRLT physics**: CKM apex modulus R_u = 1/φ² (the phase is δ = 90°, forced — `theory/physics/cp_phase.md`), Wolfenstein A = φ/c, ν m₃/m₂
 - **Raw atomicity**: NS + NT = 5, (2φ − 1)² = 5
 - **Pell-Fib infrastructure** (`DyadicFSM/Fib`)
 - **Theory/Raw/Mobius** (P_numerator/denominator)

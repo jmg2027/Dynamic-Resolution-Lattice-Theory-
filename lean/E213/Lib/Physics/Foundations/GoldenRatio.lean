@@ -10,8 +10,11 @@ recurrence encodes the d = 5 atomic structure.
 
 ## DRLT formulas using φ
 
-  δ_CKM = π/φ² ≈ 68.75° (CKM CP phase)
-  Cabibbo Wolfenstein A = φ/c (where c=2)
+  R_u = 1/φ²  (CKM apex modulus — the golden quantity is the modulus,
+              NOT the phase: the CP phase is δ = 90° forced (CD `i`),
+              and δ = π/φ² is the demoted golden posit, Niven-impossible
+              as a discrete phase; see the Mixing CP cluster + cp_phase.md)
+  Wolfenstein A = φ/c (where c = 2, a free presentation)
   ν m₃/m₂ uses φ ratios
 
 ## ★ √d = √5 = 2φ - 1 ★

@@ -20,7 +20,7 @@ is no underlying foundation; every reading is residue-internal).
 
 ### Combinatorial structure
   - `Pairs.lean`         — AA(3) + BB(1) + AB(6) = 10
-  - `Edges.lean`         — c = 2 doubling, b₁ = 8 = NS² − 1
+  - `Edges.lean`         — edge/octet structure (c-free): b₁ = 8 = NS² − 1
   - `Time.lean`          — NT = 2 → 2ⁿ dyadic
   - `Space.lean`         — NS = 3 → 3ⁿ ternary, NS/NT asymmetry
 

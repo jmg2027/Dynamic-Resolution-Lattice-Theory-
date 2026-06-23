@@ -3,12 +3,14 @@ import E213.Lib.Physics.Mixing.CabibboAngle
 import E213.Lib.Physics.Foundations.GoldenRatio
 
 /-!
-# CP violation — δ_CKM = π/φ², Jarlskog J (0 axioms)
+# CP violation — Jarlskog J (0 axioms)
 
 DRLT formulae:
 
-  δ_CKM = π/φ² ≈ 1.20 rad ≈ 68.75°
-  J = c₁₂·s₁₂·c₂₃·s₂₃·c₁₃²·s₁₃·sin(δ)
+  δ_CKM = 90° (forced — CD `i`, maximal CP; the golden posit
+          δ = π/φ² ≈ 68.75° is demoted, Niven-impossible as a discrete
+          phase; 1/φ² is the apex modulus R_u, not the phase — cp_phase.md)
+  J = c₁₂·s₁₂·c₂₃·s₂₃·c₁₃²·s₁₃·sin(δ)   (maximal at δ = 90°)
 
   ⚠ MAGNITUDE NOT YET DERIVED (honest, see "Jarlskog magnitude gap" below).
   Only the λ-power *structure* is ∅-axiom (`J_lambda_dependence`); the

@@ -19,7 +19,9 @@ These chain values are the **direct inputs** to the physics-side
 mixing matrices:
 
   · Cabibbo: sin θ_C = d / (d² − d + c) = 5 / 22  where c = NT = 2.
-  · CKM δ: δ_CKM = π / φ², with φ² + 1/φ² = NS = trace(P).
+  · CKM apex modulus: R_u = 1/φ², with φ² + 1/φ² = NS = trace(P).
+    (The CP *phase* is δ = 90°, forced; the golden π/φ² below is the
+    demoted phase posit / a golden angle, not the forced phase — cp_phase.md.)
   · Atomic input table: (NS, NT, d) at the chain root.
 
 This file closes the universe_chain.md open frontier "physics
@@ -107,10 +109,14 @@ theorem fibonacci_cassini_eq_chain :
         * fib 4
       = d * NT - NS * NS := by decide
 
-/-! ## §4 — CKM δ ≈ π/φ² rational approximation -/
+/-! ## §4 — the golden angle π/φ² as a Fibonacci-convergent rational
 
-/-- δ_CKM ≈ 176/147 rad ≈ 1.197 rad ≈ 68.6° — a Fibonacci-convergent
-    rational approximation to `π/φ²`.
+    Note: π/φ² is the *demoted* CP-phase posit (the forced CKM phase is
+    δ = 90°, cp_phase.md); this theorem records the rational approximation
+    to the golden angle π/φ² itself, which survives as the apex angle. -/
+
+/-- 176/147 rad ≈ 1.197 rad ≈ 68.6° — a Fibonacci-convergent
+    rational approximation to the golden angle `π/φ²`.
 
     Derivation: π ≈ 22/7 (Archimedean), φ² ≈ F₈/F₆ = 21/8
     (Fibonacci convergent).  Then `π/φ² ≈ (22/7)/(21/8) = 176/147`. -/

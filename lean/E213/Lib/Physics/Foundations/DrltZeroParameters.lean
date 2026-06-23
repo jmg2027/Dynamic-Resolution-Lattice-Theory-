@@ -11,7 +11,8 @@ Core DRLT claim: *all physical quantities are derived from atomic primitives*.
 
 Phase 1 Lean formalization results:
 
-  What single atomic configuration (NS, NT, d, c) = (3, 2, 5, 2) forces:
+  What the single forced atomic shape (NS, NT, d) = (3, 2, 5) — read at
+  presentation c = 2 (a free presentation parameter, not a forced axis) — forces:
 
 ## Couplings (4)
   α_3 = 1/8,  α_2 = 1/30,  α_1bare = 1/(6π²),  α_GUT = 6/(25π²)

@@ -10,8 +10,9 @@ DRLT formulae:
   A = φ/c = (1 + √5)/(2c)  (golden ratio over c)
   s₂₃ = A · λ²
   s₁₃ = A · λ³
-  δ_CKM = π/φ²
-  J = c₁₂ · s₁₂ · c₂₃ · s₂₃ · c₁₃² · s₁₃ · sin(δ)
+  δ_CKM = 90° (forced — CD `i`; the golden posit δ = π/φ² is demoted,
+          Niven-impossible as a discrete phase; 1/φ² is the apex modulus R_u)
+  J = c₁₂ · s₁₂ · c₂₃ · s₂₃ · c₁₃² · s₁₃ · sin(δ)   (maximal at δ = 90°)
 
 ## ★ Wolfenstein hierarchy = λ^k powers ★
 

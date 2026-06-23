@@ -10,7 +10,7 @@ name (vs the formal-axiom name 213).
 ## Top-level files (16 = 16 sub-cluster umbrellas)
 
 ### Atomic base + foundations (3)
-  - `AtomicBase.lean`     — d=5, (NS, NT)=(3, 2), 10 pairs, c=2
+  - `AtomicBase.lean`     — d=5, (NS, NT)=(3, 2), 10 pairs (c=2, a free presentation)
   - `Foundations.lean`    — N_U scaffolding + atomic constants
   - `Capstones.lean`      — track-completeness + validation standard
 
