@@ -28,14 +28,14 @@ The internality of §5.1 produces circularity: describing 213
 uses 213.  This circularity is **structurally** unavoidable, and
 it is not a flaw needing exterior justification.
 
-ZFC, type theory, logic, category theory — every other foundation
-must presuppose "something" to begin.  Each silently imports its
-own circularity and then declares the import a starting point.
-213 takes the opposite move: it makes the circularity explicit
-and operates inside it.  The minimum residue is what is left when
-no exterior can be presupposed.  Every attempt to eliminate the
-circularity silently imports hidden somethings; the attempt does
-not escape, it only hides where it came in.
+Any framework that points at something must begin somewhere, and
+that beginning is itself a something — so the circularity is the
+structural condition of pointing as such, not a peculiarity to be
+escaped.  213 does not try to eliminate it: it makes the
+circularity explicit and operates inside it.  The minimum residue
+is what is left when no exterior can be presupposed.  Every attempt
+to eliminate the circularity imports an unexamined something; the
+attempt does not escape it, it only relocates where it came in.
 
 A meta-213 is possible: describing 213 using 213.  That
 description is again something among somethings — a meta-meta-
@@ -245,10 +245,10 @@ similar:
     at any depth is a full instance of the axiom, not a
     fragment.
 
-The forcing chain of §3.4 explains *why* completion is
-simultaneous: each clause is forced by the previous, and no
-ordering of the clauses is available before the forcing chain
-runs to completion.
+The forcing fan of §3.4 explains *why* completion is
+simultaneous: clauses 2, 3, 4 are all forced by clause 1 with no
+ordering among them, so no clause-ordering is available before the
+forcing runs to completion.
 
 ---
 
@@ -270,17 +270,12 @@ clauses of §2.
 
 That the same φ shows up in unrelated-looking domains is the
 operational content of "no exterior."  In Raw self-iteration the
-fixed point is φ (this section).  In the algebra tower, each
-type's Moufang-failure rate converges as
-`1 − (1/2) · (1/φ)^rank` — expressible exactly over Z[√5], with
-the rank determined by the Cayley–Dickson layer.  In DRLT
-physics, the CKM apex modulus `R_u` contains a `1/φ²` factor (the
-CP phase itself is forced to `δ = 90°`, not golden — `theory/physics/cp_phase.md`),
-the Cabibbo angle's Wolfenstein structure contains `φ/c`, and several
-neutrino mass ratios are golden-ratio readings of the simplex
-combinatorics.  None of these are coincidences in need of
-reconciliation; they are the same Lens result — the matrix's
-fixed point — read out across domains.
+fixed point is φ (this section); the same φ recurs across the
+algebra tower (Moufang-failure rate), the CKM apex modulus, and
+several neutrino ratios — the cross-domain catalogue is canonical
+at §3.5 (not re-listed here, to keep one source of truth).  None of
+these are coincidences in need of reconciliation; they are the same
+Lens result — the matrix's fixed point — read out across domains.
 
 The algebraic signature details and the Fibonacci interpretation
 are in §3.5.  The point for §5 is what the recurrence is *for*:

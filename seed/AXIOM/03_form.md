@@ -76,28 +76,30 @@ of §2.3, not bolted onto a machine.
 
 ---
 
-## §3.4 The forcing chain: 1 → 2 → 3 → 4
+## §3.4 The forcing fan: clause 1 forces 2, 3, 4
 
-The four clauses of §2.4 are not four independent choices.  Each
-is forced by the prior.
+The four clauses of §2.4 are not four independent choices.  The
+structure is a **fan rooted at clause 1** (the distinguishing
+act): the residue and its two absences are all read off one event.
 
   - **Clause 1 → Clause 2.**  Once distinguishing operates, the
     residue of distinguishing is itself a something.  If it were
     not, the operation would have no residue to record,
     contradicting clause 1.
-  - **Clause 2 → Clause 3.**  The residues `a/b` and `b/a` refer
-    to the same distinguishing event.  Treating them as distinct
-    would silently import an absolute order, for which clause 1
-    supplies no basis.
-  - **Clause 3 → Clause 4.**  If `x/x` were defined,
-    distinguishing would be claimed where clause 1 supplies no
-    operand (nothing to distinguish from).  The operation
-    collapses.
+  - **Clause 1 → Clause 3** (via clause 2's residue).  The residues
+    `a/b` and `b/a` refer to the same distinguishing event.
+    Treating them as distinct would silently import an absolute
+    order, for which clause 1 supplies no basis.
+  - **Clause 1 → Clause 4.**  If `x/x` were defined, distinguishing
+    would be claimed where clause 1 supplies no operand (nothing to
+    distinguish from).  The operation collapses.  Symmetry (clause
+    3) plays no role here — anti-reflexivity is forced directly by
+    clause 1, matching §3.3.
 
 So fewer than four clauses cannot record distinguishing-yields-
-residue, and more than four would add what is already derived
-from these.  Four is not the result of taste; it is **the**
-number that closes the operation.
+residue (the residue + its two absences), and more than four would
+add what is already there.  Four is not the result of taste; it is
+**the** number that closes the operation.
 
 The arrows of the chain are **logical forcing, not temporal
 stages**.  Nothing happens "first" in the act of pointing — all
@@ -125,8 +127,12 @@ constant `1` is identity preservation (`det P = 1`).  The trace
 `2 + 1 = 3` reads as `NS`, the spatial-axis cardinality from the
 shape parameters of §4.3.  The discriminant
 `trace² − 4 · det = 9 − 4 = 5` reads as `NS + NT`, the atomicity
-sum.  And the eigenvalues `(3 ± √5) / 2 = φ², 1/φ²` carry the
-golden ratio φ = (1 + √5) / 2 as the matrix's fixed point.
+sum.  And the char-poly's roots `(3 ± √5) / 2 = φ², 1/φ²` carry
+the golden ratio φ = (1 + √5) / 2 as the matrix's fixed point —
+read off the integer char-poly identity `x² − 3x + 1`
+(`mobius_213_char_poly_at_trace`) and discriminant `5`
+(`mobius_213_discriminant`), not a separately-formalised
+eigenvector.
 
 So the matrix is not an external encoding choice imposed on the
 clauses.  It is what the clauses look like when written
@@ -144,14 +150,15 @@ three consecutive terms.  The relation `F_{k} = F_{k−1} + F_{k−2}`
 gives `5 = 3 + 2`, which is the axiom's atomicity sum from above.
 
 This is more than a numerical coincidence.  The `PairForcing.lean`
-proof of §4.3 — which establishes that `(NS, NT) = (3, 2)` is
-the unique admissible shape under arity = 2 and atomicity — does
-not "select" these values; it identifies them as the unique
-consecutive-Fibonacci pair compatible with the constraint.  The
-logical direction runs the other way from a first reading: it is
-not "we choose (3, 2) and notice Fibonacci"; it is **"Fibonacci
-recurrence at low order leaves exactly this configuration
-admissible, and the axiom is the residue of that admissibility."**
+proof of §4.3 establishes that `(NS, NT) = (3, 2)` is the unique
+admissible shape under arity = 2 and atomicity — by a
+unique-decomposition count argument (`pair_forcing`:
+`count p q = 1 ↔ (p, q) = (2, 3)`), with **no Fibonacci content in
+the proof itself**.  *Read* as Fibonacci, the forced `(2, 3)` are
+then the consecutive pair `(F₃, F₄)` — a Lens reading of the forced
+result, not a step the proof performs.  The point stands either
+way: the configuration is **forced, not chosen**, and the Fibonacci
+recurrence `5 = 3 + 2` is one reading of that forced admissibility.
 
 The Möbius matrix `P` is the Pell-Fibonacci generator; its
 eigenvalues are φ² and 1/φ²; its iteration produces convergents

@@ -34,7 +34,8 @@ Cantor), so a residue always remains
 `undifferentiated`).  Dynamic form: the residue re-enters as the next
 operand and the cover still never closes
 (`ResidueReentry.residue_perpetually_reenters`); generative form: the
-distinguishing never closes `Raw` (`MuNuMirror.tower_no_cycle`).
+distinguishing never closes `Raw` (`Theory/Raw/MuNuMirror.lean`,
+`tower_no_cycle`).
 
 ## §1.0 Nothing can be exhibited as outside this
 
@@ -46,6 +47,11 @@ and no conceptual hiding place either: to conceive the concept is
 already to point at it.  This is not metaphysics added on top; it is
 what "the minimum residue of pointing" *means* — the closure is closed
 under conception itself, including the conception of an outside.
+
+(Status: this is the framework's central claim **under test** per §8 —
+not a shield.  Its formalizable instances are theorems (§1.0′, below),
+but the fully universal form remains a self-reference argument (§5.1),
+kept falsifiable by the §5.4 guard rather than terminated by it.)
 
 The formalizable core is a proof-core, not a slogan
 (`lean/E213/Lens/Foundations/NoExteriorClosure.lean`, ∅-axiom): the property by
@@ -67,11 +73,11 @@ and **no automatic location** are two halves of one stance — the
 closure says where everything is, not that every pointing has
 already succeeded.
 
-## §1.0′ The residue is the primitive of proof for the infinite
+## §1.0′ Diagonalization — the residue's operational face — is the primitive proof-move for the infinite
 
 The closure of §1.0 is not only ontological; it is **operational** — it is *why* this framework does real
-work and not wordplay.  The most primitive proof technique for the infinite and the abstract is
-**diagonalization**, and diagonalization **is the residue**: given everything one can point at (an
+work and not wordplay.  The most primitive proof *technique* for the infinite and the abstract is
+**diagonalization**, and diagonalization **is the residue's operational face**: given everything one can point at (an
 enumeration, a totality), the something distinguishable from *all of them* — the residue — is forced to
 exist, and that forcing *is* the proof.  Cantor, Russell, Gödel, Turing, Tarski are one move: point at the
 totality, exhibit the residue outside it.
@@ -81,6 +87,12 @@ argument; `Lens/Foundations/FlatOntologyClosure.lean` `object1_not_surjective` (
 `Raw` instance, and it names the un-pointable surplus — the predicates outside the image of any `Raw`-indexed
 self-cover — **as the residue**.  So the residue is not merely *what reference leaves behind*; it is the
 *engine* of the deepest proofs about the infinite.
+
+Reconciliation with §1.1.  "Primitive" here is **methodological** — the unreducible proof *move* — not the
+ontological primitive, which remains the act of **distinguishing** (§1.1).  The residue *qua object* is
+still a theorem of distinguishing (the proven remainder `distinguishing_always_leaves_residue`); "engine"
+names that theorem doing proof-work, not a second ground.  Diagonalization is the residue's *operational
+face*: the residue (the something forced outside every cover) is exactly what a diagonal argument exhibits.
 
 Consequence (the programme): mathematics can be built and *compiled* the way a computing stack is built
 from binary — atoms and distinguishing at the base, the primitive proof-operations (with the diagonal/

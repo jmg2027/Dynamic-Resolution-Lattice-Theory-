@@ -77,9 +77,7 @@ call Raw.  No exterior is invoked.
 
 ## §6.3 Flat ontology
 
-Under the standard ZFC reading, types, objects, relations,
-functions, and (in this corpus) Lenses inhabit different
-universes that one must explicitly connect.  Under 213, they
+Objects, types, relations, functions, and (in this corpus) Lenses
 share a single dimension — they are all decidable predicates on
 some `Rawⁿ`:
 
@@ -92,9 +90,9 @@ some `Rawⁿ`:
 | function | a functional subset of `Raw²` | predicate + uniqueness |
 | Lens | (labelled) predicate | `Raw → α`, with `α` Raw-encodable |
 
-One dimension — no separate universes.  The structure that ZFC
-provides via membership and set-theoretic operations is here a
-collection of predicates.
+One dimension — no separate universes.  The structure that
+membership and set-theoretic operations would otherwise supply is
+here a collection of predicates.
 
 A strictness reminder.  Treating "predicate" as `Set Rawⁿ` (a
 `Prop`-valued function) requires `propext` and `Classical` to
@@ -178,14 +176,17 @@ with a constructive parser/printer round-trip.
 ## §6.5 At raw level, point ≡ K_∞ ≡ infinite topological space
 
 Before any Lens is applied, the residue commits to no internal
-distinction.  Under this no-Lens reading, the following are
-**literally the same object** (not analogous, not equivalent-up-
-to-isomorphism — the same):
+distinction.  Under this no-Lens reading, the following are **one
+and the same pre-Lens residue** — read identically, before any Lens
+cuts them apart (scope: §6.9 — pre-Lens identity, never an equation
+between values inside a stratum; the ∅-axiom witness is the
+constant-Lens collapse `k_infty_at_raw_bundle`, not a formalised
+graph or topology):
 
   - a single point (the minimal pointable);
   - the infinite complete graph K_∞ (every vertex
-    indistinguishable from every other; `Aut(K_∞)` is the full
-    symmetric group on the vertex set);
+    indistinguishable from every other — the graph / `Aut(K_∞)`
+    description is illustrative, carrying no Lean witness of its own);
   - an infinite topological space with the trivial topology.
 
 Each has no internal information to distinguish parts.  The

@@ -145,7 +145,7 @@ condition if the measurement comes in differently.
 | Magic numbers | already measured | {2, 8, 20, …} | already verified |
 
 The full quantitative profile of the falsifier surface — the
-27 manually-curated entries `F1`–`F27` in
+25 manually-curated entries (labels `F1`–`F27`, gaps at F16/F25) in
 `catalogs/falsifiers.md`, plus the 135 auto-discovered entries
 in `catalogs/falsifier-roster.md` — is catalogued in
 `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3.

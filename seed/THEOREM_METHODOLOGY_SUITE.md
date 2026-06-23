@@ -260,8 +260,8 @@ ability statements the corpus actually proves.
 
 ### Two surfaces
 
-**Physics surface** (`catalogs/falsifiers.md`).  26 manually-
-curated entries (F1-F26): atomicity (d=5), neutrino ordering,
+**Physics surface** (`catalogs/falsifiers.md`).  25 manually-
+curated entries (labels F1-F27, gaps at F16/F25): atomicity (d=5), neutrino ordering,
 θ_QCD, 4th-generation absence, Cabibbo λ, m_p, m_t/m_c, η_B,
 magic numbers, etc.
 
@@ -348,7 +348,7 @@ impossibilities.
 > result is shown to be absolutely impossible without adding an
 > axiom, the entirety of 213 is discarded.
 
-The 135 auto-discovered + 26 manual falsifiers are the **active
+The 135 auto-discovered + 25 manual falsifiers are the **active
 content** of that rule:
 
   · Each `≠` witness is a Clause-1 distinguishing claim being

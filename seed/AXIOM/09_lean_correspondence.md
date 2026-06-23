@@ -115,7 +115,7 @@ For §5:
     frozen + dynamic dual reading.
   - `lean/E213/Meta/AxiomMinimality.lean` and its capstone —
     §2.4 and §3.4: the clause-minimality witnesses and the
-    positive forcing chain.
+    positive forcing fan.
 
 ---
 

@@ -27,9 +27,12 @@ weakening or removing any clause makes the framework collapse to
 trivial, static, or void.  This is mechanically verified in
 `lean/E213/Meta/AxiomMinimality.lean` and its capstone
 (`Meta/AxiomMinimalityCapstone.lean`, `raw_minimality_capstone`)
-— a four-case formalisation that walks through each clause (the
-two atoms, the binary slash, the symmetry, the distinctness
-precondition) and exhibits a collapse witness for its removal.
+— a four-case formalisation that walks through each removable
+piece (the two atom-existence cases, the binary slash, and the
+distinctness precondition) and exhibits a collapse witness for its
+removal.  (Symmetry is *not* among the cases: it is an absence the
+encoding declares, not a positive clause whose removal collapses —
+§2.4, §3.3.)
 
 Two further structures formalise the same minimum-from-below
 reading from different angles.  `Lens/Foundations/SemanticAtom.lean` defines

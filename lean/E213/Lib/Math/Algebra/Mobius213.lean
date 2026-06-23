@@ -28,9 +28,11 @@ Key relations encoded:
 Per `seed/AXIOM/05_no_exterior.md` §5.7, P admits two simultaneous
 Lens readings on the same residue:
 
-  - **Frozen reading**: φ² is the dominant eigenvalue of
-    [[2,1],[1,1]] (algebraic fixed point of P; cf.
-    `phi_squared_eigenvalue` below).  Static configuration.
+  - **Frozen reading**: φ² is the dominant root of P's char-poly
+    `x² − 3x + 1` (algebraic fixed point of P; the ∅-axiom witness
+    is the integer identity `mobius_213_char_poly_at_trace` +
+    discriminant `mobius_213_discriminant = 5`, not a formalised
+    eigenvector).  Static configuration.
   - **Dynamic reading**: the Pell convergents (numerator,
     denominator) under the recurrence a_{n+2} = 3a_{n+1} − a_n
     are the trajectory whose ratio approaches φ; their ratios
