@@ -34,7 +34,7 @@ All ∅-axiom (built on `MultSystemValue` + `VpSeparation` + `VpMul`).
 namespace E213.Lib.Math.NumberTheory.PrimePowFactorization
 
 open E213.Lens.Number.Nat213.MultSystemValue
-  (listProd primesIn primesIn_cons primesIn_skip
+  (listProd primesIn primesIn_cons primesIn_skip primesIn_empty
    mem_primesIn_le mem_primesIn_prime primesIn_nodup not_dvd_one decPrime)
 open E213.Meta.Nat.VpMul (IsPrime213 vp_mul vp_pow vp_self_pow)
 open E213.Meta.Nat.Valuation (vp)
@@ -77,11 +77,11 @@ theorem primePowProd_append (e : Nat → Nat) :
       primePowProd e (xs ++ ys) = primePowProd e xs * primePowProd e ys := by
   intro xs ys
   induction xs with
-  | nil => show primePowProd e ys = 1 * primePowProd e ys; rw [Nat.one_mul]
+  | nil => show primePowProd e ys = 1 * primePowProd e ys; ring_nat
   | cons p rest ih =>
       show p ^ (e p) * primePowProd e (rest ++ ys)
           = (p ^ (e p) * primePowProd e rest) * primePowProd e ys
-      rw [ih, Nat.mul_assoc]
+      rw [ih]; ring_nat
 
 /-! ## §2 — `vₚ` of the product: `0` off the list, `e q` at a member -/
 
@@ -167,6 +167,62 @@ theorem mem_primesIn {lo : Nat} : ∀ {hi p : Nat},
       · have heq : p = k + 1 := Nat.le_antisymm hle hge
         rw [heq, primesIn_cons (heq ▸ hlo) (heq ▸ hp)]
         exact List.Mem.head _
+
+/-! ## §3b — range bounds on the product (for the Erdős size split) -/
+
+/-- **Small-prime range bound.**  If every factor `p^{e p} ≤ B`, the product is
+    `≤ B^{#bases}`.  (Erdős: primes `≤ √(2n)` each have `p^{vₚ(C)} ≤ 2n`, so their
+    block is `≤ (2n)^{π(√(2n))}`.) -/
+theorem primePowProd_le_pow_length (e : Nat → Nat) (B : Nat) :
+    ∀ {ps : List Nat}, (∀ p, p ∈ ps → p ^ (e p) ≤ B) →
+      primePowProd e ps ≤ B ^ ps.length := by
+  intro ps
+  induction ps with
+  | nil => intro _; exact Nat.le_refl _
+  | cons p rest ih =>
+      intro h
+      have hp : p ^ (e p) ≤ B := h p (List.Mem.head rest)
+      have hrest : primePowProd e rest ≤ B ^ rest.length :=
+        ih (fun q hq => h q (List.Mem.tail p hq))
+      show p ^ (e p) * primePowProd e rest ≤ B ^ (rest.length + 1)
+      calc p ^ (e p) * primePowProd e rest
+          ≤ B * B ^ rest.length := Nat.mul_le_mul hp hrest
+        _ = B ^ (rest.length + 1) := Nat.mul_comm B (B ^ rest.length)
+
+/-- **Medium-prime range bound.**  If every factor `p^{e p} ≤ p`, the product is
+    `≤ listProd ps`.  (Erdős: primes `√(2n) < p ≤ 2n/3` have `vₚ(C) ≤ 1`, so
+    `p^{vₚ(C)} ≤ p`, and their block is `≤ ∏ p ≤ 4^{2n/3}` by the primorial.) -/
+theorem primePowProd_le_listProd (e : Nat → Nat) :
+    ∀ {ps : List Nat}, (∀ p, p ∈ ps → p ^ (e p) ≤ p) →
+      primePowProd e ps ≤ listProd ps := by
+  intro ps
+  induction ps with
+  | nil => intro _; exact Nat.le_refl _
+  | cons p rest ih =>
+      intro h
+      have hp : p ^ (e p) ≤ p := h p (List.Mem.head rest)
+      have hrest := ih (fun q hq => h q (List.Mem.tail p hq))
+      show p ^ (e p) * primePowProd e rest ≤ p * listProd rest
+      exact Nat.mul_le_mul hp hrest
+
+/-- **Prime-count bound** `π over (lo, hi]`: `(primesIn lo hi).length ≤ hi`.  The
+    list scans `hi` down to `1`, adding at most one entry per value.  (Erdős uses
+    `(primesIn 0 K).length ≤ K`, e.g. at `K = √(2n)`.) -/
+theorem primesIn_length_le {lo : Nat} : ∀ {hi : Nat}, (primesIn lo hi).length ≤ hi := by
+  intro hi
+  induction hi with
+  | zero => exact Nat.le_refl _
+  | succ k ih =>
+      rcases Nat.lt_or_ge lo (k + 1) with hlt | hge
+      · cases decPrime (k + 1) with
+        | isTrue hp =>
+            rw [primesIn_cons hlt hp]
+            exact Nat.succ_le_succ ih
+        | isFalse hp =>
+            rw [primesIn_skip hlt hp]
+            exact Nat.le_trans ih (Nat.le_succ k)
+      · rw [primesIn_empty (fun hc => absurd (Nat.lt_of_lt_of_le hc hge) (Nat.lt_irrefl lo))]
+        exact Nat.zero_le _
 
 /-! ## §4 — the explicit FTA product form -/
 
