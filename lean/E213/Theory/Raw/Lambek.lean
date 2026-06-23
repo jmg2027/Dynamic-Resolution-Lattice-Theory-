@@ -191,23 +191,51 @@ theorem part_depth_lt (c p : Raw) (hcp : IsPart c p) : c.depth < p.depth := by
   · rw [hc]; exact (depth_drops x y h).1
   · rw [hc]; exact (depth_drops x y h).2
 
+/-- **The parts of a slash are exactly its two children** — `Nat`-free characterization.
+    A peel of `slash x y` re-enters at `x` or at `y`, nothing else (`slash_inj` up to the
+    canonical child-swap). -/
+theorem isPart_slash {c x y : Raw} {h : x ≠ y} (hc : IsPart c (Raw.slash x y h)) :
+    c = x ∨ c = y := by
+  obtain ⟨x', y', h', hp, hcxy⟩ := hc
+  rcases Raw.slash_inj hp with ⟨ex, ey⟩ | ⟨ex, ey⟩
+  · rcases hcxy with e | e
+    · exact Or.inl (e.trans ex.symm)
+    · exact Or.inr (e.trans ey.symm)
+  · rcases hcxy with e | e
+    · exact Or.inr (e.trans ey.symm)
+    · exact Or.inl (e.trans ex.symm)
+
 /-- ★★ **The peel relation is well-founded** — every descent re-entry terminates.
-    `IsPart` strictly drops the `depth` measure (`part_depth_lt`), so there is no infinite
-    descent: each Raw is accessible (reached by finitely many peels from the atoms).  The
-    floor is reached in finitely many steps.  Proof: strong induction on a `depth` bound —
-    a part is shallower than its bound, so accessibility lifts one layer. -/
+    Each Raw is accessible (reached by finitely many peels from the atoms); the floor is
+    reached in finitely many steps.
+
+    **Proof: structural recursion on the slash-tree itself (`Raw.rec`), with NO `Nat`
+    depth measure.**  Atoms are terminal (`no_part_of_atom`), so accessible immediately; a
+    `slash`'s only parts are its two children (`isPart_slash`), each accessible by the
+    structural induction hypothesis.
+
+    **What this does and does not buy (measured, not asserted).**  The *completion engine*
+    of the descent is now `Raw`-structural: the recursion elaborates against `Raw.rec`
+    (which is itself `Nat`-free — 0 `Nat` constants in its cone), not against a borrowed
+    `Nat` well-foundedness on a depth bound.  That is the frontier's actual criterion
+    (`research-notes/frontiers/the_genesis_seam.md`, completion-engine), and it is met.
+    It does **not** make `isPart_wf` a `Nat`-free proof term: ~17 `Nat` constants remain,
+    and a constant-closure trace pins **all** of them to `Raw.slash` — the carrier's
+    *canonical constructor* (its `Tree`-comparison / `DecidableEq` for the `x ≠ y`
+    ordering), inherited by `IsPart`'s very statement.  So the residual `Nat` at the Raw
+    layer is the **canonicalization of `slash`**, not the descent.  Removing the descent's
+    `Nat` measure was the part that was a crutch; the carrier-level `Nat` is the named next
+    target, not yet cleared. -/
 theorem isPart_wf : WellFounded IsPart := by
-  -- `key n`: every Raw with depth `< n` is accessible.
-  have key : ∀ n : Nat, ∀ r : Raw, r.depth < n → Acc IsPart r := by
-    intro n
-    induction n with
-    | zero => intro r hr; exact absurd hr (Nat.not_lt_zero _)
-    | succ k ih =>
-        intro r hr
-        refine Acc.intro r (fun c hc => ?_)
-        have hlt : c.depth < r.depth := part_depth_lt c r hc
-        exact ih c (Nat.lt_of_lt_of_le hlt (Nat.le_of_lt_succ hr))
-  exact WellFounded.intro (fun r => key (r.depth + 1) r (Nat.lt_succ_self _))
+  refine ⟨fun r => ?_⟩
+  induction r using Raw.rec with
+  | a => exact Acc.intro _ (fun c hc => absurd hc (no_part_of_atom c).1)
+  | b => exact Acc.intro _ (fun c hc => absurd hc (no_part_of_atom c).2)
+  | slash x y h ihx ihy =>
+      refine Acc.intro _ (fun c hc => ?_)
+      rcases isPart_slash hc with e | e
+      · rw [e]; exact ihx
+      · rw [e]; exact ihy
 
 /-- ★★★ **The descent re-entry converges** (the Lambek / Nat-Lens face).  Three facts of
     one downward re-entry:

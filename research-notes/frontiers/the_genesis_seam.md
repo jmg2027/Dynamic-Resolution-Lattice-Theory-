@@ -490,6 +490,45 @@ that splits like `leaves_slash` and drops by one per peel** — the "second stru
 Lens, not the engine — with the remaining work being to push this from a theorem *about* the
 descent into the *recursion's own completion engine*.
 
+## Round 5 — the descent engine de-`Nat`-ed, and the residual `Nat` *measured* and relocated
+
+The directive (originator): even at ∅-axiom, stop *borrowing kernel `Nat`*; stand on `Raw`.
+First sharp target taken: **`isPart_wf` — Raw's own well-foundedness — re-proved without a
+`Nat` depth measure**, by structural recursion on the slash-tree (`Raw.rec`) directly
+(`Theory/Raw/Lambek.lean`, with helper `isPart_slash`). Atoms terminal
+(`no_part_of_atom`), a slash's only parts its two children, each accessible by the
+structural IH. Build green, `#print axioms`-clean.
+
+**The honest, *measured* verdict (a constant-closure trace, not a slogan).** "`Nat`-free"
+is not "axiom-free" — `Nat` is a definition, invisible to `scan_axioms`. So the closure of
+used constants was traced directly:
+- **`Raw.rec` (the structural recursor): 0 `Nat` constants.** The descent's *completion
+  engine* is genuinely `Nat`-free — the recursion no longer elaborates against a borrowed
+  `Nat` well-foundedness. This is the frontier's completion-engine criterion, met at the
+  foundational layer for the first time *in the elaborated term*, not just morally.
+- **Old proof (depth-measure cone, via `part_depth_lt`): 84 `Nat` constants.** The depth
+  bound `r.depth < n` dragged in the whole `Tree.depth` / `Nat`-order machinery.
+- **New proof: 17 `Nat` constants** — a real, measured drop (84 → 17 in the descent path),
+  and a closure trace pins **all 17 to one source: `Raw.slash`**, the carrier's *canonical
+  constructor* (`Tree`-comparison / `DecidableEq` for the `x ≠ y` ordering), inherited by
+  `IsPart`'s very statement.
+
+**What this relocates (the sharpened frontier).** The residual `Nat` at the Raw layer is
+**not** in the descent — that crutch is removed — it is in **canonicalization of `slash`**.
+Raw is `{ t : Tree // t.canonical = true }`; building a canonical slash decides a
+`Tree`-order, and that decision is implemented with `Nat.beq`/`Nat.decEq`/`Nat.rec`. So:
+> A fully `Nat`-free Raw layer requires a `Nat`-free **canonical-form decision** for
+> `slash` (the `x ≠ y` ordering/dedup) — *not* a `Nat`-free descent (already done).
+That is the next concrete target, and it is the *same* `Tree`-distinguishability gate that
+Round 4's tail named for the multiplicative encoding (distinct children). The two frontiers
+— Nat-free Raw carrier, and Raw-native multiplicative descent — meet at `slash`'s
+distinct-children canonicalization.
+
+Caveat held open per §5.1 / Round 2 sub-q 3: CIC itself cannot be escaped — `Raw` is a
+kernel `inductive` (`Tree` + `Subtype` + `Bool`), so the target is never "0 kernel
+inductives" (empty), but "**one** inductive, `Raw`, every recursion structural on it, and no
+*borrowed* `Nat`." The descent now meets that bar; the carrier constructor does not yet.
+
 ## The exterior deliverable (the only §5.1-legal verdict)
 
 Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
