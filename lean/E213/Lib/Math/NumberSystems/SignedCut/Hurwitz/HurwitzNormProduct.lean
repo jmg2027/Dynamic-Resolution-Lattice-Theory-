@@ -35,8 +35,9 @@ open E213.Lib.Math.NumberSystems.Real213.Sum.CutSumTest (constCut)
     This is the half of the Hurwitz identity that holds even
     without sub at the cut layer: the squared magnitude of a
     `signMul` first-component is dominated by the product of
-    the input norms.  The other half (equality at the level
-    where sub is available) is a real-side identity. -/
+    the input norms.  The other half (equality at the signed-cut
+    level where subtraction is natively available via pair-swap) is a
+    structural identity. -/
 theorem hurwitz_magnitude_bound (a b c d : Nat) :
     (a * c + b * d) * (a * c + b * d)
       ≤ (a * a + b * b) * (c * c + d * d) :=

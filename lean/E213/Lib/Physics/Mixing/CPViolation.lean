@@ -31,7 +31,8 @@ DRLT formulae:
   s₁₂ = λ = 5/22 (Cabibbo, atomic)
   s₂₃ = A·λ² ≈ 0.0418   (A = φ/c = φ/2, golden-ratio-over-c)
   s₁₃ = A·λ³ ≈ 0.0095
-  sin(δ) = sin(π/φ²) ≈ 0.932
+  sin(δ) = 1 at the forced δ = 90° (the demoted π/φ² posit gave sin ≈ 0.932,
+          used in the pre-demotion estimate below)
 
   **Honest magnitude check** (computed from the factors above, full
   formula): J_DRLT = 8.18 × 10⁻⁵ — vs observed J = 3.08 × 10⁻⁵, i.e.

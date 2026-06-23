@@ -31,7 +31,7 @@ Bezout, universal FLT, and the quadratic extension F_{p²} = F_p[√5].
   - `FP2Sqrt5.lean`            — F_{p²} = F_p[√5]: quadratic field
                                   extension of F_p adjoining √5, with
                                   Frobenius `x ↦ x^p` as a ring
-                                  endomorphism; substrate for the
+                                  endomorphism; reused by the
                                   Pell-Fibonacci universal closures in
                                   DyadicFSM/UniversalPhase33
 

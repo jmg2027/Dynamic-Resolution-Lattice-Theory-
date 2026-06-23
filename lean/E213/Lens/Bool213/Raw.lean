@@ -11,11 +11,7 @@ Lens meaning: **the `Raw.fold T F and` closed-Raw codomain
 catamorphism** (`booleanProj`) — a Raw-internal vertical projection
 onto the two-element canonical form `{T, F}`.
 
-**Note (Option C refactor,)**: previously this header
-cited `Nat213.leavesCountRaw` as the parallel construction.  That
-projection has since been deleted (the Nat213 chart no longer
-carries a Raw-side projection — `Lens.leaves.view` projects to
-`Nat` directly).  Bool213 keeps its Raw-side `booleanProj` because
+**Note**: Bool213 keeps a Raw-side `booleanProj` because
 the canonical form `{T, F}` *is* the Raw image (both T and F are
 themselves Raws), so projecting to Raw and to "the two-element
 set" are the same thing.
@@ -194,9 +190,9 @@ Properties (vertical-external isomorphism):
   - `boolValue ∘ booleanProj = boolValue`         (commutativity
     with vertical-internal)
 
-This is the Bool case of isomorphism #3 (vertical-external,
-Raw → Lean type) among the four isomorphisms.  Parallel to
-post-Option-C Nat213's `Raw.value` — but the Nat213 side projects
+This is the Bool case of the vertical-external reading (the
+Raw → Lean-type boundary reading).  Parallel to Nat213's
+`Raw.value` — but the Nat213 side projects
 straight to Nat without an intermediate Raw-internal step
 (`seed/CLOSED_FORM_SPEC.md`). -/
 

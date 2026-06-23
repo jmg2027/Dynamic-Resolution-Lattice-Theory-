@@ -12,8 +12,8 @@ import E213.Lib.Physics.Simplex.Counts
 # CupAW Leibniz at (5, 1, 2) — per-basis decomposition
 
 The full ∀-pattern decide at (5, 1, 2) OOMs the Lean kernel
-across four meta-strategies (catalogued in the marathon note
-Phase 10).  Breakthrough: **fix α to a basis indicator**
+across four meta-strategies (all defeated by combinatorial
+saturation of the full pattern enumeration).  Breakthrough: **fix α to a basis indicator**
 (Cochain 5 1 with a single non-zero entry).
 
 For `α = basis 5 1 ⟨k⟩`, the cupAW expansion simplifies (most

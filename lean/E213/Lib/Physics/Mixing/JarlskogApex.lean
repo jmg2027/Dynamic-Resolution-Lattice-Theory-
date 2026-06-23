@@ -2,19 +2,20 @@ import E213.Lib.Physics.Mixing.CKMHierarchy
 import E213.Lib.Physics.Foundations.GoldenRatio
 
 /-!
-# JarlskogApex — the CKM apex is a φ² object (magnitude 1/φ², phase π/φ²)
+# JarlskogApex — the CKM apex is a φ² object (modulus 1/φ²; apex angle π/φ² is the demoted phase posit — the forced CP phase is δ = 90°)
 
 `ckm_rho_eta_apex` (frontier): the Jarlskog magnitude was
 over-predicted ×2.66 because DRLT's `s₁₃ = A·λ³` omits the Wolfenstein apex
 factor `R_u = √(ρ²+η²) ≈ 0.38`. This file records the apex candidate that
-closes the gap — and finds it is **φ²-coherent** with the already-derived
-phase `δ = π/φ²`:
+closes the gap — and finds it is **φ²-coherent** with the apex-angle posit
+`δ = π/φ²` (demoted vs the forced `δ = 90°`, `CPViolation`):
 
   **apex = (magnitude `1/φ²`, phase `π/φ²`)**
 
 i.e. the CP-violation apex of the unitarity triangle is a single golden-ratio
-object, both its modulus and its argument carrying the same `φ²` that
-`CPViolation` already derives for `δ`. And `φ²` is DRLT-atomic:
+object, both its modulus and its argument carrying the same `φ²` the
+apex-angle posit `δ = π/φ²` carries (a candidate, not the forced phase
+`δ = 90°`). And `φ²` is DRLT-atomic:
 `φ² + 1/φ² = NS = 3` (`GoldenRatio.golden_ratio_atomic`).
 
 Numerical match (full Jarlskog formula, `R_u = 1/φ²`):

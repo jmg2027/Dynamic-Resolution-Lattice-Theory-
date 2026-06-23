@@ -12,7 +12,7 @@ not a graph `b₁`.  Its carrier is the abstract rank-8 𝔽₂-module
 
 **Narrative**: `theory/physics/symmetry/c3_chain.md`.
 
-## Companion files (substrate)
+## Companion files (automorphism action / lattice)
 
   - `AutAction.lean`                 — automorphism action on Raw / lattice
   - `AutEdgeAction.lean`             — auto action on edges

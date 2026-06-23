@@ -17,7 +17,7 @@ marathon adds FLT, Frobenius, F_{p²}, Binet-bridge infrastructure.
 | `Legendre/` | 1 (consolidated) | Legendre-symbol Pisano variants (Pisano/Ext/Small/V13_19/V213) |
 | `Archive/` | 2 | EdgeSignature, SubwordComplexity (historical) |
 | `Product/` | 7 | ProductFSM{,Period,PeriodDvd,Run}, ProductHelpers, LCMClosure, CrossClassLens |
-| `Signature/` | 6 | Signature{,Predict,Bipartite}, Classifier, Conjecture, WalkUniversal |
+| `Signature/` | 6 | Signature{,Predict,Bipartite}, Classifier, PeriodClosure, WalkUniversal |
 | `Forward/` | 3 | ForwardClosure, ForwardEventual, ForwardPeriodicity |
 | `Tier/` | 3 | Tier2Hardness, TierBridge, AlgebraicDegree |
 | `FLT/` | 10 | FLT chain: Binomial / BinomialTheorem / BinomialTwoVar / ChooseFactorial / ChoosePrime / FreshmanDream / FLTPrimary / FLTMain / PhiFLT / Sum |

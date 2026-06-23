@@ -26,8 +26,8 @@ theorem signedNeg_involutive (s : SignedCut) :
 theorem signedNeg_one : signedNeg one = negOne := rfl
 
 /-- ★ **`signedSub s s = (s.1 + s.2, s.2 + s.1)`** (sub-self gives a
-    balanced pair representing 0 at the real layer modulo cutSum
-    commutativity).  Consumed by `Core/Capstone`. -/
+    balanced pair that structurally reads as 0 (difference-Lens
+    readout) modulo cutSum commutativity).  Consumed by `Core/Capstone`. -/
 theorem signedSub_self (s : SignedCut) :
     signedSub s s
       = (E213.Lib.Math.NumberSystems.Real213.Sum.CutSum.cutSum s.1 s.2,

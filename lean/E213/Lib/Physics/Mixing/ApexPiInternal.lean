@@ -1,7 +1,7 @@
 import E213.Lib.Physics.Foundations.GoldenRatio
 
 /-!
-# ApexPiInternal — the apex phase `δ = π/φ²` is 213-internal end-to-end
+# ApexPiInternal — the apex angle `δ = π/φ²` (the demoted phase posit; forced phase δ = 90°) is 213-internal end-to-end
 
 **Correction of an earlier overclaim.**  `ApexCPMechanism` and the frontier
 called the coupling's `π` "the transcendental tail, outside 213 / the Nat

@@ -24,10 +24,10 @@ established Pell (Δ=5) and Fibonacci (Δ=5) frameworks.  Same
 Galois lens (Legendre via D=8 = 2³ ≡ 2 mod p), different period
 formula (no /2 in split, no factor of 2 in ramified).
 
-Three Pisano framework families now established at 8-prime baseline:
-  - Pell (Δ=5):       17 primes (commit 3ad63d8)
-  - Pell-proper (Δ=8): 8 primes (this commit)
-  - Fibonacci (Δ=5):   8 primes (commit 355dc4d)
+Three Pisano framework families at the 8-prime baseline:
+  - Pell (Δ=5):       17 primes
+  - Pell-proper (Δ=8): 8 primes
+  - Fibonacci (Δ=5):   8 primes
 -/
 
 namespace E213.Lib.Math.NumberTheory.DyadicFSM.Pell.Proper8

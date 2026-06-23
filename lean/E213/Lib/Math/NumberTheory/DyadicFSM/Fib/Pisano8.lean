@@ -20,9 +20,8 @@ All 8 TIGHT.  Coverage:
   Split (2): {11, 19}
   Ramified (1): {5}
 
-Extends the Pell 8-prime baseline (commit f8a5ca8) at the
-same prime set, with predictor formula 2× scaled (cross-recurrence
-relation, commit 35bef8d).
+Extends the Pell 8-prime baseline at the same prime set, with
+predictor formula 2× scaled (cross-recurrence relation).
 -/
 
 namespace E213.Lib.Math.NumberTheory.DyadicFSM.Fib.Pisano8

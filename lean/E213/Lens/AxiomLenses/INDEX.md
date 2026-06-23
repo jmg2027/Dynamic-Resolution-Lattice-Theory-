@@ -1,7 +1,5 @@
 # `Lens/AxiomLenses/` — Lean axioms as 213-internal lens choices
 
-★★★ **G12 Tier 4 A2 ENDGAME demonstration** ★★★
-
 Lean's external axioms (propext, Quot.sound, funext) are not
 really external — in 213 they are residue-internal events.  Each
 is a specific Lens choice; applying it is a residue self-pointing,
@@ -83,7 +81,7 @@ ARE the application of the corresponding lenses.
   - **G2** (trajectory principle): propext/Quot.sound collapse
     trajectories; 213 keeps trajectory itself
   - **G3** (Raw as universal trajectory space): every classical
-    theory's foundation factors through Raw via some Lens
-  - **G11** (Galois at eighty): structural foundations naturally
-    precede ZFC; ZFC was historical accident
-  - This sub-cluster makes the G2/G3/G11 picture concrete in Lean
+    theory's foundation factors through Raw via some Lens — not a
+    ranking of 213 over ZFC (no exterior, §5.1), just the internal
+    fact that ZFC's commitments are one Lens reading of the residue
+  - This sub-cluster makes the trajectory picture concrete in Lean

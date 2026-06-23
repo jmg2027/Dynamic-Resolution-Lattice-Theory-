@@ -40,8 +40,8 @@ open E213.Lens.Bool213.Raw (isBool not)
 open E213.Lens.Foundations.FlatOntology (Object1)
 open E213.Lens.Foundations.PredicateSelfEncoding (predicateToRaw)
 
-/-- ★★ **Three sharp facts about the Raw substrate, none reducible to the others.**  For the
-    Raw substrate, the three §5.2/§5.5 readings each hold in their sharp form:
+/-- ★★ **Three sharp facts about Raw, none reducible to the others.**  For
+    Raw, the three §5.2/§5.5 readings each hold in their sharp form:
 
     1. **oscillate** — every Bool value has `not`-orbit of minimal period exactly `2`
        (closes at `2`, never at `1`): a bounded loop on the Bool values;

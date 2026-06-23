@@ -31,7 +31,9 @@ once — the contraction `r` (frozen modulus) decorated by the central involutio
 This is exactly the single-parameter golden apex `z = r·e^{iπr}`
 (`JarlskogApex` §4), now with **both** ingredients internal:
 `r = 1/φ²` (frozen eigenvalue) and `π` from `(−1) = M⁵` (dynamic central
-element).  Hence `R_u = r = 1/φ²` and `δ = πr = π/φ²`.
+element).  Hence `R_u = r = 1/φ²` (the forced modulus) and the apex angle
+`δ = πr = π/φ²` **as a posit** (not forced; the forced CP phase is `δ = 90°`,
+`CPViolation`).
 
 ## Why CP violation exists at all (the falsifiable core)
 

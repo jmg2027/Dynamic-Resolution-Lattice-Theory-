@@ -8,7 +8,7 @@ import E213.Lib.Math.NumberTheory.DyadicFSM.Signature.Signature
 D2 classifies
 213 numbers into 3 tiers: FSM (rationals + algebraic — Pell-style
 modular state), ICT (e, π — Cauchy modulus, no FSM), Power-set
-(non-computable, outside framework).
+(no finite modulus — the pointing never closes, reached-by-none §5.1).
 
 This file connects the K_{3,2}^{(2)} signature classifier to that
 hierarchy via the *eventually-periodic* abstraction.

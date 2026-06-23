@@ -17,12 +17,12 @@ The single structural readout is the depth: it tracks the level
 exactly (`rawTower_depth`), and the universal binary-tree invariant
 `depth < leaves` (`Raw.depth_lt_leaves`) holds at every rung.  The
 inhabitant *count* `2, 3, 5, 12, …` is a separate count-Lens reading
-of the full depth-stratified substrate (`UniverseChain.RawRecurrence`),
+of the full depth-stratified Raw recurrence (`UniverseChain.RawRecurrence`),
 not this single thread.
 
 Every named tower (Cayley-Dickson, Cantor cardinality, …) is this
 spine with `slash` replaced by a chosen step — i.e. a Lens reading
-sitting above this object (`theory/essays/synthesis/tower_atlas.md`).
+of this object (`theory/essays/synthesis/tower_atlas.md`).
 -/
 
 namespace E213.Theory.Raw.PrimitiveTower

@@ -10,14 +10,14 @@ variant, walk-universal theorem, conjecture-statement file.
   - `SignaturePredict.lean`    — signature-prediction theorem
   - `SignatureBipartite.lean`  — bipartite signature variant
   - `WalkUniversal.lean`       — walk-universality theorem
-  - `Conjecture.lean`          — signature conjecture statement
+  - `PeriodClosure.lean`       — universal signature period-closure lemmas
 
 ## Where to add new files
 
   - New signature shape         → `Signature<...>`
   - Predictor / classifier      → `<...>Classifier` / `<...>Predict`
   - Universality theorem        → `<...>Universal`
-  - Conjecture variant          → `Conjecture<...>`
+  - Period-closure lemma        → `PeriodClosure<...>`
 
 ## Companion sub-clusters (in `DyadicFSM/`)
 

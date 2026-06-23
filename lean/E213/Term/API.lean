@@ -10,9 +10,9 @@ import E213.Term.Tree
 /-!
 # Term ring — public API (re-export shim)
 
-Single-import entry point for Term ring per ARCHITECTURE.md
-.  Downstream code (`Theory`, …) imports this for the
-Raw-implementation substrate.
+Single-import entry point for Term ring per ARCHITECTURE.md.
+Downstream code (`Theory`, …) imports this for the Raw
+implementation (the `Tree`/`Term` encoding underlying `Theory.Raw`).
 
 **K1 — Data API**:
   - `Term` (deep-embedded AST of 213's syntactic objects)

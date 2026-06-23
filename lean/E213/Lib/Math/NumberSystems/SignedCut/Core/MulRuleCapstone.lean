@@ -9,8 +9,8 @@ rule:
 
   * **Multiplication-rule parametrisation** of the CD tower
     (sign vs complex distinction at level 1).
-  * **Layer bridge** from the parametrised rule to the underlying
-    Cut substrate operations.
+  * **Rule-to-Cut reduction**: both `signMul` and `complexMul`
+    reduce to the same `Cut` operations (`cutSum` + `cutMul`).
 -/
 
 namespace E213.Lib.Math.NumberSystems.SignedCut.Core.MulRuleCapstone
