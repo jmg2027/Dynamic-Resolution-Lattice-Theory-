@@ -97,4 +97,46 @@ theorem add_comm_from_append (a b : Nat) : a + b = b + a :=
     _ = b + a := by
         rw [count_append, count_fromNat, count_fromNat]
 
+/-! ## Associativity is also born here — completing the additive monoid
+
+`append` is associative for *every* element type (free, by bare induction,
+no algebra). The count-readout transports it to `+` **without** presupposing
+`Nat.add_assoc` — so `+`-associativity, like `+`-commutativity, is *generated*
+(the content comes from `append_assoc`), not borrowed. Together with
+`add_comm_from_append` this exhibits the additive monoid `(ℕ, +, 0)` as a
+fully-generated discipline: every monoid law is the count-shadow of a unit-list
+law proved by induction alone. -/
+
+/-- `append` is associative — free, bare induction, all element types. -/
+theorem append_assoc : ∀ (l m n : List Unit),
+    (l ++ m) ++ n = l ++ (m ++ n)
+  | [],     _, _ => rfl
+  | _ :: l, m, n => congrArg (() :: ·) (append_assoc l m n)
+
+/-- Forward count-homomorphism, `Nat.add_assoc`-free (uses only `zero_add` /
+    `succ_add`, which are more primitive than associativity). The companion to
+    `count_append` used so the associativity derivation below does not route
+    through the law it is generating. -/
+theorem count_append_fwd : ∀ (l m : List Unit),
+    count (l ++ m) = count l + count m
+  | [],     m => (Nat.zero_add (count m)).symm
+  | _ :: l, m => by
+      show count (l ++ m) + 1 = (count l + 1) + count m
+      rw [count_append_fwd l m, Nat.succ_add]
+
+/-- ★★★★★ **Associativity of `+` is the shadow of unit-list append
+    associativity** — generated, not presupposed. The cone uses
+    `append_assoc` (bare induction) + `count_append_fwd` (`add_assoc`-free);
+    it does **not** invoke `Nat.add_assoc`. Completes the additive monoid as a
+    generated discipline alongside `add_comm_from_append`. -/
+theorem add_assoc_from_append (a b c : Nat) : (a + b) + c = a + (b + c) :=
+  calc (a + b) + c
+      = count ((fromNat a ++ fromNat b) ++ fromNat c) := by
+        rw [count_append_fwd, count_append_fwd, count_fromNat,
+            count_fromNat, count_fromNat]
+    _ = count (fromNat a ++ (fromNat b ++ fromNat c)) := by rw [append_assoc]
+    _ = a + (b + c) := by
+        rw [count_append_fwd, count_append_fwd, count_fromNat,
+            count_fromNat, count_fromNat]
+
 end E213.Meta.Nat.UnitList

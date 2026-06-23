@@ -263,6 +263,47 @@ recursion on the `Raw` peel rather than `Nat` strong induction — would be the 
 result to pass the test, and is the sharpest possible next target for "generation,
 not re-derivation."
 
+## Round 2.7 — first concrete generation: the additive monoid, fully generated
+
+The criterion refines from "which recursor" to **"derives vs presupposes"**: a result
+is *generated* iff its proof cone *derives* its content by induction on a count-native
+carrier, rather than *presupposing* it by routing through the borrowed structure's
+already-proven lemma. Operationalized and deposited tonight:
+
+- `Meta/Nat/UnitList.lean` already generated `+`-**commutativity**:
+  `add_comm_from_append` derives `a+b=b+a` from `append_comm` (proved "by bare
+  induction, not assumed") + the count homomorphism — `Nat.add_comm` appears only in a
+  comment. A genuine generation (the comm *content* is the count-shadow of unit-list
+  append-comm).
+- **New (this session):** generated `+`-**associativity** the same way —
+  `add_assoc_from_append` derives `(a+b)+c = a+(b+c)` from `append_assoc` (bare
+  induction, free for all lists) + a forward count homomorphism `count_append_fwd`
+  that uses only `Nat.zero_add`/`Nat.succ_add` (both *upstream* of `add_assoc` in core,
+  never downstream). **Verified by source + construction: the `add_assoc_from_append`
+  cone does not invoke `Nat.add_assoc`** — it generates the law rather than borrowing
+  it. (12 PURE in the file.)
+
+So the **additive monoid `(ℕ, +, 0)` is now a *fully generated* discipline**: every
+monoid law (`add_comm`, `add_assoc`) is the count-shadow of a unit-list law proved by
+induction alone, none presupposing the Nat law it produces. This is the **first deep
+structure to pass the strict generation test** — concrete, ∅-axiom, and exactly the
+"forced-not-authored" artifact the purpose seeks (the commutativity/associativity of
+addition is *derived from the shape of indistinguishable-unit append*, not assumed).
+
+**The structural reason FTA cannot follow (the additive/multiplicative split).** Raw's
+own descent — peel one `slash` — is **additive**: `Raw.leaves_slash` gives
+`leaves(slash x y) = leaves x + leaves y`, a *sum* split. The count carrier `List Unit`
+is likewise additive (append = `+`). So the residue's native descent generates the
+**additive** monoid and nothing more by that route. FTA's descent is **multiplicative**
+(`n ↦ n / minFac n`, `Nat.strongRecOn` — Round 2.6), a *product* split, which Raw's
+additive peel does not provide. Hence the real generation frontier is sharply named:
+**a Raw-native *multiplicative* descent** — the `×`-atom / prime-distinguishability
+structure (the `exp` / `vp` ×-count-Lens the framework discusses elsewhere) — is what a
+*generated* FTA needs, and it is a *different Lens* from the additive peel, not an
+extension of it. The additive monoid generating while FTA does not is not a failure;
+it is the criterion correctly locating the boundary: **counting (+) is generated;
+factoring (×) is the open frontier.**
+
 ## The exterior deliverable (the only §5.1-legal verdict)
 
 Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
