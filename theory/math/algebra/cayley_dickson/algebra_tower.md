@@ -60,14 +60,18 @@ Eisenstein unit group to the mod-p period structure of the Möbius
 §"Cross-reference — Cayley-Dickson Type C").  The mod-3 period
 `4 = NT²` directly encodes the Z_6 / Z_2 index.
 
-The single citable Lean theorem is `algebra_tower_capstone` ∈
-`CayleyDickson/Tower/AlgebraTowerCapstone.lean`.
+`CayleyDickson/Tower/AlgebraTowerCapstone.lean` carries an
+import-sentinel `capstone_loaded : True := trivial` (it pulls in
+the type-specific layers but states no content itself).  The
+substantive citable theorems are `hurwitz_tower_L1_capstone` /
+`hurwitz_tower_L2_capstone` (`CayleyDickson/Integer/HurwitzTower.lean`)
+and `tower_fixed_point_summary` (`CayleyDickson/Tower/TowerFixedPoint.lean`).
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Algebra/CayleyDickson/` (50 files)
-- **Tower core**: `CayleyDickson/Tower/` (12 files)
-- **Master capstone**: `Tower/AlgebraTowerCapstone.lean`
+- **Sub-tree**: `lean/E213/Lib/Math/Algebra/CayleyDickson/` (120 files)
+- **Tower core**: `CayleyDickson/Tower/` (42 files)
+- **Import sentinel**: `Tower/AlgebraTowerCapstone.lean` (`capstone_loaded : True`)
 - **∅-axiom status**: structural results PURE (some level-specific
   witnesses tolerate decidability)
 
@@ -249,9 +253,9 @@ so a layer-2 demo like `cdd_lift_squared_at_layer2 : Ring213
 (CDDouble (CDDouble α))` reduces to typeclass inference — no
 per-layer ring / star-ring boilerplate.
 
-Source: `Theory/Internal/Algebra213CDDoubleStar.lean` (generic
-instance, ∅-axiom).  Demo: `Theory/CDDouble/GenericLiftDemo.lean`
-(∅-axiom).
+Source: `Meta/Algebra213/CDDoubleStar.lean` (generic
+instance, ∅-axiom).  Demo: the `GenericLiftDemo` namespace in
+`Theory/CDDouble.lean` (∅-axiom).
 
 The chain breaks at the second step because `CDDouble α` of a
 commutative base is non-commutative in general — `CDDouble (CDDouble α)`
@@ -355,8 +359,10 @@ section.  Essay: `theory/essays/algebra/cd_tower_polarization.md`.
 | `{Cayley,ZOmegaQuad,L4T}.normSq_mul` | per-layer bridge | Octonion-analog Hurwitz composition, ∅-axiom |
 | `cd_alt_left` / `cd_alt_right` / `cd_flexible` | `Meta/Algebra213/CDDoubleAlternative` | Octonion alternativity via the same polarization machinery |
 | `sedenion_has_zero_divisors` / `…_normSq_not_multiplicative` | `Levels/SedenionZeroDivisor` | Composition boundary, `decide`-witnessed |
-| `algebra_tower_capstone` | `Tower/AlgebraTowerCapstone` | Master: imports all type-specific layers |
-| `cdd_lift_squared` | `Theory/CDDouble/UniversalOrder4` | (⟨0,u⟩)² = ⟨−c,0⟩ generic |
+| `capstone_loaded` | `Tower/AlgebraTowerCapstone` | Import sentinel (`True`): pulls in all type-specific layers |
+| `hurwitz_tower_L1_capstone` / `hurwitz_tower_L2_capstone` | `CayleyDickson/Integer/HurwitzTower` | Tower content at layers 1–2 |
+| `tower_fixed_point_summary` | `CayleyDickson/Tower/TowerFixedPoint` | Tower fixed-point structure |
+| `cdd_lift_squared` | `Theory/CDDouble` | (⟨0,u⟩)² = ⟨−c,0⟩ generic |
 | `Z[√5]` integer pair recurrence | `Tower/AlgebraTowerAsymptote` | Char poly (x−2)(x−4)(x−8) |
 | 4-row matrix Type A L3-L5 | `Levels/{Lipschitz,Cayley,Sedenion}` | First past-Moufang per type |
 | Type B L4-L6 | `Tower/Order4Monopoly_L<n>T` | ZSqrt monopoly |

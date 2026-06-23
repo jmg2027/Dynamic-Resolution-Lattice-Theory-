@@ -29,7 +29,7 @@ which is why it needs no exterior.
 
 First, `floor_qr` collapses "is `q` a square mod `p`?" to the parity of a *count*: via Euler's
 criterion (`euler_criterion`, `EulerConverse.lean`) and Gauss's lemma (`gauss_qr`, `GaussLemma.lean`;
-μ-form `gauss_mu`), `q` is a residue iff `μ` is even, and the Eisenstein refinement `gauss_mu_gen`
+μ-form `gauss_mu` (`SecondSupplement.lean`)), `q` is a residue iff `μ` is even, and the Eisenstein refinement `gauss_mu_gen`
 shows `μ ≡ Σ_{x=1}^{m} ⌊q·x/p⌋ (mod 2)`. The floor `⌊q·x/p⌋` is itself a count: by
 `colCount_eq_floor`, it equals `#{ y ∈ [1,n] : p·y < q·x }` — the lattice points in column `x` below
 the diagonal `q·x = p·y`.

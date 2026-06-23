@@ -1,6 +1,6 @@
 # Combinatorics 213
 
-**Status**: Closed (7 files).
+**Status**: Closed (93 files; umbrella `Combinatorics.lean` imports 87).
 
 ## Overview
 
@@ -12,7 +12,7 @@ combinatorics is one of the 9 paradigm domain instances of the
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Combinatorics/` (7 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Combinatorics/` (93 files)
 - **Umbrella**: `Combinatorics.lean`
 - **Blueprint**: `blueprints/math/10_combinatorics_213.md` (retired)
 - **∅-axiom status**: PURE

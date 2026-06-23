@@ -1,6 +1,6 @@
 # Probability 213 — Atomic Dyadic
 
-**Status**: Closed (25 files).
+**Status**: Closed (38 files).
 
 ## Overview
 
@@ -13,8 +13,7 @@ Per the cross-domain unification (C6), probability is one of the
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Probability/` (25 files,
-)
+- **Sub-tree**: `lean/E213/Lib/Math/Probability/` (38 files)
 - **Umbrella**: `Probability.lean`
 - **∅-axiom status**: PURE
 
@@ -23,7 +22,7 @@ Per the cross-domain unification (C6), probability is one of the
 Classical probability uses σ-algebras + countable additivity.  213
 has neither natively.  The atomic dyadic version:
 
-- **Event** = `Cochain n k` indicator (Bool-valued on basis)
+- **Event** = `ProbabilityCut` (atomic dyadic mass; `Foundation/Cut.lean`)
 - **Probability** = `(count of true) / 2^n`, finite rational
 - **Independence** = product event = product probability (decidably)
 - **Conditional** = ratio of finite counts
@@ -33,7 +32,7 @@ Markov/Chebyshev) restate as **explicit-bracket** inequalities
 on finite ratios.  No `∀ε > 0` — instead `∀ N, gap < 1/2^N` with
 explicit modulus.
 
-The 25 files cover: events, distributions, expectation, variance,
+The 38 files cover: events, distributions, expectation, variance,
 LLN (weak / strong with explicit modulus), Markov / Chebyshev,
 joint / conditional, independence.
 

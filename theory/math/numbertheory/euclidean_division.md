@@ -8,7 +8,7 @@ Core Lean's `Nat.div` / `Nat.mod` lemmas carry `propext` (several also
 `Quot.sound`).  The repo's ∅-axiom replacement for the **operator** facts
 (`a*b/a = b`, `(a + b·c)/c = …`, mod variants) is
 `lean/E213/Meta/Nat/NatDiv213.lean` — strict-∅-axiom code that needs a `/`
-or `%` lemma uses it (e.g. `KerSizeUniversal` decodes the flat edge index
+or `%` lemma uses it (e.g. `KernelConstancyUniversal` decodes the flat edge index
 `Fin (c·NS·NT)` with it to prove the universal δ⁰-kernel = constants on
 the canonical flat coboundary).
 

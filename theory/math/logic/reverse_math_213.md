@@ -20,7 +20,7 @@ line (`theory/essays/methodology/the_omniscience_ledger.md`).
 ## Lean source
 
 - **Umbrella**: `lean/E213/Lib/Math/Logic.lean`
-- **Sub-tree**: `lean/E213/Lib/Math/Logic/` (10 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Logic/` (28 files)
 - **∅-axiom status**: **74 PURE / 0 DIRTY** (`python3 tools/scan_axioms.py E213.Lib.Math.Logic.*`)
 
 | file | content | PURE |

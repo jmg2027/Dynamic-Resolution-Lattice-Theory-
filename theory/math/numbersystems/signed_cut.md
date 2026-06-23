@@ -11,8 +11,9 @@ no new substrate primitive.  All operations reduce to `cutSum` +
 
 SignedCut is the **first Cayley-Dickson level** on Real213 cuts:
 - L0 = Cut (unsigned)
-- L1 = SignedCut := Cut × Cut (signed)
-- L2 = ComplexCut := SignedCut × SignedCut (complex)
+- L1 = SignedCut := Cut × Cut (signed) and
+  ComplexCut := Cut × Cut (complex `(real, imag)` pair) — both the
+  first CD-doubling of a plain `Cut := Nat → Nat → Bool`
 - ...
 
 At each level the CD-doubling is structural; the algebra-tower

@@ -1,6 +1,6 @@
 # Group Theory 213
 
-**Status**: Closed (5 files).
+**Status**: Closed (6 files).
 
 ## Overview
 
@@ -11,7 +11,7 @@ operational use; the table IS the group.
 
 ## Lean source
 
-- **Sub-tree**: `lean/E213/Lib/Math/Algebra/Group/` (5 files)
+- **Sub-tree**: `lean/E213/Lib/Math/Algebra/Group/` (6 files)
 - **Umbrella**: `Group.lean`
 - **Blueprint**: `blueprints/math/11_group_213.md` (retired)
 - **∅-axiom status**: PURE

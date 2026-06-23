@@ -5,10 +5,11 @@ import E213.Lib.Math.Foundations.SimplexCountsBridge
 /-!
 # Mobius213.Px.DecompositionCatalog — parallel (2, 1, 3) extraction methods
 
-The signature axis catalogs (`Mobius213SignatureAxisCatalog`
-and its Phase-2 sibling) enumerate *where* the framework's
-`(NS, NT, det)` signature appears across math/physics
-domains.  This file addresses a sharper question:
+The Mobius unification capstone (`Mobius213GrandUnification`,
+with the atomicity anchor in `Mobius213AtomicityAnchor`)
+records *where* the framework's `(NS, NT, det)` signature
+appears across math/physics domains.  This file addresses a
+sharper question:
 
   **What are the parallel methods for extracting `(2, 1, 3)`
   from P(x) itself across math fields?**

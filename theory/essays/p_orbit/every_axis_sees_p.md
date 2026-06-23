@@ -176,23 +176,23 @@ rank 1 and rank 2.
 
 The "viewer-independence at the writing level" the user's
 intuition pointed at — *each axis sees the same P(x)* — is
-formalised concretely: 55 viewing axes all yield `{NS, NT, det}`,
+formalised concretely: every viewing axis yields `{NS, NT, det}`,
 verified ∅-axiom.
 
 ## Open frontier
 
-  · **Higher-coverage extension**: the current catalog spans
-    11 domains; reaching to ~70+ axes could include rep theory
+  · **Higher-coverage extension**: extending the readings
+    could include rep theory
     of Sym(3), the gluon octet's 8-fold decomposition, more
     Padic constructions, Hodge cohomology
     pairing, additional physics constants (ν mass ratios, CKM
-    Cabibbo).  Diminishing returns; current catalog already
-    operationalises the "every axis" claim.
-  · **Bundle theorem**: a single super-master conjoining
-    `signature_axis_master_phase_1` and `signature_axis_master_phase_2`
-    requires Lean infrastructure for "type of a theorem name";
-    the two masters are currently cited side-by-side as the
-    cumulative catalog.
+    Cabibbo).  Diminishing returns; the current readings already
+    operationalise the "every axis" claim.
+  · **Bundle theorem**: a single super-master conjoining the
+    per-domain readings into one statement requires Lean
+    infrastructure for "type of a theorem name"; the
+    `grand_unification` capstone currently bundles the readings
+    available so far.
   · **Universal reduction (separate direction)**: the catalog
     enumerates *what P describes*; universal reduction would
     state that *every framework operation factors through
