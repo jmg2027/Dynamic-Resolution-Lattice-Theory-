@@ -516,7 +516,9 @@ the 213-Algebra framework.
 ### §C1.  Pure Cup-Ring α_em
 
 > ∃ explicit, parameter-free functional F : H*(K_{3,2}^{(c=2)}; ℤ) → ℚ
-> such that F = 1/α_em(IR) at resolution N_U = 5²⁵.
+> such that F = 1/α_em(IR) evaluated at the level-2 truncation N = 5²⁵
+> (a chosen finite truncation index; `configCount 2 = 5²⁵` is bare
+> arithmetic, no level privileged).
 
 Decomposes (per current evidence) into FOUR graded layers:
   · k=0,1: harmonic base = 60·S(N_U) + 30

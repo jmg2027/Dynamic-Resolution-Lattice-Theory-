@@ -92,11 +92,6 @@ bar, not a ranking of math work (primacy = breadth, boot §7.1).  Satisfy ≥1:
 
 Numerical-only = research note.  **Prohibited**: timeline/ROI.
 
-## Free-presentation parameters (config-count)
-
-`configCountD d n = d^(d^n)` (`Cohomology/Fractal/ConfigCount.lean`) — **no level
-privileged**; the `5²⁵ = N_U` "resolution for 1/α_em" claim is **deleted**.
-
 ## Operating principles
 
 ### Theoretical integrity
@@ -196,7 +191,6 @@ Run as an **output lint** (catch the shape *after* writing; held-while-generatin
 | Deferred ontology dichotomy | "ontology is open; we focus on derivation" | The split itself is the import; successful pointing IS what ontology asks |
 | Fine-tuning as forbidden | "we don't allow free parameters" | Free parameters have no operand — no exterior dialer exists; absence is structural, not a rule |
 | Legacy-deletion narration | "X was tolerated, now removed" / "previously Y, now Z" | Just remove the content; don't leave a record of the deletion |
-| Universe-constant framing | "N_U is THE system invariant" | Numerical readouts are Lens outputs; no quantity is a universe constant |
 | Tier mismatch | Long-form narrative under `research-notes/G##_...md` for a topic already closed in Lean | Promote to `theory/<mirror>` per PROMOTION_CRITERIA; archive original |
 | Equivalence-pluralism | Treating equivalence / equivalence-class / isomorphism / homomorphism as four separate 213 concepts (e.g. "let me classify the equivalence definitions"); listing `cutEq, ZpSeqEquiv, signedEq, ...` as parallel objects | They are decompositions of one Lens-arrow (`Lens.refines`).  See `theory/lens/unified_equivalence.md` |
 | View promoted to identity | Declaring one reading (separation/non-separation, distinct/미분화, gap/glue) *what the residue IS* | Reading = facet, not the thing; residue is outside *every* view's image (`FlatOntologyClosure.object1_not_surjective`). |

@@ -146,8 +146,8 @@ Key values to grep and reconcile:
 
 ```
 1/α_em ≈ 137.036   (DRLT 137.0359895 vs observed 137.0359991 = 0.07 ppm)
-N_U   = 5²⁵ = d^(d²)   (d = 5, fractal level 2 — resolution-limit spec)
-d = 5,  n_S = 3,  n_T = 2,  c = 2 = n_T
+N_U   = 5²⁵ = d^(d²)   (d = 5, fractal level 2 — one configCount value, no level privileged)
+d = 5,  n_S = 3,  n_T = 2   (c = 2 a free presentation parameter, no value canonical)
 α_GUT = 6/(25π²) = 0.024317...
 m_μ/m_e, m_p/m_e, η_B, Ω_Λ, Koide, Cabibbo λ = 5/22 = d/(d²−n_S)
 ```
