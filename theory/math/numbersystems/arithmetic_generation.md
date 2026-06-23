@@ -48,6 +48,27 @@ units has a total cell count `total`; `total (rows a b) = a·b` (`total_rows`).
   `a·(b·c)` (`UnitBox.mul_assoc_from_box`, cone verified `Nat.mul_assoc`-free). The
   multiplicative monoid `(ℕ, ·, 1)` is generated.
 
+## The operation tower — and where commutativity dies
+
+`+` and `×` are the first two rungs of one ladder. The whole tower is a single
+recursion `HyperLadder.hyperop`: rung 0 = successor, rung 1 = `+`, rung 2 = `·`, rung 3
+= `^` (`hyperop_two`, `hyperop_three`), each rung the **count `b` iterating the rung
+below**. Geometrically the ladder climbs dimension: `+` counts a 1-D list, `×` a 2-D
+grid, `^` a `b`-dimensional unit **hypercube** — `count (hcube a b) = a^b`
+(`UnitHyper.count_hcube`), `count = side ^ dim` (`count_eq_side_pow_dim`).
+
+Commutativity holds for the first two rungs and **dies at the third**, for a precise
+structural reason — not "a law is lost" but a **type-asymmetry exposed**. `+` commutes
+because a 1-D list's count is its length (order-free); `×` commutes because the 2-D
+grid's transpose is the same cells (`mul_comm_from_grid`). But `^` has two arguments of
+*different kinds* — a **side** and a **dimension** — and swapping them changes the
+object: `swap_changes_dim : dim (hcube 2 3) ≠ dim (hcube 3 2)` (`UnitHyper`). The
+hypercube `2×2×2` (side 2, dim 3) and `3×3` (side 3, dim 2) are not the same shape, so
+`2^3 ≠ 3^2` is the count-shadow of a genuine geometric difference, and `^`'s
+non-commutativity (`HyperAssoc.pow_not_comm`) is *that* asymmetry read by the count —
+commutativity is born where the counted object is symmetric and absent where it is not
+(`theory/essays/analysis/where_commutativity_is_born.md`).
+
 ## The bridge — distributivity from the width-split
 
 Left-distributivity `a·(b+c) = a·b + a·c` is the **grid width-split**: an `a × (b+c)`
@@ -118,8 +139,10 @@ descent (a prime-distinguishability structure) would be needed for genuine gener
 
 `lean/E213/Meta/Nat/`: `UnitList` (additive monoid, 12 PURE), `UnitGrid` (×-comm, 15
 PURE), `UnitBox` (×-assoc, 5 PURE), `UnitDistrib` (distributivity, 4 PURE), `UnitOrder`
-(order, 3 PURE), `ProdCount` (the ×-count-Lens + the duality, 7 PURE). All ∅-axiom; each
-generated law's cone verified free of the law it produces.
+(order, 3 PURE), `ProdCount` (the ×-count-Lens + the duality, 7 PURE); the tower /
+`^`-rung and its commutativity boundary in `UnitHyper`, `HyperAssoc`, `HyperLadder`
+(`count_hcube`, `swap_changes_dim`, `hyperop`). All ∅-axiom; each generated law's cone
+verified free of the law it produces.
 
 ## Connection
 
