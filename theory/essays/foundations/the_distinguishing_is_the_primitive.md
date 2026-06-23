@@ -84,4 +84,4 @@ Primitive-necessity: `OneDiagonal.no_distinguishing_on_subsingleton`, `raw_has_d
 - `the_one_diagonal.md` — the residue as the one Lawvere diagonal (the generation row, residue column).
 - `the_form_of_the_residue.md` + `01_residue.md` §1.1 — the residue is the proven remainder of the act.
 - `frontiers/the_descent_leg.md` — the program (generation vs re-derivation) and the open middle.
-- `frontiers/the_substance_test.md` §CORRECTION — the re-inferred 진의 this essay consolidates.
+- `frontiers/the_substance_test.md` §CORRECTION — the re-inferred true intent this essay consolidates.
