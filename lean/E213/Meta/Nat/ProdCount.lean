@@ -70,4 +70,39 @@ theorem prodL_replicate (p : Nat) : ∀ (k : Nat), prodL (replicate k p) = p ^ k
       show p * p ^ k = p ^ k * p
       exact mul_comm_from_grid p (p ^ k)
 
+/-! ## The duality: distinguishability is the *only* difference
+
+Two blocks, one construction (`replicate j _ ++ replicate k _`), read two ways. The
+additive count *merges* them into one number; the multiplicative count keeps them
+*separate as an exponent vector* — **iff the two atoms are distinguishable**. Make the
+atoms indistinguishable (`p = q`) and the multiplicative count merges too, recovering
+the additive behaviour exactly. Distinguishability of the atoms is the sole source of
+`×`'s extra structure over `+`. -/
+
+/-- **Distinguishable atoms keep their exponent vector**: a `j`-block of `p` and a
+    `k`-block of `q` multiply to `p^j · q^k` — the pair `(j, k)` survives (recoverable
+    when `p ≠ q`). The multiplicative dual of `count (fromNat j ++ fromNat k) = j + k`,
+    where the additive blocks *merge* into the single number `j + k` because the
+    units are indistinguishable. -/
+theorem prodL_two_atoms (j k p q : Nat) :
+    prodL (replicate j p ++ replicate k q) = p ^ j * q ^ k := by
+  rw [prodL_append, prodL_replicate, prodL_replicate]
+
+/-- `p^(m+n) = p^m · p^n`, hand-rolled ∅-axiom on the *generated* `mul_assoc`
+    (core `Nat.pow_add` leaks `propext`). -/
+theorem pow_add (p : Nat) : ∀ (m n : Nat), p ^ (m + n) = p ^ m * p ^ n
+  | m, 0     => by show p ^ m = 0 + p ^ m; rw [Nat.zero_add]
+  | m, n + 1 => by
+      show p ^ (m + n) * p = p ^ m * (p ^ n * p)
+      rw [pow_add p m n, mul_assoc_from_box]
+
+/-- **Indistinguishable atoms merge** (the duality's punchline): set `q = p` and the
+    multiplicative count collapses to a *single* exponent `p^(j+k)` — exactly the
+    additive `j + k` behaviour, one fold up. So `×` is `+` whenever its atoms are made
+    indistinguishable; the entire excess of `×` over `+` (the exponent *vector*, hence
+    unique factorization) is the *distinguishability* of primes. -/
+theorem prodL_one_atom_merges (j k p : Nat) :
+    prodL (replicate j p ++ replicate k p) = p ^ (j + k) := by
+  rw [prodL_two_atoms, ← pow_add]
+
 end E213.Meta.Nat.ProdCount

@@ -387,6 +387,48 @@ remains **multiplicative-atom (prime) structure / FTA**, which needs *distinguis
 ×-atoms — the genuine dual where Raw's additive peel must become a multiplicative
 descent.
 
+## Round 3 — the multiplicative marathon: the +/× duality made exact
+
+Opening the deep frontier (the `×`-atom / prime structure). `Meta/Nat/ProdCount.lean`
+(7 PURE) builds the **multiplicative count-Lens** `prodL : List Nat → Nat`, the dual of
+the additive `count : List Unit → Nat`, *on the generated semiring laws* (uses
+`UnitBox.mul_assoc_from_box` / `UnitGrid.mul_comm_from_grid`, never `Nat.mul_*`):
+- `prodL_append` — `append ↦ ·` (dual of `count_append : append ↦ +`);
+- `prodL_swap` — reorder-invariant (from generated `×`-comm): `prodL` factors through
+  the **multiset**, not the list;
+- `prodL_replicate` — `prodL (replicate k p) = p^k` (one prime reads its exponent);
+- `pow_add` — `p^(m+n)=p^m·p^n`, hand-rolled ∅-axiom on the *generated* `mul_assoc`.
+
+**The duality, now a theorem (the marathon's central finding so far):**
+- `prodL_two_atoms`: distinguishable atoms keep their **exponent vector** —
+  `replicate j p ++ replicate k q ↦ p^j · q^k`, the pair `(j,k)` recoverable when
+  `p ≠ q`; the dual of `count (fromNat j ++ fromNat k) = j+k`, where the additive
+  blocks **merge** into one number because the units are indistinguishable.
+- `prodL_one_atom_merges`: set `q = p` (make the atoms indistinguishable) and the
+  multiplicative count **merges too** — `p^(j+k)`, exactly the additive `j+k`, one fold
+  up.
+
+So `×` *is* `+` whenever its atoms are made indistinguishable; **the entire excess of
+`×` over `+` — the exponent vector, hence unique factorization (FTA) — is precisely the
+*distinguishability* of primes.** This is the exact, ∅-axiom form of "`×` is the dual of
+`+`, not a copy": one construction (two blocks), the additive Lens merges (kernel = a
+single count = length), the multiplicative Lens keeps them separate (kernel = the
+multiset = one count *per distinct prime* = the exponent vector). The dimension jump
+from *one* count to a *vector* of counts is the distinguishability, and nothing else.
+
+**Why this is the genesis-seam boundary, sharpened.** The additive decomposition
+`fromNat (n+1) = () :: fromNat n` is *structural* (predecessor peel `n+1 → n`, on
+`Nat.rec`/the Raw slash-peel). The multiplicative decomposition (factorization) peels
+`n → n / minFac n` — a *non-structural*, well-founded-but-not-predecessor descent (it
+can divide by a large prime). That asymmetry is why FTA completes on `Nat.strongRecOn`
+(Round 2.6) and *cannot* be a structural / Raw-additive-peel generation: **the
+multiplicative descent is a genuinely second structure (the `exp`/`vp` Lens over
+distinguishable primes), not reducible to Raw's additive peel.** The generation program
+reaches exactly here: everything *additive/equational* is generated (semiring + order +
+the `prodL` homomorphism, all on generated laws); FTA's *uniqueness* exists ∅-axiom
+(`FTAUniqueness.factorization_unique`, the multiset = `vp`-vector) but completes on the
+non-structural multiplicative descent — the honest terminus of "generated vs borrowed."
+
 ## The exterior deliverable (the only §5.1-legal verdict)
 
 Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
