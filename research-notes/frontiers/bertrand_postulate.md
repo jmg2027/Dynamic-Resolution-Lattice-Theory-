@@ -96,15 +96,30 @@ odd-central bound + the `(n,2n]` and `(2n/3,n]` window facts + the explicit fact
 the crossover inequality (item 3 — the hard pure-`Nat` asymptotic) + the finite chain (item 4).
 No new mathematical ingredient; no in-principle obstruction.
 
-## Built this session (2026-06-23) — the factorization + size-decomposition layer
+## Built this session (2026-06-23) — the ENTIRE structural proof, ∅-axiom
+
+The whole mathematical content of Erdős's proof is now closed.  **Bertrand for
+large `n` is reduced to two pure-`Nat` facts** (`exists_prime_in_window`):
+`√(2n) ≤ 2n/3` and the crossover `(2n+1)·4^{2n/3}·(2n)^{√(2n)} < 4ⁿ`.
 
 New ∅-axiom modules under `Lib/Math/NumberTheory/`:
 - `PrimePowFactorization.lean` (10/0): `prod_prime_pow_eq` (explicit FTA product form),
   `primePowProd`(+`_pos`/`_append`), `vp_primePowProd_mem`/`_not_mem`, `mem_primesIn`,
-  and the range bounds `primePowProd_le_pow_length`, `primePowProd_le_listProd`,
-  `primesIn_length_le`.
-- `CentralBinomFactorization.lean` (4/0): `central_binom_factorization`
+  range bounds `primePowProd_le_pow_length`, `primePowProd_le_listProd`, `primesIn_length_le`.
+- `CentralBinomFactorization.lean` (8/0): `central_binom_factorization`
   (`C(2n,n) = ∏_{p≤2n} p^{vₚ}`), `central_binom_prime_factors_le`, `vp_central_binom_le_one`,
-  `central_binom_pow_le_self`.
+  `central_binom_pow_le_self`, `central_binom_factor_le_div` /
+  `central_binom_factorization_le_two_thirds` (the Bertrand-negation collapse to `≤ 2n/3`),
+  **`central_binom_upper_bound`** (`C(2n,n) ≤ 4^{2n/3}·(2n)^{√(2n)}`), and
+  **`exists_prime_in_window`** (large-`n` Bertrand, modulo the two pure-`Nat` facts).
+
+## Remaining (all pure-`Nat`, no new mathematical ingredient)
+
+1. `√(2n) ≤ 2n/3` for `n ≥ N₀` — pure-`Nat`, MEDIUM.
+2. The crossover `(2n+1)·4^{2n/3}·(2n)^{√(2n)} < 4ⁿ` for `n ≥ N₀ ≈ 468` — HARD pure-`Nat`
+   asymptotic (the real remaining work; likely its own session).
+3. The finite prime chain `2,3,5,7,13,23,43,83,163,317,631,1259,2503` for `n < N₀`
+   (`decide` + doubling gaps) — MEDIUM/tedious.
+4. Final assembly `∀ n ≥ 1, ∃ p prime, n < p ≤ 2n` (combine 1–3 via `exists_prime_in_window`).
 
 (Panel transcript: `/tmp/bertrand_panel.md`.)
