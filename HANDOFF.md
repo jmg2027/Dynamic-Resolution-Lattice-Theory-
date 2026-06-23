@@ -137,7 +137,7 @@ distribution (−1) are one engine; its meta-undecidability (halting) = the one 
 is more primitive (survives where `A` doesn't); Frobenius (#141) is the sharpest case (A = full ring endo,
 B's fixed pole = the fixed field 𝔽_p).
 
-**★★ "No walls" seminar — CAPSTONE (2026-06-23, multi-agent, 3 rounds; `frontiers/no_walls_seminar/`).**
+**★★ "No walls" seminar — CAPSTONE (2026-06-23, multi-agent, 5 rounds; `frontiers/no_walls_seminar/`).**
 The originator's choice-correction ("don't refuse AC/LLPO — decompose the choice act into a free Lens
 parameter σ") was developed by a sustained multi-round mathematician-team discussion into a **self-grounding
 structural theory of the calculus's boundaries**, folded into `SYNTHESIS.md` §2 (vii′)–(x):
@@ -156,8 +156,17 @@ structural theory of the calculus's boundaries**, folded into `SYNTHESIS.md` §2
   not its own master classifier *because that is the wall* — the sharpest form of "213 assumes nothing".
 - **5 ∅-axiom modules BUILT** (all verified PURE): `ChoiceLens` 12/0, `ForcingToy` 12/0 (forcing =
   σ-adjunction), `SectionCount` 16/0, `FiberSymmetry` 12/0, `SectionCountWithAbsence` 13/0 (the
-  tetrachotomy).  R4+ open frontiers recorded (partial `tagOf` below the wall; base×fiber coupling;
-  `GenericAsCut`).  `SYNTHESIS.md` §2 now **ten** structural findings.
+  tetrachotomy).
+- **R4 (CLOSED THEOREM):** self-grounding is now proved — `MasterClassifierNoGo` 7/0
+  (`master_classifier_is_the_wall`): a master classifier that decides the diagonal AND is a row of its own
+  cover is impossible; *its un-buildability IS the theorem*.
+- **R5 (REFLEXIVE CLOSURE):** `TagOfDecidable` 12/0 (the classifier total BELOW the wall — `tagOf_never_wall`:
+  tag-0 unreachable on decidable fibers) + `GenericAsCut` 12/0 (forcing's generic = a reached-by-none
+  `Real213`-cut shape).  M: **the normal form `⟨C|L⟩ ⊕ Residue` is ITSELF the tetrachotomy** (C=tag-1 forced /
+  L=tag-many free / Residue=tag-0 wall / absence=∅), and the forced `NT=2` shapes the free fiber's arity
+  (#free-values = NT).  **8 ∅-axiom modules BUILT total, all PURE.**  `SYNTHESIS.md` §2 now **eleven**
+  structural findings.  R6+ open: weld `NT→free-arity` into one parametric theorem; is the coupling-reading
+  itself tag-1 or tag-many? (`frontiers/no_walls_seminar/INDEX.md`).
 
 **Five calibrated boundaries** now located
 (nonstandard/LLPO, CFT/bundle, descriptive-set/large-cardinals, Stone/ultrafilter, Berkovich/seminorm-completeness) — all converging on the one ultrafilter/LLPO/choice point: the no-exterior axiom, tested at its hardest
