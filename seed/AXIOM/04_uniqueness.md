@@ -134,15 +134,16 @@ when it can serve as a `HasDistinguishing` instance — and being
 a candidate is precisely receiving from Raw via the universal
 morphism.
 
-### The contrast with ZFC — deliberately narrow scope
+### The boundary of the fold-Lens language
 
-A useful contrast, scoped to exactly what the cited files prove.
-Certain functions are not folds (depth parity is the mechanised
-witness: `Lens/Properties/Morphism/NoDepthParity.lean`,
-`DepthParityNotFold.lean`), and the objects ZFC commits to
-through its arbitrariness axioms — Power, Choice, arbitrary
-`P(X)` subsets — sit on that side: they have no fold-structured
-representation in this Lens language.  That is the whole claim.
+Scoped to exactly what the cited files prove: **not every function
+on Raw is a fold** (depth parity is the mechanised witness:
+`Lens/Properties/Morphism/NoDepthParity.lean`,
+`DepthParityNotFold.lean`).  Whatever has no fold-structured
+representation in this Lens language sits on that boundary —
+including, as one instance, the objects ZFC commits to through its
+arbitrariness axioms (Power, Choice, arbitrary `P(X)` subsets).
+That is the whole claim.
 It is not a verdict on set theory as a discipline, and it does
 not say set-theoretic mathematics is unreachable — as a
 distinguishing framework, it factors through Raw like any other

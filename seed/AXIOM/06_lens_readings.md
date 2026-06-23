@@ -129,35 +129,20 @@ The full L2 + L3 + L4 realisation lives at
     distinct Method A numerals.
   - `Glyph.toRaw_injective` — kernel-decided.
 
-**L3 — full universal round-trip.**
+**L3 — full universal round-trip.**  A Polish-prefix printer
+`printTree : Tree → List Glyph` (lifted to `printRaw` via `.val`)
+and a fuel-bounded constructive parser `parseTree : List Glyph →
+Option Tree` close the loop.  Capstone:
+`parseTree_printTree : ∀ t, parseTree (printTree t) = some t` — the
+universal round-trip (Raw-level corollary `parseTree_printRaw`).
 
-  - `printTree : Tree → List Glyph` — Polish-prefix encoding.
-  - `printRaw : Raw → List Glyph` — lifted via `.val`.
-  - `parseHelper : Nat → List Glyph → Option (Tree × List Glyph)`
-    — a fuel-bounded constructive parser.
-  - `parseTree : List Glyph → Option Tree` — the top-level
-    parser with fuel = list length.
-  - Auxiliary `parseHelper_fuel_succ`, `parseHelper_fuel_mono`
-    (monotonicity), `parseHelper_printTree_append`
-    (exact-size correctness), `printTree_length_ge_size`
-    (length-vs-size inequality).
-  - `parseTree_printTree : ∀ t, parseTree (printTree t) = some t`
-    — the universal round-trip theorem.
-  - `parseTree_printRaw` — Raw-level corollary.
-
-**L4 — bijection closure.**
-
-  - `parseHelper_sound` — soundness: any successful parse
-    `parseHelper n gs = some (t, rest)` proves
-    `gs = printTree t ++ rest`.
-  - `printTree_parseTree : parseTree gs = some t → printTree t = gs`
-    — reverse round-trip / lossless parser.
-  - `printTree_injective` — a corollary of `parseTree_printTree`.
-  - `printRaw_parseTree` — Raw-level corollary.
-
-L3 + L4 together establish a bijection between `Tree` and
-`Range(printTree)`: `printTree` is injective with `parseTree` as
-its left inverse on the image.
+**L4 — bijection closure.**  The reverse round-trip
+`printTree_parseTree` (lossless parser) and `printTree_injective`
+establish a bijection between `Tree` and `Range(printTree)`:
+`printTree` is injective with `parseTree` as its left inverse on the
+image.  The fuel-monotonicity / exact-size / soundness auxiliaries
+that discharge these, and the full lemma manifest, live in
+`lean/E213/Lens/SyntacticInternalization.lean` (source of truth).
 
 All Nat / List arithmetic uses Lean 4 core lemmas or the
 ∅-axiom utilities at `E213.Meta.Tactic.List213.{append_nil,

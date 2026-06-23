@@ -223,10 +223,9 @@ framework is already correct.
 ## §5.5 Self-completion — every pointing is already complete
 
 A consequence of §5.1 + §5.2: the four clauses of §2.4 are not
-sequential additions.  At the moment of pointing, all four are
-**simultaneously present** — distinguishing yields a residue,
-the residue is itself a something, the pairing is direction-
-free, no self-pair forms.
+sequential additions.  At the moment of pointing, all four aspects
+enumerated at §2.3 are **simultaneously present** — none precedes
+another.
 
 The numbering used in §2.4 is a notational decomposition for
 readability; the act of pointing is already complete.  No
@@ -245,7 +244,7 @@ similar:
     at any depth is a full instance of the axiom, not a
     fragment.
 
-The forcing fan of §3.4 explains *why* completion is
+The forcing structure of §3.4 explains *why* completion is
 simultaneous: clauses 2, 3, 4 are all forced by clause 1 with no
 ordering among them, so no clause-ordering is available before the
 forcing runs to completion.

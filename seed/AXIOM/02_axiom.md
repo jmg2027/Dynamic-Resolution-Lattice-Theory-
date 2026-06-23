@@ -88,7 +88,7 @@ catalogue is §10.
 | 3 | Pairing is symmetric: `a/b = b/a`. | **axiom-level absence, declared** — no absolute order exists in the axiom (§3.3); Lean's inductive presentation imposes argument positions, so the absence must be re-expressed as a symmetry quotient (α, §10.3). |
 | 4 | No pairing with oneself: `x/x` is undefined. | **axiom-level absence, declared** — distinguishing has no self-operand (§3.3); Lean re-expresses this as the explicit precondition `x ≠ y` to block `slash x x` (α re-expression of clauses 1–2, §10.3). |
 
-The forcing fan that explains *why* exactly these four clauses
+The forcing chain that explains *why* exactly these four clauses
 — and not three, not five — is in §3.4.
 
 ---

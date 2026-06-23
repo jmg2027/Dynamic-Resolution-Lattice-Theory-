@@ -76,11 +76,15 @@ of §2.3, not bolted onto a machine.
 
 ---
 
-## §3.4 The forcing fan: clause 1 forces 2, 3, 4
+## §3.4 The forcing fan, walked as 1 → 2 → 3 → 4
 
 The four clauses of §2.4 are not four independent choices.  The
-structure is a **fan rooted at clause 1** (the distinguishing
-act): the residue and its two absences are all read off one event.
+*forcing structure* is a **fan rooted at clause 1** (the
+distinguishing act): the residue and its two absences are all read
+off one event.  The familiar **expository sequence** `1 → 2 → 3 → 4`
+is the order in which an explanation *walks* that fan — a Lens
+reading of the one complete act (the closing remark below), not a
+claim that each clause forces the next.
 
   - **Clause 1 → Clause 2.**  Once distinguishing operates, the
     residue of distinguishing is itself a something.  If it were
