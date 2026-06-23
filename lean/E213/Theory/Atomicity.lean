@@ -6,6 +6,7 @@ import E213.Theory.Atomicity.ArityForcing
 import E213.Theory.Atomicity.ArityForcingComplete
 import E213.Theory.Atomicity.PrimitiveSizes
 import E213.Theory.Atomicity.Alive
+import E213.Theory.Atomicity.AliveDerivation
 import E213.Theory.Atomicity.OrbitForcing
 import E213.Theory.Atomicity.CombinatorialArity
 

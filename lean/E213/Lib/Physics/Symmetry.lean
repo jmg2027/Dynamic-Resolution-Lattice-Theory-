@@ -5,6 +5,7 @@ import E213.Lib.Physics.Symmetry.AutEdgeOrbits
 import E213.Lib.Physics.Symmetry.AutKChiral
 import E213.Lib.Physics.Symmetry.GluonChannelInterpretation
 import E213.Lib.Physics.Symmetry.AutKSemidirectFull
+import E213.Lib.Physics.Symmetry.C3ChainCapstone
 
 /-! Spec-as-code entry point for `E213.Lib.Physics.Symmetry`.
 
