@@ -74,7 +74,7 @@ built `qbinom` at `q=−1` gives the Lucas/fermionic count `C(⌊n/2⌋,⌊k/2�
 a sign-swap — so the deformation-`q` (a scaling dial on the *count*) and the tag-`q` (a discrete ±1 swap bit
 on the *residue*) are different objects sharing only the ±1 *locus* by **containment**, aligned only at `q=+1`.
 
-### ★ Four structural findings on the invariants (2026-06-23)
+### ★ Five structural findings on the invariants (2026-06-23)
 
 **(i) The `q=±1` tag's origin and name — quadratic residues** (`modular_arithmetic.md`).  The tag is not
 named "residue + a ±1 bit" by analogy: its **first instance is the Legendre symbol** `(a/p) ∈ {+1,−1}` on
@@ -145,6 +145,21 @@ So the "two invariants" are one where the object is multiplicative (`B` = `A`'s 
 and two where it is foundational (`B` = the bare diagonal escape).  The `q=±1` tag is the character's
 order-2 part *when a character is present*, and the residue's escape/converge bit *always* — the latter is
 the more primitive (`B` survives where `A` does not, never the reverse).
+
+**(v) The modulus / resolution dial is NOT a third invariant — it is the finite signature of `B`'s
+`q=+1`-reached-by-none pole** (tested against `A`/`B`).  Candidate third axis: the *modulus* (the computable
+approach rate — `BanachFixedPoint`'s `N(m)`, `ContinuedFractionModulus`, the well-founded descent `M(a,b)`,
+the never-closing `M(k)`).  It is **not** a peer of `A`/`B`: it does not recur universally — a *faithful*
+Lens (residue none, `vp`) has no modulus, and a *discrete escape* (`q=−1` Cantor diagonal) is a one-shot
+impossibility, never *approached*.  The modulus appears **exactly** at the `q=+1`-**reached-by-none** pole
+(Banach contraction, irrational-CF convergents, the continuum cuts) — it is *how* a reached-by-none residue
+is made computable, the "computable narrowing interval" (CLAUDE.md "Infinity is the residue's shape …
+characterized by a finite signature"), i.e. **a property of `B`'s `q=+1` limit pole, not an independent
+axis**.  So the structure is: `B` (the universal residue tag) with two *specialisations* — `A` (its
+multiplicative enrichment, richer where `×` exists) and the modulus (its `q=+1`-reached-by-none signature,
+present only for continuum residues).  Not three invariants; one tag, two specialisations.  (Honest
+non-overreach: `A` is *richer* than `B` where both live — `B = A`'s 2-torsion, (iv) — so this is "common
+domain `B` / richer-where-present `A`", not "`A` is a face of `B`".)
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
 Homological algebra (`practice/homological_algebra.md`) does not add a field; it **names the operation

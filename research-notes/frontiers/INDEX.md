@@ -40,6 +40,18 @@ termination floor (`no_infinite_descent`/`isPart_wf`). No `Quot.sound`/HIT/coind
 free-group/braid cases are buildable now; only the harder move-sets (a chosen confluent reduction) and
 the ambient `S³` (missing input, not a primitive) remain.
 
+### Invariant structure of the calculus  (`invariant_structure.md`)
+**Active synthesis thread (2026-06-23).** The residue-Lens arc (#136–141:
+prime_distribution / modular_arithmetic / gcd_euclidean / computability_halting /
+cayley_dickson / frobenius_endomorphism) produced five findings on how the two
+invariants (A character, B `q=±1` tag) are structured — see `SYNTHESIS.md` §2.
+**Settled**: (iv) B = A's 2-torsion where a character exists, bare diagonal escape
+where none does (B broader domain, A richer where present); (v) the modulus is NOT
+a third invariant — it is the finite signature of B's `q=+1`-reached-by-none pole.
+**Open**: is B itself reducible (pole-order as a sub-invariant?); do all
+character-free residues reduce to the one Lawvere diagonal (measure?); A's other
+collapse points beyond Frobenius. See the note.
+
 ---
 
 ## Defeating the Banach-engine constructive wall  (`wall_synthesis.md`)
