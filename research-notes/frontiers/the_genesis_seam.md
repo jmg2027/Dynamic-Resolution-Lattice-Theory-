@@ -336,6 +336,38 @@ Lens) genuinely enters. Next concrete target: generate **distributivity**
 `b`-block and a `c`-block) — the bridge law, after which primality/FTA is the deep
 frontier.
 
+## Round 2.9 — the commutative semiring fully generated
+
+The bridge law is now generated too (`Meta/Nat/UnitDistrib.lean`, 3 PURE):
+**left-distributivity** `a·(b+c) = a·b + a·c` (`mul_add_from_grid`) as the grid
+width-split double-count — `total_rows_add` separates an `a×(b+c)` grid's count into
+the `a×b` and `a×c` counts *by induction on the row count using only `+`-laws*, so the
+cone is `Nat.mul_add`/`Nat.left_distrib`-free. Generated, not borrowed.
+
+So the **entire commutative semiring `(ℕ, +, ·, 0, 1)` is now a generated discipline**:
+- `+`-comm, `+`-assoc (`UnitList`) — additive monoid;
+- `×`-comm (`UnitGrid`), `×`-assoc (`UnitBox`) — multiplicative monoid;
+- left-distributivity (`UnitDistrib`) — the bridge.
+
+Every law is the count-shadow of a unit-structure double-count proved by induction
+alone; **none presupposes the Nat law it produces** (each cone verified free of the
+specific law: `add_assoc`-free, `mul_assoc`-free, `mul_add`-free). This is the
+complete algebraic foundation of elementary arithmetic, *generated* — the strongest
+concrete realization to date of "the arithmetic is forced by the shape of
+distinguishable/indistinguishable units, not authored." It is also the honest scope:
+these are the *equational* laws (a count-shadow story); the *order* and *factorization*
+content is the next layer.
+
+**The remaining frontier is now genuinely the `×`-atom (prime) structure.** With +, ×,
+and distributivity all generated, unique factorization (FTA) is the first result that
+needs *distinguishable* multiplicative atoms (primes) — the dual of the
+*indistinguishable* additive units that generated `+`. That duality
+(`+`-atoms indistinguishable → `append_comm` free; `×`-atoms distinguishable → factor
+order matters → the `exp`/`vp` vector) is exactly where the generation program meets
+the genuinely hard mathematics, and where Raw's additive peel must be replaced by a
+multiplicative descent. Next: either (a) generate primality/`vp` structure, or (b) the
+order layer (`≤` as the sublist/subgrid relation).
+
 ## The exterior deliverable (the only §5.1-legal verdict)
 
 Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
