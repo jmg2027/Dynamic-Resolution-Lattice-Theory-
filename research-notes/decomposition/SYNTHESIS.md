@@ -74,6 +74,28 @@ built `qbinom` at `q=−1` gives the Lucas/fermionic count `C(⌊n/2⌋,⌊k/2�
 a sign-swap — so the deformation-`q` (a scaling dial on the *count*) and the tag-`q` (a discrete ±1 swap bit
 on the *residue*) are different objects sharing only the ±1 *locus* by **containment**, aligned only at `q=+1`.
 
+### ★ Two structural findings on the invariants (2026-06-23)
+
+**(i) The `q=±1` tag's origin and name — quadratic residues** (`modular_arithmetic.md`).  The tag is not
+named "residue + a ±1 bit" by analogy: its **first instance is the Legendre symbol** `(a/p) ∈ {+1,−1}` on
+`(ℤ/p)*` — `a` a quadratic *residue* (`q=+1`, a square) or not (`q=−1`).  `euler_dichotomy` (the two-valued
+split, `EulerCriterion` 2/0), `legendre_mul` (the tag is **multiplicative**, `×↦·` into `{±1}`, 5/0) — i.e.
+Invariant A landing in Invariant B's two poles — and `multiplier_unimodular` (`q²=1`) /
+`residue_tag_two_poles` (`ResidueTag` 55/0) is its abstraction.  So the whole `q=±1` spine is the
+**quadratic-residue character generalized**; its `q^k=1` extension is the cyclic power-residue character
+(`RootOfUnityOrthogonality`, orders 2/3/4/6 — the `±1` tag is the `k=2` slice).
+
+**(ii) The residue-location law for a faithful Lens** (`prime_distribution.md` vs `prime_factorization.md`).
+When a coordinate Lens is **faithful** (residue none *on the object* — `L_vp` on a number, `vp_separation` =
+unique factorization), the residue has not vanished: it **relocates to the basis the Lens presupposes**.  For
+`L_vp` the basis = the primes, and the residue = their **additive distribution** (the ×-atoms' positions on the
++-line) — genuinely non-trivial, the content of `prime_distribution.md`, bounded on the `q=+1` side by Bertrand
+(`exists_prime_in_window`).  The law is **specific to many-distinguishable-atom bases**: it is non-trivial
+exactly when the index is the ×-atoms (primes, each with its own `vp`-coordinate) and *trivial* when the index is
+one generator's orbit (powers of 2 in binary are regular) — i.e. it is the residue-face of ×-atom
+distinguishability (CLAUDE.md "atom (in)distinguishability"; the dual of the +-atom's indistinguishability
+`UnitList.append_comm`).
+
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
 Homological algebra (`practice/homological_algebra.md`) does not add a field; it **names the operation
 the calculus has been running since batch 4**. A **derived functor** `Ext^n`/`Tor_n` *is* `Residue(L,C)`
