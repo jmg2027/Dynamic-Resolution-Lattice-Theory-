@@ -122,7 +122,7 @@ core); moved part = 𝔽_{pⁿ}∖𝔽_p (q=−1), Frobenius generating Gal (ord
 full endomorphism, B's fixed pole = the fixed field.  FALSE-FRIEND flagged: `Frobenius.lean` = the Frobenius
 *number* (coin problem), not this endomorphism.
 
-**SYNTHESIS §2 deepened (2026-06-23):** FIVE invariant-level findings folded into the canonical inventory
+**SYNTHESIS §2 deepened (2026-06-23):** SEVEN invariant-level findings folded into the canonical inventory
 (finding (v): the **modulus is NOT a third invariant** — it is the finite signature of B's `q=+1`-reached-by-none
 pole, absent for faithful Lenses + discrete escapes; one tag B with two specialisations A/modulus.  Open
 directions recorded in `research-notes/frontiers/invariant_structure.md`) —

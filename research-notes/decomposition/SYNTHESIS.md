@@ -74,7 +74,7 @@ built `qbinom` at `q=−1` gives the Lucas/fermionic count `C(⌊n/2⌋,⌊k/2�
 a sign-swap — so the deformation-`q` (a scaling dial on the *count*) and the tag-`q` (a discrete ±1 swap bit
 on the *residue*) are different objects sharing only the ±1 *locus* by **containment**, aligned only at `q=+1`.
 
-### ★ Five structural findings on the invariants (2026-06-23)
+### ★ Seven structural findings on the invariants (2026-06-23)
 
 **(i) The `q=±1` tag's origin and name — quadratic residues** (`modular_arithmetic.md`).  The tag is not
 named "residue + a ±1 bit" by analogy: its **first instance is the Legendre symbol** `(a/p) ∈ {+1,−1}` on
@@ -160,6 +160,33 @@ multiplicative enrichment, richer where `×` exists) and the modulus (its `q=+1`
 present only for continuum residues).  Not three invariants; one tag, two specialisations.  (Honest
 non-overreach: `A` is *richer* than `B` where both live — `B = A`'s 2-torsion, (iv) — so this is "common
 domain `B` / richer-where-present `A`", not "`A` is a face of `B`".)
+
+**(vi) `B` is irreducible — it is a sign/direction bit, not the order-2 truncation of any graded invariant**
+(settled by the multi-agent push, `frontiers/invariant_structure/graded_q.md`).  Two candidate gradings were
+tested and *both fail* to subsume `B`: (a) the **multiplicative** `q^k=1` cyclic refinement (roots of unity,
+`RootOfUnityOrthogonality` orders 2/3/4/6, `CassiniUnimodular.multiplier_unit_magnitude_sign_order_NT`: `−1`
+has order *exactly* 2) lives **inside `B`'s `q=+1`/converge pole** — finer multiplicative structure that
+never produces a new *value* of `B`, and the **escape pole has no `q^k=1` reading at all** (it is the
+universal negation `no_surjection_of_fixedpointfree`); (b) the **additive** depth grading (`F2CDTower`
+`eps_sq_is_zero` `ε²=0`, `vp`-valuation, pole-order) is an **orthogonal axis** (`∂²=0` carries a sign `B`
+*and* a degree independently).  Decisively, (a) and (b) are themselves the **`×↦·` vs `×↦+` dichotomy
+(Invariant A) one level up** — the cyclic-`ℤ/k` vs free-`ℕ` gradings, separated by the exp/log wall — with
+no unifying theorem and no expectation of one (calibrated negative, not forced).  So `B` is a genuine
+primitive: a 2-valued sign, transverse to both gradings.
+
+**(vii) The character-free residues are two faces of one residue, split by axiom-status** (settled,
+`frontiers/invariant_structure/character_free_residues.md`).  The bare-`B` (character-free) world has exactly
+two objects: **(1) the Lawvere diagonal** — a constructive `∅`-axiom *theorem* (`no_surjection_of_fixedpointfree`
+/ `object1_not_surjective`) into which Cantor, Gödel, Russell/Liar, halting **all genuinely reduce**
+(`one_diagonal_generates`); and **(2) the LLPO/choice/ultrafilter point** — a non-constructive `Prop`
+(`Omniscience.LPO`/`LLPO`, `comparability_imp_llpo`, `llpo_of_realDichotomy`) that 213 **never proves**, onto
+which the five calibrated boundaries converge as *one* locus.  They are **not independent** (the corpus names
+LLPO directly as the act on the diagonal's surplus) and **not identical** — they are **the internal
+(constructive, proven, reached-by-none) and external (omniscient, refused, would-reach) faces of the one `B`
+residue**.  Distinguishing criterion: *does 213 prove it (⟹ the diagonal face) or refuse it / state it as
+`Prop` (⟹ the LLPO face)?* — nothing sits in a third box.  This unifies the "one diagonal" theme and the
+"five calibrated boundaries" theme as the two poles of `B` in the character-free world.
+
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
 Homological algebra (`practice/homological_algebra.md`) does not add a field; it **names the operation

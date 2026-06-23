@@ -21,16 +21,27 @@ how the invariants are actually structured (SYNTHESIS §2 (i)–(v)).
 - **Frobenius (#141)** = A's collapse point (×↦· and +↦+ become one self-map
   `(·)ᵖ`); its `q=+1` fixed pole = the fixed field 𝔽_p (Fermat).
 
+## Settled by the multi-agent push (2026-06-23) → SYNTHESIS §2 (vi),(vii)
+
+1. **Is B reducible? — NO** (`invariant_structure/graded_q.md`).  B is a sign/direction
+   bit, the order-2 truncation of *neither* the multiplicative `q^k=1` cyclic grading
+   (which lives inside B's converge pole; the escape pole has no `q^k=1` reading) *nor*
+   the additive depth grading (`ε²=0`/`vp`/pole-order, an orthogonal axis).  The two
+   gradings are themselves Invariant A (`×↦·`/`×↦+`) one level up.  Calibrated negative.
+2. **Character-free residues — two faces of one B** (`invariant_structure/character_free_residues.md`).
+   The Lawvere diagonal (∅-axiom THEOREM; Cantor/Gödel/Russell/halting all reduce) and
+   the LLPO/choice/ultrafilter point (non-constructive `Prop`, never proved; the 5
+   calibrated boundaries' single locus) are the internal/constructive and
+   external/refused faces of one B, split by **axiom-status**.
+
 ## Open directions (next)
 
-1. **Is B genuinely irreducible, or does it have its own sub-structure?**  B's two
-   poles (escape/converge) are clear; is there a finer invariant *within* a single
-   pole beyond the modulus (e.g. the *order* of escape — pole-order / difference-
-   depth, cf. `simplicial_operation_tower.md` L3‴)?  Test whether "pole-order" is a
-   graded refinement of B or a re-reading of the modulus.
-2. **The character-free residues** (foundations: Cantor/Gödel/halting/measure) —
-   do they ALL reduce to the one Lawvere diagonal, or are there character-free
-   residues that are NOT the diagonal?  (Measure/non-measurable = a calibrated
-   boundary, not obviously the diagonal — test.)
-3. **A's collapse points beyond Frobenius**: are there other places ×↦· and +↦+
-   coincide (char-p Frobenius is one; the `q=+1` trivial-character is another)?
+3. **A's collapse points beyond Frobenius**: are there other places `×↦·` and `+↦+`
+   coincide (char-p Frobenius is one — `frobenius_endomorphism.md`; the `q=+1`
+   trivial-character is another)?  Is there a *classification* of A-collapse loci?
+4. **B's escape pole, finer?**  (vi) shows the converge pole carries the cyclic grading;
+   does the *escape* pole carry internal structure beyond "universal negation", or is it
+   genuinely featureless (the pure diagonal)?  (vii) suggests featureless — confirm.
+5. **The exp/log wall as the A-grading separator**: (vi) found the cyclic (`ℤ/k`) and
+   free (`ℕ`) gradings are exp/log-wall-separated.  Is the wall itself an invariant-level
+   object (the boundary between A's two arrows)?
