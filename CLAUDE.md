@@ -92,14 +92,10 @@ bar, not a ranking of math work (primacy = breadth, boot §7.1).  Satisfy ≥1:
 
 Numerical-only = research note.  **Prohibited**: timeline/ROI.
 
-## Free-presentation parameters (c-rule + config-count)
+## Free-presentation parameters (config-count)
 
-**Multiplicity `c` is NOT forced** — a *free Lens-presentation parameter* of
-`K_{NS,NT}^{(c)}`, removable from every observable; cohomology is parametric in
-`c`, **no value canonical**.  Write `K_{NS,NT}^{(c)}`, not `K_{3,2}^{(c=2)}` as
-canonical (specific value = "at presentation `c=2`").  Likewise `configCountD d n
-= d^(d^n)` (`Cohomology/Fractal/ConfigCount.lean`) — **no level privileged**; the
-`5²⁵ = N_U` "resolution for 1/α_em" claim is **deleted**.
+`configCountD d n = d^(d^n)` (`Cohomology/Fractal/ConfigCount.lean`) — **no level
+privileged**; the `5²⁵ = N_U` "resolution for 1/α_em" claim is **deleted**.
 
 ## Operating principles
 
