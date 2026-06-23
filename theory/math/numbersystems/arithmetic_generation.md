@@ -1,0 +1,131 @@
+# The generation of ℕ's arithmetic — count-shadows of the distinguishing
+
+**Status**: Closed for the additive/equational/order layer; the multiplicative-atom
+(prime/FTA) layer is an open frontier (named below). Mirrors
+`lean/E213/Meta/Nat/{UnitList, UnitGrid, UnitBox, UnitDistrib, UnitOrder,
+ProdCount}.lean`.
+
+## What this chapter establishes
+
+The arithmetic of ℕ is not assumed — it is **generated**, law by law, as the
+*count-shadow* of operations on lists of **units** (elements with no distinguishing
+marks). Each algebraic law of ℕ is derived from a structural fact about unit lists
+proved by induction alone, and — the discipline that makes this more than a restatement
+— **no derivation presupposes the ℕ-law it produces**: the cone of each generated law
+is verified free of that law (`add_assoc`-free, `mul_assoc`-free, `mul_add`-free,
+`add_le_add`-free). The result is the complete *ordered commutative semiring*
+`(ℕ, +, ·, 0, 1, ≤)`, generated; and a precise account of where generation stops — at
+the multiplicative-atom (prime) structure — and why.
+
+## The additive monoid — `+` is born from append
+
+The carrier is `List Unit`: lists of indistinguishable units. The readout is
+`count : List Unit → Nat` (how many units), and append is the primitive combine.
+
+- **Append is associative** for any element type, free, by bare induction
+  (`UnitList.append_assoc`); on *unit* lists it is also **commutative**
+  (`UnitList.append_comm`) — indistinguishable elements carry no position information,
+  so "arrangement" is no information to forget. (Distinguishable elements *do* remember
+  it: `append_not_comm_general`, `[a]++[b] ≠ [b]++[a]`.)
+- `count` is a homomorphism `append ↦ +` (`count_append_fwd`,
+  `count (l ++ m) = count l + count m`).
+- Hence `+`-**commutativity** is the count-shadow of `append_comm`
+  (`add_comm_from_append`) and `+`-**associativity** the shadow of `append_assoc`
+  (`add_assoc_from_append`, cone verified `Nat.add_assoc`-free). The additive monoid
+  `(ℕ, +, 0)` is generated.
+
+## The multiplicative monoid — `×` is born from the grid
+
+The carrier rises one dimension: a 2-D **unit grid** (`UnitGrid`). An `a × b` grid of
+units has a total cell count `total`; `total (rows a b) = a·b` (`total_rows`).
+
+- `×`-**commutativity** is the **grid transpose** double-count: counting `rows a b`
+  by rows gives `a·b`; counting its transpose (`b` columns of height `a`) gives `b·a`;
+  the transpose is the same units, so the counts agree (`mul_comm_from_grid`) — no
+  `Nat.mul_comm`.
+- `×`-**associativity** is the 3-D **unit box** double-count: an `a×b×c` box counted as
+  one `(a·b)×c` grid gives `(a·b)·c`; counted as `a` boxes of `b·c` cells gives
+  `a·(b·c)` (`UnitBox.mul_assoc_from_box`, cone verified `Nat.mul_assoc`-free). The
+  multiplicative monoid `(ℕ, ·, 1)` is generated.
+
+## The bridge — distributivity from the width-split
+
+Left-distributivity `a·(b+c) = a·b + a·c` is the **grid width-split**: an `a × (b+c)`
+grid separates into the `a×b` and `a×c` grids, and the column totals regroup additively
+(`UnitDistrib.mul_add_from_grid`, cone `Nat.mul_add`-free; right-distributivity
+`add_mul_from_grid` follows from the generated left form + generated `×`-comm). With
+both distributive laws, the commutative semiring is complete as a generated discipline.
+
+## The order — `≤` is born from extension
+
+`≤` is the **prefix/extension** relation on unit lists: `a ≤ b ↔ ∃ l, fromNat a ++ l =
+fromNat b` (`UnitOrder.le_iff_unit_extension`); `Nat.le` is the count-readout of "the
+unit list of `b` extends that of `a`." Its compatibility with `+`
+(`add_le_add_right`, `Nat.add_le_add_right`-free) is generated from the *same*
+`append_comm` indistinguishability that births `+`-commutativity — the suffix and the
+added block commute. So the **ordered commutative semiring `(ℕ, +, ·, 0, 1, ≤)` is
+generated**.
+
+## The +/× duality — distinguishability is the only difference
+
+The multiplicative count-Lens `prodL : List Nat → Nat` (`ProdCount`) is the exact dual
+of the additive `count`: a homomorphism `append ↦ ·` (`prodL_append`), reorder-invariant
+from the generated `×`-comm (`prodL_swap`), so it factors through the **multiset**, not
+the list. Reading one prime: `prodL (replicate k p) = p^k` (`prodL_replicate`) — the
+exponent.
+
+The duality is then a theorem. One construction — two blocks `replicate j _ ++
+replicate k _` — read two ways:
+
+- **additive** (`count`): the blocks **merge** into one number `j + k`, because the
+  units are indistinguishable;
+- **multiplicative** (`prodL`) with *distinct* atoms `p ≠ q`: the blocks stay
+  **separate** as the exponent vector `p^j · q^k` (`prodL_two_atoms`), the pair `(j,k)`
+  recoverable;
+- **multiplicative with indistinguishable atoms** (`q = p`): the blocks **merge too** —
+  `p^(j+k)` (`prodL_one_atom_merges`), exactly the additive `j+k`, one fold up.
+
+So `×` *is* `+` whenever its atoms are made indistinguishable. **The entire excess of `×`
+over `+` — the exponent vector, hence unique factorization — is precisely the
+*distinguishability* of primes.** The dimension jump from one count (the length) to a
+*vector* of counts (one per distinct prime) is the distinguishability, and nothing else.
+This is the 213-native content of "addition and multiplication are two faces of one
+count" (`theory/essays/synthesis/multiplicativity_is_the_x_count_lens.md`,
+`theory/essays/synthesis/addition_and_multiplication_are_two_faces_of_one_count.md`).
+
+## Where generation stops — and why (the honest terminus)
+
+The additive decomposition `fromNat (n+1) = () :: fromNat n` is **structural**: the peel
+takes `n+1 → n`, a predecessor step, on the inductive recursor (the count carrier's own
+well-foundedness — the same shape as the Raw slash-peel `MuNuMirror.isPart_wf`). Every
+law above is generated because its recursion is this structural peel.
+
+Unique factorization (FTA) is different. Its decomposition peels `n → n / minFac n` — a
+**non-structural**, well-founded-but-not-predecessor descent (it can divide by a large
+prime, jumping far below `n−1`). So FTA completes on `Nat.strongRecOn`, a *borrowed*
+well-foundedness, and **cannot** be a structural / additive-peel generation. It is a
+genuinely *second* structure: the `exp`/`vp` Lens over **distinguishable** primes, dual
+to the additive Lens but not reducible to it. Its uniqueness exists ∅-axiom
+(`Lib/Math/NumberTheory/FTAUniqueness.factorization_unique` — the multiset is the
+`vp`-vector), but on the non-structural descent.
+
+This is the precise boundary of "generated vs borrowed": the additive/equational/order
+structure of ℕ is generated from the distinguishing's own structural descent; the
+multiplicative-atom structure is the open frontier where a Raw-native *multiplicative*
+descent (a prime-distinguishability structure) would be needed for genuine generation.
+
+## Lean source
+
+`lean/E213/Meta/Nat/`: `UnitList` (additive monoid, 12 PURE), `UnitGrid` (×-comm, 15
+PURE), `UnitBox` (×-assoc, 5 PURE), `UnitDistrib` (distributivity, 4 PURE), `UnitOrder`
+(order, 3 PURE), `ProdCount` (the ×-count-Lens + the duality, 7 PURE). All ∅-axiom; each
+generated law's cone verified free of the law it produces.
+
+## Connection
+
+- `theory/math/numbersystems/slot_arithmetic.md` — the slot tower (the rung structure
+  this sits inside)
+- `theory/essays/analysis/where_commutativity_is_born.md` — the seed essay (`+`-comm
+  from unit-list append); this chapter generalizes it to the whole ordered semiring +
+  the multiplicative dual
+- `seed/AXIOM/06_lens_readings.md` §6.7 — "ℕ is what the count-Lens hands back"
