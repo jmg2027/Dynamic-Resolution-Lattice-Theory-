@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberTheory.PrimePowFactorization
 import E213.Meta.Nat.PowBasic
+import E213.Meta.Nat.FloorLog
 
 /-!
 # Central binomial coefficient — explicit prime factorization (∅-axiom)
@@ -25,11 +26,12 @@ namespace E213.Lib.Math.NumberTheory.CentralBinomFactorization
 open E213.Lib.Math.NumberTheory.PrimePowFactorization (primePowProd prod_prime_pow_eq)
 open E213.Lens.Number.Nat213.MultSystem (binom)
 open E213.Lens.Number.Nat213.MultSystemValue (central_binom_pos primesIn)
-open E213.Lens.Number.Nat213.ChebyshevLower (prime_pow_vp_central_binom_le)
+open E213.Lens.Number.Nat213.ChebyshevLower (prime_pow_vp_central_binom_le vp_central_binom_le_floorLog)
 open E213.Meta.Nat.VpMul (IsPrime213)
 open E213.Meta.Nat.Valuation (vp)
 open E213.Meta.Nat.VpSeparation (dvd_iff_one_le_vp)
 open E213.Meta.Nat.PowBasic (one_le_pow)
+open E213.Meta.Nat.FloorLog (floorLog floorLog_le_of_lt_pow)
 
 /-- **Every prime factor of `C(2n,n)` is `≤ 2n`.**  If `q ∣ C(2n,n)` then
     `1 ≤ vₚ(C)`, so `q = q¹ ≤ q^{vₚ(C)} ≤ 2n` (`prime_pow_vp_central_binom_le`).
@@ -51,6 +53,30 @@ theorem central_binom_prime_factors_le {q n : Nat} (hq : IsPrime213 q) (hn : 1 �
       _ ≤ q ^ k * q := Nat.mul_le_mul_right q h1
       _ = q ^ (k + 1) := rfl
   exact Nat.le_trans hqle hbound
+
+/-- **Large primes have valuation ≤ 1.**  If `2n < p²` (a prime `p > √(2n)`), then
+    `vₚ(C(2n,n)) ≤ 1`: Kummer gives `vₚ(C) ≤ ⌊log_p 2n⌋`, and `2n < p²` forces that
+    floor-log `≤ 1`.  (Erdős's medium range `√(2n) < p ≤ 2n/3`.) -/
+theorem vp_central_binom_le_one {p n : Nat} (hp : IsPrime213 p) (hn : 1 ≤ n)
+    (hsq : 2 * n < p * p) : vp p (binom (2 * n) n) ≤ 1 := by
+  have h2npos : 1 ≤ 2 * n := Nat.le_trans hn (by rw [Nat.two_mul]; exact Nat.le_add_left n n)
+  have hpe : p ^ (1 + 1) = p * p := by rw [Nat.pow_succ, Nat.pow_one]
+  have hlt : 2 * n < p ^ (1 + 1) := by rw [hpe]; exact hsq
+  have hfl : floorLog p (2 * n) ≤ 1 := floorLog_le_of_lt_pow hp.1 h2npos hlt
+  exact Nat.le_trans (vp_central_binom_le_floorLog hp hn) hfl
+
+/-- **Large-prime factor ≤ `p`.**  For a prime `p` with `2n < p²`, the `p`-block of
+    `C(2n,n)` is `p^{vₚ(C)} ≤ p` (since `vₚ(C) ≤ 1`).  The per-prime hypothesis of
+    `primePowProd_le_listProd` for the medium range. -/
+theorem central_binom_pow_le_self {p n : Nat} (hp : IsPrime213 p) (hn : 1 ≤ n)
+    (hsq : 2 * n < p * p) : p ^ (vp p (binom (2 * n) n)) ≤ p := by
+  have h1 : vp p (binom (2 * n) n) ≤ 1 := vp_central_binom_le_one hp hn hsq
+  rcases Nat.eq_zero_or_pos (vp p (binom (2 * n) n)) with h0 | hpos
+  · rw [h0]; show (1 : Nat) ≤ p; exact Nat.le_trans (show (1 : Nat) ≤ 2 by decide) hp.1
+  · have he1 : vp p (binom (2 * n) n) = 1 := Nat.le_antisymm h1 hpos
+    have hp1 : p ^ 1 = p := Nat.pow_one p
+    rw [he1, hp1]
+    exact Nat.le_refl p
 
 /-- ★★★ **Explicit prime factorization of the central binomial coefficient.**
     `C(2n,n) = ∏_{p ≤ 2n, prime} p^{vₚ(C(2n,n))}` — the FTA product form
