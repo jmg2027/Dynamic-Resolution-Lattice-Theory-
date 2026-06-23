@@ -201,7 +201,7 @@ more*.
     limit (`banach_fixed_point`, located `T x*=x*` to every scale), unique
     (`banach_unique`). Completeness enters as *data + spec* (`CompleteMetricModulus`),
     not an existence miracle; the fixed point is approached by every iterate,
-    reached by none. Reuses this session's own `MetricModulus`. (12 PURE.)
+    reached by none. Reuses `MetricModulus`. (12 PURE.)
 
   - `Logic/RealEqualityWLPO` + `Logic/RealApartnessMP` — completing the **real-
     decision triad** with `RealDichotomyLLPO`: the three basic verdicts about a real
