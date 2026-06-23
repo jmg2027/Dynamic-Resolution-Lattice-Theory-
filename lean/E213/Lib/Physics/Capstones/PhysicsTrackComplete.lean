@@ -100,7 +100,8 @@ open E213.Lib.Physics.Mixing.CabibboAngle
 
   Atomic-integer inputs to the physics-track precision quantities —
   leading denominators, atomic ratios, and the (NS,NT,d) constants —
-  all read off the same (3, 2, 5, 2) configuration.  This bundles
+  all read off the same forced shape (3, 2, 5) (at presentation c = 2,
+  a free parameter).  This bundles
   those shared atomic equalities; it does NOT prove the full ppb/ppm
   precision values, nor any completeness/uniqueness claim. -/
 theorem physics_track_shared_atoms :

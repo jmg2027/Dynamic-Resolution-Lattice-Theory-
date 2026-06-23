@@ -55,8 +55,9 @@ sin²θ_W, Ω_Λ, CH₄/NH₃/H₂O bond angles are *all* derived from the same 
 
 ## ★ Shared atomic source ★
 
-  At (NS, NT, d, c) = (3, 2, 5, 2) every identity above holds
-  simultaneously (verified by `decide` below).  The theorem witnesses
+  At the forced shape (NS, NT, d) = (3, 2, 5), read at presentation
+  c = 2 (a free parameter, not a forced axis), every identity above
+  holds simultaneously (verified by `decide` below).  The theorem witnesses
   that these identities are all closed functions of the *same* atomic
   constants; it does NOT assert uniqueness — no claim that some other
   (NS, NT, d, c) fails them is proven here.
