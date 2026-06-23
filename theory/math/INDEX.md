@@ -3,6 +3,12 @@
 Math chapters.  Mirrors `lean/E213/Lib/Math/` by path — each chapter sits
 under the same thematic super-cluster as its Lean sub-tree.
 
+**Each cluster below is one domain reconstructed from 구분(distinguishing) +
+잔여(residue)** via the `⟨C|L⟩⊕Residue` calculus — a Lens reading of the residue,
+not a separate theory.  The number tower, algebra, analysis, cohomology, … are
+the residue read under successive Lenses (`seed/AXIOM/07_primacy.md` §7.1:
+primacy = breadth of such reconstruction).
+
 ## Clusters (mirror of `Lib/Math/`)
 
 ### `numbersystems/` — the number tower

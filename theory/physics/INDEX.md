@@ -2,6 +2,13 @@
 
 Physics chapters.  Mirrors `lean/E213/Lib/Physics/`.
 
+**Physics here is one domain reconstructed from 구분(distinguishing) + 잔여(residue)**
+— the `⟨C|L⟩⊕Residue` calculus read for physical observables, not a separate
+theory bolted on.  Each constant is a Lens readout of the residue's forced
+construction axes `(NS,NT,d)=(3,2,5)`; dimensionless ratios are parameter-free,
+absolutes rest on one measured input scale (as any theory).  The multiplicity
+`c` is a free presentation parameter, not a forced datum.
+
 ## Closed chapters (19)
 
 | Chapter | Lean sub-tree |

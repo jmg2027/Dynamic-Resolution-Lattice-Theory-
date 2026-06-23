@@ -6,14 +6,18 @@ prose (explanation) by path.
 
 ## What 213 says (1 paragraph)
 
-Pointing leaves a residue (Raw).  Lens application IS distinguishing —
-not a tool acting on Raw from outside (per `seed/AXIOM/05_no_exterior.md` §5.1: no exterior).  Self-consistency forces
-**(NS, NT, d) = (3, 2, 5)** uniquely; the multiplicity **c = 2** is a derived
-presentation parameter (re-presenting the SU(3) adjoint `NS² − 1` as
-`K_{3,2}^{(c=2)}` graph cohomology), not a forced fourth primitive.  From this the algebra
-tower, K_{3,2}^{(c=2)} cohomology (gauge content = 8 gluon
-channels), and α_em to **0.09 ppb** all derive — without
-external parameters, all PURE in Lean.
+The core is one primitive — **distinguishing (구분)** — and one calculus —
+**`⟨C|L⟩ ⊕ Residue`**.  Distinguishing is faithful but never total
+(`object1_not_surjective`), so it always leaves a **residue (잔여, a theorem)**;
+Lens application IS distinguishing, not a tool acting on Raw from outside (no
+exterior, `seed/AXIOM/05_no_exterior.md` §5.1).  **Every chapter below is one
+domain reconstructed from distinguishing + residue** — a Lens reading of the
+residue, not a separate theory.  Self-consistency forces the construction axes
+**(NS, NT, d) = (3, 2, 5)**; the bipartite multiplicity **c** is a *free
+Lens-presentation parameter* of `K_{NS,NT}^{(c)}` (re-presenting `NS² − 1`),
+not a forced datum, removable from every observable.  On this core the algebra
+tower, the bipartite cohomology, and the physics deployment (α_em, the gluon
+octet) are each reconstructed — without external parameters, PURE in Lean.
 
 ## Vocabulary (read before chapters)
 
