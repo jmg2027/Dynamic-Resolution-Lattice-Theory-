@@ -69,6 +69,20 @@ theorem primePowProd_pos (e : Nat → Nat) :
       exact Nat.mul_pos (pow_pos_nat hppos (e p))
         (ih (fun q hq => hps q (List.Mem.tail p hq)))
 
+/-- The product splits over list concatenation (the index-range split lemma:
+    `∏_{xs ++ ys} = ∏_{xs} · ∏_{ys}`).  Drives the size-range partition of the
+    Bertrand upper bound. -/
+theorem primePowProd_append (e : Nat → Nat) :
+    ∀ xs ys : List Nat,
+      primePowProd e (xs ++ ys) = primePowProd e xs * primePowProd e ys := by
+  intro xs ys
+  induction xs with
+  | nil => show primePowProd e ys = 1 * primePowProd e ys; rw [Nat.one_mul]
+  | cons p rest ih =>
+      show p ^ (e p) * primePowProd e (rest ++ ys)
+          = (p ^ (e p) * primePowProd e rest) * primePowProd e ys
+      rw [ih, Nat.mul_assoc]
+
 /-! ## §2 — `vₚ` of the product: `0` off the list, `e q` at a member -/
 
 /-- **Off the list ⟹ valuation 0.**  A prime `q` not among the (prime) bases
