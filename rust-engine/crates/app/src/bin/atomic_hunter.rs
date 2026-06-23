@@ -22,7 +22,7 @@ use num_bigint::BigUint;
 
 fn mul_q(a: &Q, b: &Q) -> Q { (&a.0 * &b.0, &a.1 * &b.1) }
 
-/// Atomic integer candidates (NS=3, NT=2, d=5, c=2 derivatives).
+/// Atomic integer candidates (forced NS=3, NT=2, d=5 derivatives; read at presentation c=2, a free presentation parameter).
 fn atomic_ints() -> Vec<(&'static str, u64)> {
     vec![
         ("1",          1), ("NT",         2), ("NS",         3), ("NT²",        4),

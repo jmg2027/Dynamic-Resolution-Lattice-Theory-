@@ -156,7 +156,8 @@ theorem P_shifts_fibonacci_index_2_at_n1 :
         `{1, 2, 3}` via squaring).
 
     Q satisfies the first two; Q² = P fixes all three.
-    `(NS, NT, c, d) = (3, 2, 2, 5)` is therefore the
+    The forced atoms `(NS, NT, d) = (3, 2, 5)` (read at presentation
+    c = 2, a free presentation parameter) are therefore the
     eigenstructure of the *minimum-entropy hyperbolic
     SL(2, ℤ) element*, with topological entropy
     `h_top = 2·ln(φ)`.

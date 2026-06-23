@@ -53,7 +53,8 @@ Recast in `Nat` (no subtraction): `29² = 5 · 8² + 521`. -/
 theorem aurifeuillean_norm_521 : 29 * 29 = 5 * (8 * 8) + 521 := by decide
 
 /-- Hunter-catalogue bridge: the Aurifeuillean norm pair `(29, 8)`
-    of `521` decomposes into Hunter primitives `{NS=3, NT=2, d=5, c=2}`:
+    of `521` decomposes into Hunter primitives `{NS=3, NT=2, d=5}`
+    (read at presentation c=2, a free presentation parameter):
 
     ```
     29 = d² + NT²    (= 25 + 4)
@@ -152,7 +153,7 @@ structural reach. -/
 
     Hunter status: neither `L = 850554441` nor `M = 364242064`
     admit small-depth representations from
-    `{NS = 3, NT = 2, d = 5, c = 2}`.  The Hunter-Aurifeuillean
+    `{NS = 3, NT = 2, d = 5}` (at presentation c = 2).  The Hunter-Aurifeuillean
     correspondence is therefore localised to the minimal index
     `m = 1` (= the `521` slice). -/
 theorem aurifeuillean_phi_90_at_5 :

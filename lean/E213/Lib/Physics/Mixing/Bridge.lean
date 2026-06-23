@@ -5,7 +5,8 @@ import E213.Lib.Physics.Mixing.NeutrinoMixing
 # Mixing matrices ↔ Diamond bridge
 
 CKM (Cabibbo) and PMNS (neutrino) mixing parameters all factor
-through Diamond atomic primitives (NS=3, NT=2, d=5, c=2).
+through Diamond forced atomic primitives (NS=3, NT=2, d=5), read at
+presentation c=2 (a free presentation parameter).
 
 Per `Physics/CabibboAngle.lean`:
   sin θ_C = 5/22 = d/(d²−d+c) = 5/(25−5+2)

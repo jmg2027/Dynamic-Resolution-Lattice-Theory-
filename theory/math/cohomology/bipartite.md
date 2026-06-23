@@ -55,7 +55,7 @@ b_0 = 1) by `decide` across:
 
 - Trees: K_{1,1}, K_{1,2}, K_{2,1}, K_{1,3}, K_{3,1}, K_{1,4}, K_{4,1}
 - 4-cycles: K_{2,2}^{(c=1)}, K_{2,2}^{(c=2)}
-- Forced critical: K_{3,2}^{(c=2)}, K_{2,3}^{(c=2)} (S/T swap)
+- Critical deployment (at presentation c=2): K_{3,2}^{(c=2)}, K_{2,3}^{(c=2)} (S/T swap)
 - Higher chartBase: K_{3,3}^{(c=2)}
 
 `EulerAndCapstone.lean` gives the parametric Euler / b_1 formulae

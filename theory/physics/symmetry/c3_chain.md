@@ -103,9 +103,9 @@ The first cohomology of K over ℤ/2 is rank-8: `H¹(K) := Fin 8 → Bool`
 
 The rank equals `NS² − 1 = 9 − 1 = 8`, which is the adjoint
 representation dimension of SU(NS) = SU(3).  This is **not** a
-coincidence: the 8 topological holes in K_{3,2}^{(c=2)} are forced
-by χ(K) = 1 − 8 = −7 (Euler characteristic), and 8 is also `adj SU(3)`,
-the gluon count.
+coincidence: read at presentation c=2, the K_{3,2}^{(c)} graph has
+8 topological holes (χ(K) = 1 − 8 = −7, Euler characteristic), and 8
+is also `adj SU(3)`, the gluon count.
 
 The Sym(3) external symmetry acts on edges (`Sym3OnKEdges`)
 via two transposition generators σ_S01, σ_S12.  This action **descends

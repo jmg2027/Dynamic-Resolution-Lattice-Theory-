@@ -31,8 +31,9 @@ The physics lens selects the slice `(d, n) = (5, 2)`:
     Corroborated by C2a (cohomology-loss `c·m·n = m²+m+n−2`) and
     C2b (adjoint-product `(m²−1)(n²−1) = (m+n)²−1`) constraints
     in `Lib/Physics/Foundations/AtomicConstantsUnique.lean` —
-    three independent ∅-axiom proofs converge on
-    `(NS, NT, c, d) = (3, 2, 2, 5)`.
+    three independent ∅-axiom proofs converge on the forced
+    `(NS, NT, d) = (3, 2, 5)`, evaluated at presentation `c = 2`
+    (a free presentation parameter, no value canonical).
   · The level `n = 2` is the canonical readout for the
     `K_{3,2}^{(c=2)} → K_{25}` fractal closure (rank-2 = pair
     structure).
@@ -128,9 +129,10 @@ Three independent axiom-clean Lean derivations converge on
    entering the derivation.
 
 3. **C2a — cohomology-loss equation** (ibid., line 52).
-   `c · m · n = m² + m + n − 2` couples the third atomic
-   integer `c = 2` to `(m, n) = (3, 2)`.  Triple intersection at
-   `(m, n, c, d) = (3, 2, 2, 5)`.
+   `c · m · n = m² + m + n − 2`, read at presentation `c = 2` (a free
+   presentation parameter, not an atomic integer), couples to
+   `(m, n) = (3, 2)`.  Triple intersection of the forced
+   `(m, n, d) = (3, 2, 5)` at presentation `c = 2`.
 
 The three chains share no premises beyond Clause 4 of the
 axiom (no self-pair `x/x`).  Their agreement is the strongest

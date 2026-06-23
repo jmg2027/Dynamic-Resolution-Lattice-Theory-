@@ -23,8 +23,10 @@ something else.
 
 ## Narrative
 
-The atomic 4-tuple `(NS, NT, c, d) = (3, 2, 2, 5)` is closed in
-`theory/physics/foundations/atomic_constants.md` (C2 uniqueness).
+The forced atoms `(NS, NT, d) = (3, 2, 5)` — read at presentation
+`c = 2` (a free presentation parameter, no value canonical) — are
+closed in `theory/physics/foundations/atomic_constants.md` (C2
+uniqueness of the self-consistency equations at presentation c = 2).
 This chapter is the **explicit primitive layer**: what objects
 exist at the atomic level, how they're indexed, what the count
 identities are.

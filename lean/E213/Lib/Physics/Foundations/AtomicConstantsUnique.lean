@@ -4,14 +4,18 @@ import E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 /-!
 # Atomic Constants Uniqueness (G35-C2 step 1)
 
-213's atomic 4-tuple (NS, NT, c, d) = (3, 2, 2, 5) is conjectured
-to be the **unique** integer solution to a small set of self-
-consistency equations derivable from 213-Algebra alone, without
-external input.
+The forced atomic content is the triple (NS, NT, d) = (3, 2, 5); the
+edge multiplicity `c` is a free presentation parameter (no value
+canonical, commonly read at c = 2 — see
+`theory/physics/foundations/atomic_constants.md`).  Evaluated at
+presentation c = 2, the small set of self-consistency equations
+derivable from 213-Algebra alone (without external input) is
+conjectured to have **(3, 2, 2, 5)** as its unique integer solution.
 
 This file encodes the constraints discovered in the AlphaEM
 session work and verifies (3, 2, 2, 5) satisfies all of them,
-plus shows no nearby alternatives do.
+plus shows no nearby alternatives do — a value-uniqueness of the
+*equations* at presentation c = 2, not a forcing of `c`.
 
 ## Independent constraints
 

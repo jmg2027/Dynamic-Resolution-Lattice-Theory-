@@ -91,7 +91,7 @@ into 5 output-grade buckets).
 | 3 | `GramSelfConsistency` | self-consistency: `gram_correction_e9 = 10²⁷/(25·observed²) = 2,130`; matches 2,157 to 1.2%; refined diff **27 × 10⁻⁹ ≈ 0.2 ppb** |
 | 4 | `GramHigherOrder` | next-order α³/d²: `gram_correction_alpha3_e9 = 10³⁶/(25·observed³) = 15`; explains 15 of 27 e-9 refined residual; **doubly-refined diff 12 × 10⁻⁹ ≈ 0.09 ppb** — within CODATA 2024 uncertainty |
 | **5** | **`GramStructural` + `GramStructuralBracket` + `GramStructuralNewton`** | **Self-referentiality removed**: cubic self-consistency `25y³ + 1 = 25Xy²` rearranges to `X − y = 1/(25y²) = α²/d²`.  Newton-1 from `y₀ = X` gives `gram_correction_structural = 10²⁷/(25·X²) = 2,130` — **exactly matches observed-based at e9**, no observed α on RHS.  Cubic root in width-2 bracket `(X − 2131, X − 2129)`. |
-| **5+** | **`GramStructuralCapstone`** | **Precision theorem**: combines `InvAlphaEMDecomp` (structural X via (NS, NT, c, d) = (3, 2, 2, 5)) with Newton-from-X Gram correction.  `1/α_em(structural) × 10⁹ = 137,035,999,111` vs CODATA `137,035,999,084` = **27 × 10⁻⁹ ≈ 0.2 ppb** residual.  **Fully 213-internal, DRLT Validation Standard satisfied.** |
+| **5+** | **`GramStructuralCapstone`** | **Precision theorem**: combines `InvAlphaEMDecomp` (structural X via the forced (NS, NT, d) = (3, 2, 5), read at presentation c = 2) with Newton-from-X Gram correction.  `1/α_em(structural) × 10⁹ = 137,035,999,111` vs CODATA `137,035,999,084` = **27 × 10⁻⁹ ≈ 0.2 ppb** residual.  **Fully 213-internal, DRLT Validation Standard satisfied.** |
 
 ### 3. C5 ζ_K^{(L)} convergence
 
@@ -216,8 +216,9 @@ The cubic self-consistency identity `25y³ + 1 = 25Xy²` rearranges
 to `X − y = 1/(25y²) = α²/d²`: the Gram correction is the
 **cubic-root deviation**, structurally forced.  Newton-1 from
 y₀ = X gives `gram_correction_structural = 10²⁷/(25·X²) = 2,130`
-using ONLY the 213-internal X (5-layer base from
-`(NS, NT, c, d) = (3, 2, 2, 5)` via `Cohomology/Cup/InvAlphaEMDecomp`).
+using ONLY the 213-internal X (5-layer base from the forced
+`(NS, NT, d) = (3, 2, 5)`, read at presentation `c = 2`, via
+`Cohomology/Cup/InvAlphaEMDecomp`).
 No observed α on RHS.
 
 Lean: `GramStructural` (anchor) + `GramStructuralBracket` (cubic
@@ -228,7 +229,8 @@ exact match with observed-based at e9) + `GramStructuralCapstone`
 The relationship `d² = NS² · NT` is captured by
 `Cohomology.Cup.InvAlphaEMDecomp.inv_alpha_em_full_denominator_catalog`:
 all six denominators (60, 30, 25, 3, 4, 45) of the 5-layer base
-formula decomposed in terms of (NS, NT, c, d).
+formula decomposed in terms of the forced (NS, NT, d), read at
+presentation c = 2.
 
 ### C1 Step 6 — Sub-ppb precision via higher cohomology
 

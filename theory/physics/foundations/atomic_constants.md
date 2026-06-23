@@ -180,21 +180,29 @@ recursively to count-Lens groups**.
 | Arity k=2 unique (∀ k ≥ 3 vacuous) | `arity_2_unique_via_k_ge_3_vacuous` | ∅-axiom |
 
 Combined statement: Raw + the four clauses (including recursive
-Clause 4) force `(NS, NT, c, d) = (3, 2, 2, 5)` uniquely from the
-Raw side, independently of the C2b cohomology-side iff above.
-All four dimensions are now Lean-formalised at the Theory layer:
+Clause 4) force `(NS, NT, d) = (3, 2, 5)` and the base **arity k = 2**
+uniquely from the Raw side, independently of the C2b cohomology-side
+iff above.  The forced dimensions are Lean-formalised at the Theory
+layer:
 
   · `(NS, NT) = (3, 2)` via `Theory/Atomicity/PairForcing.lean`
   · `d = 5` via `Theory/Atomicity/{OrbitForcing, Five}.lean`
-  · **`c = 2` via `Theory/Atomicity/CombinatorialArity.lean`**
+  · **arity `k = 2` via `Theory/Atomicity/CombinatorialArity.lean`**
     (parametric `pigeonhole_fin_to_fin2` + generic `Raw k` /
     `Reachable k` + capstone `arity_2_unique_via_k_ge_3_vacuous`).
     Companion to `ArityForcing.lean` (which handles the concrete
     k = 3 case); CombinatorialArity is the ∀ k ≥ 3 generalisation
     — 5 PURE.
 
+The edge **multiplicity `c`** is **not** in this forced set: reading
+`c = 2` off the arity `k = 2` is a `decide`-coincidence of two distinct
+2's (arity-base `Fin 2` vs partition-slot `NT`), not a forcing — `c`
+stays a free presentation parameter (see Overview; authoritative status
+`research-notes/frontiers/atomic_c_multiplicity_forcing.md`).
+
 The two derivations (C2b cohomology + Raw-side combined chain)
-are different Lens readings of the same forced quadruple.
+are different Lens readings of the same forced `(NS, NT, d)` triple,
+each evaluated at presentation `c = 2`.
 
 ### Dual-emergence companion (Δ⁴ ⊥ K_{3,2}^{(c=2)})
 

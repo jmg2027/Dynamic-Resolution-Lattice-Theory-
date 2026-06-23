@@ -11,8 +11,8 @@ section-count of *any* reading-fibration.  Apply it **to the normal form's own t
 | normal-form piece | section-count | tag |
 |---|---|---|
 | **Residue** (the diagonal, reached-by-none) | 0 sections | **wall (0)** |
-| **C** — the construction axes `NS=3,NT=2,c=2,d=5` (forced, `ArityForcing`) | exactly 1 section | **forced (1)** |
-| **L-parameters** — σ / base / resolution (free, no exterior dialer) | ≥2 sections | **free (many)** |
+| **C** — the construction axes `NS=3,NT=2,d=5` (forced, `ArityForcing`) | exactly 1 section | **forced (1)** |
+| **L-parameters** — σ / base / multiplicity `c` / resolution (free, no exterior dialer) | ≥2 sections | **free (many)** |
 | not-yet-built named object | — | **absence (∅)** |
 
 **Prediction:** `⟨C|L⟩ ⊕ Residue` *is* the tetrachotomy applied to itself — `C` = the tag-`1` (forced)

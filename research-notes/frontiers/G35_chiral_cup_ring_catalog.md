@@ -552,9 +552,12 @@ References: `AlphaEM/CupChannelInventory.lean`, `ProjectionRatios.lean`,
 
 ### §C2.  Atomic constants uniqueness
 
-> The atomic 4-tuple (NS, NT, c, d) = (3, 2, 2, 5) is the unique
-> integer solution to a small set of self-consistency equations
-> derivable from 213-Algebra alone, without external input.
+> The forced atoms (NS, NT, d) = (3, 2, 5) — read at presentation
+> c = 2 (a free presentation parameter, no value canonical) — give
+> (3, 2, 2, 5) as the unique integer solution to a small set of
+> self-consistency equations derivable from 213-Algebra alone, without
+> external input.  The uniqueness is of the *equations* at presentation
+> c = 2, not a forcing of `c`.
 
 Already known constraints:
   · `configCount` parametric family at level n = d² yields

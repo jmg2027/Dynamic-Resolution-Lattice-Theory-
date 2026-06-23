@@ -108,8 +108,9 @@ coincidence to admire.  It is what "Möbius P is the algebraic
 representation of the residue's self-pointing fixed point"
 (`seed/AXIOM/03_form.md` §3.5,
 `seed/AXIOM/05_no_exterior.md` §5.6) becomes when read at the
-level of cut equality.  The residue's self-pointing leaves a
-4-tuple `(NS, NT, c, d) = (3, 2, 2, 5)` and a matrix `P` whose
+level of cut equality.  The residue's self-pointing leaves the
+forced triple `(NS, NT, d) = (3, 2, 5)` (read at presentation
+`c = 2`, a free presentation parameter) and a matrix `P` whose
 spectrum is `{φ², 1/φ²}`; "two cuts are equal" reads the same
 matrix as a mediant operation.
 

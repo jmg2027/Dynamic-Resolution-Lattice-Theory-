@@ -23,8 +23,8 @@ ionization energies (IE sub-cluster).
 
 ## Narrative
 
-DRLT predicts atomic observables from the (NS, NT, c, d) atomic
-substrate without external parameters.  Hydrogen is the baseline
+DRLT predicts atomic observables from the forced (NS, NT, d) atomic
+substrate (read at presentation c = 2) without external parameters.  Hydrogen is the baseline
 (single electron, single proton); helium adds the
 electron-electron interaction; heavier elements add screening
 + bond geometry.

@@ -220,7 +220,8 @@ retrodiction risk.
 
 The `assignment` rows look like freedom until you count the constraints:
 
-1. **One skeleton, three couplings.** The *same* atoms `(NS,NT,c,d)` and
+1. **One skeleton, three couplings.** The *same* forced atoms `(NS,NT,d)`
+   (read at presentation `c = 2`) and
    the *same* α_GUT must simultaneously produce
    `1/α_em`, `1/α_2`, `1/α_3` (`triple_coupling_master`, PURE). A free
    six-parameter fit to one number is trivial; a *shared* forced-atom

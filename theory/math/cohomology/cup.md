@@ -310,10 +310,11 @@ b_1(K_{3,2}^{(c=2)}) = E - V + 1               =  12 - 5 + 1
                     = 8.
 ```
 
-The convergence at `(NS, NT, c, d) = (3, 2, 2, 5)` is a structural
+The convergence at the forced `(NS, NT, d) = (3, 2, 5)`, read at
+presentation `c = 2` (a free presentation parameter), is a structural
 coincidence selecting DRLT's parameters — each reading encodes a
 distinct algebraic facet (graph-Euler, cup-catalog, bipartite-
-product, gauge-adjoint), all forced to agree at DRLT's specific
+product, gauge-adjoint), all agreeing at DRLT's specific
 count-Lens choice.
 
 **Lost cohomology = NT**: `b_1 - cup-channels = 8 - 6 = 2 = NT`.
@@ -324,7 +325,8 @@ catalog is exactly the T-side bipartite vertex count.
 
 The leading expansion `1/α_em = 60·ζ(2) + 30 + 25/3 + α_GUT/4 +
 α_GUT/45` admits structural readings for every numerical factor
-in terms of `(NS, NT, c, d) = (3, 2, 2, 5)`:
+in terms of the forced `(NS, NT, d) = (3, 2, 5)`, read at presentation
+`c = 2` (a free presentation parameter):
 
 | Factor | Structural reading           | Value      |
 |--------|------------------------------|------------|

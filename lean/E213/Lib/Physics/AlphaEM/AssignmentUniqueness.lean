@@ -5,9 +5,10 @@ import E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp
 
 `DEGREES_OF_FREEDOM_LEDGER.md` Layer 1 marks the base-formula
 coefficients `derived + assignment`: each *value* is a product of the
-forced atoms `(NS, NT, c, d) = (3, 2, 2, 5)` (proven PURE in
-`InvAlphaEMDecomp`), but *which* atom-product indexes *which* physical
-layer is a separate question.
+forced atoms `(NS, NT, d) = (3, 2, 5)` read at presentation `c = 2`
+(`c` a free presentation parameter, proven PURE in `InvAlphaEMDecomp`),
+but *which* atom-product indexes *which* physical layer is a separate
+question.
 
 This file proves the **honest boundary** of what arithmetic alone
 settles:

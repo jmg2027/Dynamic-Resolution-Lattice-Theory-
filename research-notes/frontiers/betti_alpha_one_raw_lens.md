@@ -2,7 +2,8 @@
 
 **Anchor.**  The universal first Betti number closed this arc
 (`Cohomology/Bipartite/Parametric/Betti/`): `b₁ = E − V + 1`, and at the
-atomically-forced `K_{3,2}^{(c=2)}` it reads `8 = NS² − 1 = 1/α₃`.  The
+`K_{3,2}` deployment read at presentation c=2 it reads `8 = NS² − 1 = 1/α₃`
+(the `(3,2)` axes forced, `c` a free presentation parameter).  The
 `NS² − 1` shape — a square minus one — recurs, and per primacy
 (`seed/AXIOM/07_primacy.md` §7.1) a recurrence across domains is *one Raw
 self-pointing read under several Lenses*, not a coincidence to reconcile.

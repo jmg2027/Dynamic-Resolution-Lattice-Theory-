@@ -185,7 +185,7 @@ lean/E213/
 
 ## Key invariants (cross-cutting atomic identities)
 
-  - NS = 3, NT = 2, d = 5, c = 2  (atomic primitives, derived theorems)
+  - NS = 3, NT = 2, d = 5  (atomic primitives, derived theorems); `c` a free presentation parameter (no value canonical, commonly read at c = 2)
   - NS² - 1 = 8  (1/α_3, color confinement)
   - d² - 1 = 24  (SU(5) adjoint)
   - d² = 25  (Gram dim)

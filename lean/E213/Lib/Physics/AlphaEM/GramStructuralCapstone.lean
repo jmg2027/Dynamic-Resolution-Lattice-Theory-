@@ -10,7 +10,7 @@ Combines the two halves of the structural derivation:
     via `Cohomology.Cup.InvAlphaEMDecomp` — all six denominators
     (60, 30, 25, 3, 4, 45) of the formula
     `1/α_em = 60·ζ(2) + 30 + 25/3 + α_GUT/4 + α_GUT/45`
-    decomposed in terms of (NS, NT, c, d) = (3, 2, 2, 5).
+    decomposed in terms of (NS, NT, d) = (3, 2, 5) at presentation c = 2.
 
   · **Gram correction `α²/d²` structurally derived** via
     `GramStructuralNewton` Newton-1 from y₀ = X:
@@ -18,12 +18,12 @@ Combines the two halves of the structural derivation:
 
 Combined:
 
-  **1/α_em(structural) = X(NS, NT, c, d) − α²(NS, NT, c, d)/d²**
+  **1/α_em(structural) = X(NS, NT, d) − α²(NS, NT, d)/d²**, at presentation c = 2
 
-The full RHS depends only on the atomic 213 parameters
-(NS = 3 = T-iteration generation, NT = 2 = atomicity, c = 2 =
-Möbius doubling, d = 5 = fractal base) — **NO observed α appears
-anywhere**.
+The full RHS depends only on the forced atomic 213 parameters
+(NS = 3 = T-iteration generation, NT = 2 = atomicity, d = 5 = fractal
+base), read at presentation c = 2 (a free presentation parameter, no
+value canonical) — **NO observed α appears anywhere**.
 
 The structural prediction matches CODATA to within 27 × 10⁻⁹
 (≈ 0.2 ppb), satisfying the DRLT Validation Standard for a
@@ -53,7 +53,7 @@ open E213.Lib.Math.Cohomology.Cup.InvAlphaEMDecomp
 /-! ## §1 — 5-layer base coefficients structurally derived -/
 
 /-- The six denominator-numerators of the 5-layer base formula
-    are all structurally derived from (NS, NT, c, d) = (3, 2, 2, 5)
+    are all structurally derived from (NS, NT, d) = (3, 2, 5) at presentation c = 2
     per `InvAlphaEMDecomp`. -/
 theorem base_formula_denominators_structural :
     -- 60 = NS · NT² · d (order-2 / signature square)
@@ -109,7 +109,7 @@ theorem alphaInv_structural_residual_27 :
   where:
     · `X = alphaInv_213_e9 / 10⁹` is the 5-layer base formula,
       structurally derived via `Cohomology.Cup.InvAlphaEMDecomp`
-      from `(NS, NT, c, d) = (3, 2, 2, 5)` (the K_{3,2}^{(c=2)}
+      from `(NS, NT, d) = (3, 2, 5) at presentation c = 2` (the K_{3,2}^{(c=2)}
       bipartite parameters + fractal-base d).
     · `α²/d² = gram_correction_structural` derived via
       `GramStructuralNewton` Newton-1 from y₀ = X on the cubic

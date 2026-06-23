@@ -22,7 +22,8 @@ decomposition has FIVE layers:
 ```
 
 Each integer/rational coefficient is structurally fixed by the
-atomic 4-tuple (NS, NT, c, d) = (3, 2, 2, 5) with no fitting:
+forced atoms (NS, NT, d) = (3, 2, 5), read at presentation c = 2
+(`c` a free presentation parameter), with no fitting:
 
   · 60 = c · NS · NT · d        (= K-edges × atomic dim)
   · 30 = 1/α_2                  (= adjoint SU(d) · S(2))

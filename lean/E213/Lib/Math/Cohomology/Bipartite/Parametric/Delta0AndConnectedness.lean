@@ -80,8 +80,8 @@ theorem b0_K14_c1 : kerSizeDelta0Direct 1 4 1 = 2 := by decide
 /-- K_{4,1}^{(c=1)}: S/T swap of K_{1,4}.  ker = 2. -/
 theorem b0_K41_c1 : kerSizeDelta0Direct 4 1 1 = 2 := by decide
 
-/-- K_{3,2}^{(c=2)}: the forced critical deployment.  ker δ⁰ = 2
-    (the two constant cochains) ⇒ b₀ = 1. -/
+/-- K_{3,2}^{(c=2)}: the critical deployment (read at presentation c=2).
+    ker δ⁰ = 2 (the two constant cochains) ⇒ b₀ = 1. -/
 theorem b0_K32_c2 : kerSizeDelta0Direct 3 2 2 = 2 := by decide
 
 /-- K_{3,3}^{(c=2)}: 6 vertices, 18 edges.  ker = 2. -/
@@ -95,7 +95,7 @@ theorem b0_K33_c2 : kerSizeDelta0Direct 3 3 2 = 2 := by decide
   across (NS, NT, c) ranges spanning d_M ∈ {1..6} branches:
     · Trees (K_{1,k}, K_{k,1} for various k)
     · 4-cycle deployments (K_{2,2})
-    · Forced critical (K_{3,2}^{(c=2)})
+    · Critical deployment, at presentation c=2 (K_{3,2}^{(c=2)})
     · Higher-chartBase (K_{3,3}^{(c=2)})
 
   For each deployment, `kerSizeDelta0Direct = 2` means b_0 = log_2(2)

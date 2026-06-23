@@ -26,12 +26,14 @@ The 213 axioms posit only:
 - `Raw.slash_comm`  (directionless)
 
 Atomicity (`Atomic n ↔ n = 5`) forces canonical partition NS=3,
-NT=2 of the 5-vertex graph; Euler b_1 = 8 forces multiplicity c=2
-— yielding K_{3,2}^{(2)} uniquely.
+NT=2 of the 5-vertex graph.  The multiplicity `c` is a free
+presentation parameter (no value canonical); at presentation c=2 the
+Euler reading b_1 = 8 = NS²−1 selects the K_{3,2}^{(c)} deployment.
 
 ## 2.  Triple gauge coupling
 Each Standard-Model gauge coupling is a closed algebraic formula
-in only NS, NT, d=NS+NT=5, c=2, and ζ(2) (bracketed by Real213):
+in only NS, NT, d=NS+NT=5, and ζ(2) (bracketed by Real213), read at
+presentation c=2 (a free parameter, removable from every observable):
 
   1/α_em = 60·ζ(2) + 30 + 25/3 + α_GUT/4 + α_GUT/45    ≈ 137.0360
   1/α_3  = 8 + 1/2 − α_GUT + α_GUT²/2                   ≈ 8.4760

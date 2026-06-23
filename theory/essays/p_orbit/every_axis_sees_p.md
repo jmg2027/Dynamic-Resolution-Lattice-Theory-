@@ -9,9 +9,10 @@ readings exhaust the framework.
 
 ## 213-native answer
 
-The framework's atomic signature is `(NS, NT, c, d) = (3, 2, 2, 5)`
+The framework's forced atomic signature is `(NS, NT, d) = (3, 2, 5)`
 (forced by `Theory.Atomicity.PairForcing` + `Theory.Atomicity.
-Five.atomic_iff_five`).  The Möbius matrix `P = [[2,1],[1,1]]`
+Five.atomic_iff_five`), read at presentation `c = 2` (a free
+presentation parameter, no value canonical).  The Möbius matrix `P = [[2,1],[1,1]]`
 encodes this as its algebraic invariants
 
   `(trace, det, disc) = (NS, NS−NT, NS+NT) = (3, 1, 5)`

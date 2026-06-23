@@ -152,9 +152,10 @@ def alpha_gut_45_distance : Nat :=
     This is numerical evidence (not proof) that
         Δ_gap := 1/(NS · NT · π⁵)
     may be the correct cohomology-ring-graded replacement for the
-    SO(10) tail in `1/α_em(IR)`, with all atomic constants
-    (NS, NT, c, d) emerging from the K_{3,2}^{(c=2)} ↪ Δ⁴ scaffold
-    (no extra parameters).
+    SO(10) tail in `1/α_em(IR)`, with the forced atomic constants
+    (NS, NT, d) emerging from the K_{3,2} ↪ Δ⁴ scaffold read at
+    presentation c = 2 (a free presentation parameter; no extra
+    parameters).
 
     ## Open questions:
       · Is `1/(NS·NT·π⁵)` exactly the right form, or only a leading-

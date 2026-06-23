@@ -58,8 +58,8 @@ theorem b1Formula_K32 : b1Formula 3 2 2 = 8 := by decide
   | K_{2,2}^{(c=1)}       | 1   | 4-cycle                       |
   | K_{2,2}^{(c=2)}       | 5   | double-covered 4-cycle        |
   | K_{1,4}^{(c=1)}       | 0   | tree branch at d_M = 4        |
-  | K_{3,2}^{(c=2)}       | 8   | **forced critical**           |
-  | K_{2,3}^{(c=2)}       | 8   | S/T swap of forced            |
+  | K_{3,2}^{(c=2)}       | 8   | **critical (at presentation c=2)** |
+  | K_{2,3}^{(c=2)}       | 8   | S/T swap of critical          |
   | K_{3,3}^{(c=2)}       | 13  | d_M = 5 candidate (rejected)  |
 -/
 theorem b1Formula_G121_family :

@@ -252,8 +252,9 @@ the P-orbit level, not the atomic level.
 
 ## Crystallized master claim
 
-> The 213 framework's atomic signature
-> `(NS, NT, c, d) = (3, 2, 2, 5)` is the *minimal-depth slice*
+> The 213 framework's forced atomic signature
+> `(NS, NT, d) = (3, 2, 5)` (read at presentation `c = 2`, a free
+> presentation parameter) is the *minimal-depth slice*
 > of the **Lucas-Pell trace orbit of P**, which is the
 > eigenstructure of the unique minimal nontrivial hyperbolic
 > ℤ-arithmetic dynamical system.

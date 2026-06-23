@@ -28,8 +28,9 @@ A prediction qualifies as *forward* (not retrodiction) only if **both**:
    carries risk.
 
 Every DRLT value below is pinned by a **PURE** Lean theorem
-(`#print axioms` empty), so the prediction is fixed by the `(NS,NT,c,d) =
-(3,2,2,5)` atomic signature, not adjustable after the fact.
+(`#print axioms` empty), so the prediction is fixed by the forced
+`(NS,NT,d) = (3,2,5)` atomic signature (read at presentation `c = 2`, a
+free presentation parameter), not adjustable after the fact.
 
 Retrodictions (1/α_em, m_μ/m_e, m_p, Koide Q=2/3, magic numbers, …) are
 **deliberately excluded** from this register — they live in
@@ -77,7 +78,7 @@ near-term experiment whose result DRLT cannot retro-adjust.
 > So P2 is, honestly, a **cross-prediction**: "given the (measured)
 > Jarlskog `J` and the derived `α_GUT`, θ_QCD = `J·α_GUT⁴`." That is a
 > legitimate and still-falsifiable relation between observables — but it
-> is **not** `θ_QCD` from `(NS,NT,c,d)` alone. To promote P2 to a clean
+> is **not** `θ_QCD` from `(NS,NT,d)` alone. To promote P2 to a clean
 > forward prediction, **derive `J`'s magnitude** (not just its λ-power
 > structure) from the atoms. Until then, P2 is registered *with this
 > caveat attached* — registering it as "fully PURE-pinned" would be the

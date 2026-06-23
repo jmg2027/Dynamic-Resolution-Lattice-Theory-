@@ -5,8 +5,8 @@ import E213.Lib.Physics.Simplex.Counts
 # Mobius213K33Bridge — K_{3,3}^(c) numerical signature ↔ Möbius P
 
 The bipartite multigraph `K_{3,3}^(c)` is the SYMMETRIC analog of
-the canonical `K_{3,2}^(c=2)` Lattice (NS = NT = 3, vs NS = 3 ≠
-NT = 2).  Its numerical signature:
+the `K_{3,2}` Lattice read at presentation c=2 (NS = NT = 3, vs
+NS = 3 ≠ NT = 2).  Its numerical signature:
 
   · `NS = NT = 3` (symmetric)
   · `6 = NS + NT = 2·NS` total vertices

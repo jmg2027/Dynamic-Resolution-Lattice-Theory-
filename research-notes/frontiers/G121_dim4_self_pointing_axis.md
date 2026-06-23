@@ -5,6 +5,16 @@ Branch: `claude/geometrization-conjecture-9Vf6i`.
 Below 213 Validation Standard.  No precision theorem, no falsifier
 yet.  Four open knots (M1)-(M4) listed §6.
 
+> **On `c = 2`** — the multiplicity `c` is a **free Lens-presentation
+> parameter** of `K_{NS,NT}^{(c)}`, **not forced**, no value canonical.
+> Where this note reads `c = 2` as "structurally forced / uniquely
+> forced" (the Möbius / Route-C thread below), read instead "**selected
+> to hit `b₁ = NS²−1 = 8`, at presentation `c = 2`**".  Authoritative
+> status: `research-notes/frontiers/atomic_c_multiplicity_forcing.md`
+> (`c = NT` is a `decide`-coincidence of two distinct 2's; the Möbius
+> route is non-forcing on inspection).  The `(NS, NT, d) = (3, 2, 5)`
+> axes are forced; `c` is not a fourth primitive.
+
 ## §1 Starting point — Geometrization conjecture
 
 ### §1.1 Standard statement (Thurston 1982 / Perelman 2003)
@@ -329,7 +339,8 @@ K_{2,9}^{(c=1)}  |   ✗   |      ✗       |  ✗
 ```
 
   · **Depth filter reduces 10 → 2 (= 1 mod S/T swap)**:
-    K_{3,2}^{(c=2)} uniquely forced.
+    K_{3,2} selected, at presentation c=2 (the `(3,2)` axes forced;
+    `c` free — see status banner).
   · Lean: `cohomology_depth_uniqueness`,
     `depth_filter_strict`, `strong_combined_uniqueness_with_depth`.
 
@@ -343,9 +354,10 @@ not intrinsically weak.
 **Combined uniqueness — TWO formulations**:
 
 *Weaker (step 7)*: atomicity + cohomology-restricted-to-(NS,NT)=(3,2)
-  · Atomicity → (NS, NT) = (3, 2)
-  · Cohomology under (NS,NT)=(3,2) → c = 2 (only c=2 gives b_1=8)
-  · Together → K_{3,2}^{(c=2)} uniquely
+  · Atomicity → (NS, NT) = (3, 2)  (the axes forced)
+  · Cohomology under (NS,NT)=(3,2): only presentation c=2 gives b_1=8
+    (a value-at-c=2 reading; `c` free — see status banner)
+  · Together → K_{3,2}, read at presentation c=2
   · Lean: `ChartAxisAnsatz.combined_atomicity_cohomology_uniqueness`.
 
 *Stronger (step 8 — independent of cohomology)*:
@@ -353,14 +365,15 @@ not intrinsically weak.
   · `half_period = 5` (P^5 ≡ -I mod 5, pentagonal half-rotation)
   · `full_period = 10` (P^10 ≡ +I mod 5, full closure)
   · `c = full_period / half_period = 10 / 5 = 2 = NT`
-  · c = 2 is **structurally forced** by Möbius mod-5 period, NOT
-    by cohomology.
+  · The `c = NT` reading is a `decide`-coincidence of two distinct
+    2's (arity-base `Fin 2` vs partition-slot `NT`), **not** a forcing
+    — `c` stays a free presentation parameter (see status banner).
   · Lean: `ChartAxisAnsatz.c2_derived_from_mobius_period`.
 
-Combined: atomicity (Routes A: NS=3, NT=2) + Möbius (Route C: c=2)
-**alone** uniquely force K_{3,2}^{(c=2)}, independent of any
-cohomology scope.  Cohomology α_3 match (Route B) is now
-*consistency verification*, not forcing source.
+Combined: atomicity (Routes A: NS=3, NT=2) fixes the `(NS,NT)` axes;
+the Möbius reading (Route C) *selects* presentation `c = 2`, at which
+`K_{3,2}^{(c=2)}` reads `b₁ = 8`.  Cohomology α_3 match (Route B) is a
+*consistency verification* at that presentation, not a forcing source.
 
   · Lean: ★★★★ `ChartAxisAnsatz.triple_route_K32_c2_unique`.
 
@@ -497,8 +510,9 @@ material (e.g., `Lens/Number/Nat213/ChartGeneral.lean`).
     proves that among small candidates with `NS + NT ≤ 5`, `c ≤ 3`,
     ONLY `(3,2,2)` and `(2,3,2)` give `b_1 = 8 = 1/α_3`.
     Independent of atomicity-route forcing (step 4) — cohomology
-    forces the same K_{3,2}^{(c=2)} deployment from an entirely
-    different layer (α_3 integer match vs. Raw Clause 1 atomicity).
+    *selects* the same K_{3,2}^{(c=2)} deployment (at presentation c=2)
+    from an entirely different layer (α_3 integer match vs. Raw Clause 1
+    atomicity); the value-at-c=2 reading, `c` still free.
 
   · **★★★★★ G121_R1_master_capstone**: 4-route convergence
     theorem (PURE).  All four routes — axiom-level shadow,
@@ -683,8 +697,9 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      `Cohomology/Examples/WhyDimFive.lean` and
      `TopologyCompare.topology_uniqueness` already prove that
      among small (n, m, c), ONLY (3,2,2) and (2,3,2) yield
-     `b_1 = 8 = 1/α_3`.  This forces K_{3,2}^{(c=2)} from the
-     cohomology-α_3-matching side, independent of atomicity-route.
+     `b_1 = 8 = 1/α_3`.  This *selects* K_{3,2} at presentation c=2
+     from the cohomology-α_3-matching side (the value-at-c=2 reading;
+     `c` free — see status banner), independent of atomicity-route.
 
      ★★★★★ `G121_R1_master_capstone` upgraded to 4-route
      convergence: axiom-level shadow + deployment connectedness +
@@ -713,7 +728,8 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      `combined_atomicity_cohomology_uniqueness`):
        · Atomicity-route: STRONG forcing of (NS, NT) = (3, 2)
        · Cohomology-route: PARTIAL (10 b_1=8 deployments)
-       · Combined: K_{3,2}^{(c=2)} uniquely forced
+       · Combined: K_{3,2} selected at presentation c=2 (`(3,2)` forced;
+         `c` a free presentation parameter — see status banner)
 
      Standard-math d_M=4 critical (Donaldson) is unique across
      ALL d.  213-Lens cohomology alone is NOT — strength gap
@@ -723,12 +739,13 @@ branch `claude/geometrization-conjecture-9Vf6i`:
      already derives c=2 from G80 Möbius mod-5 period structure:
        · `half_period = 5` (P^5 ≡ -I mod 5)
        · `full_period = 10` (P^10 ≡ +I mod 5)
-       · `c = full / half = 2 = NT`  (structurally forced)
+       · `c = full / half = 2 = NT`  (a `decide`-coincidence of two
+         distinct 2's, **not** a forcing — see status banner)
 
      This is **independent of cohomology-route** (which we showed
-     was partial).  Combined with atomicity (NS=3, NT=2) gives
-     **strong K_{3,2}^{(c=2)} uniqueness** without depending on
-     cohomology uniqueness scope.
+     was partial).  Combined with atomicity (NS=3, NT=2) it *selects*
+     presentation **c=2** for K_{3,2}, at which `b₁ = 8` — `c` remains
+     a free presentation parameter, not a fourth forced primitive.
 
      ★★★★ `triple_route_K32_c2_unique`: atomicity + Möbius +
      cohomology-verification together fully fix K_{3,2}^{(c=2)}.
@@ -892,7 +909,7 @@ branch `claude/geometrization-conjecture-9Vf6i`:
        · 213-Lens analog of Smale/Freedman/Perelman generalized
          Poincaré at ALL dimensions, not just d=3.
        · KEY DISCOVERY: at chartBase = 5 (d_M = 4), K_{1,4}^{(c=1)}
-         tree COEXISTS with K_{3,2}^{(c=2)} forced critical.
+         tree COEXISTS with K_{3,2}^{(c=2)} critical (at presentation c=2).
        · ★★★★ `chartBase_5_tree_and_critical_coexist`: tree
          branch (b_1=0) + critical branch (b_1=8) at d_M=4 as
          distinct deployments.
@@ -1640,15 +1657,16 @@ statements are pointwise (`∀ x, σ x = …`).
 `KChartLensAbstract.dM_four_via_M1_forced_and_M2_universal_kernel`
 (PURE) chains the two closed knots into the geometrization value:
 
-  · M1: atomicity (3,2) + Möbius c=2 force K_{3,2}^{(c=2)},
+  · M1: atomicity (3,2) fixes the axes; the Möbius reading *selects*
+    presentation c=2 for K_{3,2}^{(c=2)} (`c` free — see status banner),
     chartBase = 5 = d_213.
-  · M2 (universal): the forced deployment's δ⁰-kernel is exactly the
+  · M2 (universal): the selected deployment's δ⁰-kernel is exactly the
     two constant cochains, so selfPointingAxes = dim ker δ⁰ = 1 is
     *derived*, not a definitional value.
   · ⇒ d_M = chartBase − 1 = 5 − 1 = 4, with the "−1" the derived
     kernel dimension; d_M = d_213 − 1 is the universal law
     (chartVisibleAxes = chartBase − 1 for every connected K), d_M = 4
-    its value at the unique forced deployment.
+    its value at the selected deployment (read at presentation c=2).
 
 This is the first theorem where d_M = 4 routes through the derived
 kernel dimension rather than the definitional `selfPointingAxes := 1`.
@@ -1665,12 +1683,14 @@ sources, now that M2 is universally closed:
     (`every_dimension_realized`: the star K_{d,1}^{(c=1)} gives
     chartVisibleAxes = d for each d). The kernel singles out no
     dimension.
-  · **M1 forces the dimension.** Atomicity (3,2) + Möbius c=2 select
-    the unique K_{3,2}^{(c=2)} (`triple_route_K32_c2_unique`),
+  · **M1 forces the dimension.** Atomicity (3,2) fixes the axes; the
+    Möbius reading *selects* presentation c=2 for K_{3,2}^{(c=2)}
+    (`triple_route_K32_c2_unique`; `c` free — see status banner),
     chartBase = 5 = d_213, hence d_M = 4.
 
 Conclusion: d_M = 4 is critical because the residue's atomicity forces
-(3,2,2) — not because dimension 4 is kernel-distinguished. The
+the (3,2) axes (read at presentation c=2) — not because dimension 4 is
+kernel-distinguished. The
 exotic-anomaly criticality lives in M1 (forcing); the d_M = d_213 − 1
 mechanism lives in M2 (uniform 1-dim kernel). This is the sharp 213
 answer to the note's opening "왜 4차원에서만 어노말리가" question:

@@ -31,7 +31,8 @@ the **identification** of `f`, `H_k`, and the uniform bound `M_k`.
 
 ## §2 Why this is 213-native
 
-DRLT atomic primitives `{NS = 3, NT = 2, d = 5, c = 2}` and
+DRLT forced atomic primitives `{NS = 3, NT = 2, d = 5}` (multiplicity
+`c` a free presentation parameter, read at `c = 2`) and
 operations `{+, *, ^}` generate a **bounded-description-length**
 complexity hierarchy `H_0 ⊆ H_1 ⊆ H_2 ⊆ …`.  Each level
 `H_k = {v ∈ ℕ : v has Hunter expression of depth ≤ k}` is

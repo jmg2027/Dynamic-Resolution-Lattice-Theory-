@@ -27,8 +27,9 @@ Lens and the leaf-grade Lens.
 
 ### §1 Forcing chain (parameterless)
 
-`physics/foundations/atomic_constants.md` derives
-`(NS, NT, c, d) = (3, 2, 2, 5)` from `seed/AXIOM/`: no exterior
+`physics/foundations/atomic_constants.md` derives the forced
+`(NS, NT, d) = (3, 2, 5)` (read at presentation `c = 2`, a free
+presentation parameter) from `seed/AXIOM/`: no exterior
 dialer (`§5.1`), atomicity (`§4.2`), Pell-Lucas recurrence
 (`Theory/Atomicity/PairForcing`), `k = 2` arity forcing.  Then
 `gcd(NT, NS) = gcd(2, 3) = 1` is `Common.coprime_2_3` — Lean

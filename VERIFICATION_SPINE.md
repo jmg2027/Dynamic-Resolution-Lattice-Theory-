@@ -150,7 +150,8 @@ GramStructuralCapstone.invAlphaEm_precision_theorem :
     ∧ NS = 3 ∧ NT = 2 ∧ c = 2 ∧ d = 5
 ```
 
-Reading the coefficients with `(NS, NT, c, d) = (3, 2, 2, 5)`:
+Reading the coefficients with the forced `(NS, NT, d) = (3, 2, 5)` at
+presentation `c = 2` (a free presentation parameter):
 
 | Coefficient | Structural form | Value |
 |---|---|---|

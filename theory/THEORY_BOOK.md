@@ -30,7 +30,8 @@ lines of narrative + ~50k lines of `lean/E213/` source are
 
 213 is the 4-clause Raw axiom and *everything it forces*:
 
-  · the atomic data `(NS, NT, c, d) = (3, 2, 2, 5)`
+  · the atomic data `(NS, NT, d) = (3, 2, 5)` (multiplicity `c` a free
+    presentation parameter, commonly read at `c = 2`; no value canonical)
   · the Möbius matrix `P = [[2, 1], [1, 1]]` (det 1, trace 3)
   · the (2, 3)-graded arithmetic of GRA
   · the universe of Reading vocabularies (Cat, HoTT, Cohomology,
@@ -407,7 +408,7 @@ is a property of the Lens, not of Raw.
 
 ---
 
-## Part III — Atomic forcing: `(NS, NT, c, d) = (3, 2, 2, 5)`
+## Part III — Atomic forcing: `(NS, NT, d) = (3, 2, 5)` (multiplicity `c` free)
 
 ### III.1 Pair forcing — `(NS, NT) = (3, 2)`
 
@@ -1124,8 +1125,8 @@ Architectural canonical: `lean/E213/ARCHITECTURE.md`.
 | **Lens-arrow** | `Lens.refines L M` — the single concept underlying eq-relation / equiv-class / iso / hom |
 | **Distinguishing** | The primitive act 213 names (per `seed/AXIOM/01_residue.md`) |
 | **Atom** | `Raw.a` or `Raw.b` |
-| **Atomicity** | Pell-Lucas-Möbius forcing of `(NS, NT, c, d) = (3, 2, 2, 5)` |
-| **(NS, NT, c, d)** | `(3, 2, 2, 5)` — uniquely forced |
+| **Atomicity** | Pell-Lucas-Möbius forcing of `(NS, NT, d) = (3, 2, 5)` |
+| **(NS, NT, d)** | `(3, 2, 5)` — uniquely forced; `c` a free presentation parameter (no value canonical) |
 | **K_{NS, NT}^{(c)}** | The bipartite multigraph; `c` is a free presentation parameter (no value canonical), commonly read at `c = 2` |
 | **Δⁿ** | n-simplex; `Δ⁴` is the (c=2) dual filling |
 | **Möbius P** | `[[2, 1], [1, 1]]` — the algebraic crystallisation of atomic data |

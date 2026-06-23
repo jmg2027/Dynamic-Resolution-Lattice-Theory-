@@ -1368,9 +1368,9 @@ formally**.  "ℂ⁵ chiral atomic decomposition is forced and unique"
 becomes a single decide-checkable statement spanning four
 machineries (atomicity, linalg, cohomology, physics).  Each
 conjunct is a different lens on the same underlying fact — that
-the K_{3,2}^{(c=2)} chiral lattice is the unique structure
-consistent with both the atomicity axiom AND the physics
-observation 1/α_3 = 8.
+the K_{3,2} chiral lattice, read at presentation c=2 (a free
+presentation parameter), is the unique structure consistent with
+both the atomicity axiom AND the physics observation 1/α_3 = 8.
 
 The key consolidation: **paper 1 is no longer a heuristic
 "we propose ℂ² ⊕ ℂ³"** — it is a proven conjunction of six
