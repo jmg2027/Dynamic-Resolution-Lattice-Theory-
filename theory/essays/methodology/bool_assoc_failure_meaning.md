@@ -49,7 +49,7 @@ since 5 is forced from (3, 2).
 `Lib/Math/NumberSystems/Padic/ZpSqrtD.lean` `ZpSqrtD p`: works at any prime `p`
 (p = 5, 7, 11, ...).  The framework already holds every prime within itself.
 
-`Lib/Math/Cohomology/Bipartite/V32.lean`: the bipartite (3-side, 2-side) structure of
+`Lib/Math/Cohomology/Bipartite.lean`: the bipartite (3-side, 2-side) structure of
 K_{3,2}^{(c=2)} generates every observable as a cup-ring.
 
 `Lib/Physics/AlphaEM/Capstone.lean` `unified_single_sum_form`: α_em is derived from
