@@ -200,6 +200,31 @@ admits *both* adjunctions consistently — so **AC's Gödel–Cohen independence
 adjoining a generic `σ`).  Honest scope: a *dissolution + structural prediction of independence*, not a proof
 of AC.  ∅-axiom witness: `Lib/Math/Logic/ChoiceLens.lean` (two explicit sections, a σ-dependent operation).
 
+**(viii) The section-count trichotomy `0 / 1 / many` — wall / forced / free, one axiom (§5.1)** (the
+"no-walls" seminar R1 synthesis, `frontiers/no_walls_seminar/R1_synthesis.md`).  The originator's
+choice-correction, pushed to its conclusion by a four-researcher round, **reclassifies every boundary of the
+calculus** under a single count — the number of *canonical sections* of the reading-fibration over a
+construction `C`, governed by the no-exterior axiom (§5.1):
+
+| canonical sections | status | what it is | anchor |
+|---|---|---|---|
+| **0** (proven `¬∃`) | **the WALL** — internal & *generative* | the residue's non-surjection = the Lawvere diagonal | `object1_not_surjective`, `one_diagonal_generates` (11/0) |
+| **1** (`∃!`) | **FORCED** | the atomic data `C=(NS,NT,d,c)` | `ArityForcing` (arity 2 unique) |
+| **many** (`∃`, none canonical) | **FREE** | the Lens parameters σ / base / modulus / presentation | `ChoiceLens` (12/0), `iProdLens` (8/0) |
+
+So: **exactly one wall** (the diagonal — *internal*, 213's founding theorem, not an external limit), and it
+is the `0`-section pole of the *same* fibration whose `1`-pole is the forced atoms and whose `many`-pole is
+the free parameters.  **The trichotomy is the `q=±1` tag one level up** (= finding (iii)): `escape /
+converge-uniquely / run-free`.  Sharp discriminator (skeptic): a free σ is a *declined `Prop` with an
+operand you can dial*; the wall is a *proven `¬∃` with no operand* — a proof is the structural opposite of a
+free parameter (freedom is in the *approach* — modulus/presentations; the wall is in the *limit* —
+reached-by-none).  The `many`-pole splits into **selection-σ** (closed-fiber, symmetric, = **forcing**;
+σ-glue machinery `familyMeet`/`iProdLens` already PURE, only the *generic* absent) and **height-h**
+(open-tower, asymmetric/one-way by Gödel II, = **large cardinals**; `DepthHeightDiagonal` builds the step
+*toward* ε₀, no ordinal object) — `B`'s two aspects, and the two axes of set-theoretic independence.  Third
+status kept distinct: a *missing modelling input* (the ambient `S³`) is **absence ≠ obstruction ≠
+parameter**, not a fourth count.
+
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
 Homological algebra (`practice/homological_algebra.md`) does not add a field; it **names the operation

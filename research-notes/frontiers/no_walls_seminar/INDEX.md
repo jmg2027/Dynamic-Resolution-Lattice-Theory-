@@ -37,4 +37,9 @@ fog (unfold every term or cite a theorem); no false witnesses; no forcible maps.
 
 ## Round log
 
-- **R1 (2026-06-23):** launched A/B/C/D. [results synthesized below as they land]
+- **R1 (2026-06-23):** A/B/C/D returned + orchestrator H1–H3.  **Synthesis: `R1_synthesis.md`** — the
+  grand thesis amends to the **section-count trichotomy `0/1/many` = wall / forced / free**, one axiom
+  (§5.1), the `q=±1` tag one level up.  One *internal generative* wall (the diagonal); free params split
+  selection-σ (=forcing) / height-h (=large cardinals).  Folded into `SYNTHESIS.md` §2 (viii).
+- **R2 (next):** build `ForcingToy.lean` (the independence toy); the section-count as a stated `Moduli(C)`
+  object; genericity (σ-over-σ or wall?); symmetric-σ vs asymmetric-h = escape/converge on the strength axis.
