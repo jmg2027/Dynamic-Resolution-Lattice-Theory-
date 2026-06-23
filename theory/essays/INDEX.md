@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 107 essays are grouped into ten thematic sub-directories — distinct
+The 108 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -201,6 +201,11 @@ the number-theoretic primacy-witness — generalized to its full structural form
 `leavesModNat` refinement lattice IS the divisibility lattice (`refines`=`∣`, meet=`lcm`),
 `L_{lcm(m,k)} ≈ prodLens(L_m,L_k)` for ALL positive `m,k`, with CRT the coprime corner
 `lcm=m·k`; `LensLcmMeet`, `lcm_unique` via the universal property `lcm_dvd`).
+`the_axiom_of_choice_is_a_free_lens_parameter` (a choice function is a *section* = a Lens `σ`;
+no exterior dialer fixes it (§5.1), so AC is not asserted/refused but *parametrised* — compute
+per-`σ`; over a binary fiber `σ` IS the `q=±1` tag and LLPO is that bit unforced; AC's
+independence = `σ` free (forcing = adjoining a generic `σ`, `ForcingToy`), its limit a
+reached-by-none `Real213`-cut (`GenericAsCut`); the no-exterior/q=±1/forcing/cut frames as one).
 
 **V. `analysis/` — analysis, depth & number systems.**
 `polynomial_in_213`, `non_holonomicity_as_finite_state_escape`,
