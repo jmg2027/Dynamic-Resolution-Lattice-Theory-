@@ -114,8 +114,8 @@ propext leak, apply these in order:
 These modules are partially resolved with the surface trick set;
 deeper Lean-core dependencies remain:
 
-  - `Real213.CutSumGeneral` — 4 DIRTY, Quot.sound removed but
-    propext remains.
+  - `Real213.CutSumGeneral` — DIRTY (propext; Quot.sound removed),
+    tracked in `STRICT_ZERO_AXIOM.md`.
   - `Real213.CutMidMono.cutLe_a_cutMid_at` — same.
   - `Cauchy.GenericFamily.*` — funext-by-design (Lens combine).
   - `Cauchy.WallisSharper.wallis_sharper_lower` — omega + by_cases
@@ -132,7 +132,9 @@ These need either deeper trick development or a staged Lens-equality refactor:
   - Lens-level vertical-internal projection (eqPW generalisation)
     — a candidate 4th domain.
   - Cauchy sequence-level `cutSum` / `cutMul` bridge.
-  - DRLT physics theorems → ∅-axiom (currently 19 sealed → 0).
+  - DRLT physics theorems → ∅-axiom (the sealed-DIRTY-by-design
+    modules; see `STRICT_ZERO_AXIOM.md` / `tools/scan_all_axioms.py`
+    `SEALED_DIRTY_PREFIXES`).
   - L3 syntactic internalisation lives in
     `Lens.SyntacticInternalization`.  Polish-prefix parser/printer
     with full bijection: forward (`parseTree_printTree`), reverse

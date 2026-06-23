@@ -530,7 +530,7 @@ retired.
 ### Catalogs
 
   · `catalogs/falsifiers.md` — manual physics-falsifier roster
-    (F1-F26).
+    (F1–F27, gaps at F16/F25 — 25 entries).
   · `catalogs/falsifier-roster.md` — auto-discovered structural
     roster (135 entries).
   · `catalogs/recursor-inventory.md` — 185 inductive types with

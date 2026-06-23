@@ -77,15 +77,17 @@ and 4 add **no positive commitment** — they record axiom-level
 *absences* (no absolute order; no self-residue, §3.3), read off the
 completed act, not bolted onto a machine.  What the Lean
 type-theory codomain costs is the need to **declare** those absences
-explicitly; that declaration is an **(α) re-expression of the
-axiom**, not a (β) encoding artefact (§10.3).  The full cost
-catalogue is §10.
+explicitly; how that declaration classifies under §10.3 differs by
+clause — clause 4's `≠`-precondition is an **(α) re-expression of the
+axiom**, while clause 3's symmetry is enforced by **(β)**
+canonicalisation machinery with a **(γ)** symmetry law.  The full
+cost catalogue is §10.
 
 | # | Clause | Status |
 |---|---|---|
 | 1 | Distinguishing operates; the residue is recorded as distinguishable somethings `a`, `b`. | **axiom (positive)** — the re-expression of "a exists" together with its inevitable distinguishing residue.  The `2` here is the count-Lens reading of the result, not a Raw-level cardinality commitment; cardinality is absent at Raw per §2.5. |
 | 2 | The residue of distinguishing already-distinguished somethings is itself a something: `a/b`. | **axiom (positive)** — the auto-emergence of the residue family.  `/` is *referring*, not operator. |
-| 3 | Pairing is symmetric: `a/b = b/a`. | **axiom-level absence, declared** — no absolute order exists in the axiom (§3.3); Lean's inductive presentation imposes argument positions, so the absence must be re-expressed as a symmetry quotient (α, §10.3). |
+| 3 | Pairing is symmetric: `a/b = b/a`. | **axiom-level absence, declared** — no absolute order exists in the axiom (§3.3); Lean's inductive presentation imposes argument positions, so the absence is re-expressed as a canonical-form quotient: the **(β)** canonicalisation machinery (`Tree.cmp`, `Tree.canonical`) with the symmetry law `Raw.slash_comm` a **(γ)** consequence (§10.3). |
 | 4 | No pairing with oneself: `x/x` is undefined. | **axiom-level absence, declared** — distinguishing has no self-operand (§3.3); Lean re-expresses this as the explicit precondition `x ≠ y` to block `slash x x` (α re-expression of clauses 1–2, §10.3). |
 
 The forcing chain that explains *why* exactly these four clauses

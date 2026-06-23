@@ -12,8 +12,9 @@ The Raw axiom has 4 clauses (§3.2 code-friendly restatement):
   (a) `a` is a thing                     [axiom — §3.2 clause 1]
   (b) `b` is a thing, distinct from `a`  [axiom — §3.2 clause 1]
   (slash) pairing residue `a/b`          [axiom — §3.2 clause 2]
-  (distinctness) `x ≠ y` precondition    [encoding cost — §3.2
-                                          clause 4 + §8a.1]
+  (distinctness) `x ≠ y` precondition    [axiom-level absence,
+                                          declared as an (α)
+                                          re-expression — §2.4 / §10.3]
 
 Removing each clause causes framework collapse:
 

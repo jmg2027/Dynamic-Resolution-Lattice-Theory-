@@ -142,8 +142,8 @@ so `e` is computed from the structure, not approached as a target.
 The residue's form does **not** make 213 a *bounded domain* — a boundary would import the
 very exterior §5.1 denies.  It makes 213 **self-justified**: the act of describing 213 is
 itself an instance of 213, so the framework needs no external metatheory to license its
-minimality, where every other foundation must presuppose something to begin
-. The positive, measurable signature is
+minimality (the describing is internal; there is no exterior position from which to demand
+one, §5.1). The positive, measurable signature is
 cross-domain agreement: the same φ / unit recurs across unrelated readings — det, glue, unit
 share a byte-identical proof (`catalogs/cross-domain-identifications` CDI-9), and a single
 atomicity simultaneously forces the physical constants
