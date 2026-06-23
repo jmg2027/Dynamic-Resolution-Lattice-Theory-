@@ -11,9 +11,9 @@ b_1 = 8 = NS² − 1 (= 1/α_3 = SU(3) gluon octet) at the
 
 The 2-skeleton's b_2 = 1 class ω = (1, 1, 1) is the unique
 Sym(3)-invariant 2-cocycle; cohomology at the 3-skeleton + 4-skeleton
-truncations and Steenrod-algebra structure (Sq^i, Adem, Cartan,
-cup_i ladder, Steenrod-Whitehead bridge `cup_1(ω, ω) = δ²(ω)`)
-are developed in `k32_higher_cohomology.md`.
+truncations and the Steenrod ladder at ω (Sq⁰/Sq¹, cup_1/cup_2 face
+ladder, Steenrod-Whitehead bridge `cup_1(ω, ω) = δ²(ω)`) are
+developed in `k32_higher_cohomology.md`.
 
 The whole result is **carrier-free**: there is no 12-edge
 K_{3,2}^{(c=2)} graph file.  The b_0 = 1 / b_1 = 8 content lives
@@ -88,50 +88,29 @@ joined) runs with zero `propext`.  Key theorems:
 - `isKer_root_determines` — root colour is the single free
   parameter (`dim ker = 1`)
 - `universal_kernel_close` — the four facts bundled
+  (`isKer_iff_const`, `isKer_const_false_or_true`,
+  `isKer_root_determines`, `visible_plus_one`: visible dim
+  `(NS + NT) − 1`)
 
-The **flat-operator** form of the same result is
-`KerSizeUniversal.ker_iff_constant`:
-`(∀ e, CochSpaces.delta0 σ e = false) ↔ (∀ i j, σ i = σ j)` for the
-canonical flat coboundary (edges `Fin (c·NS·NT)`), ∅-axiom — its
-integer edge-decode uses the repo's pure division library
-`Meta.Nat.NatDiv213`, the propext-free replacements for core `Nat.div` /
-`Nat.mod`.  So the universal kernel = constants holds on the flat
-operator directly; the product-indexed `KernelConstancyUniversal` is the
-division-free companion that carries the count-form lemmas and the
-graph-connectedness instantiation.
+### First Betti number `b₁ = E − V + 1` (parametric)
 
-### Universal first Betti number `b₁ = E − V + 1`
+The first Betti number is the parametric formula
+`b1Formula NS NT c = c·NS·NT + 1 − (NS + NT)`
+(`EulerAndCapstone.b1Formula`), the `E − V + 1` count for a connected
+deployment with `E = c·NS·NT` edges and `V = NS + NT` vertices.  At the
+presentation `c = 2` of `K_{NS,NT}^{(c)}`:
 
-`BettiOneUniversal.lean` (`betti_one_universal`) assembles the first
-Betti number from ∅-axiom cardinalities counted via
-`Combinatorics.BoolEnum` (cochains as `List Bool`, count by
-`List.length` — no `Fintype`, `funext`, or `Nat.div`):
+  - `b1Formula 3 2 2 = 8 = NS² − 1 = 1/α₃` (`b1Formula_K32`, `decide`);
+  - `eulerChar 3 2 2 = (NS + NT) − c·NS·NT = −7` (`eulerChar_K32`);
+  - `eulerChar = 1 − b₁` across the family
+    (`eulerChar_eq_one_sub_b1_family`).
 
-  - `|C⁰| = 2^V`        (`allBoolLists_length`),
-  - `|ker δ⁰| = 2`      (`bcount_const`; kernel ⟺ constant) — `dim ker = 1`,
-  - `|im δ⁰| = 2^(V−1)` (`bcount_headFalse`) — `dim im = V − 1`.
+The `c` here is a free presentation choice (it re-presents `NS² − 1`),
+not a forced datum.  The tree deployments give `b₁ = 0`, and
+`kerSize = 2` holds across the family — all bundled in
+`parametric_close_capstone`.
 
-The `2^(V−1)` is an **actually-counted image cardinality of the genuine
-K_{NS,NT} coboundary**, fully ∅-axiom.  The general count
-`PathCoboundary.im_count_inj_complement` (`|im f| = 2^(V−1)` for any
-complement-invariant, head-`false`-injective `f` — rank–nullity
-`2^V/2` realised combinatorially) is instantiated in `KEdgeCochain` at the
-list-valued complete-bipartite coboundary `edgeCochain NS NT σ = [σ[s] ⊕
-σ[NS+t] : s<NS, t<NT]`.  Its two hypotheses are proven directly on lists:
-`edgeCochain_complement` ((¬a)⊕(¬b) = a⊕b) and `edgeCochain_inj_headFalse`
-(equal edge values force `σ ⊕ τ` constant across the adjacency;
-head-`false` pins it to all-`false`).  So `KEdgeCochain.im_edgeCochain_card`
-gives `|im δ⁰_K| = 2^(V−1)` — no `funext`, `Fintype`, `Nat.div`, or cited
-bridge (`im_pathDelta_card` is the path-graph instance; `|im|` is
-`c`-independent, the `c=1` edge set suffices).  The rank relations are
-then exact ∅-axiom arithmetic (`2^(m+1) = 2 · 2^m`,
-`2^E = 2^(V−1) · 2^{b₁}` with `E = (V−1) + b₁`), giving
-`dim H¹ = b₁ = E − V + 1`.  At the presentation `c=2` of `K_{NS,NT}^{(c)}`
-(`betti_one_K32`, `im_edgeCochain_K32` = `2^4`): `V = 5`, `E = 12`,
-`b₁ = 8 = NS² − 1 = 1/α₃` — the `c` here a free presentation choice (it
-re-presents `NS²−1`), not a forced datum.
-
-The same conclusion is also reached through the abstract
+The connectedness fact behind `b₀ = 1` is also reached through the abstract
 graph-connectedness induction of
 `theory/math/combinatorics/graph_connectivity.md`
 (`Combinatorics/GraphConnectivity.lean`): the inductive reachability
