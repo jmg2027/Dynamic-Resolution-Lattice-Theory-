@@ -92,15 +92,20 @@ Nat/dyadic/Raw *carrier* idiom (≈60+ uses) is established and clean.
 - (Lean docstring body now fully read file-by-file — above.)
 - **Stale INDEX counts**: fixed (ModArith 13→62 w/ full re-enumeration; FluxMVT
   23→27; DyadicSearch 12→13; ArithFSM 14→15; DyadicFSM Pisano row 9→2).
-- **Language-hygiene gap (English-only policy, CLAUDE.md "Identity + voice")** —
-  NOT auto-fixed: these are the originator's own Korean-primary exposition; a
-  mass translation should be his call (he may keep some bilingual deliberately).
-  ~20 permanent artifacts carry substantial Korean prose, notably:
-  `lean/E213/ARCHITECTURE.md` (~87 lines), `Lens/Number/Int213/Raw.lean` (~59),
-  `Int213.lean` (~19), `Nat213/Core.lean` (~16), `Analysis/CauchyProj.lean` (~14),
-  `Nat213/SignatureMaps.lean` (~11); `seed/ORIGIN_RAW.md` (~60, archival);
-  `theory/essays/methodology/{bool_assoc_failure_meaning,pure_funext_avoidance}.md`
-  (~46/44). Content is theory-correct; only the language violates English-only.
+- **Language-hygiene (English-only policy) — DONE.** A guarded translation
+  fleet (comment/prose-only edits, code untouched, full `lake build` clean)
+  translated all Korean *exposition* to English across ~114 permanent artifacts
+  (`ARCHITECTURE.md`, the Int213/Nat213 number-core, ~50 Lean docstrings, the two
+  methodology essays, `ORIGIN_RAW.md` intro, theory/books `.md`). **Preserved per
+  the "Korean quotes OK with translation" rule**: the originator's attributed
+  dialogue/insight quotes (kept verbatim with an English `(Translation: …)`
+  beneath), the canonical meta-principle, the `모습 자체가 뫼비우스 행렬` title
+  (English subtitle), and glossed 213-native terms (구분/잔여/동치…). The ~156
+  Korean lines remaining are exactly these preserved authoritative quotes/terms.
+  Open judgment call (flagged): four "Triggering question" blockquotes (GRA ×2,
+  `real_without_completeness`, `mobius_self_form`) were translated to English
+  rather than kept-Korean-with-translation, since they carried no author
+  attribution — reversible if the originator prefers the Korean retained.
 - Research-notes Tier-1 (volatile) medium phrasings left except the one
   high-confidence G149 substrate line (see part 1).
 - Low-priority doc-sync count nits (org-audit territory, deliberately not touched
