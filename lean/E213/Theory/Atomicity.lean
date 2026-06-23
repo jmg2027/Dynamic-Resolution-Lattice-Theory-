@@ -3,6 +3,7 @@ import E213.Theory.Atomicity.FiveHelpers
 import E213.Theory.Atomicity.PairForcing
 import E213.Theory.Atomicity.NonDecomposable
 import E213.Theory.Atomicity.ArityForcing
+import E213.Theory.Atomicity.ArityForcingComplete
 import E213.Theory.Atomicity.PrimitiveSizes
 import E213.Theory.Atomicity.Alive
 import E213.Theory.Atomicity.OrbitForcing

@@ -459,6 +459,19 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   after the Phase-8 audit found these claimed-closed in prose with no Lean; the
   note bounds the frontier against the genuinely-closed 2/3/4-skeleton content and
   flags the smallest closable steps (`cohomology_higher_structure.md`).
+- `the_genesis_seam` — **★ generation vs re-derivation, made measurable** (active
+  overnight multi-agent research program).  The Round-1 5-perspective debate
+  converged: the true purpose is to verify the founding intuition is *forced, not
+  authored*, in a lie-detector medium (∅-axiom); the single stuck point is that the
+  framework cannot mechanically tell GENERATION (forced from Raw) from RE-DERIVATION
+  (clean ∅-axiom math over borrowed Nat/Bool, narrative on top — 1512/1571 Lib/Math
+  files import neither Raw nor Lens).  Every headline verb is a *typed-conditional*
+  universal prose-upgraded to an *absolute* (no-exterior = initiality of the
+  `HasDistinguishing` class; (3,2,5) = d=5 given hardcoded atoms {2,3}+liveness;
+  "generated" = ℕ borrowed).  Breakthrough hypothesis: don't prove universal
+  no-exterior (a ∀ over a non-type) — make IMPORT MEASURABLE (a graded genesis/
+  frame-import metric), which escapes the §5.1 self-certification wall by being
+  relative not absolute (`the_genesis_seam.md`).
 - `cup_leibniz_general` — **the ∀(k,l) self-referential lex-cup Leibniz**:
   the uniform (parametric-in-bidegree) Cup-Leibniz closure above the closed
   fixed-bidegree CupAW family.  Named only in the `cupaw.md` tail; now tracked
