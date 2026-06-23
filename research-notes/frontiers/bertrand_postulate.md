@@ -75,15 +75,36 @@ product is `≤ 4^{2n/3}` by the primorial) times the `√(2n)`-bounded prime-po
 2. **The prime-range partition + small-prime / `√` tail** — split primes `≤ 2n` into
    `≤ 2n/3` (primorial-bounded), `(2n/3, n]` (vanish), `(n, 2n]` (the assumed-empty window),
    with the `≤ √(2n)` primes contributing `≤ (2n)` each (`IntSqrt.isqrt`).  MEDIUM.
+   **The per-range bound inputs are now ∅-axiom (2026-06-23):**
+   - small range `p ≤ √(2n)`: `PrimePowFactorization.primePowProd_le_pow_length`
+     (block `≤ B^{#bases}`) + `primesIn_length_le` (`#bases ≤ √(2n)`) +
+     `prime_pow_vp_central_binom_le` (each `p^{vₚ(C)} ≤ 2n`);
+   - medium range `√(2n) < p ≤ 2n/3`: `primePowProd_le_listProd` (block `≤ ∏ p`) +
+     `CentralBinomFactorization.central_binom_pow_le_self` (`2n < p² ⟹ p^{vₚ(C)} ≤ p`,
+     via `vp_central_binom_le_one`) + the primorial bound (`∏ p ≤ 4^{2n/3}`);
+   - `primePowProd_append` + `primesIn_split` give the index split.
+   What remains in item 2 is *wiring* these together (under the `(n,2n]`-empty hypothesis,
+   with the `(2n/3,n]` vanishing window zeroing that block) into `C(2n,n) ≤ (2n)^{√(2n)}·4^{2n/3}`.
 3. **The crossover** `4^{n/3} > (2n+1)·(2n)^{⌊√2n⌋}` for `n ≥ N₀ ≈ 468` (pure-`Nat` grind;
    use the pure order-lemma replacements).  HARD — the real work.
 4. **The finite prime chain** `2,3,5,7,13,23,43,83,163,317,631,1259,2503` covering `n < N₀`
    (`decide` on primality + the doubling gaps).  MEDIUM, tedious.
 
 **All component lemmas are now ∅-axiom** (primorial keystone + binom/fact bridges +
-odd-central bound + the `(n,2n]` and `(2n/3,n]` window facts).  What remains is purely the
-**assembly** (items 2–4): partition the product `C(2n,n) = ∏ p^{vₚ}` over the four prime
-ranges, then the crossover inequality (item 3 — the hard pure-`Nat` asymptotic) + the finite
-chain (item 4).  No new mathematical ingredient; no in-principle obstruction.
+odd-central bound + the `(n,2n]` and `(2n/3,n]` window facts + the explicit factorization
++ all per-range product bounds).  What remains is the **assembly wiring** (item 2 tail), then
+the crossover inequality (item 3 — the hard pure-`Nat` asymptotic) + the finite chain (item 4).
+No new mathematical ingredient; no in-principle obstruction.
+
+## Built this session (2026-06-23) — the factorization + size-decomposition layer
+
+New ∅-axiom modules under `Lib/Math/NumberTheory/`:
+- `PrimePowFactorization.lean` (10/0): `prod_prime_pow_eq` (explicit FTA product form),
+  `primePowProd`(+`_pos`/`_append`), `vp_primePowProd_mem`/`_not_mem`, `mem_primesIn`,
+  and the range bounds `primePowProd_le_pow_length`, `primePowProd_le_listProd`,
+  `primesIn_length_le`.
+- `CentralBinomFactorization.lean` (4/0): `central_binom_factorization`
+  (`C(2n,n) = ∏_{p≤2n} p^{vₚ}`), `central_binom_prime_factors_le`, `vp_central_binom_le_one`,
+  `central_binom_pow_le_self`.
 
 (Panel transcript: `/tmp/bertrand_panel.md`.)
