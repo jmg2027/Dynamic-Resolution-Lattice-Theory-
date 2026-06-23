@@ -90,6 +90,19 @@ Nat/dyadic/Raw *carrier* idiom (≈60+ uses) is established and clean.
 
 ## Open / not done (next session)
 - (Lean docstring body now fully read file-by-file — above.)
+- **Stale INDEX counts**: fixed (ModArith 13→62 w/ full re-enumeration; FluxMVT
+  23→27; DyadicSearch 12→13; ArithFSM 14→15; DyadicFSM Pisano row 9→2).
+- **Language-hygiene gap (English-only policy, CLAUDE.md "Identity + voice")** —
+  NOT auto-fixed: these are the originator's own Korean-primary exposition; a
+  mass translation should be his call (he may keep some bilingual deliberately).
+  ~20 permanent artifacts carry substantial Korean prose, notably:
+  `lean/E213/ARCHITECTURE.md` (~87 lines), `Lens/Number/Int213/Raw.lean` (~59),
+  `Int213.lean` (~19), `Nat213/Core.lean` (~16), `Analysis/CauchyProj.lean` (~14),
+  `Nat213/SignatureMaps.lean` (~11); `seed/ORIGIN_RAW.md` (~60, archival);
+  `theory/essays/methodology/{bool_assoc_failure_meaning,pure_funext_avoidance}.md`
+  (~46/44). Content is theory-correct; only the language violates English-only.
+- Research-notes Tier-1 (volatile) medium phrasings left except the one
+  high-confidence G149 substrate line (see part 1).
 - Low-priority doc-sync count nits (org-audit territory, deliberately not touched
   to avoid fragile recounts): `theory/meta/cardinality_cutoff_applications.md`
   "ten files / 291 PURE" internal mismatch; `Analysis/DyadicSearch/INDEX.md`
