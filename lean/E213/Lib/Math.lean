@@ -38,6 +38,7 @@ import E213.Lib.Math.Foundations.Chebyshev
 import E213.Lib.Math.Foundations.HeronFormula
 import E213.Lib.Math.Analysis.Measure
 import E213.Lib.Math.NumberTheory.ModArith
+import E213.Lib.Math.NumberTheory.BigOmega
 import E213.Lib.Math.Analysis.Modulus
 import E213.Lib.Math.Analysis.Multivariable
 import E213.Lib.Math.Geometry.NumberGrid

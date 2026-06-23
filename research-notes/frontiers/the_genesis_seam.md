@@ -429,6 +429,67 @@ the `prodL` homomorphism, all on generated laws); FTA's *uniqueness* exists ∅-
 (`FTAUniqueness.factorization_unique`, the multiset = `vp`-vector) but completes on the
 non-structural multiplicative descent — the honest terminus of "generated vs borrowed."
 
+## Round 4 — Ω is the multiplicative leaf-count: the descent engine is *not* second
+
+Round 3's standing claim was that the multiplicative descent is *"a genuinely second
+structure (the `exp`/`vp` Lens over distinguishable primes), **not reducible** to Raw's
+additive peel."* Round 4 **refines that claim and shows the irreducibility was overstated**:
+the *Lens* is second, but the *descent engine* is the same additive count peel.
+
+The move: the **total prime-factor count** `Ω n` (big-Omega — the length of `n`'s
+factorization, multiplicity counted) is the **multiplicative leaf-count**, the exact
+`×`-dual of `Raw.leaves`. Deposited ∅-axiom in
+`lean/E213/Lib/Math/NumberTheory/BigOmega.lean` (22 PURE):
+
+- **`Omega_mul : Ω (m · n) = Ω m + Ω n`** — the exact dual of
+  `Raw.leaves_slash : leaves (slash x y) = leaves x + leaves y`. The additive leaf-count
+  splits a `slash` additively; the multiplicative leaf-count splits a *product* additively.
+  `Ω` is to `·` what `leaves` is to `slash`. (Proved via valuation-count invariance
+  `factorization_unique` + a PURE `countOcc → length` erase argument
+  `length_eq_of_countOcc_eq` — no `List.count` / `propext`.)
+- **`Omega_descent : Ω (n / minFac n) + 1 = Ω n`** — the multiplicative peel
+  `n ↦ n / minFac n` drops the count by *exactly one*, the dual of the unit depth-drop
+  `Raw.part_depth_succ_le`.
+- **`no_infinite_mul_descent`** — there is no infinite chain of multiplicative peels,
+  because `Ω` is a finite count dropping by one per step. The *exact mirror* of
+  `Raw.no_infinite_descent` (its helper `omega_chain_drops` mirrors `descent_chain_drops`
+  line-for-line: `Ω (chain k) + k ≤ Ω (chain 0)`).
+
+**The reframe.** The multiplicative descent's *well-foundedness* **is** the additive
+`×`-atom count peel. What is "second" about factoring is the **Lens** — distinguishable
+primes give a whole exponent *vector* where indistinguishable units merge to one count
+(Round 3's `prodL_two_atoms` vs `prodL_one_atom_merges`) — **not** the descent that grounds
+termination. Counting (`+`) terminates on the unit count (`Raw.leaves` / `isPart_wf`);
+factoring (`×`) terminates on the *same* additive count, now reading distinguishable
+`×`-atoms (`Ω`). The duality `+`-atoms-indistinguishable / `×`-atoms-distinguishable lives
+entirely in the *readout* (one merged count vs an exponent vector); the *well-foundedness
+engine* is one and the same additive peel. So Round 3's "not reducible to Raw's additive
+peel" is corrected: the *Lens* is irreducibly second, the *descent measure* `Ω` reduces it
+to the additive peel — which is exactly why FTA terminates at all.
+
+**The honest residual (what is still open).** This does not yet migrate the *Lean
+recursion* of FTA-existence off `Nat.strongRecOn`. `factorizeF` still recurses on
+magnitude (`n / minFac n < n`, `Nat.strongRecOn` — Round 2.6), and `Ω` is *defined* from
+that factorization, so `Omega_descent`/`no_infinite_mul_descent` are theorems *about* the
+descent, not yet a *re-grounding* of its recursion on `Ω`. Two concrete next targets,
+sharper than before:
+1. **Re-prove FTA-existence by structural recursion whose fuel is `Ω`** (the additive
+   `×`-count), the termination discharged by `Omega_descent` (count drops by one) rather
+   than by `Nat.strongRecOn` on magnitude — making the completion-engine the additive
+   count peel *in the elaborated proof term*, not only in a theorem about it.
+2. **Encode the prime word as a `Raw` object** so `Ω = Raw.leaves` *literally* and the
+   `×`-peel *is* `IsPart` — grounding the recursion in `isPart_wf` itself. The obstruction
+   is sharp and named: Raw's `slash x y h` demands **distinct children** (`x ≠ y`, the
+   canonicity gate), so a naive right-nested tree of *repeated* primes is not a Raw term.
+   The encoding must carry multiplicity another way (e.g. a per-prime exponent slash-tree,
+   distinct primes as distinct children). That gate — `×`-atom distinguishability forcing a
+   distinct-children encoding — is the *same* distinguishability the whole duality turns on.
+
+So Round 4's deposit: the multiplicative descent is **measured by an additive leaf-count
+that splits like `leaves_slash` and drops by one per peel** — the "second structure" is the
+Lens, not the engine — with the remaining work being to push this from a theorem *about* the
+descent into the *recursion's own completion engine*.
+
 ## The exterior deliverable (the only §5.1-legal verdict)
 
 Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
