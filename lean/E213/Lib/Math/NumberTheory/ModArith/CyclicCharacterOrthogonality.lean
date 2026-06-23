@@ -14,7 +14,7 @@ import E213.Meta.Tactic.Pow213
 /-!
 # CyclicCharacterOrthogonality — general-order orthogonality **inside `ℤ/p`** (∅-axiom)
 
-`research-notes/decomposition/practice/fourier.md` records the orthogonality
+the `fourier` decomposition records the orthogonality
 target `Σ_x χ(x) = 0` and the residual that *arbitrary*-order roots of unity need
 the cyclotomic ring `ℤ[ζ_n]`.  The order-2 leg was cashed via the `(−1)^k`
 parity telescope (`CharacterOrthogonality.quadratic_orthogonality`); orders

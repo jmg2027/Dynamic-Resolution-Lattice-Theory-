@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2Bracket
 /-!
 # The adjoint representation and the Killing form on `sl₂` — the `d>1` trace character
 
-`research-notes/decomposition/practice/representation.md` located its sharp open residue: the
+the `representation` decomposition located its sharp open residue: the
 **trace character** `χ(g) = tr ρ(g)` for `d > 1` is *not* a multiplicative character (`tr` is the
 additive `×↦+` twin, `tr(MN) ≠ tr M · tr N`), so the `det`-homomorphism machinery does not turn
 `tr` into a character.  This file closes that residue at the Lie level, where the additive trace

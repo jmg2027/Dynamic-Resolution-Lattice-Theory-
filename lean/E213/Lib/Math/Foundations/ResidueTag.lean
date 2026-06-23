@@ -5,7 +5,7 @@ import E213.Lib.Math.Algebra.CassiniUnimodular
 /-!
 # ResidueTag — the `q = ±1` residue tag, one construct exhibiting both poles (∅-axiom)
 
-`research-notes/decomposition/README.md` (model v7.1) converged the whole decomposition
+the decomposition calculus (model v7.1) converged the whole decomposition
 calculus on a single invariant: the **residue of a self-applying reading carries a multiplier
 bit `q = ±1`**.  Its two values are two ways a self-map's fixed-point structure can sit:
 

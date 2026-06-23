@@ -3,7 +3,7 @@ import E213.Lib.Math.Logic.ChoiceLens
 /-!
 # ForcingToy — the minimal ∅-axiom independence toy: σ free ⟹ two distinct models
 
-No-walls seminar Round 2, agenda item 1 (`research-notes/frontiers/no_walls_seminar/R1_synthesis.md`
+No-walls seminar Round 2, agenda item 1 (the `R1_synthesis` frontier
 §"What Round 2 builds", spec in `B_forcing_as_adjunction.md` §3).
 
 **Thesis (the toy of Cohen independence as a Lens-parameter adjunction).**

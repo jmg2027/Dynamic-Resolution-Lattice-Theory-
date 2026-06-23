@@ -3,7 +3,7 @@ import E213.Lib.Math.Logic.SectionCountWithAbsence
 /-!
 # The WELD — the forced base parametrically determines free-fiber arity (∅-axiom)
 
-No-walls seminar, Round 6 (`research-notes/frontiers/no_walls_seminar/R5_base_fiber_coupling.md`
+No-walls seminar, Round 6 (the `R5_base_fiber_coupling` frontier
 §"The sharpest open question for R6": *"Weld the coupling into one ∅-axiom theorem:
 `fiberArity(freeFib) = NT`, with `NT` supplied by `PairForcing` rather than hard-coded as `Bool`."*).
 

@@ -3,7 +3,7 @@ import E213.Lens.Number.Nat213.Factorization
 /-!
 # Lens.Number.Nat213.EuclidUnique — Euclid's lemma over the Raw-generated ℕ₊ (∅-axiom)
 
-The **descent leg**, M3 (`research-notes/frontiers/the_descent_leg.md`).  Rung 3 of the
+The **descent leg**, M3 (the `the_descent_leg` frontier).  Rung 3 of the
 Fundamental-Theorem-of-Arithmetic capstone, the **primality** content: an irreducible over `Nat213`
 is *prime* — `p ∣ a·b → p ∣ a ∨ p ∣ b` (`euclid`), hence `p ∣ ∏ L → p ∈ L` (`prime_dvd_prod`).
 

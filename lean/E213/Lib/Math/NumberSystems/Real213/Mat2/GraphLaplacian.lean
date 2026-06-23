@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberSystems.Real213.Mat2.Mat2SymmetricSpectrum
 /-!
 # The 2-vertex single-edge graph Laplacian as a concrete `Mat2`
 
-`research-notes/decomposition/practice/graph_theory.md` located a clean ∅-axiom promotion target:
+the `graph_theory` decomposition located a clean ∅-axiom promotion target:
 the smallest non-trivial graph Laplacian, the **K₂ Laplacian** `L = D − A = [[1,−1],[−1,1]]`, as a
 literal `Mat2`, welding `Mat2SymmetricSpectrum` (the symmetric `q=+1` real-spectrum corner) and
 `Mat2Spectrum` (`tr = e₁`, `det = e₂`, the Vieta factorization) to an actual graph.

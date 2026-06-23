@@ -5,7 +5,7 @@ import E213.Meta.Int213.Order
 /-!
 # The Lie bracket on `Mat2` — the commutator `[A,B] = AB − BA`
 
-`research-notes/decomposition/practice/lie_theory.md` predicts the Lie bracket as the **q=−1
+the `lie_theory` decomposition predicts the Lie bracket as the **q=−1
 antisymmetry commutator-residue** of the `Mat2` Aut-family: read the group composition as a
 *difference* of its two orders (`integers.md`'s difference-Lens `L₋` applied to `AB` and `BA`),
 and the bracket `[A,B] = AB − BA` falls out, antisymmetric by the same pair-swap q=−1 bit that

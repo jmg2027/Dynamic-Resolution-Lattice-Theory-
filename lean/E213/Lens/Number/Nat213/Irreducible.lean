@@ -3,7 +3,7 @@ import E213.Lens.Number.Nat213.Divisibility
 /-!
 # Lens.Number.Nat213.Irreducible — irreducibility over the Raw-generated ℕ₊ (∅-axiom)
 
-The **descent leg**, leg-2 *depth* (`research-notes/frontiers/the_descent_leg.md` M1).  Divisibility
+The **descent leg**, leg-2 *depth* (the `the_descent_leg` frontier M1).  Divisibility
 (`Divisibility.lean`) gave a partial-order discipline over `Nat213` (the distinguishing's own counting
 object).  This file takes the next rung: **irreducibility** — `2`, `3`, `5` are irreducible, `4` is
 not — defined and proved entirely over `Nat213` with its own `mul`, no detour through Lean `Nat`.

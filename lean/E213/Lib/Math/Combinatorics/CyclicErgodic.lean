@@ -4,7 +4,7 @@ import E213.Meta.Int213
 /-!
 # Cyclic rotation as a measure-preserving transformation + the Birkhoff average
 
-The named missing leg of `research-notes/decomposition/practice/ergodic_theory.md`:
+The named missing leg of the `ergodic_theory` decomposition:
 a **concrete measure-preserving transformation on a finite space, the Birkhoff
 average along its orbit, the ergodic theorem "time-average = space-average" as
 the `q=+1` fixed point reached exactly at the period, and ergodicity = the
@@ -29,7 +29,7 @@ on `natRange n = [0, 1, …, n-1]`; "integrate `f`" = `sumInt (map f (natRange n
   · §5 — the non-ergodic contrast: a disconnected union of two cycles has a
           non-constant invariant function (dim ker = #components > 1).
 
-Companion: `research-notes/decomposition/practice/ergodic_theory.md`.
+Companion: the `ergodic_theory` decomposition.
 -/
 
 namespace E213.Lib.Math.Combinatorics.CyclicErgodic

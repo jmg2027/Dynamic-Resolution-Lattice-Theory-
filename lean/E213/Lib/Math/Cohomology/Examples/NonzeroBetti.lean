@@ -3,7 +3,7 @@ import E213.Lib.Math.Foundations.ResidueTag
 /-!
 # Cohomology — a NONZERO H¹: the cycle graph S¹ (the q=−1 obstruction surfaced)
 
-`research-notes/decomposition/practice/homological_algebra.md` names a buildable
+the `homological_algebra` decomposition names a buildable
 witness (the "Suggested buildable witness", §"Conceptual-only / absent legs"):
 
 > a small concrete `Ext¹` … exhibiting a nonzero `q=−1` residue where

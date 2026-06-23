@@ -3,7 +3,7 @@ import E213.Lens.Number.Nat213.EuclidUnique
 /-!
 # Lens.Number.Nat213.FTA — the Fundamental Theorem of Arithmetic over the Raw-generated ℕ₊ (∅-axiom)
 
-The **descent leg**, M4 — the *capstone* (`research-notes/frontiers/the_descent_leg.md`).  The FTA,
+The **descent leg**, M4 — the *capstone* (the `the_descent_leg` frontier).  The FTA,
 **generated** over `Nat213` (the distinguishing's own counting object), not re-derived over Lean `Nat`:
 
   * **existence** — every `n` is a product of irreducibles (`Factorization.exists_factorization`);

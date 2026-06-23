@@ -6,7 +6,7 @@ import E213.Lens.Foundations.UniversalDistinguishing
 /-!
 # Lens.Number.Nat213.Forcing — the FTA's carrier is forced by the distinguishing (∅-axiom)
 
-The **descent leg**, M5 — the *forcing* half (`research-notes/frontiers/the_descent_leg.md`).  The
+The **descent leg**, M5 — the *forcing* half (the `the_descent_leg` frontier).  The
 FTA capstone (`FTA.fta`) generates arithmetic over `Peano.Nat213`; this file ties that carrier back to
 the **primitive act of distinguishing**, and shows a distinguishing-*blind* reading provably cannot
 carry the factorization structure.
@@ -68,7 +68,7 @@ theorem factorization_forced_by_distinguishing :
 The forcing of M5 was a *single* blind reading (`degLens`).  Here it is lifted to the schema level:
 every candidate carrier sits on one of two sides of `UniversalDistinguishing.DStr`.  **Honest status**:
 the *positive* arm — a `Generated` `DStr` is `≅ Raw`, hence carries the FTA by transport — needs the
-**open** `DStr` existence leg (`research-notes/frontiers/the_distinguishing_schema.md`; only the
+**open** `DStr` existence leg (the `the_distinguishing_schema` frontier; only the
 uniqueness half `dhom_unique_pointwise` is proven).  The *negative* arm is closed here, schema-level. -/
 
 open E213.Lens.Foundations.UniversalDistinguishing (DStr Generated rawDStr rawDStr_generated

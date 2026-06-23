@@ -40,7 +40,7 @@ convolve-and-rescale Picard orbit converges, in the completion metric `closeC`, 
 the Gaussian center — a genuine completion-limit, reached by none, ∅-axiom, without
 ever touching the bare `lim`.  The reusable *engine* form (a `…Mod`/name-carrier
 completeness interface taking the modulus as data, then a `banach_fixed_point_modulated`)
-is the named follow-on, tracked in `research-notes/frontiers/wall_synthesis.md`;
+is the named follow-on, tracked in the `wall_synthesis` frontier;
 `picard_cauchy` already supplies the orbit's explicit modulus `N(m)=m`, so that route
 is choice-free.
 

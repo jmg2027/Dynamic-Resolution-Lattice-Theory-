@@ -6,7 +6,7 @@ import E213.Meta.Nat.PureNat
 /-!
 # Probability — convolve-and-rescale is a `Contraction` (the CLT keystone leg)
 
-`research-notes/decomposition/practice/gaussian_clt.md` predicts the Gaussian
+the `gaussian_clt` decomposition predicts the Gaussian
 as the **fixed point of convolve-and-rescale** — a `q=+1` converging residue,
 the analogue of `golden_ratio.md`'s Möbius fixed point φ.  The engine
 `BanachFixedPoint.banach_fixed_point` already proves "a `Contraction` has the

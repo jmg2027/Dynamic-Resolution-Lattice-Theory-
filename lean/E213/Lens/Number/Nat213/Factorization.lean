@@ -3,7 +3,7 @@ import E213.Lens.Number.Nat213.Irreducible
 /-!
 # Lens.Number.Nat213.Factorization — every `Nat213` is a product of irreducibles (∅-axiom)
 
-The **descent leg**, M2 (`research-notes/frontiers/the_descent_leg.md`).  Rung 2 of the
+The **descent leg**, M2 (the `the_descent_leg` frontier).  Rung 2 of the
 Fundamental-Theorem-of-Arithmetic capstone, over the Raw-generated ℕ₊: **factorization existence** —
 `∀ n, ∃ l, (∀ p ∈ l, Irreducible p) ∧ prod l = n`, computed entirely over `Nat213` with no Lean
 `Nat`.

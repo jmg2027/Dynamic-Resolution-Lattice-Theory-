@@ -15,7 +15,7 @@ bridged.  `Nat213.Peano` is the Raw-generated positive naturals — `one := Raw.
 This file is the first **discipline** (elementary divisibility) proven **entirely over `Nat213`** —
 `dvd` is defined by `Nat213`'s own `mul`, and every theorem's statement *and proof* stay on `Nat213`
 with **no detour through Lean `Nat`**: the whole dependency cone is `toNat`-free, verified
-mechanically (the descent-leg "toNat-cone bet", `research-notes/frontiers/the_descent_leg.md`).  The
+mechanically (the descent-leg "toNat-cone bet", the `the_descent_leg` frontier).  The
 one cancellation it needs (`dvd_antisymm` → `mul_left_cancel`) is taken from `Order` — the **native**
 version (trichotomy + distributivity, mirroring `Order.mul_self_inj`), not `Peano`'s earlier
 `toNat`-laundered one.  It is the first concrete leg-2 deposit: a number-theoretic preorder computed

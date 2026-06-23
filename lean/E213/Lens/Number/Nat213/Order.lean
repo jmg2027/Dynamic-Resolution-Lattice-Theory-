@@ -80,7 +80,7 @@ theorem lt_mul_left {a b c : Nat213} (h : lt b c) : lt (mul a b) (mul a c) := by
     replaces the previous `toNat`-laundered cancellation: the divisibility
     partial order's antisymmetry (`Divisibility.dvd_antisymm`) now stands on
     `Nat213` all the way down — zero `toNat`, zero Lean-`Nat` lemmas in its
-    dependency cone.  See `research-notes/frontiers/the_descent_leg.md`
+    dependency cone.  See the `the_descent_leg` frontier
     (the toNat-cone bet). -/
 theorem mul_left_cancel {a b c : Nat213} (h : mul a b = mul a c) : b = c := by
   rcases lt_trichotomy b c with hlt | heq | hgt

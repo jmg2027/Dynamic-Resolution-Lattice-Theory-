@@ -9,7 +9,7 @@ import E213.Meta.Int213.Core
 # GaussianOrthogonality — order-4 character orthogonality `Σ iᵏ = 0` (∅-axiom)
 
 The **order-4 leg** of the character-orthogonality target in
-`research-notes/decomposition/practice/fourier.md`.  The order-2 (Legendre)
+the `fourier` decomposition.  The order-2 (Legendre)
 case is `ModArith/CharacterOrthogonality.quadratic_orthogonality`; orders 3 and
 6 are `RootOfUnityOrthogonality.{omega,zeta6}_orthogonality` in `ℤ[ω]`.  Order 4
 needs neither `Real213` nor a transcendental cut: the primitive 4th root of

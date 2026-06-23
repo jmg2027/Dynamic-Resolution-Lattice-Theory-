@@ -12,7 +12,7 @@ self-cover `A → Bool` and proves *no surjective* section; `forcedFib`/`freeFib
 fibers (`Fin 1`, `Bool`) and count their sections.
 
 The seminar kept surfacing a status the trichotomy could not seat: the skeptic's **ambient-`S³`
-absence** (`research-notes/frontiers/colimit_quotient_synthesis.md` Side B item 3 — *"there is no
+absence** (the `colimit_quotient_synthesis` frontier Side B item 3 — *"there is no
 `Raw`/`Lens` term type for the ambient 3-manifold at all (missing modelling input)"*) and the
 recurring **"absence ≠ obstruction ≠ parameter"** (`C_skeptic_genuine_walls.md` §4 caveat 2).
 That is the **zeroth status `∅`**, *prior* to `0 / 1 / many`:

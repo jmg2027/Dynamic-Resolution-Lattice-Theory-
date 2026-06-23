@@ -10,12 +10,12 @@ sequence.  A total, choice-free `lim` correct on all bare Cauchy sequences is
 constructively impossible: it would have to recover each sequence's hidden
 convergence modulus `N(m)` from the bare `∀m,∃N` data — exactly the smuggled
 countable-choice principle `AC₀,₀` that ∅-axiom forbids
-(`research-notes/frontiers/wall_constructive.md`).  So `CompleteMetricModulus`
+(the `wall_constructive` frontier).  So `CompleteMetricModulus`
 is hard to *inhabit* non-trivially: the only instance in the tree is the
 degenerate everywhere-`True` metric on `Unit`.
 
 This file removes the over-strong interface.  The decisive leverage
-(`research-notes/frontiers/wall_synthesis.md`): **the contraction supplies its
+(the `wall_synthesis` frontier): **the contraction supplies its
 own modulus** — `picard_cauchy` already produces the explicit `N(m)=m`
 (`BanachFixedPoint.lean:154`).  A modulated engine therefore needs no generic
 bare-sequence `lim`; it carries the modulus that is already in hand.

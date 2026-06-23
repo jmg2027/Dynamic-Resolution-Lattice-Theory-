@@ -5,7 +5,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaAlgebra213
 # RootOfUnityOrthogonality — additive character orthogonality `Σ ζᵏ = 0` (∅-axiom)
 
 The **general order-`d` leg** of the character-orthogonality target located in
-`research-notes/decomposition/practice/fourier.md`.  The order-2 (Legendre) case
+the `fourier` decomposition.  The order-2 (Legendre) case
 was closed in `ModArith/CharacterOrthogonality.quadratic_orthogonality` via the
 `(−1)^k` parity telescope.  Orders `> 2` were placed in the `Real213`/cyclotomic
 "transcendental-cut residue": a primitive `n`-th root of unity `ζ` for `n > 2`

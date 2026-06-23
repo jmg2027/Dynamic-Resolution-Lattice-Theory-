@@ -6,7 +6,7 @@ import E213.Meta.Int213.Order
 # Noether's theorem as a discrete continuity equation — `∂·j = 0 ⟺ Aut-invariant`
 
 This file closes the **structural** half of the continuous Noether current
-named open in `research-notes/decomposition/practice/noether.md`: not the full
+named open in the `noether` decomposition: not the full
 variational `∂_μ j^μ = 0` over a Lagrangian (which would need `Real213`
 analytic machinery this file does not assume), but its discrete skeleton —
 the **local continuity equation** whose telescoped sum is

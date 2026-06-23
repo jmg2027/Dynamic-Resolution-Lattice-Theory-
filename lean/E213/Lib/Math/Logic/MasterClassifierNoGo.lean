@@ -5,7 +5,7 @@ import E213.Lens.Cardinality
 # The master classifier is the wall — a closed ∅-axiom no-go
 
 No-walls seminar, Round 4 (the capstone made a theorem;
-`research-notes/frontiers/no_walls_seminar/R3_synthesis.md` §"The capstone" and
+the `R3_synthesis` frontier §"The capstone" and
 `J_reflexive_classify.md` §7).
 
 R3 established, as a *justified reading*, that the seminar's master classifier

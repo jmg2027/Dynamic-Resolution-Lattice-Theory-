@@ -3,7 +3,7 @@
 
 The **minimal excludant** `mex S` of a finite set of naturals is the least `Nat`
 *not* in `S`.  It is the engine of the Sprague–Grundy / nim-value reading in
-combinatorial game theory (`research-notes/decomposition/practice/game_theory.md`):
+combinatorial game theory (the `game_theory` decomposition):
 the nim-value of a position is `mex` of its options' nim-values.
 
 Read through the 213 decomposition calculus, `mex` is a **bounded diagonal** — the

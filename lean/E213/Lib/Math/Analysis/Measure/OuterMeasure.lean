@@ -5,7 +5,7 @@ import E213.Lib.Math.Order.GaloisConnection
 # Measure Theory 213 — Carathéodory outer measure as a closure operator
 
 213-native instantiation of the Carathéodory extension, closing the
-named open target of `research-notes/decomposition/practice/measure.md`
+named open target of the `measure` decomposition
 ("Outer measure / Carathéodory extension: ABSENT, and it WOULD be
 `galois.md`'s closure operator `clo`").
 

@@ -19,7 +19,7 @@ over a complete period `k ∈ [0, 2m)` telescopes pairwise to `0`
 (`altSign (2j) + altSign (2j+1) = 1 + (−1) = 0`).
 
 This is exactly the **root-of-unity telescoping sum** that
-`research-notes/decomposition/practice/fourier.md` predicts (the order-2 leg of
+the `fourier` decomposition predicts (the order-2 leg of
 its open orthogonality target), now cashed in Lean at the Legendre level.
 
 Equivalently (the **count form**), among the exponents `[0, 2m)` exactly `m` are

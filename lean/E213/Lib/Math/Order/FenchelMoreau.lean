@@ -14,7 +14,7 @@ sense
 arguments).  An order-reversing self-adjoint map's **square** `star ∘ star`
 is therefore a closure operator (extensive, monotone, idempotent), and this
 is exactly the **Fenchel–Moreau biconjugate** `f** = clo f` — the closed
-convex hull, as `research-notes/decomposition/practice/convex_duality.md`
+convex hull, as the `convex_duality` decomposition
 predicts (and `galois.md`'s order-reversing leg names).
 
 This file proves the **abstract antitone-self-adjoint ⟹ closure** theorem

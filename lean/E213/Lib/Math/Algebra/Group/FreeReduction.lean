@@ -3,7 +3,7 @@
 quotient built ∅-axiom, no `Quot.sound`)
 
 This file is the **Side-A witness** named in
-`research-notes/frontiers/colimit_quotient_synthesis.md`: a colimit /
+the `colimit_quotient_synthesis` frontier: a colimit /
 ambient-quotient built ∅-axiom as a *normal-form subtype*, with **no**
 `Quot.sound`.  It converts the synthesis memo's Side A from
 "buildable in principle" to **built** — the analogue of how the modulated

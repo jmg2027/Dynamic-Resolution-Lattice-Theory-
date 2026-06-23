@@ -3,7 +3,7 @@ import E213.Lib.Math.Analysis.UniformLimitContinuous
 /-!
 # Topology — continuity ⟺ preimage-of-open-is-open (dyadic / `MetricModulus`)
 
-`research-notes/decomposition/practice/continuity.md` flags the classical
+the `continuity` decomposition flags the classical
 topological characterisation of continuity
 
 > `f` is continuous ⟺ the preimage of every open set is open

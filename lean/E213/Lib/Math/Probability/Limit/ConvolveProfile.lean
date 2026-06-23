@@ -8,7 +8,7 @@ import E213.Meta.Nat.PureNat
 exact dyadic halving on the centered statistic `Dy = Nat × Nat`, and
 `DyadicCompletion` landed the Gaussian **center** as the contraction's fixed
 point through the modulated engine (`gaussian_center_fixed_via_engine`).  The leg
-flagged open in `research-notes/decomposition/practice/gaussian_clt.md` is the
+flagged open in the `gaussian_clt` decomposition is the
 **convolution operator on a full weight-profile** (not just its center): the tree
 had only `ProbabilityCut = (num, den)` masses + the `joint` ×-character, no
 density / weight-function type.
