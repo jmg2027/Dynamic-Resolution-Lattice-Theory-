@@ -1,7 +1,7 @@
 # The 213 Decomposition Calculus — capstone synthesis (v4)
 
 **Status**: Tier-1 capstone of the decomposition cluster (`README.md` = the technique + per-field
-log; `practice/*.md` = the 141 worked decompositions; `FRONTIER_AUDIT.md` = the honesty pass;
+log; `practice/*.md` = the 142 worked decompositions; `FRONTIER_AUDIT.md` = the honesty pass;
 `frontiers/colimit_quotient_synthesis.md` + the 3 panel memos = the open edge, now half-built). This
 document does not add a decomposition — it makes the whole corpus legible as one statement. Every Lean
 name cited below was grep-verified to exist in `lean/E213/` and scanned ∅-axiom via `tools/scan_axioms.py`;
@@ -22,7 +22,7 @@ read through a **Lens** `L` (which feature you project to — count, order, diff
 sign), leaving a **Residue** (what `L` forces but cannot capture). A theorem is a property `P(⟨C|L⟩)`;
 the payoff is *collapse* — two superficially different theorems shown to share `(C, L)` and so be one.
 The Lean encoding (`Raw`, `Lens`, `Lens.view = Raw.fold`) is the faithfulness-check, not the
-deliverable. The headline finding, after **141 worked decompositions across ~16 disciplines**, is that this
+deliverable. The headline finding, after **142 worked decompositions across ~16 disciplines**, is that this
 wide front does not need 132 different ideas: it converges on a **small invariant set** — one *character
 arrow*, one *q=±1 residue tag*, and (the deepest reflexive turn) one *residue-taking operation* (now shown
 both self-composable — spectral sequences — and self-dual — the μ/ν catamorphism/anamorphism closure,
@@ -36,7 +36,7 @@ operation** (§2, §6).
 
 ## 2. The invariant set — the complete inventory
 
-The 141 decompositions converge on **two load-bearing invariants** plus **one structured frame** (the
+The 142 decompositions converge on **two load-bearing invariants** plus **one structured frame** (the
 read-off axes of `C` and the parameters of `L`) — and one reflexive addition: the calculus naming its own
 residue operation. Each is cashed by a verified Lean theorem.
 
@@ -186,6 +186,19 @@ LLPO directly as the act on the diagonal's surplus) and **not identical** — th
 residue**.  Distinguishing criterion: *does 213 prove it (⟹ the diagonal face) or refuse it / state it as
 `Prop` (⟹ the LLPO face)?* — nothing sits in a third box.  This unifies the "one diagonal" theme and the
 "five calibrated boundaries" theme as the two poles of `B` in the character-free world.
+
+**(vii′) The LLPO/choice face is not "refused" — it is a FREE LENS PARAMETER `σ`** (the originator's
+correction; `axiom_of_choice.md`).  Stopping at "213 refuses choice" is a cop-out.  The 213-native move
+*decomposes the choice act*: a choice function is a **Lens** `σ` (a section of an inhabited family), different
+choices (`σ_left`/`σ_right`/none) are different Lenses, and the operations extend **differently per `σ`**.
+`σ` is **free** — no exterior dialer fixes it (§5.1) — exactly like the p-adic *base* or the resolution dial;
+so "AC true" (any `L_σ` applicable) and "AC refused" (no `L_σ` canonical) are not in conflict, they jointly
+say **`σ` is a free parameter**, and 213 computes *per-`σ`* (constructively — sections are explicit data, no
+AC).  Over a *binary* fiber the choice `σ ∈ {left,right}` **is** the `q=±1` tag `B`, and **LLPO = the
+`B`-valued `σ` left unforced** (even/odd undecidable = the ±1 bit free).  ★ Prediction: a free Lens parameter
+admits *both* adjunctions consistently — so **AC's Gödel–Cohen independence = `σ` is free** (forcing =
+adjoining a generic `σ`).  Honest scope: a *dissolution + structural prediction of independence*, not a proof
+of AC.  ∅-axiom witness: `Lib/Math/Logic/ChoiceLens.lean` (two explicit sections, a σ-dependent operation).
 
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation

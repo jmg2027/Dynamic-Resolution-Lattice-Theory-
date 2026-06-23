@@ -5,7 +5,7 @@
 
 ## ★★ CURRENT STATE (2026-06-22, 42-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
 The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
-now spans **141 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+now spans **142 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
 converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
 `ResidueTag.lean`) + the reflexive deepening (homological algebra names the calculus's own residue-taking
 operation; spectral sequences = that operation ITERATED). Canonical indices: **`SYNTHESIS.md`** (the capstone
@@ -65,7 +65,7 @@ and all degrees (2-element matrix spectrum); (2) CORRECTED a
 false-friend: the proposed `no_universal_qubit_copier` witness is Cantor (a no-universal-realizer fact at
 `Qubit:=Bool`), NOT no-cloning — basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the
 amplitude residue, stays predicted-not-built.  Prediction tally now **13/14 Lean-closed**.  SYNTHESIS at
-**v4 (count 141)**.
+**v4 (count 142)**.
 
 **Bertrand / prime-distribution arc (2026-06-23, course-corrected):** built the entire *structural* content
 of Erdős's Bertrand proof ∅-axiom — `PrimePowFactorization.lean` (10/0: `prod_prime_pow_eq`, the explicit

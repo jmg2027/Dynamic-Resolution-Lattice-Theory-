@@ -2002,7 +2002,23 @@ Gal(𝔽_{pⁿ}/𝔽_p) (order n, `ord_dvd_p_sub_one`:181). Sharpens finding (iv
 fixed pole = the fixed field. **False-friend flagged**: `Frobenius.lean` = the Frobenius *number* (coin problem),
 NOT this endomorphism (CLAUDE.md row). ABSENT: named ring-endo `frobenius`, the Galois generation, aᵖ≡a corollary.
 
-**Count.** 141 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ Axiom of choice / LLPO (`axiom_of_choice.md`) — choice is a free Lens parameter σ, not an axiom
+
+EXTEND + CORRECTION of finding (vii) (the originator's push: "refused" is a cop-out, dig deeper). C = an
+inhabited family X:I→Type; **L_σ = a section (choice function) = a Lens**; different choices (σ_left/σ_right/none)
+= different Lenses; Residue = the σ-dependence. **Dissolution**: applying a Lens is an ACT not an existence claim,
+so 213 never asserts "a section exists" — it applies a rule (σ) and reads; the non-constructivity = NO σ is
+forced/canonical (no exterior dialer §5.1), i.e. **σ is a FREE Lens parameter** (like the p-adic base / resolution
+dial). "AC true" (any L_σ applicable) and "AC refused" (no L_σ canonical) jointly say **σ is free**; compute
+per-σ (constructive — sections are explicit data, no AC). **Deep tie**: over a binary fiber σ∈{left,right} IS the
+q=±1 tag B, and **LLPO = the B-valued σ left unforced** (even/odd undecidable = the ±1 bit free, `Omniscience.LLPO`).
+★ **Predicts AC's independence**: a free Lens parameter admits both adjunctions consistently — Gödel–Cohen
+independence = σ free, forcing = adjoining a generic σ. Honest scope: dissolution + structural prediction, NOT a
+proof of AC (213 proves neither). ∅-axiom witness `ChoiceLens.lean` (two explicit sections + σ-dependent op).
+ABSENT: σ-parametrized operation library (ultrafilter/well-order/Hahn–Banach each carrying σ); the forcing
+statement as a Lean theorem.
+
+**Count.** 142 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **fourteen**
 predictions, **thirteen Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +

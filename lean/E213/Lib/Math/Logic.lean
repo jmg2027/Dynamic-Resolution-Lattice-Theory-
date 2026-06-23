@@ -17,6 +17,7 @@ import E213.Lib.Math.Logic.ApartnessCostSharp
 import E213.Lib.Math.Logic.RealComparabilityLLPO
 import E213.Lib.Math.Logic.RealEqualityWLPO
 import E213.Lib.Math.Logic.RealApartnessMP
+import E213.Lib.Math.Logic.ChoiceLens
 
 /-!
 # Reverse Mathematics 213 — umbrella (`Lib/Math/Logic`)
