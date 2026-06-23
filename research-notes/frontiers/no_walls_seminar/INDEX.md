@@ -41,5 +41,9 @@ fog (unfold every term or cite a theorem); no false witnesses; no forcible maps.
   grand thesis amends to the **section-count trichotomy `0/1/many` = wall / forced / free**, one axiom
   (§5.1), the `q=±1` tag one level up.  One *internal generative* wall (the diagonal); free params split
   selection-σ (=forcing) / height-h (=large cardinals).  Folded into `SYNTHESIS.md` §2 (viii).
-- **R2 (next):** build `ForcingToy.lean` (the independence toy); the section-count as a stated `Moduli(C)`
-  object; genericity (σ-over-σ or wall?); symmetric-σ vs asymmetric-h = escape/converge on the strength axis.
+- **R2 (2026-06-23):** built `ForcingToy.lean` (12/0, forcing = σ-adjunction) + `SectionCount.lean` (16/0,
+  the 0/1/many trichotomy as an object); F (genericity = height-limit of σ, not the diagonal); G (symmetry
+  law CONFIRMED: free-parameter symmetry = fiber order-structure; height-escape = the one diagonal /
+  Burali-Forti).  **Synthesis: `R2_synthesis.md`** → folded into `SYNTHESIS.md` §2 (ix).
+- **R3 (next):** `FiberSymmetry` (the symmetry law as a biconditional theorem, Bool vs ℕ fiber); the recurring
+  THIRD STATUS (partially-ordered fiber → partial symmetry? the seminar's own residue); `GenericAsCut`.

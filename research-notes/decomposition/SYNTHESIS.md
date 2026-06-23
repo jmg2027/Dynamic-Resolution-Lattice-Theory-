@@ -225,6 +225,28 @@ reached-by-none).  The `many`-pole splits into **selection-σ** (closed-fiber, s
 status kept distinct: a *missing modelling input* (the ambient `S³`) is **absence ≠ obstruction ≠
 parameter**, not a fourth count.
 
+**(ix) The wall is axis-polymorphic; the free parameters' symmetry = their fiber's order — both now
+machine-witnessed** (seminar R2, `frontiers/no_walls_seminar/R2_synthesis.md`).  Round 2 built two ∅-axiom
+witnesses and proved two refinements of (viii):
+- **`ForcingToy.lean` (12/0)** — `forcing_toy_independence` (one construction, two generics, neither
+  canonical) + `bundle_recovers_independence` (carry both σ, project per-condition = sheaf-over-poset,
+  funext-free): **"forcing = adjoining a free selection-σ" is a built theorem**.
+- **`SectionCount.lean` (16/0)** — the `0/1/many` trichotomy as a stated object (`wall_no_total_section` /
+  `forced_exists_unique` / `free_two_sections` + `trichotomy_complete`/`_distinct`): **(viii) is
+  machine-checked**.  (Purity insight: section *equality* imports `funext`/`Quot.sound`, so forced-uniqueness
+  is the *pointwise* `∀x, s x = t x` — the faithful strict reading of "one section".)
+- **The symmetry law (G, via the Lean delegation chain `height_diagonal_escapes := diag_not_in_seq`,
+  `ceiling_reference_leaves_residue := cantor_general`):** a free parameter's symmetry-type **is its fiber's
+  order-structure** — *unordered* ⟹ symmetric (forcing); *well-ordered* ⟹ one-way (large cardinals).  So
+  selection-σ and height-h are **the one B-escape over two fiber-orders** (fiber-order = a *frame
+  coordinate*, sharper than (viii)'s "B's two aspects").  And the wall is **axis-polymorphic**: the *same*
+  `no_surjection_of_fixedpointfree` is Cantor (cardinality), Russell/Gödel/halting (self-reference),
+  **Burali-Forti (ordinal height — grounded, hence height-h's asymmetry)**, and the generic's incompleteness
+  (σ-completeness).
+- **Genericity (F):** "generic" = the *height-limit* of a free selection-σ (the "over M" clause dissolves,
+  §5.1); it is the `q=+1` *converge* limit (a `Real213`-cut, reached-by-none), **not** the diagonal — so the
+  diagonal stays the unique wall, and "reached-by-none" splits converge (generic) / escape (diagonal).
+
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
 Homological algebra (`practice/homological_algebra.md`) does not add a field; it **names the operation
