@@ -58,6 +58,20 @@ theorem trace_recurrence (M : Mat2) (n : Nat) :
   rw [step, tr_mul_charComb]
   rfl
 
+/-- ★★★ **The degree-2 trace-power Newton identity (explicit).**  `tr(M²) = tr(M)² − 2·det(M)`, i.e.
+    the second power sum `p₂ = e₁² − 2e₂` of the spectrum, realised at the matrix level.  Read off
+    Cayley–Hamilton directly: `M² = tr·M − det·I = charComb M`, whose diagonal is `(tr·a − det, tr·d − det)`,
+    so `tr(M²) = tr·(a+d) − 2·det = tr² − 2·det`.  The matrix shadow of the scalar Newton identity
+    `μ²+ν² = (μ+ν)² − 2μν` (`NewtonInequalities.newton_id_p2` is the 3-variable companion; `trace_recurrence`
+    is the all-degrees recurrence this is the base case of).  ∅-axiom. -/
+theorem trace_sq (M : Mat2) :
+    Mat2.tr (mul M M) = Mat2.tr M * Mat2.tr M - 2 * Mat2.det M := by
+  rw [cayley_hamilton]
+  rcases M with ⟨a, b, c, d⟩
+  show ((a + d) * a - (a * d - b * c)) + ((a + d) * d - (a * d - b * c))
+      = (a + d) * (a + d) - 2 * (a * d - b * c)
+  ring_intZ
+
 /-! ## The golden boost: the Lucas recurrence, infinite order -/
 
 /-- ★★★ **The golden boost satisfies the Lucas recurrence.**  `tr(Gⁿ⁺²) = 3·tr(Gⁿ⁺¹) − tr(Gⁿ)`

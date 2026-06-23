@@ -231,9 +231,11 @@ universalized):**
 - `lean/E213/Lib/Math/NumberSystems/Real213/Mat2/Mat2TraceRecurrence.lean:54` `trace_recurrence`
   (`tr(Mⁿ⁺²) = tr(M)·tr(Mⁿ⁺¹) − det(M)·tr(Mⁿ)` = `p_{n+2} = e₁·p_{n+1} − e₂·p_n`, **Newton–Girard for
   the 2-element spectrum at ALL degrees** — the power-sum ↔ elementary bridge, Cayley–Hamilton iterated);
-  `:65` `golden_trace_recurrence` (the Lucas instance). **PURE (5/0).**
-- `lean/E213/Lib/Math/Foundations/NewtonInequalities.lean` `newton_id_p2`/`newton_id_p3` (the 3-variable
-  Newton identities `p₂ = e₁p₁−2e₂`, `p₃ = e₁p₂−e₂p₁+3e₃`, added this session). **PURE (module 7/0).**
+  `trace_sq` (the explicit degree-2 base case `tr(M²) = tr² − 2·det` = `p₂ = e₁² − 2e₂`, derived from
+  Cayley–Hamilton, added this session); `:65` `golden_trace_recurrence` (the Lucas instance). **PURE (6/0).**
+- `lean/E213/Lib/Math/Foundations/NewtonInequalities.lean` `newton_id_p2`/`newton_id_p3`/`newton_id_p4`
+  (the 3-variable Newton identities `p₂ = e₁p₁−2e₂`, `p₃ = e₁p₂−e₂p₁+3e₃`, `p₄ = e₁p₃−e₂p₂+e₃p₁`, added
+  this session). **PURE (module 8/0).**
 
 **The ×↦· character (`eᵢ` = the universal `det`) and the ×↦+ twin (power sums = trace-powers):**
 - `lean/E213/Lib/Math/NumberSystems/Real213/Markov/SternBrocotMarkov.lean:104` `det2_mul`
@@ -311,11 +313,16 @@ alternant — see Dropped). All PURE, 0 DIRTY. (`det2_mul`, `vp_mul`, `mu_conv_o
   theorems (`det_tr_split_is_e1_e2`, `cayley_hamilton`, `newton1`, `newton2`, all scanned PURE). The
   predicted additional witness — **Newton's identities**, the power-sum ↔ elementary-symmetric character
   bridge — is now **closed ∅-axiom** in `NewtonInequalities.lean`:
-  - `newton_id_p2 : a²+b²+c² = (a+b+c)² − 2(ab+bc+ca)` (`p₂ = e₁p₁ − 2e₂`), and
-  - `newton_id_p3 : a³+b³+c³ = (a+b+c)(a²+b²+c²) − (ab+bc+ca)(a+b+c) + 3abc` (`p₃ = e₁p₂ − e₂p₁ + 3e₃`),
+  - `newton_id_p2 : a²+b²+c² = (a+b+c)² − 2(ab+bc+ca)` (`p₂ = e₁p₁ − 2e₂`),
+  - `newton_id_p3 : a³+b³+c³ = (a+b+c)(a²+b²+c²) − (ab+bc+ca)(a+b+c) + 3abc` (`p₃ = e₁p₂ − e₂p₁ + 3e₃`), and
+  - `newton_id_p4 : a⁴+b⁴+c⁴ = (a+b+c)p₃ − (ab+bc+ca)p₂ + abc·(a+b+c)` (`p₄ = e₁p₃ − e₂p₂ + e₃p₁`, the
+    `k>n` recurrence form since `e₄=0` for 3 variables),
 
-  each a single `ring_intZ` identity, both `#print axioms`-clean (module now **7/0**, was 5/0). This is
-  the genuine degree-2/degree-3 `×↦+ ↔ ×↦·` character bridge — the power sums `p_k` (additive trace-powers)
-  written through the elementary `eᵢ` (multiplicative det-coefficients) — not a re-skin: Newton's identities
-  are core symmetric-function theory, the degree-graded companion to the closed `newton1`/`newton2`
-  log-concavity inequalities. The named ring Λ and the `e/h/p/m/s_λ` bases remain ABSENT (the `d>1` break).
+  each a single `ring_intZ` identity, all `#print axioms`-clean (`NewtonInequalities` module **8/0**, was 5/0).
+  And the **matrix-level** degree-2 identity is now explicit too: `Mat2TraceRecurrence.trace_sq`
+  (`tr(M²) = tr² − 2·det`, derived from Cayley–Hamilton; module **6/0**), the `p₂ = e₁² − 2e₂` of the
+  2-element spectrum realised on the actual matrix square. This is the genuine `×↦+ ↔ ×↦·` character bridge
+  — the power sums `p_k` (additive trace-powers) written through the elementary `eᵢ` (multiplicative
+  det-coefficients) — not a re-skin: Newton's identities are core symmetric-function theory, the
+  degree-graded companion to the closed `newton1`/`newton2` log-concavity inequalities. The named ring Λ
+  and the `e/h/p/m/s_λ` bases remain ABSENT (the `d>1` break).

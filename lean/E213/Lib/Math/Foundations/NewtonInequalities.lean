@@ -126,6 +126,17 @@ theorem newton_id_p3 (a b c : Int) :
       = (a+b+c)*(a*a + b*b + c*c)
           - (a*b + b*c + c*a)*(a+b+c) + 3*(a*b*c) := by ring_intZ
 
+/-- ★★ **Newton's identity, degree 4** (ℤ): `p₄ = e₁·p₃ − e₂·p₂ + e₃·p₁`, i.e.
+    `a⁴+b⁴+c⁴ = (a+b+c)(a³+b³+c³) − (ab+bc+ca)(a²+b²+c²) + abc(a+b+c)`.  The
+    `k > n` Newton recurrence (3 variables, so `e₄ = 0` — no standalone `k·e_k`
+    term); the degree-4 `×↦+ ↔ ×↦·` bridge.  This is also the `n = 2` case of the
+    Newton–Girard *recurrence* `p_{k} = e₁p_{k-1} − e₂p_{k-2} + e₃p_{k-3}`. -/
+theorem newton_id_p4 (a b c : Int) :
+    a*a*a*a + b*b*b*b + c*c*c*c
+      = (a+b+c)*(a*a*a + b*b*b + c*c*c)
+          - (a*b + b*c + c*a)*(a*a + b*b + c*c)
+          + (a*b*c)*(a+b+c) := by ring_intZ
+
 /-! ## Maclaurin remark
 
 The two Newton inequalities `e1² ≥ 3·e2` and `e2² ≥ 3·e1·e3` are exactly the
