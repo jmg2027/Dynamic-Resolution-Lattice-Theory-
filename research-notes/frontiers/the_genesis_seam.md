@@ -230,6 +230,39 @@ any deep discipline. The real generation frontier, named precisely for the first
 **re-ground a discipline's recursion on `Raw.isPart_wf`, not merely type it over a
 `Nat` subtype.** That is the bar the descent leg was reaching for and has not cleared.
 
+## Round 2.6 — the hypothesis CONFIRMED empirically (the criterion's first verdict)
+
+The "FTA likely fails the strict test" hypothesis is now **confirmed by direct
+inspection** (the completion-engine criterion's first real application):
+
+- **`PrimeFactorization.lean` recurses via `Nat.strongRecOn`** (lines 221, 256) — the
+  flagship FTA-over-`Nat213` completes through *`Nat`'s* strong-recursion
+  well-foundedness, **not** `Raw`'s `isPart_wf`. The descent-leg "generation" is the
+  *weaker* sense (a `Raw`-derived carrier `Nat213`, `toNat`-cast-free) while the
+  **completion-engine stays `Nat`'s**.
+- **`Raw.isPart_wf` (the distinguishing's own descent engine) is used in exactly four
+  files — all in the `Theory/Raw` + `Lens` foundational layer** (`MuNuMirror`,
+  `Lambek`, `StateMachine`, `SelfReferenceThreeOutcomes`). **Zero `Lib/Math`
+  disciplines recurse on it.**
+- Only **23 of ~1571 `Lib/Math` files import `Raw` at all** (confirms the 96% figure).
+
+**Verdict (mechanical, §5.1-legal, falsifiable):** by the strict completion-engine
+criterion, **213 has not yet generated a single deep discipline** — the act's own
+well-foundedness (`isPart_wf`) generates only the `Raw`/`Lens` foundational layer; every
+reconstructed discipline (number theory included, the descent leg included) completes on
+the borrowed `Nat` engine. "Mathematics generated from the residue" is, measured this
+way, **true at the `Raw`-descent layer and false everywhere above it** — *as of now*.
+
+This is the honest, mechanical, non-narrative form of the central claim's status. It
+is not a refutation of the programme (the re-derivations are real, ∅-axiom, and the
+`Raw` layer genuinely self-grounds); it is the first *measured* statement of exactly
+how far the generation actually reaches, replacing the slogan with a number (1 layer)
+and a named frontier (migrate one discipline's recursion from `Nat.strongRecOn` to
+`Raw.isPart_wf`). That single migration — e.g. re-proving Euclid's lemma or FTA by
+recursion on the `Raw` peel rather than `Nat` strong induction — would be the first
+result to pass the test, and is the sharpest possible next target for "generation,
+not re-derivation."
+
 ## The exterior deliverable (the only §5.1-legal verdict)
 
 Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
