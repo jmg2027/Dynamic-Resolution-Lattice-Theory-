@@ -1955,7 +1955,24 @@ side. Completes the triptych `modular_arithmetic` (the Lens) → `gcd_euclidean`
 `prime_distribution` (non-terminating iteration). ABSENT: packaged Bézout `gcd=ax−by` identity; the CF bridge
 (Euclidean quotients = continued fraction of a/b, `continued_fractions.md`).
 
-**Count.** 138 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ Computability / halting (`computability_halting.md`) — the q=±1 termination tag's residue IS the diagonal
+
+EXTEND (unifies the two corpus spines). The meeting point of the **iterated residue-Lens engine** (SYNTHESIS §2
+(iii): q=±1 = does the descent terminate?) and the **one diagonal** (cardinality/godel). C = programs as Raws,
+Gödel-coded (`Raw.toNat_injective` Godel:118); L_halt = the termination reading a↦(x↦halts?(a,x)) = a self-cover
+`f:A→(A→Bool)` (same shape as count/provability, feature = "halts"); Residue = the diagonal: no total
+halt-decider (`no_surjection_of_fixedpointfree` OneDiagonal 11/0 at B=Bool, `object1_not_surjective` 7/0, the
+q=−1 escape pole). **Decidability of the q=±1 termination tag is GRADED by the well-founded modulus**: gcd (modulus
+`M=max a b+a` exists → decidable & always +1, `gcdFuel` total) → Collatz (no known modulus → open) → halting
+(no modulus → undecidable = the diagonal). The modulus is the boundary between a *readable* q and the *diagonal*
+q. **Collapse**: Cantor/Gödel/Turing = count-Lens/provability-Lens/termination-Lens of ONE residue
+(`one_diagonal_generates`:101). **Forcing**: the dynamic q=±1 tag (finding iii) and the one-diagonal are one
+object — deciding the termination tag of an arbitrary descent IS the self-cover whose residue is the diagonal;
+static face = Legendre `(a/p)` (finding i), dynamic face = Euclidean termination (iii), meta face = its
+undecidability (the diagonal). ABSENT: named TuringMachine/halts/Collatz + the packaged undecidability statement
+(only the abstract diagonal built, as in godel.md).
+
+**Count.** 139 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **fourteen**
 predictions, **thirteen Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +

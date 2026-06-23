@@ -5,7 +5,7 @@
 
 ## ★★ CURRENT STATE (2026-06-22, 42-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
 The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
-now spans **138 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+now spans **139 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
 converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
 `ResidueTag.lean`) + the reflexive deepening (homological algebra names the calculus's own residue-taking
 operation; spectral sequences = that operation ITERATED). Canonical indices: **`SYNTHESIS.md`** (the capstone
@@ -65,7 +65,7 @@ and all degrees (2-element matrix spectrum); (2) CORRECTED a
 false-friend: the proposed `no_universal_qubit_copier` witness is Cantor (a no-universal-realizer fact at
 `Qubit:=Bool`), NOT no-cloning — basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the
 amplitude residue, stays predicted-not-built.  Prediction tally now **13/14 Lean-closed**.  SYNTHESIS at
-**v4 (count 138)**.
+**v4 (count 139)**.
 
 **Bertrand / prime-distribution arc (2026-06-23, course-corrected):** built the entire *structural* content
 of Erdős's Bertrand proof ∅-axiom — `PrimePowFactorization.lean` (10/0: `prod_prime_pow_eq`, the explicit
@@ -93,11 +93,22 @@ refinement lattice (`leavesModNat_lcm`: refines=∣, meet=lcm, CRT=coprime case)
 triptych**: `modular_arithmetic` (the Lens) → `gcd_euclidean` (terminating iteration, q=+1) →
 `prime_distribution` (non-terminating iteration, q=−1) — the two faces of iterating `%`.
 
-**SYNTHESIS §2 deepened (2026-06-23):** two invariant-level findings folded into the canonical inventory —
+**Decomposition #139 `computability_halting.md` (2026-06-23):** the meeting of the two spines.  L_halt = the
+termination reading (a↦(x↦halts?(a,x))) = a self-cover `f:A→(A→Bool)` (Gödel-coded, `Raw.toNat_injective`);
+Residue = the diagonal (no total halt-decider, `no_surjection_of_fixedpointfree` OneDiagonal 11/0, the q=−1
+pole).  **Decidability of the q=±1 termination tag is GRADED by the well-founded modulus**: gcd (modulus exists
+→ decidable +1, `gcdFuel` total) → Collatz (open) → halting (no modulus → undecidable = the diagonal).  The
+modulus is the boundary between a readable q and the diagonal q.  Cantor/Gödel/Turing = count/provability/
+termination-Lens of ONE residue (`one_diagonal_generates`).  Unifies the residue-tag spine and the one-diagonal
+spine: the dynamic q=±1 tag and the diagonal are one object.
+
+**SYNTHESIS §2 deepened (2026-06-23):** THREE invariant-level findings folded into the canonical inventory —
 (i) the `q=±1` tag's ORIGIN = the Legendre symbol on `(ℤ/p)*` (quadratic residue; whence the name; q^k=1
 extension = cyclic power-residue); (ii) the **residue-location law**: a faithful coordinate Lens relocates its
 residue to the basis it presupposes (L_vp faithful → residue = prime distribution); specific to
-many-distinguishable-atom bases (×-atoms).
+many-distinguishable-atom bases (×-atoms); (iii) the **iterated residue-Lens engine**: `q=±1` = whether the
+Euclidean descent terminates — gcd (+1, modulus) / continued fractions (rational +1 / irrational −1) / prime
+distribution (−1) are one engine; its meta-undecidability (halting) = the one diagonal (#139).
 
 **Five calibrated boundaries** now located
 (nonstandard/LLPO, CFT/bundle, descriptive-set/large-cardinals, Stone/ultrafilter, Berkovich/seminorm-completeness) — all converging on the one ultrafilter/LLPO/choice point: the no-exterior axiom, tested at its hardest
