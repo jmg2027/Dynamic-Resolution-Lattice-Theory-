@@ -71,5 +71,12 @@ fog (unfold every term or cite a theorem); no false witnesses; no forcible maps.
   `free_two_sections`↔`ChoiceLens`); the tetrachotomy classifies its own normal form. R6: weld
   `fiberArity(freeFib) = NT` (NT from `PairForcing`, not literal `2`) + ask whether the coupling-reading is
   itself tag-1 (rigid) or tag-many (free).
-- **R6+ (open):** weld the base×fiber coupling into one parametric theorem (`fiber arity = NT`); a partial
+- **R6 (2026-06-23) — THE WELD + idempotence:** built `ArityCoupling.lean` (16/0, `Fin`-free): `arity_coupling`
+  (`fiberTag n = many ⟺ 2 ≤ n`) + `fpf_modifier_iff` (the wall's fpf modifier, cyclic-successor, exists ⟺
+  `2 ≤ n`) + `forced_NT_couples_free_and_wall` (at the forced `NT=2`) — closing R5's ABSENT: "the constant 2
+  recurs" → "the forced `NT` parametrically determines free-fiber arity AND the wall's modifier". Meta-probe
+  (`E_orchestrator_R6_metaprobe.md`): **self-classification is idempotent, the tetrachotomy is its fixed
+  point** (classify∘classify = classify; master always the wall R4, self-application always collapses R3-J;
+  the general idempotence theorem is ABSENT-by-self-grounding). Folded into `SYNTHESIS.md` §2 (xi).
+- **R7+ (open):** weld the base×fiber coupling into one parametric theorem (`fiber arity = NT`); a partial
   decidable `tagOf` below the wall (the buildable part); `GenericAsCut`.

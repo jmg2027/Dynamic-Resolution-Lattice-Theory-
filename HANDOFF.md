@@ -137,7 +137,7 @@ distribution (−1) are one engine; its meta-undecidability (halting) = the one 
 is more primitive (survives where `A` doesn't); Frobenius (#141) is the sharpest case (A = full ring endo,
 B's fixed pole = the fixed field 𝔽_p).
 
-**★★ "No walls" seminar — CAPSTONE (2026-06-23, multi-agent, 5 rounds; `frontiers/no_walls_seminar/`).**
+**★★ "No walls" seminar — CAPSTONE (2026-06-23, multi-agent, 6 rounds; `frontiers/no_walls_seminar/`).**
 The originator's choice-correction ("don't refuse AC/LLPO — decompose the choice act into a free Lens
 parameter σ") was developed by a sustained multi-round mathematician-team discussion into a **self-grounding
 structural theory of the calculus's boundaries**, folded into `SYNTHESIS.md` §2 (vii′)–(x):

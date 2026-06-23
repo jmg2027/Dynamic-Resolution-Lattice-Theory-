@@ -291,9 +291,16 @@ reached-by-none *negatively*, `object1_not_surjective`) and the **generic** (tag
 `GenericAsCut.generic_is_reached_by_none_cut` 12/0 = a `Real213`-cut shape) — i.e. `escape`(q−1)/`converge`(q+1)
 of `B`.  And the classifier is **total below the wall** (`TagOfDecidable.tagOf_never_wall` 12/0: tag-`0` is
 structurally unreachable on decidable fibers) — the wall appears *only* at the `Type`-valued self-cover.
-ABSENT (R6): the welded parametric theorem `fiber Fin(NT)` with `NT` *supplied by* `PairForcing` (section-count
-`many` ⟺ `NT ≥ 2`), turning "the same constant `2` recurs" into "the forced `NT` parametrically determines
-free-fiber arity".
+**The coupling is now ONE parametric theorem (R6, BUILT)** — `ArityCoupling` (16/0, `Fin`-free, fiber = a Nat
+cardinality `n`): `arity_coupling` (`fiberTag n = many ⟺ 2 ≤ n`), `fpf_modifier_iff` (a fixed-point-free
+modifier on the `n`-fiber, the wall's `not`-analog via cyclic successor, exists ⟺ `2 ≤ n`), and
+`forced_NT_couples_free_and_wall` (at the forced `NT = 2`: free-tag *and* fpf-modifier together) — turning
+"the constant `2` recurs everywhere" into "**the forced `NT` parametrically determines the free-fiber arity
+and the wall's modifier**".  And one reflexive turn further (R6 meta-probe): **self-classification is
+idempotent — the tetrachotomy is the fixed point of `classify`** (apply it to any reading, even the coupling
+or `classify` itself: same four tags, master always the wall (R4), self-application always collapsing
+(R3-J)); the *general* idempotence theorem is itself ABSENT-by-self-grounding (it is the wall) — the closing
+honest negative.
 
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
