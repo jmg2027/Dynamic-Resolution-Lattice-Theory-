@@ -1,21 +1,40 @@
 # 213 Library
 
-> Derive all of mathematics and physics from *primitive distinction* —
-> Lean 4 core only, Mathlib-free, ℕ-only Rust verification engine.
+> One primitive — **distinguishing (구분)** — leaves one provable remainder —
+> the **residue (잔여)**.  Every object is read as `⟨C | L⟩ ⊕ Residue`, and
+> every domain of mathematics and physics is *reconstructed* from that move.
+> Lean 4 core only, Mathlib-free, ∅-axiom.
 
 ## What It Is
 
-**213** = Starting from the *minimal residue* with a 3-clause Raw axiom
-(plus directionless slash_comm).
+**213** has exactly one core, in two roles:
+
+- **`distinguishing`** — the single primitive.  To point at anything is to
+  distinguish it from something else; the act is *faithful but never total*
+  (`object1_not_surjective`), so it always leaves a remainder.
+- **`⟨C | L⟩ ⊕ Residue`** — the operating calculus.  Every object is a
+  **construction** `C` read through a **Lens** `L`, modulo the **residue** no
+  reading exhausts.  A Lens is the codomain-side shape a fold of Raw imposes;
+  Raw is the initial object, so every framework factors through it.
+
+Everything else in this repository is **one domain reconstructed from
+distinguishing + residue** — the number systems, algebra, analysis,
+cohomology, *and* physics are each `⟨C|L⟩⊕Residue` rebuilds, not separate
+theories.
 
 ```
-DRLT (Dynamic Resolution Lattice Theory)
-  = Raw axiom (a, b, slash, slash_comm)
-  + Lens framework
-  → Atomicity (d = 5 unique, NS = 3, NT = 2 forced)
-  → K_{3,2}^{(c=2)} graph (canonical)
-  → Mathematics + Physics derived
+core:   distinguishing (구분)  →  residue (잔여, a theorem)  →  ⟨C|L⟩ ⊕ Residue calculus
+        Raw = the least-committal recording of the distinguishing recursion
+        Atomicity: (NS, NT, d) = (3, 2, 5) FORCED (construction axes)
+reconstruction (each a Lens reading of the residue):
+        number systems · algebra · analysis · number theory · cohomology · physics
 ```
+
+> **The calculus classifies its own parameters.**  The construction axes
+> `(NS, NT, d)` are *forced* (uniquely determined).  The graph multiplicity
+> `c` of the bipartite lattice `K_{NS,NT}^{(c)}` is **not** forced — it is a
+> *free Lens-presentation parameter*, removable from every observable.  No
+> single `c` is canonical; results are stated parametrically in `c`.
 
 ## Core stakes
 
@@ -51,7 +70,7 @@ headline-precision-scope frontier; methodology:
 |---|---|---|---|
 | **Koide Q** | `NT/NS = 2/3` | exact ratio (`koide_atomic`) | ~3 ppm, **0 param** |
 | **1/α_em** | `60·ζ(2)+30+25/3+α_GUT corr.` | structural `137.035999111` = CODATA `…084` + 27e-9 (`invAlphaEm_precision_theorem`) | **0.2 ppb, PURE** ¹ |
-| m_H/v_H | `1/c = 1/2` (+ α_GUT corr.) | `1/c` exact ratio | leading exact |
+| m_H/v_H | `1/c` (+ α_GUT corr.), at presentation `c=2` | `1/c` exact ratio (c = free presentation param) | leading exact |
 | m_μ/m_e | `(NS/NT)·(1/α_em)·P·(1+Σδ)` | leading bracket `205 ∈ [197,206]` | 0.49 ppb is **docstring**, not the theorem ² |
 | Magic numbers 2,8,20… | HO closed form | exact | EXACT |
 | Muon prefactor | `(NS²−1)(d²−1) = 192` | exact integer | EXACT |

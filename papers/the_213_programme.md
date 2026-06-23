@@ -34,7 +34,7 @@ imposes; Raw is the initial object in the category of such readings, so
 single move we rebuild, axiom-free, a substantial swath of mathematics:
 the natural numbers (with `ℤ` and `ℚ` as two quotient choices on one
 container), the real and `p`-adic numbers via explicit moduli rather than
-ε-δ, the Cayley–Dickson tower, a cohomology programme on a canonical
+ε-δ, the Cayley–Dickson tower, a cohomology programme on a parametric
 bipartite multigraph, and a graded arithmetic (GRA) under which category
 theory and homotopy type theory appear as *readings* rather than
 ambient settings. The boundaries usually drawn as walls — choice,
@@ -328,13 +328,18 @@ Cayley–Hamilton), the C-finite sequence ring (closed under Hadamard
 product), and the Casoratian rank theory are developed `n×n` from scratch
 (`linalg213`, `cfinite_orbit_dimension`).
 
-**Cohomology.** The forced atomic data names a unique bipartite
-multigraph, `K_{3,2}^{(c=2)}` — 3 vertices on one side, 2 on the other, 2
-edges per pair, 12 edges total — paired with the 4-simplex `Δ⁴` as dual
-filling. A cup-product cochain programme on this object yields, among
+**Cohomology.** The forced atomic data `(N_S, N_T) = (3, 2)` names a
+bipartite multigraph `K_{N_S,N_T}^{(c)}`, with the edge multiplicity `c` a
+*free presentation parameter* — not a forced fourth datum, and removable
+from every observable. The cohomology is proved parametrically in `c` (the
+kernel-constancy theorems hold for all `N_S, N_T, c`); a chosen `c` is one
+reading, no value canonical. A cup-product cochain programme yields, among
 others, the Sym(3) decomposition `2·trivial ⊕ 3·standard` that recurs in
 the gauge sector, and surface intersection-form / Hodge-signature results
-on `T²`, `ℙ²`, `ℙ¹×ℙ¹`, `Σ_g` and products (`theory/math/cohomology/`).
+on `T²`, `ℙ²`, `ℙ¹×ℙ¹`, `Σ_g` and products (`theory/math/cohomology/`). That
+`c` is free where `(N_S,N_T,d)` are forced is the calculus classifying its
+own parameters (§5, and the companion boundaries paper): a construction
+axis is forced, a Lens presentation is free.
 
 **GRA universality and the foundational frameworks as readings.** Graded
 Residue Arithmetic is the `(2,3)`-graded arithmetic forced by

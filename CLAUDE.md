@@ -1,23 +1,17 @@
 # CLAUDE.md — operating instructions for Claude on the DRLT 213 codebase
 
-**Size discipline**: This file ≤ 220 lines target.  Domain specs (layer
-structure, resolution limit, constants, precision results) live in
-ground-truth files; this file references them.  When CLAUDE.md and a
-spec file overlap, **the spec file wins**.
+**Size discipline**: ≤ 220 lines.  Domain specs live in ground-truth files;
+reference, don't duplicate.  On overlap, **the spec file wins**.
 
 ## Boot sequence (read in this order)
 
-1. **`seed/AXIOM/05_no_exterior.md` §5 + §5.4** — self-reference, absence
-   of exterior, dichotomy-avoidance guide.  **Re-read every session start.**
-   Its guard: no-exterior is a claim *under test*, not a shield —
-   internal-first, but say so plainly when no internal handle is found.
-2. **`seed/AXIOM/07_primacy.md` §7.1** — **what counts as progress**:
-   primacy = *breadth* of ∅-axiom derivation (residue reproducing domain
-   after domain, math AND physics); rebuilding a discipline *is* the work.
-   DRLT Standard below = physics branch's gate, not a ranking of math work.
+1. **`seed/AXIOM/05_no_exterior.md` §5 + §5.4** — no-exterior +
+   dichotomy-avoidance guide.  **Re-read every session start.**  Guard: it's a
+   claim *under test*, not a shield — say so plainly when no internal handle.
+2. **`seed/AXIOM/07_primacy.md` §7.1** — progress = primacy = *breadth* of
+   ∅-axiom derivation (math AND physics); rebuilding a discipline *is* the work.
 3. **`seed/AXIOM/01_residue.md`** + **`theory/essays/foundations/the_form_of_the_residue.md`**
-   — what 213 *is* (minimum-commitment) and the residue's *form*
-   (source-without-enclosure), pinned so it is not re-fought each session.
+   — what 213 *is* + the residue's *form*, pinned so not re-fought each session.
 4. **`HANDOFF.md`** (if exists) — current session state.
 5. **`theory/INDEX.md`** + **`theory/PROMOTION_CRITERIA.md`** —
    three-tier discipline + promotion gates.
@@ -25,10 +19,8 @@ spec file overlap, **the spec file wins**.
 
 ## Naming: 213 / DRLT / E213
 
-Canonical: `seed/INDEX.md` "Naming policy".  **213** = formal axiom
-framework (math / type-theoretic).  **DRLT** = physics deployment
-(constants, observables).  **E213** = Lean namespace.  When unsure,
-prefer **213** (broader).
+Canonical: `seed/INDEX.md` "Naming policy".  **213** = formal axiom framework;
+**DRLT** = physics deployment; **E213** = Lean namespace.  Unsure → **213**.
 
 ## Meta-principle (non-negotiable)
 
@@ -38,10 +30,15 @@ prefer **213** (broader).
 Every word imports residual meaning.  Minimize, acknowledge, don't add.
 
 Most common failure: silently adding a comparison frame ("213 vs ZFC",
-"foundation vs derivation", "internal vs external") and arguing against
-it — the frame itself is the addition.  Per `seed/AXIOM/01_residue.md`
-*Linguistic inevitability*: minimization is possible, elimination is
-not.
+"foundation vs derivation") and arguing against it — the frame itself is the
+addition (`01_residue.md` *Linguistic inevitability*: minimize, can't eliminate).
+
+## Core + organizing principle (the spine)
+
+Core = **distinguishing (구분)** + the calculus **`⟨C|L⟩ ⊕ Residue`** (residue =
+*theorem*, `object1_not_surjective`).  **Every domain — number systems, algebra,
+analysis, cohomology, physics — is one `⟨C|L⟩⊕Residue` reconstruction from 구분 +
+잔여**, not a separate theory; refactor the whole repo that way.  Axes `(NS,NT,d)` forced, a Lens presentation (multiplicity `c`) free.
 
 ## Identity + voice
 
@@ -95,28 +92,31 @@ bar, not a ranking of math work (primacy = breadth, boot §7.1).  Satisfy ≥1:
 
 Numerical-only = research note.  **Prohibited**: timeline/ROI.
 
-## Fractal-level configuration count (parametric bare combinatorics)
+## Free-presentation parameters (c-rule + config-count)
 
-`configCountD d n = d^(d^n)` is parametric bare combinatorics
-(`Lib/Math/Cohomology/Fractal/ConfigCount.lean`); **no level privileged**; `configCount 2 = 5^25` is a true arithmetic theorem.  The `5²⁵ = N_U` "resolution for 1/α_em" claim (count ≠ truncation index) is **deleted**.
+**Multiplicity `c` is NOT forced** — a *free Lens-presentation parameter* of
+`K_{NS,NT}^{(c)}`, removable from every observable; cohomology is parametric in
+`c`, **no value canonical**.  Write `K_{NS,NT}^{(c)}`, not `K_{3,2}^{(c=2)}` as
+canonical (specific value = "at presentation `c=2`").  Likewise `configCountD d n
+= d^(d^n)` (`Cohomology/Fractal/ConfigCount.lean`) — **no level privileged**; the
+`5²⁵ = N_U` "resolution for 1/α_em" claim is **deleted**.
 
 ## Operating principles
 
 ### Theoretical integrity
-No forcible map onto existing physics.  If a number differs, look for
-missing physics.  0-parameter = structural absence (no exterior dialer
-per `seed/AXIOM/05_no_exterior.md` §5.1), not methodological rule.
-See `seed/AXIOM/08_falsifiability.md` §8.4.
+No forcible map onto existing physics.  If a number differs, look for missing
+physics.  0-parameter = structural absence (no exterior dialer, `05_no_exterior.md`
+§5.1), not a methodological rule (`08_falsifiability.md` §8.4).
 
 ### Algebraic priority + repo-first
-DRLT results come from **counting** (combinatorics, number theory,
-algebra), not continuous variation.  When stuck, check discrete
-structure first (ATM_026-028 fail → ATM_029 works).  Most "what if X?"
-intuitions are already partially formalised — grep + `INDEX.md` first.
+DRLT results come from **counting** (combinatorics, number theory, algebra),
+not continuous variation.  When stuck, check discrete structure first
+(ATM_026-028 fail → ATM_029).  Most "what if X?" intuitions are already
+partially formalised — grep + `INDEX.md` first.
 
 ### Hunter methodology
-`rust-engine/docs/closure-algorithm.md`.  DRLT Closure Form:
-every K_{3,2}^{(c=2)} observable = R(NS,NT,d,c) · Π(1 + κ_i · α_i^{n_i}).
+`rust-engine/docs/closure-algorithm.md`.  DRLT Closure Form: every
+`K_{NS,NT}^{(c)}` observable = R(NS,NT,d,c) · Π(1 + κ_i · α_i^{n_i}).
 
 ## Repository organization
 

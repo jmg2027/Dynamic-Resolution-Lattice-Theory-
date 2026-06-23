@@ -1,22 +1,27 @@
 # DRLT-213 — State of the framework
 
-**One-paragraph thesis.**  Pointing leaves a residue (Raw).
-Lens application IS distinguishing, not a tool applied to Raw
-from outside.  Self-consistency forces the atomic signature
-`(NS, NT, d) = (3, 2, 5)`; the multiplicity `c = 2` is a derived
-presentation parameter (re-presenting `NS² − 1` as
-`K_{3,2}^{(c=2)}` cohomology), not a forced fourth primitive.
-From this the bipartite cohomology, the algebraic P-orbit closure
-(Lucas-Pell trace ring), and the physics deployment (α_em at
-0.09 ppb, gluon octet from b_1 = NS² − 1, etc.) all derive —
-without external parameters, PURE in Lean.
+**One-paragraph thesis.**  The primitive is **distinguishing**;
+the **residue** (Raw) is what it provably leaves — distinguishing
+is faithful but never total (`object1_not_surjective`).  Every
+object is read as `⟨C | L⟩ ⊕ Residue`, and every domain is that
+move applied: a Lens reading of the residue, not a separate
+theory.  Self-consistency forces the construction axes
+`(NS, NT, d) = (3, 2, 5)`.  The bipartite multiplicity `c` of
+`K_{NS,NT}^{(c)}` is **not** forced — it is a *free
+Lens-presentation parameter*, removable from every observable;
+the cohomology is proved parametrically in `c`, no value
+canonical.  On this core the number systems, the bipartite
+cohomology, the algebraic P-orbit closure (Lucas-Pell trace
+ring), and the physics deployment (α_em, gluon octet from
+`b_1 = NS² − 1`) are each reconstructed from distinguishing +
+residue — without external parameters, PURE in Lean.
 
 ## Closed at framework level
 
 | Programme | Headline | Lean anchor | Chapter |
 |---|---|---|---|
 | Atomic forcing | **(NS, NT, d) = (3, 2, 5)** uniquely forced from atomicity + alive + Pell-Lucas recurrence + k=2 arity (pigeonhole over `Fin 2` base for k ≥ 3 vacuous); `c = 2` derived, not a fourth primitive | `Theory/Atomicity/{PairForcing, Five, ArityForcing, OrbitForcing, CombinatorialArity}` + `Physics/Foundations/AtomicConstantsParametricFullIff.c2b_full_iff` | `physics/foundations/atomic_constants.md` |
-| Bipartite cohomology (b₀, b₁, b₂) | connected `K_{NS,NT}^{(c)}` kernel = the two constants (`b₀ = 1`) for all NS, NT, c; `b₁ = 6, b₂ = 1` at the K_{3,2}^{(c=2)} full simple-cycle filling | `Cohomology/Bipartite/Parametric/Betti/KernelConstancyUniversal.universal_kernel_close` + `Cohomology/Bipartite/Filled3CellCohomology.phase1_cohomology_anchor` | `math/cohomology/bipartite.md` |
+| Bipartite cohomology (b₀, b₁, b₂) | connected `K_{NS,NT}^{(c)}` kernel = the two constants (`b₀ = 1`) for all NS, NT, c; `b₁ = 6, b₂ = 1` at presentation `c=2`, full simple-cycle filling | `Cohomology/Bipartite/Parametric/Betti/KernelConstancyUniversal.universal_kernel_close` + `Cohomology/Bipartite/Filled3CellCohomology.phase1_cohomology_anchor` | `math/cohomology/bipartite.md` |
 | Bipartite-tripartite self-containment | K_{2, 1, 3} cohomologically trivial above H⁰ (`(b₀,b₁,b₂)=(1,0,0)`); Massey shadow projection vanishes — external tripartite extension carries no shared cohomology | `Cohomology/Tripartite/V213Betti.K213_betti_capstone` + `V213ShadowProjection` | `math/cohomology/bipartite.md` |
 | P-orbit naturalness | Lucas-Pell trace ring `⟨{L(k)} ∪ {NT, NS, d}⟩_ℤ` exhausts framework-natural integers | `Mobius213/Px/POrbitClosure.framework_natural_via_p_orbit_closure` + `Theory/Atomicity/OrbitForcing` | `math/mobius213_p_orbit_closure.md` |
 | Möbius P canonical equivalence | `cutEq ↔ sternBrocotEq ∧ (0, 0)`; P = mediant generator | `Real213/Mobius213{Equiv, SternBrocot, PellInvariant}` | `math/mobius_canonical_equivalence.md` |
