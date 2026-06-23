@@ -1905,7 +1905,26 @@ the built atomic integer 12; the complex Hilbert amplitude `|·|²` ABSENT (inhe
 diagonal at `Qubit := Bool` is buildable but is a *no-universal-realizer* fact (= Cantor), NOT no-cloning —
 basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the amplitude residue and stays predicted-not-built.
 
-**Count.** 135 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ Prime distribution (`prime_distribution.md`) — the dual of prime factorization; Bertrand = the q=+1 residue bound
+
+EXTEND + RESIDUE-SURFACING (the genuinely-213 re-read of the Bertrand build). Where `prime_factorization.md`
+reads a *number* via `L_vp` (residue NONE = unique factorization), this reads the **basis** `L_vp` presupposes:
+the ×-atoms (primes) as **positions on the +-line**. The ×-construction fixes *which* numbers are atoms (a
+×-fact) but says nothing about *where* they land (a +-fact) — that mismatch is the **residue** (the prime-gap
+structure), genuinely non-trivial and never-terminating (`exists_prime_gt:689`). Residue carries the `q=±1` tag:
+**Bertrand** = "a prime always in `(n,2n]`" = the gap bounded by a factor 2 = the `q=+1` converge side
+(`golden_is_converge:180` analogue); arbitrary gaps (`n!+2..n!+n` composite) = the `q=−1` escape side
+(`escape_residue_outside:133`). Erdős's proof = the character arrow `×↦+` (`vp_mul:165`) turned into a residue
+constraint: read `C(2n,n)` via the ×-count-Lens (`central_binom_factorization`, an instance of
+`prod_prime_pow_eq`), bound it (`central_binom_upper_bound` `≤ 4^{2n/3}·(2n)^{√(2n)}`), collide with its +-size
+(`four_pow_le_succ_mul_central_binom:507`) ⟹ the gap bound (`exists_prime_in_window`). This re-reads the entire
+vp/Bertrand Lean layer (PrimePowFactorization 10/0, CentralBinomFactorization 8/0, this session) **not as a
+formalization of Erdős but as the surfacing of the `L_vp`-residue** — the dual half of `prime_factorization.md`.
+Collapse: "multiplicative vs additive number theory" = `⟨C|L_vp⟩` vs its residue, one object. ABSENT: the crossover
+asymptotic + finite chain (pure-Nat, frontier `bertrand_postulate.md`), the `q=−1` arbitrary-gap theorem, PNT
+(`π(x)∼x/ln x`, a `Real213`-limit = the residue's fine pointing).
+
+**Count.** 136 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **fourteen**
 predictions, **thirteen Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
