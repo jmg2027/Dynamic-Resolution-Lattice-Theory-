@@ -5,7 +5,7 @@ universality capstone.**
 
 A single linearised reading path assembled from the per-area
 chapter catalog (`theory/{lens, math, physics, meta, essays}/`).
-148 theory chapters + 22k
+259 theory chapters (incl. 108 essays) + 22k
 lines of narrative + ~50k lines of `lean/E213/` source are
 *referenced* here, not replicated.  The book provides:
 
@@ -193,10 +193,10 @@ Lens readings of the same Raw event:
   · `d + 1 = 5 + 1 = 6` (Δ⁴ vertex count plus one)
   · Sym(3) order
   · SU(3) simple roots
-  · K_{NS, NT} cross-pairs
+  · K_{NS, NT} cross-pairs (at c=1)
   · SO(3, 1) generator count
   · `Δ⁴ + K_{3, 2}^{(c=2)}` cohomology sum
-  · α_GUT denominator combinatorics
+  · α_GUT numerator combinatorics
   · 3-clause permutations
 
 The master theorem consolidates the ten as Lens projections of
@@ -296,7 +296,7 @@ in the meaning-framework category).  Uniqueness is
 algebra category; the symmetric-combine hypothesis is needed
 for the uniqueness half.
 
-**75 thesis**: "Nothing
+**No-escape thesis**: "Nothing
 with meaning escapes 213."  Lean form: every meaning-framework
 α has a `HasDistinguishing` instance, and Raw embeds into it
 canonically.
@@ -434,8 +434,10 @@ per `(s,t)` incidence; the layer-count axis, orthogonal to graph
 shape) is a *different* quantity — not an arity — and is **not**
 forced by it: the arity-2 and multiplicity-`c` "2"s are numerically
 equal but structurally distinct.  `c = 2` is a **derived
-presentation parameter**, set so `b_1(K_{3,2}^{(c=2)}) = 6c−4 = 8 =
-NS²−1` re-presents the SU(3) adjoint; it is unforced across five
+presentation parameter**, set so the *bare* multigraph
+`b_1(K_{3,2}^{(c=2)}) = 6c−4 = 8 = NS²−1` re-presents the SU(3)
+adjoint (the 3-cell-*filled* complex has `b₁ = 6`,
+`Filled3CellCohomology`); it is unforced across five
 reframings and removable from every observable (canonical status:
 3 forced `(NS,NT,d)` + 1 posited `c`).  Nor is `c = 1` degenerate —
 it carries a genuine non-coboundary H²-class (it is *pre-distinguishing*
@@ -675,7 +677,7 @@ bridge}.md` — 12 sub-clusters under cohomology.
 Sym(3)-decomposition appears in K_{3, 2}^{(c=2)} H¹ and in the
 gauge content (gluon octet, `1/α_3 = dim adj SU(3) = 8`).  Same
 decomposition, independent frames.  Anchors:
-`Sym3IrrepDecomp.fixedSize_eq_4` + `c3_chain_master`.
+`OctetModule.fixedSize_eq_4` + `c3_chain_master`.
 
 ### V.7 Universe chain
 
@@ -1148,7 +1150,7 @@ Architectural canonical: `lean/E213/ARCHITECTURE.md`.
   · `RESEARCH_PLAN.md` — ranked roadmap (5 tiers)
   · `STRICT_ZERO_AXIOM.md` — live PURE catalog
   · `HANDOFF.md` — session-state file (volatile)
-  · `theory/INDEX.md` — chapter catalog (148 chapters)
+  · `theory/INDEX.md` — chapter catalog (259 chapters, incl. 108 essays)
   · `theory/essays/INDEX.md` — cross-cutting essays (24+)
   · `seed/INDEX.md` — axiom corpus entry
   · `seed/AXIOM/INDEX.md` — per-clause chapter index
