@@ -74,7 +74,7 @@ built `qbinom` at `q=−1` gives the Lucas/fermionic count `C(⌊n/2⌋,⌊k/2�
 a sign-swap — so the deformation-`q` (a scaling dial on the *count*) and the tag-`q` (a discrete ±1 swap bit
 on the *residue*) are different objects sharing only the ±1 *locus* by **containment**, aligned only at `q=+1`.
 
-### ★ Three structural findings on the invariants (2026-06-23)
+### ★ Four structural findings on the invariants (2026-06-23)
 
 **(i) The `q=±1` tag's origin and name — quadratic residues** (`modular_arithmetic.md`).  The tag is not
 named "residue + a ±1 bit" by analogy: its **first instance is the Legendre symbol** `(a/p) ∈ {+1,−1}` on
@@ -128,6 +128,23 @@ So the `q=−1` of an irrational CF (descent never terminates) and the `q=+1` of
 reached by none) are **both "reached by none" yet opposite tags** — because the tag is on *termination of the
 descent*, not on *convergence of the value*.  The honest split: Euclidean `q` = does the exact fixed point
 arrive in finite time; Banach `q` = is the map a contraction.  Two engines, not conflated.
+
+**(iv) How the two invariants relate — `B` is `A`'s unimodular shadow where a character exists, the bare
+escape bit where none does** (tested on `cayley_dickson.md`/`modular_arithmetic.md`/`spectral.md`).  `A`
+(character `×↦·`) and `B` (the `q=±1` tag) are *not* always independent and *not* always one:
+- **Coincident (multiplicative world):** in `modular_arithmetic.md`, `B` **is** `A` — the Legendre symbol
+  `(a/p)` is the character `×↦·` *landing in* `{±1}` (`legendre_mul`), and `multiplier_unimodular` (`q²=1`)
+  says exactly that `B` is the **2-torsion of `A`**.  So `B = A` reduced to the unit group `{±1}`.
+- **Separate but co-constraining:** in `cayley_dickson.md`, `A` (the norm `N(xy)=N(x)N(y)`) and `B` (`conj`,
+  the involution) are different maps that *together* bound the tower; in `spectral.md`, `B` (`disc`'s sign)
+  is a *function* of `A` (`disc = tr²−4·det`).
+- **Independent (foundational world):** in `cardinality.md`/`computability_halting.md`, `B` (escape/converge,
+  the diagonal) is **character-free** — there is no `×↦·` here, only the Lawvere fixed-point bit.
+
+So the "two invariants" are one where the object is multiplicative (`B` = `A`'s `{±1}`-shadow / 2-torsion)
+and two where it is foundational (`B` = the bare diagonal escape).  The `q=±1` tag is the character's
+order-2 part *when a character is present*, and the residue's escape/converge bit *always* — the latter is
+the more primitive (`B` survives where `A` does not, never the reverse).
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
 Homological algebra (`practice/homological_algebra.md`) does not add a field; it **names the operation
