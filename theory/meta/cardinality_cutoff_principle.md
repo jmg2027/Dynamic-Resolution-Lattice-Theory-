@@ -253,8 +253,8 @@ which is what makes it a methodology rather than a single theorem.
 
   · **Principle stated**: §1–§4.
   · **Methodology codified**: §5 (three-step pattern).
-  · **Exemplar formalised**: §3 (`cutoff_marathon_at_depth_1`,
-    28 PURE).
+  · **Exemplar formalised**: §3 (`asymptotic_cutoff_capstone_at_depth_1`,
+    23 PURE).
   · **Scope honestly documented**: §6 (depth-≥-2 open).
   · **Generalisation directions**: §7 — instantiated as the
     six-direction application family

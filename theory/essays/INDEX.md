@@ -169,8 +169,8 @@ certificate whose content is the number's own structure: the strict sandwich at 
 (`when_two_pointings_are_one`, size `48` at level one) — one shape at three resolutions; the
 single-schema Lean statement is open).
 `the_minus_one_under_two_lenses` (`b₁ = NS² − 1 = 1/α₃ = 8` is one residue's lone constant
-mode counted once — `bcount_const = 2`, `isKer_iff_const` — read as the cohomology `b₀`
-subtracted (`im_count_inj_complement`, field-free via an involution) and the `SU(NS)` adjoint's
+mode counted once — `|ker δ⁰| = 2`, `isKer_const_false_or_true` — read as the cohomology `b₀`
+subtracted (`visible_plus_one`, field-free) and the `SU(NS)` adjoint's
 removed trace (`c3_chain`); neither lens is what the `−1` IS).
 `what_213_forces_and_what_it_reads` (the originator's foundational question — why
 should a Raw axiom derive physics — answered as the forced/read split: 213 forces

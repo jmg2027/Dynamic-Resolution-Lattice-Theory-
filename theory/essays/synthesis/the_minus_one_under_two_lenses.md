@@ -24,11 +24,12 @@ Read that same constant mode two ways.
 connected component; the `−1` in `b₁ = E − V + 1` is precisely that one
 constant removed from the vertex count
 (`theory/math/cohomology/bipartite.md`, b₀/b₁ sections). The rank–nullity
-bookkeeping never needs a field: `im_count_inj_complement` realises
-`|im δ⁰| = 2^(V−1)` as a `List.length` over a fixed-point-free involution
-pairing the fibres (`Betti/PathCoboundary.lean`). The "dimension over
-`𝔽₂`" was a count-Lens readout all along; built as an enumeration, the
-field drops out.
+bookkeeping never needs a field: the kernel is exactly the two constant
+cochains for every connected deployment (`isKer_const_false_or_true`), so
+the visible part has dimension `(NS + NT) − 1` (`visible_plus_one`,
+`Betti/KernelConstancyUniversal.lean`) and `b₁ = E − V + 1`
+(`EulerAndCapstone.b1Formula`). The "dimension over `𝔽₂`" was a count-Lens
+readout all along; the `−1` is just the one removed constant.
 
 **Gauge-Lens.** The same single mode is the trace removed from the `NS²`
 matrix entries to form the `SU(NS)` adjoint: `NS² − 1 = 8` is the gluon
@@ -45,10 +46,10 @@ Classically these live in separate disciplines: algebraic topology's
 Euler-characteristic correction and gauge theory's traceless-generator
 count. The shared `square minus one` is the redundant packaging
 stripped — what survives is one count of one residue. 213's reading is
-sharper than the analogy: the involution count
-(`im_count_inj_complement`) shows the invariant is field-free and
-division-free, so "subtract the trace / subtract `b₀`" are not analogous
-operations but a single `bcount_const = 2` read under each domain's Lens.
+sharper than the analogy: the kernel is exactly the two constant cochains
+(`isKer_const_false_or_true`), field-free and division-free, so "subtract
+the trace / subtract `b₀`" are not analogous operations but a single
+`|ker δ⁰| = 2` count read under each domain's Lens.
 
 ## Cross-frame connections
 

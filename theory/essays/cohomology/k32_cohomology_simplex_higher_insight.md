@@ -102,7 +102,7 @@ two independent chapters:
 2. The gluon octet — 1/α₃ = dim adj SU(3) = 8
 
 The readings are Lens-restrictions of the same Sym(3)
-action on the same K₃,₂² H¹.  `Sym3IrrepDecomp.fixedSize_eq_4`
+action on the same K₃,₂² H¹.  `OctetModule.fixedSize_eq_4`
 and `c3_chain_master` (both PURE) anchor the shared substrate.
 Sym(3) is the necessary symmetry of the forced (NS, NT) = (3, 2)
 — existence, not choice.
@@ -126,7 +126,7 @@ convergent_det            : det(Pⁿ) = 1 (trace = NS, det = 1)
 phase1_cohomology_anchor  : b₁ = 6, b₂ = 1 at K₃,₂^{(c=2)}
 face_dependence           : Face₀ ⊕ Face₁ ⊕ Face₂ = 0
 Sq_1_omega_eq_delta2      : Sq¹(ω) = δ²(ω) (coboundary)
-Sym3IrrepDecomp.fixedSize_eq_4 : Sym(3)-fixed cardinality = 4
+OctetModule.fixedSize_eq_4 : Sym(3)-fixed cardinality = 4
 ```
 
 Six theorems, all ∅-axiom PURE, all issuing from the same
