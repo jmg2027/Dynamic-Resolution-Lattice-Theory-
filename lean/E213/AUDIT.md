@@ -367,7 +367,7 @@ If this meta-theorem is formalized:
   choice."
 
 **Current status**: **Formalization complete**
-(`Theory/Raw/CmpIndependence.lean`).
+(`Theory/RawCmpIndependence.lean`).
 
 - Phase 1: `CmpProps` (eq_iff + swap) abstraction, `canonicalBy` /
   `RawBy` defined for arbitrary cmp.
@@ -496,7 +496,7 @@ same theorems.  Only the possibility of user misuse changes.
 ### §I.7.3 Open problems
 
 - ~~cmp-independence meta-theorem formalization (§I.5)~~ —
-  **completed** (CmpIndependence.lean, 2026-04-25).
+  **completed** (`Theory/RawCmpIndependence.lean`, 2026-04-25).
 - (future) Introduce ValidLens predicate (§I.4 E).
 - (short-term) Lens-layer bleed migration — move Raw.depth,
   Raw.leaves, etc. to Lens (§I.4 Recommendation 3).

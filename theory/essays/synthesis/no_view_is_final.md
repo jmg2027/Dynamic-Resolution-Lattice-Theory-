@@ -10,7 +10,7 @@ the search endless rather than arbitrary.
 A reading is a **Lens-output of the pointing**, not a property of the thing
 pointed at.  The degree of a real is the growth class of the receipt *a pointing*
 carries (`theory/essays/synthesis/finite_state_is_of_the_pointing.md`;
-`theory/math/analysis/the_degree_of_a_number.md`): change the presentation, change
+`theory/essays/analysis/the_degree_of_a_number.md`): change the presentation, change
 the degree.  So "it differs by view" is exact and theorem-backed —
 `PresentationDependence` makes holonomicity a property of the approximant sequence,
 and `Real213/Modulus/DegreeCriterion` fixes the degree two-sidedly from the
@@ -68,7 +68,7 @@ backward (no back).
 
 Whether the invariant a search converges on is itself decidable for a given object
 is, in the sharpest case (the irrationality-measure threshold cut), Roth-grade and
-unclaimed (`theory/math/analysis/the_degree_of_a_number.md` open frontier).  The
+unclaimed (`theory/essays/analysis/the_degree_of_a_number.md` open frontier).  The
 breadth claim — that the same residue-form recurs across domains — is a program
 measured by how far it is carried, not a finished theorem.
 

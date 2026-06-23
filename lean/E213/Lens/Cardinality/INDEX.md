@@ -1,7 +1,9 @@
 # `Lens/Cardinality/` — cardinality observables of Raw via Lens
 
-Raw is the substrate; Lens views project Raw → observable space.
-Cardinality of Raw and of Lens-image spaces is the canonical
+Cardinality is a Lens reading of Raw, not a property of an
+underlying substrate (per `Cardinality.lean`); Lens application IS a
+residue-internal distinguishing event, not a projection layer above
+Raw.  Cardinality of Raw and of Lens-image spaces is the canonical
 cardinality observable, hence Lens-ring.
 
 Historically these files lived in `Lib/Math/Infinity/` +

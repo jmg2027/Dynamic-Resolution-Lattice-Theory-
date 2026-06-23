@@ -52,7 +52,7 @@ abbrev isa_gap := @E213.Lens.Foundations.SemanticAtom.exists_non_lens_expressibl
 abbrev isa_separate := @E213.Lens.Lattice.Lattice.refines_idLens_iff_injective
 
 /-- **COMPILE-DOWN** — any framework that distinguishes at all receives the *unique* morphism from `Raw`
-    (initiality): everything compiles from the residue. -/
+    (initiality): every framework's distinguishing factors through the one distinguishing. -/
 abbrev isa_compile_down := @E213.Lens.Foundations.SemanticAtom.universalMorphism_unique
 
 /-- **REFLECT** — predicates / proofs are themselves `Raw` (the naming of any candidate lands inside). -/

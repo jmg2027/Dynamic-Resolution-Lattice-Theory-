@@ -2,14 +2,14 @@
 
 ## `term/` — ℕ encoding + decidability
 
-Mirrors `lean/E213/Kernel/`.  No physical content; pure
+Mirrors `lean/E213/Term/`.  No physical content; pure
 combinatorial substrate.
 
 - `term.rs` — `Term` (ℕ inductive: `zero`, `succ`, `add`, `mul`).
-  Direct mirror of `Kernel/Term.lean`.  Backed by `BigUint`.
-- `compare.rs` — `le_b`, `equiv` (Bool).  Mirror of `Kernel/Compare`.
-- `pair.rs` — pair encoding.  Mirror of `Kernel/Pair`.
-- `rat.rs` — `equivQ`, `leQ` (cross-mul).  Mirror of `Kernel/Rat`.
+  Direct mirror of `Term/Term.lean`.  Backed by `BigUint`.
+- `compare.rs` — `le_b`, `equiv` (Bool).  Mirror of `Term/Compare`.
+- `pair.rs` — pair encoding.  Mirror of `Term/Pair`.
+- `rat.rs` — `equivQ`, `leQ` (cross-mul).  Mirror of `Term/Rat`.
   **No `Q.add` / `Q.mul`.**  Carry rationals as `(BigUint, BigUint)`.
 - `normal_form.rs` — `Monomial { p, q }` for `x^p y^q` canonical
   form.  `RewriteRule` trait with `LEAN_THM` citation.
@@ -39,7 +39,7 @@ Mirrors Lean's canonical lens definitions and `Math/Cohomology/`.
 
 ## `os/` — Atomicity + Analysis213 algorithms
 
-Mirrors `lean/E213/OS/` and `lean/E213/Math/Analysis213/*`.
+Mirrors `lean/E213/Meta/` and `lean/E213/Lib/Math/Analysis/*`.
 
 - `atomicity.rs` — `Atomic n`, `NonDecomposable`.
 - `arity.rs` — `ArityForcing`, `Pigeonhole`, `PrimitiveSizes`.

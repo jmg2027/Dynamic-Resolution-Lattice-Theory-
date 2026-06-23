@@ -70,8 +70,9 @@ K_{3,2}^{(c=2)}; the self-containment reading
 local (2, 1, 3) multiset at every vertex / edge / face) is
 the only cohomology-level path.
 
-See `theory/essays/p_orbit/bipartite_tripartite_self_containment.md`
-for the full account and the cross-cutting reading.
+See `theory/essays/p_orbit/p_orbit_closure_master.md` (the
+self-containment thesis) and the Lean cluster
+`lean/E213/Lib/Math/Cohomology/Tripartite/` for the full account.
 
 ## Mod-p period catalog
 
@@ -528,7 +529,7 @@ p-adic library narrative (308 PURE theorems).
     essay on the dynamic = static coincidence at P
   · `theory/essays/p_orbit/mobius_self_form_fixed_point.md` — self-form essay:
     P as self-form fixed point (모습 자체가 뫼비우스 행렬)
-  · `theory/essays/p_orbit/bipartite_tripartite_self_containment.md` —
+  · `theory/essays/p_orbit/p_orbit_closure_master.md` —
     the self-containment thesis (K_{3,2}^{(c=2)} already carries
     both "2" and "3" without K_{2,1,3} extension)
   · `theory/essays/p_orbit/every_axis_sees_p.md` — 55 framework axes,

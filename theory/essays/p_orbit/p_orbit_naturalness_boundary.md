@@ -169,7 +169,7 @@ one step; the framework absorbed the "external" number cleanly.
   · `theory/math/algebra/mobius213_p_orbit_closure.md` — full
     formal chapter (sharpenings 1–3, mod-p catalog, refined
     hierarchy, master claim)
-  · `theory/essays/p_orbit/bipartite_tripartite_self_containment.md` —
+  · `theory/essays/p_orbit/p_orbit_closure_master.md` —
     K_{3,2}^{(c=2)} as self-contained 213 anchor (Reading B)
   · `theory/essays/p_orbit/every_axis_sees_p.md` — 55 axes all
     yielding `{NS, NT, det}` (depth-0/1 catalog view)

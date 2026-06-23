@@ -70,7 +70,7 @@ refinement(downward)만 가능한 **비가역 spectral arrow**.
 ZFC: Heine-Borel은 completeness에 의존하는 비자명 정리.
 213: `DyadicOpen = List` → cover가 이미 유한 → Heine-Borel이 `rfl`.
 
-콤팩트성이 "위상적 성질"이 아니라 **substrate의 구조적 성질**로 collapse.
+콤팩트성이 "위상적 성질"이 아니라 **구분(distinguishing)의 구조적 성질** (유한-리스트 presentation의 Lens-reading)로 collapse.
 
 ### 통찰 E: Cauchy 완비성이 Almost Trivial
 

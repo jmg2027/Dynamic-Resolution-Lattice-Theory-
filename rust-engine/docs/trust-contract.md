@@ -32,7 +32,9 @@ test = "S(3) == (49, 36)"
 
 1. The Lean theorem exists in `lean/E213/`.
 2. `lake build` succeeds.
-3. `#print axioms <thm>` ⊆ `{propext, Quot.sound}`.
+3. `#print axioms <thm>` returns "does not depend on any axioms"
+   (empty list / PURE) — a `propext`/`Quot.sound`/Classical citation
+   is DIRTY and breaks the build (per `STRICT_ZERO_AXIOM.md`).
 4. Every public function in runtime crates is in `whitelist.toml`.
 
 Missing or non-zero-axiom citation breaks the build.

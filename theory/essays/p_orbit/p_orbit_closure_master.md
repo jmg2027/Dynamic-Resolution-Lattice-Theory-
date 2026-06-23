@@ -177,10 +177,10 @@ DIRTY.  Build clean.
     P-orbit naturalness boundary
   · `theory/essays/p_orbit/p_orbit_naturalness_boundary.md` — original
     naturalness boundary essay
-  · `theory/essays/p_orbit/bipartite_tripartite_self_containment.md` —
-    self-containment thesis
-  · `theory/math/cohomology/tripartite_self_containment.md` —
-    Direction T closure (cross-frame verdict)
+  · `lean/E213/Lib/Math/Cohomology/Tripartite/` — the formal
+    Direction-T closure (V213 Betti, shadow projection, the
+    V32↔V213 cohomology bridge); the self-containment thesis and
+    cross-frame verdict are carried in this essay (above).
 
 ## Open frontier
 

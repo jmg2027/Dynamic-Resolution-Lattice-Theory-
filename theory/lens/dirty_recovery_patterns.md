@@ -346,9 +346,6 @@ class.
   · `theory/essays/methodology/pure_funext_avoidance.md` — sister methodology
     chapter at Padic / Real213 / Cohomology layer; the 5th pattern
     (Inductive cong constructor) ↔ P1 at inductive-predicate level
-  · `theory/essays/cohomology/per_layer_completeness_constructive_closure.md`
-    — concrete deployment of the cong-constructor pattern in the
-    HARD direction of `codim ≤ c`
   · `STRICT_ZERO_AXIOM.md` — DIRTY catalog + sealed-by-design
     categories (a, b)
   · `lean/E213/Lens/EqPW.lean` — the Cat-1 funext-avoidance
