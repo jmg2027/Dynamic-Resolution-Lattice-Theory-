@@ -122,6 +122,103 @@ This reframes three things at once:
   `quadratic_reciprocity`, should score ~0), validating the metric against the
   already-known generation/re-derivation split (1512/1571).
 
+## Round 2 — the breakthrough: from *origin* to *completion-engine*
+
+The Round-2 adversarial red-team broke the naive genesis-metric (PART A) and
+delivered the actual insight. Verdicts:
+
+**PART A (a corpus-wide continuous "genesis score") is unsalvageable** — three
+attacks land: (a) the carrier list {Nat,Bool,Int,inductive} is itself an exterior
+import (naming the outside to measure distance to it — the §5.1 move); the §9.3
+"everything is Raw-encodable" defense *destroys* the gradient rather than grounding
+it (it makes everything genesis-near, collapsing the zero-point). (b) Gameable by
+`toNat`-laundering: a `Nat`-content proof wrapped in a thin Raw-typed restatement
+scores high under a minimal-unsat-core, because the core measures *syntactic
+indispensability*, not *semantic origin* — and laundering is semantic (the
+descent-leg G206 history shows this happening for real). (c) "Load-bearing" via
+minimal-unsat-core is not well-defined (non-unique, non-monotone, refactor-sensitive).
+The only surviving form is the **per-cone, pre-registered, binary purity bet** the
+descent leg *already runs* (e.g. "every lemma in discipline D's cone is `toNat`-free
+/ `Nat213`-native, grep-verified + `scan_axioms`-clean"). It is mechanical,
+ungameable (laundering shows as a literal `toNat` hit), internal, and makes no
+exterior claim. **The metric already exists; the move is to stop generalizing it
+into a score.**
+
+**The reframe (the real yield).** Every prior framing asks *where did the content
+come from* — an **origin** question, which is the un-typeable ∀ §5.1 forbids. Replace
+it with a **completion-engine** question, which §5.2 makes decidable and internal:
+
+> **Does a construction's recursion complete through its OWN native
+> well-foundedness (`Nat213`'s `acc_lt` — a Nat-style/Lambek fixed point of the
+> distinguishing, §5.2) or through the BORROWED kernel's (`Nat.lt_wfRel`)?**
+
+Why this is the right question and escapes §5.1 *without* contradicting it:
+- §5.2 already proves the two forms of self-reference are *structurally distinct*:
+  Bool-style (oscillation, `not∘not=id`, no fixed point — never completes) vs
+  Nat-style (Lambek catamorphism — reaches a fixed point and stays). This is a
+  property of the **recursion's shape**, not the content's provenance.
+- "Which `WellFounded` instance does this cone's recursion elaborate against?" is a
+  **decidable syntactic property** of the proof term — you cannot fake it (the
+  recursion either runs on `Nat213.acc_lt` or it doesn't; the elaborator records
+  which). Ungameable in exactly the way the origin-metric was gameable.
+- It is **§5.1-legal**: both well-foundedness engines are Raw-readings (§5.2), so the
+  measurement compares one internal region to another — it never names an exterior.
+  It claims nothing about "all conceivable things"; it reports which fixed-point
+  engine a *specific* cone runs on.
+- It **retro-explains every G206 win**: the `toNat`-purge that the descent-leg
+  marathon spent days on was *literally* migrating the completion-engine from the
+  carrier's fixed point (`Nat.lt_wfRel`) to the distinguishing's own
+  (`Nat213.acc_lt`). "Generation, not re-derivation" *is* "the cone completes on its
+  own well-foundedness." The slogan finally has a mechanical referent.
+
+So the genesis seam, correctly posed: **a result is *generated* (not borrowed) to the
+exact degree that its proof cone's recursion completes through `Nat213`/`Raw`-native
+well-foundedness rather than the kernel's.** This is the §5.1-legal, decidable,
+ungameable invariant the whole program was groping for — and it converts the
+philosopher's "abolish contingency" and the meta's "forced-not-authored" into a
+*checkable* statement about completion-engines, per result.
+
+**The typed-conditional pattern, confirmed in Lean (this session's deposit).** The
+arity-forcing lower half is now closed ∅-axiom
+(`Theory/Atomicity/ArityForcingComplete.lean`, 7 PURE: `arity_two_forced` etc.) —
+but *honestly scoped*, and the scoping is itself evidence for the diagnosis: arity-2
+is forced **given the clause-4 distinctness gate** (`i≠j → f i≠f j` in
+`ReachableNk.step`). It is a *typed-conditional* characterization — exactly the shape
+the skeptic identified across the whole framework (no-exterior = initiality of a
+typeclass; (3,2,5) = d=5 given hardcoded {2,3}). Closing it did not dissolve the
+pattern; it *instantiated it cleanly and named the residual input sharply*. That is
+the honest form of progress here: not "the gap is gone" but "the gap is now a single,
+cited, minimal assumption (clause 4) instead of a buried comment."
+
+## The exterior deliverable (the only §5.1-legal verdict)
+
+Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
+artifact is the strict-∅-axiom, Mathlib-free, scanner-enforced corpus, pitched **not**
+as "a new foundation" (un-judgeable) but as **axiom-base-minimization**, the sharpest
+form being:
+
+> A constructive corpus — FTA, Euclid's infinitude, divisibility — re-derived over a
+> from-scratch naturals object, every theorem `#print axioms`-clean: no `propext`, no
+> `Quot.sound`, no `Classical.choice`, no `native_decide`, **zero Mathlib** — *nothing
+> beyond CIC's inductive kernel*. The axiom-base-minimization frontier for elementary
+> number theory, mechanically audited.
+
+This makes no primacy / no-exterior / forcing claim; an outside judge checks it with
+`#print axioms`, `lake build`, `grep -r Mathlib`. The campaign against contingency,
+cashed out in the one currency that needs no exterior: *provable axiom-emptiness*
+(emptiness has no operand to dispute).
+
+## Next-session deliverable (concrete)
+
+Build the **completion-engine classifier**: a tool (grep over the proof cone +
+`scan_axioms`, or a Lean meta-program) that reports, for a theorem, whether its
+recursion completes through `Nat213.acc_lt` / `Raw`-native well-foundedness or the
+borrowed kernel's `Nat.lt_wfRel` / `Nat.rec` on a `Nat` carrier. Validate against the
+known split: descent-leg capstones (FTA over `Nat213`) should be native; a
+re-derivation capstone (`quadratic_reciprocity`) should be borrowed. This *is* the
+genesis metric, in its only defensible form. (Supersedes the PART-A
+`tools/genesis_metric.py` sketch above, which the red-team retired.)
+
 ## Cross-refs
 
 - `research-notes/frontiers/the_descent_leg.md` — the one genuine generation arc
