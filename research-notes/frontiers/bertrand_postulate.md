@@ -35,9 +35,33 @@ window, not "N composite").  The full supporting chain landed this session:
   (`Lib/Math/NumberTheory/Primorial.lean`) — the divisibility (vp argument over the
   `fact = factorial` bridge), the window bound, and the primorial induction.  **Keystone CLOSED.**
 
-## Remaining for full Bertrand (the keystone is done)
+## The factorization crux (item 11) — ✅ **CLOSED ∅-axiom (2026-06-23)**
 
-With the primorial bound `∏_{p≤N} p ≤ 4ᴺ` closed, the Erdős proof needs only the
+The Erdős upper bound needs `C(2n,n)` written as an *explicit product of prime
+powers over a fixed index set*, so it can be split by the size of `p` and bounded
+range by range.  The flat-list `factorization_exists` (no exponents/index set) and
+the divisibility lemmas (`listProd_dvd`, `window_prod_dvd_central_binom`, which
+bound sub-products *from below*) could not give this.  Now closed:
+
+- **`PrimePowFactorization.prod_prime_pow_eq`** (6/0 PURE): `0 < m → (∀ q prime,
+  q ∣ m → q ≤ B) → m = primePowProd (vp · m) (primesIn 0 B)` — the explicit FTA
+  product form `m = ∏_{p ≤ B, prime} p^{vₚ(m)}`.  Proof via `vp_separation`
+  (equal `vp` at every prime ⟹ equal), with two targeted lemmas
+  (`vp_primePowProd_mem`/`_not_mem`) computing `vₚ` of the product on a `Nodup`
+  prime list and `mem_primesIn` (converse membership).  `primePowProd` is a direct
+  recursion (no `List.map`), with `primePowProd_append` (`∏_{xs++ys} = ∏_xs·∏_ys`)
+  for the size split.
+- **`CentralBinomFactorization.central_binom_factorization`** (2/0 PURE): `1 ≤ n →
+  C(2n,n) = primePowProd (vp · C(2n,n)) (primesIn 0 (2n))`, the index set pinned by
+  `central_binom_prime_factors_le` (every prime factor of `C(2n,n)` is `≤ 2n`, from
+  `prime_pow_vp_central_binom_le`).
+
+This is the object the remaining items bound by size-ranges.
+
+## Remaining for full Bertrand (keystone + factorization crux now done)
+
+With the primorial bound `∏_{p≤N} p ≤ 4ᴺ` and the explicit factorization
+`C(2n,n) = ∏_{p≤2n} p^{vₚ}` both closed, the Erdős proof needs only the
 "upper" half: assume no prime in `(n, 2n]`; bound `C(2n,n)` by primes `≤ 2n/3` (whose
 product is `≤ 4^{2n/3}` by the primorial) times the `√(2n)`-bounded prime-power tail
 (Kummer `vp ≤ ⌊log_p 2n⌋`); contradict the lower bound `4ⁿ/(2n+1) ≤ C(2n,n)`.  Pieces:
