@@ -5,7 +5,7 @@
 
 ## ★★ CURRENT STATE (2026-06-22, 42-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
 The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
-now spans **136 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+now spans **137 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
 converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
 `ResidueTag.lean`) + the reflexive deepening (homological algebra names the calculus's own residue-taking
 operation; spectral sequences = that operation ITERATED). Canonical indices: **`SYNTHESIS.md`** (the capstone
@@ -65,7 +65,7 @@ and all degrees (2-element matrix spectrum); (2) CORRECTED a
 false-friend: the proposed `no_universal_qubit_copier` witness is Cantor (a no-universal-realizer fact at
 `Qubit:=Bool`), NOT no-cloning — basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the
 amplitude residue, stays predicted-not-built.  Prediction tally now **13/14 Lean-closed**.  SYNTHESIS at
-**v4 (count 136)**.
+**v4 (count 137)**.
 
 **Bertrand / prime-distribution arc (2026-06-23, course-corrected):** built the entire *structural* content
 of Erdős's Bertrand proof ∅-axiom — `PrimePowFactorization.lean` (10/0: `prod_prime_pow_eq`, the explicit
@@ -77,7 +77,16 @@ decomposition — the actual 213 move.  Re-read as **decomposition #136 `prime_d
 dual of `prime_factorization.md`); Bertrand = the `q=+1` bound on that residue; Erdős's proof = the `×↦+`
 character arrow forced via `C(2n,n)`'s ×-reading vs +-size.  Remaining Bertrand (pure-`Nat`, ABSENT): crossover
 asymptotic + finite chain (frontier `bertrand_postulate.md`).  Lesson: "larger target" = deeper *decomposition*,
-not harder formalization.  **Five calibrated boundaries** now located
+not harder formalization.
+
+**Decomposition #137 `modular_arithmetic.md` (2026-06-23):** the residue Lens `n↦n%m` IS 213's count-Lens (§6)
+— the model self-portrait.  `div_add_mod` (`n = m·(n/m) + n%m`) = `⟨C|L⟩ ⊕ Residue` as arithmetic.  **Name
+disambiguation**: classical "residue" (remainder) = Lens *image*; 213 Residue = the dropped quotient — opposite
+halves of one division.  CRT = coprime residue-Lens family jointly faithful (`crt_unique`).  **The `q=±1` tag's
+origin**: the Legendre symbol `(a/p)∈{±1}` IS the tag on `(ℤ/p)*` (quadratic *residue* = q=+1 square) —
+`euler_dichotomy`/`legendre_mul` = the tag + its multiplicativity; whence the word "residue."
+
+**Five calibrated boundaries** now located
 (nonstandard/LLPO, CFT/bundle, descriptive-set/large-cardinals, Stone/ultrafilter, Berkovich/seminorm-completeness) — all converging on the one ultrafilter/LLPO/choice point: the no-exterior axiom, tested at its hardest
 points, yields a *calibrated* remainder on the corpus's own strength ledger, never an uncalibrated wall.
 

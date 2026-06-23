@@ -1924,7 +1924,23 @@ Collapse: "multiplicative vs additive number theory" = `⟨C|L_vp⟩` vs its res
 asymptotic + finite chain (pure-Nat, frontier `bertrand_postulate.md`), the `q=−1` arbitrary-gap theorem, PNT
 (`π(x)∼x/ln x`, a `Real213`-limit = the residue's fine pointing).
 
-**Count.** 136 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ Modular arithmetic (`modular_arithmetic.md`) — the residue Lens = 213's count-Lens, named; the q=±1 tag's origin
+
+EXTEND + SELF-PORTRAIT. The operation classical math calls "reduction mod m" IS 213's count-Lens (§6): C = ℕ
+under count, L_m = `n ↦ n%m` (the prototype count-Lens), Residue = the dropped quotient `⌊n/m⌋`. Reconstruction
+= `div_add_mod_pure` (`n = m·(n/m) + n%m`, NatDiv213:126) = `⟨C|L⟩ ⊕ Residue` as an arithmetic identity. **Name
+disambiguation (the new datum):** classical "residue" (remainder) = the Lens *image* (kept); 213 Residue =
+the quotient (dropped) — opposite halves of one division. **CRT** = the coprime residue-Lens *family* is jointly
+faithful (`crt_unique` CRTReconstruction 12/0) — the count-Lens analogue of `vp_separation`. **The q=±1 tag's
+origin:** the Legendre symbol `(a/p)∈{±1}` IS the residue tag on `(ℤ/p)*` — `a` a quadratic *residue* (q=+1,
+square) or not (q=−1); `euler_dichotomy` (EulerCriterion 2/0) = the dichotomy, `legendre_mul` (5/0) = the tag is
+multiplicative (`×↦·` into {±1}), `multiplier_unimodular:86`/`residue_tag_two_poles:228` (ResidueTag 55/0) = the
+abstract tag (q²=1, two poles) it instantiates. So the q=±1 spine the whole corpus runs on has its NAME and first
+instance here — quadratic residues. Also Wilson (50/0), Euler. Collapse: "the residue" (remainder) and "the
+Residue" (213) = Lens image vs dropped quotient, one division. ABSENT: Dirichlet (residue-class distribution,
+sibling of `prime_distribution.md`), general `(ℤ/m)*` cyclicity, higher-power residue symbols (q^k=1).
+
+**Count.** 137 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **fourteen**
 predictions, **thirteen Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
