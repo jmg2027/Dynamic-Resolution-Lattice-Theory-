@@ -247,6 +247,26 @@ witnesses and proved two refinements of (viii):
   §5.1); it is the `q=+1` *converge* limit (a `Real213`-cut, reached-by-none), **not** the diagonal — so the
   diagonal stays the unique wall, and "reached-by-none" splits converge (generic) / escape (diagonal).
 
+**(x) The tetrachotomy `∅/0/1/many` and the calculus's self-grounding — the seminar's capstone** (R3,
+`frontiers/no_walls_seminar/R3_synthesis.md`).  The whole boundary-structure is *one* classification — the
+section-count of the reading-fibration over `C`, governed by §5.x — a **tetrachotomy** (built ∅-axiom):
+**`∅` absence** (no fiber: `C` unbuilt / missing input like ambient `S³` — `absence_fiber_uninhabited`, §5.4
+honest "not yet"), **`0` wall** (inhabited self-cover, no section = the diagonal — `wall_no_total_section` =
+`cantor_general`), **`1` forced** (the atoms `C=(NS,NT,d,c)`, `ArityForcing`), **many free** (the Lens
+parameters, §5.1).  The `∅/0` cut is **fiber-inhabitation** (the diagonal needs an inhabited self-cover to
+bite; absence removes the inhabitant — an empty *base* would instead give vacuous-forced).  Witnesses:
+`SectionCountWithAbsence` 13/0, `SectionCount` 16/0, `FiberSymmetry` 12/0, `ForcingToy` 12/0, `ChoiceLens` 12/0.
+**The capstone — self-grounding:** `classify` is itself a Lens; applied to itself the level-two reading
+*collapses* (`lensUniversalMorphism_factors_level2`, no regress) and lands on section-count `0` = the wall
+(the same `one_diagonal_generates` at `A=Fibration`).  So the classification **stabilizes because its fixed
+point is the founding residue** (`distinguishing_always_leaves_residue`) — no regress, no exterior.  Sealed
+by a pattern that recurred *three times independently*: the **master/abstract classifier is always the wall**
+(`SectionCount.tagOf`, `FiberSymmetry`'s abstract biconditional, J's meta-classifier — all ABSENT because each
+must *decide a universal-negative over all structures* = the diagonal).  The theory builds every concrete
+instance ∅-axiom but **not its own master classifier — because that classifier *is* the wall.**  That is the
+sharpest form of "213 assumes nothing": its single foundation is the un-buildable diagonal it reproduces the
+moment it classifies itself.
+
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
 Homological algebra (`practice/homological_algebra.md`) does not add a field; it **names the operation

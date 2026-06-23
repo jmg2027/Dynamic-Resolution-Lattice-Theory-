@@ -7,6 +7,12 @@ Seed: the originator's correction that the axiom of choice / LLPO is not a wall 
 generalizes it — through continuous multi-agent discussion (proposer / builder / skeptic / classifier
 roles, responding to each other across rounds, the way a mathematician team works over months).
 
+**MAIN ARC COMPLETE (R1–R3, 2026-06-23).**  Result: the boundary-structure of the calculus is the
+**tetrachotomy** `∅/0/1/many` (absence/wall/forced/free) — one axis-polymorphic wall (the diagonal),
+free parameters classified by fiber-order (forcing/large-cardinals), the whole thing **self-grounding**
+(classify-of-itself = the wall, no regress, no exterior).  5 ∅-axiom modules built; `SYNTHESIS.md` §2
+(vii′)–(x).
+
 ## The grand thesis (under test, not assumed)
 
 > **The decomposition calculus has no walls — only free Lens parameters.**  Every apparent
@@ -45,5 +51,10 @@ fog (unfold every term or cite a theorem); no false witnesses; no forcible maps.
   the 0/1/many trichotomy as an object); F (genericity = height-limit of σ, not the diagonal); G (symmetry
   law CONFIRMED: free-parameter symmetry = fiber order-structure; height-escape = the one diagonal /
   Burali-Forti).  **Synthesis: `R2_synthesis.md`** → folded into `SYNTHESIS.md` §2 (ix).
-- **R3 (next):** `FiberSymmetry` (the symmetry law as a biconditional theorem, Bool vs ℕ fiber); the recurring
-  THIRD STATUS (partially-ordered fiber → partial symmetry? the seminar's own residue); `GenericAsCut`.
+- **R3 (2026-06-23) — CAPSTONE:** built `FiberSymmetry` (12/0, the symmetry law's witnesses) +
+  `SectionCountWithAbsence` (13/0, the TETRACHOTOMY ∅/0/1/many = absence/wall/forced/free); J = the
+  reflexive capstone (classify-of-itself collapses (no regress) + lands on the wall = SELF-GROUNDING on the
+  founding residue); I = the ∅/0 cut is fiber-inhabitation, absence = §5.4 honest "not yet built".
+  **Synthesis: `R3_synthesis.md`** → folded into `SYNTHESIS.md` §2 (x).  **Main arc COMPLETE.**
+- **R4+ (open frontiers):** a partial decidable `tagOf` below the wall; base×fiber coupling (the
+  classification's own residue); `GenericAsCut`; a faithful theorem of "master classifier = the wall".
