@@ -472,6 +472,17 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   no-exterior (a ∀ over a non-type) — make IMPORT MEASURABLE (a graded genesis/
   frame-import metric), which escapes the §5.1 self-certification wall by being
   relative not absolute (`the_genesis_seam.md`).
+- `distinguishability_one_dial_crossdomain` — cross-domain insights tying the
+  genesis-seam program to the corpus: **atom distinguishability is the one dial**
+  governing arity-2 forcing (`arity_two_forced`), commutativity
+  (`append_comm`/`swap_changes_dim`), and the +/× gap (`prodL_one_atom_merges`) —
+  one principle at three resolutions (promoted to the essay
+  `theory/essays/synthesis/distinguishability_is_the_one_dial.md`).  Plus: the
+  completion-engine criterion gives `the_descent_leg`'s "generation not
+  re-derivation" a mechanical referent; `ProdCount` is the carrier-level home of
+  the count-Lens essays; §5.2 Bool-vs-Nat self-reference operationalized.  Open
+  side: generating the dial's on-state (a Raw-native multiplicative descent over
+  distinguishable primes) — the `the_genesis_seam` FTA frontier.
 - `cup_leibniz_general` — **the ∀(k,l) self-referential lex-cup Leibniz**:
   the uniform (parametric-in-bidegree) Cup-Leibniz closure above the closed
   fixed-bidegree CupAW family.  Named only in the `cupaw.md` tail; now tracked
