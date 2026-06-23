@@ -56,5 +56,9 @@ fog (unfold every term or cite a theorem); no false witnesses; no forcible maps.
   reflexive capstone (classify-of-itself collapses (no regress) + lands on the wall = SELF-GROUNDING on the
   founding residue); I = the ∅/0 cut is fiber-inhabitation, absence = §5.4 honest "not yet built".
   **Synthesis: `R3_synthesis.md`** → folded into `SYNTHESIS.md` §2 (x).  **Main arc COMPLETE.**
-- **R4+ (open frontiers):** a partial decidable `tagOf` below the wall; base×fiber coupling (the
-  classification's own residue); `GenericAsCut`; a faithful theorem of "master classifier = the wall".
+- **R4 (2026-06-23):** ★ the self-grounding capstone is now a CLOSED THEOREM —
+  `MasterClassifierNoGo.lean` (7/0): `master_classifier_is_the_wall` (a master classifier that decides the
+  diagonal AND is a row of its own cover is impossible) + `self_grounding_capstone`. The general `tagOf`
+  over all `Type` stays ABSENT and *its un-buildability is the theorem*. Self-grounding proved, not assumed.
+- **R5+ (open):** a partial decidable `tagOf` below the wall (the buildable part); base×fiber coupling;
+  `GenericAsCut`.

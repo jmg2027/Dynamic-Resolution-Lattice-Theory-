@@ -265,7 +265,12 @@ by a pattern that recurred *three times independently*: the **master/abstract cl
 must *decide a universal-negative over all structures* = the diagonal).  The theory builds every concrete
 instance ∅-axiom but **not its own master classifier — because that classifier *is* the wall.**  That is the
 sharpest form of "213 assumes nothing": its single foundation is the un-buildable diagonal it reproduces the
-moment it classifies itself.
+moment it classifies itself.  **Now a closed ∅-axiom THEOREM** (R4, not just a reading):
+`MasterClassifierNoGo.master_classifier_is_the_wall` (7/0) — a would-be master classifier that *both* decides
+the diagonal (`c a = !(f a a)`) *and* is a row of its own cover (`∃ k, f k = c`) is forced into a
+`not`-fixed-point, impossible; `self_grounding_capstone` bundles it as `one_diagonal_generates` at the
+classifier's own domain.  The general `tagOf` over all `Type` stays ABSENT and **its un-buildability *is* the
+theorem** — self-grounding proved, not assumed.
 
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
