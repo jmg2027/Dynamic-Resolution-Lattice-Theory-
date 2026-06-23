@@ -5,7 +5,7 @@
 
 ## ★★ CURRENT STATE (2026-06-22, 42-wave multi-agent marathon) — read `research-notes/decomposition/SYNTHESIS.md` FIRST
 The decomposition-calculus program (the originator's recalibrated central direction — see RECALIBRATION below)
-now spans **140 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
+now spans **141 worked decompositions** (past the century mark) of mathematical fields, all reading through `OBJECT = ⟨C|L⟩ ⊕ Residue`,
 converging on **two invariants** (the character arrow `×↦·`/`×↦+`; the `q=±1` residue tag, now formal in
 `ResidueTag.lean`) + the reflexive deepening (homological algebra names the calculus's own residue-taking
 operation; spectral sequences = that operation ITERATED). Canonical indices: **`SYNTHESIS.md`** (the capstone
@@ -65,7 +65,7 @@ and all degrees (2-element matrix spectrum); (2) CORRECTED a
 false-friend: the proposed `no_universal_qubit_copier` witness is Cantor (a no-universal-realizer fact at
 `Qubit:=Bool`), NOT no-cloning — basis states ARE clonable (CNOT `U(b,0)=(b,b)`); genuine no-cloning needs the
 amplitude residue, stays predicted-not-built.  Prediction tally now **13/14 Lean-closed**.  SYNTHESIS at
-**v4 (count 140)**.
+**v4 (count 141)**.
 
 **Bertrand / prime-distribution arc (2026-06-23, course-corrected):** built the entire *structural* content
 of Erdős's Bertrand proof ∅-axiom — `PrimePowFactorization.lean` (10/0: `prod_prime_pow_eq`, the explicit
@@ -113,13 +113,26 @@ Hurwitz.  Tested-refinement also added to SYNTHESIS §2 (iii): the Euclidean eng
 vs the Banach engine (reached-by-none limit) are TWO engines, not conflated — the tag is on descent-termination,
 not value-convergence.
 
-**SYNTHESIS §2 deepened (2026-06-23):** THREE invariant-level findings folded into the canonical inventory —
+**Decomposition #141 `frobenius_endomorphism.md` (2026-06-23):** the COLLAPSE point of Invariant A.  In char p,
+x↦xᵖ is a ring endomorphism — multiplicative `(xy)ᵖ=xᵖyᵖ` AND additive `(x+y)ᵖ≡xᵖ+yᵖ` (freshman's dream,
+`freshman_binom` LucasTheorem 18/0, every middle binomial ≡0 mod p).  So ×↦· and +↦+ are the SAME self-map
+`(·)ᵖ` — sharper than `prime_factorization`'s "× read as +" (two resolutions); here the separating resolution
+vanishes.  Residue = the fixed set: Fermat (`fermat` MulOrder 13/0, a^(p−1)%p=1, equiv aᵖ≡a) fixes 𝔽_p (q=+1
+core); moved part = 𝔽_{pⁿ}∖𝔽_p (q=−1), Frobenius generating Gal (order n).  Sharpens finding (iv): where A is a
+full endomorphism, B's fixed pole = the fixed field.  FALSE-FRIEND flagged: `Frobenius.lean` = the Frobenius
+*number* (coin problem), not this endomorphism.
+
+**SYNTHESIS §2 deepened (2026-06-23):** FOUR invariant-level findings folded into the canonical inventory —
 (i) the `q=±1` tag's ORIGIN = the Legendre symbol on `(ℤ/p)*` (quadratic residue; whence the name; q^k=1
 extension = cyclic power-residue); (ii) the **residue-location law**: a faithful coordinate Lens relocates its
 residue to the basis it presupposes (L_vp faithful → residue = prime distribution); specific to
 many-distinguishable-atom bases (×-atoms); (iii) the **iterated residue-Lens engine**: `q=±1` = whether the
 Euclidean descent terminates — gcd (+1, modulus) / continued fractions (rational +1 / irrational −1) / prime
-distribution (−1) are one engine; its meta-undecidability (halting) = the one diagonal (#139).
+distribution (−1) are one engine; its meta-undecidability (halting) = the one diagonal (#139);
+(iv) **how A and B relate**: `B` (q=±1) = `A`'s unimodular shadow / 2-torsion where a character exists
+(modular: Legendre = the character into {±1}), the bare diagonal escape where none does (foundations) — `B`
+is more primitive (survives where `A` doesn't); Frobenius (#141) is the sharpest case (A = full ring endo,
+B's fixed pole = the fixed field 𝔽_p).
 
 **Five calibrated boundaries** now located
 (nonstandard/LLPO, CFT/bundle, descriptive-set/large-cardinals, Stone/ultrafilter, Berkovich/seminorm-completeness) — all converging on the one ultrafilter/LLPO/choice point: the no-exterior axiom, tested at its hardest

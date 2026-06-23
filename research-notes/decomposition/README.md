@@ -1988,7 +1988,21 @@ Forcing: BOTH invariants meet — conj (q=±1, drives doubling) + norm (×↦·,
 named terminus (𝕊 zero divisors / norm fails at depth 4) + packaged Hurwitz statement (survivors built, terminus
 predicted-not-built).
 
-**Count.** 140 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
+### ★★ Frobenius endomorphism `x↦xᵖ` (`frobenius_endomorphism.md`) — where the character arrow COLLAPSES
+
+EXTEND (Invariant A's collapse point; sharpens finding (iv)). C = the p-power x↦xᵖ; L = reduction mod p
+(characteristic). **The content = the collapse**: in char p, x↦xᵖ is a RING ENDOMORPHISM — multiplicative always
+`(xy)ᵖ=xᵖyᵖ`, AND additive `(x+y)ᵖ≡xᵖ+yᵖ` (the **freshman's dream**, every middle binomial ≡0 mod p,
+`freshman_binom` LucasTheorem 18/0). So Frobenius is the **unique coincidence of A's two arrows**: ×↦· and +↦+ are
+the *same self-map* `(·)ᵖ`. Where `prime_factorization` collapsed × and + into one construction at two resolutions
+(vp_mul ×↦+), Frobenius is sharper — at char p the separating resolution *vanishes* and one map IS both
+operations. **Residue = the fixed set**: Fermat's little (`fermat` MulOrder 13/0, `a^(p−1)%p=1`; equiv aᵖ≡a)
+fixes exactly 𝔽_p (q=+1 core); the moved part = the proper extension 𝔽_{pⁿ}∖𝔽_p (q=−1), Frobenius generating
+Gal(𝔽_{pⁿ}/𝔽_p) (order n, `ord_dvd_p_sub_one`:181). Sharpens finding (iv): where A is a full endomorphism, B's
+fixed pole = the fixed field. **False-friend flagged**: `Frobenius.lean` = the Frobenius *number* (coin problem),
+NOT this endomorphism (CLAUDE.md row). ABSENT: named ring-endo `frobenius`, the Galois generation, aᵖ≡a corollary.
+
+**Count.** 141 worked decompositions + the `two_cells.md` meta-decomposition + the formal `q=±1` tag; one
 located partial-break (knots → two precise missing primitives) + the `Lp`/funext wall; the `det`/`tr` edge
 is now **dissolved as a Lean theorem** (`Mat2Spectrum`: tr=e₁, det=e₂ of the spectrum); **fourteen**
 predictions, **thirteen Lean-closed** (orthogonality 2/3/**4**/6, growing-corner, convolve-rescale contraction +
