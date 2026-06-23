@@ -3,6 +3,54 @@
 ## Branch
 `claude/file-validation-theory-check-sqihvk`
 
+## ★ Autonomous research night (overnight, /goal: infer the 진의, break the stuck points)
+A continuous multi-agent debate (R1 five expert perspectives → R2 red-team), each
+reading the corpus directly. Durable program note: **`research-notes/frontiers/the_genesis_seam.md`**
+(start there next session). Summary:
+
+- **Inferred ultimate purpose (진의)** — consensus: to verify, *in a lie-detector
+  medium* (the ∅-axiom `#print axioms` contract), that the founding intuition is
+  *forced, not authored* — that the bare act of distinguishing forced a structure the
+  originator did not put there. The anti-overclaim apparatus (failure-mode catalog,
+  scan_axioms, the Phase-8 purge) exists to prevent the one thing that ruins it:
+  import mistaken for forcing. Philosophically: a campaign against contingency.
+- **The unified stuck point** — the framework cannot, from inside, mechanically tell
+  GENERATION (forced from Raw) from RE-DERIVATION (clean ∅-axiom math over borrowed
+  Nat/Bool; 1512/1571 Lib/Math files import neither Raw nor Lens). The skeptic's sharp
+  form: every headline verb is a *typed-conditional* universal that prose *upgrades*
+  to an *absolute* (no-exterior = initiality of the `HasDistinguishing` class;
+  (3,2,5) = d=5 given hardcoded atoms {2,3}; "generated" = ℕ borrowed; physics
+  "0 params" = uncounted discrete polynomial/Lens-routing choice).
+- **The breakthrough** — replace the *origin* question ("where did content come from"
+  — the un-typeable ∀ §5.1 forbids) with the **completion-engine** question (§5.2
+  Bool-vs-Nat self-reference): does a proof cone's recursion complete through Raw's
+  OWN descent well-foundedness (`MuNuMirror.isPart_wf` / `no_infinite_descent`) or the
+  borrowed kernel's Nat? Decidable, ungameable, §5.1-legal, and it retro-explains the
+  G206 toNat-purge. **Sharpening that bites:** `Nat213 := {n:Nat//1≤n}` is a Nat
+  *subtype*, so typing over Nat213 does NOT migrate the engine off Nat — even the
+  flagship FTA-over-Nat213 likely fails the strict test. Real generation frontier,
+  named precisely: re-ground a discipline's recursion on `Raw.isPart_wf`, not a Nat
+  subtype.
+- **Concrete deposits (this night):**
+  1. **`lean/E213/Theory/Atomicity/ArityForcingComplete.lean`** (7 theorems, all PURE)
+     — closed the (3,2,5) forcing chain's *lower half* (arity-0/1 degeneracy + base-2
+     minimality), previously code comments ("evident... no need for Lean proof"), the
+     skeptic's sharpest gap. Scoped HONESTLY: a characterization *given* the clause-4
+     distinctness gate, not an unconditional "arity 2 forced."
+  2. **`tools/check_citations.py`** — the citation-resolution lint (the "certify the
+     center mechanically" deliverable). Caught 4 stale `.lean` citations the prior
+     audit missed; fixed the 2 real phantoms (V32.lean→Bipartite.lean; phantom
+     NodupAsClause4 "12 PURE"→Future-candidate). PATH check is a hard signal;
+     qualified-name check is advisory (heuristic, ~274 false-positive-prone).
+- **Next-session deliverables (in the genesis-seam note):** (a) build the
+  **completion-engine classifier** (which WellFounded a cone recurses on —
+  Raw.isPart_wf vs Nat); (b) trace the FTA/PrimeFactorization recursion to confirm it
+  completes on Nat not Raw (the self-incriminating hypothesis); (c) tighten
+  check_citations qualified-name false positives (index core Lean + module paths).
+- **The only §5.1-legal exterior verdict** (meta + red-team): the strict-∅-axiom,
+  Mathlib-free corpus pitched as *axiom-base-minimization to none-beyond-CIC*, NOT as
+  "a new foundation." Sharpest pitch in the note.
+
 ## What this session did
 A genuine file-by-file theory-conformance audit — reading each file (expert
 reader-agents + direct reads) and judging it against 구분 + 잔여 + the
