@@ -25,7 +25,7 @@ remaining frontier is primality / unique factorization (FTA).
 namespace E213.Meta.Nat.UnitDistrib
 
 open E213.Meta.Nat.UnitList (count fromNat count_fromNat)
-open E213.Meta.Nat.UnitGrid (UGrid total rows total_rows)
+open E213.Meta.Nat.UnitGrid (UGrid total rows total_rows mul_comm_from_grid)
 
 /-- A four-term additive regrouping: `(b+c)+(p+q) = (b+p)+(c+q)`. Pure `+`-law
     plumbing (associativity + left-commutativity), distinct from the
@@ -59,5 +59,15 @@ theorem mul_add_from_grid (a b c : Nat) : a * (b + c) = a * b + a * c :=
       = total (rows a (b + c))              := (total_rows a (b + c)).symm
     _ = total (rows a b) + total (rows a c) := total_rows_add b c a
     _ = a * b + a * c                       := by rw [total_rows, total_rows]
+
+/-- ★ **Right-distributivity** `(a+b)·c = a·c + b·c` — the dual bridge, derived
+    from the generated left-distributivity (`mul_add_from_grid`) and the
+    generated `×`-commutativity (`mul_comm_from_grid`). Uses only *generated*
+    laws, so the cone is `Nat.right_distrib`/`Nat.add_mul`-free too: with both
+    distributive laws now generated, the commutative semiring `(ℕ,+,·,0,1)` is
+    complete as a generated discipline. -/
+theorem add_mul_from_grid (a b c : Nat) : (a + b) * c = a * c + b * c := by
+  rw [mul_comm_from_grid (a + b) c, mul_add_from_grid c a b,
+      mul_comm_from_grid c a, mul_comm_from_grid c b]
 
 end E213.Meta.Nat.UnitDistrib
