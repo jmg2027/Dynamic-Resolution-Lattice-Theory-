@@ -12,6 +12,7 @@ import E213.Meta.Nat.UnitBox
 import E213.Meta.Nat.UnitDistrib
 import E213.Meta.Nat.UnitOrder
 import E213.Meta.Nat.ProdCount
+import E213.Meta.Nat.GenerationCapstone
 import E213.Meta.Nat.UnitHyper
 import E213.Meta.Nat.BinTree213
 import E213.Meta.Nat.HyperAssoc

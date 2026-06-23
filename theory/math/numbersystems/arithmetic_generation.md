@@ -142,7 +142,17 @@ PURE), `UnitBox` (×-assoc, 5 PURE), `UnitDistrib` (distributivity, 4 PURE), `Un
 (order, 3 PURE), `ProdCount` (the ×-count-Lens + the duality, 7 PURE); the tower /
 `^`-rung and its commutativity boundary in `UnitHyper`, `HyperAssoc`, `HyperLadder`
 (`count_hcube`, `swap_changes_dim`, `hyperop`). All ∅-axiom; each generated law's cone
-verified free of the law it produces.
+verified free of the law it produces. The whole result is one citable theorem:
+`Meta/Nat/GenerationCapstone.ordered_commutative_semiring_generated` (PURE) bundles the
+eight generated laws (both monoids, both distributive bridges, the order,
+`+`-monotonicity).
+
+Signed counting (ℤ) is the dual axis, already 213-native: `Lens/Number/Int213/Raw.lean`
+reads a `Raw` through `signedLens = ⟨1, −1, +⟩` (atom `a ↦ +1`, `b ↦ −1`), so a number
+is the **difference** of its `a`-count and `b`-count, and **negation is the atom-swap**
+`Raw.swap` (`value (neg r) = − value r`, `neg_neg = swap_swap`). The magnitude is the
+count generated above; the sign is the Bool-style swap — the difference-Lens
+(`theory/essays/analysis/integers_as_difference_lens.md`).
 
 ## Connection
 
