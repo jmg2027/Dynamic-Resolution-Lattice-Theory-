@@ -14,8 +14,8 @@ dep-purity gaps, falsifier catalogs.
 The suite's distinguishing property: **the substantive research
 branch was running in parallel**, and the meta scans surfaced
 abstraction candidates that the substantive branch then executed.
-The meta→substantive handshake→substantive→meta response→meta response on subset bijection→handshake closure cross-branch handshake closed with **zero
-DIRTY Lean-core citations** in DRLT (Lean-core dep-purity audit audit).
+The meta→substantive cross-branch handshake closed with **zero
+DIRTY Lean-core citations** in DRLT (Lean-core dep-purity audit).
 
 Net deliverable: ~89 PURE additions across 7 modules, DRLT now
 PURE-bounded on Lean 4 core, 14 abstraction candidates surfaced
@@ -103,14 +103,14 @@ top entries documented in decide-failure falsifier mining.  Many overlap existin
 
 The Lean-core dep-purity audit confirmed DRLT is **PURE-bounded on
 Lean 4 core**: zero non-test DIRTY citations remain after the
-meta→substantive handshake→handshake closure handshake closure (C1-C6 + N5-N6 executed by the
+meta→substantive handshake closure (C1-C6 + N5-N6 executed by the
 parallel substantive branch).
 
 This is the deepest hygiene confirmation: not just "0 sorry,
 0 external axiom" but "0 propext-tainted Lean-core dep" beyond
 the few sealed-by-design entries.
 
-### 5. Unfold-graph chunks (unfold-graph chunks + implicit-lemma extraction)
+### 5. Unfold-graph chunks (implicit-lemma extraction)
 
 `syntax_unfold_scan.py` identified 6 unfold "chunks" — places
 where `unfold X at h; unfold Y at h; ...` patterns suggest an

@@ -20,5 +20,6 @@ Key files:
 
 ## Connection
 
-- `theory/math/cohomology/hodge.md` — cup-chain cohomology + ⋆⋆ involution
-- Other cohomology sub-clusters cite this layer
+- `theory/math/cohomology/cup.md` — the cup-product / cup-chain structure the ⋆ acts on
+- `theory/math/cohomology/surfaces.md` — intersection forms reading the same Δ⁴ strata
+- `theory/physics/cp_phase.md` — the signed Hodge `⋆` as the CP `i` (`SignedStarC4`)

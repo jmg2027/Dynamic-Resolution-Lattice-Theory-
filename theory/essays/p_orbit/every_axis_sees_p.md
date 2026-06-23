@@ -4,8 +4,9 @@ In 213, every framework-internal reading of the atomic signature
 lands on the same integer invariants `{NS, NT, det} = {3, 2, 1}`
 and their derived quantities `{d, NS·NT, NS²-1, ...}`.  No
 external axis can produce different data; the Möbius matrix
-`P = [[2,1],[1,1]]` is the *single generative object* whose
-readings exhaust the framework.
+`P = [[2,1],[1,1]]` is the residue's **algebraic shadow**, whose
+invariants every framework-internal reading lands on — the
+generativity is the residue's, P the object that records it.
 
 ## 213-native answer
 
@@ -96,9 +97,11 @@ framework operation produces these specific integers*; no other
 integers appear as primary structural data.  The classical
 intuition that "many different mathematical structures share
 similar small-integer constants" is *refined* in 213 to the
-operational claim that *one specific algebraic object (the
-Möbius matrix `P`) generates all of these constants
-simultaneously*.
+operational claim that every framework-internal reading lands on
+the same constants because they all read *one residue*, whose
+algebraic shadow `P` records them simultaneously (the shared
+cofactor is structural in the residue, not in any one Lens —
+`seed/AXIOM/06_lens_readings.md` §6.8).
 
 The catalog's `≈55 axes from 11 distinct domains all yielding
 the same integer set` is the operational content of *single-

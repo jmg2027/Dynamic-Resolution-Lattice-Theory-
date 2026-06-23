@@ -1,15 +1,13 @@
-# Axiom Lenses — layered-API classification Tier 4 A2 Endgame
+# Axiom Lenses — Lean's `propext` / `Quot.sound` / `funext` as Raw-internal Lens choices
 
 **Status**: Closed (7 files).
 
 ## Overview
 
-★★★ **layered-API classification Tier 4 A2 ENDGAME demonstration** ★★★
-
 Lean's external axioms (`propext`, `Quot.sound`, `funext`) are
-**not external** to 213 — they are **213-internal Lens choices**
-on Raw.  Each axiom corresponds to a specific Lens application
-on the Raw substrate.
+**not external** to 213 — they are **213-internal Lens choices** on
+Raw.  Each corresponds to a specific Lens application; applying it is
+an operational choice, not a foundational necessity.
 
 ## Lean source
 
@@ -34,11 +32,13 @@ not:
 213 doesn't apply these by default → DRLT theorems are
 PURE.  Other Lean libraries that DO apply them are using
 those Lenses, but the choice is operational, not foundational.
-
-This is the **layered-API classification Tier 4 A2 endgame**: classical foundations
-themselves are Lens choices on Raw.
+So the classical/constructive split is itself a Lens choice on Raw,
+not a wall between two foundations.
 
 ## Connection
 
-- `theory/math/foundations/axiom_systems.md` — layered-API classification Tier 5 (the level above this)
-- `seed/AXIOM/09_lean_correspondence.md` — R1-R5 judgment game framework
+- `theory/math/foundations/axiom_systems.md` — classical axiom-system
+  *fragments* as Lens readings on Raw
+- `seed/AXIOM/09_lean_correspondence.md` — the faithful Lean emulator;
+  `seed/AXIOM/10_encoding_costs.md` §10.2 on why `Quot.sound` is banned
+  by the ∅-axiom contract

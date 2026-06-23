@@ -5,10 +5,13 @@
 ## Overview
 
 213-native handling of "hyper" arithmetic: tetration, Ackermann-style
-recursion bounds, very-large-number representation within the
-resolution limit `N_U = 5²⁵`.
+recursion bounds, and very-large-number representation read against the
+level-2 evaluation `configCountD 2 = 5²⁵`.
 
-Establishes the **upper boundary** of 213's representable numbers.
+`5²⁵` is one value of the parametric family `configCountD : Nat → Nat`
+(strictly increasing, no level privileged — `fractal.md` §7), **not** a
+universe-constant cap on representable numbers.  Which hyper-values
+close at level 2 is the level-relative question this chapter formalizes.
 
 ## Lean source
 
@@ -24,15 +27,15 @@ happens beyond the chosen evaluation level:
 
 - `a ↑↑ b ≤ configCount 2` is decidable for explicit (a, b)
 - Beyond `configCount 2`, the value lives at a *different family
-  evaluation level* (per N_U re-derivation Round 3 — the resolution boundary is
-  a level-choice, not a privileged cap; CLAUDE.md "Universe-constant
-  framing" failure mode forbids treating any one value as the
-  invariant), and dynamic readings (Pell-Fib, Möbius P^n, ...) do
-  not close at the same substrate — only its bracket-class is
-  representable
+  evaluation level* (a level-choice, not a privileged cap; CLAUDE.md
+  "Universe-constant framing" failure mode forbids treating any one
+  value as the invariant), and dynamic readings (Pell-Fib, Möbius
+  P^n, ...) do not close at the same level — only its bracket-class
+  is representable there
 
-Used downstream as a sanity check: any DRLT observable computation
-producing a value `> N_U` indicates a misconfiguration.
+Read level-relatively: a value exceeding `configCount 2` is not a cap
+violation but a value read at the wrong evaluation level — the family
+continues at `configCountD 3, 4, …` with no privileged ceiling.
 
 ## Connection
 

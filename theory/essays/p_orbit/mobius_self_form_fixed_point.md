@@ -136,7 +136,7 @@ Five independent surfaces, one conclusion: the form IS the matrix.
 |---|---|
 | "P has nice properties" | P IS the property-space |
 | "Fibonacci relates to P" | Fibonacci is P's embedding |
-| "Fixed points are convenient" | The fixed point is the framework |
+| "Fixed points are convenient" | The fixed point is the framework's algebraic self-form |
 | "Char-poly characterizes" | Char-poly IS the orbit recurrence |
 | "SL(2,ℤ) contains P" | P generates the relevant sub-monoid |
 
@@ -153,6 +153,14 @@ Five independent surfaces, one conclusion: the form IS the matrix.
   Self-form says P *is* its own description.  Generation ⊂
   self-description logically (generation is one direction;
   reconstruction + uniqueness + preservation close the loop).
+- Q: Is P then "the engine" of 213?
+  A: No — P is the residue's **algebraic shadow** (the act's
+  shadow is `1 = NS − NT = det P`, the matrix `P`, the fixed
+  point φ; `the_form_of_the_residue.md`).  The engine is the
+  residue's self-pointing; P is what the algebra-Lens reads off
+  the closure (§5.6), and φ is "what the residue looks like under
+  the algebra-Lens" — a canonical reading, not a structure above
+  the residue (`the_modular_geodesic_lens.md`).
 
 ## Constructive accessibility (landing)
 

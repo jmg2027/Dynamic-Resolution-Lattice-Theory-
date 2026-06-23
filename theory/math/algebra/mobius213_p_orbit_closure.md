@@ -70,10 +70,8 @@ K_{3,2}^{(c=2)}; the self-containment reading
 local (2, 1, 3) multiset at every vertex / edge / face) is
 the only cohomology-level path.
 
-See `theory/math/cohomology/tripartite_self_containment.md`
-for the full formal account, and
-`theory/essays/p_orbit/bipartite_tripartite_self_containment.md` for
-the cross-cutting reading.
+See `theory/essays/p_orbit/bipartite_tripartite_self_containment.md`
+for the full account and the cross-cutting reading.
 
 ## Mod-p period catalog
 
@@ -147,7 +145,7 @@ Mod-p periods as P-orbit expressions:
 **Cross-reference — Cayley-Dickson Type C (ZOmega).**
 The trace value `L(3) = 18 = NS · |ℤ[ω]×|` factorises as `3 × 6`,
 where `|ℤ[ω]×| = 6` is the unit group of the Eisenstein integers.
-Type C in the Cayley-Dickson tower (see `theory/math/cayley_dickson/
+Type C in the Cayley-Dickson tower (see `theory/math/algebra/cayley_dickson/
 algebra_tower.md` §Type classification) has base ring `ℤ[ω]` with
 `Z_6` unit group.  The mod-3 period `4 = NT²` (row p = 3 in the
 period table above) equals `|ℤ[ω]×| / (ℤ[ω]× ∩ ℤ×)| + |ℤ×| = 6/2 + 1 = 4`

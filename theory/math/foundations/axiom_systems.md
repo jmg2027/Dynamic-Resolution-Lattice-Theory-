@@ -1,16 +1,15 @@
-# AxiomSystems — layered-API classification Tier 5 Endgame
+# Classical axiom systems as Lens readings on Raw
 
 **Status**: Closed (4 files).
 
 ## Overview
 
-**layered-API classification Tier 5 (C1-C4) ENDGAME demonstration**: classical foundations
-(ZFC, intuitionistic logic, type theory, category theory) are
-realized as **Lens compositions on Raw** — not as alternatives to
-213, but as Lens-derived views of the same Raw substrate.
-
-This closes the layered-API classification arc at the
-**axiom-system level**.
+Fragments of the classical foundations — Peano arithmetic, ZFC
+extensionality, classical-analysis completeness — are realized as
+**concrete Lens constructions on Raw**.  They are not alternatives
+beneath or above 213, and Raw is not a foundation they rest on: each
+is one more Lens reading of the same residue (no exterior,
+`seed/AXIOM/05_no_exterior.md` §5.1).
 
 ## Lean source
 
@@ -19,26 +18,30 @@ This closes the layered-API classification arc at the
 
 ## Narrative
 
-layered-API classification introduced a layered API classification, now generalized to
-the build-order ring partition (Term → Theory → Lens → Meta → Lib)
-in `lean/E213/ARCHITECTURE.md`.  The "layered" reading there is
-**compile-time dependency**, not foundation-vs-derivation.
+The "layered" ring partition (Term → Theory → Lens → Meta → Lib) of
+`lean/E213/ARCHITECTURE.md` is a **compile-time dependency** ordering,
+not a foundation-vs-derivation ranking.  The chapters below read
+classical axiom *fragments* through that same Lens machinery:
 
-Tier 5 (the endgame) demonstrates that classical foundations
-themselves are Lens compositions:
+- **Peano** (`PeanoAsLensComposition`) — `succ`/`zero`/`+` are the
+  count-Lens `Lens.leaves` on the Raw chain: `succ_zero_view`,
+  `one_plus_one_view`.  The Lens is not injective
+  (`peano_lens_not_injective`) — the count is a reading, not Raw itself.
+- **ZFC extensionality** (`ZFCExtensionalityAsLens`) — `memberView` and
+  `extEquiv` realize the extensionality fragment as a decidable
+  predicate on `Raw`; not full ZFC, the extensionality clause only.
+- **Classical-analysis completeness** (`ClassicalAnalysisCompletenessAsLens`)
+  — Cauchy-sequence equivalence on `Nat → Raw`, completeness read as a
+  Lens, not imported.
+- **Cross-theory cohabitation** (`CrossTheoryCohabit`) — the Peano count
+  and the depth reading cohabit on one Raw (`cohabit_peano_depth`):
+  distinct foundations are distinct Lenses on the same residue.
 
-- **ZFC** = `Set Lens ∘ ChoiceLens ∘ RegularityLens` on Raw
-- **Intuitionistic type theory** = `TypeLens ∘ EqualityLens` (no LEM)
-- **HoTT** = `PathLens ∘ EquivalenceLens`
-- **Topos** = `SheafLens ∘ SubobjectLens`
-
-The C1-C4 demonstrations (4 files) provide explicit Lens
-compositions for each axiom system, witnessing that 213's Raw is
-**foundational** in the categorical sense (initial object for
-Lens-derived foundations).
+These are the realized fragments; the broader "every axiom system is a
+Lens composition" reading is the programme they instantiate, not a
+closed all-systems result.
 
 ## Connection
 
-  foundational note) — layered API framework
-- `theory/math/foundations/cross_domain_unification.md` (C6) — extends to
-  paradigm domains
+- `theory/math/foundations/cross_domain_unification.md` — extends the
+  same reading to further paradigm domains

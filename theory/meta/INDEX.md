@@ -20,7 +20,7 @@ this is the **destination-variant** form of Pattern 1.
 | [`scanner_suite.md`](scanner_suite.md) | `tools/{ast_*,syntax_*,falsifier_*}.py` (11 scanners) |
 | [`raw_derivation_levels.md`](raw_derivation_levels.md) | `tools/{ast_typesig,ast_callgraph}_scan.py` + content theorems |
 | [`cardinality_cutoff_principle.md`](cardinality_cutoff_principle.md) | `Cohomology/Fractal/AurifeuilleanFullCutoff.lean` (28 PURE) |
-| [`cardinality_cutoff_applications.md`](cardinality_cutoff_applications.md) | 6 Lean files in `Cohomology/Fractal/` (191 PURE) |
+| [`cardinality_cutoff_applications.md`](cardinality_cutoff_applications.md) | the `Cohomology/Fractal/` cutoff family (291 PURE, per the chapter aggregate) |
 | [`methodology_patterns.md`](methodology_patterns.md) | Closure-work methodology: Patterns #1-#20 + Reduction patterns #1-#6 |
 | [`multiplicity_doctrine.md`](multiplicity_doctrine.md) | Patterns #17 + #20 + four canonical instances (Real213, Derivative, Cup, Modulus) |
 | [`pure_lean_patterns.md`](pure_lean_patterns.md) | PURE Lean funext-avoidance pattern catalog (State Accumulator, Bundled Subtype, Setoid Category, Residual Induction) |
