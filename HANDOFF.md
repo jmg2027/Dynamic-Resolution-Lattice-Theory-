@@ -54,7 +54,7 @@ genuine drift. Five commit batches (`d6b04a8`, `6e4e5cf`, `5da401a`, `de10c19`,
 
 ### Verified false positives (correctly LEFT)
 `proof_isa/what_is_a_proof` (residue-as-proof-primitive matches seed PROOF_ISA
-§1.0′), `polynomial_in_213` (self-dissolved fork), `what_is_a_logarithm`
+§1.0.1), `polynomial_in_213` (self-dissolved fork), `what_is_a_logarithm`
 (already Real213-cut framed), `gra_book` (residue = trace of the act),
 `AtomicBase.lean` rename rationale (prevents regression), markov `G199`,
 PMNS `δ_CP=195°`.
@@ -93,7 +93,7 @@ A critical-fleet review (consistency / claims-vs-Lean / meta-principle) of
 `seed/AXIOM/` surfaced genuine deep issues; all fixed and **verified coherent**:
 - **Internal tensions**: clauses 3/4 'encoding cost' vs §10.3-α/§3.3 (→ axiom-level
   absences, declared: clause 4 = α, clause 3 = β-machinery+γ-law, matching §10.3);
-  §1.0′ 'residue is the primitive' vs §1.1 (→ 'primitive' = methodological proof-move,
+  §1.0.1 'residue is the primitive' vs §1.1 (→ 'primitive' = methodological proof-move,
   not ontological); §3.4 mislabeled 3→4 edge (→ forcing fan walked as 1→2→3→4,
   clause 4 forced by clause 1).
 - **Overclaims vs Lean** (35 theorems verified): §4.1 invented a 'symmetry' minimality

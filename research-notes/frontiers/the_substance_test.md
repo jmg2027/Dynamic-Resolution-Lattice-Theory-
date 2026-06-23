@@ -24,7 +24,7 @@ quietly assumed (wordplay)?
   `Lens`; the disciplines run on native `Nat`/`Int`; even `Raw.leaves : Nat` *borrows* ℕ rather than
   generating it. So most of the corpus is excellent ∅-axiom **re-derivation**, not **generation from
   the primitive**. The act and the unfolding are two adjacent codebases sharing a build target.
-- *(logician + skeptic, the reachable demonstration)* Make §1.0′ literal — the residue (the
+- *(logician + skeptic, the reachable demonstration)* Make §1.0.1 literal — the residue (the
   distinguishing's non-closure) is the **engine** that generates the limitative theorems. **DONE this
   session** (`Lens/Foundations/OneDiagonal.lean`, 7 PURE): one `lawvere_fixed_point` generates Cantor, the
   residue (`object1_not_surjective` at `A=Raw`), and Russell/Liar/Tarski (`Prop` arm) — one fixed

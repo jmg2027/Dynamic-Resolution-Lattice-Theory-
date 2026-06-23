@@ -75,7 +75,7 @@ events.
 One frame deeper: the count-Lens's deficit is the quantitative face of `GAP`
 (`a reading does not cover its codomain`), whose qualitative face is the diagonal
 — the residue distinguishable from everything enumerated, forced to exist
-(`Lens/Cardinality/Cantor.lean`, `seed/AXIOM/01_residue.md` §1.0′).  Cantor's
+(`Lens/Cardinality/Cantor.lean`, `seed/AXIOM/01_residue.md` §1.0.1).  Cantor's
 diagonal (a reading misses its codomain *structurally*) and Erdős' deficit (a
 reading misses it *by cardinality*) are one instruction read qualitatively and
 quantitatively.  Counting and the residue's own existence-forcing are the same

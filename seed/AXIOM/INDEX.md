@@ -14,7 +14,7 @@ device classification, axiom cross-check) lives at
 
 | # | File | What it covers |
 |---|---|---|
-| 1 | `01_residue.md` | What the axiom is — the minimum residue of pointing.  Nothing exhibitable as outside (§1.0), diagonalization as the residue's proof-primitive (§1.0′), the unavoidable recursion of notation, primitive distinction, linguistic inevitability, the status of "something." |
+| 1 | `01_residue.md` | What the axiom is — the minimum residue of pointing.  Nothing exhibitable as outside (§1.0), diagonalization as the residue's proof-primitive (§1.0.1), the unavoidable recursion of notation, primitive distinction, linguistic inevitability, the status of "something." |
 | 2 | `02_axiom.md` | The axiom itself — language used, the minimum-commitment statement, self-completion, the code-friendly four-clause restatement, what is absent. |
 | 3 | `03_form.md` | Why this form — austerity as audit, why two + binary, why symmetric + anti-reflexive, the forcing chain 1 → 2 → 3 → 4 (a fan rooted at clause 1), the Möbius algebraic signature. |
 | 4 | `04_uniqueness.md` | Three-direction uniqueness — from below (clause removal collapses), sideways (any framework factors through Raw), from above (forced shape `(NS, NT, d) = (3, 2, 5)`), bundled. |

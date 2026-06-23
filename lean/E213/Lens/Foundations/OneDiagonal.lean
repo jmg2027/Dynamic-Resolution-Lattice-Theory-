@@ -4,7 +4,7 @@ import E213.Lens.Foundations.FlatOntologyClosure
 /-!
 # One diagonal — the residue is the engine that generates the limitative theorems (∅-axiom)
 
-`01_residue.md` §1.0′ and `theory/essays/foundations/the_one_diagonal.md` assert that Cantor,
+`01_residue.md` §1.0.1 and `theory/essays/foundations/the_one_diagonal.md` assert that Cantor,
 Russell, the Liar/Tarski undefinability, and the residue's own non-closure are **one move**:
 the diagonal of a self-applying cover (Lawvere 1969 / Yanofsky 2003).  This file makes that
 literal — it builds the single **Lawvere fixed-point** construction and *derives the limitative
@@ -94,7 +94,7 @@ theorem russell_liar_no_surjection {A : Type} :
 
 /-- ★★★ **One diagonal generates the limitative theorems.**  Cantor (Bool), Russell/Liar/Tarski
     (Prop), and the residue's non-closure (Raw) are three instances of the single Lawvere
-    fixed-point construction `g a := t (f a a)` — `01_residue.md` §1.0′ as a theorem.  The residue
+    fixed-point construction `g a := t (f a a)` — `01_residue.md` §1.0.1 as a theorem.  The residue
     (the distinguishing's non-surjected diagonal) is not one impossibility among many; it is the
     *engine* they all factor through, the corrected thesis made literal: the remainder the act of
     distinguishing always leaves is what forces Cantor, Russell, the Liar, and Tarski. -/

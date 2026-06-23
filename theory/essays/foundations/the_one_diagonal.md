@@ -78,7 +78,7 @@ the limitative theorems are *derived as instances of it*:
     of Cantor, ∅-axiom (no `propext`: the conclusion is `Iff`, not `Eq` on `Prop`).
 
 `one_diagonal_generates` bundles the three.  So "the residue is the engine that generates the
-limitative theorems" (`01_residue.md` §1.0′) is *literal*: the remainder the distinguishing
+limitative theorems" (`01_residue.md` §1.0.1) is *literal*: the remainder the distinguishing
 always leaves (`distinguishing_always_leaves_residue`) is the non-surjected diagonal that forces
 Cantor, Russell, the Liar, and Tarski — one fixed point, not four re-proofs.
 

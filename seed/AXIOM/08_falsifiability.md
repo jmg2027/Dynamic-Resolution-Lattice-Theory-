@@ -129,52 +129,55 @@ the demonstration that 213's primacy claim (§7.1) is correct.
 
 ## §8.5 Measurement falsifiers
 
-A theory that cannot be wrong is no theory.  213 is exposed to
-specific measurable predictions; each is **atomic-forced** by
-the shape parameters of §4.3, and each carries a discard
-condition if the measurement comes in differently.
+A theory that cannot be wrong is no theory.  Beyond the formal
+∅-axiom contract (§8.2), 213's **physics deployment (DRLT)** is
+exposed to specific *measurable* predictions: each is atomic-forced
+by the shape parameters of §4.3, and each carries a discard
+condition if the measurement comes in differently.  Per §8.2 a
+violation refutes the **forced triple `(NS, NT, d) = (3, 2, 5)`**
+itself — there is no retunable parameter to absorb it (§8.4).
 
-| Measurement | Timing | DRLT prediction | If violated |
-|---|---|---|---|
-| Neutrino ordering | JUNO ~2030 | normal | discard |
-| θ_QCD | nEDM ~2027–30 | [2.5, 3.0] × 10⁻¹¹ | discard |
-| 4th-generation particles | LHC, ongoing | absent | discard |
-| PMNS angles | DUNE/HK ~2030 | leading denominator ∈ {NS, NT, d² − 1} | discard |
-| Cabibbo λ | LHCb / Belle II | 5/22 ± 1 % | discard |
-| m_p | lattice QCD, next-generation | 938.27 (atomic) | discard |
-| Magic numbers | already measured | {2, 8, 20, …} | already verified |
+This empirical surface is **one domain's** falsifiability gate (the
+DRLT Validation Standard), not an axiom-level commitment: primacy is
+the *breadth* of ∅-axiom derivation (§7.1), not these particular
+physics numbers.  So the specific roster — values, brackets,
+measurement timings — lives where it is maintained and audited, not
+embedded in this corpus:
 
-The full quantitative profile of the falsifier surface — the
-25 manually-curated entries (labels `F1`–`F27`, gaps at F16/F25) in
-`catalogs/falsifiers.md`, plus the 135 auto-discovered entries
-in `catalogs/falsifier-roster.md` — is catalogued in
-`seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3.
+  - `catalogs/falsifiers.md` (curated) and
+    `catalogs/falsifier-roster.md` (auto-discovered) — the falsifier
+    values and discard conditions (neutrino ordering, the θ_QCD
+    bracket, no 4th generation, the PMNS / Cabibbo denominators, m_p,
+    the magic numbers);
+  - `seed/THEOREM_METHODOLOGY_SUITE.md` §TH-3 — the falsifier-surface
+    specification.
+
+What is axiom-level here is only the *shape* of the exposure: 213
+makes forced, parameter-free, discard-on-violation predictions whose
+generators are `#print axioms`-clean.  The values themselves are
+deployment, not foundation.
 
 ---
 
-## §8.6 Formal guarantees on the precision side
+## §8.6 The forced binding (and where the numbers live)
 
-The same atomic shape that supplies the falsifiers supplies
-the precision results:
+What ties that empirical surface back to the axiom is structural,
+and *that* is the axiom-adjacent part: the forced triple
+`(NS, NT, d) = (3, 2, 5)` fixes the headline falsifier integers as
+polynomials in the triple, so measuring any of them outside its
+bracket refutes the **triple**, not a parameter.  This binding is a
+single ∅-axiom theorem, `falsifier_roster_forced`
+(`Lib/Physics/Foundations/FalsifierRosterForced.lean`, via
+`atomic_iff_five` and `pair_forcing`).
 
-  - Forced-roster super-theorem: `falsifier_roster_forced`
-    (`Lib/Physics/Foundations/FalsifierRosterForced.lean`,
-    ∅-axiom) — one theorem binding the forced triple
-    `(NS, NT, d) = (3, 2, 5)` (via `atomic_iff_five` and
-    `pair_forcing`) to the headline falsifier integers as
-    polynomials in that triple; measuring any of them outside
-    its bracket refutes the *triple*, not a retunable parameter.
-  - Precision quantities: `1/α_em = 137.036` (ppm-level
-    agreement); `m_μ/m_e` at 0.48 ppb; `m_p` at lattice
-    precision; `Ω_Λ` to 0.0008 %.  Catalogue:
-    `catalogs/physics-constants.md`.
-
-The precision side and the falsifier side share the same Lean
-infrastructure — the same atomic primitives, the same Lens
-catamorphisms, the same `#print axioms`-clean status.  A theory
-that has only a precision side or only a falsifier side has
-fewer constraints; 213 has both simultaneously, which is the
-shape of the validation standard recorded in `CLAUDE.md`.
+The precision side shares the identical infrastructure — the same
+atomic primitives, the same Lens catamorphisms, the same
+`#print axioms`-clean status — and its values (`1/α_em`, `m_μ/m_e`,
+`m_p`, `Ω_Λ`) live in `catalogs/physics-constants.md`.  A theory with
+only a precision side or only a falsifier side has fewer constraints;
+the DRLT deployment has both, which is the validation standard
+recorded in `CLAUDE.md` — **one domain's** gate, not the measure of
+the framework's primacy (§7.1).
 
 ---
 

@@ -49,7 +49,7 @@ what "the minimum residue of pointing" *means* — the closure is closed
 under conception itself, including the conception of an outside.
 
 (Status: this is the framework's central claim **under test** per §8 —
-not a shield.  Its formalizable instances are theorems (§1.0′, below),
+not a shield.  Its formalizable instances are theorems (§1.0.1, below),
 but the fully universal form remains a self-reference argument (§5.1),
 kept falsifiable by the §5.4 guard rather than terminated by it.)
 
@@ -67,13 +67,13 @@ its formalizable instances are theorems, not assertions.
 Closure is not coverage.  That nothing can be exhibited as outside
 does not make every internal something automatically *located*: the
 fold-Lens language is not surjective onto everything internally
-pointable (`object1_not_surjective`, §1.0′), and pointing at one
+pointable (`object1_not_surjective`, §1.0.1), and pointing at one
 specific residue may remain arbitrarily hard (§5.3).  **No exterior**
 and **no automatic location** are two halves of one stance — the
 closure says where everything is, not that every pointing has
 already succeeded.
 
-## §1.0′ Diagonalization — the residue's operational face — is the primitive proof-move for the infinite
+## §1.0.1 Diagonalization — the residue's operational face — is the primitive proof-move for the infinite
 
 The closure of §1.0 is not only ontological; it is **operational** — it is *why* this framework does real
 work and not wordplay.  The most primitive proof *technique* for the infinite and the abstract is

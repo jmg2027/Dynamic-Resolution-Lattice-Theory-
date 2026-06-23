@@ -84,7 +84,7 @@ The same structural fact appears in four frames:
   converge, none lands on the limit.
 
 The fourth frame is the **same diagonal move** as the residue, not its
-opposite.  By §1.0′ diagonalization *is* the residue: `ω` is read off the
+opposite.  By §1.0.1 diagonalization *is* the residue: `ω` is read off the
 approximant family as its diagonal exactly as `object1_not_surjective`
 reads its surplus off any cover.  `ω(x)` is reached by **none** of the
 approximants — no finite iterate `iter x n` equals it (the essay's own

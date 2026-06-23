@@ -51,7 +51,7 @@ of the Tree presentation, itself an encoding artefact (§10), so
 depth parity is a presentation-level observable.  The witness
 marks the non-surjectivity of the fold-Lens family onto what is
 internally pointable — the same fact `object1_not_surjective`
-states at the predicate level (§1.0′) — not a something standing
+states at the predicate level (§1.0.1) — not a something standing
 outside 213.  No exterior, and no automatic location either
 (§5.3): the two halves of one stance.
 
