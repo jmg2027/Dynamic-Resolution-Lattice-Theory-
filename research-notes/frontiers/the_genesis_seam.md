@@ -368,6 +368,25 @@ the genuinely hard mathematics, and where Raw's additive peel must be replaced b
 multiplicative descent. Next: either (a) generate primality/`vp` structure, or (b) the
 order layer (`≤` as the sublist/subgrid relation).
 
+## Round 2.10 — the ordered semiring (order generated too)
+
+The order layer is now generated (`Meta/Nat/UnitOrder.lean`, 3 PURE): `≤` is born as
+**unit-list extension** — `le_iff_unit_extension : a ≤ b ↔ ∃ l, fromNat a ++ l =
+fromNat b` (`Nat.le` is the count-readout of the prefix relation) — and
+`+`-**monotonicity** (`add_le_add_right`, `Nat.add_le_add_right`-free) is generated
+from the *same* `append_comm` indistinguishability that births `+`-commutativity (the
+suffix and the added block commute on unit lists). So the **ordered commutative
+semiring `(ℕ, +, ·, 0, 1, ≤)` is now a generated discipline** — equational laws +
+order + order/`+` compatibility, all count-shadows of unit-structure facts, none
+presupposing the Nat law produced.
+
+This closes the elementary *order-and-arithmetic* layer as generated. The boundary is
+unchanged and now sharper by contrast: everything generated so far is **additive /
+counting** content (units indistinguishable, append/prefix free). The deep frontier
+remains **multiplicative-atom (prime) structure / FTA**, which needs *distinguishable*
+×-atoms — the genuine dual where Raw's additive peel must become a multiplicative
+descent.
+
 ## The exterior deliverable (the only §5.1-legal verdict)
 
 Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
