@@ -74,7 +74,7 @@ built `qbinom` at `q=−1` gives the Lucas/fermionic count `C(⌊n/2⌋,⌊k/2�
 a sign-swap — so the deformation-`q` (a scaling dial on the *count*) and the tag-`q` (a discrete ±1 swap bit
 on the *residue*) are different objects sharing only the ±1 *locus* by **containment**, aligned only at `q=+1`.
 
-### ★ Two structural findings on the invariants (2026-06-23)
+### ★ Three structural findings on the invariants (2026-06-23)
 
 **(i) The `q=±1` tag's origin and name — quadratic residues** (`modular_arithmetic.md`).  The tag is not
 named "residue + a ±1 bit" by analogy: its **first instance is the Legendre symbol** `(a/p) ∈ {+1,−1}` on
@@ -95,6 +95,25 @@ exactly when the index is the ×-atoms (primes, each with its own `vp`-coordinat
 one generator's orbit (powers of 2 in binary are regular) — i.e. it is the residue-face of ×-atom
 distinguishability (CLAUDE.md "atom (in)distinguishability"; the dual of the +-atom's indistinguishability
 `UnitList.append_comm`).
+
+**(iii) The iterated residue-Lens engine — `q=±1` *is* whether the Euclidean descent terminates** (the
+`modular_arithmetic`/`gcd_euclidean`/`prime_distribution`/`continued_fractions` quartet).  The residue Lens
+`n ↦ n % m` (`modular_arithmetic.md`, = the count-Lens), **fed back into itself** (`gcdFuel`'s
+`b % (a+1)` recursion), is *one engine*; the `q=±1` tag is exactly **whether the descent reaches its fixed
+point**:
+- **ℕ-pairs → gcd** (`gcd_euclidean.md`): always terminates (`q=+1`); the well-founded modulus
+  `M(a,b)=max a b + a` strictly decreases (`gcdFuel`, total ∅-axiom).
+- **real cuts → continued fractions** (`continued_fractions.md`): terminates ⟺ rational (`q=+1`), runs
+  forever ⟺ irrational (`q=−1`, the convergents the modulus, the irrational reached by none —
+  `ContinuedFractionModulus` 23/0); `cf_coprime` ties each convergent back to gcd.
+- **×-atom basis → prime distribution** (`prime_distribution.md`): never terminates (`q=−1`,
+  `exists_prime_gt` — no top atom), the basis-residue of finding (ii).
+
+So `gcd_euclidean` and `continued_fractions` are *the same descent* on `ℕ` vs `Real213`, and the `q=±1`
+spine's deepest reading is **dynamical**: `+1` = the bracket closes (a fixed point is reached in finite
+steps), `−1` = the bracket runs (reached by none).  The static tag (`±1` sign on a residue) and this
+dynamic tag (descent terminates / not) are one — the Legendre `(a/p)` of finding (i) is the static face,
+Euclidean termination the dynamic face, of the single `q=±1` object.
 
 ### ★ The reflexive deepening — the calculus names its own residue-taking operation
 Homological algebra (`practice/homological_algebra.md`) does not add a field; it **names the operation
