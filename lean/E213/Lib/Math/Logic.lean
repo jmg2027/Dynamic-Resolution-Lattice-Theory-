@@ -23,6 +23,8 @@ import E213.Lib.Math.Logic.ForcingToy
 import E213.Lib.Math.Logic.MasterClassifierNoGo
 import E213.Lib.Math.Logic.SectionCount
 import E213.Lib.Math.Logic.SectionCountWithAbsence
+import E213.Lib.Math.Logic.GenericAsCut
+import E213.Lib.Math.Logic.TagOfDecidable
 
 /-!
 # Reverse Mathematics 213 — umbrella (`Lib/Math/Logic`)
