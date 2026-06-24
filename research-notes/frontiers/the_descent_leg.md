@@ -438,3 +438,12 @@ coprime/Bézout/Euclid's-lemma stack.  Whoever continues starts from `gcdSub`.
 **State of the grounded multiplicative discipline**: FTA *existence* and Euclid's infinitude are
 *fully* grounded (no `Nat.div`/`Nat.mod`/`strongRecOn`/`lt_wfRel`, ∅-axiom); structural division
 (quotient+remainder) is complete; FTA *uniqueness* awaits the gcd-chain regrounding above.
+
+### UPDATE (2026-06-24, cont. 8): grounded gcd — divisibility + prime-coprimality (PURE ✓)
+
+Bricks 2 + 3 of the `SubGcd213` chain land (∅-axiom; closure-walked: `lt_wfRel`/`strongRecOn`/`Nat.div`/`Nat.mod`/`propext`/`Acc.rec`/`WellFounded.fix` all absent — 233-const closure, zero forbidden hits).
+
+- **Brick 2** — `g_dvd_of_dvd_subMod` (`g ∣ a → g ∣ (b mod a) → g ∣ b`, immediate from `subMod_eq`, much shorter than the `Nat.mod` analogue `Gcd213.g_dvd_b_via_mod`) and `gcdSub_dvd_both` (`gcdSub n a b ∣ a ∧ ∣ b`, fuel `n ≥ b` the Euclidean monovariant, inductive step `(a, b'+1) → (b'+1, a mod (b'+1))` lifted via brick 2). The `subMod_eq` identity `b = a·q + (b mod a)` trivialises the divisibility lift that the mod-recursion version has to grind out.
+- **Brick 3** — `gcdW a b := gcdSub (a+b) a b` (fuel discharged, `b ≤ a+b` ample), `gcdW_dvd_left`/`gcdW_dvd_right`, and `gcd_eq_one_of_prime_not_dvd`: for `p` with only divisors `1, p` and `p ∤ a`, `gcd(p,a)=1`. This is the half of Euclid's lemma that needs **no Bézout** — `gcdW p a ∣ p` so it is `1` or `p`, and `p` is excluded because `gcdW p a ∣ a` would force `p ∣ a`.
+
+**Remaining wall (unchanged)**: the *other* half — `gcd(p,a)=1 → p ∣ a·b → p ∣ b` — is exactly where **Bézout** (a `g = a·x − b·y` witness, structural) is unavoidable, and that is the hard regrounding still ahead before `prime_dvd_mul` → `vp_mul` → FTA uniqueness. Coprimality is now a clean PURE primitive to build Bézout against; the descent of the extended-Euclid coefficients is the next genuine piece of work.

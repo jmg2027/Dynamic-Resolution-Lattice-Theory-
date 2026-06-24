@@ -78,4 +78,29 @@ theorem gcdSub_dvd_both : ∀ (n a b : Nat), b ≤ n → gcdSub n a b ∣ a ∧ 
       obtain ⟨hg_b, hg_r⟩ := gcdSub_dvd_both f (b' + 1) (subMod a a (b' + 1)) hr_le_f
       exact ⟨g_dvd_of_dvd_subMod hg_b hg_r, hg_b⟩
 
+/-! ## §3 — the gcd wrapper + coprimality (brick 3) -/
+
+/-- **The gcd, fuel discharged.**  `gcdW a b = gcd(a, b)` with fuel `a + b`, ample for the divisibility
+    invariant (`b ≤ a + b`).  The user-facing structural gcd — no fuel parameter. -/
+def gcdW (a b : Nat) : Nat := gcdSub (a + b) a b
+
+/-- `gcdW a b ∣ a`. -/
+theorem gcdW_dvd_left (a b : Nat) : gcdW a b ∣ a :=
+  (gcdSub_dvd_both (a + b) a b (Nat.le_add_left b a)).1
+
+/-- `gcdW a b ∣ b`. -/
+theorem gcdW_dvd_right (a b : Nat) : gcdW a b ∣ b :=
+  (gcdSub_dvd_both (a + b) a b (Nat.le_add_left b a)).2
+
+/-- ★★★ **Coprimality of a prime with a non-multiple.**  For `p` prime (`2 ≤ p`, only divisors `1`
+    and `p`) with `p ∤ a`, `gcd(p, a) = 1`.  The half of Euclid's lemma that needs *no* Bézout: the
+    only candidate divisors of `gcdW p a` are `1` and `p`, and `p` is excluded because `gcdW p a ∣ a`
+    would force `p ∣ a`.  Stated with explicit prime hypotheses (no coupling to a concrete prime
+    predicate).  `Nat.mod`/`Nat.div`/`lt_wfRel`-free, ∅-axiom. -/
+theorem gcd_eq_one_of_prime_not_dvd {p a : Nat} (_hp2 : 2 ≤ p)
+    (hpdiv : ∀ d, d ∣ p → d = 1 ∨ d = p) (hna : ¬ p ∣ a) : gcdW p a = 1 := by
+  rcases hpdiv (gcdW p a) (gcdW_dvd_left p a) with h1 | hp
+  · exact h1
+  · exact absurd (hp ▸ gcdW_dvd_right p a) hna
+
 end E213.Meta.Nat.SubGcd213
