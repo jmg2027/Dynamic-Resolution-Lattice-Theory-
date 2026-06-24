@@ -9,6 +9,7 @@ import E213.Lib.Math.Cohomology.Cup
 import E213.Lib.Math.Cohomology.CupAW
 import E213.Lib.Math.Cohomology.Delta
 import E213.Lib.Math.Cohomology.Examples.ColexRoundTrip
+import E213.Lib.Math.Cohomology.Examples.XorInvolution
 import E213.Lib.Math.Cohomology.Examples.EncodingBijection
 import E213.Lib.Math.Cohomology.Examples.EulerClosed
 import E213.Lib.Math.Cohomology.Fractal

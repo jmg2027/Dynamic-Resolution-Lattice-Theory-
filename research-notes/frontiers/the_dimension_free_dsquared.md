@@ -103,15 +103,23 @@ kSubset (n+1) (k+1) i = if i < binom n (k+1) then kSubset n (k+1) i
      involution kernel: `(a,b) ↦ (b+1, a)` for `a ≤ b` sends `(τ.eraseIdx
      a).eraseIdx b` to the same face by the opposite removal order.
 
-   **Still open — the parity accounting only.**  With every structural fact
-   closed, the remaining step is pure XOR bookkeeping: (i) rewrite `δ²σ(τ)` (a
-   nested `foldl`-XOR) as a flat XOR over the `(a,b)` grid, using the round-trip
-   to collapse the inner `subsetIdx ∘ eraseIdx ∘ kSubset` to the genuine face;
-   (ii) an abstract **involution-cancellation** lemma — a XOR-fold over a `Nodup`
-   list with a fixed-point-free, summand-preserving involution is `false` — applied
-   to the grid via `eraseIdx_eraseIdx_comm`.  No new structural facts are needed;
-   it is the combinatorial accounting Mathlib hides inside
-   `AlternatingFaceMapComplex`, here owed over the brute-force `foldl`.
+   **The abstract engine is now DONE** (`Examples/XorInvolution.lean`,
+   `xorFold_involution`, PURE): a ℤ/2 XOR-fold over a `Nodup` list is `false`
+   whenever the index set carries a **fixed-point-free, summand-preserving
+   involution** (proof: strong induction peeling a matched pair `{x, g x}` per
+   step via `List.filter`, cancelling `f x ⊕ f (g x) = false`).  This is "a
+   fixed-point-free involution ⟹ even cardinality" in XOR form — the colex-
+   independent keystone.
+
+   **Still open — the application only.**  Connect `δ²σ(τ)` to
+   `xorFold_involution`: (i) rewrite the nested `δ²` `foldl`-XOR as a single
+   `xorFold` over the `(a,b)` removal grid (a flat list), using the round-trip
+   (`kSubset_subsetIdx` + `sorted_eraseIdx`) to collapse the inner `subsetIdx ∘
+   eraseIdx ∘ kSubset` to the genuine face — and handling `deltaAt`'s in-range
+   `if` guard (never the `else` branch, since faces are valid); (ii) supply the
+   involution `(a,b) ↦ (b+1,a)` for `a ≤ b` and discharge its four hypotheses via
+   `eraseIdx_eraseIdx_comm` (summand-preservation) + index arithmetic
+   (fixed-point-free, involutive, grid-closed).  No new *structural* facts.
 
 All ∅-axiom: structural induction + `eraseIdx`/`List` lemmas + `Eq.subst`/`▸`,
 no funext (use the `Delta.Pointwise` pattern), no `decide` over the function space.
@@ -140,12 +148,14 @@ from `delta_sq_zero_general` above.
   `kSubset_mem_lt`, `kSubset_length`, `kSubset_inj`, `subsetIdx_kSubset` (forward),
   `kSubset_surj` (surjectivity), `kSubset_subsetIdx` (reverse).  `kSubset`/`subsetIdx`
   are inverse on `{0..binom n k − 1}` ↔ sorted k-subsets.
-- **Closed (this session, §6)**: `sorted_eraseIdx` (faces stay `Sorted`) and
-  `eraseIdx_eraseIdx_comm` (the simplicial commutation identity = the involution
-  kernel).  **All structural lemmas for `δ²=0` are now machine-verified PURE.**
-- **Next — the only remaining gap**: the XOR-parity accounting (flatten the nested
-  `δ²` fold via the round-trip + an abstract involution-cancellation lemma applied
-  through `eraseIdx_eraseIdx_comm`).  No new structural facts required.  Then
+- **Closed (§6)**: `sorted_eraseIdx` + `eraseIdx_eraseIdx_comm` (the simplicial
+  commutation identity = the involution kernel).
+- **Closed (`XorInvolution.lean`)**: `xorFold_involution` — the abstract
+  fixed-point-free-involution ⟹ XOR-fold = `false` engine (PURE, colex-independent).
+- **Next — the only remaining gap**: the *application* — express `δ²σ(τ)` as a
+  `xorFold` over the `(a,b)` grid (round-trip to collapse the faces, handle the
+  `deltaAt` `if`-guard) and feed the `(a,b) ↦ (b+1,a)` involution into
+  `xorFold_involution`.  No new structural or abstract facts required.  Then
   `delta_sq_zero_general`.
 
 ## Cross-refs
