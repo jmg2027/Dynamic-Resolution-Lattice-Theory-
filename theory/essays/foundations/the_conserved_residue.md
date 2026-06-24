@@ -48,6 +48,25 @@ class admits a fixed-point-free member."  The full power-object `α → Bool` ra
 modifiers, so it always contains one (Cantor); restricting the class (to monotone) or completing the
 carrier (so the fpf witness `succ` acquires its limit `∞`) removes the witness.
 
+## The positive twin: self-reference is the residue read forward
+
+Every reading so far is *negative* — what no cover captures, what no totality contains.  The residue
+has a **positive** face: a fixed point *existing* is **self-reference** — the recursion-theorem /
+Y-combinator / Gödel diagonal-lemma content, a thing pointing at itself successfully (the `f a a`
+self-application is literally shared with Lawvere's diagonal and `Object1 r r`).  And on `Bool` the
+two faces collapse into a single biconditional (`bool_selfref_iff_no_fpf`, ∅-axiom):
+
+> a map-class has **universal self-reference** (every member has a fixed point) **iff** it has **no
+> fixed-point-free member** **iff** it leaves **no residue**.
+
+So self-reference and the residue are not two phenomena but **one toggle** — the same dial as
+`residue_is_class_dependent`, read in its two directions.  A class rich enough to contain an fpf map
+(the full power-object) *forces a residue* and *forbids universal self-reference*; a class without one
+(monotone, finite, decidable) *permits self-reference* and *leaves no residue*.  The recursion theorem
+(self-reference works) and Cantor (the residue) are the positive and negative readings of the single
+fact about whether a fixed-point-free map lives in the class — which is why the same `f a a` diagonal
+generates both.
+
 ## Conservation: the residue relocates, it is never destroyed
 
 A *totality-move* is how a closure-claim handles the gap.  Each relocates the residue — the full

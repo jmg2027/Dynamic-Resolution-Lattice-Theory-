@@ -143,4 +143,45 @@ theorem residue_is_class_dependent :
   ⟨fpf_member_refutes_totality (fun b => !b) trivial bnot_fpf,
    bool_monotone_has_fixpoint⟩
 
+/-! ## The positive twin — self-reference is the residue read forward
+
+Everything above reads the residue *negatively* (what no cover captures, what no totality contains).
+Its **positive** face is **self-reference**: a fixed point *existing* is the recursion-theorem /
+Y-combinator / diagonal-lemma content (a thing pointing at itself successfully).  On `Bool` the two
+collapse into a single `iff`: a map-class has **universal self-reference** exactly when it has **no
+fixed-point-free member** — exactly when it leaves **no residue**.  Positive and negative are one
+toggle, the same dial as `residue_is_class_dependent`. -/
+
+/-- Every Boolean endomap either has a fixed point or is fixed-point-free — the finite dichotomy
+    (decided by `f true`, `f false`; the fpf case is `f = !`, the swap). -/
+theorem bool_endo_dichotomy (f : Bool → Bool) : (∃ b, f b = b) ∨ (∀ b, f b ≠ b) := by
+  cases hT : f true with
+  | true => exact Or.inl ⟨true, hT⟩
+  | false =>
+    cases hF : f false with
+    | false => exact Or.inl ⟨false, hF⟩
+    | true =>
+      refine Or.inr ?_
+      intro b; cases b with
+      | true => exact fun h => Bool.noConfusion (hT.symm.trans h)
+      | false => exact fun h => Bool.noConfusion (hF.symm.trans h)
+
+/-- ★★★ **Self-reference and the residue are one toggle.**  For any class `P` of Boolean endomaps:
+    *every* `P`-map has a fixed point (universal **self-reference**, the positive/recursion face)
+    **iff** `P` contains **no fixed-point-free member** (no **residue**, the negative/Cantor face).
+    The same dial as `residue_is_class_dependent`, now as a biconditional: the positive twin (a thing
+    pointing at itself successfully) and the negative residue (a thing no cover reaches) are the two
+    readings of whether the class admits a fixed-point-free map.  ∅-axiom. -/
+theorem bool_selfref_iff_no_fpf (P : (Bool → Bool) → Prop) :
+    (∀ f, P f → ∃ b, f b = b) ↔ ¬ ∃ f, P f ∧ (∀ b, f b ≠ b) := by
+  constructor
+  · intro hall h
+    obtain ⟨f, hPf, hfpf⟩ := h
+    obtain ⟨b, hb⟩ := hall f hPf
+    exact hfpf b hb
+  · intro hno f hPf
+    cases bool_endo_dichotomy f with
+    | inl h => exact h
+    | inr hfpf => exact absurd ⟨f, hPf, hfpf⟩ hno
+
 end E213.Lib.Math.Order.KnasterResidue
