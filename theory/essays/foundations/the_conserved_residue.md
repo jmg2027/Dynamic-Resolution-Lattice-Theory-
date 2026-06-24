@@ -56,8 +56,9 @@ catalogue is verified (`Order/{KnasterResidue,ResidueConservation}.lean`, all �
 - **Adjoin / complete** (Knaster–Tarski): force totality by assuming a completeness datum
   `glb : (α → Prop) → α` — a map *out of the power-object*.  The residue is in the hypothesis: drop
   it (work on ℕ) and `succ` exhibits it (`knaster_conclusion_false_on_nat`).  Completeness *is* the
-  residue adjoined — the `∞` that is the lub of ℕ is the same reached-by-none limit the continuum's
-  modulus points at (`Real213 … limit_unreached_but_decided`).
+  residue adjoined — the `∞` that is the lub of ℕ has the same reached-by-none **form** as the limit
+  the continuum's modulus points at (form-agreement, not one object: the two lubs differ — unbounded
+  ℕ vs a bounded approximant sequence).
 - **Restrict the class** (monotone): genuine totality, but only because the fpf witness was *excluded
   from view*, not removed — `!` still exists on `Bool`; the monotone class merely cannot see it
   (`residue_is_class_dependent`).

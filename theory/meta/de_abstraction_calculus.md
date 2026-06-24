@@ -368,8 +368,9 @@ So the totality is bought **entirely** by completeness, and completeness **is** 
 The **Round-4 asymmetry** (totality-built structures fail to be total) shows up unbidden in an
 order-theory probe — and here it is not an analogy but a ∅-axiom theorem: Knaster–Tarski hands `succ`
 the residue and calls it a fixed point.  This also **links the analysis and order probes**: the `∞`
-the lattice must adjoin to complete itself is the *very same* reached-by-none limit the continuum's
-modulus points at — one residue, surfacing in both domains.
+the lattice must adjoin to complete itself shares the reached-by-none *form* with the limit the
+continuum's modulus points at — the same residue **shape** (form-agreement), not literally one object
+(the two lubs differ: unbounded ℕ vs a bounded approximant sequence).
 
 **The minimal pair — the law made sharp.**  `succ`/ℕ shows totality *failing* and bought back by
 completeness; its complement (`bool_monotone_has_fixpoint`, also ∅-axiom) shows totality **holding

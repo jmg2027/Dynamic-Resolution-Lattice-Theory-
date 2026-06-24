@@ -23,15 +23,18 @@ The residue is **conserved** across the swap, and the witness is `succ` on ℕ:
     (`succ_fpf`: `n + 1 ≠ n`);
   * so "every monotone endo has a fixed point" is **false on (ℕ, ≤)**
     (`knaster_conclusion_false_on_nat`) — ℕ is *not* a complete lattice;
-  * the fixed point Knaster–Tarski *would* assign `succ` is the lub of **all** of ℕ — `∞`, the
-    **residue/limit reached by none** (`Real213 … limit_unreached_but_decided`: convergents strictly
-    advance, the limit is attained by no term).  Completeness is precisely the adjunction of that
-    `∞`; the theorem hands `succ` the residue and calls it a fixed point.
+  * the fixed point Knaster–Tarski *would* assign `succ` is the lub of **all** of ℕ — `∞`, which has
+    the **reached-by-none form** (the same *shape* as the continuum's limit, `Real213 …
+    limit_unreached_but_decided`: convergents strictly advance, the limit is attained by no term —
+    form-agreement, not the same object: ℕ's `∞` is the lub of an unbounded carrier, the continuum's
+    a bounded approximant sequence).  Completeness is precisely the adjunction of that `∞`; the
+    theorem hands `succ` the residue and calls it a fixed point.
 
-So Lawvere's escaping diagonal and Knaster–Tarski's least fixed point are **one object** — the
-power-object's un-covered point — read once as *what escapes upward* (`α → Bool`) and once as *what
-must be adjoined below* (the lub `glb` supplies).  Totality does not beat the residue; it pays
-completeness to *contain* it.  ∅-axiom.
+So Lawvere's escaping diagonal and Knaster–Tarski's least fixed point share **one structure** — the
+power-object `α → Bool/Prop` — read once as *what escapes upward* (a predicate off the cover) and once
+as *what completeness must supply below* (the `glb : (α → Prop) → α` lub).  The two are the same
+*mechanism* in opposite directions, not literally one object.  Totality does not beat the residue; it
+pays completeness to *contain* it.  ∅-axiom.
 -/
 
 namespace E213.Lib.Math.Order.KnasterResidue
