@@ -294,6 +294,87 @@ contest). Each convergence came with its honest guard. The frontier is *better m
 *re-confirmed* — and the next steps are the named formalizable seams, sampled now toward
 disconfirmation.
 
+## Round 5 — the disconfirmation cycle (the methodology applied to itself)
+
+Per Round 4's prescription, a panel *engineered to break* the thesis — the cohesive
+non-punctiform continuum (SDG), model theory of complete/decidable theories, HoTT/univalence,
+Leibniz (PII + the monad + PSR), vagueness/sorites, a radical contrarian (relation/process-
+first construction), a rigorous monist (unity co-primitive), a naive first-principles
+questioner — plus a disconfirmation-auditor.
+
+**Verdict (auditor): not refuted; survives AS-STATED on the universal, AS-CONTENT on the
+second half — and cannot become more.** Every attack on *primitivity* (mutual presupposition,
+HoTT, SDG, the contrarian's relation-first foundation) lands **inside 213's already-conceded
+open middle** (`the_descent_leg.md`: rival *distinguishing* primitives, "suffices not unique")
+or its §5.1 untestability — they sharpen *where* the honest boundary sits, they do not cross
+it. **No future round can promote the universal floor from a self-reference argument to a
+theorem** — this cycle, designed to break it, establishes that ceiling.
+
+**The two attacks that aimed *past* the conceded zone were met with genuine content:**
+1. **The residue is conditional on demanding the *full* (uncountable) power object** (model
+   theory — the single most informative result). A complete/decidable theory (RCF, Presburger)
+   *does* fully decide itself — but only over its *definable* predicates (a countable,
+   residue-free fragment: `PredicateSelfEncoding.predicate_self_encoding_closure` — definable
+   predicates round-trip). The diagonal is forced **iff** the self-cover must be faithful **and
+   onto its own full `Raw → Bool`**. So the residue is *forced*, but the honest statement is
+   **"forced once you demand a faithful self-cover of the full power object"** — the gap
+   between *definable* and *all* (`FlatOntologyClosure` docstring already says this; this cycle
+   makes it the sharp scope condition). Completeness escapes the residue by restricting the
+   cover; Tarski-undefinability then re-exposes it one width up. Not a refutation — a *scope
+   refinement*, which is content.
+2. **The presupposition standoff is broken performatively, not symmetrically** (monist /
+   contrarian). "Two distinct things need one *field* to be distinct in" is real at the level
+   of bare presupposition-counting — distinction needs a carrier as much as generation needs
+   distinction (a genuine standoff; `no_distinguishing_on_subsingleton` has an *unremoved
+   dual*: no distinction is *typed* without one carrier `α`). But the symmetry breaks under
+   *self-enforcement*: to **deny** distinction you must distinguish denial from assent (it
+   self-installs); to deny unity you need only distinguish unity from plurality (uses
+   distinction, not unity). So distinction is self-installing under attack, unity is not — a
+   real asymmetry, but a **performative / self-reference argument, not a theorem** (213's
+   declared register). The standoff is 213's own "suffices not unique," instantiated.
+
+**Per-attack (all cashed out, file-grounded):**
+- **SDG / cohesive continuum** — SURVIVES-AS-CONTENT. Distinction *relocates* from the
+  point-pair `x≠y` to the **predicate** (`x²=0`, the nilpotent slot, the discrete/codiscrete
+  adjoint poles cohesion is *defined against*). The honest scar: `Object1`'s `decide (s=r)` is
+  an **h-set / decidable-equality presentation**, *not* forced — the floor must be stated as
+  *distinguishing at the predicate/Lens level*, never as decidable equality of raw points.
+- **HoTT/univalence** — SURVIVES-AS-CONTENT. To *state* `Id(a,b)` / univalence you must
+  present `a,b` as two — distinction is upstream of identity-as-structure; `refl` is *the fiber
+  where the slash does not fire*. Univalence's "indiscernible ⟹ identical" is `object1_injective`
+  read contrapositively (ally, not counterexample). Scar: 213's univalence is 1-categorical
+  (h-level 0–1); the ∞-groupoid `Id(Id(…))` tower is *named* (`residue_perpetually_reenters`),
+  not built.
+- **Leibniz** — PII + the complete-individual-concept = `Object1` (de-theologized): CONTENT.
+  The monad's *petites perceptions* (confused, below the threshold of distinction) = the
+  residue, not a pre-distinctive ground; God's *totally-distinct* view is exactly what Cantor
+  forbids (cuts against Leibniz's theology, not 213). PSR's *ground-beneath* leg genuinely
+  **opposes** "nothing beneath the distinguishing" — and 213 **dissolves rather than answers**
+  it (no operand for the exterior demand): SURVIVES-AS-EVASION, *honestly named* (admissible
+  only because 213's ledger marks no-exterior as under-test, not a uniqueness proof — must not
+  wield §5.4 as a shield).
+- **Vagueness** — SURVIVES-AS-CONTENT. The penumbra (no crisp THIS/THAT) **is**
+  `object1_not_surjective` (a region no crisp indicator pins down); higher-order vagueness
+  **is** `residue_reentry_never_closes`. 213 stays theory-neutral on the sorites; fuzzy/degree
+  logic (a *graded* primitive) is the one open seam where 213 owes an argument (degree = a Lens
+  readout / `Real213` cut, not a pre-crisp Raw — principled but not a closed theorem).
+- **Naive questioner (the sharpest clarity catch)** — two slips, both already self-flagged but
+  worth pinning: (a) "**the** primitive" quietly downgrades to "**a** primitive that suffices"
+  (the open middle); (b) "**the residue**" slides between a **noun** (a thing — "the
+  undifferentiated") and a **property** (no self-cover is total — the theorem). The math
+  survives; the *word* "residue" should be kept a **property/theorem**, not reified as an
+  object (the *residue-as-primitive* / *noun-slide* guard).
+
+**Methodology confirmed by its own test.** The confirming-by-difference exhibits (SDG, HoTT)
+produced *no new content* — vacuous, as predicted. The single genuine refinement of the whole
+cycle came from the *one* attack engineered to break the second half (model-theory cardinality
+→ residue-conditional-on-full-power-object). Hunting disconfirmation yielded one
+boundary-sharpening; multiplying confirmations yielded zero. **The honest resting point is now
+*earned* (by a cycle built to break the thesis), not imposed:** the universal floor is
+maximally tested and is *exactly* "suffices, self-enforcing, untestable-as-universal"; the
+second-half residue survives as content, now with its sharp scope condition (the full power
+object) and its honest noun-vs-property discipline.
+
 ## Cross-refs
 
 - `theory/essays/foundations/the_distinguishing_is_the_primitive.md` (the floor self-enforcing;
