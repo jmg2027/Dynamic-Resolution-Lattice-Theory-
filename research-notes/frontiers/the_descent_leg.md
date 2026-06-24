@@ -369,3 +369,29 @@ primitive is.  (Integrity notes: a first draft leaked `propext` via `Nat.add_sub
 witness `q`** (from `minFac n ∣ n`) instead of `n / minFac n` — which removes `Nat.div` too.  Then the
 whole FTA chain is `lt_wfRel`-free: division fully rebuilt from the distinguishing's subtraction.  The
 hard reusable part (the clean primitive) is done; the rewire is copy-and-swap.
+
+### UPDATE (2026-06-24, cont. 4): FTA existence FULLY lt_wfRel-free — division generated (PURE ✓✓)
+
+The mechanical rewire is done. `MulDescentGroundedNoDiv.mul_factorization_exists_nodiv` measures
+(direct closure walk + `#print axioms`):
+
+| | isPart_wf | strongRecOn | lt_wfRel | Nat.div | Nat.mod | axioms |
+|---|---|---|---|---|---|---|
+| **no-div FTA** | **true** | **false** | **false** | **false** | **false** | **none (∅-axiom)** |
+
+So FTA existence now uses **no borrowed `Nat` well-founded machinery at all**: `minFac'` tests
+divisibility by `subMod` (structural subtraction, no `Nat.mod`); the recursion is on the divisibility
+**witness `q`** with `n = minFac' n * q` (no `Nat.div`); the descent is `measureInduction_grounded`
+(grounded in `isPart_wf`). The only `Nat` primitives left are `succ`/`+`/`*`/`-` (all structural) and
+the structural recursors.
+
+**Division and remainder are rebuilt from the distinguishing's subtraction; the descent from the
+distinguishing's own well-foundedness.** This is the descent leg's first *complete* deep-discipline
+clearance: the multiplicative existence theorem (FTA, the branch's namesake) generated end-to-end
+without `Nat.div`/`Nat.mod`/`Nat.strongRecOn`/`Nat.lt_wfRel`. (`minFac'`/`leastFactorFrom'`/spec/prime
+all rebuilt on `subMod`; `Nat.mul_assoc` — which leaks propext in core — swapped for the repo's clean
+`NatHelper.mul_assoc`; caught by `#print axioms`.)
+
+Remaining (deeper): `Nat.sub`/`succ`/`*` themselves are kernel inductive recursion (Tree/Nat W-type,
+`the_trusted_base.md`) — the irreducible CIC floor, not borrowed *WF*. That is a different frontier
+(the W-type itself), not the descent-grounding one, which is now closed for FTA existence.
