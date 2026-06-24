@@ -611,7 +611,12 @@ whose proof recurses on the **`Ω`-count** (`Nat.rec` over `Ω n`), each step ju
 by `Omega_descent` — *not* `Nat.strongRecOn` over the magnitude `n`.  Demonstrated:
 `mul_factorization_exists` (every `n≥1` a product of primes) proves *through*
 `mulDescentRec`, the witness `minFac n :: …` peeled along the count-shadow.  Supporting
-`Ω`-facts (`Omega_pos_of_two_le`, `eq_one_of_Omega_zero`, `quot_pos`) all PURE.
+`Ω`-facts (`Omega_pos_of_two_le`, `eq_one_of_Omega_zero`, `quot_pos`) all PURE.  The
+*uniqueness* face is paired in: `Omega_eq_length_of_prime_factorization` (every prime
+factorization of `n` has length `Ω n` — `Ω` is the well-defined count, via
+`factorization_unique` + `length_eq_of_countOcc_eq`), bundled with existence as
+`fta_existence_and_count` — **FTA in count form** (existence = the descent/generation;
+the shared length `Ω n` = the invariant the descent measures).
 
 **Honest scope** (in-file): this does *not* escape CIC's `Nat.rec` — induction on the
 count `Ω n` is `Nat.rec` on a `Nat`.  The exact, narrower claim: the **well-order

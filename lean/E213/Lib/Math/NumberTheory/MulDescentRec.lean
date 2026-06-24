@@ -34,9 +34,11 @@ All ∅-axiom.
 namespace E213.Lib.Math.NumberTheory.MulDescentRec
 
 open E213.Lib.Math.NumberTheory.PrimeFactorization
-  (minFac minFac_div minFac_prime prodL prodL_cons)
+  (minFac minFac_div minFac_prime prodL prodL_cons factorize factorize_prod factorize_all_prime)
 open E213.Lib.Math.NumberTheory.PrimeValuation (Prime213)
-open E213.Lib.Math.NumberTheory.BigOmega (Omega Omega_descent Omega_one)
+open E213.Lib.Math.NumberTheory.FTAUniqueness (countOcc factorization_unique)
+open E213.Lib.Math.NumberTheory.BigOmega
+  (Omega Omega_descent Omega_one Omega_def length_eq_of_countOcc_eq)
 
 /-! ## Supporting `Ω`-facts -/
 
@@ -112,5 +114,38 @@ theorem mul_factorization_exists :
     · obtain ⟨hprod, _⟩ := minFac_div hn2
       show minFac n * prodL L' = n
       exact (congrArg (minFac n * ·) hL'prod).trans hprod
+
+/-! ## `Ω` is the well-defined prime count -/
+
+/-- ★★★ **`Ω` counts *any* prime factorization.**  Every prime factorization of `n`
+    (a list `L` of primes with `prodL L = n`) has length exactly `Ω n` — so `Ω n` is the
+    well-defined total prime count, independent of which factorization is chosen.  This
+    is the *uniqueness* face: `factorization_unique` (per-prime count invariance) +
+    `length_eq_of_countOcc_eq` (equal counts ⟹ equal length), against the canonical
+    witness `factorize n`.  ∅-axiom. -/
+theorem Omega_eq_length_of_prime_factorization (n : Nat) (hn : 1 ≤ n)
+    (L : List Nat) (hLp : ∀ p, p ∈ L → Prime213 p) (hLprod : prodL L = n) :
+    L.length = Omega n := by
+  have hfp : ∀ p, p ∈ factorize n → Prime213 p := by
+    rcases Nat.lt_or_ge n 2 with h1 | h2
+    · have hn1 : n = 1 := Nat.le_antisymm (Nat.le_of_lt_succ h1) hn
+      intro p hp
+      exact nomatch (hn1 ▸ hp : p ∈ factorize 1)
+    · exact factorize_all_prime n h2
+  have hfprod : prodL (factorize n) = n := factorize_prod n hn
+  have heq : prodL L = prodL (factorize n) := hLprod.trans hfprod.symm
+  have hco : ∀ q, Prime213 q → countOcc q L = countOcc q (factorize n) :=
+    fun q hq => factorization_unique hLp hfp heq q hq
+  exact (length_eq_of_countOcc_eq L (factorize n) hLp hfp hco).trans (Omega_def n).symm
+
+/-- ★★★ **FTA, in count form.**  For every `n ≥ 1`: a prime factorization *exists*
+    (`mul_factorization_exists`, peeled along the `Ω`-count) and *all* of them have the
+    same length `Ω n` (`Omega_eq_length_of_prime_factorization`).  Existence is the
+    descent (generation); the shared length is the invariant the descent measures. -/
+theorem fta_existence_and_count (n : Nat) (hn : 1 ≤ n) :
+    (∃ L : List Nat, (∀ p, p ∈ L → Prime213 p) ∧ prodL L = n)
+    ∧ (∀ L : List Nat, (∀ p, p ∈ L → Prime213 p) → prodL L = n → L.length = Omega n) :=
+  ⟨mul_factorization_exists n hn,
+   fun L hLp hLprod => Omega_eq_length_of_prime_factorization n hn L hLp hLprod⟩
 
 end E213.Lib.Math.NumberTheory.MulDescentRec
