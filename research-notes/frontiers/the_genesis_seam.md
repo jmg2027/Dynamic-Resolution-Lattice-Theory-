@@ -621,8 +621,29 @@ the shared length `Ω n` = the invariant the descent measures).
 **Honest scope** (in-file): this does *not* escape CIC's `Nat.rec` — induction on the
 count `Ω n` is `Nat.rec` on a `Nat`.  The exact, narrower claim: the **well-order
 driving the peel is `Ω`** (a leaves-shadow), made explicit, replacing the opaque
-magnitude `strongRecOn`.  Still open: a descent whose *carrier* (not just measure) is
-Raw-native — `factorize` itself is fuel-recursion on the magnitude.
+magnitude `strongRecOn`.
+
+## The carrier, resolved (`FactorizationCarrier.lean`, PURE)
+
+The "carrier (not just measure) is Raw-native" residue is **dissolved**.  The carrier of
+`×` is the factorization list `factorize n : List Nat` (distinguishable prime atoms), and
+on it the multiplicative structure is *structural*, exactly dual to `List Unit → (ℕ,+)`:
+
+- **`×` is list append** — `prodL (a ++ b) = prodL a * prodL b`; `prodL` is the evaluation
+  monoid-hom `(List Nat, ++, []) → (ℕ, ·, 1)`.  `(ℕ≥1, ·)` is the `prodL`-image of the
+  *free monoid on prime atoms* — the distinguishable-atom dual of `(ℕ,+) ≅ (List Unit,++)`.
+- **`Ω` is list length** (`Omega_def`) — the structural count, `×`-dual of `Raw.leaves`.
+- **the peel is the structural tail** — `factorize_descent_is_tail`: `factorize (n/minFac n)
+  = (factorize n).tail`.  The multiplicative descent *is* `List.tail` under `factorize`.
+- **structural recursion suffices** — `mulDescent_is_list_rec`: any property of the carrier
+  transfers to `factorize n` by plain `List.rec`, no `Nat.strongRecOn` / `Ω`-induction.
+
+Bundled as `mul_carrier_structural`.  **Honest resolution**: the one magnitude-recursive
+piece left is `factorize` — the *encoding* `ℕ → carrier` — but that is exactly parallel to
+the additive `replicate : ℕ → List Unit`, also structural recursion on the Nat.  In *both*
+monoids the carrier structure and descent are structural; only the Nat→carrier encoding is
+magnitude-built.  The "× borrows Nat where + doesn't" asymmetry was comparing `×`'s encoding
+to `+`'s structure; like-for-like they are the same shape over (in)distinguishable atoms.
 
 ## Cross-refs
 
