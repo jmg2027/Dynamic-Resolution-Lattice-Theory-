@@ -413,6 +413,31 @@ private theorem sorted_append_singleton : ∀ (s : List Nat) (m : Nat),
       · exact sorted_append_singleton as m has
           (fun x hx => hbound x (List.Mem.tail a hx))
 
+/-- ★★ **The colex enumeration is sorted.**  Every `kSubset n m i` is strictly
+    increasing — the recursion only ever appends a strict new maximum `n`.  ∅-axiom. -/
+theorem kSubset_sorted : ∀ (n m i : Nat), Sorted (kSubset n m i) := by
+  intro n
+  induction n with
+  | zero =>
+    intro m i
+    cases m with
+    | zero => exact Sorted.nil
+    | succ m => exact Sorted.nil
+  | succ n ih =>
+    intro m i
+    cases m with
+    | zero => exact Sorted.nil
+    | succ m =>
+      by_cases hlt : i < binom n (m + 1)
+      · have he : kSubset (n + 1) (m + 1) i = kSubset n (m + 1) i := if_pos hlt
+        exact he ▸ ih (m + 1) i
+      · have he : kSubset (n + 1) (m + 1) i
+                    = kSubset n m (i - binom n (m + 1)) ++ [n] := if_neg hlt
+        refine he ▸ ?_
+        exact sorted_append_singleton (kSubset n m (i - binom n (m + 1))) n
+          (ih m (i - binom n (m + 1)))
+          (fun x hx => kSubset_mem_lt n m (i - binom n (m + 1)) x hx)
+
 /-- A non-empty sorted list splits off its (strict-maximum) last element. -/
 private theorem sorted_snoc_decomp : ∀ (s : List Nat), Sorted s → s ≠ [] →
     ∃ init last, s = init ++ [last] ∧ Sorted init ∧ (∀ x ∈ init, x < last)
@@ -514,6 +539,15 @@ theorem kSubset_subsetIdx (n k : Nat) (s : List Nat)
   obtain ⟨j, hj, hkj⟩ := kSubset_surj n k s hsort hbound hlen
   have hidx : subsetIdx n k s = j := hkj ▸ subsetIdx_kSubset n k j hj
   exact (congrArg (kSubset n k) hidx).trans hkj
+
+/-- ★★ **A valid face's colex index is in range.**  For a genuine k-subset `s` (sorted,
+    length `k`, entries `< n`), `subsetIdx n k s < binom n k`.  This discharges the
+    in-range `if`-guard inside `deltaAt` for every face the coboundary produces. -/
+theorem subsetIdx_lt {n m : Nat} (s : List Nat) (hsort : Sorted s)
+    (hb : ∀ x ∈ s, x < n) (hlen : s.length = m) : subsetIdx n m s < binom n m := by
+  obtain ⟨j, hj, hkj⟩ := kSubset_surj n m s hsort hb hlen
+  have hidx : subsetIdx n m s = j := hkj ▸ subsetIdx_kSubset n m j hj
+  exact hidx.symm ▸ hj
 
 /-! ## §6 — face structure: `eraseIdx` preserves sortedness, and the simplicial
 commutation identity
