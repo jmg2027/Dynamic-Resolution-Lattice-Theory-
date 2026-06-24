@@ -30,25 +30,18 @@ open E213.Lens.Number.Nat213.Peano.Nat213
   (mul add one succ two mul_one one_mul mul_comm mul_assoc mul_succ_right
    add_comm add_one_right add_succ_right add_assoc succ_ne_one)
 open E213.Lens.Number.Nat213.Order
-  (lt lt_irrefl lt_ne succ_lt_succ_of_lt lt_trichotomy mul_left_cancel)
+  (lt lt_irrefl lt_ne succ_lt_succ_of_lt lt_trichotomy mul_left_cancel
+   lt_trans lt_succ_self lt_of_succ_lt_succ le le_refl le_succ_of_le)
 open E213.Lens.Number.Nat213.Divisibility (Dvd dvd_imp_eq_or_lt)
 open E213.Lens.Number.Nat213.Irreducible
   (not_lt_one lt_one_of_ne_one lt_succ_iff lt_left_mul lt_right_mul cofactor_lt
    Irreducible irreducible_of_only_trivial_divisors)
 
-/-! ## Order: transitivity, the successor step both ways, decidability -/
+/-! ## Decidability of the strict order + the constructive bounded existential
 
-theorem lt_trans {a b c : Nat213} (h1 : lt a b) (h2 : lt b c) : lt a c := by
-  obtain ⟨x, hx⟩ := h1; obtain ⟨y, hy⟩ := h2
-  exact ⟨add x y, by rw [← add_assoc, hx, hy]⟩
-
-theorem lt_succ_self (a : Nat213) : lt a (succ a) := ⟨one, add_one_right a⟩
-
-theorem lt_of_succ_lt_succ {a b : Nat213} (h : lt (succ a) (succ b)) : lt a b := by
-  rcases lt_trichotomy a b with h1 | h1 | h1
-  · exact h1
-  · exact absurd (h1 ▸ h) (lt_irrefl (succ b))
-  · exact absurd (lt_trans h (succ_lt_succ_of_lt h1)) (lt_irrefl (succ a))
+The order primitives (`lt_trans`, `lt_succ_self`, `lt_of_succ_lt_succ`, `le`,
+`le_refl`, `le_succ_of_le`) live in `Order`; here we add their *decidability*
+and the bounded-search engine the factorization needs. -/
 
 /-- Decidable strict order — structural double recursion, no `Nat` order (which is propext-dirty). -/
 def decLt : (a b : Nat213) → Decidable (lt a b)
@@ -60,18 +53,6 @@ def decLt : (a b : Nat213) → Decidable (lt a b)
       | isFalse h => isFalse (fun hlt => h (lt_of_succ_lt_succ hlt))
 
 instance (a b : Nat213) : Decidable (lt a b) := decLt a b
-
-/-! ## `le` and the constructive bounded existential -/
-
-/-- Non-strict order. -/
-def le (a b : Nat213) : Prop := a = b ∨ lt a b
-
-theorem le_refl (a : Nat213) : le a a := Or.inl rfl
-
-theorem le_succ_of_le {a b : Nat213} (h : le a b) : le a (succ b) := by
-  rcases h with rfl | h
-  · exact Or.inr (lt_succ_self a)
-  · exact Or.inr (lt_trans h (lt_succ_self b))
 
 /-- ★ **Constructive bounded search**: `∃ c ≤ k, P c` is decidable for any decidable `P`, by
     structural recursion on the bound `k`.  This is the engine that replaces `Classical.em` —

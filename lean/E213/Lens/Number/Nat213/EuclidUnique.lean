@@ -23,10 +23,10 @@ namespace E213.Lens.Number.Nat213.EuclidUnique
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
   (mul add one mul_add mul_comm add_comm one_mul mul_one add_left_cancel)
-open E213.Lens.Number.Nat213.Order (lt lt_irrefl lt_trichotomy lt_mul_left)
+open E213.Lens.Number.Nat213.Order (lt lt_irrefl lt_trichotomy lt_mul_left lt_trans)
 open E213.Lens.Number.Nat213.Divisibility (Dvd dvd_refl dvd_mul_left mul_eq_one)
 open E213.Lens.Number.Nat213.Irreducible (Irreducible irreducible_divisors)
-open E213.Lens.Number.Nat213.Factorization (lt_trans wf_lt prod)
+open E213.Lens.Number.Nat213.Factorization (wf_lt prod)
 
 /-! ## Multiplicative cancellation in the order, and divisibility of sums/complements -/
 

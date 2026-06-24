@@ -79,6 +79,74 @@ theorem lt_trichotomy : ∀ a b : Nat213, lt a b ∨ a = b ∨ lt b a
       · exact Or.inr (Or.inl (by rw [h]))
       · exact Or.inr (Or.inr (succ_lt_succ_of_lt h))
 
+/-- `a < succ a` — the successor strictly exceeds (witness `one`, `add_one_right`). -/
+theorem lt_succ_self (a : Nat213) : lt a (succ a) := ⟨one, add_one_right a⟩
+
+/-- `succ a < succ b ⟹ a < b` — the successor reflects strict order (trichotomy +
+    `succ_lt_succ_of_lt`). -/
+theorem lt_of_succ_lt_succ {a b : Nat213} (h : lt (succ a) (succ b)) : lt a b := by
+  rcases lt_trichotomy a b with h1 | h1 | h1
+  · exact h1
+  · exact absurd (h1 ▸ h) (lt_irrefl (succ b))
+  · exact absurd (lt_trans h (succ_lt_succ_of_lt h1)) (lt_irrefl (succ a))
+
+/-! ## The non-strict order `le`
+
+`le a b := a = b ∨ lt a b`, the reflexive closure of the native strict order.
+A genuine **partial order** (refl, trans, antisymm) that is also **total** — the
+non-strict twin of `lt_strict_total_order`, on the distinguishing's own counting
+object, with no Lean `Nat` order and no `toNat`. -/
+
+/-- Non-strict order: `a ≤ b` iff `a = b` or `a < b`. -/
+def le (a b : Nat213) : Prop := a = b ∨ lt a b
+
+/-- Reflexivity. -/
+theorem le_refl (a : Nat213) : le a a := Or.inl rfl
+
+/-- A strict inequality is a non-strict one. -/
+theorem le_of_lt {a b : Nat213} (h : lt a b) : le a b := Or.inr h
+
+/-- `a ≤ b ⟹ a ≤ succ b` — the successor step. -/
+theorem le_succ_of_le {a b : Nat213} (h : le a b) : le a (succ b) := by
+  rcases h with rfl | h
+  · exact Or.inr (lt_succ_self a)
+  · exact Or.inr (lt_trans h (lt_succ_self b))
+
+/-- ★ **Transitivity** of `≤` — splits on each disjunct, composing with `lt_trans`. -/
+theorem le_trans {a b c : Nat213} (hab : le a b) (hbc : le b c) : le a c := by
+  rcases hab with rfl | hab
+  · exact hbc
+  · rcases hbc with rfl | hbc
+    · exact Or.inr hab
+    · exact Or.inr (lt_trans hab hbc)
+
+/-- ★ **Antisymmetry** of `≤` — `a ≤ b → b ≤ a → a = b`.  A two-way strict
+    inequality contradicts `lt_asymm`. -/
+theorem le_antisymm {a b : Nat213} (hab : le a b) (hba : le b a) : a = b := by
+  rcases hab with rfl | hab
+  · rfl
+  · rcases hba with hba | hba
+    · exact hba.symm
+    · exact absurd hba (lt_asymm hab)
+
+/-- ★ **Totality** of `≤` — every pair is comparable (from trichotomy). -/
+theorem le_total (a b : Nat213) : le a b ∨ le b a := by
+  rcases lt_trichotomy a b with h | h | h
+  · exact Or.inl (Or.inr h)
+  · exact Or.inl (Or.inl h)
+  · exact Or.inr (Or.inr h)
+
+/-- ★★★ **`le` is a total partial order on the Raw-generated ℕ₊** — reflexive,
+    transitive, antisymmetric, total.  The non-strict twin of
+    `lt_strict_total_order`; entirely over `Nat213` (no `toNat`, no Lean `Nat`
+    order lemma). -/
+theorem le_total_order :
+    (∀ a : Nat213, le a a)
+    ∧ (∀ a b c : Nat213, le a b → le b c → le a c)
+    ∧ (∀ a b : Nat213, le a b → le b a → a = b)
+    ∧ (∀ a b : Nat213, le a b ∨ le b a) :=
+  ⟨le_refl, fun _ _ _ => le_trans, fun _ _ => le_antisymm, le_total⟩
+
 /-- ★★★ **Strict monotonicity of squaring** — `a < b ⟹ a·a < b·b`, derived purely from
     distributivity (`add_mul`, `mul_add`, `add_assoc`); no order lemma is used.  If
     `add a k = b`, then `b·b = a·a + (a·k + (k·a + k·k))`, exhibiting the witness. -/
