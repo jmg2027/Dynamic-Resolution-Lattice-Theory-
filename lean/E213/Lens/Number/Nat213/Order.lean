@@ -44,6 +44,24 @@ theorem lt_trans {a b c : Nat213} (h1 : lt a b) (h2 : lt b c) : lt a c := by
 theorem lt_asymm {a b : Nat213} (h : lt a b) : ¬ lt b a :=
   fun h' => lt_irrefl a (lt_trans h h')
 
+/-- **Adding to the right strictly grows** — `a < add a b`, since the additive
+    order *is* the add-witness relation (`Raw` has no `0`, so every added element
+    is positive).  The additive counterpart of `Divisibility.dvd_mul_right`. -/
+theorem lt_add_right (a b : Nat213) : lt a (add a b) := ⟨b, rfl⟩
+
+/-- ★ **Left-monotonicity of addition** — `a < b ⟹ c + a < c + b`, from
+    `add_assoc` alone (no order lemma, no `toNat`).  If `add a k = b`, the witness
+    is the same `k`: `add (add c a) k = add c (add a k) = add c b`. -/
+theorem add_lt_add_left {a b : Nat213} (h : lt a b) (c : Nat213) :
+    lt (add c a) (add c b) := by
+  obtain ⟨k, hk⟩ := h
+  exact ⟨k, by rw [add_assoc, hk]⟩
+
+/-- ★ **Right-monotonicity of addition** — `a < b ⟹ a + c < b + c` (via `add_comm`). -/
+theorem add_lt_add_right {a b : Nat213} (h : lt a b) (c : Nat213) :
+    lt (add a c) (add b c) := by
+  rw [add_comm a c, add_comm b c]; exact add_lt_add_left h c
+
 /-- `a < b ⟹ succ a < succ b` (the successor is order-preserving). -/
 theorem succ_lt_succ_of_lt {a b : Nat213} (h : lt a b) : lt (succ a) (succ b) := by
   obtain ⟨c, hc⟩ := h
