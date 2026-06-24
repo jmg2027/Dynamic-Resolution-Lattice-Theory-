@@ -97,4 +97,47 @@ theorem bool_monotone_has_fixpoint (f : Bool → Bool)
     have : f true = true := (hff ▸ hft) rfl
     exact ⟨true, this⟩
 
+/-! ## The shared engine — the residue is *class*-dependent, not *carrier*-dependent
+
+The whole arc's sharpest statement.  `knaster_conclusion_false_on_nat` and Lawvere/Cantor
+(`OneDiagonal.no_surjection_of_fixedpointfree`) are the **same shape** — a richness condition
+(surjectivity / completeness) forces every map *in a class* to have a fixed point, and a single
+**fixed-point-free member of the class refutes it**.  So the residue is not a property of the carrier
+but of **whether the map-class admits a fixed-point-free member**, exhibited on the *one* carrier
+`Bool`. -/
+
+/-- ★ **Totality-refutation engine.**  For any class `P` of endomaps on `α`, a single `P`-member that
+    is fixed-point-free refutes "every `P`-map has a fixed point."  The shared kernel of every
+    residue-from-totality result — Cantor/Lawvere (`P` = all modifiers, the diagonal/`!` is fpf),
+    Knaster–Tarski (`P` = monotone, `succ` is fpf on ℕ).  ∅-axiom. -/
+theorem fpf_member_refutes_totality {α : Sort u} {P : (α → α) → Prop}
+    (f : α → α) (hP : P f) (hfpf : ∀ a, f a ≠ a) :
+    ¬ (∀ g : α → α, P g → ∃ a, g a = a) :=
+  fun htot => let ⟨a, ha⟩ := htot f hP; hfpf a ha
+
+/-- `!` (Boolean negation) is fixed-point-free. -/
+theorem bnot_fpf : ∀ b : Bool, (!b) ≠ b :=
+  fun b => by cases b <;> exact fun h => Bool.noConfusion h
+
+/-- `!` is **not** `bLe`-monotone: `false ≤ true` but `!false = true ≰ false = !true`.  So the fpf
+    witness `!` lives in the all-modifier class but **not** in the monotone class. -/
+theorem bnot_not_monotone : ¬ (∀ a b, bLe a b → bLe (!a) (!b)) := by
+  intro hmono
+  have h : bLe (!false) (!true) := hmono false true (fun e => Bool.noConfusion e)
+  exact Bool.noConfusion (h rfl)
+
+/-- ★★★ **The residue is class-dependent, not carrier-dependent.**  On the *single* carrier `Bool`:
+    the **all-modifier** class admits a fixed-point-free member (`!`), so "every modifier has a fixed
+    point" is **false** — a universal cover `A → (A → Bool)` is blocked (the Cantor/Lawvere residue);
+    but the **monotone** class does *not* admit `!` (`bnot_not_monotone`), so it has no fpf member and
+    "every monotone endo has a fixed point" is **true** (residue-free).  Same carrier — the residue
+    *toggles with the class*, and the dial is exactly whether the class contains a fixed-point-free
+    map.  Cantor/Russell/Tarski use the full class (it contains `!`/`Not`); Knaster–Tarski uses the
+    monotone class (it does not).  "Reaches the power-object" = "the class admits an fpf member." -/
+theorem residue_is_class_dependent :
+    (¬ (∀ g : Bool → Bool, True → ∃ b, g b = b))
+    ∧ (∀ g : Bool → Bool, (∀ a b, bLe a b → bLe (g a) (g b)) → ∃ b, g b = b) :=
+  ⟨fpf_member_refutes_totality (fun b => !b) trivial bnot_fpf,
+   bool_monotone_has_fixpoint⟩
+
 end E213.Lib.Math.Order.KnasterResidue

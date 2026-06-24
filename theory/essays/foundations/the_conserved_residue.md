@@ -1,0 +1,98 @@
+# The conserved residue — de-abstraction and totality are one instrument
+
+This essay names what two separate lines of work turned out to be measuring: **one conserved
+quantity, the residue**, approached from opposite directions.  Everything here is pinned to
+∅-axiom theorems; nothing is asserted that is not exhibited.
+
+## Two directions, one quantity
+
+The session ran two programmes that looked unrelated:
+
+- **De-abstraction** (downward).  Peel a result to strict 0-axiom and the abstraction it used —
+  an axiom, a Mathlib asset — is exposed as a *frozen mechanism*; at the bottom sits the
+  distinguishing at its three atom-readings (`de_abstraction_calculus.md`).
+- **Totality-probing** (upward).  Take a claim that asserts *closure* — "every monotone map on a
+  complete lattice has a fixed point", "every predicate is decided" — and ask whether it leaves a
+  remainder (the falsification probe in the same file).
+
+They converge on the same object.  The residue `object1_not_surjective` — the act of distinguishing's
+self-cover `Object1 : Raw → (Raw → Bool)` is faithful but never total — is Cantor's gap
+(`OneDiagonal.residue_is_lawvere_diagonal`), and the one diagonal generates Cantor, Russell, the
+Liar, and Tarski as instances of a single fixed-point construction (`OneDiagonal.one_diagonal_
+generates`).  De-abstraction finds this residue **frozen inside an axiom**; totality-probing finds it
+**relocated by a closure-move**.  Same quantity, two faces.
+
+## The sharpest form: the residue is *class*-dependent, not *carrier*-dependent
+
+What makes this more than a metaphor is a verified theorem on a single carrier
+(`Order/KnasterResidue.residue_is_class_dependent`, ∅-axiom).  On `Bool`:
+
+- the **all-modifier** class contains a fixed-point-free map (`!`, `bnot_fpf`), so "every modifier
+  has a fixed point" is **false** — a universal cover `A → (A → Bool)` is blocked: the Cantor/Lawvere
+  residue;
+- the **monotone** class does *not* contain `!` (`bnot_not_monotone`), so it has no fixed-point-free
+  member and "every monotone endo has a fixed point" is **true** — residue-free.
+
+Same carrier; the residue **toggles with the class**.  The dial is exactly *whether the map-class
+admits a fixed-point-free member* (`fpf_member_refutes_totality` is the shared engine).  This unifies
+the two faces of the limitative/totality literature:
+
+| programme | class | fpf member? | outcome |
+|---|---|---|---|
+| Cantor / Russell / Tarski | all modifiers (incl. `Not`/`!`) | yes | residue forced |
+| Knaster–Tarski (free side) | monotone, on a complete lattice | no | totality, residue-free |
+| Knaster–Tarski (ℕ) | monotone, on incomplete ℕ | yes (`succ`) | residue (totality fails) |
+
+"Reaches the power-object" — the criterion the falsification probe arrived at — is precisely "the
+class admits a fixed-point-free member."  The full power-object `α → Bool` ranges over *all*
+modifiers, so it always contains one (Cantor); restricting the class (to monotone) or completing the
+carrier (so the fpf witness `succ` acquires its limit `∞`) removes the witness.
+
+## Conservation: the residue relocates, it is never destroyed
+
+A *totality-move* is how a closure-claim handles the gap.  Each relocates the residue:
+
+- **Adjoin / complete** (Knaster–Tarski): force totality by assuming a completeness datum
+  `glb : (α → Prop) → α` — a map *out of the power-object*.  The residue is in the hypothesis: drop
+  it (work on ℕ) and `succ` exhibits it (`knaster_conclusion_false_on_nat`).  Completeness *is* the
+  residue adjoined — the `∞` that is the lub of ℕ is the same reached-by-none limit the continuum's
+  modulus points at (`Real213 … limit_unreached_but_decided`).
+- **Restrict the class** (monotone): genuine totality, but only because the fpf witness was *excluded
+  from view*, not removed — `!` still exists on `Bool`; the monotone class merely cannot see it.
+- **Stay finitary / decidable**: genuinely residue-free (`Bool` endo by exhaustion; the free group's
+  decidable normal form `proj`).  No Cantor gap when the carrier does not reach the power-object.
+
+In every case the residue is **conserved**: present for every carrier (`cantor_via_lawvere {A}`),
+toggled into or out of *a class's view*, but never made non-existent.  A move that "achieves closure"
+has paid for it — by an assumed datum, a narrowed class, or a finitary restriction — and the payment
+is the residue's new location.
+
+## Why this matters: axioms *are* totality-claims
+
+The unification cashes out a claim about the 0-axiom discipline itself.  A forbidden axiom is a
+**totality-claim that freezes a residue**:
+
+- **excluded middle** (`∀ p, p ∨ ¬p`) totalises decision; its residue is the Liar — the proposition
+  that is its own negation, where decidability would need a fixed point of `Not`, which is
+  fixed-point-free (`OneDiagonal.russell_liar_no_surjection`);
+- **choice** totalises selection; its residue is the non-constructible witness;
+- **propext** totalises the identification of equivalent propositions; its residue is the intensional
+  distinction it erases.
+
+So peeling an axiom (de-abstraction) and probing a totality-theorem (Knaster–Tarski) are *the same
+act*: locating the conserved residue the closure-claim froze or relocated.  The 0-axiom standard is
+not hygiene — it is the instrument that keeps the residue visible, refusing the moves (adjoin a
+classical axiom, assume completeness) that would push it out of view.  This is why the discipline
+reveals more than an axiom-using development does: each axiom it refuses is a totality-claim, and
+refusing it re-exposes the residue frozen inside.
+
+## Honest boundary
+
+The residue's *existence* per carrier is Cantor's theorem — unbreakable, and to that extent the floor
+is not falsifiable there.  The content is therefore not "a residue exists" but the **discriminator**:
+which map-class sees it, and which *move* a given totality-claim used to relocate it.  That is
+operational (`residue_is_class_dependent` decides it on `Bool` by a computation) and it is where the
+real structure lives.  The catalogue of totality-moves (adjoin / restrict / stay-finitary, with
+stratify and quotient-by-undecidable named but not yet each verified) is the open programme; this
+essay names the invariant they conserve and pins the engine (`fpf_member_refutes_totality`) and the
+toggle (`residue_is_class_dependent`) that make it a measurement rather than a metaphor.

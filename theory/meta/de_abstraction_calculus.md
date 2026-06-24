@@ -391,6 +391,18 @@ not.  The discriminator is not "is there a residue" (Cantor settles that per car
 totality-claim reach the power-object or stay finitary** — and the *moves* by which infinite
 totalities handle the gap (adjoin / complete / quotient-by-undecidable) each conserve it.
 
+**Sharpest form — class-dependence (verified on one carrier).**  `Order/KnasterResidue.
+residue_is_class_dependent` (∅-axiom) shows the residue toggling on the *single* carrier `Bool`: the
+**all-modifier** class admits the fixed-point-free `!` ⟹ Cantor residue; the **monotone** class
+excludes `!` (`bnot_not_monotone`) ⟹ totality, residue-free.  So "reaches the power-object" *is*
+"the class admits a fixed-point-free member" (`fpf_member_refutes_totality` the shared engine behind
+Cantor/Lawvere *and* Knaster–Tarski).  The residue is **class-dependent, not carrier-dependent** —
+which is the cleanest statement of the whole probe.  The full synthesis — that **de-abstraction
+(peeling axioms, downward) and totality-probing (closure-claims, upward) are one instrument tracking
+one conserved residue**, and that *a forbidden axiom is itself a totality-claim freezing a residue*
+(EM ↔ the Liar, choice ↔ the non-constructible witness, propext ↔ the intensional distinction) — is
+written up in `theory/essays/foundations/the_conserved_residue.md`.
+
 **Honest verdict.**  No fourth reading was forced — but per the floor's own discipline this is *weak*
 evidence: "every mechanism is how-atoms-relate" is close to unfalsifiable, so three fits do not raise
 the posterior.  The load-bearing content is (i) the **decomposition map** — *which* engines each
