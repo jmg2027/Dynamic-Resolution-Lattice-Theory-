@@ -50,7 +50,8 @@ carrier (so the fpf witness `succ` acquires its limit `∞`) removes the witness
 
 ## Conservation: the residue relocates, it is never destroyed
 
-A *totality-move* is how a closure-claim handles the gap.  Each relocates the residue:
+A *totality-move* is how a closure-claim handles the gap.  Each relocates the residue — the full
+catalogue is verified (`Order/{KnasterResidue,ResidueConservation}.lean`, all ∅-axiom):
 
 - **Adjoin / complete** (Knaster–Tarski): force totality by assuming a completeness datum
   `glb : (α → Prop) → α` — a map *out of the power-object*.  The residue is in the hypothesis: drop
@@ -58,7 +59,17 @@ A *totality-move* is how a closure-claim handles the gap.  Each relocates the re
   residue adjoined — the `∞` that is the lub of ℕ is the same reached-by-none limit the continuum's
   modulus points at (`Real213 … limit_unreached_but_decided`).
 - **Restrict the class** (monotone): genuine totality, but only because the fpf witness was *excluded
-  from view*, not removed — `!` still exists on `Bool`; the monotone class merely cannot see it.
+  from view*, not removed — `!` still exists on `Bool`; the monotone class merely cannot see it
+  (`residue_is_class_dependent`).
+- **Stratify** (ascend a level): cover `α`'s residue at a strictly bigger type.  But `n < 2^n`
+  (`nat_lt_two_pow`) — the power-object exceeds its carrier at *every* level — so the cover-ascent
+  never reaches a residue-free top; the residue moves up one rung, never off the tower.  The
+  never-closing tower *is* "infinity is the residue's shape."
+- **Quotient** (identify the residue away): a **decidable** equivalence has a computable normal form —
+  a total idempotent retraction (`parity_idempotent`, the minimal analogue of the free group's
+  `proj`) — so its quotient is residue-free.  The residue relocates into *"does a computable normal
+  form exist"*: decidable ⟹ free, **undecidable ⟹ residue** (the missing section, not exhibitable in
+  ∅-axiom data — which is exactly its being a non-constructible residue).
 - **Stay finitary / decidable**: genuinely residue-free (`Bool` endo by exhaustion; the free group's
   decidable normal form `proj`).  No Cantor gap when the carrier does not reach the power-object.
 
@@ -92,7 +103,11 @@ The residue's *existence* per carrier is Cantor's theorem — unbreakable, and t
 is not falsifiable there.  The content is therefore not "a residue exists" but the **discriminator**:
 which map-class sees it, and which *move* a given totality-claim used to relocate it.  That is
 operational (`residue_is_class_dependent` decides it on `Bool` by a computation) and it is where the
-real structure lives.  The catalogue of totality-moves (adjoin / restrict / stay-finitary, with
-stratify and quotient-by-undecidable named but not yet each verified) is the open programme; this
-essay names the invariant they conserve and pins the engine (`fpf_member_refutes_totality`) and the
-toggle (`residue_is_class_dependent`) that make it a measurement rather than a metaphor.
+real structure lives.  The catalogue of totality-moves — **adjoin, restrict, stratify, quotient** —
+is now verified in full (`Order/{KnasterResidue,ResidueConservation}.lean`); the one genuinely open
+edge is the *undecidable* quotient, whose residue is by its nature not exhibitable in ∅-axiom data
+(an un-computable normal form *is* a non-constructible residue, `reached_by_none.md`).  This essay
+names the invariant the moves conserve and pins the engine (`fpf_member_refutes_totality`), the
+toggle (`residue_is_class_dependent`), and the four moves (`knaster_conclusion_false_on_nat`,
+`residue_is_class_dependent`, `nat_lt_two_pow`, `parity_idempotent`) that make it a measurement
+rather than a metaphor.

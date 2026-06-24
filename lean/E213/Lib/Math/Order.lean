@@ -4,6 +4,7 @@ import E213.Lib.Math.Order.FenchelMoreau
 import E213.Lib.Math.Order.BooleanAlgebra
 import E213.Lib.Math.Order.KnasterTarski
 import E213.Lib.Math.Order.KnasterResidue
+import E213.Lib.Math.Order.ResidueConservation
 import E213.Lib.Math.Order.TarskiLattice
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Order` — order theory.
