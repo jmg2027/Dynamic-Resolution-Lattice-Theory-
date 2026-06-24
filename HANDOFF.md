@@ -1,8 +1,9 @@
 # Session Handoff — 2026-06-24 (grounded-FTA + Leg-1 + Leg-3 marathon)
 
 ## Branch
-`claude/fta-multiplicative-descent-frontier-5pun05` — pushed, 66 commits ahead
-of `origin/main`. Working tree clean.
+`claude/fta-multiplicative-descent-frontier-5pun05` — pushed, ~73 commits ahead
+of `origin/main`. Working tree clean. **Full `lake build E213` passes clean
+(459/459)**; all new modules scanned `0 dirty`; certified this session.
 
 ## What Was Done This Session
 
@@ -63,6 +64,18 @@ of `Raw`'s `slash`-successor spine, not borrowed from Lean's `Nat`.
   when functionalised.
 - **capstone** `arity_distinctness_forcing`: the (arity, distinctness) design space is
   squeezed from both sides onto binary-distinct = 213.
+- **relation-first** (added after first handoff): `relation_outputs_le_two` — a `Bool`-codomain
+  relation takes ≤ 2 values, produces no carrier element; collapses to operation-first.
+
+### 4. Post-handoff: `RawNat` carrier flipped + order + promotion (PURE ✓)
+- **Carrier flip** (Open Problem 2 closed): `RawNat = { r // IsRawNat r }` — a `Nat`-free type;
+  `toNat_succ` made `Nat`-free via `rawSucc_depth`; `∃ n` survives only as a derived reading.
+- **Order** (§6): `le x y := ∃ z, add x z = y` (additive reachability) `↔ toNat x ≤ toNat y`
+  (`le_iff_toNat`); `le_refl/trans/antisymm/total`, `add_le_add_left` — `RawNat` is now an
+  **ordered commutative semiring**.
+- **Promotion**: `theory/math/numbersystems/naturals_from_the_spine.md` (Leg-1 + count-spine +
+  rival forcing), cross-linked with `arithmetic_generation.md` + `grounded_fundamental_theorem.md`.
+- **Certification**: full `lake build E213` clean (459/459); all new modules `0 dirty`.
 
 ## Current Precision Results (0 free parameters)
 **No physics touched this session** (pure math/foundations work). The DRLT
@@ -96,14 +109,14 @@ A multiset/permutation form (`l1 ~ l2`) on the grounded `prime_dvd_mul` is a
 possible companion but not required. Low priority — no frontier note.
 
 ## Unresolved from This Session
-- Full `lake build E213.Lib.Math` was NOT re-run end-to-end (times out >10 min in
-  this environment). Each new module + its umbrella (`Theory.Raw.API`, `Meta.Nat`,
-  `UniverseChain`) was built clean individually and `#print axioms`-verified. A
-  next session with time budget should run the full build once to confirm no
-  cross-module breakage.
+- ~~Full `lake build` not re-run~~ — **DONE**: `lake build E213` passes clean
+  (459/459) and all new modules scan `0 dirty`. Branch is build-certified.
 - `relation_outputs_le_two` is the honest *partial* relation-first exclusion (output
   bound), not a from-scratch "relations generate nothing" closure model — by design,
   to avoid a strawman. Documented as such in its docstring.
+- `tools/scan_axioms.py` cannot probe the nested `RawNat.RawNat.*` namespace decls
+  (double-`RawNat` from the file namespace + inner `namespace RawNat`); those were
+  `#print axioms`-verified individually instead. Cosmetic tool limitation, not a purity gap.
 
 ## Next
 Recommended: either (a) run the full `lake build` + `tools/scan_all_axioms.py` to
@@ -113,9 +126,11 @@ residue (Open Problem 1) is research-grade and open-ended — approach only with
 specific new rival model in hand.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: `theory/math/numbertheory/grounded_fundamental_theorem.md`
-  ← the FTA-grounding engineering in `research-notes/frontiers/the_descent_leg.md`
-  (cont.1–11, collapsed to a pointer).
+- **Promotions this session**: (1) `theory/math/numbertheory/grounded_fundamental_theorem.md`
+  ← the FTA-grounding engineering (cont.1–11); (2)
+  `theory/math/numbersystems/naturals_from_the_spine.md` ← Leg-1 (ℕ from the spine) +
+  count-spine + rival forcing. Both ← `research-notes/frontiers/the_descent_leg.md`
+  (closed engineering collapsed to pointers; conceptual residue stays open).
 - **Promotion candidates**: `Theory/Raw/RawNat` (Leg-1) is PURE and coherent — a
   `theory/math/foundations/` chapter on "ℕ as a reading of the Raw spine" is a
   candidate once Open Problem 2 settles the carrier. `RivalArity` (Leg-3) could
