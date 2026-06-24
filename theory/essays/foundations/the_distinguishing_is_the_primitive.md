@@ -47,6 +47,48 @@ makes it non-empty by pinning four independently-falsifiable obligations and dis
   `raw_has_distinguishing`). So a non-distinguishing rival is not a slower route to the same place —
   it has *no* route.
 
+## The floor is self-enforcing — "beneath the distinguishing" is self-refuting
+
+Primitive-necessity above excludes a *rival* primitive. The sharper fact — *why* there is
+nothing beneath at all (`01_residue.md` §1.3: "reduction stops here... because there is
+nothing beneath") — is that the **question performs the thing it asks about.** To pose "a
+primitive X beneath the distinguishing" is already to distinguish: X from the distinguishing,
+"more primitive" from "less." So §1.3's pledge of no-further-reducibility is not *chosen* but
+**self-enforcing**: any reduction-attempt is itself a distinguishing, so reduction never
+closes. It would be *strange* if the distinguishing were not the floor — everything formal is
+built by distinguishing (operator from operand, this step from that, one "level" from
+another), so everything is downstream of it. The `tier` seam (`below_the_w_type.md`) is the
+per-instance shadow: self-application, Lawvere's diagonal, and the residue all measure
+**TIER-B** — the climb to the power object `Raw → Bool`, itself a Lens reading of the
+*already-given* distinguishing — never beneath the TIER-A act. (A prior multi-agent round
+wrongly treated "is self-application more primitive?" as open; the mechanism forecloses it.)
+
+**Epistemic status (dovetails with "untestable from inside" below).** The universal — *no
+conceivable thing is beneath the distinguishing* — is **not a theorem**: "all conceivable
+things" is not a type (§1.0, paper §3); it is a **self-reference argument**, the same shape as
+the universal no-exterior (`05_no_exterior.md` §5.1). The primacy of the distinguishing and
+the no-exterior thus share one epistemic form: the universal is an argued self-reference,
+unprovable as a `∀`; each *instance* is measurable (the `tier` seam). Claim no more.
+
+**Two guards.** (1) Do not re-split act and difference: that `slash` needs `x ≠ y` does *not*
+make a static "difference" precede the act (a dichotomy import, §5.4) — the floor is the bare
+distinction `a ≠ b`, the minimal distinguishing *itself*, bottoming out unproduced. (2) The
+"undifferentiated" is not a deeper ground: to *refer to* it distinguishes it, so it is the
+distinguishing's **residue** (a consequence, `object1_not_surjective`), not a floor beneath
+(the *residue-as-primitive* failure-mode). Every candidate "beneath" is thus either a
+construction (TIER-B, *above*) or the undifferentiated (residue, a *consequence*) — both
+downstream; there is no third that is not itself a distinguishing-act.
+
+**One shape, three faces.** The distinguishing does not close over itself, and this is one
+fact seen three times: the **floor** — `a ≠ b` is presupposed, not produced (the slash needs
+two-already-distinct to fire); the **ceiling** — the totality is not captured
+(`object1_not_surjective`, the residue); **verification** — the checker is not self-verified
+(machine verification needs a trusted kernel it cannot certify; the de Bruijn floor,
+`the_trusted_base.md`). The floor's non-self-grounding and the ceiling's non-self-capture are
+the two ends of one self-non-closure — which is *why* the distinguishing is primitive: a thing
+that could close over itself would have a ground beneath it to close onto. The distinguishing
+has nothing beneath because it is the act by which "beneath" is possible at all.
+
 ## Dual function — the classical reading
 
 This is the old dream of grounding mathematics on *distinction* (Spencer-Brown's "draw a
@@ -85,3 +127,6 @@ Primitive-necessity: `OneDiagonal.no_distinguishing_on_subsingleton`, `raw_has_d
 - `the_form_of_the_residue.md` + `01_residue.md` §1.1 — the residue is the proven remainder of the act.
 - `frontiers/the_descent_leg.md` — the program (generation vs re-derivation) and the open middle.
 - `frontiers/the_substance_test.md` §CORRECTION — the re-inferred true intent this essay consolidates.
+- `frontiers/below_the_w_type.md` + `the_trusted_base.md` — the `tier` seam (per-instance
+  measurability of "self-application is TIER-B, above") and the verification face (the de
+  Bruijn checker as the third face of self-non-closure).
