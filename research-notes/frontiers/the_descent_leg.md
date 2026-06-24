@@ -268,3 +268,31 @@ reach. Time-box and report honestly, win or lose (the G206 template).
 - Diagnosis + corrected 진의: `the_substance_test.md` §CORRECTION (2026-06-22).
 - Generation already deposited (the *other* prong): `Lens/Foundations/OneDiagonal.lean` (the residue as the
   engine of the limitative theorems), `theory/essays/foundations/the_one_diagonal.md`.
+
+## UPDATE (2026-06-24): the descent ENGINE now grounds in `isPart_wf` (PURE ✓)
+
+The named bar — "factorisation/FTA descent must terminate via **Raw's own descent** `isPart_wf`, not
+borrowed `Nat.strongRecOn`" — is now **cleared at the induction-engine level**
+(`Lib/Math/Foundations/IsPartGroundedInduction.lean`, 6 PURE, all ∅-axiom):
+
+- `nat_lt_wf_via_isPart : WellFounded (· < ·)` — `Nat`'s `<` is well-founded **because the
+  distinguishing's descent is**: `m < n` embeds into `TransGen IsPart (rawTower m) (rawTower n)`
+  (`tower_lt_transGen`, one rung per `+1`), and WF transports along `InvImage`/`Subrelation` from
+  `transGen_wf isPart_wf`.
+- `strongInduction_grounded`, `measureInduction_grounded` — strong/measure induction on ℕ powered by
+  this WF (the `Ω`-descent shape FTA existence needs).
+
+**Decisive check (direct kernel-closure walk on `strongInduction_grounded`):**
+`isPart_wf : true`, `rawTower : true`, `Acc.rec : true` (powered by `isPart_wf`) — and crucially
+`Nat.lt_wfRel : false`, `Nat.strongRecOn : false`. So the well-founded engine is Raw's, not Nat's.
+This is exactly the criterion `the_genesis_seam.md` found FTA-over-`Nat213` *failing*. (cic_footprint.py
+mis-resolved the target and returned a spurious "no Acc / Nat-free" reading; the direct closure walk —
+325 consts, `isPart_wf` present, `Nat.lt_wfRel` absent — is authoritative.)
+
+**Honest scope.** This clears the bar for the *engine*. The embedding lemma `tower_lt_transGen` still
+uses `Nat` structural recursion to prove an *inequality* (bookkeeping, not the descent). And FTA
+existence itself is **not yet rebuilt** on this engine — the next step is to re-prove
+`mul_factorization_exists` via `measureInduction_grounded` (Ω-measure) **and** audit that `minFac`/`Ω`
+definitions in its cone don't re-introduce `Nat.strongRecOn`. Until that, the deep discipline's
+descent is groundable but not yet grounded. The engine is the reusable keystone; wiring FTA onto it is
+the remaining concrete step.
