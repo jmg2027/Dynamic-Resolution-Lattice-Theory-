@@ -15,12 +15,17 @@ chain.  Their shared engine is
 
   `measureInduction f ind : ∀ a, P a`  — from `∀ a, (∀ b, f b < f a → P b) → P a`.
 
-**Why this engine, not `Nat.strongRecOn`.**  The corpus does descent via `Nat.strongRecOn`,
-which routes through `WellFounded.rec` / `Acc.rec` — `#print axioms`-clean but
-**EXTENDED-FRAGMENT** on the CIC-footprint axis (`tools/cic_footprint.py`).  `measureInduction`
-is proved by **structural `Nat.rec`** on a bound (the `mulDescentRec` technique): it is
-**MINIMAL-STRUCTURAL** — no `Acc.rec`.  So a descent proof routed through it drops a CIC
-fragment, exactly the de-abstraction the calculus is for.
+**Why a named structural engine.**  `measureInduction` is proved by **structural `Nat.rec`**
+on a bound (the `mulDescentRec` technique): `cic_footprint` verdict MINIMAL-STRUCTURAL, no
+`Acc.rec`.  It is the reusable engine that *names* cluster B's bottom.
+
+*Honest scope (a refuted prediction)*: a first draft claimed routing descent through this
+**drops a CIC fragment** versus `Nat.strongRecOn` (whose *constant* is EXTENDED-FRAGMENT —
+`Acc.rec`/`WellFounded.rec`).  `cic_footprint` **refuted that**: corpus proofs using `induction
+… using Nat.strongRecOn` (e.g. `OddPartDecomposition.decomp_and_odd`) already measure
+MINIMAL-STRUCTURAL — the equation compiler emits structural `brecOn` and never pulls the
+`Nat.strongRecOn` constant (with its `Acc.rec`) into the closure.  So there is **no footprint
+improvement** here; this engine's value is reuse + explicitness, not de-CIC-ing.
 
 **The two bottoms.**  Cluster A's kernel is the *binary* distinguishing (`Bool`, `xor b b`);
 this cluster's kernel is the *iterated* distinguishing (`ℕ` = `succ`, `Nat.rec`).  The lattice's

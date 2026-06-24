@@ -126,7 +126,7 @@ readings of an atom — the count-Lens facets (`seed/AXIOM/06_lens_readings.md`)
 | cluster | atom | kernel | engine | reading | nodes |
 |---|---|---|---|---|---|
 | **A** | `Bool` | `xor b b = false` / `!b ≠ b` | `XorInvolution.xorFold_involution` | atoms **distinguished** (parity, fixed-point-free involution) | residue (`object1_not_surjective`), `δ²=0` (`delta_sq_zero_general`), even cardinality (`even_card_cancel`) |
-| **B** | `ℕ` (`succ`) | `Nat.rec` | `Foundations.MeasureInduction.measureInduction` | atoms **counted / ordered** (measure-descent) | FTA (`mulDescentRec`), Raw descent (`no_infinite_descent`), `Ω`-descent |
+| **B** | `ℕ` (`succ`) | `Nat.rec` (structural) | `Foundations.MeasureInduction.measureInduction` | atoms **counted / ordered** (measure-descent) | FTA (`mulDescentRec`), Raw descent (`no_infinite_descent`), `Ω`-descent |
 | **C** | `Unit` | `() = ()` | (genesis) `UnitList.append_comm` / `list_unit_determined_by_length` | atoms **undistinguished** (count is the complete invariant) | `(ℕ,+)` from `List Unit`, `+`-commutativity, `list_unit_determined_by_length` |
 
 The fingerprint tells these apart where the abstract forms ("Cantor", "FTA", "δ²=0", "even
@@ -134,13 +134,33 @@ cardinality", "commutativity") do not.  And the three are dual/complementary at 
 A's `Bool` *distinguishes* its two atoms (`!b ≠ b`), C's `Unit` does *not* (`() = ()`), and B's
 `ℕ` *counts* them (`succ`).
 
-**The lattice's floor is the distinguishing, at its three atom-readings.**  Cluster B's engine
-is, notably, MINIMAL-STRUCTURAL: `measureInduction` is proved by structural `Nat.rec`, not
-`Nat.strongRecOn` (which routes through `Acc.rec` — EXTENDED-FRAGMENT, `cic_footprint`), so
-routing a descent proof through it *drops a CIC fragment* — a Substitute move on the footprint
-axis.  And there is nothing below the distinguishing to land on: every peel terminates in one of
-these atom-readings (or a composite), because the distinguishing is the floor
-(`seed/AXIOM/01_residue.md` §1.3).
+**The lattice's floor is the distinguishing, at its three atom-readings.**  And there is
+nothing below the distinguishing to land on: every peel terminates in one of these atom-readings
+(or a composite), because the distinguishing is the floor (`seed/AXIOM/01_residue.md` §1.3).
+
+**A refuted prediction (the instrument falsifying, not confirming).**  The first draft claimed
+`measureInduction` (structural `Nat.rec`) *drops a CIC fragment* versus the corpus's
+`Nat.strongRecOn`, which as a *constant* is EXTENDED-FRAGMENT (`Acc.rec`, `WellFounded.rec`).
+Running `cic_footprint` on actual corpus descent proofs **refuted this**: `OddPartDecomposition.
+decomp_and_odd` and `stripTwo_fuel_eq` use `induction … using Nat.strongRecOn` yet measure
+**MINIMAL-STRUCTURAL** (`recursors []`) — Lean's equation compiler emits structural `brecOn`
+code and never pulls the `Nat.strongRecOn` constant (with its `Acc.rec`) into the closure.  So
+there is **no footprint drop**; `measureInduction`'s value is solely as a reusable, explicitly
+structural engine *naming* cluster B's bottom, not as a footprint improvement.  Recorded because
+the instrument caught the overclaim — the unfold-test applied to a claim about the tool itself.
+
+## Composite edges — clusters combine
+
+The clusters are not disjoint; a single result can draw on several, and that *combination* is a
+lattice edge between them.  The clearest case in this corpus is `delta_sq_zero_general` itself:
+its **cancellation** is cluster A (`xorFold_involution`, the order-swap fixed-point-free
+involution), but it sits **on top of** cluster B — the colex bijection (`kSubset_inj`,
+`kSubset_surj`, `subsetIdx_kSubset`, …) it needs to collapse the faces is proved by *structural
+induction on the dimension `n`* (the `Nat.rec` bottom).  So `δ²=0` is an **A-over-B composite**:
+a parity cancellation carried over a counted/structural foundation.  (`cic_footprint`:
+MINIMAL-STRUCTURAL, TIER-A — both ingredients present, both pure.)  Reading a proof's fingerprint
+this way says *which* bottoms it stands on and *how they stack* — finer than placing it in a
+single cluster.
 
 ## The stopping criterion (against infinite regress)
 
