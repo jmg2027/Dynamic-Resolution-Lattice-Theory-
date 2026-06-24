@@ -52,7 +52,7 @@ appears in the XOR an **even** number of times (exactly twice), and
 `false` — independent of `σ`'s values.  This is the classical `d_i d_j = d_{j-1}
 d_i` (for `i < j`) face identity, in mod-2 colex-index form.
 
-## Proof strategy (the two missing lemmas)
+## Proof strategy (the missing lemmas)
 
 `kSubset` is a colex recursion on `n` (`Examples/SimplexBasis.lean`):
 
@@ -63,10 +63,28 @@ kSubset (n+1) (k+1) i = if i < binom n (k+1) then kSubset n (k+1) i
 
 1. **Colex round-trip** — `subsetIdx n k (kSubset n k i) = i` for `i < binom n k`,
    and `kSubset n k (subsetIdx n k s) = s` for a strictly-increasing `s` with
-   entries `< n`.  By induction on `n` against the Pascal split.  This is what
-   lets `delta`'s inner `subsetIdx ∘ … ∘ kSubset` round-trip back to a genuine
-   face, so the two deltas compose as face-removals rather than as opaque index
-   arithmetic.  (Currently only the concrete `RoundTrip.round_trip_5_k` exist.)
+   entries `< n`.  This is what lets `delta`'s inner `subsetIdx ∘ … ∘ kSubset`
+   round-trip back to a genuine face, so the two deltas compose as face-removals
+   rather than as opaque index arithmetic.
+
+   **DONE (this session)** — `Examples/ColexRoundTrip.lean`, all ∅-axiom, uniform
+   in `(n,k)`:
+   - `kSubset_mem_lt` — every entry of `kSubset n k i` is `< n`;
+   - `kSubset_length` — `kSubset n k i` has length `k` (for `i < binom n k`);
+   - `kSubset_inj` — `kSubset n k` is **injective** on `{0..binom n k − 1}` (the
+     key combinatorial fact: the cross case is killed because the at-or-above
+     subset contains vertex `n`, which `kSubset_mem_lt` forbids in the below one);
+   - `subsetIdx_kSubset` — the **forward round-trip** `subsetIdx n k (kSubset n k
+     i) = i`, via `kSubset_inj` + a hand-built pure `find?`/`List.range`/`BEq`
+     layer (the core `List.range`/`find?`/`LawfulBEq (List Nat)` lemmas all leak
+     `propext`/`Quot.sound`, so they are rebuilt from `find?_cons` + the
+     `instBEqOfDecidableEq` reduction).
+
+   **Still open**: the *reverse* round-trip `kSubset n k (subsetIdx n k s) = s`
+   for a sorted in-range `s` — needs **surjectivity** of the colex enumeration
+   (every sorted k-subset of `{0..n−1}` is `kSubset n k j` for some `j < binom n
+   k`).  Provable by the same induction on `n` (split `s` on whether it contains
+   `n`), reusing `kSubset_mem_lt` / `kSubset_length`.
 
 2. **The 2-to-1 face pairing** — a fixed-point-free involution on
    `{(a,b) : a ∈ range (k+2), b ∈ range (k+1)}` that preserves the resulting
@@ -100,8 +118,16 @@ exhibiting the Cantor residue as the cohomology of an honest 213-native complex
 with a real `δ²=0` differential — is a *second*, deeper open frontier, distinct
 from `delta_sq_zero_general` above.
 
+## Progress ledger
+
+- **Closed**: the colex *forward* round-trip + its core (`ColexRoundTrip.lean`:
+  `kSubset_mem_lt`, `kSubset_length`, `kSubset_inj`, `subsetIdx_kSubset`), ∅-axiom.
+- **Next**: reverse round-trip via colex surjectivity (strategy §1 above), then
+  the 2-to-1 face pairing (§2), then `delta_sq_zero_general`.
+
 ## Cross-refs
 
+- `lean/E213/Lib/Math/Cohomology/Examples/ColexRoundTrip.lean` — the colex round-trip core (this session).
 - `lean/E213/Lib/Math/Cohomology/ChainComplex.lean` — the closed atomic capstone.
 - `lean/E213/Lib/Math/Cohomology/Delta/{Core,Linear,Pointwise,SqZero}.lean`.
 - `lean/E213/Lib/Math/Cohomology/Universal/Prop*.lean` — per-dimension lifts.
