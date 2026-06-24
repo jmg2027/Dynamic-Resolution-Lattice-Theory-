@@ -81,14 +81,27 @@ is the residue's new location.
 ## Why this matters: axioms *are* totality-claims
 
 The unification cashes out a claim about the 0-axiom discipline itself.  A forbidden axiom is a
-**totality-claim that freezes a residue**:
+**totality-claim that freezes a residue** — but the three forbidden axioms sit at *different
+epistemic depths*, and honesty requires distinguishing them:
 
-- **excluded middle** (`∀ p, p ∨ ¬p`) totalises decision; its residue is the Liar — the proposition
-  that is its own negation, where decidability would need a fixed point of `Not`, which is
-  fixed-point-free (`OneDiagonal.russell_liar_no_surjection`);
-- **choice** totalises selection; its residue is the non-constructible witness;
-- **propext** totalises the identification of equivalent propositions; its residue is the intensional
-  distinction it erases.
+- **excluded middle** (`∀ p, p ∨ ¬p`) totalises decision; its residue is **exhibited as a diagonal**
+  — the Liar, the proposition that is its own negation, where decidability would need a fixed point
+  of `Not`, which is fixed-point-free (`OneDiagonal.russell_liar_no_surjection`, ∅-axiom).  This case
+  is *verified*.
+- **propext** (`(a ↔ b) → a = b`) totalises the identification of equivalent propositions; its
+  freeze is shown **non-load-bearing operationally** — every *Substitute* move in
+  `de_abstraction_calculus.md` (`LawfulBEq → nat_beq_refl`, `Nat.lt_one_iff → lt_one_eq_zero`, …)
+  replaces a propext-carrying stdlib lemma with a pure witness, exhibiting the constructible content
+  the totality had frozen.  This case is *verified by the peel*, not by a single diagonal.
+- **choice** totalises selection; its residue — the non-constructible witness — is a **meta-level
+  non-derivability**, by its nature *not* exhibitable in ∅-axiom data (exactly the status of the
+  undecidable quotient above).  This case is *argued, not exhibited*; the impossibility of depositing
+  it is itself the point.
+
+So the three are not uniformly "verified": EM is a deposited diagonal, propext's avoidability is a
+deposited family of substitutions, and choice's residue is a principled meta-gap.  Stating them level
+keeps the claim honest — the pattern (totality-claim freezes a residue) is real, but its *evidence*
+ranges from exhibited theorem to in-principle non-exhibitable.
 
 So peeling an axiom (de-abstraction) and probing a totality-theorem (Knaster–Tarski) are *the same
 act*: locating the conserved residue the closure-claim froze or relocated.  The 0-axiom standard is
