@@ -27,6 +27,7 @@ import E213.Lib.Math.Logic.GenericAsCut
 import E213.Lib.Math.Logic.TagOfDecidable
 import E213.Lib.Math.Logic.ArityCoupling
 import E213.Lib.Math.Logic.ProvabilityResidue
+import E213.Lib.Math.Logic.ResidueCostBridge
 
 /-!
 # Reverse Mathematics 213 — umbrella (`Lib/Math/Logic`)

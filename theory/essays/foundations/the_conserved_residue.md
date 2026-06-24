@@ -67,6 +67,32 @@ So self-reference and the residue are not two phenomena but **one toggle** — t
 fact about whether a fixed-point-free map lives in the class — which is why the same `f a a` diagonal
 generates both.
 
+## Where the cost actually attaches — the bridge to the reverse-math ledger
+
+The repo's `Logic/Capstone.reverse_math_ledger` independently calibrates results by the *omniscience
+principle* (`LPO`/`WLPO`/`LLPO`) they cost, with the residue at the **cost-0** base.  The natural
+guess — "reaches the power-object → costs something" — is **false**, and finding why sharpens the
+whole picture: the residue *reaches* `ℕ → Bool` yet is **free** (`cantor_stream_not_enumerable`,
+cost-0), while `LPO`/`WLPO` concern the *same* `ℕ → Bool` and *do* cost.
+
+The corrected criterion is the positive/negative dial crossed with finite/infinite
+(`Logic/ResidueCostBridge.lean`, ∅-axiom):
+
+- **negative / existential** (∃ a diagonal escapee — the residue) is **free at every size** — one
+  witness suffices (`diag_escapes_free` over the infinite `ℕ → Bool`);
+- **positive / universal** (decide *all* of `f` — `LPO`/`WLPO`) is **free when finite**
+  (`finite_lpo_free`, `finite_wlpo_free`: the `Bool` analogues are ∅-axiom theorems) and **costs**
+  only over an *infinite* domain.
+
+So the omniscience cost is **entirely the infinity, in the positive direction**: the very same
+verdict over a finite carrier is free.  The cost attaches at *positive ∧ infinite*; *negative* (any
+size) and *finite* (any polarity) are free.  This **retrodicts the ledger** on entries it was not
+built from (`cantor_stream_not_enumerable` negative→cost-0 ✓; `lpo_decides_pi01` positive-infinite→LPO
+✓) — the positive/negative dial *explains* the free/cost boundary rather than restating it.  This is
+the one place the residue programme turns from re-description into a **predictive** criterion: given a
+construction's polarity and domain, it predicts ∅-axiom-achievability, and the prediction is checkable
+against the existing ledger.
+
 ## Conservation: the residue relocates, it is never destroyed
 
 A *totality-move* is how a closure-claim handles the gap.  Each relocates the residue — the full
