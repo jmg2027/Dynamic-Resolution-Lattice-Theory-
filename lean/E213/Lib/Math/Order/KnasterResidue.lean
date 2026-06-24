@@ -66,4 +66,35 @@ theorem mono_fpf_blocks_completeness :
     (∃ f : Nat → Nat, (∀ a b, a ≤ b → f a ≤ f b) ∧ ∀ n, f n ≠ n) :=
   ⟨fun n => n + 1, succ_monotone, succ_fpf⟩
 
+/-! ## The residue-free side — a finite complete lattice (the minimal pair)
+
+`succ`/ℕ shows totality *failing* (then bought back by completeness = adjoining `∞`).  The minimal
+pair is a carrier where the **power-object gap closes**: a finite complete lattice, where
+Knaster–Tarski totality holds **with no residue at all**.  `Bool` (`false ≤ true`) is the smallest:
+every monotone endo has a fixed point, proved by exhaustion — no completion, no adjoined `∞`.
+
+The contrast `Bool` (residue-free) vs ℕ (residue) *is* the law: a totality conserves a residue iff
+its carrier **reaches the power-object** (is infinite / its self-cover crosses `α → Bool`).  Finite,
+decidable carriers have no Cantor gap, so their totalities are genuinely free; the adjoin-move
+Knaster–Tarski uses only does work on the infinite side. -/
+
+/-- Boolean implication order `a ≤ b := a → b` (`false ≤ true`, the 2-element complete lattice). -/
+def bLe (a b : Bool) : Prop := a = true → b = true
+
+/-- ★★★ **Residue-free totality on a finite complete lattice.**  Every `bLe`-monotone endo on `Bool`
+    has a fixed point — by exhaustion, *no completion required*.  The minimal-pair complement to
+    `knaster_conclusion_false_on_nat`: where ℕ (infinite, reaches the power-object) makes
+    Knaster–Tarski conserve a residue (`∞`), `Bool` (finite, no Cantor gap) makes it genuinely free.
+    So the residue is conserved **iff** the carrier reaches the power-object. -/
+theorem bool_monotone_has_fixpoint (f : Bool → Bool)
+    (hmono : ∀ a b, bLe a b → bLe (f a) (f b)) : ∃ b, f b = b := by
+  cases hff : f false with
+  | false => exact ⟨false, hff⟩
+  | true =>
+    -- bLe false true is vacuous (antecedent `false = true` is impossible); push through monotonicity
+    have hvac : bLe false true := fun h => Bool.noConfusion h
+    have hft : bLe (f false) (f true) := hmono false true hvac
+    have : f true = true := (hff ▸ hft) rfl
+    exact ⟨true, this⟩
+
 end E213.Lib.Math.Order.KnasterResidue

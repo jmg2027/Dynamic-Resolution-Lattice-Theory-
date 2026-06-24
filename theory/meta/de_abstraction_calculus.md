@@ -371,6 +371,26 @@ the residue and calls it a fixed point.  This also **links the analysis and orde
 the lattice must adjoin to complete itself is the *very same* reached-by-none limit the continuum's
 modulus points at — one residue, surfacing in both domains.
 
+**The minimal pair — the law made sharp.**  `succ`/ℕ shows totality *failing* and bought back by
+completeness; its complement (`bool_monotone_has_fixpoint`, also ∅-axiom) shows totality **holding
+with no residue** on `Bool` — every monotone endo on the 2-element complete lattice has a fixed point
+*by exhaustion*, no completion, no adjoined `∞`.  The contrast **`Bool` (residue-free) vs ℕ
+(residue)** is the law:
+
+> A totality conserves a residue **iff its carrier reaches the power-object** — i.e. iff the carrier
+> is infinite / its self-cover crosses `α → Bool`.  Finite, decidable carriers have no Cantor gap, so
+> their totalities are genuinely free; the **adjoin-move** (complete the lattice) only does work on
+> the infinite side, where it relocates the residue into the adjoined point.
+
+This sharpens "the floor is near-unfalsifiable": the residue is **exactly Cantor's gap**, so it is
+present iff the totality's cover-map has the power-object in its *type* (Knaster–Tarski's
+`glb : (α → Prop) → α` does; the free group's `proj : FreeWord → FreeGroup` and `Bool`'s endo do not).
+That is why the free group (decidable normal form, `proj_val_eq_iff` by `Iff.rfl`) and `Bool` are
+genuinely residue-free totalities while Knaster–Tarski on an infinite lattice and the continuum are
+not.  The discriminator is not "is there a residue" (Cantor settles that per carrier) but **does the
+totality-claim reach the power-object or stay finitary** — and the *moves* by which infinite
+totalities handle the gap (adjoin / complete / quotient-by-undecidable) each conserve it.
+
 **Honest verdict.**  No fourth reading was forced — but per the floor's own discipline this is *weak*
 evidence: "every mechanism is how-atoms-relate" is close to unfalsifiable, so three fits do not raise
 the posterior.  The load-bearing content is (i) the **decomposition map** — *which* engines each
