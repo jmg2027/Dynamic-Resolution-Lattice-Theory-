@@ -243,6 +243,39 @@ which is *why* the residue and `δ²=0`, both bottoming in the one Bool distingu
 different lattice positions.  The earlier "dual consequence of one primitive" finding is sharpened:
 the dual is *diagonal vs. pairing*, and only the pairing leg carries the separation edge.
 
+### The converse — separation is parity's fuel *and* its ash
+
+Does the A.i ⟹ A.ii edge run the other way: a **separation result that needs a parity step**?  It
+does, and the residue bundle already holds both directions as its two conjuncts.
+`FlatOntologyClosure.self_covering_closure = object1_injective ∧ object1_not_surjective` — and the
+two A.ii halves relate to A.i **oppositely**:
+
+- `object1_injective` (distinct Raws stay distinct — A.ii **injectivity**) is proved by
+  `of_decide_eq_true` (`DecidableEq` separation, A.ii's own kernel).  **No parity** — pure
+  separation riding structural decidable equality.  Same shape as FTA's A.ii.
+- `object1_not_surjective` (the residue — A.ii **non-surjectivity**, the diagonal told apart from
+  *every* image element) is produced by `no_surjection_of_fixedpointfree` from `bnot_self_ne`
+  (fixed-point-free `!b`, A.i).  **A separation conclusion manufactured by a parity method.**
+
+So A.ii splits along the bijection's two failure-axes, and only one is parity-coupled:
+
+| A.ii reading | result | relation to A.i |
+|---|---|---|
+| **injectivity** (distinct stay distinct) | `object1_injective`, FTA `vp_prime_single` | A.i-**free** (DecidableEq / descent) |
+| **non-surjectivity** (something is left out) | `object1_not_surjective` (the residue) | **produced by** A.i-diagonal |
+
+**The full A.i ⟷ A.ii coupling, by role** (not a symmetric pair — three distinct roles):
+
+1. **A.i-pairing consumes A.ii** — `xorFold_involution` takes `Nodup` (separation) as input → cancellation;
+2. **A.i-diagonal produces A.ii** — `no_surjection_of_fixedpointfree` outputs non-surjectivity (separation) from a fixed-point-free map;
+3. **A.ii-injectivity is A.i-independent** — `object1_injective` / FTA need no parity at all.
+
+Reading it as one flow: **separation is the *fuel* of parity-pairing and the *ash* of
+parity-diagonal**, while injectivity-separation needs no fire.  And the asymmetry is *structurally
+forced*, not imposed: `self_covering_closure` is a single theorem whose two conjuncts are proved two
+different ways — one by `of_decide_eq_true`, one by the diagonal — so the lattice edge was already
+sitting inside the residue, waiting to be read off the proof rather than the statement.
+
 ## The stopping criterion (against infinite regress)
 
 Analysing the peel is itself a peel (de-abstracting the abstraction "노가다"), so it can recurse
