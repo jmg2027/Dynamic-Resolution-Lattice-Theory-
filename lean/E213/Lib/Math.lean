@@ -4,6 +4,7 @@ import E213.Lib.Math.Geometry.AngleStructure
 import E213.Lib.Math.Foundations.ArityForcingGeneral
 import E213.Lib.Math.Foundations.AxiomSystems
 import E213.Lib.Math.Foundations.MeasureInduction
+import E213.Lib.Math.Foundations.IndistinguishableAtom
 import E213.Lib.Math.Logic
 import E213.Lib.Math.Geometry.BipartiteDecomp
 import E213.Lib.Math.Geometry.CartesianVsDisjoint
