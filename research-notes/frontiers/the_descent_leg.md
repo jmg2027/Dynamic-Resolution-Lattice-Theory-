@@ -356,8 +356,11 @@ carrier (`IsRawNat`), the natural-number induction (`rawNat_induction`, `IsRawNa
 `slash`-successor, the Peano laws, and the commutative-semiring discipline.  *Still borrowed*: the
 kernel's `inductive` mechanism itself (to have `Raw`/`IsRawNat` — the distinguishing *is* an inductive
 act, conceded in Attack 1), and `Nat` as the `depth` **readout** type (a Lens reading *out*, the
-legitimate direction).  The live `RawNat` infrastructure still carries `∃ n` for continuity, but
-§5 shows it is `Nat`-free *in principle*.
+legitimate direction).  **Update**: the carrier is now *actually* flipped — `RawNat = { r : Raw // IsRawNat r }`, a
+`Nat`-free type; `succ = ⟨rawSucc x.val, x.2.step⟩`, `toNat_succ` is `Nat`-free via `rawSucc_depth`
+(the `slash` fires as `a/r`, `a ≠ r`, adding one level), and `add`'s carrier witness is
+`isRawNat_addRaw`.  The `∃ n` tower index survives only as a *derived reading* (`tower_of_isRawNat`),
+used inside `ofNat_toNat`/`toNat_add`/`zero_or_succ` to bridge to `depth` facts.
 
 **Count-spine reading done** (`Lib/.../UniverseChain/RawNatCensus.lean`, ∅-axiom): the `RawRecurrence`
 population `2,3,5,12,68,…` (`rawCount n = 2 + C(rawCount (n−1), 2)`, Mingu's recurrence — canonical

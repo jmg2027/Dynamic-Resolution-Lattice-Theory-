@@ -9,8 +9,10 @@ not *borrowed* from Lean's `Nat` but *generated* as a reading of `Raw`.  The car
 `Raw` elements; the successor is a `slash`-operation; Peano holds; and Lean's `Nat` is recovered as
 the **`depth` Lens reading** — a homomorphism, not the source.
 
-  * carrier  `RawNat` — the `slash`-successor spine `{ r : Raw // ∃ n, rawTower n = r }`.
-  * `zero`   — the seed `rawTower 0 = b` (the first distinguishing, no `slash` yet).
+  * carrier  `RawNat = { r : Raw // IsRawNat r }` — the `slash`-successor closure, defined with **no
+    `Nat`** (`IsRawNat`: the inductive closure of `b` under `rawSucc`; the `∃ n` tower index is a
+    derived reading via `tower_of_isRawNat`).
+  * `zero`   — the seed `b` (the first distinguishing, no `slash` yet).
   * `succ`   — `slashOrSelf Raw.a` (point at it once more with `a`): the *same* `slash` the tower
     iterates, so a step IS one more distinguishing, not an imported `+1`.
   * Peano: `succ_inj`, `succ_ne_zero`, `rec` (induction) — the natural-number *structure* carried by
@@ -32,8 +34,8 @@ content is a reading of the distinguishing.
 namespace E213.Theory.Raw.RawNat
 
 open E213.Theory
-open E213.Theory.Raw.Endomorphic (slashOrSelf)
-open E213.Theory.Raw.PrimitiveTower (rawTower rawTower_depth)
+open E213.Theory.Raw.Endomorphic (slashOrSelf slashOrSelf_of_ne)
+open E213.Theory.Raw.PrimitiveTower (rawTower rawTower_depth a_ne_b)
 open E213.Theory.Raw.Lambek (IsPart isPart_wf)
 open E213.Theory.Raw.MuNuMirror (tower_ascent_isPart)
 
@@ -52,32 +54,82 @@ theorem rawTower_inj {m n : Nat} (h : rawTower m = rawTower n) : m = n := by
     _ = (rawTower n).depth := congrArg Raw.depth h
     _ = n := rawTower_depth n
 
+/-! ## §1b — the carrier as the `Nat`-free `slash`-successor closure -/
+
+/-- `IsRawNat r` — `r` is reachable from the first distinguishing `b` by the `slash`-successor
+    `rawSucc` ("point once more with `a`").  The naturals as a purely `Raw` inductive closure; **no
+    `Nat` in the definition**.  This is the `RawNat` carrier. -/
+inductive IsRawNat : Raw → Prop where
+  | base : IsRawNat Raw.b
+  | step {r : Raw} : IsRawNat r → IsRawNat (rawSucc r)
+
+/-- ★ **Nat-free induction.**  Proving `P` over the whole successor-closure needs only the seed `b`
+    and the `rawSucc`-step: `IsRawNat.rec`, with **no `Nat`** and no well-foundedness — the inductive's
+    own recursor is the natural-number recursion. -/
+theorem rawNat_induction {P : Raw → Prop} (hb : P Raw.b)
+    (hs : ∀ r, IsRawNat r → P r → P (rawSucc r)) {r : Raw} (h : IsRawNat r) : P r := by
+  induction h with
+  | base => exact hb
+  | step hr ih => exact hs _ hr ih
+
+/-- The seed is `rawTower 0` and `rawSucc` is the tower step, so the `Nat`-free closure is exactly the
+    tower image. -/
+theorem isRawNat_of_tower : ∀ n, IsRawNat (rawTower n)
+  | 0     => IsRawNat.base
+  | n + 1 => (isRawNat_of_tower n).step
+
+theorem tower_of_isRawNat {r : Raw} (h : IsRawNat r) : ∃ n, rawTower n = r := by
+  induction h with
+  | base => exact ⟨0, rfl⟩
+  | step _ ih => obtain ⟨n, hn⟩ := ih; exact ⟨n + 1, by rw [← hn]; rfl⟩
+
+/-- ★ **The two carriers coincide.**  The `Nat`-free `IsRawNat` and the tower-index `∃ n` define the
+    same subset of `Raw`; the `∃ n` form is just its tower reading. -/
+theorem isRawNat_iff (r : Raw) : IsRawNat r ↔ ∃ n, rawTower n = r :=
+  ⟨tower_of_isRawNat, fun ⟨n, hn⟩ => hn ▸ isRawNat_of_tower n⟩
+
+/-- Every closure element differs from the atom `a` — so its `rawSucc` fires as a genuine `slash`. -/
+theorem isRawNat_ne_a {r : Raw} (h : IsRawNat r) : Raw.a ≠ r := by
+  induction h with
+  | base => exact a_ne_b
+  | @step s _ ih =>
+      rw [show rawSucc s = Raw.slash Raw.a s ih from slashOrSelf_of_ne ih]
+      exact (Raw.slash_ne_a Raw.a s ih).symm
+
+/-- ★ **The successor raises depth by exactly one**, `Nat`-free: a closure element's `rawSucc` fires
+    as `a / r` (`a ≠ r`), and a slash adds one level over `max`-depth `= r.depth`. -/
+theorem rawSucc_depth {r : Raw} (h : IsRawNat r) : (rawSucc r).depth = r.depth + 1 := by
+  have hne : Raw.a ≠ r := isRawNat_ne_a h
+  have hmax : max 0 r.depth = r.depth :=
+    (E213.Tactic.NatHelper.max_comm_pure 0 r.depth).trans
+      (E213.Tactic.NatHelper.max_eq_left_pure (Nat.zero_le r.depth))
+  rw [show rawSucc r = Raw.slash Raw.a r hne from slashOrSelf_of_ne hne,
+      Raw.depth_slash Raw.a r hne, show Raw.depth Raw.a = 0 from rfl, hmax, Nat.add_comm]
+
 /-! ## §2 — the carrier and its Peano structure -/
 
-/-- The naturals object: the `slash`-successor spine inside `Raw`. -/
-def RawNat : Type := { r : Raw // ∃ n, rawTower n = r }
+/-- The naturals object: the `slash`-successor spine inside `Raw`, carried by the `Nat`-free
+    `IsRawNat` (the `∃ n` tower reading is recovered by `tower_of_isRawNat`). -/
+def RawNat : Type := { r : Raw // IsRawNat r }
 
 namespace RawNat
 
 /-- `0` is the seed `b` — the first distinguishing, no `slash` applied. -/
-def zero : RawNat := ⟨rawTower 0, ⟨0, rfl⟩⟩
+def zero : RawNat := ⟨Raw.b, IsRawNat.base⟩
 
-/-- Successor: apply the spine's arrow `rawSucc` once more.  The carrier proof advances the index. -/
-def succ (x : RawNat) : RawNat :=
-  ⟨rawSucc x.val, by
-    obtain ⟨n, hn⟩ := x.2
-    exact ⟨n + 1, by rw [← hn]; rfl⟩⟩
+/-- Successor: apply the spine's arrow `rawSucc` once more; the carrier proof is one `step`. -/
+def succ (x : RawNat) : RawNat := ⟨rawSucc x.val, x.2.step⟩
 
 /-- The `depth` Lens reading: the rung's depth is its natural-number value. -/
 def toNat (x : RawNat) : Nat := x.val.depth
 
 /-- The inverse reading: the `n`-th rung. -/
-def ofNat (n : Nat) : RawNat := ⟨rawTower n, ⟨n, rfl⟩⟩
+def ofNat (n : Nat) : RawNat := ⟨rawTower n, isRawNat_of_tower n⟩
 
 @[simp] theorem toNat_ofNat (n : Nat) : toNat (ofNat n) = n := rawTower_depth n
 
 theorem ofNat_toNat (x : RawNat) : ofNat (toNat x) = x := by
-  obtain ⟨n, hn⟩ := x.2
+  obtain ⟨n, hn⟩ := tower_of_isRawNat x.2
   apply Subtype.ext
   show rawTower x.val.depth = x.val
   rw [← hn, rawTower_depth]
@@ -91,9 +143,8 @@ theorem toNat_zero : toNat zero = 0 := rfl
 /-- The Lens commutes with successor: `depth (succ x) = depth x + 1`.  The structural heart — one
     `slash`-step is exactly one unit of depth. -/
 theorem toNat_succ (x : RawNat) : toNat (succ x) = toNat x + 1 := by
-  obtain ⟨n, hn⟩ := x.2
   show (rawSucc x.val).depth = x.val.depth + 1
-  rw [← hn, rawSucc_tower, rawTower_depth, rawTower_depth]
+  exact rawSucc_depth x.2
 
 theorem ofNat_zero : ofNat 0 = zero := rfl
 
@@ -148,18 +199,21 @@ theorem addRaw_tower (n : Nat) : ∀ k, addRaw (rawTower n) k = rawTower (n + k)
     rw [addRaw_tower n k]
     exact rawSucc_tower (n + k)
 
+/-- Iterating the `slash`-successor stays in the closure. -/
+theorem isRawNat_addRaw {r : Raw} (h : IsRawNat r) : ∀ k, IsRawNat (addRaw r k)
+  | 0     => h
+  | k + 1 => (isRawNat_addRaw h k).step
+
 namespace RawNat
 
 /-- Addition: apply the `slash`-successor to `x`, `depth y` times. -/
 def add (x y : RawNat) : RawNat :=
-  ⟨addRaw x.val (toNat y), by
-    obtain ⟨n, hn⟩ := x.2
-    exact ⟨n + toNat y, by rw [← hn]; exact (addRaw_tower n (toNat y)).symm⟩⟩
+  ⟨addRaw x.val (toNat y), isRawNat_addRaw x.2 (toNat y)⟩
 
 /-- ★ **The `depth` Lens is additive.**  `depth (add x y) = depth x + depth y` — the generated `+`
     reads as `Nat`'s `+`. -/
 theorem toNat_add (x y : RawNat) : toNat (add x y) = toNat x + toNat y := by
-  obtain ⟨n, hn⟩ := x.2
+  obtain ⟨n, hn⟩ := tower_of_isRawNat x.2
   show (addRaw x.val (toNat y)).depth = x.val.depth + toNat y
   rw [← hn, addRaw_tower, rawTower_depth, rawTower_depth]
 
@@ -251,8 +305,8 @@ no `Nat` well-foundedness. -/
     `Raw`'s proven well-founded peel, not `Nat.lt`. -/
 theorem strongRec_isPart {P : RawNat → Prop}
     (ih : ∀ x : RawNat, (∀ y : RawNat, IsPart y.val x.val → P y) → P x) : ∀ x, P x := by
-  have key : ∀ r : Raw, ∀ hr : ∃ n, rawTower n = r, P ⟨r, hr⟩ := fun r =>
-    isPart_wf.induction (C := fun r => ∀ hr : ∃ n, rawTower n = r, P ⟨r, hr⟩) r
+  have key : ∀ r : Raw, ∀ hr : IsRawNat r, P ⟨r, hr⟩ := fun r =>
+    isPart_wf.induction (C := fun r => ∀ hr : IsRawNat r, P ⟨r, hr⟩) r
       (fun x IH hr => ih ⟨x, hr⟩ (fun y hy => IH y.val hy y.2))
   exact fun x => key x.val x.2
 
@@ -260,11 +314,11 @@ theorem strongRec_isPart {P : RawNat → Prop}
     predecessor's descent is `tower_ascent_isPart` — the peel that `isPart_wf` discharges. -/
 theorem zero_or_succ (x : RawNat) :
     x = zero ∨ ∃ w : RawNat, x = succ w ∧ IsPart w.val x.val := by
-  obtain ⟨n, hn⟩ := x.2
+  obtain ⟨n, hn⟩ := tower_of_isRawNat x.2
   cases n with
   | zero => exact Or.inl (Subtype.ext hn.symm)
   | succ m =>
-    refine Or.inr ⟨⟨rawTower m, ⟨m, rfl⟩⟩, ?_, ?_⟩
+    refine Or.inr ⟨⟨rawTower m, isRawNat_of_tower m⟩, ?_, ?_⟩
     · apply Subtype.ext
       show x.val = rawSucc (rawTower m)
       rw [rawSucc_tower]; exact hn.symm
@@ -282,46 +336,5 @@ theorem rec_grounded {P : RawNat → Prop} (h0 : P zero) (hs : ∀ x, P x → P 
   · rw [hw]; exact hs w (IH w hpart)
 
 end RawNat
-
-/-! ## §5 — the carrier defined *without* `Nat`: the `slash`-successor closure
-
-§4 grounded the recursion *descent* in `isPart_wf`, but the carrier `{ r // ∃ n, rawTower n = r }`
-still mentions `Nat` (the index `n`).  Here the carrier is given with **no `Nat` at all**: `IsRawNat`
-is the inductive closure of the seed `b` under the `slash`-successor `rawSucc`.  Its own recursor
-`IsRawNat.rec` *is* natural-number induction — structural, no `Nat`, no well-foundedness machinery —
-and it coincides exactly with the tower carrier (`isRawNat_iff`). -/
-
-/-- `IsRawNat r` — `r` is reachable from the first distinguishing `b` by the `slash`-successor
-    `rawSucc` ("point once more with `a`").  The naturals as a purely `Raw` inductive closure; no
-    `Nat` in sight. -/
-inductive IsRawNat : Raw → Prop where
-  | base : IsRawNat Raw.b
-  | step {r : Raw} : IsRawNat r → IsRawNat (rawSucc r)
-
-/-- ★ **Nat-free induction.**  Proving `P` over the whole successor-closure needs only the seed `b`
-    and the `rawSucc`-step: `IsRawNat.rec`, with **no `Nat`** and no well-foundedness — the inductive's
-    own recursor is the natural-number recursion. -/
-theorem rawNat_induction {P : Raw → Prop} (hb : P Raw.b)
-    (hs : ∀ r, IsRawNat r → P r → P (rawSucc r)) {r : Raw} (h : IsRawNat r) : P r := by
-  induction h with
-  | base => exact hb
-  | step hr ih => exact hs _ hr ih
-
-/-- The seed is `rawTower 0` and `rawSucc` is the tower step, so the `Nat`-free closure is exactly the
-    tower image. -/
-theorem isRawNat_of_tower : ∀ n, IsRawNat (rawTower n)
-  | 0     => IsRawNat.base
-  | n + 1 => (isRawNat_of_tower n).step
-
-theorem tower_of_isRawNat {r : Raw} (h : IsRawNat r) : ∃ n, rawTower n = r := by
-  induction h with
-  | base => exact ⟨0, rfl⟩
-  | step _ ih => obtain ⟨n, hn⟩ := ih; exact ⟨n + 1, by rw [← hn]; rfl⟩
-
-/-- ★ **The two carriers coincide.**  The `Nat`-free `IsRawNat` and the tower-index `∃ n` define the
-    same subset of `Raw` — so `RawNat` could be carried by `IsRawNat` with no `Nat` in its definition,
-    the `∃ n` form being just its tower reading. -/
-theorem isRawNat_iff (r : Raw) : IsRawNat r ↔ ∃ n, rawTower n = r :=
-  ⟨tower_of_isRawNat, fun ⟨n, hn⟩ => hn ▸ isRawNat_of_tower n⟩
 
 end E213.Theory.Raw.RawNat
