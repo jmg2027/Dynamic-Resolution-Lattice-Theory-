@@ -251,8 +251,12 @@ evidence read as confirmation*.)
   1-cochain (`PredicateAsCochain`, `rfl`), `object1_not_surjective` = `coker(Object1) ≠ 0`.
   And `ResidueReentry.residue_reentry_never_closes (n)` already gives the **graded obstruction
   tower** (non-surjective at *every* re-entry depth `n`) — the binary residue is *already
-  graded*, a proto-cohomology. **Prime next-build**: full `∂²=0` chain-complex + the
-  connecting map `H^n→H^{n+1}` = the re-entry encoding (currently 213 owns the coker tower,
+  graded*, a proto-cohomology. **Deposited** (this session): `ResidueReentry.graded_residue_tower`
+  — `∀ n, coker(Object1 ∘ predicateToRaw n) ≠ 0 ∧` the undifferentiated predicate is a named
+  non-fixed-point at that depth; the panel's strongest *content* now machine-checked as a
+  single ∅-axiom `∀ n` capstone (PURE), with the honest cohomological-reading scope in its
+  docstring. **Prime next-build (still open)**: full `∂²=0` chain-complex + the connecting map
+  `H^n→H^{n+1}` = the re-entry encoding (213 owns the coker tower with a graded `∀ n` witness,
   *not yet* the chain complex — honest gap).
 - **Information theory — CONTENT.** Shannon bit = count-Lens of one distinguishing
   (`Entropy.H(uniform 2^n)=n` by `rfl`). The residue = Kolmogorov-incompressible / Chaitin Ω =

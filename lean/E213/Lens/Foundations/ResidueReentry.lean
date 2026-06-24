@@ -262,4 +262,37 @@ theorem object1_b_singlepoint_nonfixed (n : Nat) :
   intro h
   exact numeral_ne_b 0 (object1_injective h)
 
+/-! ## §6 — the graded residue tower (every depth obstructs)
+
+§1–§5 fix one re-entry level `n`.  Read across all `n` at once: the non-closure and
+its concrete non-fixed-point hold **uniformly in the depth `n`**.  The cross-disciplinary
+panel (`research-notes/frontiers/the_one_act.md`, R4 convergence-audit) named this the
+strongest *content* of the seminar — the residue is not a single gap but a **graded
+obstruction tower**: at every re-entry depth `n` the cover fails to close (`coker ≠ 0`),
+and a *named* witness (the undifferentiated predicate) realises the failure at that depth.
+
+**Honest scope (cohomological reading, not yet a chain complex).**  Calling this a "tower"
+is the obstruction/cokernel reading: at each degree `n`, `Object1 ∘ predicateToRaw n` has a
+non-vanishing cokernel (a predicate outside its image), witnessed by `fun _ => true`.  It is
+**not yet** a `∂² = 0` chain complex with connecting maps between degrees — that (the genuine
+homological residue tower, with `∂_{n+1} ∘ ∂_n = 0` and a long exact sequence) remains the
+open frontier (`the_one_act.md`, carried seam).  What is machine-checked here is only the
+graded *non-vanishing*: `∀ n, coker ≠ 0`, uniformly, with a per-degree witness — the diagonal
+signature (the residue re-appears at every depth), not a discovered chain complex. -/
+
+/-- ★★★ **The graded residue tower.**  Uniformly in the re-entry depth `n`: the re-pointing
+    composite `Object1 ∘ predicateToRaw n` is not surjective (a residue persists at every
+    depth) **and** the undifferentiated predicate `fun _ => true` is a named non-fixed-point
+    at that depth (the residue's cleanest member realises the obstruction at every degree).
+
+    This is the graded form of `residue_reentry_concrete`: not "the cover fails to close at
+    some level" but "it fails at **every** level, with the same named witness."  The residue
+    is a tower of obstructions — one per re-entry depth — not a single gap.  (Scope: the
+    cokernel-non-vanishing reading; a `∂² = 0` chain complex is the open seam, see §6 note.) -/
+theorem graded_residue_tower :
+    ∀ n : Nat,
+      ¬ Function.Surjective (fun P : Raw → Bool => Object1 (predicateToRaw n P))
+      ∧ Object1 (predicateToRaw n (fun _ : Raw => true)) ≠ (fun _ : Raw => true) :=
+  fun n => ⟨residue_reentry_never_closes n, reentry_undifferentiated_nonfixed n⟩
+
 end E213.Lens.Foundations.ResidueReentry
