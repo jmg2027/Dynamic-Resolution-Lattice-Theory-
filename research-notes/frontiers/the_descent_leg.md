@@ -346,3 +346,26 @@ boundary for the multiplicative discipline — the descent leg's first deep-disc
 
 **Bonus**: the `div_add_mod` fuel-rewrite removes `Nat.strongRecOn` from *every* downstream user of
 `minFac`/`leastFactorFrom`, not just FTA (Meta.Nat builds clean, 108 modules).
+
+### UPDATE (2026-06-24, cont. 3): division rebuilt structurally — the divisibility primitive (PURE ✓)
+
+Toward removing the residual `Nat.lt_wfRel` (from `Nat.div`/`Nat.mod`, kernel WF-recursion).  The
+divisibility test is the load-bearing use of `Nat.mod` in `minFac`/`leastFactorFrom`.  Rebuilt it
+**structurally from subtraction** (`Meta/Nat/SubMod213.lean`, 3★ + helpers, all ∅-axiom):
+
+- `subMod fuel a b` — `a mod b` by repeated `Nat.sub` (structural `Nat.rec` on fuel);
+- `subMod_eq` — `a = b·q + subMod fuel a b`; `subMod_lt` — remainder `< b` when fuel ample;
+- `subMod_zero_iff_dvd` — `subMod a a b = 0 ↔ b ∣ a` (both directions): the `Nat.mod`-free
+  divisibility decision.
+
+**Verified clean**: closure walk shows `lt_wfRel=false, strongRecOn=false, Nat.mod=false,
+Nat.div=false`, and `#print axioms` empty (∅-axiom).  `Nat.sub` is structural and clean, so the whole
+primitive is.  (Integrity notes: a first draft leaked `propext` via `Nat.add_sub_cancel'`,
+`Nat.zero_mod`-style core lemmas, and `Nat.le_of_add_le_add_left` — all replaced by the repo's clean
+`NatHelper.sub_add_cancel` and a hand-proved `le_add_cancel_left`; caught by `#print axioms`.)
+
+**Remaining (mechanical)**: rewire `leastFactorFrom`/`minFac` to branch on `subMod n n k` instead of
+`n % k`, reprove `minFac_spec` via `subMod_zero_iff_dvd`, and run FTA existence on the **divisibility
+witness `q`** (from `minFac n ∣ n`) instead of `n / minFac n` — which removes `Nat.div` too.  Then the
+whole FTA chain is `lt_wfRel`-free: division fully rebuilt from the distinguishing's subtraction.  The
+hard reusable part (the clean primitive) is done; the rewire is copy-and-swap.
