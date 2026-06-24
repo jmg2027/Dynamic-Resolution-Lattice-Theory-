@@ -17,6 +17,8 @@ the **`depth` Lens reading** — a homomorphism, not the source.
     iterates, so a step IS one more distinguishing, not an imported `+1`.
   * Peano: `succ_inj`, `succ_ne_zero`, `rec` (induction) — the natural-number *structure* carried by
     `Raw`'s combinatorics.
+  * order  `le x y := ∃ z, add x z = y` — additive reachability, proved `↔ toNat x ≤ toNat y`
+    (`le_iff_toNat`); with §3's semiring this makes `RawNat` an **ordered commutative semiring**.
   * `toNat`/`ofNat` — the `depth` Lens and its inverse, a Peano isomorphism `RawNat ≃ ℕ`
     (`toNat_zero`, `toNat_succ`, `toNat_ofNat`, `ofNat_toNat`): Lean's `Nat` is the depth-reading of
     this spine.
@@ -334,6 +336,48 @@ theorem rec_grounded {P : RawNat → Prop} (h0 : P zero) (hs : ∀ x, P x → P 
   rcases zero_or_succ x with hz | ⟨w, hw, hpart⟩
   · rw [hz]; exact h0
   · rw [hw]; exact hs w (IH w hpart)
+
+/-! ### §6 — the order: additive reachability, reading as `≤`
+
+`x ≤ y` is the **generated** order — `y` is reached from `x` by adding some `RawNat` (`∃ z, x + z = y`),
+i.e. by applying the `slash`-successor finitely often.  It is proved to coincide with the `depth`
+reading `toNat x ≤ toNat y`, so the partial-order + totality + additive-monotonicity all transport,
+and `RawNat` is an **ordered commutative semiring**. -/
+
+/-- The additive order: `y` is `x` plus some `RawNat`. -/
+def le (x y : RawNat) : Prop := ∃ z : RawNat, add x z = y
+
+/-- ★ **The generated order reads as `≤`.**  Additive reachability coincides with the `depth` order. -/
+theorem le_iff_toNat (x y : RawNat) : le x y ↔ toNat x ≤ toNat y := by
+  constructor
+  · rintro ⟨z, hz⟩
+    rw [← hz, toNat_add]
+    exact Nat.le_add_right _ _
+  · intro h
+    obtain ⟨k, hk⟩ := Nat.le.dest h
+    refine ⟨ofNat k, ?_⟩
+    apply toNat_inj
+    rw [toNat_add, toNat_ofNat, hk]
+
+theorem le_refl (x : RawNat) : le x x := ⟨zero, add_zero x⟩
+
+theorem le_trans {x y z : RawNat} (hxy : le x y) (hyz : le y z) : le x z :=
+  (le_iff_toNat x z).mpr
+    (Nat.le_trans ((le_iff_toNat x y).mp hxy) ((le_iff_toNat y z).mp hyz))
+
+theorem le_antisymm {x y : RawNat} (hxy : le x y) (hyx : le y x) : x = y :=
+  toNat_inj (Nat.le_antisymm ((le_iff_toNat x y).mp hxy) ((le_iff_toNat y x).mp hyx))
+
+theorem le_total (x y : RawNat) : le x y ∨ le y x := by
+  rcases Nat.le_total (toNat x) (toNat y) with h | h
+  · exact Or.inl ((le_iff_toNat x y).mpr h)
+  · exact Or.inr ((le_iff_toNat y x).mpr h)
+
+/-- `+` is order-preserving on the left — `RawNat` is an ordered semiring. -/
+theorem add_le_add_left {y z : RawNat} (h : le y z) (x : RawNat) : le (add x y) (add x z) := by
+  refine (le_iff_toNat _ _).mpr ?_
+  rw [toNat_add, toNat_add]
+  exact Nat.add_le_add_left ((le_iff_toNat y z).mp h) (toNat x)
 
 end RawNat
 

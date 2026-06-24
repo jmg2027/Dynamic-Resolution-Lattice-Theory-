@@ -325,10 +325,11 @@ MulDescentGroundedNoDiv,EuclidPrimesGrounded}`.
 - **arithmetic generated**: `add` iterates `succ` (`depth y` times), `mul (x y) = mulNat x (depth y)`
   iterates `add`; the `depth` Lens is a **semiring homomorphism** onto `ℕ` (`toNat_add`, `toNat_mul`),
   so `+`/`·` *read as* `Nat`'s.
-- **the discipline closed**: `RawNat` is a **commutative semiring** — `add_{comm,assoc}`, `zero_add`,
-  `add_zero`, `mul_{comm,assoc}`, `one_mul`, `mul_one`, `zero_mul`, `mul_zero`, `left_distrib`,
-  `right_distrib` — every law transported through `toNat_inj` from `ℕ`'s, the homomorphism load-bearing
-  (no law re-proved on `Raw`).  `mul_assoc`/`right_distrib` route through `NatHelper.mul_assoc`/`add_mul`
+- **the discipline closed**: `RawNat` is an **ordered commutative semiring** — `add_{comm,assoc}`,
+  `zero_add`, `add_zero`, `mul_{comm,assoc}`, `one_mul`, `mul_one`, `zero_mul`, `mul_zero`,
+  `left_distrib`, `right_distrib`, plus the order `le x y := ∃ z, add x z = y` (additive reachability,
+  proved `↔ toNat x ≤ toNat y` — `le_refl/trans/antisymm/total`, `add_le_add_left`) — every law
+  transported through `toNat_inj` from `ℕ`'s, the homomorphism load-bearing (no law re-proved on `Raw`).  `mul_assoc`/`right_distrib` route through `NatHelper.mul_assoc`/`add_mul`
   (core `Nat.mul_assoc`/`Nat.add_mul` leak propext); `succ_inj`/`succ_ne_zero` via
   `Nat.succ.inj`/`Nat.noConfusion`.  This is the **leg-1 step-2 demonstration**: a classical discipline
   (commutative-semiring arithmetic) realised as a reading of the distinguishing's spine, ∅-axiom.
