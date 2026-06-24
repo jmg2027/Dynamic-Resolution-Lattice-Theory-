@@ -9,6 +9,7 @@ import E213.Theory.Raw.FoldSwap
 import E213.Theory.Raw.Rec
 import E213.Theory.Raw.Endomorphic
 import E213.Theory.Raw.PrimitiveTower
+import E213.Theory.Raw.RawNat
 import E213.Theory.Raw.Lambek
 import E213.Theory.Raw.MuNuMirror
 import E213.Theory.Raw.CoResidue

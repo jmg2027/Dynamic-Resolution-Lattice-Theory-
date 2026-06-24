@@ -312,10 +312,34 @@ source of truth is `Meta/Nat/{SubMod213,SubGcd213,SubBezout213,VpSub213}` +
 `Lib/Math/NumberTheory/{EuclidLemmaGrounded,VpMulGrounded,FTAUniquenessGrounded,
 MulDescentGroundedNoDiv,EuclidPrimesGrounded}`.
 
+### UPDATE (2026-06-24, cont. 12): Leg 1 first brick — ℕ as a reading of the Raw spine (PURE ✓)
+
+`Theory/Raw/RawNat.lean` (∅-axiom): the naturals object **generated** on `Raw`'s own
+`slash`-successor spine, not borrowed.
+
+- carrier `RawNat = { r : Raw // ∃ n, rawTower n = r }` — the `slash`-successor thread;
+- `succ = slashOrSelf Raw.a` (point once more with `a`) — the *same* `slash` `rawTower` iterates, so a
+  step IS one more distinguishing;
+- **Peano** proved from `Raw`'s combinatorics: `succ_inj`, `succ_ne_zero`, `rec` (induction) — derived
+  from depth-injectivity of the spine (`rawTower_depth`), not from `Nat`'s Peano;
+- **arithmetic generated**: `add` iterates `succ` (`depth y` times), `mul` iterates `add`; the `depth`
+  Lens is a **semiring homomorphism** onto `ℕ` (`toNat_add`, `toNat_mul`), so `+`/`·` *read as* `Nat`'s,
+  and the laws (`add_comm`, `add_assoc`, `zero_add`) transport back through the injection with no
+  re-proof on `Raw`.
+
+**Honest scope** (does NOT yet fully close Leg 1): the kernel `inductive Tree` is still borrowed to
+*have* `Raw`, and Lean's `Nat` is borrowed as the index/readout type and as the recursion engine for
+`add`/`mul` (iteration count `= depth y`).  What is genuinely *generated*, not borrowed, is the
+natural-number **structure** (zero, the `slash`-successor, the Peano laws, the semiring laws), carried
+by `Raw` and read by `depth`.  Remaining for full Leg 1: drive the *recursion engine* itself off the
+`Raw` descent (`isPart_wf`) rather than structural `Nat`, and read the `RawRecurrence` count-spine
+`2,3,5,12,…` (a second, wider reading of the same object).  First load-bearing instance of
+"discipline = the distinguishing's reading", though.
+
 ### What remains open here (the conceptual frontier, unchanged)
 
-This note stays as the record of the *still-open* descent-leg frontier — the part the closed
-multiplicative chain does **not** settle:
+This note stays as the record of the *still-open* descent-leg frontier — the part neither the closed
+multiplicative chain nor the Leg-1 first brick settles:
 
 - **Leg 1 — generate ℕ from `Raw`.** The grounded chain still recurses on the kernel's *structural*
   `Nat` (`Nat.rec`, fuel), not a distinguishing-generated `Nat₂₁₃` (promote the `RawRecurrence` spine
