@@ -278,14 +278,14 @@ private theorem range_loop_eq : ∀ (n : Nat) (acc : List Nat),
     exact e1.trans (e3.symm.trans (congrArg (· ++ acc) e2).symm)
 
 /-- `List.range (m+1) = List.range m ++ [m]` — propext-free. -/
-private theorem range_concat (m : Nat) :
+theorem range_concat (m : Nat) :
     List.range (m + 1) = List.range m ++ [m] := by
   show List.range.loop m (m :: []) = List.range m ++ [m]
   exact range_loop_eq m (m :: [])
 
 /-- Every entry of `List.range m` is `< m` — propext-free (`List.mem_range`
     leaks `propext` + `Quot.sound`). -/
-private theorem mem_range_lt : ∀ (x m : Nat), x ∈ List.range m → x < m := by
+theorem mem_range_lt : ∀ (x m : Nat), x ∈ List.range m → x < m := by
   intro x m
   induction m with
   | zero => intro hx; cases hx
@@ -559,7 +559,7 @@ identity** that pairs the two removal orders of each vertex pair.  These are the
 last reusable bridge lemmas before the 2-to-1 cancellation. -/
 
 /-- Membership is preserved by `eraseIdx` (it deletes, never adds). -/
-private theorem mem_eraseIdx_imp_mem : ∀ (L : List Nat) (a y : Nat),
+theorem mem_eraseIdx_imp_mem : ∀ (L : List Nat) (a y : Nat),
     y ∈ L.eraseIdx a → y ∈ L
   | [],      _,     _, h => nomatch h
   | _ :: xs, 0,     _, h => List.Mem.tail _ h

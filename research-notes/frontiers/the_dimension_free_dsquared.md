@@ -1,7 +1,37 @@
 # Frontier — the dimension-free `δ² = 0`
 
-**Status**: open.  The one genuinely-hard core of the 213-native ℤ/2 cochain
-complex; everything around it is closed.
+**Status**: ✅ **CLOSED** (`lean/E213/Lib/Math/Cohomology/DeltaSqZero.lean`).
+`delta_sq_zero_general : ∀ {n k} (σ : Cochain n k) (τ : Fin (binom n (k+2))),
+delta (delta σ) τ = false` — `#print axioms` reports **no axioms**.  The genuine
+chain-complex law, uniform in the dimension `n` and degree `k`, ∅-axiom, no
+`decide`/Fintype.
+
+## How it closed
+
+`δ²σ(τ)` unfolds — twice `DeltaSqZero.deltaAt_eq_xorFold` (reading `σ` through
+`cochainAtNat`, `false` out of range, so `deltaAt`'s dependent-`if` `foldl`
+becomes a guard-free `xorFold`), with the colex bijection (`kSubset_subsetIdx` +
+the face-validity lemmas `kSubset_sorted`/`sorted_eraseIdx`/`subsetIdx_lt`)
+collapsing the inner `kSubset ∘ subsetIdx` to the genuine double-erase face — to
+a single `xorFold` over the `(k+2)×(k+1)` removal grid (`gridList`,
+`xorFold_gridList`).  The order-swap involution `gridInv : (a,b) ↦ (b+1,a)` for
+`a ≤ b` is fixed-point-free and preserves the summand (the two removal orders hit
+the same face, `eraseIdx_eraseIdx_comm`), so `xorFold_involution` cancels every
+value in pairs (`grid_xorFold_zero`).  The whole chain is `∅`-axiom.
+
+This is exactly the work Mathlib hides inside `AlternatingFaceMapComplex`, here
+owned from scratch over the brute-force colex `foldl` representation.
+
+## Remaining (a *different*, deeper frontier)
+
+The **Cantor / re-entry coker** unification (`the_one_act.md`) — exhibiting the
+diagonal residue (`Object1`) as the cohomology of an honest 213-native complex —
+is a separate open problem, not this one.  `δ²=0` for the simplicial complex is
+done.
+
+---
+
+## (historical) What was closed before the finish
 
 ## What is closed
 
