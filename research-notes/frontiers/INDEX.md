@@ -483,6 +483,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   the count-Lens essays; §5.2 Bool-vs-Nat self-reference operationalized.  Open
   side: generating the dial's on-state (a Raw-native multiplicative descent over
   distinguishable primes) — the `the_genesis_seam` FTA frontier.
+- `naturals_three_readings_crossdomain` — **this branch ↔ main, 3 insights**: (1) ℕ is
+  generated *three* ways — multiplicity (count-shadow, `arithmetic_generation`), depth
+  (successor-spine, `naturals_from_the_spine`), population (`2,3,5,12`, `RawNatCensus`)
+  — three count-Lenses on one distinguishing; (2) "forced by the distinguishing" gains a
+  third scale *below* axis/atoms — the forced **primitive** (`arity_distinctness_forcing`);
+  (3) the genesis-seam's "un-generatable FTA boundary" was *dissolved* — uniqueness
+  completes on a structural `subMod` descent (`FTAUniquenessGrounded`), so the boundary was
+  generated-vs-borrowed-engine, not generated-vs-ungeneratable.  Seeds an essay (insight 1).
 - `cup_leibniz_general` — **the ∀(k,l) self-referential lex-cup Leibniz**:
   the uniform (parametric-in-bidegree) Cup-Leibniz closure above the closed
   fixed-bidegree CupAW family.  Named only in the `cupaw.md` tail; now tracked
