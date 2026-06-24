@@ -117,6 +117,31 @@ on the one distinguishing.  The edge is now a verified node, not a claim.
 `Nat.add_left_cancel` (propext) had to be swapped for `Nat.ne_of_lt ∘ Nat.lt_add_of_pos_right`
 (pure).  The taxonomy predicted the move before the peel produced it.
 
+## A second bottom — the lattice discriminates
+
+Not everything shares cluster A's bottom; that is the point of a *lattice*.  A second cluster —
+FTA / multiplicative descent (`MulDescentRec.mulDescentRec`), the additive Raw descent
+(`Theory.Raw.no_infinite_descent`), the `Ω`-descent (`BigOmega.no_infinite_mul_descent`) — does
+**not** peel to an involution.  It bottoms in **measure-descent**: a measure into `ℕ` that
+strictly decreases has no infinite chain.  Its engine is now named:
+`Foundations.MeasureInduction.measureInduction` (`∀ a, P a` from `∀ a, (∀ b, f b < f a → P b) →
+P a`), proved by **structural `Nat.rec`** — `cic_footprint` verdict **MINIMAL-STRUCTURAL**, no
+`Acc.rec` (the corpus's usual `Nat.strongRecOn` route is EXTENDED-FRAGMENT; routing descent
+through `measureInduction` drops that fragment — a Substitute move on the CIC-footprint axis).
+
+So the **removal-fingerprint discriminates**: cluster A peels to `xorFold_involution` (kernel
+`xor b b = false`), cluster B peels to `measureInduction` (kernel `Nat.rec`).  These are not the
+same bottom, and the fingerprint tells them apart where the abstract forms ("Cantor", "FTA",
+"δ²=0", "even cardinality") do not.
+
+**The two bottoms are the distinguishing's two readings.**  Cluster A's kernel is the *binary*
+distinguishing — `Bool`, the first distinguishing, two-already-distinct.  Cluster B's kernel is
+the *iterated* distinguishing — `ℕ = succ`, the count-Lens reading (`n`-fold slash).  The
+lattice's two resolution-bottoms are exactly `Bool` and `ℕ`: the distinguishing read binary and
+read counted.  The lattice's own floor is the distinguishing, at its two basic arities — which is
+why peeling *any* result lands in one bottom or the other (or a composite): there is nothing
+below the distinguishing to land on (`seed/AXIOM/01_residue.md` §1.3).
+
 ## The stopping criterion (against infinite regress)
 
 Analysing the peel is itself a peel (de-abstracting the abstraction "노가다"), so it can recurse
