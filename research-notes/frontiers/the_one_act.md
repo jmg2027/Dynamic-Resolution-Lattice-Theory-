@@ -160,6 +160,61 @@ residue" (a mechanical purity check on the residue). (2) **Gödel-2 proper** as 
 provability-logic build (the □ modality + D1–D3 + Löb), explicitly outside the OneDiagonal
 engine — to settle whether the verification face reaches Gödel-2 or stays form-agreement.
 
+## Round 3 — two parallel forks, not one (a careful negative), and the honest meta-read
+
+The deepest *content* question left: are the project's three programs — generation (ℕ),
+analysis (reals/φ), residue — the **two poles of one fork**, with arithmetic = converge,
+residue = escape? Investigated the actual Lean. **Answer: a careful negative — there are TWO
+parallel fork structures, distinct in kind, and forcing them into one is the very
+false-symmetry `ResidueTag` already forbids.**
+
+- **Raw-relation level** (`Lens/SelfReferenceThreeOutcomes.self_reference_three_outcomes`):
+  oscillate (`not`, min-period 2) / **converge** (`Lambek.isPart_wf` + `terminal_iff_atom` —
+  the peel relation is *well-founded*, terminal exactly at atoms) / escape (residue, unbounded
+  ascent). A fork on the **peel relation**; its "fixed point" is a *peel-terminal atom*,
+  reached in *finitely many* steps.
+- **Self-map level** (`Lib/Math/Foundations/ResidueTag` ±1): escape (fixed-point-free `f`,
+  `q=−1`) / **converge** (Banach **metric contraction**, `f x = x`, `q=+1`, reached only as a
+  modulus-*limit*). A fork on **self-maps `f : B → B`**.
+
+The two "converge" notions are **different structures**: well-foundedness of a *relation*
+(finite descent to an atom) vs a *self-map's* metric fixed point (infinite limit). They cannot
+be one without smuggling a decision of the fixed-point predicate — exactly the excluded-middle
+collapse `ResidueTag`'s own preamble rules out. So "generation **is** the converge pole" is a
+**force**, not a content-identity; the honest statement is that the two forks are *parallel*
+(same three names) and *the residue's escape pole is shared in form* (both forks'
+fixed-point-free branch is `no_surjection_of_fixedpointfree`'s engine), but the converge
+branches are genuinely two flavors (structural-finite / metric-limit). No new theorem added —
+the honest move here is to *resist* the unification, not formalize it (the existing theorems
+are correct as they stand).
+
+**The honest meta-read (the partner's duty).** Across three seminar rounds the genuine *new
+content* has shrunk and the risk of the very over-reaches the corpus catalogs (deepity /
+View-as-identity / false-symmetry) has grown — and the last two rounds were *self-corrections*
+(Round 2: "self-application is more primitive" and "defeq IS the distinguishing" both refuted;
+Round 3: "one fork" refused). That pattern is the signal: **the conceptual frontier is
+mapped.** The floor (distinguishing, self-enforcing, showing-not-saying), the no-exterior
+(positive: *suffices*, not *only-possible*), the identity (one map, three readings —
+form-agreement), the deepity line ("forces" not "is"), the ±1 fork and its two altitudes, and
+the verification face (Tarski/Gödel-1 genuine instances, Gödel-2 form-agreement) are all in
+place, each with its honest guard. Further *philosophical* rounds would manufacture deepity —
+which the skeptic (Round 2) and `ResidueTag` (Round 3) both warn against.
+
+**What remains is engineering, not debate** — substantial, multi-session, content-bearing:
+1. the **signed escape-pole census** (Round 2 carry): a proof-*term* invariant (not
+   constant-closure) tagging `+1` converge-`rfl` / `−1` escape-`Ne` nodes — "the residue must
+   exhibit its escape pole in the bare proof term"; needs `MetaM`/`inferType`-level term
+   traversal, a real tool-build.
+2. **Gödel-2 proper** — a GL / provability-logic formalization (`□` + D1–D3 + Löb), explicitly
+   *outside* the OneDiagonal engine, to settle whether the verification face reaches Gödel-2 or
+   stays form-agreement.
+3. route `cantor_general` / `object1_not_surjective` through the `lawvere_fixed_point` engine
+   (needs the generic Lawvere lemmas moved upstream of `Cantor.lean`) — makes the unification
+   load-bearing in the proof graph, and is the precondition for the escape-pole census to be
+   non-trivial.
+
+These are the genuine next steps; they are *work*, not *more seminar*.
+
 ## Cross-refs
 
 - `theory/essays/foundations/the_distinguishing_is_the_primitive.md` (the floor self-enforcing;
