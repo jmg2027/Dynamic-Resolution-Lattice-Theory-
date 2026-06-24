@@ -478,3 +478,25 @@ and *Euclid's lemma* — all ∅-axiom, none borrowing `Nat.div`/`Nat.mod`/`stro
 *uniqueness* now reduces to `vp`-multiplicativity (`vp_mul`) on top of grounded `prime_dvd_mul`, which
 is mechanical (the conceptual content was Euclid's lemma).  The descent leg's hardest number-theory
 wall is behind us.
+
+### UPDATE (2026-06-24, cont. 10): grounded `vₚ` + multiplicativity — FTA-uniqueness gear (PURE ✓)
+
+On top of the grounded Euclid's lemma (cont.9), the prime-power valuation is now grounded too.
+`Valuation.vp` decides each step on `n % qᵏ = 0` — the `decEq` is clean but `Nat.mod` itself is
+`lt_wfRel`/`WellFounded.fix`-dirty (verified: `vp` closure carries `Nat.mod`, `Nat.lt_wfRel`).
+
+- **`Meta/Nat/VpSub213.lean`** — `vpSub`, the identical downward search rebuilt on `subMod`: the step
+  decides `subMod n n (qᵏ) = 0` and bridges divisibility through `subMod_zero_iff_dvd` instead of
+  `dvd_of_mod_eq_zero`/`mod_zero_of_dvd`.  The four laws (`pow_vpSub_dvd`, `vpSub_ge`,
+  `vpSub_not_dvd_succ`, `le_vpSub_iff`) mirror `Valuation` verbatim, reusing its clean
+  `drefl`/`dtrans`/`pow_dvd_of_le` helpers.  All ∅-axiom, closure clean (no `Nat.mod`/`Nat.div`/
+  `Nat.lt_wfRel`).
+- **`Lib/Math/NumberTheory/VpMulGrounded.lean`** — `vpSub_mul`: `vpSub p (a·b) = vpSub p a + vpSub p b`
+  (`p` prime, `a,b>0`).  Same bookkeeping as `PrimeValuation.vp_mul` (unit-part extraction
+  `a = pᵅ·u`, `p ∤ u·v` by grounded Euclid), but on `vpSub` and the grounded `prime_dvd_mul`.
+  Closure 460, **zero** bad hits — no `Valuation.vp`, no `gcd213`.
+
+**State**: the prime-power valuation is a fully grounded homomorphism `ℕ_{>0} → ℕ` at primes.  FTA
+*uniqueness* now reduces to `vpSub q (prodL L) = (occurrences of q in L)` for a prime list `L` (list
+induction on `vpSub_mul` + `vpSub q q = 1`, `vpSub q p = 0` for distinct primes), giving
+`prodL L₁ = prodL L₂ → per-prime counts agree`.  That count-capstone is the last mechanical step.
