@@ -296,3 +296,23 @@ existence itself is **not yet rebuilt** on this engine — the next step is to r
 definitions in its cone don't re-introduce `Nat.strongRecOn`. Until that, the deep discipline's
 descent is groundable but not yet grounded. The engine is the reusable keystone; wiring FTA onto it is
 the remaining concrete step.
+
+### UPDATE (2026-06-24, cont.): FTA descent re-routed onto the engine — measured PARTIAL, blocker named
+
+Applied the engine to FTA existence (`NumberTheory/MulDescentGrounded.mul_factorization_exists_grounded`,
+PURE): the descent now goes through `measureInduction_grounded` (peel `n ↦ n/minFac n`, `id`-measure).
+Direct closure walk, grounded vs old:
+
+| | `isPart_wf` | `Nat.strongRecOn` | `Nat.lt_wfRel` |
+|---|---|---|---|
+| old `mul_factorization_exists` | false | true | true |
+| grounded (this file) | **true** | **true** (still) | true |
+
+**Honest verdict: the FTA bar is NOT yet cleared.** Re-routing the descent *added* `isPart_wf` (real
+progress — the recursion now terminates on `Raw`'s descent) but did **not remove** `Nat.strongRecOn`:
+a reused supporting lemma carries it, traced precisely to `minFac_spec` → **`leastFactorFrom_spec`**
+(the least-factor search's correctness proof uses strong recursion). So swapping the descent is
+necessary-not-sufficient; the **`minFac`/`leastFactorFrom` specification chain must be rebuilt on
+structural-fuel induction** as the next concrete step. `Nat.lt_wfRel` remains from `Nat.div` (separate
+borrowed primitive). The deliverable is the *measured accounting*: engine clean, descent grounded,
+remaining blocker isolated to one named lemma — the "win or lose, report honestly" the note asks for.
