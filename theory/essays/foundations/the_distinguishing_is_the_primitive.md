@@ -118,8 +118,9 @@ the unfolding. The grid above is that discharge for two domains. What is *new* i
 Point at it. Generation: `Nat213.Generation.generation_capstone`, `OneDiagonal.one_diagonal_generates`.
 Forcing: `Nat213.Generation.count_reading_forced`, `FlatOntologyClosure.distinguishing_always_leaves_residue`.
 Reading-necessity: `Nat213.Generation.distinguishing_necessary`, `OneDiagonal.residue_needs_distinguishing`.
-Primitive-necessity: `OneDiagonal.no_distinguishing_on_subsingleton`, `raw_has_distinguishing`. All
-∅-axiom (`#print axioms` empty).
+Primitive-necessity: `OneDiagonal.no_distinguishing_on_subsingleton`, `raw_has_distinguishing`.
+Distinguishing = reference = self-reference (one map `Object1` read at three argument-patterns):
+`FlatOntologyClosure.three_as_one_construction`. All ∅-axiom (`#print axioms` empty).
 
 ## Cross-frame connections
 

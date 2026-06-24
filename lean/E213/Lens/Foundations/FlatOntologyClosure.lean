@@ -33,7 +33,7 @@ is finite; the completed-infinite surplus is a finite *name*, not an inhabitant.
 namespace E213.Lens.Foundations.FlatOntologyClosure
 
 open E213.Theory (Raw)
-open E213.Lens.Foundations.FlatOntology (Object1)
+open E213.Lens.Foundations.FlatOntology (Object1 Object1_self)
 open E213.Term.Internal (Tree)
 
 /-- The two atoms differ — propext-free (`Tree.noConfusion`, not `decide`
@@ -140,5 +140,37 @@ theorem distinguishing_always_leaves_residue :
     ∧ ¬ Function.Surjective Object1
     ∧ (∀ r : Raw, Object1 r ≠ undifferentiated) :=
   ⟨object1_injective, object1_not_surjective, undifferentiated_not_object1⟩
+
+/-- ★★★ **Distinguishing = reference = self-reference — one map, three argument-patterns.**
+    The single map `Object1 : Raw → (Raw → Bool)` carries all three "names" the seminar
+    (`theory/essays/foundations/the_distinguishing_is_the_primitive.md`) treats as one act:
+
+    1. **reference IS the distinguishing read as a pointing** — `Object1 r s = true ↔ s = r`:
+       the indicator `Object1 r = (· = r)` points at *exactly* the point `r` distinguishes
+       from every other.  Reference is not added on top of distinguishing; it is the
+       distinguishing presented as a `Raw → Bool` map.
+    2. **self-reference IS that reference self-applied** — `Object1 a a = true`: the diagonal
+       value `decide (a = a)` is `a` referring to itself *by the very predicate that
+       distinguishes it*.  This is the kernel `f a a` of the Lawvere diagonal at `f := Object1`
+       (`OneDiagonal.residue_is_lawvere_diagonal`).
+    3. the act's **non-closure** — `¬ Function.Surjective Object1` — is that one
+       self-application's residue (Cantor).
+
+    So the three are one map `Object1` read at three argument-patterns (`r s`, `a a`,
+    all-of-image), not three constructions.
+
+    **Honest guard** (failure-mode *View-promoted-to-identity*): this is a **Lens reading**
+    (one map, three readings), not a kernel-*forced* identity of three types — exactly the
+    `SelfReferenceThreeOutcomes` "one act, three readings."  The apparent *ascent* to
+    self-reference (the TIER-B climb to the power object `Raw → Bool`,
+    `research-notes/frontiers/below_the_w_type.md`) is the **writing-cost** of reifying the
+    function space to express `f a a`, not a real level above the distinguishing; the act is
+    one.  And "reference" here is **de-intentionalized** — bare directedness (`· = r`), no
+    referring agent (the type `Raw → Bool` contains no mind). -/
+theorem three_as_one_construction :
+    (∀ r s : Raw, Object1 r s = true ↔ s = r)        -- reference = the distinguishing `· = r`
+    ∧ (∀ a : Raw, Object1 a a = true)                 -- self-reference kernel: r refers to itself
+    ∧ ¬ Function.Surjective Object1 :=                 -- the residue (Cantor)
+  ⟨fun _ _ => ⟨of_decide_eq_true, decide_eq_true⟩, Object1_self, object1_not_surjective⟩
 
 end E213.Lens.Foundations.FlatOntologyClosure
