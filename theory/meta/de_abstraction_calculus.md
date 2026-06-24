@@ -341,27 +341,48 @@ non-surjectivity onto the limit, the A.i-diagonal facet.  Continuum = A + B; the
 primitive — the limit *is* the residue (matching CLAUDE.md *Limit/infinity deified*: ∞ enters
 computation only as the discrete modulus).
 
-**Order (inconclusive in-repo, plus a discriminating near-miss).**  213's order theory is
-**parametric** (`lfp_fixed`, Galois connections take `antisymm`/`trans`/the adjunction `Iff` as
-hypotheses) or **degenerate** (the only concrete order `uLe` is `True` on `Unit`, antisymm by
-`cases`).  It never commits a directed primitive, so "directedness" cannot surface a fourth reading
-here — the probe is inconclusive for lack of a concrete directed order.  But the **fixed-point**
-theorems split revealingly: Lawvere/residue is fixed-point-**free** ⟹ non-surjection (A.i);
-Knaster–Tarski is monotone ⟹ a fixed point **exists**, bottoming in antisymmetry (the order-collapse
-`le a b → le b a → a = b`).  And Knaster–Tarski's **totality** ("*every* monotone map has a fixed
-point") rests on lattice completeness — which on an infinite carrier is itself residue-shaped.  The
-totality-built object does not escape the residue: the **Round-4 asymmetry** (totality-built fields
-fail to be total) showing up once more, unbidden, in an order-theory probe.
+**Order (inconclusive in-repo, plus a discriminating near-miss — now *verified*).**  213's order
+theory is **parametric** (`lfp_fixed`, Galois connections take `antisymm`/`trans`/the adjunction
+`Iff` as hypotheses) or **degenerate** (the only concrete order `uLe` is `True` on `Unit`, antisymm
+by `cases`).  It never commits a directed primitive, so "directedness" cannot surface a fourth
+reading here — the probe is inconclusive for lack of a concrete directed order.  But the
+**fixed-point** theorems split revealingly: Lawvere/residue is fixed-point-**free** ⟹ non-surjection
+(A.i); Knaster–Tarski is monotone ⟹ a fixed point **exists**, `lfp = glb {x | f x ≤ x}` with the
+completeness datum `glb : (α → Prop) → α`.
+
+This near-miss was run down and **machine-checked** (`Order/KnasterResidue.lean`, all ∅-axiom).
+Knaster–Tarski does not *escape* the residue — it **reifies** it, and the two fixed-point theorems
+are the **same power-object in opposite directions**: Lawvere maps α **out** to `α → Bool` and the
+diagonal escapes; Knaster–Tarski's completeness `glb : (α → Prop) → α` maps that **same** power-object
+**back into** α, and pays for the privilege.  The witness is `succ` on ℕ:
+
+- `succ` is monotone (`succ_monotone`, B) and fixed-point-**free** (`succ_fpf`: `n + 1 ≠ n`);
+- so "every monotone endo has a fixed point" is **false on `(ℕ, ≤)`** (`knaster_conclusion_false_on_nat`)
+  — ℕ is not a complete lattice;
+- the fixed point the theorem *would* assign `succ` is the lub of **all** of ℕ = `∞`, the
+  **residue/limit reached by none** (the analysis probe's `limit_unreached_but_decided`).  Completeness
+  is precisely the *adjunction of that residue as a point* (`mono_fpf_blocks_completeness`: a monotone
+  fpf endo blocks completeness).
+
+So the totality is bought **entirely** by completeness, and completeness **is** the residue adjoined.
+The **Round-4 asymmetry** (totality-built structures fail to be total) shows up unbidden in an
+order-theory probe — and here it is not an analogy but a ∅-axiom theorem: Knaster–Tarski hands `succ`
+the residue and calls it a fixed point.  This also **links the analysis and order probes**: the `∞`
+the lattice must adjoin to complete itself is the *very same* reached-by-none limit the continuum's
+modulus points at — one residue, surfacing in both domains.
 
 **Honest verdict.**  No fourth reading was forced — but per the floor's own discipline this is *weak*
 evidence: "every mechanism is how-atoms-relate" is close to unfalsifiable, so three fits do not raise
 the posterior.  The load-bearing content is (i) the **decomposition map** — *which* engines each
 domain reuses (free group reuses A.i's `!s` and B's `foldr`; the continuum reuses A's `decide` and
-the residue-diagonal) rather than inventing mechanisms — and (ii) the **near-miss**: the one
-totality-claim probed (Knaster–Tarski) bottomed back into a residue-shaped completeness.  The floor
-is **complete-so-far**, and the test that would actually move the needle remains open: a domain
-*built* to claim total closure that leaves genuinely *no* remainder.  None appeared here; the closest
-(Knaster–Tarski) confirmed the asymmetry instead of breaking it.
+the residue-diagonal) rather than inventing mechanisms — and (ii) the **near-miss**, now run down to
+a ∅-axiom theorem (`Order/KnasterResidue.lean`): the one totality-claim probed (Knaster–Tarski)
+*reifies* the residue rather than escaping it — `succ`/ℕ witnesses that totality is bought entirely by
+completeness, and completeness is the residue (`∞`) adjoined, the same `∞` the continuum probe's
+modulus points at.  The floor is **complete-so-far**, and the test that would actually move the needle
+remains open: a domain *built* to claim total closure that leaves genuinely *no* remainder.  None
+appeared here; the closest (Knaster–Tarski) not only confirmed the asymmetry but did so *as a verified
+theorem* — totality conserving the residue, not breaking it.
 
 ## The stopping criterion (against infinite regress)
 
