@@ -312,6 +312,57 @@ indistinguishables, the horizontal).  The floor is still the distinguishing at i
 atom-readings; what the fingerprinting added is that the *counted* reading is the hub the other two
 reach each other through.
 
+## Falsification attempt — probing for a fourth atom-reading
+
+The 3×3 was built from one corpus (cohomology + number theory).  A floor of *three* atom-readings is
+a claim that **any** mechanism reduces to distinguished / counted / undistinguished — so the test
+that matters is **adversarial** (the Round-4 discipline, CLAUDE.md *Breadth-evidence read as
+confirmation*): not "do more results fit?" (confirmations of a near-unfalsifiable floor raise no
+posterior) but "does a result *outside* the build set **force a fourth reading**?"  Three domains
+were probed, biased toward mechanisms least likely to reduce — order/directedness, group
+invertibility, the analytic continuum.
+
+**Group theory (conclusive — no fourth reading).**  The free group
+(`Algebra/Group/FreeReduction`) decomposes entirely into the existing readings, *reusing the exact
+engines*:
+
+- `inv_inv` (`inv (inv l) = l`) is `cases s <;> rfl` on the sign `Bool` — inversion is the **`!s`
+  involution, A.i** (fixed-point-free, double-flip = id);
+- `freeReduce = foldr push` is structural recursion — **B** (word-length descent);
+- `proj_val_eq_iff` (the reduced normal form separates equivalence classes) is **A.ii** (injectivity).
+
+Free group = A.i + B + A.ii.  A rich algebraic object, no new mechanism.
+
+**Analysis / the continuum (conclusive — no fourth reading).**  `Real213` is a Cauchy sequence plus
+an explicit `ℕ→ℕ→ℕ` modulus.  The cut `orderProj m k = decide (a·k ≤ b·m)` is a **Bool distinguishing
+(A)**; the modulus (`N = k+2`, `rate_total_modulus`) is **B**; and `limit_unreached_but_decided`
+(convergents strictly advance, `aᵢ·dⱼ < aⱼ·dᵢ`, the limit reached by none) is the **residue shape** —
+non-surjectivity onto the limit, the A.i-diagonal facet.  Continuum = A + B; there is no "continuity"
+primitive — the limit *is* the residue (matching CLAUDE.md *Limit/infinity deified*: ∞ enters
+computation only as the discrete modulus).
+
+**Order (inconclusive in-repo, plus a discriminating near-miss).**  213's order theory is
+**parametric** (`lfp_fixed`, Galois connections take `antisymm`/`trans`/the adjunction `Iff` as
+hypotheses) or **degenerate** (the only concrete order `uLe` is `True` on `Unit`, antisymm by
+`cases`).  It never commits a directed primitive, so "directedness" cannot surface a fourth reading
+here — the probe is inconclusive for lack of a concrete directed order.  But the **fixed-point**
+theorems split revealingly: Lawvere/residue is fixed-point-**free** ⟹ non-surjection (A.i);
+Knaster–Tarski is monotone ⟹ a fixed point **exists**, bottoming in antisymmetry (the order-collapse
+`le a b → le b a → a = b`).  And Knaster–Tarski's **totality** ("*every* monotone map has a fixed
+point") rests on lattice completeness — which on an infinite carrier is itself residue-shaped.  The
+totality-built object does not escape the residue: the **Round-4 asymmetry** (totality-built fields
+fail to be total) showing up once more, unbidden, in an order-theory probe.
+
+**Honest verdict.**  No fourth reading was forced — but per the floor's own discipline this is *weak*
+evidence: "every mechanism is how-atoms-relate" is close to unfalsifiable, so three fits do not raise
+the posterior.  The load-bearing content is (i) the **decomposition map** — *which* engines each
+domain reuses (free group reuses A.i's `!s` and B's `foldr`; the continuum reuses A's `decide` and
+the residue-diagonal) rather than inventing mechanisms — and (ii) the **near-miss**: the one
+totality-claim probed (Knaster–Tarski) bottomed back into a residue-shaped completeness.  The floor
+is **complete-so-far**, and the test that would actually move the needle remains open: a domain
+*built* to claim total closure that leaves genuinely *no* remainder.  None appeared here; the closest
+(Knaster–Tarski) confirmed the asymmetry instead of breaking it.
+
 ## The stopping criterion (against infinite regress)
 
 Analysing the peel is itself a peel (de-abstracting the abstraction "노가다"), so it can recurse
