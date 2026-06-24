@@ -1,9 +1,12 @@
 # Session Handoff — 2026-06-24 (grounded-FTA + Leg-1 + Leg-3 marathon)
 
 ## Branch
-`claude/fta-multiplicative-descent-frontier-5pun05` — pushed, ~73 commits ahead
-of `origin/main`. Working tree clean. **Full `lake build E213` passes clean
-(459/459)**; all new modules scanned `0 dirty`; certified this session.
+`claude/fta-multiplicative-descent-frontier-5pun05` — **merged to `main`** at the
+end of a merge-prep marathon (process → promote → cross-domain → essay → org-audit
+→ purity → ready-to-merge → handoff → merge). Working tree clean. **Full `lake build
+E213` passes clean (459/459)**; all new modules `0 dirty`; **ready-to-merge verdict:
+READY** (layer-audit 0 violations, sink-rule 0, purity 0/0/0/0). Next session starts
+from `main`.
 
 ## What Was Done This Session
 
@@ -77,6 +80,22 @@ of `Raw`'s `slash`-successor spine, not borrowed from Lean's `Nat`.
   rival forcing), cross-linked with `arithmetic_generation.md` + `grounded_fundamental_theorem.md`.
 - **Certification**: full `lake build E213` clean (459/459); all new modules `0 dirty`.
 
+### 5. Merge-prep marathon (process / cross-domain / essay / org-audit)
+- **/process**: decoupled all 20 sink-rule violations (no permanent tier cites a
+  research-notes note file) — prose-safe; re-audit 0. Fixed a stale claim in
+  `distinguishability_is_the_one_dial.md` (it named the FTA-grounding frontier as open;
+  this session closed it). Logged promotions 108 (grounded FTA) + 109 (Leg-1 naturals)
+  in `promotion_essay_log.md`.
+- **Cross-domain** (`frontiers/naturals_three_readings_crossdomain.md`): (1) ℕ generated
+  three ways (multiplicity/depth/population); (2) forcing gains a third scale — the forced
+  primitive (`arity_distinctness_forcing`); (3) the genesis-seam's "un-generatable FTA
+  boundary" dissolved (uniqueness on a structural `subMod` descent).
+- **/essay**: `theory/essays/synthesis/what_a_natural_number_counts.md` — a natural number
+  is what a count-Lens hands back; two readings are ℕ, population is a third counting.
+- **/org-audit**: narrative hygiene clean, 0 orphans; corrected theory INDEX counts to
+  actual (111 essays / 271 chapters; pre-existing drift).
+- **/purity-check** + **/ready-to-merge**: all green; verdict READY.
+
 ## Current Precision Results (0 free parameters)
 **No physics touched this session** (pure math/foundations work). The DRLT
 precision table is unchanged — see `catalogs/physics-constants.md` (canonical).
@@ -119,11 +138,13 @@ possible companion but not required. Low priority — no frontier note.
   `#print axioms`-verified individually instead. Cosmetic tool limitation, not a purity gap.
 
 ## Next
-Recommended: either (a) run the full `lake build` + `tools/scan_all_axioms.py` to
-certify the whole branch before any merge consideration, or (b) refactor `RawNat`
-to carry `IsRawNat` (Open Problem 2) to fully retire the carrier-`Nat`. Leg-3
-residue (Open Problem 1) is research-grade and open-ended — approach only with a
-specific new rival model in hand.
+Branch merged; next session starts from `main`. The FTA-grounding and Leg-1
+(ℕ-from-the-spine) arcs are closed and promoted; the open work is the descent-leg
+*conceptual* residue — Leg-3 forcing's "suffices by breadth, not unique" (Open Problem
+1, research-grade, approach only with a specific new rival model) and the kernel-
+`inductive`/`Nat`-readout boundary (Open Problem 2, conceded, not eliminable). A fresh
+campaign on a different discipline (regrounding another field on `subMod`/structural
+descent, per the descent-leg pattern) is the natural next thick target.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: (1) `theory/math/numbertheory/grounded_fundamental_theorem.md`
