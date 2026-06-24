@@ -380,10 +380,23 @@ population (`…,5,…`) at the depth-2 rung — the "second, wider reading of t
   `2` without distinctness over-generates, arity `2` *with* distinctness = 213's branching recurrence.
 
 So the **(arity, distinctness) design space is closed**: the binary-distinct distinguishing is forced
-along both dimensions.  **Honest residue** (Leg 3 not fully closed): this does not rule out *every*
-conceivable primitive — a relation-as-relation, or a differently-seeded rival — which remains the open
-middle of `the_one_act.md` ("suffices by breadth, not proven unique", per the failure-mode row
-"Sufficiency read as uniqueness").
+along both dimensions.
+
+**Relation-first corner addressed** (§5, ∅-axiom): `relation_outputs_le_two` — a binary *relation*
+`R : α → α → Bool` has codomain `Bool`, not the carrier, so it takes ≤ 2 values (`Bool` pigeonhole:
+among any three applications two agree) and **produces no carrier element**.  A relation qua
+`Bool`-codomain is non-generative — it cannot supply the unbounded fresh inhabitants the `2,3,5,12,…`
+recurrence consumes (`slash`'s codomain is the carrier, image unbounded).  The distinguishing's
+relational face *is* `Object1 r = (·=r)`, the same act read `Bool`-valued; to *generate*, a relation
+must be functionalised to a carrier-valued operation, collapsing to operation-first (then forced to
+arity-2-distinct).  Honest framing: not "no relation could matter", but "a relation generates nothing
+the operation does not, and collapses to it when made generative".
+
+**Honest residue** (Leg 3 still not *fully* closed): the formalized rival classes — unary, ternary,
+non-distinct binary, relation-first — are all excluded, but this is not a proof that *no* conceivable
+primitive (a differently-seeded or genuinely exotic one) could generate equal richness.  That residue
+stays the open middle of `the_one_act.md` ("suffices by breadth, not proven unique", per the
+failure-mode row "Sufficiency read as uniqueness").
 
 ### What remains open here (the conceptual frontier, unchanged)
 

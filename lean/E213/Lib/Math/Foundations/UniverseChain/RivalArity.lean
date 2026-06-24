@@ -201,4 +201,37 @@ theorem arity_distinctness_forcing :
   ⟨binary_non_interchangeable_with_unary.2.2, ternCount_sterile, ternary_sterile_below,
    nondistinct_rival_exceeds, rawCount_succ⟩
 
+/-! ## §5 — the relation-first rival is non-generative: a `Bool` codomain distinguishes ≤ 2 classes -/
+
+/-- Every `Bool` is `false` or `true`. -/
+theorem bool_dichotomy (b : Bool) : b = false ∨ b = true := by
+  cases b
+  · exact Or.inl rfl
+  · exact Or.inr rfl
+
+/-- ★★★ **Relation-first is output-bounded — the structural reason it is non-generative.**  A binary
+    *relation* `R : α → α → Bool` has codomain `Bool`, *not* the carrier `α`: it returns a truth-value,
+    never a new inhabitant.  Concretely its output takes at most two values — among any three
+    applications, two agree (`Bool` pigeonhole).  So a relation distinguishes `≤ 2` classes per step
+    and **produces no carrier element**; it cannot supply the unbounded stream of fresh distinct
+    inhabitants that the `2,3,5,12,…` recurrence consumes (`slash : Raw → Raw → Raw` has codomain the
+    carrier itself — unbounded image, `rawCount → ∞`).
+
+    The distinguishing's relational face *is* `Object1 r = (· = r)`, the same act read `Bool`-valued;
+    its generative face is `slash`.  A relation taken as the **sole** primitive is non-generative — to
+    generate, it must be functionalised into a carrier-valued operation, at which point it *is*
+    operation-first and is forced to arity-2-distinct by `arity_distinctness_forcing`.  This is the
+    honest closure of the relation-first corner: not "no relation could ever matter", but "a relation,
+    qua `Bool`-codomain, generates nothing the operation does not already, and collapses to the
+    operation when made generative". -/
+theorem relation_outputs_le_two {α : Type} (R : α → α → Bool) (p q r : α × α) :
+    R p.1 p.2 = R q.1 q.2 ∨ R p.1 p.2 = R r.1 r.2 ∨ R q.1 q.2 = R r.1 r.2 := by
+  rcases bool_dichotomy (R p.1 p.2) with hp | hp <;>
+    rcases bool_dichotomy (R q.1 q.2) with hq | hq <;>
+      rcases bool_dichotomy (R r.1 r.2) with hr | hr <;>
+        first
+          | exact Or.inl (hp.trans hq.symm)
+          | exact Or.inr (Or.inl (hp.trans hr.symm))
+          | exact Or.inr (Or.inr (hq.trans hr.symm))
+
 end E213.Lib.Math.Foundations.UniverseChain.RivalArity
