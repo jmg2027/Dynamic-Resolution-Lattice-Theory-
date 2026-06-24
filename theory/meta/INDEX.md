@@ -13,7 +13,7 @@ criteria H1-H4 adapt: H1 (purity) + H2 (build clean) → H1'
 scanners can be re-run).  Per `lean/E213/docs/PROMOTION_PATTERNS.md`,
 this is the **destination-variant** form of Pattern 1.
 
-## Chapters (9)
+## Chapters (10)
 
 | Chapter | Source |
 |---|---|
@@ -26,6 +26,7 @@ this is the **destination-variant** form of Pattern 1.
 | [`pure_lean_patterns.md`](pure_lean_patterns.md) | PURE Lean funext-avoidance pattern catalog (State Accumulator, Bundled Subtype, Setoid Category, Residual Induction) |
 | [`boundary_discipline.md`](boundary_discipline.md) | The residue/Lens boundary behind unification, equality, and error: the α/β split + shared-generator criterion, the 2-polarity failure structure, the matched pair of instruments, and the ℤ-uniqueness corollary (`vp_eq_zero_of_gt` vs `cut`/`zpseq_no_finite_certificate`).  Working log: the meta-analysis program in `research-notes/frontiers/`. |
 | [`forcing_versus_bookkeeping.md`](forcing_versus_bookkeeping.md) | When ∅-axiom *forces* a structurally different (revealing) proof vs. bookkeeping; the three veins (Quot.sound/Classical-LEM/non-effective) with cases (CRTReconstruction, FieldIffPrime, EulerTheorem); the DIRTY-set finding (no math theorem needs an axiom). Working list lives in the frontier tier. |
+| [`de_abstraction_calculus.md`](de_abstraction_calculus.md) | The atomic moves of the 0-axiom peel (substitute / translate / bridge / avoid), each pinned to verified instances from the ∅-axiom cohomology + number-theory build; the removal-fingerprint → lattice-edge program (worked edge: Cantor residue ≡ δ²=0, the two faces of the one Bool distinguishing). Companion to `forcing_versus_bookkeeping.md`. |
 
 ## Action-items registry
 
