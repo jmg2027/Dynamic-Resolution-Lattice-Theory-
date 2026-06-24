@@ -108,4 +108,38 @@ theorem id_box_no_goedel_fixedpoint : ¬ ∃ C : Prop, (C ↔ (C → False)) := 
   have hnc : ¬ C := fun c => hC.mp c c
   exact hnc (hC.mpr hnc)
 
+/-! ## The D1–D3 side is a whole family — and its diagonal lives only at inconsistency
+
+`id_box_no_goedel_fixedpoint` is not a fluke of `id`.  The **"`Q`-implication" modality**
+`Box P := Q → P` ("provable" = "follows from `Q`") satisfies all three derivability conditions for
+*every* `Q : Prop` (`id` is the `Q = True` case).  A whole family carrying D1–D3 — and, crucially,
+its Gödel-2 diagonal exists **only when the system is inconsistent**.  This is the model-side shadow
+of Gödel-2: a *consistent* D1–D3 system in this family cannot have the diagonal *for free*, which is
+exactly why genuine Gödel-2 must manufacture the fixed-point sentence by Gödel coding. -/
+
+/-- **The `Q`-implication modality satisfies D1–D3, for any `Q`.**  `Box P := Q → P` is a whole
+    family of derivability-condition models (the identity modality `id` is `Q = True`).  So "has
+    D1–D3 but not the diagonal" is generic, not special to `id`. -/
+theorem implication_box_models (Q : Prop) :
+    (∀ {P : Prop}, P → (Q → P))
+    ∧ (∀ {P R : Prop}, (Q → (P → R)) → (Q → P) → (Q → R))
+    ∧ (∀ {P : Prop}, (Q → P) → (Q → (Q → P))) :=
+  ⟨fun hp _ => hp, fun hpr hp q => hpr q (hp q), fun hp _ q => hp q⟩
+
+/-- ★★★ **For the `Q`-implication family, the Gödel-2 diagonal forces inconsistency.**  If the fixed
+    point `C ↔ (Box C → False)` exists for `Box P := Q → P`, then `¬ Q` — i.e. `Box False = (Q →
+    False)` holds, the system is **inconsistent**.  Contrapositive: a *consistent* member of this
+    D1–D3 family has **no** Gödel-2 fixed point.  This is the model-side shadow of Gödel-2 (a
+    consistent provability system cannot self-supply the consistency-diagonal), and it pins why the
+    diagonal is the independent, *hard-to-get* ingredient: D1–D3 come free (`implication_box_models`),
+    the diagonal costs consistency.  `id_box_no_goedel_fixedpoint` is the `Q = True` instance (`¬
+    True` is absurd, so no fixed point at all). -/
+theorem implication_box_fixedpoint_forces_inconsistency (Q : Prop)
+    (h : ∃ C : Prop, (C ↔ ((Q → C) → False))) : ¬ Q := by
+  obtain ⟨C, hC⟩ := h
+  intro q
+  have hnotc : ¬ C := fun c => hC.mp c (fun _ => c)
+  have hnqc : ¬ (Q → C) := fun qc => hnotc (qc q)
+  exact hnotc (hC.mpr hnqc)
+
 end E213.Lib.Math.Logic.ProvabilityResidue

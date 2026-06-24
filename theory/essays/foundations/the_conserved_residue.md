@@ -138,6 +138,14 @@ modality `Box P := P` satisfies all of D1–D3 yet its Gödel-2 fixed point `C �
 complement of the bare cover (which has the diagonal but lacks D1–D3).  Neither ingredient implies the
 other; genuine Gödel-2 needs both (Gödel coding for the diagonal, a proof system for D1–D3).
 
+This is not special to `id`.  The whole **`Q`-implication family** `Box P := Q → P` ("provable =
+follows from `Q`") satisfies D1–D3 for *every* `Q` (`implication_box_models`), and for the family the
+Gödel-2 diagonal exists **only at inconsistency**: `implication_box_fixedpoint_forces_inconsistency`
+— if the fixed point `C ↔ (Box C → False)` exists then `¬ Q`, i.e. `Box False` holds.  So a
+*consistent* D1–D3 system in this family cannot self-supply the consistency-diagonal — the model-side
+shadow of Gödel-2, and the precise sense in which the diagonal is the *hard-to-get* ingredient: D1–D3
+come free, the diagonal costs consistency.
+
 ## Honest boundary
 
 The residue's *existence* per carrier is Cantor's theorem — unbreakable, and to that extent the floor
