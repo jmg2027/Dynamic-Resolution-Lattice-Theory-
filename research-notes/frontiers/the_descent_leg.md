@@ -322,10 +322,16 @@ MulDescentGroundedNoDiv,EuclidPrimesGrounded}`.
   step IS one more distinguishing;
 - **Peano** proved from `Raw`'s combinatorics: `succ_inj`, `succ_ne_zero`, `rec` (induction) — derived
   from depth-injectivity of the spine (`rawTower_depth`), not from `Nat`'s Peano;
-- **arithmetic generated**: `add` iterates `succ` (`depth y` times), `mul` iterates `add`; the `depth`
-  Lens is a **semiring homomorphism** onto `ℕ` (`toNat_add`, `toNat_mul`), so `+`/`·` *read as* `Nat`'s,
-  and the laws (`add_comm`, `add_assoc`, `zero_add`) transport back through the injection with no
-  re-proof on `Raw`.
+- **arithmetic generated**: `add` iterates `succ` (`depth y` times), `mul (x y) = mulNat x (depth y)`
+  iterates `add`; the `depth` Lens is a **semiring homomorphism** onto `ℕ` (`toNat_add`, `toNat_mul`),
+  so `+`/`·` *read as* `Nat`'s.
+- **the discipline closed**: `RawNat` is a **commutative semiring** — `add_{comm,assoc}`, `zero_add`,
+  `add_zero`, `mul_{comm,assoc}`, `one_mul`, `mul_one`, `zero_mul`, `mul_zero`, `left_distrib`,
+  `right_distrib` — every law transported through `toNat_inj` from `ℕ`'s, the homomorphism load-bearing
+  (no law re-proved on `Raw`).  `mul_assoc`/`right_distrib` route through `NatHelper.mul_assoc`/`add_mul`
+  (core `Nat.mul_assoc`/`Nat.add_mul` leak propext); `succ_inj`/`succ_ne_zero` via
+  `Nat.succ.inj`/`Nat.noConfusion`.  This is the **leg-1 step-2 demonstration**: a classical discipline
+  (commutative-semiring arithmetic) realised as a reading of the distinguishing's spine, ∅-axiom.
 
 **Honest scope** (does NOT yet fully close Leg 1): the kernel `inductive Tree` is still borrowed to
 *have* `Raw`, and Lean's `Nat` is borrowed as the index/readout type and as the recursion engine for

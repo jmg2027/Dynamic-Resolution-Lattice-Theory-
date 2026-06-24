@@ -160,34 +160,79 @@ theorem toNat_add (x y : RawNat) : toNat (add x y) = toNat x + toNat y := by
   show (addRaw x.val (toNat y)).depth = x.val.depth + toNat y
   rw [← hn, addRaw_tower, rawTower_depth, rawTower_depth]
 
-/-- Multiplication: iterate `add x`, `depth y` times, from `zero`. -/
-def mul (x : RawNat) : Nat → RawNat
-  | 0     => zero
-  | k + 1 => add (mul x k) x
+/-- `1` is the first `slash`-rung, `succ zero = a/b`. -/
+def one : RawNat := ofNat 1
 
-/-- ★ **The `depth` Lens is multiplicative.**  `depth (mul x (depth y)) = depth x · depth y`. -/
-theorem toNat_mul (x : RawNat) : ∀ k, toNat (mul x k) = toNat x * k
+@[simp] theorem toNat_one : toNat one = 1 := toNat_ofNat 1
+
+/-- Multiplication iterator: add `x` to itself `k` times. -/
+def mulNat (x : RawNat) : Nat → RawNat
+  | 0     => zero
+  | k + 1 => add (mulNat x k) x
+
+theorem toNat_mulNat (x : RawNat) : ∀ k, toNat (mulNat x k) = toNat x * k
   | 0     => rfl
   | k + 1 => by
-    show toNat (add (mul x k) x) = toNat x * (k + 1)
-    rw [toNat_add, toNat_mul x k, Nat.mul_succ]
+    show toNat (add (mulNat x k) x) = toNat x * (k + 1)
+    rw [toNat_add, toNat_mulNat x k, Nat.mul_succ]
 
-/-! ### The discipline transports through the injection (no re-proof on `Raw`) -/
+/-- Multiplication: iterate `add x`, `depth y` times — `·` generated from `+`, itself from `slash`. -/
+def mul (x y : RawNat) : RawNat := mulNat x (toNat y)
 
-/-- `+` is commutative — transported from `Nat` through the depth injection. -/
+/-- ★ **The `depth` Lens is multiplicative.**  `depth (mul x y) = depth x · depth y` — the generated
+    `·` reads as `Nat`'s `·`. -/
+theorem toNat_mul (x y : RawNat) : toNat (mul x y) = toNat x * toNat y :=
+  toNat_mulNat x (toNat y)
+
+/-! ### `RawNat` is a commutative semiring — the arithmetic discipline realised on `Raw`
+
+Every law transports through the depth injection (`toNat_inj`) from `ℕ`'s, so the discipline is
+*read off* `Raw`'s `slash`-spine, not re-proved on it.  The `depth` homomorphism (`toNat_add`,
+`toNat_mul`) is the load-bearing content; the laws follow. -/
+
 theorem add_comm (x y : RawNat) : add x y = add y x := by
-  apply toNat_inj
-  rw [toNat_add, toNat_add, Nat.add_comm]
+  apply toNat_inj; rw [toNat_add, toNat_add, Nat.add_comm]
 
-/-- `+` is associative. -/
 theorem add_assoc (x y z : RawNat) : add (add x y) z = add x (add y z) := by
-  apply toNat_inj
-  rw [toNat_add, toNat_add, toNat_add, toNat_add, Nat.add_assoc]
+  apply toNat_inj; rw [toNat_add, toNat_add, toNat_add, toNat_add, Nat.add_assoc]
 
-/-- `zero` is a left identity (the seed `b` adds nothing). -/
 theorem zero_add (x : RawNat) : add zero x = x := by
+  apply toNat_inj; rw [toNat_add, toNat_zero, Nat.zero_add]
+
+theorem add_zero (x : RawNat) : add x zero = x := by
+  apply toNat_inj; rw [toNat_add, toNat_zero, Nat.add_zero]
+
+theorem mul_comm (x y : RawNat) : mul x y = mul y x := by
+  apply toNat_inj; rw [toNat_mul, toNat_mul, Nat.mul_comm]
+
+theorem mul_assoc (x y z : RawNat) : mul (mul x y) z = mul x (mul y z) := by
   apply toNat_inj
-  rw [toNat_add, toNat_zero, Nat.zero_add]
+  rw [toNat_mul, toNat_mul, toNat_mul, toNat_mul]
+  exact E213.Tactic.NatHelper.mul_assoc _ _ _
+
+theorem one_mul (x : RawNat) : mul one x = x := by
+  apply toNat_inj; rw [toNat_mul, toNat_one, Nat.one_mul]
+
+theorem mul_one (x : RawNat) : mul x one = x := by
+  apply toNat_inj; rw [toNat_mul, toNat_one, Nat.mul_one]
+
+theorem zero_mul (x : RawNat) : mul zero x = zero := by
+  apply toNat_inj; rw [toNat_mul, toNat_zero, Nat.zero_mul]
+
+theorem mul_zero (x : RawNat) : mul x zero = zero := by
+  apply toNat_inj; rw [toNat_mul, toNat_zero, Nat.mul_zero]
+
+/-- Left distributivity `x·(y+z) = x·y + x·z` (`Nat.mul_add` is propext-clean). -/
+theorem left_distrib (x y z : RawNat) : mul x (add y z) = add (mul x y) (mul x z) := by
+  apply toNat_inj
+  rw [toNat_mul, toNat_add, toNat_add, toNat_mul, toNat_mul, Nat.mul_add]
+
+/-- Right distributivity `(x+y)·z = x·z + y·z` (`NatHelper.add_mul`; core `Nat.add_mul` leaks
+    propext). -/
+theorem right_distrib (x y z : RawNat) : mul (add x y) z = add (mul x z) (mul y z) := by
+  apply toNat_inj
+  rw [toNat_mul, toNat_add, toNat_add, toNat_mul, toNat_mul]
+  exact E213.Tactic.NatHelper.add_mul _ _ _
 
 end RawNat
 
