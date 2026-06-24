@@ -97,6 +97,27 @@ classical axiom, assume completeness) that would push it out of view.  This is w
 reveals more than an axiom-using development does: each axiom it refuses is a totality-claim, and
 refusing it re-exposes the residue frozen inside.
 
+## The frontier, made exact: Gödel-2 = the residue diagonal + the □-modality
+
+The residue framework's *acknowledged* boundary is **Gödel-2 proper** (`T ⊬ Con(T)`): Cantor,
+Russell, the Liar, Tarski *are* the one Lawvere diagonal, but Gödel-2 was kept a frontier — needing
+the provability modality `□` with the derivability conditions D1–D3 / Löb, which the bare self-cover
+has no analogue of ("form-agreement, not identity").  That boundary is now **exact and ∅-axiom**
+(`Lib/Math/Logic/ProvabilityResidue.lean`), separating the two ingredients precisely:
+
+- **Shared — the diagonal.**  The Gödel–Löb fixed point `C ↔ (□C → A)` *is* the residue's
+  `lawvere_fixed_point_prop` at the modifier `t X := (□X → A)` (`loeb_fixed_point_is_lawvere`): the
+  same construction as Cantor/Tarski, only the modifier differs.  The form-agreement is now exhibited,
+  not asserted.
+- **Extra — the modality.**  Löb (`loeb_abstract`) and Gödel-2
+  (`goedel_two : ¬ Box False → ¬ Box (Box False → False)`) follow from `□` + **D1–D3** as the *only*
+  additional hypotheses.
+
+So the frontier is not a vague "needs a modality": it is **exactly the three derivability
+conditions**, named and isolated.  This is itself an instance of the conservation thesis — Gödel-2's
+content splits cleanly into the *shared residue diagonal* and the *extra D1–D3 the bare cover lacks*,
+with the boundary drawn at a theorem rather than a hand-wave.
+
 ## Honest boundary
 
 The residue's *existence* per carrier is Cantor's theorem — unbreakable, and to that extent the floor

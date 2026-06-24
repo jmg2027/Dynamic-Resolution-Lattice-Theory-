@@ -156,9 +156,19 @@ Deposited ∅-axiom in `OneDiagonal.lean`:
 handle): tag each non-trivial `Eq.refl` node `+1` (defeq-converge) or `−1` (consumes a `≠`
 hypothesis, escape); predict every TIER-B residue-cone theorem carries *exactly one −1 escape
 node* — "the residue must exhibit its escape pole in the bare proof term, or it isn't the
-residue" (a mechanical purity check on the residue). (2) **Gödel-2 proper** as a *separate* GL /
-provability-logic build (the □ modality + D1–D3 + Löb), explicitly outside the OneDiagonal
-engine — to settle whether the verification face reaches Gödel-2 or stays form-agreement.
+residue" (a mechanical purity check on the residue). (2) ✅ **DONE — Gödel-2 proper as a separate
+GL / provability-logic build** (`Lib/Math/Logic/ProvabilityResidue.lean`, all ∅-axiom). Verdict:
+the boundary is now *exact*, not vague.  The build **separates** the two ingredients — (a) the
+Gödel–Löb fixed point `C ↔ (□C → A)` is *literally* `lawvere_fixed_point_prop` at the modifier
+`t X := (□X → A)` (`loeb_fixed_point_is_lawvere`) — **the same diagonal** as Cantor/Russell/Tarski,
+confirming the form-agreement *constructively*; (b) Löb (`loeb_abstract`) and Gödel-2
+(`goedel_two : ¬ Box False → ¬ Box (Box False → False)`) follow from `□` + **D1–D3** as the *only*
+extra hypotheses.  So the verification face does **not** reach Gödel-2 from the bare cover — but
+the gap is no longer a vague "needs a modality": it is *exactly* the three derivability conditions
+(D1 necessitation, D2 distribution, D3 introspection), named and isolated as the sole hypotheses
+the residue's `Object1` cover has no analogue of.  Form-agreement on the diagonal, genuine
+difference in D1–D3 — both halves machine-checked.  Synthesis essay:
+`theory/essays/foundations/the_conserved_residue.md` (the residue-conservation programme this sits in).
 
 ## Round 3 — two parallel forks, not one (a careful negative), and the honest meta-read
 
