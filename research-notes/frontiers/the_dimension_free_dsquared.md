@@ -79,12 +79,16 @@ kSubset (n+1) (k+1) i = if i < binom n (k+1) then kSubset n (k+1) i
      layer (the core `List.range`/`find?`/`LawfulBEq (List Nat)` lemmas all leak
      `propext`/`Quot.sound`, so they are rebuilt from `find?_cons` + the
      `instBEqOfDecidableEq` reduction).
+   - `Sorted` (strictly-increasing predicate) + `sorted_append_singleton` +
+     `sorted_snoc_decomp` (peel the strict-max last element);
+   - `kSubset_surj` — **surjectivity**: every `Sorted` list of length `k` with
+     entries `< n` is `kSubset n k j` for some `j < binom n k` (induction on `n`,
+     split on whether the last element is `n`);
+   - `kSubset_subsetIdx` — the **reverse round-trip** `kSubset n k (subsetIdx n k
+     s) = s` for a `Sorted` in-range length-`k` list (surjectivity + forward).
 
-   **Still open**: the *reverse* round-trip `kSubset n k (subsetIdx n k s) = s`
-   for a sorted in-range `s` — needs **surjectivity** of the colex enumeration
-   (every sorted k-subset of `{0..n−1}` is `kSubset n k j` for some `j < binom n
-   k`).  Provable by the same induction on `n` (split `s` on whether it contains
-   `n`), reusing `kSubset_mem_lt` / `kSubset_length`.
+   **Both round-trip directions are now closed** (`kSubset`/`subsetIdx` are a
+   genuine bijection between `{0..binom n k − 1}` and the sorted k-subsets).
 
 2. **The 2-to-1 face pairing** — a fixed-point-free involution on
    `{(a,b) : a ∈ range (k+2), b ∈ range (k+1)}` that preserves the resulting
@@ -120,10 +124,14 @@ from `delta_sq_zero_general` above.
 
 ## Progress ledger
 
-- **Closed**: the colex *forward* round-trip + its core (`ColexRoundTrip.lean`:
-  `kSubset_mem_lt`, `kSubset_length`, `kSubset_inj`, `subsetIdx_kSubset`), ∅-axiom.
-- **Next**: reverse round-trip via colex surjectivity (strategy §1 above), then
-  the 2-to-1 face pairing (§2), then `delta_sq_zero_general`.
+- **Closed**: the **full colex bijection** (`ColexRoundTrip.lean`, all ∅-axiom) —
+  `kSubset_mem_lt`, `kSubset_length`, `kSubset_inj`, `subsetIdx_kSubset` (forward),
+  `kSubset_surj` (surjectivity), `kSubset_subsetIdx` (reverse).  `kSubset`/`subsetIdx`
+  are inverse on `{0..binom n k − 1}` ↔ sorted k-subsets.
+- **Next**: the 2-to-1 face pairing (§2) — now buildable on the closed
+  round-trip, since `delta`'s inner `subsetIdx ∘ eraseIdx ∘ kSubset` provably
+  returns a genuine face (erasing one element from a `Sorted` colex subset yields
+  a `Sorted` subset, so `kSubset_subsetIdx` applies).  Then `delta_sq_zero_general`.
 
 ## Cross-refs
 

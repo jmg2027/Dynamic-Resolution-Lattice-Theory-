@@ -33,7 +33,7 @@ namespace E213.Lib.Math.Cohomology.Examples.ColexRoundTrip
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Examples.SimplexBasis (kSubset)
 open E213.Lib.Math.Cohomology.Delta.Core (subsetIdx)
-open E213.Tactic.List213 (mem_append_iff)
+open E213.Tactic.List213 (mem_append_iff mem_append_left)
 open E213.Tactic.ListHelper (mem_append_singleton mem_append_singleton_right
   append_singleton_inj length_append_singleton)
 
@@ -382,5 +382,137 @@ theorem subsetIdx_kSubset (n k i : Nat) (hi : i < binom n k) :
                   (fun j => kSubset n k j == kSubset n k i) = some i :=
     find?_range_eq_some _ (binom n k) i hi hpi hbelow
   exact hfind ▸ rfl
+
+/-! ## §5 — colex surjectivity and the reverse round-trip
+
+The forward round-trip (§4) needs no validity hypothesis on `s`.  The **reverse**
+round-trip `kSubset n k (subsetIdx n k s) = s` only holds for genuine k-subsets:
+strictly-increasing lists of length `k` with entries `< n`.  We capture
+"strictly increasing" with `Sorted`, prove the colex enumeration is **surjective**
+onto such lists (`kSubset_surj`), and combine with the forward round-trip
+(`subsetIdx_kSubset`) to get the reverse round-trip. -/
+
+/-- Strictly-increasing list of naturals: the head is below every tail element,
+    and the tail is itself sorted.  Exactly the shape `kSubset` enumerates. -/
+inductive Sorted : List Nat → Prop where
+  | nil : Sorted []
+  | cons (a : Nat) (l : List Nat) (h : ∀ x ∈ l, a < x) (hl : Sorted l) : Sorted (a :: l)
+
+/-- Appending a new strict maximum keeps a list sorted. -/
+private theorem sorted_append_singleton : ∀ (s : List Nat) (m : Nat),
+    Sorted s → (∀ x ∈ s, x < m) → Sorted (s ++ [m])
+  | [],      m, _,     _      => Sorted.cons m [] (fun _ h => nomatch h) Sorted.nil
+  | a :: as, m, hsort, hbound => by
+    cases hsort with
+    | cons _ _ ha has =>
+      refine Sorted.cons a (as ++ [m]) ?_ ?_
+      · intro x hx
+        rcases mem_append_singleton _ m x hx with h | h
+        · exact ha x h
+        · exact h ▸ hbound a (List.Mem.head as)
+      · exact sorted_append_singleton as m has
+          (fun x hx => hbound x (List.Mem.tail a hx))
+
+/-- A non-empty sorted list splits off its (strict-maximum) last element. -/
+private theorem sorted_snoc_decomp : ∀ (s : List Nat), Sorted s → s ≠ [] →
+    ∃ init last, s = init ++ [last] ∧ Sorted init ∧ (∀ x ∈ init, x < last)
+  | [],          _,     hne => absurd rfl hne
+  | [a],         _,     _   => ⟨[], a, rfl, Sorted.nil, fun _ h => nomatch h⟩
+  | a :: b :: rest, hsort, _ => by
+    cases hsort with
+    | cons _ _ ha hbr =>
+      obtain ⟨init', last, heq, hsi, hlt⟩ :=
+        sorted_snoc_decomp (b :: rest) hbr (fun h => nomatch h)
+      refine ⟨a :: init', last, ?_, ?_, ?_⟩
+      · show a :: (b :: rest) = a :: (init' ++ [last])
+        exact congrArg (a :: ·) heq
+      · refine Sorted.cons a init' ?_ hsi
+        intro x hx
+        exact ha x (heq.symm ▸ mem_append_left (l₂ := [last]) hx)
+      · intro x hx
+        cases hx with
+        | head => exact ha last (heq.symm ▸ mem_append_singleton_right init' last)
+        | tail _ hx' => exact hlt x hx'
+
+/-- ★★★ **Colex surjectivity.**  Every strictly-increasing list `s` of length `k`
+    with entries `< n` is enumerated: `s = kSubset n k j` for some `j < binom n k`.
+    Induction on `n`; at level `n+1` either the last element is `n` (peel it, the
+    remainder is a colex `k`-subset of `{0..n−1}` shifted past the Pascal split) or
+    every entry is `< n` (a colex `(k+1)`-subset of `{0..n−1}`).  ∅-axiom. -/
+theorem kSubset_surj : ∀ (n k : Nat) (s : List Nat),
+    Sorted s → (∀ x ∈ s, x < n) → s.length = k →
+    ∃ j, j < binom n k ∧ kSubset n k j = s := by
+  intro n
+  induction n with
+  | zero =>
+    intro k s _ hbound hlen
+    cases s with
+    | nil =>
+      have hk : k = 0 := hlen.symm
+      subst hk
+      exact ⟨0, by decide, rfl⟩
+    | cons a as => exact absurd (hbound a (List.Mem.head as)) (Nat.not_lt_zero a)
+  | succ n ih =>
+    intro k s hsort hbound hlen
+    cases k with
+    | zero =>
+      cases s with
+      | nil => exact ⟨0, Nat.zero_lt_one, rfl⟩
+      | cons a as => exact Nat.noConfusion hlen
+    | succ k =>
+      cases s with
+      | nil => exact Nat.noConfusion hlen
+      | cons a as =>
+        obtain ⟨init, last, heq, hsi, hlt⟩ :=
+          sorted_snoc_decomp (a :: as) hsort (fun h => nomatch h)
+        have hlen' : (init ++ [last]).length = k + 1 :=
+          (congrArg List.length heq).symm.trans hlen
+        have hil : init.length = k :=
+          Nat.succ.inj ((length_append_singleton init last).symm.trans hlen')
+        by_cases hlast : last = n
+        · -- last = n: peel n, `init` is a colex k-subset of {0..n-1}
+          have hib : ∀ x ∈ init, x < n := fun x hx => hlast ▸ hlt x hx
+          obtain ⟨j', hj', hkj'⟩ := ih k init hsi hib hil
+          refine ⟨j' + binom n (k + 1), ?_, ?_⟩
+          · show j' + binom n (k + 1) < binom n k + binom n (k + 1)
+            exact Nat.add_lt_add_right hj' _
+          · have hidx_ge : ¬ (j' + binom n (k + 1) < binom n (k + 1)) :=
+              fun hc => Nat.lt_irrefl _ (Nat.lt_of_le_of_lt (Nat.le_add_left _ _) hc)
+            have he : kSubset (n + 1) (k + 1) (j' + binom n (k + 1))
+                        = kSubset n k ((j' + binom n (k + 1)) - binom n (k + 1)) ++ [n] :=
+              if_neg hidx_ge
+            have hsub : (j' + binom n (k + 1)) - binom n (k + 1) = j' :=
+              E213.Tactic.NatHelper.add_sub_cancel_right j' (binom n (k + 1))
+            have hk1 : kSubset n k ((j' + binom n (k + 1)) - binom n (k + 1)) = init :=
+              (congrArg (kSubset n k) hsub).trans hkj'
+            have hn_last : init ++ [n] = a :: as :=
+              ((congrArg (fun z => init ++ [z]) hlast).symm).trans heq.symm
+            exact (he.trans (congrArg (· ++ [n]) hk1)).trans hn_last
+        · -- last ≠ n: last < n, every entry < n, `s` is a colex (k+1)-subset of {0..n-1}
+          have hlast_in : last ∈ a :: as :=
+            heq.symm ▸ mem_append_singleton_right init last
+          have hlast_lt : last < n :=
+            Nat.lt_of_le_of_ne (Nat.le_of_lt_succ (hbound last hlast_in)) hlast
+          have hsb : ∀ x ∈ (a :: as), x < n := by
+            intro x hx
+            rcases mem_append_singleton init last x (heq ▸ hx) with h | h
+            · exact Nat.lt_trans (hlt x h) hlast_lt
+            · exact h ▸ hlast_lt
+          obtain ⟨j, hj, hkj⟩ := ih (k + 1) (a :: as) hsort hsb hlen
+          refine ⟨j, ?_, ?_⟩
+          · show j < binom n k + binom n (k + 1)
+            exact Nat.lt_of_lt_of_le hj (Nat.le_add_left _ _)
+          · exact (if_pos hj : kSubset (n + 1) (k + 1) j = kSubset n (k + 1) j).trans hkj
+
+/-- ★★★ **The reverse colex round-trip.**  For a genuine k-subset `s` (strictly
+    increasing, length `k`, entries `< n`), re-indexing and re-enumerating recovers
+    it: `kSubset n k (subsetIdx n k s) = s`.  Surjectivity gives `s = kSubset n k j`;
+    the forward round-trip (`subsetIdx_kSubset`) sends `subsetIdx n k s` to `j`. ∅-axiom. -/
+theorem kSubset_subsetIdx (n k : Nat) (s : List Nat)
+    (hsort : Sorted s) (hbound : ∀ x ∈ s, x < n) (hlen : s.length = k) :
+    kSubset n k (subsetIdx n k s) = s := by
+  obtain ⟨j, hj, hkj⟩ := kSubset_surj n k s hsort hbound hlen
+  have hidx : subsetIdx n k s = j := hkj ▸ subsetIdx_kSubset n k j hj
+  exact (congrArg (kSubset n k) hidx).trans hkj
 
 end E213.Lib.Math.Cohomology.Examples.ColexRoundTrip
