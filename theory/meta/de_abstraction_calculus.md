@@ -276,6 +276,42 @@ forced*, not imposed: `self_covering_closure` is a single theorem whose two conj
 different ways — one by `of_decide_eq_true`, one by the diagonal — so the lattice edge was already
 sitting inside the residue, waiting to be read off the proof rather than the statement.
 
+### The last corner — C and A have *no direct edge*, and that is a theorem
+
+The 3×3 of cluster-pairs has one blank: does **C** (undistinguished atom, `() = ()`) couple to
+**A** (distinguished atom, `!b ≠ b`) directly?  They are the atom's two opposite readings, so a
+direct edge would be a result that distinguishes (A) *undistinguished* (C) atoms.  The one candidate
+— `even_card_cancel`, whose summand `fun _ => true` is identity-blind (C-flavoured) — turns out to
+run on `List.range (m+m)`: **distinguished** naturals (`range_nodup` = A.ii) under a parity
+involution (A.i).  Its carrier is distinguished; only its summand ignores identity.  So it is
+A.i+A.ii-over-B, **not** a C-object coupled to A.
+
+The corner is blank, and `list_unit_determined_by_length` (C's defining theorem) says it *must* be.
+Its contrapositive: `l₁ ≠ l₂  →  length l₁ ≠ length l₂` — two unit-lists differ (an A-distinction)
+**only if** their lengths differ (a B-count).  Undistinguished atoms carry **no handle but their
+count**, so any A-distinction applied to a C-object factors through B.  The no-direct-edge finding is
+therefore *itself a theorem*, not an absence of search: C and A cannot meet directly because the only
+invariant of indistinguishables is the count.
+
+**B is the universal hub, not just the carrier.**  This upgrades B's role: it is the *vertical*
+carrier (every facet-consequence rides descent — A.i/A.ii/C-over-B) **and** the *horizontal*
+mediator (the sole channel between the dual atom-readings A and C).  And
+`list_unit_determined_by_length` plays a **double role** — the C-over-B composite *and* the C–A
+mediation — exactly as `self_covering_closure` carried both A.i↔A.ii directions: the capstone
+theorems each hold several lattice edges, read off the proof.  The completed 3×3:
+
+| | A | B | C |
+|---|---|---|---|
+| **A** | A.i↔A.ii: consume / produce / independent | A.i/A.ii-over-B (`δ²=0`, FTA) | **no direct edge** — mediated by B |
+| **B** | (carrier) | descent | C-over-B (`list_unit_determined_by_length`) |
+| **C** | mediated by B (count is the only handle) | (carrier) | count-completeness |
+
+The lattice's centre of gravity is **B = the count = the iterated distinguishing**: counting is the
+one operation that both *stacks* (descent, the vertical) and *mediates* (the only invariant of
+indistinguishables, the horizontal).  The floor is still the distinguishing at its three
+atom-readings; what the fingerprinting added is that the *counted* reading is the hub the other two
+reach each other through.
+
 ## The stopping criterion (against infinite regress)
 
 Analysing the peel is itself a peel (de-abstracting the abstraction "노가다"), so it can recurse
