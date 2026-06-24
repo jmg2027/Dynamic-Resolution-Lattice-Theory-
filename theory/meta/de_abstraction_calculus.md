@@ -126,13 +126,14 @@ readings of an atom — the count-Lens facets (`seed/AXIOM/06_lens_readings.md`)
 | cluster | atom | kernel | engine | reading | nodes |
 |---|---|---|---|---|---|
 | **A** | `Bool` | `xor b b = false` / `!b ≠ b` | `XorInvolution.xorFold_involution` | atoms **distinguished** (parity, fixed-point-free involution) | residue (`object1_not_surjective`), `δ²=0` (`delta_sq_zero_general`), even cardinality (`even_card_cancel`) |
-| **B** | `ℕ` (`succ`) | `Nat.rec` (structural) | `Foundations.MeasureInduction.measureInduction` | atoms **counted / ordered** (measure-descent) | FTA (`mulDescentRec`), Raw descent (`no_infinite_descent`), `Ω`-descent |
+| **B** | `ℕ` (`succ`) | `Nat.rec` (structural) | `Foundations.MeasureInduction.measureInduction` | atoms **counted / ordered** (measure-descent) | FTA *existence* (`mulDescentRec`), Raw descent (`no_infinite_descent`), `Ω`-descent |
 | **C** | `Unit` | `() = ()` | (genesis) `UnitList.append_comm` / `list_unit_determined_by_length` | atoms **undistinguished** (count is the complete invariant) | `(ℕ,+)` from `List Unit`, `+`-commutativity, `list_unit_determined_by_length` |
 
 The fingerprint tells these apart where the abstract forms ("Cantor", "FTA", "δ²=0", "even
 cardinality", "commutativity") do not.  And the three are dual/complementary at the **atom**:
 A's `Bool` *distinguishes* its two atoms (`!b ≠ b`), C's `Unit` does *not* (`() = ()`), and B's
-`ℕ` *counts* them (`succ`).
+`ℕ` *counts* them (`succ`).  (Cluster A itself refines into A.i parity and A.ii separation — see
+*Cluster A is not atomic* under *Composite edges*; the table's A row is the union of both sub-facets.)
 
 **The lattice's floor is the distinguishing, at its three atom-readings.**  And there is
 nothing below the distinguishing to land on: every peel terminates in one of these atom-readings
@@ -161,6 +162,43 @@ a parity cancellation carried over a counted/structural foundation.  (`cic_footp
 MINIMAL-STRUCTURAL, TIER-A — both ingredients present, both pure.)  Reading a proof's fingerprint
 this way says *which* bottoms it stands on and *how they stack* — finer than placing it in a
 single cluster.
+
+**FTA — the branch namesake — is the dual composite.**  `fta_existence_and_count`
+(`NumberTheory/MulDescentRec`, `FTAUniqueness`) peels into two halves with *different* bottoms:
+
+- **existence** (`mulDescentRec`, every `n ≥ 2` has a prime factorization) bottoms in cluster B —
+  peel `n ↦ n / minFac n`, recurse on the strictly-decreasing `Ω`-count (`measureInduction`);
+- **uniqueness** (`factorization_unique`: two prime lists with equal product have equal occurrence
+  count at every prime) bottoms **not in an involution** but in `vp_prodL_eq_countOcc` →
+  `vp_prime_single` (`vp q p = if p = q then 1 else 0`) → `prime_not_dvd_prime` (distinct primes
+  don't divide each other).  Its kernel is the **injectivity/separation** of distinct atoms: each
+  prime's valuation is independent, so the multiplicities are *read off the product* and the two
+  lists are forced equal.
+
+So FTA is a **B-then-A composite** — the mirror of `δ²=0`'s **A-over-B**.  Both stack a cluster-A
+consequence on a cluster-B (descent) foundation; they differ in *which* A-facet sits on top.
+
+### Cluster A is not atomic — parity vs. separation
+
+The two composites force a refinement the single-bottom table hid.  Cluster A's reading "atoms
+**distinguished**" splits by **how the distinction is used**, and the unfold-test confirms the two
+are operationally different moves, not one relabelled:
+
+| sub-facet | kernel | engine | how the distinction is used | nodes |
+|---|---|---|---|---|
+| **A.i** parity / involution | `xor b b = false` | `XorInvolution.xorFold_involution` | a fixed-point-free **pairing** cancels matched terms → *cancellation forced* | residue, `δ²=0`, even cardinality |
+| **A.ii** separation / injectivity | `vp_prime_single` / `prime_not_dvd_prime` (`p = q` decidable on `ℕ`) | `FTAUniqueness.vp_prodL_eq_countOcc` | distinct atoms are **told apart and counted independently** → *readout / uniqueness forced* | FTA uniqueness (`factorization_unique`), `vp` prime-separation |
+
+Both rest on the one Bool distinguishing at the very bottom (A.ii's `if p = q` *is* `Nat.decEq`,
+the distinguishing read on `ℕ`).  But A.i *pairs to annihilate* while A.ii *separates to read off*:
+inverse uses of the same primitive.  Unfold-test: the two cash out to different engines
+(`xorFold_involution` vs. `vp_prodL_eq_countOcc`) and different forced consequences
+(cancellation vs. uniqueness) — so the refinement is operational, admitted; A is a sub-lattice, not
+a point.
+
+The symmetry that earns the refinement: **`δ²=0` = A.i-over-B, FTA = A.ii-over-B** — two
+descent-composites distinguished only by which A-facet rides the descent.  The lattice's edges are
+now between *sub*-facets, exactly as the unfold-test licenses each split.
 
 ## The stopping criterion (against infinite regress)
 
