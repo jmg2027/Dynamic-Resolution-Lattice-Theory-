@@ -407,3 +407,13 @@ construction via `minFac'`, no descent, so no borrowed WF at all.)  Reuses the c
 leaks were all replaced by clean inline witnesses + `SubMod213.le_add_cancel_left` (made public) +
 `NatHelper.mul_assoc`.  Two classical multiplicative theorems (FTA existence, Euclid) now generated
 without borrowed `Nat` division or well-foundedness.
+
+### UPDATE (2026-06-24, cont. 6): structural quotient — division complete, `vp` prerequisite (PURE ✓)
+
+Toward grounding FTA *uniqueness* (which needs a structural `vp`/valuation that peels `n ↦ n/p`).
+Completed the structural division in `SubMod213` (∅-axiom): `subDiv` (quotient by counting the
+repeated subtractions, mirroring `subMod`), `subDivMod_eq` (`b·subDiv + subMod = a`, the division
+algorithm by `Nat.rec`), and `subDiv_lt_of_dvd` (the quotient strictly descends when `2 ≤ b ∣ a`, the
+descent `vp` needs). So both quotient and remainder are now structural / `Nat.div`-`Nat.mod`-free.
+Remaining for uniqueness: a structural `vp` (via `measureInduction_grounded` + `subDiv`), its
+multiplicativity, and `vp q (prodL l) = countOcc q l` — the larger next step.

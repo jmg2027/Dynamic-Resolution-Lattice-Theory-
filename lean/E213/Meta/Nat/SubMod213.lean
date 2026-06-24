@@ -105,4 +105,49 @@ theorem subMod_zero_iff_dvd (a b : Nat) (hb : 0 < b) :
         rw [Nat.add_zero, hbq]; exact hbc_le
       exact Nat.le_antisymm hr0 (Nat.zero_le _)
 
+/-! ## §2 — the structural quotient (for `vp` / valuation) -/
+
+/-- `a / b` by counting the repeated subtractions, bounded by `fuel`.  Mirrors `subMod`. -/
+def subDiv : Nat → Nat → Nat → Nat
+  | 0,     _, _ => 0
+  | f + 1, a, b => if a < b then 0 else subDiv f (a - b) b + 1
+
+/-- ★ **The division algorithm, structural.**  `b * subDiv fuel a b + subMod fuel a b = a` — quotient
+    and remainder reconstruct the dividend, by `Nat.rec` on fuel.  No `Nat.div`/`Nat.mod`. -/
+theorem subDivMod_eq : ∀ (fuel a b : Nat), b * subDiv fuel a b + subMod fuel a b = a
+  | 0,     a, b => by show b * 0 + a = a; rw [Nat.mul_zero, Nat.zero_add]
+  | f + 1, a, b => by
+    show b * (if a < b then 0 else subDiv f (a - b) b + 1)
+          + (if a < b then a else subMod f (a - b) b) = a
+    by_cases h : a < b
+    · rw [if_pos h, if_pos h, Nat.mul_zero, Nat.zero_add]
+    · rw [if_neg h, if_neg h, Nat.mul_succ]
+      have hba : b ≤ a := Nat.le_of_not_lt h
+      calc b * subDiv f (a - b) b + b + subMod f (a - b) b
+          = (b * subDiv f (a - b) b + subMod f (a - b) b) + b := by rw [Nat.add_right_comm]
+        _ = (a - b) + b := by rw [subDivMod_eq f (a - b) b]
+        _ = a := E213.Tactic.NatHelper.sub_add_cancel hba
+
+/-- ★★★ **The quotient strictly descends** when `2 ≤ b` divides `a ≥ 1` — the descent `vp` needs to
+    peel `n ↦ n / p`.  From `subDivMod_eq` (remainder `0` by `subMod_zero_iff_dvd`): `b * subDiv = a`,
+    so with `b ≥ 2` the quotient is at most `a / 2 < a`. -/
+theorem subDiv_lt_of_dvd {a b : Nat} (ha : 1 ≤ a) (hb : 2 ≤ b) (hdvd : b ∣ a) :
+    subDiv a a b < a := by
+  have hbpos : 0 < b := Nat.lt_of_lt_of_le (by decide) hb
+  have hmod0 : subMod a a b = 0 := (subMod_zero_iff_dvd a b hbpos).mpr hdvd
+  have heq : b * subDiv a a b = a := by
+    have hk := subDivMod_eq a a b
+    rw [hmod0, Nat.add_zero] at hk; exact hk
+  have hqpos : 1 ≤ subDiv a a b := by
+    rcases Nat.eq_zero_or_pos (subDiv a a b) with h0 | h0
+    · exfalso; rw [h0, Nat.mul_zero] at heq; exact absurd heq.symm (Nat.ne_of_gt ha)
+    · exact h0
+  have h2q : 2 * subDiv a a b ≤ a := by
+    have hle := Nat.mul_le_mul hb (Nat.le_refl (subDiv a a b))
+    rw [heq] at hle; exact hle
+  have hlt : subDiv a a b < 2 * subDiv a a b := by
+    have he : subDiv a a b + subDiv a a b = 2 * subDiv a a b := (Nat.two_mul _).symm
+    exact he ▸ Nat.lt_add_of_pos_right hqpos
+  exact Nat.lt_of_lt_of_le hlt h2q
+
 end E213.Meta.Nat.SubMod213
