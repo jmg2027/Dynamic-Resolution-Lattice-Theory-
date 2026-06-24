@@ -417,3 +417,24 @@ algorithm by `Nat.rec`), and `subDiv_lt_of_dvd` (the quotient strictly descends 
 descent `vp` needs). So both quotient and remainder are now structural / `Nat.div`-`Nat.mod`-free.
 Remaining for uniqueness: a structural `vp` (via `measureInduction_grounded` + `subDiv`), its
 multiplicativity, and `vp q (prodL l) = countOcc q l` — the larger next step.
+
+### UPDATE (2026-06-24, cont. 7): FTA uniqueness is a multi-session wall — scoped precisely
+
+Honest scoping (not a quick win).  FTA *uniqueness* needs **Euclid's lemma** (`p` prime, `p ∣ a·b →
+p∣a ∨ p∣b`) — both the `vp`-multiplicativity route and the multiset-cancellation route require it, and
+Euclid's lemma needs gcd/Bézout (or unique factorisation, circular).  The repo *has* `prime_dvd_mul`
+(`PrimeValuation:66`), but it routes through `Gcd213.gcd213`, which uses **`Nat.mod`** (verified:
+`gcd213_dvd_left` has `lt_wfRel=true, Nat.mod=true`).  So grounding uniqueness means **regrounding the
+whole `Gcd213` chain (~600 lines) onto `subMod`**: structural gcd → its dvd/greatest properties →
+coprime/Bézout → `prime_dvd_mul` → `vp_mul` (or direct cancellation) → uniqueness.  This is a genuine
+multi-session sub-project, not a turn.
+
+**First brick deposited** (`Meta/Nat/SubGcd213.lean`, ∅-axiom): `gcdSub` (Euclidean algorithm with the
+remainder from `subMod`, no `Nat.mod`) + base/recursion lemmas (`gcdSub_zero_right`, `gcdSub_succ`).
+The remaining bricks: the `subMod` analogue of `Nat.mod_eq_sub_mod` (the fuel-aware mod-subtraction
+step), `gcdSub_dvd_both`/`gcdSub_greatest` (mirror `Gcd213.gcdFuel_dvd_both`, ~70 lines), then the
+coprime/Bézout/Euclid's-lemma stack.  Whoever continues starts from `gcdSub`.
+
+**State of the grounded multiplicative discipline**: FTA *existence* and Euclid's infinitude are
+*fully* grounded (no `Nat.div`/`Nat.mod`/`strongRecOn`/`lt_wfRel`, ∅-axiom); structural division
+(quotient+remainder) is complete; FTA *uniqueness* awaits the gcd-chain regrounding above.
