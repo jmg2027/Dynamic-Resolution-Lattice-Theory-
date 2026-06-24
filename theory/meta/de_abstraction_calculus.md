@@ -200,6 +200,49 @@ The symmetry that earns the refinement: **`δ²=0` = A.i-over-B, FTA = A.ii-over
 descent-composites distinguished only by which A-facet rides the descent.  The lattice's edges are
 now between *sub*-facets, exactly as the unfold-test licenses each split.
 
+### B is the universal carrier — cluster C rides it too
+
+The same fingerprint applied to cluster C closes the pattern.  `list_unit_determined_by_length`
+(`Foundations.IndistinguishableAtom`, "equal length ⟹ equal unit-list") peels into: a **structural
+recursion** `list_unit_determined_by_length as bs` (B-descent on the list) bottoming in `cases a;
+cases b ⟹ () = ()` (C's kernel, the undistinguished atom).  So **C-over-B** — count-completeness
+*forced by* structural descent.
+
+All three facet-consequences therefore ride the **same** B foundation:
+
+| composite | top facet | what descent forces |
+|---|---|---|
+| `δ²=0` (`delta_sq_zero_general`) | **A.i** parity | cancellation |
+| FTA uniqueness (`factorization_unique`) | **A.ii** separation | uniqueness |
+| `list_unit_determined_by_length` | **C** count | count-completeness |
+
+**B is the universal carrier**: A.i, A.ii, C are not three independent floors but three things
+structural descent *delivers* — what's forced at the bottom of a count, read three ways.  (The pure
+*kernel* nodes — `xor_self`, `vp_prime_single`, `() = ()` — are A.i/A.ii/C standing alone, no
+descent; the *theorems* that put them to work all ride B.)
+
+### A.i presupposes A.ii — a directed edge inside the engine
+
+The two A-facets are not even parallel.  `XorInvolution.xorFold_involution` — A.i's engine — carries
+`hnodup : l.Nodup` as a **load-bearing** hypothesis: `filter_eq_singleton` needs it so each element
+filters to exactly `[x]`, i.e. the fixed-point-free pairing annihilates only because every element
+occurs **once**.  `Nodup` is built from `DecidableEq` — *exactly* A.ii's kernel (`if p = q`).  So the
+**parity-cancellation (A.i) presupposes separation (A.ii)**: a directed edge A.i ⟹ A.ii, not a
+symmetric pair.
+
+This in turn splits A.i and explains the original residue/`δ²=0` "two faces":
+
+- **A.i-diagonal** (the residue, `object1_not_surjective`): a fixed-point-free map on `Raw → Bool`
+  → diagonal → non-surjectivity.  Lives on a function space — **no finite list, so no `Nodup`
+  possible**: A.ii-free.
+- **A.i-pairing** (`δ²=0`, even cardinality): a fixed-point-free **involution over a `Nodup` list**
+  → cancellation.  **A.ii-coupled** (needs separation).
+
+So "`!b ≠ b`" (the diagonal face) is A.ii-free and "`xor b b`" (the pairing face) is A.ii-coupled —
+which is *why* the residue and `δ²=0`, both bottoming in the one Bool distinguishing, occupy
+different lattice positions.  The earlier "dual consequence of one primitive" finding is sharpened:
+the dual is *diagonal vs. pairing*, and only the pairing leg carries the separation edge.
+
 ## The stopping criterion (against infinite regress)
 
 Analysing the peel is itself a peel (de-abstracting the abstraction "노가다"), so it can recurse
