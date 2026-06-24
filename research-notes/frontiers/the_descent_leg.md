@@ -297,232 +297,32 @@ definitions in its cone don't re-introduce `Nat.strongRecOn`. Until that, the de
 descent is groundable but not yet grounded. The engine is the reusable keystone; wiring FTA onto it is
 the remaining concrete step.
 
-### UPDATE (2026-06-24, cont.): FTA descent re-routed onto the engine — measured PARTIAL, blocker named
+## PROMOTED — multiplicative chain closed (2026-06-24)
 
-Applied the engine to FTA existence (`NumberTheory/MulDescentGrounded.mul_factorization_exists_grounded`,
-PURE): the descent now goes through `measureInduction_grounded` (peel `n ↦ n/minFac n`, `id`-measure).
-Direct closure walk, grounded vs old:
+The multiplicative-discipline grounding marathon that ran in this note (FTA existence + uniqueness, and
+every gear between — structural division, gcd, Bézout, Euclid's lemma, the `p`-adic valuation, its
+multiplicativity) is **closed** and promoted to a permanent chapter:
 
-| | `isPart_wf` | `Nat.strongRecOn` | `Nat.lt_wfRel` |
-|---|---|---|---|
-| old `mul_factorization_exists` | false | true | true |
-| grounded (this file) | **true** | **true** (still) | true |
+> **`theory/math/numbertheory/grounded_fundamental_theorem.md`**
 
-**Honest verdict: the FTA bar is NOT yet cleared.** Re-routing the descent *added* `isPart_wf` (real
-progress — the recursion now terminates on `Raw`'s descent) but did **not remove** `Nat.strongRecOn`:
-a reused supporting lemma carries it, traced precisely to `minFac_spec` → **`leastFactorFrom_spec`**
-(the least-factor search's correctness proof uses strong recursion). So swapping the descent is
-necessary-not-sufficient; the **`minFac`/`leastFactorFrom` specification chain must be rebuilt on
-structural-fuel induction** as the next concrete step. `Nat.lt_wfRel` remains from `Nat.div` (separate
-borrowed primitive). The deliverable is the *measured accounting*: engine clean, descent grounded,
-remaining blocker isolated to one named lemma — the "win or lose, report honestly" the note asks for.
+The Fundamental Theorem of Arithmetic, both halves, is reconstructed with no theorem in the chain
+depending on `Nat.div`/`Nat.mod`/`Nat.strongRecOn`/`Nat.lt_wfRel` — verified by transitive
+kernel-closure walk (`factorization_unique`: 485-constant closure, zero forbidden hits).  The Lean
+source of truth is `Meta/Nat/{SubMod213,SubGcd213,SubBezout213,VpSub213}` +
+`Lib/Math/NumberTheory/{EuclidLemmaGrounded,VpMulGrounded,FTAUniquenessGrounded,
+MulDescentGroundedNoDiv,EuclidPrimesGrounded}`.
 
-### UPDATE (2026-06-24, cont. 2): FTA existence — descent-leg bar CLEARED (PURE ✓)
+### What remains open here (the conceptual frontier, unchanged)
 
-Pushed through. `mul_factorization_exists_grounded` now measures (direct closure walk + `#print axioms`):
+This note stays as the record of the *still-open* descent-leg frontier — the part the closed
+multiplicative chain does **not** settle:
 
-| | `isPart_wf` | `Nat.strongRecOn` | `Nat.lt_wfRel` | axioms |
-|---|---|---|---|---|
-| grounded FTA (final) | **true** | **false** | true | **none (∅-axiom)** |
+- **Leg 1 — generate ℕ from `Raw`.** The grounded chain still recurses on the kernel's *structural*
+  `Nat` (`Nat.rec`, fuel), not a distinguishing-generated `Nat₂₁₃` (promote the `RawRecurrence` spine
+  per the leg-1 target above).  Structural-but-borrowed is weaker than generated.
+- **Leg 3 — forcing, not matching.** No proof that the distinguishing primitive is non-interchangeable
+  with rivals (negation-first, relation-first); that is the open middle of `frontiers/the_one_act.md`.
 
-The bar — *factorisation terminates via `Raw`'s own descent, not borrowed `Nat.strongRecOn`* — is
-**cleared for FTA existence**. The remaining-blocker hunt bottomed out at a **single point** and a
-two-step fix cleared the whole chain:
-
-1. **`AddMod213.div_add_mod`** (`n = b·(a/b) + a%b`) was the sole source of `Nat.strongRecOn` for the
-   entire `minFac`/`leastFactorFrom` chain — its proof used `Nat.strongRecOn` for the `a ↦ a-b`
-   descent. Rebuilt on **structural fuel recursion** (`Nat.rec` on a bound): `strongRecOn` gone from
-   `div_add_mod`, `minFac_spec`, `minFac_prime`, and everything above. (Kept ∅-axiom: the new zero
-   case avoided `Nat.zero_mod`, which leaks `propext`.)
-2. In `mul_factorization_exists_grounded`, the two core div lemmas `Nat.div_lt_self` (carries
-   `strongRecOn`) and `Nat.mul_div_cancel'` (carries `propext`) were replaced by `div_lt_self'` and a
-   `div_add_mod`+`mod_zero_of_dvd` cancellation — both built from the now-clean `div_add_mod`.
-
-**Honest residual.** `Nat.lt_wfRel` remains, isolated to `Nat.div`/`Nat.mod` (kernel WF-recursion) —
-division as a borrowed *arithmetic primitive*, a separate frontier from the *descent* (the deep
-carrier-rebuild, `the_genesis_seam.md`). So: the factorisation **descent** is grounded in the
-distinguishing; **division** is still a borrowed op. That is the precise, measured generated-vs-borrowed
-boundary for the multiplicative discipline — the descent leg's first deep-discipline clearance.
-
-**Bonus**: the `div_add_mod` fuel-rewrite removes `Nat.strongRecOn` from *every* downstream user of
-`minFac`/`leastFactorFrom`, not just FTA (Meta.Nat builds clean, 108 modules).
-
-### UPDATE (2026-06-24, cont. 3): division rebuilt structurally — the divisibility primitive (PURE ✓)
-
-Toward removing the residual `Nat.lt_wfRel` (from `Nat.div`/`Nat.mod`, kernel WF-recursion).  The
-divisibility test is the load-bearing use of `Nat.mod` in `minFac`/`leastFactorFrom`.  Rebuilt it
-**structurally from subtraction** (`Meta/Nat/SubMod213.lean`, 3★ + helpers, all ∅-axiom):
-
-- `subMod fuel a b` — `a mod b` by repeated `Nat.sub` (structural `Nat.rec` on fuel);
-- `subMod_eq` — `a = b·q + subMod fuel a b`; `subMod_lt` — remainder `< b` when fuel ample;
-- `subMod_zero_iff_dvd` — `subMod a a b = 0 ↔ b ∣ a` (both directions): the `Nat.mod`-free
-  divisibility decision.
-
-**Verified clean**: closure walk shows `lt_wfRel=false, strongRecOn=false, Nat.mod=false,
-Nat.div=false`, and `#print axioms` empty (∅-axiom).  `Nat.sub` is structural and clean, so the whole
-primitive is.  (Integrity notes: a first draft leaked `propext` via `Nat.add_sub_cancel'`,
-`Nat.zero_mod`-style core lemmas, and `Nat.le_of_add_le_add_left` — all replaced by the repo's clean
-`NatHelper.sub_add_cancel` and a hand-proved `le_add_cancel_left`; caught by `#print axioms`.)
-
-**Remaining (mechanical)**: rewire `leastFactorFrom`/`minFac` to branch on `subMod n n k` instead of
-`n % k`, reprove `minFac_spec` via `subMod_zero_iff_dvd`, and run FTA existence on the **divisibility
-witness `q`** (from `minFac n ∣ n`) instead of `n / minFac n` — which removes `Nat.div` too.  Then the
-whole FTA chain is `lt_wfRel`-free: division fully rebuilt from the distinguishing's subtraction.  The
-hard reusable part (the clean primitive) is done; the rewire is copy-and-swap.
-
-### UPDATE (2026-06-24, cont. 4): FTA existence FULLY lt_wfRel-free — division generated (PURE ✓✓)
-
-The mechanical rewire is done. `MulDescentGroundedNoDiv.mul_factorization_exists_nodiv` measures
-(direct closure walk + `#print axioms`):
-
-| | isPart_wf | strongRecOn | lt_wfRel | Nat.div | Nat.mod | axioms |
-|---|---|---|---|---|---|---|
-| **no-div FTA** | **true** | **false** | **false** | **false** | **false** | **none (∅-axiom)** |
-
-So FTA existence now uses **no borrowed `Nat` well-founded machinery at all**: `minFac'` tests
-divisibility by `subMod` (structural subtraction, no `Nat.mod`); the recursion is on the divisibility
-**witness `q`** with `n = minFac' n * q` (no `Nat.div`); the descent is `measureInduction_grounded`
-(grounded in `isPart_wf`). The only `Nat` primitives left are `succ`/`+`/`*`/`-` (all structural) and
-the structural recursors.
-
-**Division and remainder are rebuilt from the distinguishing's subtraction; the descent from the
-distinguishing's own well-foundedness.** This is the descent leg's first *complete* deep-discipline
-clearance: the multiplicative existence theorem (FTA, the branch's namesake) generated end-to-end
-without `Nat.div`/`Nat.mod`/`Nat.strongRecOn`/`Nat.lt_wfRel`. (`minFac'`/`leastFactorFrom'`/spec/prime
-all rebuilt on `subMod`; `Nat.mul_assoc` — which leaks propext in core — swapped for the repo's clean
-`NatHelper.mul_assoc`; caught by `#print axioms`.)
-
-Remaining (deeper): `Nat.sub`/`succ`/`*` themselves are kernel inductive recursion (Tree/Nat W-type,
-`the_trusted_base.md`) — the irreducible CIC floor, not borrowed *WF*. That is a different frontier
-(the W-type itself), not the descent-grounding one, which is now closed for FTA existence.
-
-### UPDATE (2026-06-24, cont. 5): Euclid's infinitude of primes — second grounded discipline (PURE ✓)
-
-To show the `Nat.div`/`Nat.mod`-free grounding generalises beyond FTA existence:
-`EuclidPrimesGrounded.infinitude_of_primes` — for any list `L` of primes there is a prime not in `L`
-(`minFac' (prodL L + 1)`).  Measures: `strongRecOn=false, lt_wfRel=false, Nat.div=false,
-Nat.mod=false`, `#print axioms` empty (∅-axiom).  (No `isPart_wf` — Euclid is a *one-shot*
-construction via `minFac'`, no descent, so no borrowed WF at all.)  Reuses the clean `minFac'`; the
-`Nat.dvd_sub`/`Nat.dvd_trans`/`Nat.add_sub_cancel`/`Nat.le_of_add_le_add_left`/`Nat.mul_assoc` propext
-leaks were all replaced by clean inline witnesses + `SubMod213.le_add_cancel_left` (made public) +
-`NatHelper.mul_assoc`.  Two classical multiplicative theorems (FTA existence, Euclid) now generated
-without borrowed `Nat` division or well-foundedness.
-
-### UPDATE (2026-06-24, cont. 6): structural quotient — division complete, `vp` prerequisite (PURE ✓)
-
-Toward grounding FTA *uniqueness* (which needs a structural `vp`/valuation that peels `n ↦ n/p`).
-Completed the structural division in `SubMod213` (∅-axiom): `subDiv` (quotient by counting the
-repeated subtractions, mirroring `subMod`), `subDivMod_eq` (`b·subDiv + subMod = a`, the division
-algorithm by `Nat.rec`), and `subDiv_lt_of_dvd` (the quotient strictly descends when `2 ≤ b ∣ a`, the
-descent `vp` needs). So both quotient and remainder are now structural / `Nat.div`-`Nat.mod`-free.
-Remaining for uniqueness: a structural `vp` (via `measureInduction_grounded` + `subDiv`), its
-multiplicativity, and `vp q (prodL l) = countOcc q l` — the larger next step.
-
-### UPDATE (2026-06-24, cont. 7): FTA uniqueness is a multi-session wall — scoped precisely
-
-Honest scoping (not a quick win).  FTA *uniqueness* needs **Euclid's lemma** (`p` prime, `p ∣ a·b →
-p∣a ∨ p∣b`) — both the `vp`-multiplicativity route and the multiset-cancellation route require it, and
-Euclid's lemma needs gcd/Bézout (or unique factorisation, circular).  The repo *has* `prime_dvd_mul`
-(`PrimeValuation:66`), but it routes through `Gcd213.gcd213`, which uses **`Nat.mod`** (verified:
-`gcd213_dvd_left` has `lt_wfRel=true, Nat.mod=true`).  So grounding uniqueness means **regrounding the
-whole `Gcd213` chain (~600 lines) onto `subMod`**: structural gcd → its dvd/greatest properties →
-coprime/Bézout → `prime_dvd_mul` → `vp_mul` (or direct cancellation) → uniqueness.  This is a genuine
-multi-session sub-project, not a turn.
-
-**First brick deposited** (`Meta/Nat/SubGcd213.lean`, ∅-axiom): `gcdSub` (Euclidean algorithm with the
-remainder from `subMod`, no `Nat.mod`) + base/recursion lemmas (`gcdSub_zero_right`, `gcdSub_succ`).
-The remaining bricks: the `subMod` analogue of `Nat.mod_eq_sub_mod` (the fuel-aware mod-subtraction
-step), `gcdSub_dvd_both`/`gcdSub_greatest` (mirror `Gcd213.gcdFuel_dvd_both`, ~70 lines), then the
-coprime/Bézout/Euclid's-lemma stack.  Whoever continues starts from `gcdSub`.
-
-**State of the grounded multiplicative discipline**: FTA *existence* and Euclid's infinitude are
-*fully* grounded (no `Nat.div`/`Nat.mod`/`strongRecOn`/`lt_wfRel`, ∅-axiom); structural division
-(quotient+remainder) is complete; FTA *uniqueness* awaits the gcd-chain regrounding above.
-
-### UPDATE (2026-06-24, cont. 8): grounded gcd — divisibility + prime-coprimality (PURE ✓)
-
-Bricks 2 + 3 of the `SubGcd213` chain land (∅-axiom; closure-walked: `lt_wfRel`/`strongRecOn`/`Nat.div`/`Nat.mod`/`propext`/`Acc.rec`/`WellFounded.fix` all absent — 233-const closure, zero forbidden hits).
-
-- **Brick 2** — `g_dvd_of_dvd_subMod` (`g ∣ a → g ∣ (b mod a) → g ∣ b`, immediate from `subMod_eq`, much shorter than the `Nat.mod` analogue `Gcd213.g_dvd_b_via_mod`) and `gcdSub_dvd_both` (`gcdSub n a b ∣ a ∧ ∣ b`, fuel `n ≥ b` the Euclidean monovariant, inductive step `(a, b'+1) → (b'+1, a mod (b'+1))` lifted via brick 2). The `subMod_eq` identity `b = a·q + (b mod a)` trivialises the divisibility lift that the mod-recursion version has to grind out.
-- **Brick 3** — `gcdW a b := gcdSub (a+b) a b` (fuel discharged, `b ≤ a+b` ample), `gcdW_dvd_left`/`gcdW_dvd_right`, and `gcd_eq_one_of_prime_not_dvd`: for `p` with only divisors `1, p` and `p ∤ a`, `gcd(p,a)=1`. This is the half of Euclid's lemma that needs **no Bézout** — `gcdW p a ∣ p` so it is `1` or `p`, and `p` is excluded because `gcdW p a ∣ a` would force `p ∣ a`.
-
-**Remaining wall (unchanged)**: the *other* half — `gcd(p,a)=1 → p ∣ a·b → p ∣ b` — is exactly where **Bézout** (a `g = a·x − b·y` witness, structural) is unavoidable, and that is the hard regrounding still ahead before `prime_dvd_mul` → `vp_mul` → FTA uniqueness. Coprimality is now a clean PURE primitive to build Bézout against; the descent of the extended-Euclid coefficients is the next genuine piece of work.
-
-### UPDATE (2026-06-24, cont. 9): the Bézout wall is CLEARED — Euclid's lemma grounded (PURE ✓)
-
-The wall scoped in cont.7 ("FTA uniqueness is a multi-session wall") is down.  Two deposits, both
-∅-axiom, both closure-walked clean (no `Nat.lt_wfRel`/`strongRecOn`/`Nat.div`/`Nat.mod`/`propext`/
-`Acc.rec`/`WellFounded.fix`/`Gcd213.gcd213`):
-
-- **`Meta/Nat/SubBezout213.lean`** — *structural Bézout*, the piece I'd called "the hard remaining
-  work".  `egcd` is the extended Euclidean recursion threading a coefficient quadruple `(g,x,y,s)`
-  with `s : Bool` a **sign flag**, so the Bézout identity stays in `Nat` — **no `Int`/signed
-  integers**:
-    - `s = true  → a·x = b·y + g`
-    - `s = false → b·y = a·x + g`
-  The Euclidean step `a = b·q + r` (`subDivMod_eq`, *no Nat-subtraction in the algebra*) forces the
-  uniform update `xₙ = y'`, `yₙ = x' + q·y'`, `s` flips — proved by distribution + IH (`egcd_bezout`,
-  `Nat.rec` on fuel).  `egcd_fst` ties the `g`-component to `gcdSub`, and `bezout_one_of_coprime`
-  reads off `gcd(a,b)=1 → ∃ x y, a·x = b·y+1 ∨ b·y = a·x+1`.
-- **`Lib/Math/NumberTheory/EuclidLemmaGrounded.lean`** — *Euclid's lemma*, `prime_dvd_mul`:
-  `p` prime, `p ∣ a·b → p∣a ∨ p∣b`.  Regrounds the repo's `PrimeValuation.prime_dvd_mul` (which goes
-  through `Gcd213.gcd213` = `Nat.mod`) onto the `subMod` Bézout.  Closure 288, **zero** bad hits.
-  Key craft: case on `gcd(p,a) ∈ {1,p}` (from primality + `gcdW_dvd_left`) **instead of**
-  `by_cases p ∣ a` — the latter's `Decidable (p∣a)` instance computes via `Nat.mod` and would
-  re-import the dirt.  Multiply the Bézout identity by `b`, fold in `p ∣ a·b`, get `p·c₁ = p·c₂ + b`,
-  whence `p ∣ b` (`dvd_of_pmul_eq`, clean right-cancel + `subMod`-style `sub_add_cancel`).
-
-**State of the grounded multiplicative discipline (revised)**: FTA *existence*, Euclid's *infinitude*,
-structural *division* (quotient+remainder), structural *gcd* + prime-coprimality, structural *Bézout*,
-and *Euclid's lemma* — all ∅-axiom, none borrowing `Nat.div`/`Nat.mod`/`strongRecOn`/`lt_wfRel`.  FTA
-*uniqueness* now reduces to `vp`-multiplicativity (`vp_mul`) on top of grounded `prime_dvd_mul`, which
-is mechanical (the conceptual content was Euclid's lemma).  The descent leg's hardest number-theory
-wall is behind us.
-
-### UPDATE (2026-06-24, cont. 10): grounded `vₚ` + multiplicativity — FTA-uniqueness gear (PURE ✓)
-
-On top of the grounded Euclid's lemma (cont.9), the prime-power valuation is now grounded too.
-`Valuation.vp` decides each step on `n % qᵏ = 0` — the `decEq` is clean but `Nat.mod` itself is
-`lt_wfRel`/`WellFounded.fix`-dirty (verified: `vp` closure carries `Nat.mod`, `Nat.lt_wfRel`).
-
-- **`Meta/Nat/VpSub213.lean`** — `vpSub`, the identical downward search rebuilt on `subMod`: the step
-  decides `subMod n n (qᵏ) = 0` and bridges divisibility through `subMod_zero_iff_dvd` instead of
-  `dvd_of_mod_eq_zero`/`mod_zero_of_dvd`.  The four laws (`pow_vpSub_dvd`, `vpSub_ge`,
-  `vpSub_not_dvd_succ`, `le_vpSub_iff`) mirror `Valuation` verbatim, reusing its clean
-  `drefl`/`dtrans`/`pow_dvd_of_le` helpers.  All ∅-axiom, closure clean (no `Nat.mod`/`Nat.div`/
-  `Nat.lt_wfRel`).
-- **`Lib/Math/NumberTheory/VpMulGrounded.lean`** — `vpSub_mul`: `vpSub p (a·b) = vpSub p a + vpSub p b`
-  (`p` prime, `a,b>0`).  Same bookkeeping as `PrimeValuation.vp_mul` (unit-part extraction
-  `a = pᵅ·u`, `p ∤ u·v` by grounded Euclid), but on `vpSub` and the grounded `prime_dvd_mul`.
-  Closure 460, **zero** bad hits — no `Valuation.vp`, no `gcd213`.
-
-**State**: the prime-power valuation is a fully grounded homomorphism `ℕ_{>0} → ℕ` at primes.  FTA
-*uniqueness* now reduces to `vpSub q (prodL L) = (occurrences of q in L)` for a prime list `L` (list
-induction on `vpSub_mul` + `vpSub q q = 1`, `vpSub q p = 0` for distinct primes), giving
-`prodL L₁ = prodL L₂ → per-prime counts agree`.  That count-capstone is the last mechanical step.
-
-### UPDATE (2026-06-24, cont. 11): FTA UNIQUENESS fully grounded — the chain is closed (PURE ✓)
-
-`FTAUniqueness.factorization_unique` already states uniqueness as valuation-count invariance, but on
-the `Nat.mod` `vp`/`vp_mul` (`#print axioms`-clean, closure `Nat.mod`/`lt_wfRel`-dirty).
-**`Lib/Math/NumberTheory/FTAUniquenessGrounded.lean`** regrounds the whole statement:
-
-- `vpSub_self_pow` — `vpSub q (qᵏ) = k` (`q≥2`), via `le_vpSub_iff` (lower `qᵏ∣qᵏ`, upper `q^{k+1}>qᵏ`).
-- `vpSub_prime_single` — `vpSub q p = (if p=q then 1 else 0)` for primes, with `q∤p` **inlined** from
-  `p`'s primality (no `FoldCriterion` import).
-- `vpSub_prodL_eq_countOcc` — `vpSub q (prodL l) = countOcc q l` for a prime list (induction on
-  `vpSub_mul`).
-- `factorization_unique` — `prodL l₁ = prodL l₂ → ∀ prime q, countOcc q l₁ = countOcc q l₂`.
-
-**`factorization_unique` is ∅-axiom; closure 485, ZERO bad hits** — verified absent: `Nat.div`,
-`Nat.mod`, `Nat.lt_wfRel`, `Nat.strongRecOn`, `propext`, `Acc.rec`, `WellFounded.fix`, `Gcd213.gcd213`,
-`Valuation.vp`, `VpMul.vp_mul`.
-
-**The descent-leg multiplicative chain is now CLOSED end to end**, all `subMod`-grounded:
-structural division (`SubMod213`) → gcd (`SubGcd213`) → Bézout (`SubBezout213`, sign-flag, no `Int`) →
-Euclid's lemma (`EuclidLemmaGrounded`) → valuation (`VpSub213`) → multiplicativity (`VpMulGrounded`) →
-**FTA existence** (`MulDescentGroundedNoDiv`) **+ uniqueness** (`FTAUniquenessGrounded`).  Both halves
-of the Fundamental Theorem of Arithmetic are reconstructed without borrowing `Nat.div`/`Nat.mod`/
-`Nat.strongRecOn`/`Nat.lt_wfRel` — the multiplicative discipline grounded in the distinguishing's own
-descent, as the descent-leg programme set out.  **Promotion-eligible** (closed Lean sub-tree; see
-`theory/PROMOTION_CRITERIA.md`).
+The `isPart_wf` engine (above) grounds the *existence* descent in the distinguishing's own descent; the
+uniqueness chain grounds in structural fuel.  Both clear the "no borrowed non-structural WF" bar, but
+leg 1's "generated, not borrowed" bar is stronger and stays open.
