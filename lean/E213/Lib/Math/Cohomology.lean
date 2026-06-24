@@ -3,6 +3,7 @@ import E213.Lib.Math.Cohomology.Examples.BettiKernel
 import E213.Lib.Math.Cohomology.Bipartite
 import E213.Lib.Math.Cohomology.Capstone
 import E213.Lib.Math.Cohomology.ChainComplex
+import E213.Lib.Math.Cohomology.DeltaSqZero
 import E213.Lib.Math.Cohomology.Bridge.ClosureExtension
 import E213.Lib.Math.Cohomology.Cochain
 import E213.Lib.Math.Cohomology.Cup

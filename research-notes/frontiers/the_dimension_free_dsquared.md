@@ -111,15 +111,22 @@ kSubset (n+1) (k+1) i = if i < binom n (k+1) then kSubset n (k+1) i
    fixed-point-free involution ⟹ even cardinality" in XOR form — the colex-
    independent keystone.
 
-   **Still open — the application only.**  Connect `δ²σ(τ)` to
-   `xorFold_involution`: (i) rewrite the nested `δ²` `foldl`-XOR as a single
-   `xorFold` over the `(a,b)` removal grid (a flat list), using the round-trip
-   (`kSubset_subsetIdx` + `sorted_eraseIdx`) to collapse the inner `subsetIdx ∘
-   eraseIdx ∘ kSubset` to the genuine face — and handling `deltaAt`'s in-range
-   `if` guard (never the `else` branch, since faces are valid); (ii) supply the
-   involution `(a,b) ↦ (b+1,a)` for `a ≤ b` and discharge its four hypotheses via
-   `eraseIdx_eraseIdx_comm` (summand-preservation) + index arithmetic
-   (fixed-point-free, involutive, grid-closed).  No new *structural* facts.
+   **The guard is now handled** (`DeltaSqZero.lean`, PURE): `deltaAt_eq_xorFold` —
+   reading `σ` through `cochainAtNat` (`false` out of range) collapses `deltaAt`'s
+   dependent-`if` `foldl` to an unconditional `xorFold` over the faces.  In range it
+   is the real `σ`-value; out of range `xor acc false = acc`, exactly the `else`
+   branch — so the guard vanishes with no validity hypothesis.  Plus the two guard-
+   discharge lemmas `kSubset_sorted` + `subsetIdx_lt` (`ColexRoundTrip`).
+
+   **Still open — the final assembly only** (mechanical, no new structural/abstract
+   facts): (i) compose two `deltaAt_eq_xorFold` rewrites for `δ²`, inserting the
+   reverse round-trip `kSubset_subsetIdx` (faces valid via `sorted_eraseIdx` +
+   `kSubset_sorted` + `length_eraseIdx_of_lt`) to collapse the inner `kSubset ∘
+   subsetIdx` to the genuine double-erase face; (ii) flatten the nested `xorFold`
+   over `(a,b)` to a `xorFold` over the grid list (pure `flatMap`/`Nodup`); (iii)
+   supply the involution `(a,b) ↦ (b+1,a)` for `a ≤ b` and discharge its four
+   hypotheses via `eraseIdx_eraseIdx_comm` (summand-preservation) + index arithmetic,
+   then apply `xorFold_involution`.
 
 All ∅-axiom: structural induction + `eraseIdx`/`List` lemmas + `Eq.subst`/`▸`,
 no funext (use the `Delta.Pointwise` pattern), no `decide` over the function space.
