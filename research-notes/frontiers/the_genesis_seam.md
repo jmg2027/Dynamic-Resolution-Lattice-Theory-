@@ -513,21 +513,41 @@ used constants was traced directly:
   constructor* (`Tree`-comparison / `DecidableEq` for the `x ≠ y` ordering), inherited by
   `IsPart`'s very statement.
 
-**What this relocates (the sharpened frontier).** The residual `Nat` at the Raw layer is
-**not** in the descent — that crutch is removed — it is in **canonicalization of `slash`**.
-Raw is `{ t : Tree // t.canonical = true }`; building a canonical slash decides a
-`Tree`-order, and that decision is implemented with `Nat.beq`/`Nat.decEq`/`Nat.rec`. So:
-> A fully `Nat`-free Raw layer requires a `Nat`-free **canonical-form decision** for
-> `slash` (the `x ≠ y` ordering/dedup) — *not* a `Nat`-free descent (already done).
-That is the next concrete target, and it is the *same* `Tree`-distinguishability gate that
-Round 4's tail named for the multiplicative encoding (distinct children). The two frontiers
-— Nat-free Raw carrier, and Raw-native multiplicative descent — meet at `slash`'s
-distinct-children canonicalization.
+**What this relocated, and then closed.** The residual `Nat` was traced to
+**canonicalization of `slash`** (Raw = `{ t : Tree // t.canonical = true }`; deciding the
+`x ≠ y` order). Following that trace, the whole Raw foundational descent is **now
+`Nat`-free** — measured **0 `Nat` constants** in the closures of `isPart_wf`, `Raw.rec` /
+`Raw.recAux` (the structural recursor), `Raw.slash` (the carrier's canonical constructor),
+and `IsPart`. The carrier, the recursor, and the well-foundedness all stand on the CIC
+inductive kernel alone, no borrowed `Nat`.
 
-Caveat held open per §5.1 / Round 2 sub-q 3: CIC itself cannot be escaped — `Raw` is a
-kernel `inductive` (`Tree` + `Subtype` + `Bool`), so the target is never "0 kernel
-inductives" (empty), but "**one** inductive, `Raw`, every recursion structural on it, and no
-*borrowed* `Nat`." The descent now meets that bar; the carrier constructor does not yet.
+The single root cause across all three layers was the kernel-generated
+`Ordering.noConfusion`, which routes constructor-distinctness through
+`Ordering.toCtorIdx : Ordering → Nat`. Every `cases h` on an `Ordering`-equality (to
+discharge an impossible comparison branch) imported ~17 `Nat` constants. The fix
+(`Term/Internal/Tree/Cmp.lean`): a `casesOn`-based discriminator `ordCode` / `ordNoConf`
+(`Ordering.casesOn`/`rec` are themselves `Nat`-free), routed into:
+- the `Tree.cmp` lemmas `cmp_eq_to_eq` / `cmp_gt_to_lt_swap` / `cmp_lt_to_gt_swap`;
+- `Raw.slash_val_lt` / `slash_val_gt` (`Slash.lean`) — `Raw.slash`'s canonicalization;
+- `Raw.recAux`'s canonicality threading (`Rec.lean`);
+- the descent measure itself (`isPart_wf` re-grounded on `Raw.rec`, Round 5 head).
+All four rewritten `rw`-free (the kernel-purity guard forbids `rw`; `Eq.subst`/`▸`,
+`congrArg`, `.trans` used instead). Build green, `scan_axioms` PURE (no `propext`
+introduced), closure-trace `Nat`-free.
+
+So at the **`Raw` foundational layer the originator's directive is met**: stand on `Raw`,
+do not borrow kernel `Nat`. Caveat held open per §5.1 / Round 2 sub-q 3: CIC itself is not
+escaped — `Raw` is a kernel `inductive` (`Tree` + `Subtype` + `Bool`) — so the achieved bar
+is "**one** inductive, `Raw`, every recursion structural on it, **no borrowed `Nat`**,"
+verified by closure trace, not "0 kernel inductives" (empty, unreachable).
+
+**The frontier above the foundation stays open.** This de-`Nat`s the `Raw`/`isPart_wf`
+layer; it does **not** touch the disciplines built on borrowed `Nat` carriers (the additive
+monoid on `List Unit`, FTA / `Ω` on kernel `Nat`, all of `Lib/Math`). Re-grounding *those*
+on a `Nat`-free, `Raw`-native naturals object (the count-Lens image, not a `Nat` subtype)
+remains the deep frontier — now with a proven technique (the `ordNoConf` pattern:
+replace kernel auto-`noConfusion` with a `casesOn` discriminator) for peeling `Nat` out one
+layer at a time, and a `Nat`-free foundation to build on.
 
 ## The exterior deliverable (the only §5.1-legal verdict)
 

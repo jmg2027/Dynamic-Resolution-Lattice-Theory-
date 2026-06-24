@@ -14,6 +14,28 @@ Namespace `E213.Term.Internal` — path-aligned .
 
 namespace E213.Term.Internal
 
+/-! ### ∅-axiom `Ordering` no-confusion (no `Nat` constructor-indices)
+
+The kernel-generated `Ordering.noConfusion` routes through `Ordering.toCtorIdx :
+Ordering → Nat` — so every `cases h` on an `Ordering`-equality imports `Nat`
+(`Nat.beq`/`Nat.decEq`/`Nat.rec`, ~17 constants) into the comparison-lemma cone, and from
+there into `Raw.slash`'s canonicalization and `IsPart`'s statement.  `Ordering.casesOn` /
+`Ordering.rec` are themselves `Nat`-free, so a `casesOn`-based discriminator discharges
+`o₁ = o₂` for distinct constructors with **no `Nat`** — keeping the canonical-form decision
+for `slash` inside the inductive kernel only. -/
+
+/-- Constructor-agreement discriminator on `Ordering` (`casesOn`-based, `Nat`-free). -/
+def ordCode : Ordering → Ordering → Prop
+  | .lt, .lt => True | .eq, .eq => True | .gt, .gt => True
+  | _,   _   => False
+
+theorem ordCode_self : ∀ o : Ordering, ordCode o o
+  | .lt => trivial | .eq => trivial | .gt => trivial
+
+/-- `Nat`-free replacement for `cases h` / `Ordering.noConfusion h`: from `o₁ = o₂` the
+    discriminator holds, and for distinct constructors `ordCode o₁ o₂` reduces to `False`. -/
+theorem ordNoConf {o₁ o₂ : Ordering} (h : o₁ = o₂) : ordCode o₁ o₂ := h ▸ ordCode_self o₁
+
 protected theorem Tree.cmp_eq_iff (x y : Tree) : Tree.cmp x y = .eq ↔ x = y := by
   induction x generalizing y with
   | a =>
@@ -84,26 +106,29 @@ These direct one-direction lemmas avoid both. -/
 /-- Direct: `Tree.cmp x y = .eq → x = y` (no iff, no propext). -/
 protected theorem Tree.cmp_eq_to_eq : ∀ (x y : Tree), Tree.cmp x y = .eq → x = y
   | .a, .a, _ => rfl
-  | .a, .b, h => by cases h
-  | .a, .slash _ _, h => by cases h
-  | .b, .a, h => by cases h
+  | .a, .b, h => (ordNoConf h : False).elim
+  | .a, .slash _ _, h => (ordNoConf h : False).elim
+  | .b, .a, h => (ordNoConf h : False).elim
   | .b, .b, _ => rfl
-  | .b, .slash _ _, h => by cases h
-  | .slash _ _, .a, h => by cases h
-  | .slash _ _, .b, h => by cases h
+  | .b, .slash _ _, h => (ordNoConf h : False).elim
+  | .slash _ _, .a, h => (ordNoConf h : False).elim
+  | .slash _ _, .b, h => (ordNoConf h : False).elim
   | .slash x₁ y₁, .slash x₂ y₂, h => by
-      have h' : (match Tree.cmp x₁ x₂ with
-                 | .eq => Tree.cmp y₁ y₂
-                 | .lt => .lt
-                 | .gt => .gt) = .eq := h
+      -- name the lexicographic continuation so `congrArg` can substitute `hcx`
+      -- unambiguously (a bare `hcx ▸ h'` has an ambiguous motive: `.eq` occurs both as
+      -- the value being substituted and as the `.eq`-branch result).
+      let g : Ordering → Ordering := fun o =>
+        match o with | .eq => Tree.cmp y₁ y₂ | .lt => Ordering.lt | .gt => Ordering.gt
+      have h' : g (Tree.cmp x₁ x₂) = .eq := h
       cases hcx : Tree.cmp x₁ x₂ with
       | eq =>
-          rw [hcx] at h'
           have hxe : x₁ = x₂ := Tree.cmp_eq_to_eq x₁ x₂ hcx
-          have hye : y₁ = y₂ := Tree.cmp_eq_to_eq y₁ y₂ h'
-          rw [hxe, hye]
-      | lt => rw [hcx] at h'; cases h'
-      | gt => rw [hcx] at h'; cases h'
+          have hyc : Tree.cmp y₁ y₂ = .eq := (congrArg g hcx).symm.trans h'
+          have hye : y₁ = y₂ := Tree.cmp_eq_to_eq y₁ y₂ hyc
+          exact (congrArg (fun t => Tree.slash t y₁) hxe).trans
+                (congrArg (Tree.slash x₂) hye)
+      | lt => exact (ordNoConf ((congrArg g hcx).symm.trans h') : False).elim
+      | gt => exact (ordNoConf ((congrArg g hcx).symm.trans h') : False).elim
 
 /-- Direct: `Tree.cmp x x = .eq` (reflexivity, no iff). -/
 protected theorem Tree.cmp_self_eq : ∀ (x : Tree), Tree.cmp x x = .eq
@@ -125,21 +150,21 @@ private theorem Tree.cmp_eq_of_eq (x y : Tree) (h : x = y) : Tree.cmp x y = .eq 
 protected theorem Tree.cmp_gt_to_lt_swap (x y : Tree) (h : Tree.cmp x y = .gt) :
     Tree.cmp y x = .lt := by
   have hsw : Tree.cmp x y = (Tree.cmp y x).swap := Tree.cmp_swap x y
-  rw [hsw] at h
+  have h2 : (Tree.cmp y x).swap = .gt := hsw ▸ h
   cases hyx : Tree.cmp y x with
   | lt => rfl
-  | eq => rw [hyx] at h; cases h
-  | gt => rw [hyx] at h; cases h
+  | eq => exact (ordNoConf (hyx ▸ h2) : False).elim
+  | gt => exact (ordNoConf (hyx ▸ h2) : False).elim
 
 /-- Direct: `Tree.cmp x y = .lt → Tree.cmp y x = .gt` (no iff).
     Reverse direction of cmp_gt_to_lt_swap. -/
 protected theorem Tree.cmp_lt_to_gt_swap (x y : Tree) (h : Tree.cmp x y = .lt) :
     Tree.cmp y x = .gt := by
   have hsw : Tree.cmp x y = (Tree.cmp y x).swap := Tree.cmp_swap x y
-  rw [hsw] at h
+  have h2 : (Tree.cmp y x).swap = .lt := hsw ▸ h
   cases hyx : Tree.cmp y x with
-  | lt => rw [hyx] at h; cases h
-  | eq => rw [hyx] at h; cases h
+  | lt => exact (ordNoConf (hyx ▸ h2) : False).elim
+  | eq => exact (ordNoConf (hyx ▸ h2) : False).elim
   | gt => rfl
 
 /-- ∅-axiom Bool destructor: `a && b = true → a = true ∧ b = true`. -/

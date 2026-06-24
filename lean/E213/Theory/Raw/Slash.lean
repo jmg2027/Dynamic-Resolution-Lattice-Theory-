@@ -143,8 +143,7 @@ protected theorem Raw.slash_val_lt (x y : Raw) (h : x ≠ y)
   split
   · rfl
   · rename_i hc'
-    rw [hc] at hc'
-    exact Ordering.noConfusion hc'
+    exact (E213.Term.Internal.ordNoConf (hc.symm.trans hc') : False).elim
   · rename_i hc'
     exact absurd (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hc')) h
 
@@ -155,8 +154,7 @@ protected theorem Raw.slash_val_gt (x y : Raw) (h : x ≠ y)
   unfold Raw.slash
   split
   · rename_i hc'
-    rw [hc] at hc'
-    exact Ordering.noConfusion hc'
+    exact (E213.Term.Internal.ordNoConf (hc.symm.trans hc') : False).elim
   · rfl
   · rename_i hc'
     exact absurd (Subtype.ext (E213.Term.Internal.Tree.cmp_eq_to_eq _ _ hc')) h

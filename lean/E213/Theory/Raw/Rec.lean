@@ -52,18 +52,19 @@ private noncomputable def Raw.recAux {motive : Raw → Sort u}
       have hne : x' ≠ y' := by
         intro heq
         have hxy : x = y := congrArg Subtype.val heq
-        rw [hxy] at hcmp
-        rw [Tree.cmp_self_eq y] at hcmp
-        cases hcmp
+        -- hcmp : Tree.cmp x y = .lt ; with x = y, Tree.cmp y y = .eq — contradiction,
+        -- discharged `Nat`-free via `ordNoConf` (no `Ordering.noConfusion`/`toCtorIdx`).
+        have hyy : Tree.cmp y y = .lt := hxy ▸ hcmp
+        exact (E213.Term.Internal.ordNoConf
+                ((Tree.cmp_self_eq y).symm.trans hyy) : False).elim
       have heq : (⟨.slash x y, hcanon⟩ : Raw) = Raw.slash x' y' hne := by
         show (⟨.slash x y, hcanon⟩ : Raw) = Raw.slash ⟨x, hx⟩ ⟨y, hy⟩ hne
         unfold Raw.slash
         split <;> rename_i hc
         · rfl
-        · rw [hcmp] at hc; cases hc
-        · rw [hcmp] at hc; cases hc
-      rw [heq]
-      exact slash x' y' hne (ihx hx) (ihy hy)
+        · exact (E213.Term.Internal.ordNoConf (hcmp.symm.trans hc) : False).elim
+        · exact (E213.Term.Internal.ordNoConf (hcmp.symm.trans hc) : False).elim
+      exact heq ▸ slash x' y' hne (ihx hx) (ihy hy)
 
 /-- Custom Raw eliminator — use as `induction r using Raw.rec`.
     (`@[eliminator]` attribute is Mathlib-only; we register via

@@ -214,18 +214,25 @@ theorem isPart_slash {c x y : Raw} {h : x ≠ y} (hc : IsPart c (Raw.slash x y h
     `slash`'s only parts are its two children (`isPart_slash`), each accessible by the
     structural induction hypothesis.
 
-    **What this does and does not buy (measured, not asserted).**  The *completion engine*
-    of the descent is now `Raw`-structural: the recursion elaborates against `Raw.rec`
-    (which is itself `Nat`-free — 0 `Nat` constants in its cone), not against a borrowed
-    `Nat` well-foundedness on a depth bound.  That is the frontier's actual criterion
-    (`research-notes/frontiers/the_genesis_seam.md`, completion-engine), and it is met.
-    It does **not** make `isPart_wf` a `Nat`-free proof term: ~17 `Nat` constants remain,
-    and a constant-closure trace pins **all** of them to `Raw.slash` — the carrier's
-    *canonical constructor* (its `Tree`-comparison / `DecidableEq` for the `x ≠ y`
-    ordering), inherited by `IsPart`'s very statement.  So the residual `Nat` at the Raw
-    layer is the **canonicalization of `slash`**, not the descent.  Removing the descent's
-    `Nat` measure was the part that was a crutch; the carrier-level `Nat` is the named next
-    target, not yet cleared. -/
+    **Fully `Nat`-free (measured, not asserted).**  A constant-closure trace reports
+    **0 `Nat` constants** in `isPart_wf`'s cone — and likewise in `Raw.rec` / `Raw.recAux`
+    (the structural recursor), `Raw.slash` (the carrier's canonical constructor), and
+    `IsPart` (the relation).  The Raw foundational descent now stands on the CIC inductive
+    kernel *alone*, with no borrowed `Nat`.  This required eliminating `Nat` from three
+    layers, all funnelling through one source — the kernel-generated `Ordering.noConfusion`,
+    which routes constructor-distinctness through `Ordering.toCtorIdx : Ordering → Nat`:
+      1. the descent measure here (`Raw.rec` structural recursion, replacing the `depth`
+         bound);
+      2. the `Tree.cmp` comparison lemmas (`cmp_eq_to_eq` / `cmp_gt_to_lt_swap` /
+         `cmp_lt_to_gt_swap`) and `Raw.slash_val_lt/gt`, used by `Raw.slash`'s
+         canonicalization;
+      3. `Raw.recAux`'s canonicality threading.
+    All three now discharge `Ordering`-constructor distinctness through `ordNoConf`
+    (`Term.Internal`, a `casesOn`-based discriminator — `Ordering.casesOn` is `Nat`-free),
+    not the auto-generated `noConfusion`.  Caveat (§5.1 / Round 2 sub-q 3): CIC itself is
+    not escaped — `Raw` is a kernel `inductive` (`Tree` + `Subtype` + `Bool`); the achieved
+    bar is "**one** inductive, `Raw`, every recursion structural on it, **no borrowed
+    `Nat`**," verified by closure trace, not "0 kernel inductives" (empty). -/
 theorem isPart_wf : WellFounded IsPart := by
   refine ⟨fun r => ?_⟩
   induction r using Raw.rec with
