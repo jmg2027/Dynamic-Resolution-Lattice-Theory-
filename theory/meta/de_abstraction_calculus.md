@@ -104,6 +104,19 @@ the **two faces of the one Bool distinguishing**:
 dual consequence.  No reading of "Cantor's theorem" against "chain complex δ²=0" yields this edge;
 the removal-trajectory does.
 
+**A third node, machine-checked (the program *run*).**
+`Cohomology/Examples/EvenCardCancel.lean`: "a non-empty power set has an even number of
+elements" (`xorFold (fun _ => true) (range (m+m)) = false`, `even_card_cancel`).  Abstractly
+*combinatorics / parity* — no visible tie to a chain-complex law.  Peeled, it bottoms out in a
+**fixed-point-free halving involution** `code ↦ code ± m` (the high-half `not`), fed to the
+**same** `xorFold_involution` engine as `δ²=0`.  So three results unrelated at the top — the
+residue, `δ²=0`, even-cardinality cancellation — share one bottom: a fixed-point-free involution
+on the one distinguishing.  The edge is now a verified node, not a claim.
+
+*Meta-evidence the calculus is real*: building that node **live-surfaced a Substitute move** —
+`Nat.add_left_cancel` (propext) had to be swapped for `Nat.ne_of_lt ∘ Nat.lt_add_of_pos_right`
+(pure).  The taxonomy predicted the move before the peel produced it.
+
 ## The stopping criterion (against infinite regress)
 
 Analysing the peel is itself a peel (de-abstracting the abstraction "노가다"), so it can recurse
