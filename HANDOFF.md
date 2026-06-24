@@ -1,132 +1,144 @@
-# Session Handoff — 2026-06-23 (close-out marathon)
+# Session Handoff — 2026-06-24 (grounded-FTA + Leg-1 + Leg-3 marathon)
 
 ## Branch
-`claude/file-validation-theory-check-sqihvk` — ahead of `origin/main` by 58
-commits, behind by 0 (clean fast-forward). Being merged to `main` at the end of
-this marathon.
+`claude/fta-multiplicative-descent-frontier-5pun05` — pushed, 66 commits ahead
+of `origin/main`. Working tree clean.
 
 ## What Was Done This Session
 
-This session ran two arcs: an **overnight autonomous-research night** (the
-genesis-seam program) followed by a **close-out marathon** (process → promote →
-cross-domain → essay → org-audit → purity-check → ready-to-merge → handoff →
-merge).
+One long arc on the **descent-leg frontier** (`research-notes/frontiers/the_descent_leg.md`):
+ground the multiplicative discipline (FTA) on `Raw`'s own descent, then attack
+Legs 1 and 3 directly. Every theorem below is **∅-axiom** (`#print axioms` empty)
+and, where claimed "grounded", **closure-walked** free of
+`Nat.div`/`Nat.mod`/`Nat.lt_wfRel`/`Nat.strongRecOn`.
 
-### 1. The genesis-seam program — arithmetic generated from the distinguishing (PURE ✓)
-The whole **ordered commutative semiring `(ℕ, +, ·, 0, 1, ≤)` is generated** as
-count-shadows of unit-structure double-counts — each law's proof cone verified
-free of the Nat law it produces. Lean home: `Meta/Nat/{UnitList, UnitGrid,
-UnitBox, UnitDistrib, UnitOrder, ProdCount, GenerationCapstone}` (~46 PURE), one
-citable theorem `GenerationCapstone.ordered_commutative_semiring_generated`.
-- `+`-comm/assoc from `List Unit` append; `×`-comm from grid transpose;
-  `×`-assoc from the 3-D unit box; both distributive laws from the grid
-  width-split; `≤` from unit-list extension; `+`-monotonicity from `append_comm`.
-- **The +/× duality made exact** (`ProdCount`): `prodL_two_atoms` (distinguishable
-  atoms keep the exponent vector `p^j·q^k`) vs `prodL_one_atom_merges` (set `q=p`,
-  `×` merges to `p^(j+k)` = the additive `j+k`). The entire excess of `×` over `+`
-  IS the distinguishability of primes.
-- **Honest terminus**: the additive/equational/order structure is *generated*
-  (structural descent on the count carrier's own well-foundedness); FTA needs a
-  *non-structural* descent (`n→n/minFac`, `Nat.strongRecOn`) over distinguishable
-  prime atoms — a genuinely second Lens. That is the open frontier.
-- **The completion-engine criterion** (the night's breakthrough): generated ⟺ the
-  proof cone recurses on the distinguishing's OWN descent (`MuNuMirror.isPart_wf`),
-  not the borrowed `Nat.strongRecOn`. `Nat213 := {n:Nat//1≤n}` is a Nat *subtype*,
-  so it inherits Nat's well-foundedness — even FTA-over-Nat213 fails the strict test.
+### 1. The Fundamental Theorem of Arithmetic, fully grounded (PURE ✓) — PROMOTED
+Both halves reconstructed with **no theorem in the chain depending on `Nat.div`,
+`Nat.mod`, `Nat.strongRecOn`, or `Nat.lt_wfRel`** — the kernel's non-structural
+well-founded division is entirely absent. `factorization_unique`: 485-constant
+closure, zero forbidden hits.
+- `Meta/Nat/SubMod213` — structural remainder/quotient `subMod`/`subDiv` (repeated
+  subtraction over fuel); `subMod_zero_iff_dvd` = the `Nat.mod`-free divisibility test.
+- `Meta/Nat/SubGcd213` — Euclidean `gcdSub` + `gcd_eq_one_of_prime_not_dvd` (the
+  half of Euclid's lemma needing no Bézout).
+- `Meta/Nat/SubBezout213` — **structural Bézout** `egcd`: coefficient quadruple
+  `(g,x,y,s)` with `s:Bool` a sign flag, so Bézout stays in `Nat` (**no `Int`**).
+  `egcd_bezout`, `bezout_one_of_coprime`.
+- `Lib/.../EuclidLemmaGrounded` — `prime_dvd_mul` (Euclid's lemma). Purity craft:
+  case on `gcd(p,a)∈{1,p}`, **not** `by_cases p∣a` (whose `Decidable` instance pulls `Nat.mod`).
+- `Meta/Nat/VpSub213` — `vpSub`, the `p`-adic valuation on `subMod` (mirrors
+  `Valuation.vp`, which is `Nat.mod`-dirty). Four laws clean.
+- `Lib/.../VpMulGrounded` — `vpSub_mul` (`vₚ(a·b)=vₚa+vₚb` at a prime).
+- `Lib/.../FTAUniquenessGrounded` — `factorization_unique` (valuation-count invariance).
+- **Promotion**: `theory/math/numbertheory/grounded_fundamental_theorem.md` written
+  (H1–H4 gates met); the closed engineering in the frontier note collapsed to a pointer.
 
-### 2. Arity-forcing lower half closed (PURE ✓)
-`Theory/Atomicity/ArityForcingComplete.lean` (7 PURE) — closed the (3,2,5)
-forcing chain's lower half (arity-0/1 degeneracy + base-2 minimality), previously
-only code comments. Scoped honestly as a characterization *given* the clause-4
-distinctness gate.
+### 2. Leg 1 — ℕ generated from `Raw`, essentially closed (PURE ✓)
+`Theory/Raw/RawNat.lean` (in `Theory.Raw.API` umbrella): the naturals as a reading
+of `Raw`'s `slash`-successor spine, not borrowed from Lean's `Nat`.
+- carrier `RawNat = {r // ∃ n, rawTower n = r}`; `succ = slashOrSelf Raw.a`
+  (point once more with `a`); `depth` Lens = `toNat` iso to ℕ.
+- **Peano**: `succ_inj`, `succ_ne_zero`, `rec` (via `Nat.succ.inj`/`Nat.noConfusion`,
+  not the propext-leaking `Nat.add_right_cancel`/`succ_ne_zero`).
+- **Commutative semiring** (§3): `add`/`mul` iterate `succ`/`add`; `depth` is a
+  semiring homomorphism (`toNat_add`, `toNat_mul`); all laws (`add_comm`..`right_distrib`)
+  transport through `toNat_inj`. `mul_assoc`/`right_distrib` via `NatHelper.mul_assoc`/`add_mul`.
+- **Recursion grounded in `isPart_wf`** (§4): `strongRec_isPart` + `rec_grounded` —
+  descent on `Raw`'s `slash`-peel (`tower_ascent_isPart`), NOT `Nat.lt`. Closure
+  probe: `isPart_wf` present, `Nat.lt_wfRel`/`Nat.strongRecOn` **absent**.
+- **Carrier without `Nat`** (§5): `inductive IsRawNat` (closure of `b` under `rawSucc`);
+  `rawNat_induction` has a 125-const closure containing **only `IsRawNat`/`IsRawNat.rec`**
+  — zero `Nat`. `isRawNat_iff`: coincides with the tower carrier.
+- **Count-spine tied in**: `Lib/.../UniverseChain/RawNatCensus` — `census x = rawCount(toNat x)`
+  reads the same spine as the population `2,3,5,12,68` (`census_succ`, `two_readings`).
 
-### 3. Promotion + narrative
-- New permanent chapter `theory/math/numbersystems/arithmetic_generation.md`
-  (mirrors the Meta/Nat generation files).
-- New synthesis essay `theory/essays/synthesis/distinguishability_is_the_one_dial.md`
-  (essays now 109; theory chapters 260). Headline: **atom distinguishability is
-  the one dial** governing arity-2 forcing, commutativity, and the +/× gap — one
-  principle at three resolutions.
-- `tools/check_citations.py` — citation-resolution lint (PATH hard check +
-  qualified-name advisory).
-
-### 4. org-audit — wired 4 build-orphan modules (PURE ✓)
-`Mobius213K33Bridge`, `MetricTypes`, `C3ChainCapstone`, `AliveDerivation` built
-clean and were ∅-axiom PURE (39 thm) but were imported by no aggregator, so
-`lake build E213` skipped them — leaving their `theory/` citations unverified.
-All 4 wired into their umbrellas; full build green; citations now build-checked.
+### 3. Leg 3 — forcing vs rival primitives, four corners excluded (PURE ✓)
+`Lib/.../UniverseChain/RivalArity.lean` extended (§3–§5):
+- **unary** (negation-first): linear `unaryCount` < super-linear `rawCount` (pre-existing).
+- **ternary-distinct**: `ternCount_sterile` — sterile on the 2-atom seed (`choose3 2 = 0`),
+  stuck at 2. Arity > 2 too much for the seed one distinguishing yields.
+- **non-distinct binary**: `nondistinct_rival_exceeds` — over-generates (pre-existing).
+- **relation-first**: `relation_outputs_le_two` — a `Bool`-codomain relation takes ≤ 2
+  values (Bool pigeonhole), produces no carrier element; collapses to operation-first
+  when functionalised.
+- **capstone** `arity_distinctness_forcing`: the (arity, distinctness) design space is
+  squeezed from both sides onto binary-distinct = 213.
 
 ## Current Precision Results (0 free parameters)
-| Observable | DRLT | Error |
-|-----------|------|-------|
-| m_p | 938.27 MeV (NS·Λ_QCD·P) | 0.000% |
-| m_μ/m_e | 206.768 (NS·137/NT) | 0.48 ppb |
-| m_τ/m_μ | ≈17 = NS²+(NS²−1) | — |
-| Muon lifetime prefactor | 192 = (NS²−1)(d²−1) | — |
-| M_Pl/v_H | d^(d²)/(d+1) atomic | — |
-
-(All 23 observables have BOTH a PURE precision theorem and a falsifier theorem —
-see `catalogs/physics-constants.md` and `STRICT_ZERO_AXIOM.md`. No new physics
-result this session — the work was math-generation + organization.)
+**No physics touched this session** (pure math/foundations work). The DRLT
+precision table is unchanged — see `catalogs/physics-constants.md` (canonical).
+No new entries to `STRICT_ZERO_AXIOM.md`'s physics catalog; all new theorems are
+math-tier and verified `#print axioms`-empty individually.
 
 ## Open Problems (Priority Order)
 
-### 1. Generate the dial's on-state — a Raw-native multiplicative descent (FTA)
-Counting (+) is generated on Raw's additive descent (`slash → +`); factoring (×)
-needs a *multiplicative* descent (`n/minFac`, `Nat.strongRecOn`) the additive peel
-cannot provide. The real generation frontier: re-ground FTA's recursion on a
-prime-distinguishability structure (`exp`/`vp` ×-count-Lens), not a Nat subtype.
-Frontier: `research-notes/frontiers/the_genesis_seam.md` +
-`research-notes/frontiers/distinguishability_one_dial_crossdomain.md`.
+### 1. Leg 3 residue — "suffices by breadth, not proven unique"
+Four rival classes (unary, ternary, non-distinct binary, relation-first) are now
+formally excluded, but this is NOT a proof that *no* conceivable primitive
+(differently-seeded, genuinely exotic) generates equal richness. This is the
+deepest open item and likely not fully closable.
+Frontier note: `research-notes/frontiers/the_descent_leg.md` (Leg-3 section) +
+`research-notes/frontiers/the_one_act.md` (the open middle; failure-mode row
+"Sufficiency read as uniqueness").
 
-### 2. Build the completion-engine classifier tool
-The completion-engine criterion (recurses on Raw's own descent vs borrowed
-`Nat.strongRecOn`) is decidable but not yet tooled. A scanner that classifies a
-theorem's cone as generation/re-derivation would make "forced not authored"
-mechanically checkable. Frontier: `research-notes/frontiers/the_genesis_seam.md`.
+### 2. Leg 1 final residue — the kernel `inductive` itself
+`RawNat`/`IsRawNat` still borrow the kernel's `inductive` mechanism to *have*
+`Raw` (conceded in Attack 1 — the distinguishing IS an inductive act), and `Nat`
+as the `depth` **readout** (a Lens reading *out*, the legitimate direction). The
+live `RawNat` carrier still uses `∃ n` for continuity though §5 shows it is
+`Nat`-free *in principle*. Optional tidy: refactor `RawNat` to carry `IsRawNat`
+directly (moderate; would drop `Nat.rec` from `zero_or_succ`).
+Frontier note: `research-notes/frontiers/the_descent_leg.md` (§5 / honest-scope).
 
-### 3. Tighten check_citations qualified-name false positives
-The advisory qualified-name check has heuristic phantoms (many legitimate
-re-exports). The PATH check (9 pre-existing hard errors in unrelated docs) is the
-reliable signal. Frontier: tracked in `the_genesis_seam.md` deliverables tail.
+### 3. FTA uniqueness via permutation (alternative form)
+`factorization_unique` is stated as per-prime count invariance (valuation form).
+A multiset/permutation form (`l1 ~ l2`) on the grounded `prime_dvd_mul` is a
+possible companion but not required. Low priority — no frontier note.
 
 ## Unresolved from This Session
-- 93 `sync_namespaces` path/namespace mismatches (pre-existing, CayleyDickson
-  cluster etc.) — not touched, a separate cleanup chain.
-- `Lib/Math/Geometry/` (76 .lean files) has no sub-INDEX — pre-existing gap.
-- 9 PATH citation errors in unrelated docs (path-fragment refs, Lean-core paths).
+- Full `lake build E213.Lib.Math` was NOT re-run end-to-end (times out >10 min in
+  this environment). Each new module + its umbrella (`Theory.Raw.API`, `Meta.Nat`,
+  `UniverseChain`) was built clean individually and `#print axioms`-verified. A
+  next session with time budget should run the full build once to confirm no
+  cross-module breakage.
+- `relation_outputs_le_two` is the honest *partial* relation-first exclusion (output
+  bound), not a from-scratch "relations generate nothing" closure model — by design,
+  to avoid a strawman. Documented as such in its docstring.
 
 ## Next
-Pick up the FTA / multiplicative-descent frontier (Open Problem 1) — the precise
-next target for "generation, not re-derivation." Start from
-`research-notes/frontiers/the_genesis_seam.md`.
+Recommended: either (a) run the full `lake build` + `tools/scan_all_axioms.py` to
+certify the whole branch before any merge consideration, or (b) refactor `RawNat`
+to carry `IsRawNat` (Open Problem 2) to fully retire the carrier-`Nat`. Leg-3
+residue (Open Problem 1) is research-grade and open-ended — approach only with a
+specific new rival model in hand.
 
-## Three-tier state
-- **Promotions this session**: `theory/math/numbersystems/arithmetic_generation.md`
-  ← the Meta/Nat generation files (source notes tracked in
-  `frontiers/the_genesis_seam.md`); essay
-  `theory/essays/synthesis/distinguishability_is_the_one_dial.md` ←
-  `frontiers/distinguishability_one_dial_crossdomain.md`.
-- **Promotion candidates**: none newly eligible (FTA frontier is open, not closed).
-- **Active scratchpad**: `frontiers/the_genesis_seam.md` (open FTA frontier),
-  `frontiers/distinguishability_one_dial_crossdomain.md` (cross-domain synthesis).
+## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
+- **Promotions this session**: `theory/math/numbertheory/grounded_fundamental_theorem.md`
+  ← the FTA-grounding engineering in `research-notes/frontiers/the_descent_leg.md`
+  (cont.1–11, collapsed to a pointer).
+- **Promotion candidates**: `Theory/Raw/RawNat` (Leg-1) is PURE and coherent — a
+  `theory/math/foundations/` chapter on "ℕ as a reading of the Raw spine" is a
+  candidate once Open Problem 2 settles the carrier. `RivalArity` (Leg-3) could
+  anchor a `theory/` forcing chapter.
+- **Active scratchpad**: `research-notes/frontiers/the_descent_leg.md` remains the
+  open-frontier record (Leg-1 residue, Leg-3 residue).
 
 ## File Map
 ```
-lean/E213/Meta/Nat/UnitBox.lean            ← ×-assoc (3-D box double-count), 5 PURE
-lean/E213/Meta/Nat/UnitDistrib.lean        ← both distributive laws, 4 PURE
-lean/E213/Meta/Nat/UnitOrder.lean          ← ≤ + monotonicity, 3 PURE
-lean/E213/Meta/Nat/ProdCount.lean          ← ×-count-Lens + the +/× duality, 7 PURE
-lean/E213/Meta/Nat/GenerationCapstone.lean ← one citable semiring theorem, 1 PURE
-lean/E213/Meta/Nat/UnitList.lean           ← extended to 12 PURE (+-monoid generated)
-lean/E213/Theory/Atomicity/ArityForcingComplete.lean ← arity lower half, 7 PURE
-lean/E213/Lib/Math.lean                    ← wired Mobius213K33Bridge orphan
-lean/E213/Lib/Math/Geometry.lean           ← wired MetricTypes orphan
-lean/E213/Lib/Physics/Symmetry.lean        ← wired C3ChainCapstone orphan
-lean/E213/Theory/Atomicity.lean            ← wired AliveDerivation orphan
-theory/math/numbersystems/arithmetic_generation.md   ← promoted chapter
-theory/essays/synthesis/distinguishability_is_the_one_dial.md ← synthesis essay
-tools/check_citations.py                   ← citation-resolution lint
-research-notes/frontiers/the_genesis_seam.md ← the program note (open FTA frontier)
-research-notes/frontiers/distinguishability_one_dial_crossdomain.md ← cross-domain synthesis
+lean/E213/Meta/Nat/SubMod213.lean              ← structural division (subMod/subDiv)
+lean/E213/Meta/Nat/SubGcd213.lean              ← grounded gcd + prime coprimality
+lean/E213/Meta/Nat/SubBezout213.lean           ← structural Bézout (egcd, Bool sign, no Int)
+lean/E213/Meta/Nat/VpSub213.lean               ← grounded p-adic valuation vpSub
+lean/E213/Lib/Math/NumberTheory/EuclidLemmaGrounded.lean   ← prime_dvd_mul grounded
+lean/E213/Lib/Math/NumberTheory/VpMulGrounded.lean         ← vpSub_mul
+lean/E213/Lib/Math/NumberTheory/FTAUniquenessGrounded.lean ← factorization_unique
+lean/E213/Theory/Raw/RawNat.lean               ← Leg-1: ℕ on the Raw slash-spine (§1–§5)
+lean/E213/Lib/Math/Foundations/UniverseChain/RawNatCensus.lean ← count-spine reading
+lean/E213/Lib/Math/Foundations/UniverseChain/RivalArity.lean   ← Leg-3 §3–§5 (modified)
+lean/E213/Meta/Nat.lean                        ← aggregator (+SubMod213/SubGcd213/SubBezout213/VpSub213)
+lean/E213/Lib/Math.lean                        ← aggregator (+EuclidLemma/VpMul/FTAUniqueness Grounded)
+lean/E213/Theory/Raw/API.lean                  ← umbrella (+RawNat)
+lean/E213/Lib/Math/Foundations/UniverseChain.lean ← umbrella (+RawNatCensus)
+theory/math/numbertheory/grounded_fundamental_theorem.md ← NEW chapter (promotion)
+research-notes/frontiers/the_descent_leg.md    ← updated (cont.1–11 → pointer; Leg1 §1–5; Leg3 bracket)
 ```
