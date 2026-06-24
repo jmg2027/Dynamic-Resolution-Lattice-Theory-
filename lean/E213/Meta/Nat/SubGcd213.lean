@@ -18,7 +18,7 @@ remaining (substantial) work — scoped in `research-notes/frontiers/the_descent
 
 namespace E213.Meta.Nat.SubGcd213
 
-open E213.Meta.Nat.SubMod213 (subMod subMod_lt subMod_zero_iff_dvd)
+open E213.Meta.Nat.SubMod213 (subMod subMod_lt subMod_eq subMod_zero_iff_dvd)
 
 /-- `gcd(a, b)` via the Euclidean recursion `gcd(a,b) = gcd(b, a mod b)`, the remainder by `subMod`
     (repeated subtraction).  Fuel-bounded, structural `Nat.rec` on fuel. -/
@@ -39,5 +39,43 @@ theorem gcdSub_succ (fuel a b : Nat) :
 /-- With ample fuel, `gcdSub` divides its second argument when that is `0` — the base case of the
     divisibility invariant (`gcd(a,0) = a ∣ 0`). -/
 theorem gcdSub_dvd_zero (fuel a : Nat) : gcdSub (fuel + 1) a 0 ∣ 0 := ⟨0, rfl⟩
+
+/-! ## §2 — the divisibility property (brick 2) -/
+
+/-- **Lift step**: if `g` divides the modulus `a` and the remainder `subMod b b a` (= `b mod a`), it
+    divides `b`.  Immediate from `subMod_eq` (`b = a*q + subMod b b a`) — much shorter than the
+    `Nat.mod` version (`Gcd213.g_dvd_b_via_mod`), which needs the mod-subtraction recursion. -/
+theorem g_dvd_of_dvd_subMod {g a b : Nat} (hga : g ∣ a) (hgr : g ∣ subMod b b a) : g ∣ b := by
+  obtain ⟨q, hq⟩ := subMod_eq b b a          -- b = a * q + subMod b b a
+  obtain ⟨s, hs⟩ := hga                       -- a = g * s
+  obtain ⟨t, ht⟩ := hgr                       -- subMod b b a = g * t
+  refine ⟨s * q + t, ?_⟩
+  have e1 : a * q = g * (s * q) := by
+    rw [hs]; exact E213.Tactic.NatHelper.mul_assoc g s q
+  calc b = a * q + subMod b b a := hq
+    _ = g * (s * q) + g * t := by rw [e1, ht]
+    _ = g * (s * q + t) := (Nat.mul_add g (s * q) t).symm
+
+/-- ★★★ **`gcdSub n a b` divides both `a` and `b`** (fuel `n ≥ b`, the second argument — the
+    Euclidean monovariant).  Mirrors `Gcd213.gcdFuel_dvd_both`, but on `subMod`: the inductive step
+    reduces `(a, b'+1)` to `(b'+1, a mod (b'+1))`, applies the IH (`a mod (b'+1) < b'+1 ≤ n`), and
+    lifts via `g_dvd_of_dvd_subMod`.  `Nat.mod`-free, ∅-axiom. -/
+theorem gcdSub_dvd_both : ∀ (n a b : Nat), b ≤ n → gcdSub n a b ∣ a ∧ gcdSub n a b ∣ b
+  | 0,     a, b, hb => by
+    have hb0 : b = 0 := Nat.le_antisymm hb (Nat.zero_le b)
+    subst hb0
+    exact ⟨⟨1, (Nat.mul_one a).symm⟩, ⟨0, rfl⟩⟩
+  | f + 1, a, b, hb => by
+    match b, hb with
+    | 0,      _  => exact ⟨⟨1, (Nat.mul_one a).symm⟩, ⟨0, rfl⟩⟩
+    | b' + 1, hb =>
+      show gcdSub f (b' + 1) (subMod a a (b' + 1)) ∣ a
+            ∧ gcdSub f (b' + 1) (subMod a a (b' + 1)) ∣ (b' + 1)
+      have hr_lt : subMod a a (b' + 1) < b' + 1 :=
+        subMod_lt a a (b' + 1) (Nat.zero_lt_succ b') (Nat.le_refl a)
+      have hr_le_f : subMod a a (b' + 1) ≤ f :=
+        Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hr_lt hb)
+      obtain ⟨hg_b, hg_r⟩ := gcdSub_dvd_both f (b' + 1) (subMod a a (b' + 1)) hr_le_f
+      exact ⟨g_dvd_of_dvd_subMod hg_b hg_r, hg_b⟩
 
 end E213.Meta.Nat.SubGcd213
