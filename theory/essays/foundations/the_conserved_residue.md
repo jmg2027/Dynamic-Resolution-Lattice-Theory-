@@ -132,6 +132,12 @@ conditions**, named and isolated.  This is itself an instance of the conservatio
 content splits cleanly into the *shared residue diagonal* and the *extra D1–D3 the bare cover lacks*,
 with the boundary drawn at a theorem rather than a hand-wave.
 
+And the two ingredients are **genuinely independent** (`id_box_no_goedel_fixedpoint`): the identity
+modality `Box P := P` satisfies all of D1–D3 yet its Gödel-2 fixed point `C ↔ ¬C` is the Liar,
+*forbidden by the residue diagonal* — so it has the modality but lacks the diagonal, the exact
+complement of the bare cover (which has the diagonal but lacks D1–D3).  Neither ingredient implies the
+other; genuine Gödel-2 needs both (Gödel coding for the diagonal, a proof system for D1–D3).
+
 ## Honest boundary
 
 The residue's *existence* per carrier is Cantor's theorem — unbreakable, and to that extent the floor

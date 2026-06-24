@@ -92,4 +92,20 @@ theorem trivial_box_models :
     ∧ (∀ {P : Prop}, (fun _ => True) P → (fun _ => True) ((fun _ => True) P)) :=
   ⟨fun _ => trivial, fun _ _ => trivial, fun _ => trivial⟩
 
+/-! ## The diagonal and D1–D3 are genuinely independent ingredients -/
+
+/-- ★★★ **The diagonal is independent of D1–D3.**  The identity modality `Box P := P` satisfies all
+    three derivability conditions (`nec`/`K`/`four` are all trivial — `id` is `P→P`, `(P→Q)→P→Q`,
+    `P→P`), yet its Gödel-2 fixed point `C ↔ (Box C → False)` is `C ↔ ¬C`, the **Liar** — which
+    *cannot exist* (the residue diagonal forbids it; this is `OneDiagonal.russell_liar` at `Box = id`,
+    `A = False`).  So `Box := id` is **not** a counterexample to `loeb_abstract`: it has the modality
+    but **lacks the diagonal**.  This is the exact complement of the bare residue cover, which *has*
+    the diagonal (`loeb_fixed_point_is_lawvere`) but **lacks D1–D3**.  Neither ingredient alone gives
+    Gödel-2: genuine Gödel-2 needs Gödel coding (the diagonal) *and* a proof system (D1–D3), and this
+    theorem shows they do not imply one another. -/
+theorem id_box_no_goedel_fixedpoint : ¬ ∃ C : Prop, (C ↔ (C → False)) := by
+  rintro ⟨C, hC⟩
+  have hnc : ¬ C := fun c => hC.mp c c
+  exact hnc (hC.mpr hnc)
+
 end E213.Lib.Math.Logic.ProvabilityResidue
