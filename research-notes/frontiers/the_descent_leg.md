@@ -500,3 +500,29 @@ On top of the grounded Euclid's lemma (cont.9), the prime-power valuation is now
 *uniqueness* now reduces to `vpSub q (prodL L) = (occurrences of q in L)` for a prime list `L` (list
 induction on `vpSub_mul` + `vpSub q q = 1`, `vpSub q p = 0` for distinct primes), giving
 `prodL L₁ = prodL L₂ → per-prime counts agree`.  That count-capstone is the last mechanical step.
+
+### UPDATE (2026-06-24, cont. 11): FTA UNIQUENESS fully grounded — the chain is closed (PURE ✓)
+
+`FTAUniqueness.factorization_unique` already states uniqueness as valuation-count invariance, but on
+the `Nat.mod` `vp`/`vp_mul` (`#print axioms`-clean, closure `Nat.mod`/`lt_wfRel`-dirty).
+**`Lib/Math/NumberTheory/FTAUniquenessGrounded.lean`** regrounds the whole statement:
+
+- `vpSub_self_pow` — `vpSub q (qᵏ) = k` (`q≥2`), via `le_vpSub_iff` (lower `qᵏ∣qᵏ`, upper `q^{k+1}>qᵏ`).
+- `vpSub_prime_single` — `vpSub q p = (if p=q then 1 else 0)` for primes, with `q∤p` **inlined** from
+  `p`'s primality (no `FoldCriterion` import).
+- `vpSub_prodL_eq_countOcc` — `vpSub q (prodL l) = countOcc q l` for a prime list (induction on
+  `vpSub_mul`).
+- `factorization_unique` — `prodL l₁ = prodL l₂ → ∀ prime q, countOcc q l₁ = countOcc q l₂`.
+
+**`factorization_unique` is ∅-axiom; closure 485, ZERO bad hits** — verified absent: `Nat.div`,
+`Nat.mod`, `Nat.lt_wfRel`, `Nat.strongRecOn`, `propext`, `Acc.rec`, `WellFounded.fix`, `Gcd213.gcd213`,
+`Valuation.vp`, `VpMul.vp_mul`.
+
+**The descent-leg multiplicative chain is now CLOSED end to end**, all `subMod`-grounded:
+structural division (`SubMod213`) → gcd (`SubGcd213`) → Bézout (`SubBezout213`, sign-flag, no `Int`) →
+Euclid's lemma (`EuclidLemmaGrounded`) → valuation (`VpSub213`) → multiplicativity (`VpMulGrounded`) →
+**FTA existence** (`MulDescentGroundedNoDiv`) **+ uniqueness** (`FTAUniquenessGrounded`).  Both halves
+of the Fundamental Theorem of Arithmetic are reconstructed without borrowing `Nat.div`/`Nat.mod`/
+`Nat.strongRecOn`/`Nat.lt_wfRel` — the multiplicative discipline grounded in the distinguishing's own
+descent, as the descent-leg programme set out.  **Promotion-eligible** (closed Lean sub-tree; see
+`theory/PROMOTION_CRITERIA.md`).
