@@ -333,6 +333,9 @@ MulDescentGroundedNoDiv,EuclidPrimesGrounded}`.
   (core `Nat.mul_assoc`/`Nat.add_mul` leak propext); `succ_inj`/`succ_ne_zero` via
   `Nat.succ.inj`/`Nat.noConfusion`.  This is the **leg-1 step-2 demonstration**: a classical discipline
   (commutative-semiring arithmetic) realised as a reading of the distinguishing's spine, ∅-axiom.
+- **PROMOTED**: the closed Leg-1 generation (carrier, Peano, ordered semiring, grounded recursion) +
+  the count-spine + the rival forcing are now a permanent chapter,
+  `theory/math/numbersystems/naturals_from_the_spine.md`.  The conceptual residue below stays open.
 
 **§4 — recursion engine grounded in `isPart_wf` (the borrowed-WF caveat retired).**  The Peano
 induction is re-derived *intrinsically*: `strongRec_isPart` recurses on `Raw`'s `slash`-peel relation

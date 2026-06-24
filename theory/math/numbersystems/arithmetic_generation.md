@@ -156,6 +156,9 @@ count generated above; the sign is the Bool-style swap — the difference-Lens
 
 ## Connection
 
+- `theory/math/numbersystems/naturals_from_the_spine.md` — the *other* reading of the
+  distinguishing that recovers ℕ: the `slash`-successor spine (Peano / `depth`), where
+  this chapter is the count-shadow (multiplicity) reading of unit-list append
 - `theory/math/numbersystems/slot_arithmetic.md` — the slot tower (the rung structure
   this sits inside)
 - `theory/essays/analysis/where_commutativity_is_born.md` — the seed essay (`+`-comm
