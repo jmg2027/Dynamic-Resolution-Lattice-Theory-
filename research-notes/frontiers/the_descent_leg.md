@@ -357,9 +357,17 @@ carrier (`IsRawNat`), the natural-number induction (`rawNat_induction`, `IsRawNa
 kernel's `inductive` mechanism itself (to have `Raw`/`IsRawNat` — the distinguishing *is* an inductive
 act, conceded in Attack 1), and `Nat` as the `depth` **readout** type (a Lens reading *out*, the
 legitimate direction).  The live `RawNat` infrastructure still carries `∃ n` for continuity, but
-§5 shows it is `Nat`-free *in principle*.  Remaining colour: read the `RawRecurrence` count-spine
-`2,3,5,12,…` (a second, wider reading of the same object); Leg 3 (forcing vs rival primitives) stays
-the open middle of `the_one_act.md`.
+§5 shows it is `Nat`-free *in principle*.
+
+**Count-spine reading done** (`Lib/.../UniverseChain/RawNatCensus.lean`, ∅-axiom): the `RawRecurrence`
+population `2,3,5,12,68,…` (`rawCount n = 2 + C(rawCount (n−1), 2)`, Mingu's recurrence — canonical
+`Raw`s of depth ≤ n) is tied to the spine as `census x = rawCount (toNat x)`, with the recurrence
+re-indexed by `RawNat`'s **own** successor (`census_succ : census (succ x) = 2 + choose2 (census x)`).
+`two_readings` exhibits the *same* spine read two ways — `depth`/`toNat` linear (`…,2,…`) vs `census`
+population (`…,5,…`) at the depth-2 rung — the "second, wider reading of the same object".  (It lives in
+`Lib`, not `Theory`, since `rawCount` sits above the `Theory` ring.)
+
+Remaining: Leg 3 (forcing vs rival primitives) stays the open middle of `the_one_act.md`.
 
 ### What remains open here (the conceptual frontier, unchanged)
 
