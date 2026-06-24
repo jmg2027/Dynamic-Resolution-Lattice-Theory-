@@ -597,6 +597,28 @@ Raw-native *multiplicative descent* (prime-distinguishability / `exp`/`vp`) that
 let unique factorization (FTA) be *generated* rather than completed on the borrowed,
 non-structural `Nat.strongRecOn` — the precise terminus of "generated vs borrowed."
 
+## Progress — the descent measure made explicit (`MulDescentRec.lean`, PURE)
+
+The multiplicative descent's well-order is now **named and used**, not left as the
+opaque `strongRecOn`-over-magnitude.  `BigOmega` had shown the peel `n ↦ n/minFac n`
+drops the prime-count by one (`Omega_descent`, the `×`-dual of `Raw.leaves`).
+`Lib/Math/NumberTheory/MulDescentRec.lean` cashes that out as a **recursion
+principle**:
+
+  `mulDescentRec (P) (P 1) (∀ n≥2, P (n/minFac n) → P n) : ∀ n≥1, P n`
+
+whose proof recurses on the **`Ω`-count** (`Nat.rec` over `Ω n`), each step justified
+by `Omega_descent` — *not* `Nat.strongRecOn` over the magnitude `n`.  Demonstrated:
+`mul_factorization_exists` (every `n≥1` a product of primes) proves *through*
+`mulDescentRec`, the witness `minFac n :: …` peeled along the count-shadow.  Supporting
+`Ω`-facts (`Omega_pos_of_two_le`, `eq_one_of_Omega_zero`, `quot_pos`) all PURE.
+
+**Honest scope** (in-file): this does *not* escape CIC's `Nat.rec` — induction on the
+count `Ω n` is `Nat.rec` on a `Nat`.  The exact, narrower claim: the **well-order
+driving the peel is `Ω`** (a leaves-shadow), made explicit, replacing the opaque
+magnitude `strongRecOn`.  Still open: a descent whose *carrier* (not just measure) is
+Raw-native — `factorize` itself is fuel-recursion on the magnitude.
+
 ## Cross-refs
 
 - `research-notes/frontiers/the_descent_leg.md` — the one genuine generation arc
