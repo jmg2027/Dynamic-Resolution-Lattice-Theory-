@@ -251,13 +251,25 @@ evidence read as confirmation*.)
   1-cochain (`PredicateAsCochain`, `rfl`), `object1_not_surjective` = `coker(Object1) ≠ 0`.
   And `ResidueReentry.residue_reentry_never_closes (n)` already gives the **graded obstruction
   tower** (non-surjective at *every* re-entry depth `n`) — the binary residue is *already
-  graded*, a proto-cohomology. **Deposited** (this session): `ResidueReentry.graded_residue_tower`
+  graded*, a proto-cohomology. **Deposited** (prior session): `ResidueReentry.graded_residue_tower`
   — `∀ n, coker(Object1 ∘ predicateToRaw n) ≠ 0 ∧` the undifferentiated predicate is a named
-  non-fixed-point at that depth; the panel's strongest *content* now machine-checked as a
-  single ∅-axiom `∀ n` capstone (PURE), with the honest cohomological-reading scope in its
-  docstring. **Prime next-build (still open)**: full `∂²=0` chain-complex + the connecting map
-  `H^n→H^{n+1}` = the re-entry encoding (213 owns the coker tower with a graded `∀ n` witness,
-  *not yet* the chain complex — honest gap).
+  non-fixed-point at that depth; a single ∅-axiom `∀ n` capstone (PURE).
+
+  **Correction (this session) — there are TWO cokers, not one.** The repo already owns a
+  *genuine* 213-native ℤ/2 simplicial cochain complex (`Lib/Math/Cohomology/`): `Cochain n k =
+  Fin (binom n k) → Bool`, a real coboundary `delta`, `δ` linear (`Delta.Linear.delta_add`,
+  ∀ n,k), and — now assembled as `ChainComplex.atomic_chain_complex` (PURE, this session) —
+  `δ²=0` for **all** cochains at every degree of Δ⁴ (`Universal.Prop*`), the band widened to Δ⁵
+  (new `Prop61`), plus acyclicity (`b̃₀=b̃₁=0`). Its cohomology `H^k = coker δ` is the **Betti**
+  residue — *geometric, finite*. This is a **different object** from the **Cantor / re-entry**
+  coker (`coker(Object1)`, `Raw → Bool`, the diagonal/definability gap). The earlier "the
+  residue *is* a coker" read via `PredicateAsCochain` (a `rfl` re-typing of a predicate as a
+  1-cochain) was *suggestive, not an identification* — conflating them is the failure mode.
+  **Two open frontiers, now separated** (`the_dimension_free_dsquared.md`): (a) the
+  **dimension-free** `∀ n k σ, δ²σ=0` for the simplicial complex (the colex round-trip + the
+  2-to-1 face pairing — `decide` structurally can't reach it); (b) the deeper unification —
+  exhibiting the **Cantor** residue as the cohomology of an honest 213-native complex with a
+  real `δ²=0`. The atomic simplicial complex is closed; (a) and (b) are the remaining work.
 - **Information theory — CONTENT.** Shannon bit = count-Lens of one distinguishing
   (`Entropy.H(uniform 2^n)=n` by `rfl`). The residue = Kolmogorov-incompressible / Chaitin Ω =
   the *same* Lawvere diagonal (Yanofsky: Cantor + halting one engine). Open seam:

@@ -9,10 +9,17 @@ The fundamental cochain identity.  In ℤ/2 (Bool, XOR), each
 (k+2)-subset's value under δ²σ counts each k-subset face twice
 (once via each removal-order) — XOR of equal values is false.
 
-This file establishes δ²=0 by `decide` at concrete cochains. A
-universally-quantified version (∀ σ, ...) requires a Fintype +
-DecidablePred instance for `Cochain n k` that core Lean 4 does
-not provide by default; revisit in .
+This file establishes δ²=0 by `decide` at concrete cochains.
+The **universally-quantified** version (`∀ σ : Cochain n k, δ²σ = 0`)
+is closed at each fixed dimension in `Universal/` — `Prop.dsq_zero_prop_5_0`,
+`Prop51`–`Prop53` (`5 1`–`5 3`), and `Prop61` (`6 1`) — by lifting a
+Bool-pattern `decide` through the funext-free `Delta.Pointwise.delta_pointwise_eq`,
+bypassing the missing `Fintype`/`DecidablePred` on `Cochain n k`.  They are
+assembled into the chain-complex structure theorem `ChainComplex.atomic_chain_complex`.
+
+The remaining open frontier is the **dimension-free** `∀ n k σ, δ²σ = 0`
+(uniform in `n`), which `decide`/pattern cannot reach — see
+`research-notes/frontiers/the_dimension_free_dsquared.md`.
 -/
 
 namespace E213.Lib.Math.Cohomology.Delta.SqZero

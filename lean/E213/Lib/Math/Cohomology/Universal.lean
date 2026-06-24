@@ -6,6 +6,7 @@ import E213.Lib.Math.Cohomology.Universal.Prop42
 import E213.Lib.Math.Cohomology.Universal.Prop51
 import E213.Lib.Math.Cohomology.Universal.Prop52
 import E213.Lib.Math.Cohomology.Universal.Prop53
+import E213.Lib.Math.Cohomology.Universal.Prop61
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology.Universal`.
 
