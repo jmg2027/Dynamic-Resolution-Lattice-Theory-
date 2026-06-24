@@ -56,20 +56,36 @@ partial def finalCod : Expr → Expr
   | .forallE _ _ b _ => finalCod b
   | e => e
 
-def isDataFn (e : Expr) : Bool :=
+-- Is `e` (a function's final codomain) a DATA type (Bool/Nat/Type/type-var), as opposed
+-- to a PROPOSITION (Prop, or a predicate/relation application like `Eq x y`)?  An
+-- env-aware check: a `.const` flags only if it is a Type-valued (not Prop-valued)
+-- inductive; an `.app` (a proposition `Eq ..`/`Ne ..`/`R x y`) never flags.
+def codIsData (env : Environment) (e : Expr) : Bool :=
   match e with
-  | .forallE _ _ _ _ => match finalCod e with
-                        | .sort .zero => false   -- predicate/relation into Prop
-                        | _ => true              -- function into data (power object)
+  | .sort .zero => false      -- Prop
+  | .sort _     => true       -- Type u
+  | .bvar _     => true       -- bound type variable (e.g. `β` in `Function.Surjective`)
+  | .fvar _     => true
+  | .const c _  => match env.find? c with
+                   | some (.inductInfo iv) =>
+                       match finalCod iv.type with
+                       | .sort .zero => false   -- Prop-valued inductive (False/And/…)
+                       | _           => true    -- Type-valued data inductive (Bool/Nat/…)
+                   | _ => false
+  | _ => false                -- `.app` (a proposition), `.lam`, … → not data
+
+def isDataFn (env : Environment) (e : Expr) : Bool :=
+  match e with
+  | .forallE _ _ _ _ => codIsData env (finalCod e)
   | _ => false
 
-partial def hasHO : Expr → Bool
-  | .forallE _ d b _ => isDataFn d || hasHO d || hasHO b
-  | .app f a => hasHO f || hasHO a
-  | .lam _ d b _ => hasHO d || hasHO b
-  | .letE _ t v b _ => hasHO t || hasHO v || hasHO b
-  | .mdata _ e => hasHO e
-  | .proj _ _ e => hasHO e
+partial def hasHO (env : Environment) : Expr → Bool
+  | .forallE _ d b _ => isDataFn env d || hasHO env d || hasHO env b
+  | .app f a => hasHO env f || hasHO env a
+  | .lam _ d b _ => hasHO env d || hasHO env b
+  | .letE _ t v b _ => hasHO env t || hasHO env v || hasHO env b
+  | .mdata _ e => hasHO env e
+  | .proj _ _ e => hasHO env e
   | _ => false
 
 partial def usedClosure (env : Environment) (n : Name) (seen : NameSet) : NameSet :=
@@ -114,7 +130,7 @@ def report (env : Environment) (target : Name) : IO Unit := do
   let mut natCount := 0
   for n in (typeClosure env target {}).toList do
     match env.find? n with
-    | some ci => if hasHO ci.type then higherOrder := true
+    | some ci => if hasHO env ci.type then higherOrder := true
     | none => pure ()
   for n in cl do
     if (`Nat).isPrefixOf n then natCount := natCount + 1

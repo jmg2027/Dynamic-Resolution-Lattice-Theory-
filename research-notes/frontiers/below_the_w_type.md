@@ -121,7 +121,82 @@ Concrete, machine-checkable, ranked:
    content is overwhelmingly Tier A; the genuine second-order content is the residue cone and
    its consumers. This *measures* "how much of 213 needs more than a tiny checker."
 
+## Round 2 — the residue is the Lawvere fork; self-application sits ABOVE the distinguishing
+
+Continued debate (Lawvere/fixed-point logician, λ-calculus/self-application specialist,
+213-philosopher + skeptic). Three results, one of them self-correcting.
+
+**(a) The residue = Lawvere's fixed-point theorem — and it is already formalized.** The
+prior rounds did not know the repo already contains `Lens/Foundations/OneDiagonal.lean`
+(11/11 PURE): `lawvere_fixed_point (f : A → A → B) (surj) (t : B → B) : ∃ b, t b = b`,
+proof `obtain ⟨a,ha⟩ := surj (fun a => t (f a a)); ⟨f a a, …⟩` — the kernel term being
+**`f a a`, self-application**. Cantor (`cantor_via_lawvere`, B=Bool, t=`not`), the residue
+(`residue_is_lawvere_diagonal` = `object1_not_surjective`, A=Raw), and Russell/Liar/Tarski
+(`russell_liar_no_surjection`, Prop/Iff form) are *three instances of one diagonal*
+(`one_diagonal_generates`). The engine premise — `not` is fixed-point-free
+(`bnot_self_ne`) — **is** §5.2's Bool-style self-reference, verbatim. `ResidueTag.lean`
+generalizes to the ±1 two-pole tag: escape (q=−1: Cantor/Gödel/residue, no fixed point) vs
+converge (q=+1: φ/Banach, contraction). So the trusted-base / below-the-W-type frontier
+connects to existing foundational Lean: **Cantor = residue = §5.2 Bool-self-reference is a
+theorem, not a slogan.**
+
+**(b) The β-floor below the Π/universe layer.** Lawvere's `f a a` is the same *diagonal
+kernel* as the Y-combinator's `x x` (one β-redex: "substitute the diagonal into itself");
+they diverge only in discipline — Lawvere is total/terminating (the surjection hands you the
+index `a`; one `congrFun ha a` step), Y diverges. So the residue's irreducible
+*computational* content is exactly **one diagonal abstraction `fun a => t (f a a)` + one
+β-instantiation**. A substitution-only (Metamath) checker cannot *reduce* this β-step; it
+must **axiomatize** it as an instantiation schema. That single diagonal redex — at the
+function space — is the floor below the Π/universe layer Round 1 found.
+
+**(c) The self-correction (the round's sharpest result).** The tempting deeper thesis —
+*"self-application / the fork is more primitive than the distinguishing; distinguishing is a
+reading of the converge/escape outcome"* — is **false, and refuted by this program's own
+`tier` detector.** Measured:
+
+| target | tier |
+|---|---|
+| `isPart_wf`, `slash_ne_a`, `no_distinguishing_on_subsingleton` (the distinguishing + its precondition) | **TIER-A** (first-order) |
+| `lawvere_fixed_point`, `residue_is_lawvere_diagonal`, `residue_needs_distinguishing` (self-application / the fork) | **TIER-B** (power-object climb) |
+
+Lawvere lives in a cartesian-closed category — it *needs* the function space `B^A` (here
+`Raw → Bool`), which is `Object1`, a Lens reading of the **already-given** distinguishing.
+So self-application presupposes the power object, which is TIER-B — *above* the
+distinguishing (TIER-A), not below. The circularity ("use a structure the distinguishing
+generates to claim it precedes the distinguishing") is **measured by the TIER-A/TIER-B
+seam**, not merely argued. And `OneDiagonal` §5–6 proves the dependency directly:
+`residue_needs_distinguishing` (subsingleton value space ⟹ every `t` converges ⟹ *no escape,
+no residue*) and `no_distinguishing_on_subsingleton` (the slash cannot fire without a
+distinct pair). **The distinguishing is the precondition that gives the fork two branches;
+it is not the fork's product.**
+
+**Honest surviving verdict.** Once the distinguishing has run far enough to force the climb
+to the power object (TIER-B), its self-cover `Object1` is self-applying, and Lawvere's fork —
+escape (fixed-point-free `t`, the residue) vs converge (contraction, φ/Banach) — is the one
+mechanism organizing both forms of §5.2 self-reference, the residue being the escape branch.
+This *deepens §5.2 from taxonomy to theorem*. **Dropped as overclaim** (failure-mode
+catalog): "self-application is the floor beneath the distinguishing" (refuted by the tier
+seam + `residue_needs_distinguishing`); "distinguishing IS the fork outcome"
+(View-promoted-to-identity); "the substrate stabilizes" as a ground (deifies φ — the
+convergence is a located modulus-limit, reached by none).
+
+**Tooling deposit.** Fixed a `tier`-detector false positive: a Prop hypothesis `(∀ x y,
+x = y)` has final-codomain `Eq x y` (an `.app`, a *proposition*) which the old check
+mis-read as "function-into-data." The detector is now **env-aware** (a `.const` codomain
+flags only if it is a Type-valued, not Prop-valued, inductive; an `.app` proposition never
+flags), so TIER-A/TIER-B is sharp (`no_distinguishing_on_subsingleton` now correctly TIER-A).
+
+**Next (carried):** route `cantor_general` / `object1_not_surjective` through the
+`lawvere_fixed_point` engine (currently inline-duplicated) — needs moving the generic
+Lawvere lemmas upstream of `Cantor.lean` to avoid an import cycle; pure refactor, makes the
+unification load-bearing in the proof graph. Plus the β-redex / non-trivial-`rfl` census
+(blind-axis #2): predict exactly one diagonal redex per residue-cone theorem.
+
 ## Cross-refs
+
+- `lean/E213/Lens/Foundations/OneDiagonal.lean` (the Lawvere engine, 11 PURE — residue =
+  Cantor = Russell = one diagonal; §5–6 = the distinguishing-is-precondition refutation),
+  `lean/E213/Lib/Math/Foundations/ResidueTag.lean` (the ±1 escape/converge tag).
 
 - `the_trusted_base.md` (Round 6: the constant-footprint auditor + the §5.1-legal verdict).
 - `the_genesis_seam.md` Round 5 (the `Nat`-free Raw layer; the `ordNoConf` technique).
