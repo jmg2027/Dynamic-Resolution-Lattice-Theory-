@@ -515,4 +515,52 @@ theorem kSubset_subsetIdx (n k : Nat) (s : List Nat)
   have hidx : subsetIdx n k s = j := hkj ▸ subsetIdx_kSubset n k j hj
   exact (congrArg (kSubset n k) hidx).trans hkj
 
+/-! ## §6 — face structure: `eraseIdx` preserves sortedness, and the simplicial
+commutation identity
+
+`delta` removes one vertex from a colex subset (`eraseIdx`).  For `δ²` the faces
+must (a) stay genuine k-subsets — `Sorted` + bounded — so the colex round-trip
+(`kSubset_subsetIdx`) applies, and (b) satisfy the **simplicial commutation
+identity** that pairs the two removal orders of each vertex pair.  These are the
+last reusable bridge lemmas before the 2-to-1 cancellation. -/
+
+/-- Membership is preserved by `eraseIdx` (it deletes, never adds). -/
+private theorem mem_eraseIdx_imp_mem : ∀ (L : List Nat) (a y : Nat),
+    y ∈ L.eraseIdx a → y ∈ L
+  | [],      _,     _, h => nomatch h
+  | _ :: xs, 0,     _, h => List.Mem.tail _ h
+  | x :: xs, a + 1, y, h => by
+    cases h with
+    | head => exact List.Mem.head xs
+    | tail _ h' => exact List.Mem.tail x (mem_eraseIdx_imp_mem xs a y h')
+
+/-- `eraseIdx` preserves `Sorted`: deleting an element of a strictly-increasing
+    list keeps it strictly increasing. -/
+theorem sorted_eraseIdx : ∀ (L : List Nat) (a : Nat), Sorted L → Sorted (L.eraseIdx a)
+  | [],      _,     _  => Sorted.nil
+  | x :: xs, 0,     hs => by cases hs with | cons _ _ _ hxs => exact hxs
+  | x :: xs, a + 1, hs => by
+    cases hs with
+    | cons _ _ hx hxs =>
+      refine Sorted.cons x (xs.eraseIdx a) ?_ (sorted_eraseIdx xs a hxs)
+      intro y hy
+      exact hx y (mem_eraseIdx_imp_mem xs a y hy)
+
+/-- ★★★ **The simplicial commutation identity.**  Removing index `i` then index
+    `j` (with `i ≤ j`) equals removing index `j+1` then index `i`: the two removal
+    orders of the same vertex pair land on the same face.  This is the standard
+    `d_i d_j = d_{j-1} d_i` (for `i ≤ j`) face identity in index form — the kernel
+    of the `δ²=0` 2-to-1 pairing.  Structural induction on the list.  ∅-axiom. -/
+theorem eraseIdx_eraseIdx_comm : ∀ (L : List Nat) (i j : Nat), i ≤ j →
+    (L.eraseIdx i).eraseIdx j = (L.eraseIdx (j + 1)).eraseIdx i
+  | [],      i, j, _ => by cases i <;> cases j <;> rfl
+  | _ :: _,  0, _, _ => rfl
+  | x :: xs, i + 1, j, hij => by
+    cases j with
+    | zero => exact absurd hij (Nat.not_succ_le_zero i)
+    | succ j' =>
+      have hij' : i ≤ j' := Nat.le_of_succ_le_succ hij
+      show x :: (xs.eraseIdx i).eraseIdx j' = x :: (xs.eraseIdx (j' + 1)).eraseIdx i
+      exact congrArg (x :: ·) (eraseIdx_eraseIdx_comm xs i j' hij')
+
 end E213.Lib.Math.Cohomology.Examples.ColexRoundTrip

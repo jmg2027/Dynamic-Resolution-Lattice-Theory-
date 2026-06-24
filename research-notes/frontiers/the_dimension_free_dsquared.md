@@ -92,17 +92,29 @@ kSubset (n+1) (k+1) i = if i < binom n (k+1) then kSubset n (k+1) i
 
 2. **The 2-to-1 face pairing** — a fixed-point-free involution on
    `{(a,b) : a ∈ range (k+2), b ∈ range (k+1)}` that preserves the resulting
-   face `(τ.eraseIdx a).eraseIdx b`.  Concretely the order-swap on the two removed
-   positions:  `(τ.eraseIdx a).eraseIdx b = (τ.eraseIdx a').eraseIdx b'` where
-   `(a',b')` removes the same two vertices in the opposite order.  Paired with
-   `xor_self_eq_false` and a foldl-over-pairs regrouping (the multiset of face
-   indices has every element even), this gives `δ²σ(τ) = false`.
+   face `(τ.eraseIdx a).eraseIdx b`.
 
-Both ∅-axiom: structural induction + `eraseIdx`/`List` lemmas + `Eq.subst`/`▸`,
-no funext (use the `Delta.Pointwise` pattern), no `decide` over the function
-space.  The hard part is (2)'s index bookkeeping over `eraseIdx` on the sorted
-colex list — exactly the work Mathlib hides inside `AlternatingFaceMapComplex`,
-here owed in the brute-force colex representation.
+   **DONE (this session)** — the structural kernel, `ColexRoundTrip.lean §6`:
+   - `sorted_eraseIdx` — erasing a vertex from a `Sorted` colex subset keeps it
+     `Sorted` (so every face round-trips via `kSubset_subsetIdx`);
+   - `eraseIdx_eraseIdx_comm` — the **simplicial commutation identity**
+     `(L.eraseIdx i).eraseIdx j = (L.eraseIdx (j+1)).eraseIdx i` for `i ≤ j`
+     (the `d_i d_j = d_{j-1} d_i` face identity in index form).  This *is* the
+     involution kernel: `(a,b) ↦ (b+1, a)` for `a ≤ b` sends `(τ.eraseIdx
+     a).eraseIdx b` to the same face by the opposite removal order.
+
+   **Still open — the parity accounting only.**  With every structural fact
+   closed, the remaining step is pure XOR bookkeeping: (i) rewrite `δ²σ(τ)` (a
+   nested `foldl`-XOR) as a flat XOR over the `(a,b)` grid, using the round-trip
+   to collapse the inner `subsetIdx ∘ eraseIdx ∘ kSubset` to the genuine face;
+   (ii) an abstract **involution-cancellation** lemma — a XOR-fold over a `Nodup`
+   list with a fixed-point-free, summand-preserving involution is `false` — applied
+   to the grid via `eraseIdx_eraseIdx_comm`.  No new structural facts are needed;
+   it is the combinatorial accounting Mathlib hides inside
+   `AlternatingFaceMapComplex`, here owed over the brute-force `foldl`.
+
+All ∅-axiom: structural induction + `eraseIdx`/`List` lemmas + `Eq.subst`/`▸`,
+no funext (use the `Delta.Pointwise` pattern), no `decide` over the function space.
 
 ## Relation to the other residue / coker
 
@@ -128,10 +140,13 @@ from `delta_sq_zero_general` above.
   `kSubset_mem_lt`, `kSubset_length`, `kSubset_inj`, `subsetIdx_kSubset` (forward),
   `kSubset_surj` (surjectivity), `kSubset_subsetIdx` (reverse).  `kSubset`/`subsetIdx`
   are inverse on `{0..binom n k − 1}` ↔ sorted k-subsets.
-- **Next**: the 2-to-1 face pairing (§2) — now buildable on the closed
-  round-trip, since `delta`'s inner `subsetIdx ∘ eraseIdx ∘ kSubset` provably
-  returns a genuine face (erasing one element from a `Sorted` colex subset yields
-  a `Sorted` subset, so `kSubset_subsetIdx` applies).  Then `delta_sq_zero_general`.
+- **Closed (this session, §6)**: `sorted_eraseIdx` (faces stay `Sorted`) and
+  `eraseIdx_eraseIdx_comm` (the simplicial commutation identity = the involution
+  kernel).  **All structural lemmas for `δ²=0` are now machine-verified PURE.**
+- **Next — the only remaining gap**: the XOR-parity accounting (flatten the nested
+  `δ²` fold via the round-trip + an abstract involution-cancellation lemma applied
+  through `eraseIdx_eraseIdx_comm`).  No new structural facts required.  Then
+  `delta_sq_zero_general`.
 
 ## Cross-refs
 
