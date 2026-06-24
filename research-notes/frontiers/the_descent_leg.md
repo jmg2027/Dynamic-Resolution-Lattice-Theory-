@@ -395,3 +395,15 @@ all rebuilt on `subMod`; `Nat.mul_assoc` — which leaks propext in core — swa
 Remaining (deeper): `Nat.sub`/`succ`/`*` themselves are kernel inductive recursion (Tree/Nat W-type,
 `the_trusted_base.md`) — the irreducible CIC floor, not borrowed *WF*. That is a different frontier
 (the W-type itself), not the descent-grounding one, which is now closed for FTA existence.
+
+### UPDATE (2026-06-24, cont. 5): Euclid's infinitude of primes — second grounded discipline (PURE ✓)
+
+To show the `Nat.div`/`Nat.mod`-free grounding generalises beyond FTA existence:
+`EuclidPrimesGrounded.infinitude_of_primes` — for any list `L` of primes there is a prime not in `L`
+(`minFac' (prodL L + 1)`).  Measures: `strongRecOn=false, lt_wfRel=false, Nat.div=false,
+Nat.mod=false`, `#print axioms` empty (∅-axiom).  (No `isPart_wf` — Euclid is a *one-shot*
+construction via `minFac'`, no descent, so no borrowed WF at all.)  Reuses the clean `minFac'`; the
+`Nat.dvd_sub`/`Nat.dvd_trans`/`Nat.add_sub_cancel`/`Nat.le_of_add_le_add_left`/`Nat.mul_assoc` propext
+leaks were all replaced by clean inline witnesses + `SubMod213.le_add_cancel_left` (made public) +
+`NatHelper.mul_assoc`.  Two classical multiplicative theorems (FTA existence, Euclid) now generated
+without borrowed `Nat` division or well-foundedness.

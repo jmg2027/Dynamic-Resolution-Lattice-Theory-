@@ -62,7 +62,7 @@ theorem subMod_lt : ∀ (fuel a b : Nat), 0 < b → a ≤ fuel → subMod fuel a
 
 /-- Left-cancellation of `≤` over `+`, propext-free (core `Nat.le_of_add_le_add_left` leaks propext).
     By `Nat.rec` on the cancelled summand. -/
-private theorem le_add_cancel_left : ∀ (a : Nat) {b c : Nat}, a + b ≤ a + c → b ≤ c
+theorem le_add_cancel_left : ∀ (a : Nat) {b c : Nat}, a + b ≤ a + c → b ≤ c
   | 0,     b, c, h => by rw [Nat.zero_add, Nat.zero_add] at h; exact h
   | a + 1, b, c, h => by
       apply le_add_cancel_left a
