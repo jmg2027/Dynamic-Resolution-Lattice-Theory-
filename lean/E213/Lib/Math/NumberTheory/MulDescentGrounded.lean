@@ -15,25 +15,27 @@ distinguishing's descent — verified clean on its own: `isPart_wf` present, `Na
 `Nat.strongRecOn` absent).  The peel `n ↦ n / minFac n` strictly decreases `n`, so the `id`-measure
 descends.
 
-**The honest accounting (measured by direct kernel-closure walk — NOT the hoped-for clean result).**
-After the rebuild the closure of `mul_factorization_exists_grounded` is:
+**The accounting (measured by direct kernel-closure walk + `#print axioms`).**  The closure of
+`mul_factorization_exists_grounded` is:
 
-  * `isPart_wf` — **now present** (it was *absent* from the old `mul_factorization_exists`): the
-    factorisation **descent** now terminates on `Raw`'s descent.  Real, measured progress.
-  * `Nat.strongRecOn` — **still present** (closure walk: `true`).  *The descent no longer introduces
-    it, but a reused supporting lemma does* — traced precisely to `minFac_spec` →
-    `leastFactorFrom_spec` (the correctness proof of the least-factor search uses strong recursion).
-    So swapping the descent was necessary but **not sufficient**: the `minFac` *specification chain*
-    must also be rebuilt on structural-fuel induction before the bar is cleared.
-  * `Nat.lt_wfRel` — present, from `Nat.div`/`Nat.mod` (kernel WF-recursion) — a separate borrowed
-    arithmetic primitive (the deep carrier-rebuild, `the_genesis_seam.md`).
+  * `isPart_wf` — **present** (absent from the old `mul_factorization_exists`): the factorisation
+    descent terminates on `Raw`'s descent;
+  * `Nat.strongRecOn` — **absent** (the bar's target): no non-structural well-founded recursion on
+    `Nat`.  Cleared in two moves — (i) this file's descent uses `measureInduction_grounded` not
+    `mulDescentRec`; (ii) `AddMod213.div_add_mod` was rebuilt on structural fuel (it was the single
+    point keeping `strongRecOn` in the whole `minFac`/`leastFactorFrom` chain), and `Nat.div_lt_self`
+    / `Nat.mul_div_cancel'` (both `strongRecOn`/`propext`-laden in core) were replaced by `div_lt_self'`
+    and a `div_add_mod`+`mod_zero_of_dvd` cancellation;
+  * `Nat.lt_wfRel` — **present**, isolated to `Nat.div`/`Nat.mod` (kernel WF-recursion) — a separate
+    borrowed arithmetic primitive (the deep carrier-rebuild, `the_genesis_seam.md`).
 
-**Status (honest).**  The descent leg's bar is **not yet cleared for FTA** — `Nat.strongRecOn`
-survives via `leastFactorFrom_spec`.  What *is* achieved: the reusable engine is clean and verified
-(`IsPartGroundedInduction`), the factorisation descent is grounded (`isPart_wf` enters the cone), and
-the **remaining blocker is named and isolated** (`leastFactorFrom_spec`).  That precise accounting —
-which lemma carries the borrowing, and what must be rebuilt next — is the deliverable, exactly the
-"measured claim, win or lose" the frontier note calls for.  ∅-axiom.
+And `#print axioms` is empty — **∅-axiom** (no `propext`).
+
+**Status.**  The descent leg's bar — *factorisation terminates via `Raw`'s own descent, not borrowed
+`Nat.strongRecOn`* — is **cleared for FTA existence**: `isPart_wf` in, `Nat.strongRecOn` out,
+∅-axiom.  This is precisely what `the_genesis_seam.md` found FTA-over-`Nat213` *failing*.  The only
+residual borrowing is `Nat.div`'s internal `lt_wfRel` (division as a primitive), cleanly named — the
+next, separate frontier.
 -/
 
 namespace E213.Lib.Math.NumberTheory.MulDescentGrounded
@@ -41,15 +43,31 @@ namespace E213.Lib.Math.NumberTheory.MulDescentGrounded
 open E213.Lib.Math.NumberTheory.PrimeFactorization
   (prodL minFac minFac_spec minFac_prime)
 open E213.Lib.Math.NumberTheory.PrimeValuation (Prime213)
+open E213.Meta.Nat.Valuation (mod_zero_of_dvd)
 open E213.Lib.Math.Foundations.IsPartGroundedInduction (measureInduction_grounded)
 
-/-- ★★★ **Factorisation existence, descent re-routed through `isPart_wf`.**  Every `n ≥ 1` is a
-    product of primes — proved by `measureInduction_grounded` on the `id`-measure (the peel
-    `n ↦ n / minFac n` strictly decreases `n`).  The factorisation **descent** now terminates on the
-    distinguishing's descent `isPart_wf` (it enters the cone, where the old proof had none).  *Honest
-    measurement*: `Nat.strongRecOn` nonetheless **survives** via the reused `minFac_spec` →
-    `leastFactorFrom_spec` — so this grounds the descent but does **not** yet clear the FTA bar; the
-    `minFac` specification chain is the named remaining blocker (file header).  ∅-axiom. -/
+/-- `n / m < n` for `0 < n`, `2 ≤ m` — proved from the (now `strongRecOn`-free) `div_add_mod`, so it
+    does **not** pull `Nat.strongRecOn` (unlike core `Nat.div_lt_self`). -/
+private theorem div_lt_self' {n m : Nat} (hn : 0 < n) (hm : 2 ≤ m) : n / m < n := by
+  rcases Nat.lt_or_ge (n / m) n with h | h
+  · exact h
+  · exfalso
+    have key : m * (n / m) + n % m = n := E213.Meta.Nat.AddMod213.div_add_mod n m
+    have hmq_le : m * (n / m) ≤ n :=
+      Nat.le_trans (Nat.le_add_right (m * (n / m)) (n % m)) (Nat.le_of_eq key)
+    have hstep : 2 * n ≤ m * (n / m) := Nat.mul_le_mul hm h
+    have hstep' : n + n ≤ m * (n / m) :=
+      Nat.le_trans (Nat.le_of_eq (Nat.two_mul n).symm) hstep
+    exact Nat.lt_irrefl n
+      (Nat.lt_of_lt_of_le (Nat.lt_add_of_pos_right hn) (Nat.le_trans hstep' hmq_le))
+
+/-- ★★★ **Factorisation existence, descent grounded in `isPart_wf` — the descent-leg bar cleared for
+    FTA.**  Every `n ≥ 1` is a product of primes, by `measureInduction_grounded` on the `id`-measure
+    (the peel `n ↦ n / minFac n` strictly decreases `n`).  Verified by direct closure walk:
+    `isPart_wf` **present**, `Nat.strongRecOn` **absent** — the factorisation recursion terminates on
+    the distinguishing's own descent, not borrowed `Nat` well-foundedness; and `#print axioms` is
+    empty (∅-axiom, no `propext`).  Residual `Nat.lt_wfRel` is isolated to `Nat.div` (file header).
+    This is the result `the_genesis_seam.md` found FTA-over-`Nat213` *failing*. -/
 theorem mul_factorization_exists_grounded :
     ∀ n, 1 ≤ n → ∃ L : List Nat, (∀ p, p ∈ L → Prime213 p) ∧ prodL L = n := by
   refine measureInduction_grounded (fun n => n)
@@ -63,13 +81,20 @@ theorem mul_factorization_exists_grounded :
   · -- n ≥ 2: peel the least prime factor
     obtain ⟨hge, hdvd, hle, _⟩ := minFac_spec h2
     have hpos : 0 < n := Nat.lt_of_lt_of_le (by decide) h2
-    have hquot_lt : n / minFac n < n := Nat.div_lt_self hpos hge
+    have hmpos : 0 < minFac n := Nat.lt_of_lt_of_le (by decide) hge
+    -- propext-free `minFac n * (n / minFac n) = n`, from div_add_mod + mod_zero_of_dvd
+    have hcancel : minFac n * (n / minFac n) = n := by
+      have hmod0 : n % minFac n = 0 := mod_zero_of_dvd hmpos hdvd
+      have hkey : minFac n * (n / minFac n) + n % minFac n = n :=
+        E213.Meta.Nat.AddMod213.div_add_mod n (minFac n)
+      exact ((Nat.add_zero (minFac n * (n / minFac n))).symm.trans
+        (congrArg (fun z => minFac n * (n / minFac n) + z) hmod0.symm)).trans hkey
+    have hquot_lt : n / minFac n < n := div_lt_self' hpos hge
     have hquot_pos : 1 ≤ n / minFac n := by
       rcases Nat.eq_zero_or_pos (n / minFac n) with h0 | h0
       · exfalso
-        have hc : minFac n * (n / minFac n) = n := Nat.mul_div_cancel' hdvd
         have hz : n = 0 :=
-          ((hc.symm.trans (congrArg (minFac n * ·) h0)).trans (Nat.mul_zero (minFac n)))
+          ((hcancel.symm.trans (congrArg (minFac n * ·) h0)).trans (Nat.mul_zero (minFac n)))
         exact Nat.lt_irrefl 0 (hz ▸ hpos)
       · exact h0
     obtain ⟨L', hL'prime, hL'prod⟩ := ih (n / minFac n) hquot_lt hquot_pos
@@ -79,6 +104,6 @@ theorem mul_factorization_exists_grounded :
       | head => exact minFac_prime h2
       | tail _ h => exact hL'prime p h
     · show minFac n * prodL L' = n
-      exact (congrArg (minFac n * ·) hL'prod).trans (Nat.mul_div_cancel' hdvd)
+      exact (congrArg (minFac n * ·) hL'prod).trans hcancel
 
 end E213.Lib.Math.NumberTheory.MulDescentGrounded

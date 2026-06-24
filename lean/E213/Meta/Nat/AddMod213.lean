@@ -81,33 +81,48 @@ theorem mod_two_zero_or_one (n : Nat) : n % 2 = 0 ∨ n % 2 = 1 := by
       rw [h] at hlt
       exact Nat.lt_irrefl 2 (Nat.lt_of_le_of_lt (Nat.le_add_left 2 k) hlt)
 
-/-- `b * (a / b) + a % b = a` for all `a b`.  ∅-axiom replacement
-    for `Nat.div_add_mod` (which leaks propext). -/
-theorem div_add_mod : ∀ (a b : Nat), b * (a / b) + a % b = a := fun a b =>
-  Nat.strongRecOn a (motive := fun a => b * (a / b) + a % b = a)
-    fun a ih => by
-      show b * (a / b) + a % b = a
-      by_cases hbound : 0 < b ∧ b ≤ a
-      · have hsub_lt : a - b < a :=
-          Nat.sub_lt (Nat.lt_of_lt_of_le hbound.1 hbound.2) hbound.1
-        have ih' := ih (a - b) hsub_lt
-        have hd : a / b = (a - b) / b + 1 := by
-          rw [Nat.div_eq]; rw [if_pos hbound]
-        have hm : a % b = (a - b) % b := by
-          rw [Nat.mod_eq]; rw [if_pos hbound]
-        rw [hd, hm, Nat.mul_add, Nat.mul_one]
-        rw [Nat.add_right_comm, ih']
-        exact sub_add_cancel hbound.2
-      · by_cases hb : 0 < b
-        · have ha : a < b :=
-            Nat.lt_of_not_le (fun h => hbound ⟨hb, h⟩)
-          have hd : a / b = 0 := Nat.div_eq_of_lt ha
-          have hm : a % b = a := Nat.mod_eq_of_lt ha
-          rw [hd, hm, Nat.mul_zero, Nat.zero_add]
-        · have hb_eq : b = 0 := Nat.eq_zero_of_not_pos hb
-          rw [hb_eq, Nat.zero_mul, Nat.zero_add]
-          rw [Nat.mod_eq]
-          rw [if_neg (fun h => absurd h.1 (Nat.lt_irrefl _))]
+/-- `b * (a / b) + a % b = a` for all `a b`.  ∅-axiom replacement for
+    `Nat.div_add_mod` (which leaks propext) — and now **`Nat.strongRecOn`-free**: the descent
+    `a ↦ a - b` is carried by **structural fuel recursion** (`Nat.rec` on a bound), not non-structural
+    well-founded recursion.  This is the single point that kept `Nat.strongRecOn` in the `minFac` /
+    factorisation cone (`MulDescentGrounded`, the descent leg); removing it here clears `strongRecOn`
+    from that whole chain. -/
+theorem div_add_mod (a b : Nat) : b * (a / b) + a % b = a := by
+  suffices h : ∀ fuel a, a ≤ fuel → b * (a / b) + a % b = a from h a a (Nat.le_refl a)
+  intro fuel
+  induction fuel with
+  | zero =>
+    intro a hle
+    have ha0 : a = 0 := Nat.le_antisymm hle (Nat.zero_le a)
+    subst ha0
+    show b * (0 / b) + 0 % b = 0
+    rw [Nat.zero_div, Nat.mul_zero, Nat.zero_add, Nat.mod_eq]
+    exact if_neg (fun hc => Nat.lt_irrefl 0 (Nat.lt_of_lt_of_le hc.1 hc.2))
+  | succ fuel ih =>
+    intro a hle
+    show b * (a / b) + a % b = a
+    by_cases hbound : 0 < b ∧ b ≤ a
+    · have hsub_lt : a - b < a :=
+        Nat.sub_lt (Nat.lt_of_lt_of_le hbound.1 hbound.2) hbound.1
+      have hsub_le : a - b ≤ fuel := Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hsub_lt hle)
+      have ih' := ih (a - b) hsub_le
+      have hd : a / b = (a - b) / b + 1 := by
+        rw [Nat.div_eq]; rw [if_pos hbound]
+      have hm : a % b = (a - b) % b := by
+        rw [Nat.mod_eq]; rw [if_pos hbound]
+      rw [hd, hm, Nat.mul_add, Nat.mul_one]
+      rw [Nat.add_right_comm, ih']
+      exact sub_add_cancel hbound.2
+    · by_cases hb : 0 < b
+      · have ha : a < b :=
+          Nat.lt_of_not_le (fun h => hbound ⟨hb, h⟩)
+        have hd : a / b = 0 := Nat.div_eq_of_lt ha
+        have hm : a % b = a := Nat.mod_eq_of_lt ha
+        rw [hd, hm, Nat.mul_zero, Nat.zero_add]
+      · have hb_eq : b = 0 := Nat.eq_zero_of_not_pos hb
+        rw [hb_eq, Nat.zero_mul, Nat.zero_add]
+        rw [Nat.mod_eq]
+        rw [if_neg (fun h => absurd h.1 (Nat.lt_irrefl _))]
 
 /-- `(k ∣ m) → n % m % k = n % k`.  ∅-axiom replacement for
     Lean-core `Nat.mod_mod_of_dvd` (`[propext]`).  Decomposes via

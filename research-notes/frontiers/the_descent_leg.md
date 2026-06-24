@@ -316,3 +316,33 @@ necessary-not-sufficient; the **`minFac`/`leastFactorFrom` specification chain m
 structural-fuel induction** as the next concrete step. `Nat.lt_wfRel` remains from `Nat.div` (separate
 borrowed primitive). The deliverable is the *measured accounting*: engine clean, descent grounded,
 remaining blocker isolated to one named lemma — the "win or lose, report honestly" the note asks for.
+
+### UPDATE (2026-06-24, cont. 2): FTA existence — descent-leg bar CLEARED (PURE ✓)
+
+Pushed through. `mul_factorization_exists_grounded` now measures (direct closure walk + `#print axioms`):
+
+| | `isPart_wf` | `Nat.strongRecOn` | `Nat.lt_wfRel` | axioms |
+|---|---|---|---|---|
+| grounded FTA (final) | **true** | **false** | true | **none (∅-axiom)** |
+
+The bar — *factorisation terminates via `Raw`'s own descent, not borrowed `Nat.strongRecOn`* — is
+**cleared for FTA existence**. The remaining-blocker hunt bottomed out at a **single point** and a
+two-step fix cleared the whole chain:
+
+1. **`AddMod213.div_add_mod`** (`n = b·(a/b) + a%b`) was the sole source of `Nat.strongRecOn` for the
+   entire `minFac`/`leastFactorFrom` chain — its proof used `Nat.strongRecOn` for the `a ↦ a-b`
+   descent. Rebuilt on **structural fuel recursion** (`Nat.rec` on a bound): `strongRecOn` gone from
+   `div_add_mod`, `minFac_spec`, `minFac_prime`, and everything above. (Kept ∅-axiom: the new zero
+   case avoided `Nat.zero_mod`, which leaks `propext`.)
+2. In `mul_factorization_exists_grounded`, the two core div lemmas `Nat.div_lt_self` (carries
+   `strongRecOn`) and `Nat.mul_div_cancel'` (carries `propext`) were replaced by `div_lt_self'` and a
+   `div_add_mod`+`mod_zero_of_dvd` cancellation — both built from the now-clean `div_add_mod`.
+
+**Honest residual.** `Nat.lt_wfRel` remains, isolated to `Nat.div`/`Nat.mod` (kernel WF-recursion) —
+division as a borrowed *arithmetic primitive*, a separate frontier from the *descent* (the deep
+carrier-rebuild, `the_genesis_seam.md`). So: the factorisation **descent** is grounded in the
+distinguishing; **division** is still a borrowed op. That is the precise, measured generated-vs-borrowed
+boundary for the multiplicative discipline — the descent leg's first deep-discipline clearance.
+
+**Bonus**: the `div_add_mod` fuel-rewrite removes `Nat.strongRecOn` from *every* downstream user of
+`minFac`/`leastFactorFrom`, not just FTA (Meta.Nat builds clean, 108 modules).
