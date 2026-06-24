@@ -333,14 +333,22 @@ MulDescentGroundedNoDiv,EuclidPrimesGrounded}`.
   `Nat.succ.inj`/`Nat.noConfusion`.  This is the **leg-1 step-2 demonstration**: a classical discipline
   (commutative-semiring arithmetic) realised as a reading of the distinguishing's spine, ∅-axiom.
 
-**Honest scope** (does NOT yet fully close Leg 1): the kernel `inductive Tree` is still borrowed to
-*have* `Raw`, and Lean's `Nat` is borrowed as the index/readout type and as the recursion engine for
-`add`/`mul` (iteration count `= depth y`).  What is genuinely *generated*, not borrowed, is the
-natural-number **structure** (zero, the `slash`-successor, the Peano laws, the semiring laws), carried
-by `Raw` and read by `depth`.  Remaining for full Leg 1: drive the *recursion engine* itself off the
-`Raw` descent (`isPart_wf`) rather than structural `Nat`, and read the `RawRecurrence` count-spine
-`2,3,5,12,…` (a second, wider reading of the same object).  First load-bearing instance of
-"discipline = the distinguishing's reading", though.
+**§4 — recursion engine grounded in `isPart_wf` (the borrowed-WF caveat retired).**  The Peano
+induction is re-derived *intrinsically*: `strongRec_isPart` recurses on `Raw`'s `slash`-peel relation
+`IsPart`, well-founded by the Theory-ring theorem `isPart_wf` (0 `Nat` constants in its cone), and
+`rec_grounded` discharges the per-step descent with `tower_ascent_isPart` (each rung is a part of the
+next).  Closure probe of `rec_grounded` (∅-axiom): `isPart_wf` **present**, `Nat.lt_wfRel` and
+`Nat.strongRecOn` **absent** — the natural-number recursion *descent* runs on the distinguishing's own
+peel, not `Nat`'s order.  (Residual `Nat.rec`/`Acc.rec` are structural recursors: the `∃ n` carrier-
+index case-split and the legitimate `Acc` well-founded mechanism — not borrowed `Nat` well-foundedness.)
+
+**Honest scope** (Leg 1 still not *fully* closed): the kernel `inductive Tree` is borrowed to *have*
+`Raw`, and `Nat` remains the **carrier index** (`{r // ∃ n, rawTower n = r}`) and the **readout** type
+(`depth`).  The *recursion engine* and the natural-number **structure** (zero, `slash`-successor, Peano
+laws, the commutative-semiring discipline) are now generated/grounded — the engine on `isPart_wf`.
+Remaining: replace the `∃ n` carrier index with an inductive predicate `IsRawNat` (closure under the
+`slash`-successor) so even the carrier drops `Nat`; and read the `RawRecurrence` count-spine
+`2,3,5,12,…` (a second, wider reading of the same object).
 
 ### What remains open here (the conceptual frontier, unchanged)
 
