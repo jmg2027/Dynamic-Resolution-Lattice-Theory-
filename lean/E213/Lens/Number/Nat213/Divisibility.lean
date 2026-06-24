@@ -35,7 +35,7 @@ open E213.Lens.Number.Nat213.Peano.Nat213
 -- `mul_left_cancel` is taken from `Order` (the **native**, toNat-free cancellation),
 -- not from `Peano` (whose version laundered through Lean `Nat`).  This keeps the
 -- entire divisibility dependency cone toNat-free — see the descent-leg bet.
-open E213.Lens.Number.Nat213.Order (lt lt_irrefl mul_left_cancel)
+open E213.Lens.Number.Nat213.Order (lt lt_irrefl lt_trans mul_left_cancel)
 
 /-- **Divisibility over the Raw-generated ℕ₊**: `a ∣ b` iff `b = a · c` for some `c : Nat213`,
     using `Nat213`'s own multiplication.  No Lean `Nat`. -/
@@ -106,11 +106,6 @@ theorem dvd_imp_eq_or_lt {a t : Nat213} (h : Dvd a t) : a = t ∨ lt a t := by
   | one => left; rw [hc, mul_one]
   | succ c' => right; exact ⟨mul a c', by rw [hc, mul_succ_right]⟩
 
-private theorem lt_trans' {a b d : Nat213} (h1 : lt a b) (h2 : lt b d) : lt a d := by
-  obtain ⟨c, hc⟩ := h1
-  obtain ⟨e, he⟩ := h2
-  exact ⟨add c e, by rw [← add_assoc, hc, he]⟩
-
 /-- ★★★ **No top**: no `t` is divisible by every `Nat213`.  Divisibility over the Raw-generated ℕ₊
     has a bottom (`one`) but **no top** — the shape *forced* by the primitive: every element is
     exceeded by its successor (`add_one_right`), the distinguishing's counting never closing
@@ -121,7 +116,7 @@ theorem dvd_no_top : ¬ ∃ t : Nat213, ∀ a : Nat213, Dvd a t := by
   have htlt : lt t (succ t) := ⟨one, add_one_right t⟩
   rcases dvd_imp_eq_or_lt (ht (succ t)) with heq | hlt
   · rw [heq] at htlt; exact lt_irrefl t htlt
-  · exact lt_irrefl t (lt_trans' htlt hlt)
+  · exact lt_irrefl t (lt_trans htlt hlt)
 
 /-- ★★★ **Divisibility is a preorder on the Raw-generated ℕ₊, with bottom `one` and no zero.**
     The first elementary discipline (divisibility) computed entirely over `Nat213` — the

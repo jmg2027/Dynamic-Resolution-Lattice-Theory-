@@ -31,6 +31,19 @@ theorem lt_irrefl (a : Nat213) : ¬ lt a a := fun ⟨c, hc⟩ => add_ne_self a c
 /-- A strict inequality is a disequality. -/
 theorem lt_ne {a b : Nat213} (h : lt a b) : a ≠ b := fun he => lt_irrefl b (he ▸ h)
 
+/-- ★ **Transitivity** — `a < b → b < c → a < c`.  Compose the add-witnesses
+    (`add a c₁ = b`, `add b c₂ = c`) into `add c₁ c₂` via `add_assoc`; no order
+    lemma, no `toNat`.  The native strict order is genuinely transitive. -/
+theorem lt_trans {a b c : Nat213} (h1 : lt a b) (h2 : lt b c) : lt a c := by
+  obtain ⟨x, hx⟩ := h1
+  obtain ⟨y, hy⟩ := h2
+  exact ⟨add x y, by rw [← add_assoc, hx, hy]⟩
+
+/-- ★ **Asymmetry** — `a < b ⟹ ¬ b < a`.  Transitivity would give `a < a`,
+    contradicting irreflexivity. -/
+theorem lt_asymm {a b : Nat213} (h : lt a b) : ¬ lt b a :=
+  fun h' => lt_irrefl a (lt_trans h h')
+
 /-- `a < b ⟹ succ a < succ b` (the successor is order-preserving). -/
 theorem succ_lt_succ_of_lt {a b : Nat213} (h : lt a b) : lt (succ a) (succ b) := by
   obtain ⟨c, hc⟩ := h
@@ -93,5 +106,16 @@ theorem mul_right_cancel {a b c : Nat213} (h : mul a c = mul b c) : a = b := by
   apply mul_left_cancel (a := c)
   rw [mul_comm c a, mul_comm c b]
   exact h
+
+/-- ★★★ **`lt` is a strict total order on the Raw-generated ℕ₊** — irreflexive,
+    transitive, and trichotomous (every pair is comparable).  The additive order
+    on the distinguishing's own counting object, established with **no Lean `Nat`
+    order lemma and no `toNat`** — entirely from `add`'s structure (cf.
+    `Divisibility.divisibility_preorder_with_bottom`, the multiplicative twin). -/
+theorem lt_strict_total_order :
+    (∀ a : Nat213, ¬ lt a a)
+    ∧ (∀ a b c : Nat213, lt a b → lt b c → lt a c)
+    ∧ (∀ a b : Nat213, lt a b ∨ a = b ∨ lt b a) :=
+  ⟨lt_irrefl, fun _ _ _ => lt_trans, lt_trichotomy⟩
 
 end E213.Lens.Number.Nat213.Order
