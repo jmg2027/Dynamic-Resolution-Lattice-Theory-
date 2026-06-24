@@ -283,4 +283,45 @@ theorem rec_grounded {P : RawNat → Prop} (h0 : P zero) (hs : ∀ x, P x → P 
 
 end RawNat
 
+/-! ## §5 — the carrier defined *without* `Nat`: the `slash`-successor closure
+
+§4 grounded the recursion *descent* in `isPart_wf`, but the carrier `{ r // ∃ n, rawTower n = r }`
+still mentions `Nat` (the index `n`).  Here the carrier is given with **no `Nat` at all**: `IsRawNat`
+is the inductive closure of the seed `b` under the `slash`-successor `rawSucc`.  Its own recursor
+`IsRawNat.rec` *is* natural-number induction — structural, no `Nat`, no well-foundedness machinery —
+and it coincides exactly with the tower carrier (`isRawNat_iff`). -/
+
+/-- `IsRawNat r` — `r` is reachable from the first distinguishing `b` by the `slash`-successor
+    `rawSucc` ("point once more with `a`").  The naturals as a purely `Raw` inductive closure; no
+    `Nat` in sight. -/
+inductive IsRawNat : Raw → Prop where
+  | base : IsRawNat Raw.b
+  | step {r : Raw} : IsRawNat r → IsRawNat (rawSucc r)
+
+/-- ★ **Nat-free induction.**  Proving `P` over the whole successor-closure needs only the seed `b`
+    and the `rawSucc`-step: `IsRawNat.rec`, with **no `Nat`** and no well-foundedness — the inductive's
+    own recursor is the natural-number recursion. -/
+theorem rawNat_induction {P : Raw → Prop} (hb : P Raw.b)
+    (hs : ∀ r, IsRawNat r → P r → P (rawSucc r)) {r : Raw} (h : IsRawNat r) : P r := by
+  induction h with
+  | base => exact hb
+  | step hr ih => exact hs _ hr ih
+
+/-- The seed is `rawTower 0` and `rawSucc` is the tower step, so the `Nat`-free closure is exactly the
+    tower image. -/
+theorem isRawNat_of_tower : ∀ n, IsRawNat (rawTower n)
+  | 0     => IsRawNat.base
+  | n + 1 => (isRawNat_of_tower n).step
+
+theorem tower_of_isRawNat {r : Raw} (h : IsRawNat r) : ∃ n, rawTower n = r := by
+  induction h with
+  | base => exact ⟨0, rfl⟩
+  | step _ ih => obtain ⟨n, hn⟩ := ih; exact ⟨n + 1, by rw [← hn]; rfl⟩
+
+/-- ★ **The two carriers coincide.**  The `Nat`-free `IsRawNat` and the tower-index `∃ n` define the
+    same subset of `Raw` — so `RawNat` could be carried by `IsRawNat` with no `Nat` in its definition,
+    the `∃ n` form being just its tower reading. -/
+theorem isRawNat_iff (r : Raw) : IsRawNat r ↔ ∃ n, rawTower n = r :=
+  ⟨tower_of_isRawNat, fun ⟨n, hn⟩ => hn ▸ isRawNat_of_tower n⟩
+
 end E213.Theory.Raw.RawNat

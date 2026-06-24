@@ -342,13 +342,24 @@ next).  Closure probe of `rec_grounded` (∅-axiom): `isPart_wf` **present**, `N
 peel, not `Nat`'s order.  (Residual `Nat.rec`/`Acc.rec` are structural recursors: the `∃ n` carrier-
 index case-split and the legitimate `Acc` well-founded mechanism — not borrowed `Nat` well-foundedness.)
 
-**Honest scope** (Leg 1 still not *fully* closed): the kernel `inductive Tree` is borrowed to *have*
-`Raw`, and `Nat` remains the **carrier index** (`{r // ∃ n, rawTower n = r}`) and the **readout** type
-(`depth`).  The *recursion engine* and the natural-number **structure** (zero, `slash`-successor, Peano
-laws, the commutative-semiring discipline) are now generated/grounded — the engine on `isPart_wf`.
-Remaining: replace the `∃ n` carrier index with an inductive predicate `IsRawNat` (closure under the
-`slash`-successor) so even the carrier drops `Nat`; and read the `RawRecurrence` count-spine
-`2,3,5,12,…` (a second, wider reading of the same object).
+**§5 — the carrier defined *without* `Nat` (the carrier-borrow retired).**  `IsRawNat : Raw → Prop` is
+the inductive closure of the seed `b` under the `slash`-successor `rawSucc` (`base`, `step`) — the
+naturals with **no `Nat` in the definition**.  Its own recursor is natural-number induction:
+`rawNat_induction` (∅-axiom) has a **125-constant closure containing only `IsRawNat`/`IsRawNat.rec` —
+no `Nat`, `Nat.rec`, `Nat.lt_wfRel`, `Acc.rec`, `WellFounded.fix`, or `isPart_wf` at all**.  Structural
+induction over "closure of the first distinguishing under point-once-more-with-`a`", borrowing nothing.
+And `isRawNat_iff` proves this `Nat`-free carrier coincides exactly with the `∃ n` tower carrier, so
+`RawNat` *could* be carried by `IsRawNat` with the `∃ n` form demoted to its tower reading.
+
+**Honest scope** (what Leg 1 now is): *generated / borrowing nothing but the kernel `inductive`* — the
+carrier (`IsRawNat`), the natural-number induction (`rawNat_induction`, `IsRawNat.rec`), the zero +
+`slash`-successor, the Peano laws, and the commutative-semiring discipline.  *Still borrowed*: the
+kernel's `inductive` mechanism itself (to have `Raw`/`IsRawNat` — the distinguishing *is* an inductive
+act, conceded in Attack 1), and `Nat` as the `depth` **readout** type (a Lens reading *out*, the
+legitimate direction).  The live `RawNat` infrastructure still carries `∃ n` for continuity, but
+§5 shows it is `Nat`-free *in principle*.  Remaining colour: read the `RawRecurrence` count-spine
+`2,3,5,12,…` (a second, wider reading of the same object); Leg 3 (forcing vs rival primitives) stays
+the open middle of `the_one_act.md`.
 
 ### What remains open here (the conceptual frontier, unchanged)
 
