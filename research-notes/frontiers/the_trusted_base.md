@@ -119,6 +119,9 @@ a target but a deified limit to refuse.
 
 ## Cross-refs
 
+- `below_the_w_type.md` — the deeper round (below the W-type: Church-encoding = swap not
+  peel; the Π/universe floor the constant-tool is blind to; the residue as the unique
+  first-order→second-order climb, now a `tier` verdict in `cic_footprint.py`).
 - `the_genesis_seam.md` Round 5 — the `Nat`-free Raw descent (the `ordNoConf` technique).
 - `seed/AXIOM/05_no_exterior.md` §5.1 (no self-certification), `01_residue.md`,
   `theory/essays/foundations/the_form_of_the_residue.md` (source-without-enclosure, the

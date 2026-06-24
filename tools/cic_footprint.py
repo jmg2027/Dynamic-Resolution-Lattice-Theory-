@@ -47,6 +47,31 @@ LEAN_TEMPLATE = r'''import @IMP@
 import Lean
 open Lean
 
+-- Higher-order detector: does a type quantify over a FUNCTION-INTO-DATA (a power
+-- object like `Raw → Bool`), as opposed to a relation-into-Prop (`_ → _ → Prop`)?
+-- This is the first-order/second-order seam the constant-closure is otherwise blind
+-- to: `Function.Surjective` quantifies over `α → β` (data) → flagged; `WellFounded`
+-- quantifies over `α → α → Prop` (a relation) → not flagged.
+partial def finalCod : Expr → Expr
+  | .forallE _ _ b _ => finalCod b
+  | e => e
+
+def isDataFn (e : Expr) : Bool :=
+  match e with
+  | .forallE _ _ _ _ => match finalCod e with
+                        | .sort .zero => false   -- predicate/relation into Prop
+                        | _ => true              -- function into data (power object)
+  | _ => false
+
+partial def hasHO : Expr → Bool
+  | .forallE _ d b _ => isDataFn d || hasHO d || hasHO b
+  | .app f a => hasHO f || hasHO a
+  | .lam _ d b _ => hasHO d || hasHO b
+  | .letE _ t v b _ => hasHO t || hasHO v || hasHO b
+  | .mdata _ e => hasHO e
+  | .proj _ _ e => hasHO e
+  | _ => false
+
 partial def usedClosure (env : Environment) (n : Name) (seen : NameSet) : NameSet :=
   if seen.contains n then seen
   else Id.run do
@@ -62,6 +87,21 @@ partial def usedClosure (env : Environment) (n : Name) (seen : NameSet) : NameSe
       return seen
     | none => return seen
 
+-- STATEMENT-level closure: follows only TYPE dependencies (not proof values), so
+-- it carries the logical vocabulary of the statement (Function.Surjective, Object1,
+-- WellFounded, IsPart, ...) and NOT the proof infrastructure (congrFun, Eq.rec, ...).
+-- The higher-order test runs over this, not the full closure.
+partial def typeClosure (env : Environment) (n : Name) (seen : NameSet) : NameSet :=
+  if seen.contains n then seen
+  else Id.run do
+    let mut seen := seen.insert n
+    match env.find? n with
+    | some ci =>
+      for d in ci.type.getUsedConstants do
+        seen := typeClosure env d seen
+      return seen
+    | none => return seen
+
 def report (env : Environment) (target : Name) : IO Unit := do
   let cl := (usedClosure env target {}).toList
   let mut axioms : Array Name := #[]
@@ -70,7 +110,12 @@ def report (env : Environment) (target : Name) : IO Unit := do
   let mut quot := false
   let mut classical := false
   let mut wffix := false
+  let mut higherOrder := false
   let mut natCount := 0
+  for n in (typeClosure env target {}).toList do
+    match env.find? n with
+    | some ci => if hasHO ci.type then higherOrder := true
+    | none => pure ()
   for n in cl do
     if (`Nat).isPrefixOf n then natCount := natCount + 1
     if (`Quot).isPrefixOf n then quot := true
@@ -89,11 +134,13 @@ def report (env : Environment) (target : Name) : IO Unit := do
   IO.println s!"  quot {quot}"
   IO.println s!"  classical {classical}"
   IO.println s!"  wf_fix_nonstruct {wffix}"
+  IO.println s!"  higher_order_data_quant {higherOrder}"
   IO.println s!"  nat_consts {natCount}"
   IO.println s!"  inductives {inducts.qsort (·.toString < ·.toString) |>.toList}"
   IO.println s!"  recursors {recs.qsort (·.toString < ·.toString) |>.toList}"
   let minimal := axioms.isEmpty && !quot && !classical && !wffix && natCount == 0
   IO.println s!"  verdict {if minimal then "MINIMAL-STRUCTURAL (axiom-free, no Quot, no Classical, no non-structural/Acc WF-recursion, Nat-free)" else "EXTENDED-FRAGMENT"}"
+  IO.println s!"  tier {if higherOrder then "TIER-B (quantifies over a function-into-data / power object — second-order climb)" else "TIER-A (first-order: no power-object quantification)"}"
 
 run_cmd do
   let env ← getEnv
