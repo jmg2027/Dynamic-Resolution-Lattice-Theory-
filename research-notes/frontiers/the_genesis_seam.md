@@ -549,6 +549,15 @@ remains the deep frontier — now with a proven technique (the `ordNoConf` patte
 replace kernel auto-`noConfusion` with a `casesOn` discriminator) for peeling `Nat` out one
 layer at a time, and a `Nat`-free foundation to build on.
 
+**Round 6 — how far CIC itself can be peeled — is its own note** (`the_trusted_base.md`).
+Verdict in brief: the trusted checker is irreducible (de Bruijn); "peel CIC to zero" is
+empty. What is real and measured (`tools/cic_footprint.py`): the Raw cone restricts to a
+*minimal CIC fragment* (one W-type `Tree`, `Tree.rec` structural recursion, no `Quot`/
+`Classical`/`Acc`-elimination, `Nat`-free → verdict MINIMAL-STRUCTURAL), where the
+disciplines above are EXTENDED-FRAGMENT (`WellFounded.rec`, `Nat.rec`, 158–218 `Nat`
+constants). The footprint metric now *names the next lemma to de-CIC*, the same way the
+`Nat`-trace named the next lemma to de-`Nat`.
+
 ## The exterior deliverable (the only §5.1-legal verdict)
 
 Since the inside cannot self-certify primacy (§5.1), the one exterior-judgeable
