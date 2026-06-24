@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberTheory.BigOmega
 /-!
 # `mulDescentRec` — the multiplicative descent as `Ω`-count induction
 
-The genesis-seam frontier (`research-notes/frontiers/the_genesis_seam.md`) located the
+The genesis-seam frontier located the
 "generated vs borrowed" terminus at the **multiplicative descent**: `factorize` /
 `factorize_prod` complete on `Nat.strongRecOn` over the *magnitude* `n` (the borrowed
 kernel well-order), because the peel `n ↦ n / minFac n` is non-structural over `Nat`.

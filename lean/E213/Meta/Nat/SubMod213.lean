@@ -8,7 +8,7 @@ The descent leg's residual after grounding the FTA *descent* in `isPart_wf` (`Mu
 rebuilds the remainder **structurally** — repeated `Nat.sub` over a fuel parameter (`Nat.rec`) — so
 the divisibility test it powers carries **no** `Nat.lt_wfRel` and **no** `Nat.mod`.  `Nat.sub` is
 itself structural and clean (verified `lt_wfRel`-free), so this is division rebuilt from the repo's
-own subtraction, per the descent-leg programme (`research-notes/frontiers/the_descent_leg.md`).
+own subtraction, per the descent-leg programme.
 
   * `subMod fuel a b` — `a` reduced mod `b` by subtracting `b` while `a ≥ b`;
   * `subMod_eq` — the quotient/remainder identity `a = b * q + subMod fuel a b` (`Nat.rec` on fuel);

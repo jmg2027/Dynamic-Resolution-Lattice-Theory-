@@ -20,7 +20,7 @@ at one named cochain (`delta_sq_vertex0_n5`).
 
 This file states the genuine **chain-complex structure** theorem at the
 atomic simplex Δ⁴ — the object the cross-disciplinary seminar
-(`research-notes/frontiers/the_one_act.md`, R4) named as the strongest
+(R4) named as the strongest
 formalizable content: `(C^•(Δ⁴), δ)` is a *bona fide* ℤ/2 cochain complex,
 with `δ² = 0` holding for **every** cochain at **every** degree (not a
 sample), `δ` a graded ℤ/2-linear differential (universal in `n, k`), and the
@@ -37,7 +37,7 @@ complex **acyclic** (Δ⁴ contractible, reduced Betti `b̃₀ = b̃₁ = 0`).
   on Δ⁵ (`Universal.Prop61.dsq_zero_prop_6_1`).
 - Acyclicity: `kerSizeDelta 5 0 = 1`, `kerSizeDelta 5 1 = 2` ⟹ reduced ℤ/2 Betti `b̃₀ = b̃₁ = 0`.
 
-**Open (the precise remaining frontier, `research-notes/frontiers/the_dimension_free_dsquared.md`):**
+**Open (the precise remaining frontier):**
 the **dimension-free** `∀ n k (σ : Cochain n k), δ²σ = 0`.  The per-dimension
 `decide`/pattern method structurally cannot reach it (no `Fintype` on
 `Cochain n k = Fin (binom n k) → Bool` in core Lean, and no enumeration is

@@ -16,7 +16,7 @@ atomic Δ⁴ (`Prop51`, …, `Prop53` cover `5 k`): the same
 pattern + `delta_pointwise_eq` lift now closes the **Δ⁵ vertex
 case**, empirical evidence that `δ²=0` holds at *every*
 dimension — the gap a fully dimension-free `∀ n k σ` proof
-would settle (`research-notes/frontiers/the_dimension_free_dsquared.md`).
+would settle.
 
 **∅-axiom**: `pattern` via `match i.val with` (Nat match, no
 `Fin (binom n k)` exhaustivity); the universal lift chains

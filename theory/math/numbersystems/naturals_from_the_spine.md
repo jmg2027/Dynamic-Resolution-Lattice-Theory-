@@ -117,9 +117,8 @@ operation-first.
 
 ## Research-note provenance
 
-- `research-notes/frontiers/the_descent_leg.md` — Leg 1 (generate ℕ) and Leg 3
-  (forcing) of the descent-leg programme; the conceptual frontier (below) stays open
-  there.
+- The descent-leg programme (Leg 1, generate ℕ; Leg 3, forcing) produced this work; its
+  conceptual frontier (below) stays open.
 
 ## Open frontier
 
@@ -129,8 +128,7 @@ operation-first.
   act); not eliminable, only accounted for.
 - **Leg-3 residue.** The four formalized rival classes are excluded, but this is not a
   proof that *no* conceivable primitive (a differently-seeded or exotic one) generates
-  equal richness — "suffices by breadth, not proven unique"
-  (`research-notes/frontiers/the_one_act.md`).
+  equal richness — "suffices by breadth, not proven unique".
 
 ## How to verify
 

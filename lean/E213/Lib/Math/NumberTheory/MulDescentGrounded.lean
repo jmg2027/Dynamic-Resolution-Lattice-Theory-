@@ -4,7 +4,7 @@ import E213.Lib.Math.Foundations.IsPartGroundedInduction
 /-!
 # FTA existence with its descent grounded in the distinguishing (`isPart_wf`) — ∅-axiom
 
-The descent leg's bar (`research-notes/frontiers/the_descent_leg.md`): a deep multiplicative discipline
+The descent leg's bar: a deep multiplicative discipline
 must terminate via **`Raw`'s own descent** `isPart_wf`, not borrowed `Nat.strongRecOn`.  The current
 `MulDescentRec.mul_factorization_exists` fails it — a direct closure walk shows `Nat.strongRecOn` in
 its cone (from `mulDescentRec`'s `Ω`-recursion).

@@ -5,7 +5,7 @@ import E213.Meta.Tactic.List213
 /-!
 # `Ω` — the multiplicative leaf-count (the `×`-dual of `Raw.leaves`)
 
-The genesis-seam frontier (`research-notes/frontiers/the_genesis_seam.md`) located the
+The genesis-seam frontier located the
 boundary of "generation, not re-derivation" at the **multiplicative descent**: the
 additive monoid is generated on Raw's additive `slash`-peel
 (`Raw.leaves_slash : leaves (slash x y) = leaves x + leaves y`), but unique factorization

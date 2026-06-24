@@ -18,8 +18,7 @@ bypassing the missing `Fintype`/`DecidablePred` on `Cochain n k`.  They are
 assembled into the chain-complex structure theorem `ChainComplex.atomic_chain_complex`.
 
 The remaining open frontier is the **dimension-free** `∀ n k σ, δ²σ = 0`
-(uniform in `n`), which `decide`/pattern cannot reach — see
-`research-notes/frontiers/the_dimension_free_dsquared.md`.
+(uniform in `n`), which `decide`/pattern cannot reach.
 -/
 
 namespace E213.Lib.Math.Cohomology.Delta.SqZero

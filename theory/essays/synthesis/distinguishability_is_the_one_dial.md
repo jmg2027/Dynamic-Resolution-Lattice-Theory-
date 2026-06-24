@@ -92,8 +92,8 @@ Same switch, four resolutions — arity, commutativity, factorization, faithfuln
 The dial names *where* generation stops but does not yet *generate* the on-state.
 A Raw-native multiplicative descent — a prime-distinguishability structure that
 produces FTA on its own well-foundedness rather than the borrowed
-`Nat.strongRecOn` — is the open frontier
-(`research-notes/frontiers/the_genesis_seam.md`). Until then "distinguishable
+`Nat.strongRecOn` — was the open frontier, now closed (the grounded FTA chain,
+`theory/math/numbertheory/grounded_fundamental_theorem.md`). Even so "distinguishable
 prime atoms" is a recognized terminus, not a generated one: the dial's on-state is
 described, the engine that turns it on at the multiplicative rung is not yet
 built.

@@ -11,7 +11,7 @@ whole gcd → coprime/Bézout → `prime_dvd_mul` chain must be regrounded onto 
 `gcdSub fuel a b = gcd(a, b)` by the Euclidean recursion `gcd(a,b) = gcd(b, a mod b)` with the
 remainder from `subMod` (repeated subtraction), so it carries no `Nat.mod`.  The divisibility
 properties (`gcdSub ∣ a`, `gcdSub ∣ b`, greatest), coprime/Bézout, and Euclid's lemma on top are the
-remaining (substantial) work — scoped in `research-notes/frontiers/the_descent_leg.md`.
+remaining (substantial) work.
 
 ∅-axiom; `subMod`-based, no `Nat.mod`/`Nat.div`/`Nat.lt_wfRel`.
 -/

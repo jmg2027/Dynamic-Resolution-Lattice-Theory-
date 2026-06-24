@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberTheory.MulDescentRec
 /-!
 # The multiplicative carrier is the structural factorization list
 
-The genesis-seam frontier's deepest residue (`research-notes/frontiers/the_genesis_seam.md`):
+The genesis-seam frontier's deepest residue:
 the multiplicative descent uses `Ω` as a *measure* (`MulDescentRec`), but its *carrier*
 looked Nat-bound — `factorize` is fuel-recursion on the magnitude, seemingly unlike the
 additive monoid, which is generated structurally on `List Unit` append.

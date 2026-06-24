@@ -266,7 +266,7 @@ theorem object1_b_singlepoint_nonfixed (n : Nat) :
 
 §1–§5 fix one re-entry level `n`.  Read across all `n` at once: the non-closure and
 its concrete non-fixed-point hold **uniformly in the depth `n`**.  The cross-disciplinary
-panel (`research-notes/frontiers/the_one_act.md`, R4 convergence-audit) named this the
+panel (R4 convergence-audit) named this the
 strongest *content* of the seminar — the residue is not a single gap but a **graded
 obstruction tower**: at every re-entry depth `n` the cover fails to close (`coker ≠ 0`),
 and a *named* witness (the undifferentiated predicate) realises the failure at that depth.

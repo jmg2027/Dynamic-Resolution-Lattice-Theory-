@@ -133,10 +133,9 @@ no permutation bookkeeping.
 
 ## Research-note provenance
 
-- `research-notes/frontiers/the_descent_leg.md` — the descent-leg programme and the multiplicative
-  grounding marathon (cont.2–11) that produced this chain.  The conceptual frontier (generate
-  `Nat₂₁₃`; forcing vs rival primitives) remains open there; the multiplicative engineering is closed
-  here.
+- The descent-leg programme's multiplicative grounding marathon produced this chain.  Its conceptual
+  frontier (generate `Nat₂₁₃`; forcing vs rival primitives) remains open; the multiplicative
+  engineering is closed here.
 
 ## Open frontier
 

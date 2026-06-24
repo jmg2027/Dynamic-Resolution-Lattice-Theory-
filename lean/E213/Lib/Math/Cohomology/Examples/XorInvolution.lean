@@ -10,8 +10,7 @@ carries a **fixed-point-free involution that preserves the summand**:
             → (∀ x∈l, f (g x) = f x) → xorFold f l = false.
 
 This is "a fixed-point-free involution ⟹ even cardinality" in XOR form.  It is
-the reusable engine for the dimension-free `δ²=0`
-(`research-notes/frontiers/the_dimension_free_dsquared.md`): the double
+the reusable engine for the dimension-free `δ²=0`: the double
 coboundary is a XOR over the `(a,b)` removal grid, paired by the simplicial
 commutation involution `(a,b) ↦ (b+1,a)` (`ColexRoundTrip.eraseIdx_eraseIdx_comm`).
 

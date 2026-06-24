@@ -12,8 +12,7 @@ import E213.Lib.Physics.Simplex.Counts
 order (`Examples/SimplexBasis.lean`); `subsetIdx n k : List Nat → Nat` inverts it
 by `List.find?` over `List.range (binom n k)` (`Delta/Core.lean`).  The coboundary
 `delta` composes these (remove a face vertex, re-index), so reasoning about
-`delta` — and in particular the **dimension-free** `δ²=0`
-(`research-notes/frontiers/the_dimension_free_dsquared.md`) — needs the
+`delta` — and in particular the **dimension-free** `δ²=0` — needs the
 *round-trip* facts proved here, uniform in `(n, k)`:
 
   * `kSubset_mem_lt`  — every entry of `kSubset n k i` is `< n` (bounded).

@@ -3,7 +3,7 @@ import E213.Theory.Raw.API
 /-!
 # ℕ-induction grounded in the distinguishing's own descent (`isPart_wf`) — ∅-axiom
 
-The descent leg (`research-notes/frontiers/the_descent_leg.md`, `the_genesis_seam.md`) names the
+The descent leg names the
 central open bar: a deep discipline (factorisation / FTA) over the generated ℕ must have its
 **termination grounded in `Raw`'s own descent** `Lambek.isPart_wf` (the distinguishing's
 well-foundedness, proved by `Raw.rec`), **not** in Lean's borrowed `Nat.strongRecOn`.  The honest

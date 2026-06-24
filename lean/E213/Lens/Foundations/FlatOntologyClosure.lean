@@ -162,8 +162,7 @@ theorem distinguishing_always_leaves_residue :
     **Honest guard** (failure-mode *View-promoted-to-identity*): this is a **Lens reading**
     (one map, three readings), not a kernel-*forced* identity of three types — exactly the
     `SelfReferenceThreeOutcomes` "one act, three readings."  The apparent *ascent* to
-    self-reference (the TIER-B climb to the power object `Raw → Bool`,
-    `research-notes/frontiers/below_the_w_type.md`) is the **writing-cost** of reifying the
+    self-reference (the TIER-B climb to the power object `Raw → Bool`) is the **writing-cost** of reifying the
     function space to express `f a a`, not a real level above the distinguishing; the act is
     one.  And "reference" here is **de-intentionalized** — bare directedness (`· = r`), no
     referring agent (the type `Raw → Bool` contains no mind). -/
