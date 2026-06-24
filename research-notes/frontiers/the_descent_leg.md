@@ -367,7 +367,23 @@ re-indexed by `RawNat`'s **own** successor (`census_succ : census (succ x) = 2 +
 population (`…,5,…`) at the depth-2 rung — the "second, wider reading of the same object".  (It lives in
 `Lib`, not `Theory`, since `rawCount` sits above the `Theory` ring.)
 
-Remaining: Leg 3 (forcing vs rival primitives) stays the open middle of `the_one_act.md`.
+**Leg 3 — forcing bracket extended (both arity sides + distinctness now closed).**
+`Lib/.../UniverseChain/RivalArity.lean` already excluded the unary (negation-first) rival as too weak
+(linear `unaryCount` vs super-linear `rawCount`) and the non-distinct binary rival as over-generating
+(`relCount > rawCount` = the self-combinations distinctness removes).  Added the **higher-arity** corner
+(§3) and a **both-sides bracket capstone** (§4), ∅-axiom:
+
+- `ternCount_sterile` — a *ternary-distinct* rival is **sterile on the two-atom seed**: the first
+  distinguishing yields exactly `2`, and three distinct args cannot be drawn from two (`choose3 2 = 0`),
+  so `ternCount n = 2` forever; `ternary_sterile_below` puts it strictly below 213.
+- `arity_distinctness_forcing` — the squeeze: arity `1` too weak, arity `3` sterile on the seed, arity
+  `2` without distinctness over-generates, arity `2` *with* distinctness = 213's branching recurrence.
+
+So the **(arity, distinctness) design space is closed**: the binary-distinct distinguishing is forced
+along both dimensions.  **Honest residue** (Leg 3 not fully closed): this does not rule out *every*
+conceivable primitive — a relation-as-relation, or a differently-seeded rival — which remains the open
+middle of `the_one_act.md` ("suffices by breadth, not proven unique", per the failure-mode row
+"Sufficiency read as uniqueness").
 
 ### What remains open here (the conceptual frontier, unchanged)
 

@@ -141,4 +141,64 @@ theorem distinctness_removes_self_combination :
     ∧ (∀ n, rawCount (n + 1) < relCount (n + 1)) :=
   ⟨fun _ => rfl, rawCount_succ, nondistinct_rival_exceeds⟩
 
+/-! ## §3 — the higher-arity (ternary-distinct) rival is *sterile* on the two-atom seed -/
+
+/-- `C(k, 3)` via Pascal (`= C(k−1,3) + C(k−1,2)`), `0` for `k ≤ 2` — the number of unordered
+    **distinct triples** of a `k`-element set.  A ternary-distinct op fires once per such triple. -/
+def choose3 : Nat → Nat
+  | 0     => 0
+  | 1     => 0
+  | 2     => 0
+  | n + 3 => choose3 (n + 2) + choose2 (n + 2)
+
+/-- A **ternary-distinct** rival's depth-`≤ n` count from the two-atom seed: a binary→ternary lift
+    that requires **three distinct** arguments to fire, so each level adds the distinct triples
+    `C(·, 3)` of the previous one.  Step `2 + choose3 (·)`. -/
+def ternCount : Nat → Nat
+  | 0     => 2
+  | n + 1 => 2 + choose3 (ternCount n)
+
+/-- ★ **Sterility.**  The ternary-distinct rival never grows past the two atoms: the first
+    distinguishing yields exactly **2** elements, and three *distinct* arguments cannot be drawn from
+    two (`choose3 2 = 0`), so the op never fires — `ternCount n = 2` for all `n`.  Arity `> 2` is too
+    *much* for the seed the distinguishing actually produces. -/
+theorem ternCount_sterile : ∀ n, ternCount n = 2
+  | 0     => rfl
+  | n + 1 => by
+      show 2 + choose3 (ternCount n) = 2
+      rw [ternCount_sterile n]; decide
+
+/-- The sterile ternary rival sits strictly below 213 at every level `≥ 1` (it is stuck at `2`, while
+    `rawCount (n+1) ≥ n + 3 > 2`). -/
+theorem ternary_sterile_below (n : Nat) : ternCount (n + 1) < rawCount (n + 1) := by
+  rw [ternCount_sterile (n + 1)]
+  exact Nat.lt_of_lt_of_le (Nat.add_lt_add_right (Nat.succ_pos n) 2) (rawCount_ge (n + 1))
+
+/-! ## §4 — the forcing bracket: arity `2` + distinctness is squeezed from both sides -/
+
+/-- ★★★ **The (arity, distinctness) forcing bracket.**  Across the formalized rival dimensions, the
+    binary distinguishing with distinctness (213) is the squeezed middle:
+
+    * **arity 1** (unary / negation-first) — *too weak*: linear, `unaryCount n < rawCount n`;
+    * **arity 3** (ternary-distinct) — *sterile on the 2-atom seed*: `ternCount n = 2`, strictly below;
+    * **arity 2 without distinctness** (relation-first / `op x x` allowed) — *over-generates*:
+      `rawCount (n+1) < relCount (n+1)`;
+    * **arity 2 with distinctness** (213) — the forced point: the branching recurrence
+      `rawCount (n+1) = 2 + choose2 (rawCount n)`.
+
+    So along arity (squeezed from *below* by unary weakness and from *above* by ternary sterility on
+    the two-element seed the first distinguishing yields) and along the distinctness constraint
+    (over-generation if dropped), the binary-distinct distinguishing is forced.  **Honest scope**: this
+    closes the *arity* and *distinctness* design dimensions; it does not rule out every conceivable
+    primitive (e.g. a relation-as-relation, or a differently-seeded rival) — that residue stays the
+    open middle of `frontiers/the_one_act.md` ("suffices by breadth, not proven unique"). -/
+theorem arity_distinctness_forcing :
+    (∀ n, unaryCount n < rawCount n)
+    ∧ (∀ n, ternCount n = 2)
+    ∧ (∀ n, ternCount (n + 1) < rawCount (n + 1))
+    ∧ (∀ n, rawCount (n + 1) < relCount (n + 1))
+    ∧ (∀ n, rawCount (n + 1) = 2 + choose2 (rawCount n)) :=
+  ⟨binary_non_interchangeable_with_unary.2.2, ternCount_sterile, ternary_sterile_below,
+   nondistinct_rival_exceeds, rawCount_succ⟩
+
 end E213.Lib.Math.Foundations.UniverseChain.RivalArity
