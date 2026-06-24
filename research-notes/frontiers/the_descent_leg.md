@@ -447,3 +447,34 @@ Bricks 2 + 3 of the `SubGcd213` chain land (∅-axiom; closure-walked: `lt_wfRel
 - **Brick 3** — `gcdW a b := gcdSub (a+b) a b` (fuel discharged, `b ≤ a+b` ample), `gcdW_dvd_left`/`gcdW_dvd_right`, and `gcd_eq_one_of_prime_not_dvd`: for `p` with only divisors `1, p` and `p ∤ a`, `gcd(p,a)=1`. This is the half of Euclid's lemma that needs **no Bézout** — `gcdW p a ∣ p` so it is `1` or `p`, and `p` is excluded because `gcdW p a ∣ a` would force `p ∣ a`.
 
 **Remaining wall (unchanged)**: the *other* half — `gcd(p,a)=1 → p ∣ a·b → p ∣ b` — is exactly where **Bézout** (a `g = a·x − b·y` witness, structural) is unavoidable, and that is the hard regrounding still ahead before `prime_dvd_mul` → `vp_mul` → FTA uniqueness. Coprimality is now a clean PURE primitive to build Bézout against; the descent of the extended-Euclid coefficients is the next genuine piece of work.
+
+### UPDATE (2026-06-24, cont. 9): the Bézout wall is CLEARED — Euclid's lemma grounded (PURE ✓)
+
+The wall scoped in cont.7 ("FTA uniqueness is a multi-session wall") is down.  Two deposits, both
+∅-axiom, both closure-walked clean (no `Nat.lt_wfRel`/`strongRecOn`/`Nat.div`/`Nat.mod`/`propext`/
+`Acc.rec`/`WellFounded.fix`/`Gcd213.gcd213`):
+
+- **`Meta/Nat/SubBezout213.lean`** — *structural Bézout*, the piece I'd called "the hard remaining
+  work".  `egcd` is the extended Euclidean recursion threading a coefficient quadruple `(g,x,y,s)`
+  with `s : Bool` a **sign flag**, so the Bézout identity stays in `Nat` — **no `Int`/signed
+  integers**:
+    - `s = true  → a·x = b·y + g`
+    - `s = false → b·y = a·x + g`
+  The Euclidean step `a = b·q + r` (`subDivMod_eq`, *no Nat-subtraction in the algebra*) forces the
+  uniform update `xₙ = y'`, `yₙ = x' + q·y'`, `s` flips — proved by distribution + IH (`egcd_bezout`,
+  `Nat.rec` on fuel).  `egcd_fst` ties the `g`-component to `gcdSub`, and `bezout_one_of_coprime`
+  reads off `gcd(a,b)=1 → ∃ x y, a·x = b·y+1 ∨ b·y = a·x+1`.
+- **`Lib/Math/NumberTheory/EuclidLemmaGrounded.lean`** — *Euclid's lemma*, `prime_dvd_mul`:
+  `p` prime, `p ∣ a·b → p∣a ∨ p∣b`.  Regrounds the repo's `PrimeValuation.prime_dvd_mul` (which goes
+  through `Gcd213.gcd213` = `Nat.mod`) onto the `subMod` Bézout.  Closure 288, **zero** bad hits.
+  Key craft: case on `gcd(p,a) ∈ {1,p}` (from primality + `gcdW_dvd_left`) **instead of**
+  `by_cases p ∣ a` — the latter's `Decidable (p∣a)` instance computes via `Nat.mod` and would
+  re-import the dirt.  Multiply the Bézout identity by `b`, fold in `p ∣ a·b`, get `p·c₁ = p·c₂ + b`,
+  whence `p ∣ b` (`dvd_of_pmul_eq`, clean right-cancel + `subMod`-style `sub_add_cancel`).
+
+**State of the grounded multiplicative discipline (revised)**: FTA *existence*, Euclid's *infinitude*,
+structural *division* (quotient+remainder), structural *gcd* + prime-coprimality, structural *Bézout*,
+and *Euclid's lemma* — all ∅-axiom, none borrowing `Nat.div`/`Nat.mod`/`strongRecOn`/`lt_wfRel`.  FTA
+*uniqueness* now reduces to `vp`-multiplicativity (`vp_mul`) on top of grounded `prime_dvd_mul`, which
+is mechanical (the conceptual content was Euclid's lemma).  The descent leg's hardest number-theory
+wall is behind us.

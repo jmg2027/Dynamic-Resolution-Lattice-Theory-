@@ -46,6 +46,7 @@ import E213.Lib.Math.NumberTheory.MulDescentRec
 import E213.Lib.Math.NumberTheory.MulDescentGrounded
 import E213.Lib.Math.NumberTheory.MulDescentGroundedNoDiv
 import E213.Lib.Math.NumberTheory.EuclidPrimesGrounded
+import E213.Lib.Math.NumberTheory.EuclidLemmaGrounded
 import E213.Lib.Math.NumberTheory.FactorizationCarrier
 import E213.Lib.Math.Analysis.Modulus
 import E213.Lib.Math.Analysis.Multivariable
