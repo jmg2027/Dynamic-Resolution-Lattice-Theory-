@@ -70,6 +70,20 @@ the universal no-exterior (`05_no_exterior.md` §5.1). The primacy of the distin
 the no-exterior thus share one epistemic form: the universal is an argued self-reference,
 unprovable as a `∀`; each *instance* is measurable (the `tier` seam). Claim no more.
 
+**The line runs at the word "is" (the deepity guard).** *"Distinguishing **forces**
+arithmetic / the residue"* — the grid above, each cell ∅-axiom, scoped, falsifiable — is
+**content**. *"Distinguishing **is** the floor of everything (the checker, computation,
+Gödel)"* is a **deepity**: trivially true under the loose reading (everything involves telling
+things apart — a property of every predicate, so explaining nothing) and unproven under the
+strict one. Keep the verb honest: `slash` *forces* / *generates* (proven); it *is* the floor
+only as the self-reference argument, not as a theorem. And that self-reference argument (§the
+mechanism forecloses it) is **not evidence for** the floor — it is the very move that makes the
+universal *unfalsifiable*, so it may only *explain why* the universal is untestable (§5.1),
+never be cited as support. Likewise "X = distinguishing" for X ∈ {conversion-checker, defeq,
+Gödel} is **form-agreement (CDI), not object-identity** (the *Intentionality smuggle* /
+*View-promoted-to-identity* rows): defeq is the *converge* pole of the one fork, the slash the
+*escape* pole — same form, not same act.
+
 **Two guards.** (1) Do not re-split act and difference: that `slash` needs `x ≠ y` does *not*
 make a static "difference" precede the act (a dichotomy import, §5.4) — the floor is the bare
 distinction `a ≠ b`, the minimal distinguishing *itself*, bottoming out unproduced. (2) The

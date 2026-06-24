@@ -90,6 +90,26 @@ theorem russell_liar_no_surjection {A : Type} :
   obtain ⟨P, hP⟩ := lawvere_fixed_point_prop f hf Not
   exact (fun np : ¬P => np (hP.mpr np)) (fun p => hP.mp p p)
 
+/-- **Tarski undefinability — the verification face, as a Lawvere instance** (corollary of
+    `russell_liar_no_surjection`, Tarski-native signature).  No self-applying sentence cover
+    `interp : Sentence → (Sentence → Prop)` that *represents* every predicate admits a
+    consistent truth predicate: `Not` has no `Iff`-fixed-point (the Liar), so the diagonal
+    escapes.  This is the **verification face** of the residue (`object1_not_surjective`): a
+    system cannot point at its own truth as one of its representable predicates, exactly as
+    `Object1` cannot surject onto `Raw → Bool` — the same Lawvere diagonal, on the proof/truth
+    cover instead of the `· = r` cover.
+
+    **Honest boundary (form-agreement, not identity).** This is Tarski / Gödel-1 (the
+    *fixed-point sentence* the diagonal hands you).  **Gödel-2 proper** (`T ⊬ Con(T)`) is NOT
+    this theorem: it needs the provability **modality** `□` with the Hilbert–Bernays–Löb
+    derivability conditions (D1–D3) / Löb's theorem, which the bare cover has no analogue of.
+    "The checker cannot self-certify" is *form-agreement* with Gödel-2 (the de Bruijn floor),
+    not Gödel-2 — kept a frontier (`the_trusted_base.md`), not collapsed into the residue. -/
+theorem tarski_no_truth_predicate {Sentence : Type}
+    (interp : Sentence → Sentence → Prop)
+    (represents : ∀ g : Sentence → Prop, ∃ s, ∀ x, (interp s x ↔ g x)) : False :=
+  russell_liar_no_surjection ⟨interp, represents⟩
+
 /-! ## §4 — the capstone: one diagonal, four theorems -/
 
 /-- ★★★ **One diagonal generates the limitative theorems.**  Cantor (Bool), Russell/Liar/Tarski
@@ -144,5 +164,44 @@ theorem no_distinguishing_on_subsingleton {S : Type} (hsub : ∀ x y : S, x = y)
     all). -/
 theorem raw_has_distinguishing : ∃ x y : Raw, x ≠ y :=
   ⟨Raw.a, Raw.b, E213.Theory.Raw.PrimitiveTower.a_ne_b⟩
+
+/-! ## §7 — the imaginary value and the residue are one re-entry (two faces, one engine) -/
+
+/-- ★★★ **The Laws-of-Form imaginary value and the residue are one re-entry.**  The single
+    fixed-point-free modifier `not : Bool → Bool` (`bnot_self_ne`) yields **both** of the
+    seminar's faces from **one** premise:
+
+    1. **the imaginary value** — `∀ b : Bool, (!b) ≠ b`: the oscillating re-entry has *no fixed
+       point in the value space `Bool`* (Spencer-Brown's imaginary value, the liar toggle read
+       at one Bool point); this is `bnot_self_ne` *verbatim*;
+    2. **the residue** — `¬ Function.Surjective Object1`: the self-cover
+       `Object1 : Raw → (Raw → Bool)` is not total (the distinguishing always leaves a
+       remainder), this being `no_surjection_of_fixedpointfree (fun b => !b) bnot_self_ne` fed
+       through the Lawvere engine at `A := Raw`, `B := Bool`.
+
+    Both conjuncts are produced from the **same** witness pair `(fun b => !b, bnot_self_ne)` —
+    the second conjunct is literally the first lifted by `no_surjection_of_fixedpointfree`
+    (`= residue_is_lawvere_diagonal`).  So "imaginary value" and "residue" are not two facts
+    conjoined: they are `not`'s one fixed-point-freeness read in **two spaces** — the value
+    space `Bool` (oscillation) and the function space `Raw → Bool` (non-closure of the cover).
+
+    **Honest guard** (failure-mode *View-promoted-to-identity*): this proves **one engine, two
+    readings**, *not* one object.  The imaginary value lives in `Bool`; the residue is a
+    surplus predicate in `Raw → Bool`.  They are not asserted equal as objects — what is
+    shared is the *modifier* `not` and its single property `bnot_self_ne`, the form-agreement
+    (CDI) that the Lawvere diagonal `g a := !(f a a)` makes load-bearing.  The residue is the
+    value-oscillation read once more, one type up (the function space), through the diagonal —
+    the **writing-cost** of reifying `Raw → Bool` to apply `not` to `f a a`, not a level above
+    the toggle.  Calling them "the same thing" would be the View-promoted-to-identity import;
+    they are the same *re-entry*. -/
+theorem reentry_one_nonclosure :
+    -- FACE 1 (value space Bool): the imaginary value — `not` has no fixed point
+    (∀ b : Bool, (! b) ≠ b)
+    -- FACE 2 (function space Raw → Bool): the residue — the self-cover is not total,
+    -- produced from the SAME `(fun b => !b, ·)` via the one Lawvere engine
+    ∧ ¬ Function.Surjective Object1 :=
+  ⟨fun b h => bnot_self_ne b h,
+   fun hsurj =>
+     no_surjection_of_fixedpointfree (fun b => !b) bnot_self_ne ⟨Object1, hsurj⟩⟩
 
 end E213.Lens.Foundations.OneDiagonal

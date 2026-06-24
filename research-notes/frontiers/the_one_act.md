@@ -104,6 +104,62 @@ identity.
   distinguished-structure (absent at floor) — pin the vocabulary so "only distinguishing" is not
   misread.
 
+## Round 2 — the deepity line, the fork's two poles, and the verification face
+
+Deeper panel (CIC-defeq foundations, Gödel/provability-logic, Lawvere-builder, vacuity
+skeptic). The skeptic delivered the decisive demarcation; two hypotheses self-corrected.
+
+**The deepity line (the skeptic's verdict — the round's keystone).** The contentful/vacuous
+boundary runs **at the word "is."** *"Distinguishing **forces** arithmetic / the residue"*
+(the grid, each cell ∅-axiom, scoped, falsifiable) is **content**; *"distinguishing **is** the
+floor of everything — the checker, defeq, computation, Gödel"* is a **deepity** (trivially
+true under the loose reading "everything involves telling things apart" — a property of every
+predicate, explaining nothing; unproven under the strict). So the Round-2 hypotheses —
+*"defeq **is** the distinguishing"*, *"Gödel-2 **is** the verification face"* — were exactly
+that deepity, the "is" doing the universal's work. The live overclaim was located **in our own
+essay** (`the_distinguishing_is_the_primitive.md` self-enforcing section asserted the universal
+in the contentful register without the in-breath caveat) — **now fixed**: the "is/forces" line
++ "the self-enforcing argument is not *evidence* for the floor, only an *explanation* of why it
+is untestable" added in-breath.
+
+**defeq = the converge pole, not the residue (the CIC panel).** Conversion checking is a
+genuine same/different *decision* in the SN Raw fragment — but it is the **converge pole (+1)**
+of the one fork (`ResidueTag`): it contracts two terms onto one normal form (witness `rfl`).
+The slash is the **escape pole (−1)**: it asserts non-coincidence (`x ≠ y`, witness `h`). They
+are the two branches of the one fork, **not the same act** — and defeq on Raw is **TIER-A**
+while the residue is **TIER-B**, so defeq *cannot be* the residue (a tier below, on the axis
+that already refuted "self-application is the floor"). Genuinely clarified (beyond Round-1's
+bare "same form"): the de Bruijn floor and the Raw residue share a **named mechanism** — the
+±1 contract/escape fork — read at two altitudes; the irreducible trusted base is the
+distinguishing's self-non-closure read on the *verifying act* (form-agreement, not identity).
+(Also surfaced: `DecidableEq Raw` pulls `propext` — so the slash *taking* `h : x≠y` as input is
+∅-axiom, but the kernel *deciding* `x≠y` for you is a strictly larger TCB. Content vs checker,
+again.)
+
+**Tarski/Gödel-1 are genuine Lawvere instances; Gödel-2 is form-agreement only (the logician).**
+Deposited ∅-axiom in `OneDiagonal.lean`:
+- `reentry_one_nonclosure` (PURE) — the Laws-of-Form **imaginary value** (`not` has no Bool
+  fixed point) and the **residue** (`¬ Surjective Object1`) are **one re-entry, two readings**:
+  both produced from the single witness pair `(fun b => !b, bnot_self_ne)`, the second the first
+  lifted one type up through the Lawvere engine. Honest docstring: one engine, two readings, not
+  one object (the function-space lift is *writing-cost*, not a level above the toggle).
+- `tarski_no_truth_predicate` (PURE) — **Tarski undefinability** as the verification face:
+  no self-applying sentence cover that represents every predicate admits a consistent truth
+  predicate; a system cannot point at its own truth, *exactly as* `Object1` cannot surject onto
+  `Raw → Bool`. **Honest boundary in the docstring**: this is Tarski / Gödel-1 (the fixed-point
+  sentence the diagonal hands you); **Gödel-2 proper** (`T ⊬ Con(T)`) is **NOT** this theorem —
+  it needs the provability modality `□` + Hilbert–Bernays–Löb (D1–D3) / Löb, with no analogue in
+  the bare cover. "The checker can't self-certify" is *form-agreement* with Gödel-2, not Gödel-2;
+  kept a frontier, not collapsed into the residue.
+
+**Next-round targets (carried).** (1) The **signed rfl-census** (the CIC panel's generative
+handle): tag each non-trivial `Eq.refl` node `+1` (defeq-converge) or `−1` (consumes a `≠`
+hypothesis, escape); predict every TIER-B residue-cone theorem carries *exactly one −1 escape
+node* — "the residue must exhibit its escape pole in the bare proof term, or it isn't the
+residue" (a mechanical purity check on the residue). (2) **Gödel-2 proper** as a *separate* GL /
+provability-logic build (the □ modality + D1–D3 + Löb), explicitly outside the OneDiagonal
+engine — to settle whether the verification face reaches Gödel-2 or stays form-agreement.
+
 ## Cross-refs
 
 - `theory/essays/foundations/the_distinguishing_is_the_primitive.md` (the floor self-enforcing;
