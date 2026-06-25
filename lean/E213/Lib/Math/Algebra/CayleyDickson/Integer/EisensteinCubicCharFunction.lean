@@ -93,6 +93,13 @@ theorem chiExp_unit (i : Nat) : chiExp i * conj (chiExp i) = one := by
 theorem chiExp_sum_shift (c k : Nat) : sumRange (fun i => chiExp (c + i)) (3 * k) = 0 := by
   rw [sum_congr (3 * k) (fun i _ => chiExp_mul c i), sum_mul_left, chiExp_sum, mul_zero]
 
+/-- ★★★ **Diagonal Schur orthogonality** — `Σ_{i<n} χ̂(i)·conj χ̂(i) = Σ_{i<n} 1` (each term is the
+    unit norm `1`); the character against its own conjugate sums to the count.  Complements the
+    off-diagonal `Σ χ̂ = 0` (`chiExp_sum`). -/
+theorem chiExp_diag_sum (n : Nat) :
+    sumRange (fun i => chiExp i * conj (chiExp i)) n = sumRange (fun _ => one) n :=
+  sum_congr n (fun i _ => chiExp_unit i)
+
 /-- ★★★★★ **The cubic character is a nontrivial order-3 character with vanishing sum.**  Bundles the
     defining properties of `χ̂(i) = ωⁱ`: it is a homomorphism, has order 3, is nontrivial, and sums to
     zero over a full cycle — i.e. a genuine nontrivial multiplicative character of order 3 obeying the
