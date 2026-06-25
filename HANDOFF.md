@@ -94,15 +94,22 @@ but `s'=as` makes `T(a)=χ_ω(a)·J̄`, so `J·J̄=J·J̄` (tautology).  `|J|²=
 character** (`|g(χ)|²=p` via additive orthogonality `Σ_t ζ^{at}=0`, `p∤a`).  **The reindex machinery
 above is still valid infra** (Gauss sums are `listSum`s too), just insufficient alone.
 
-**REVISED next sub-project — route (b), Gauss sums** (repo-aligned: build the cyclotomic carrier as a
-number system):
-  1. **`ℤ[ζ_p]`** — parametric cyclotomic ring (`ζ^p=1`), e.g. group ring `ℤ[C_p]` mod the cyclotomic
-     relation `1+ζ+…+ζ^{p−1}=0`.  Sibling of `ZOmega`/`ZI`; generalises the order-3/6
-     `RootOfUnityOrthogonality`.
-  2. **additive orthogonality** `Σ_{t<p} ζ^{at}=0` for `p∤a` (geometric telescope `(ζ^a−1)Σ=ζ^{ap}−1=0`,
-     `ζ^a≠1` in the domain).
-  3. **Gauss sum** `g(χ)=Σ_t χ_ω(t)ζ^t`; `|g(χ)|²=p` (the `s=tu` reindex, now non-circular); then
-     `g(χ)²=J·g(χ²)` ⟹ `N(J)=p`.
+**REVISED next sub-project — route (b), Gauss sums in the FREE group ring** (no quotient ring; the
+`e_1`-coefficient extraction replaces it — see roadmap A3 step 5):
+  - **`Integer/EisensteinGroupRing` DONE (carrier foundation)** — the free group ring `R[C_p]`
+    (`R=ℤ[ω]`, elements = coefficient functions `Nat→ℤ[ω]` mod `p`, `ζ^i=e_i`): `conv` (convolution),
+    `conv_add_right`, `conv_scalar_left` (bilinearity).  Discipline: **coefficient equations only**
+    (no element equality — `funext` is `Quot`-backed).
+  - **Next bricks (the `g·ḡ = p·1 − N` coefficient computation):**
+    1. `gauss := chiOmega`, `gaussConj k := conj (χ_ω ((p−k)%p))` (the Gauss sum + its conjugate as
+       coefficient functions).
+    2. **diagonal** `conv p gauss gaussConj 0 = ofInt ↑(p−1)` — the `k=0` coefficient; `Σ_{i<p}
+       χ_ω(i)·conj χ_ω(i)`, each unit term `=1` (`chiOmega_mul_conj`+`chiOmega_ne_zero`), `i=0` term `0`,
+       count `p−1`.  (Needs a pure mod helper `(p−(p−i)%p)%p = i` for `i<p` + a counting induction.)
+    3. **off-diagonal** `conv p gauss gaussConj k = ofInt (−1)` for `0<k<p` — the `u=k·s⁻¹` reindex +
+       `Σχ_ω=0` (`chiListSum_totatives_zero`); the genuinely non-circular step (additive `e_{t−s}`).
+    4. `g(χ)² = J·g(χ²)` as a coefficient identity (`listSum_mul_distrib`-style convolution).
+    5. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
