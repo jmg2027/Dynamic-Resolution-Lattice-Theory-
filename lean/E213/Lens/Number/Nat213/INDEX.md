@@ -76,7 +76,8 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              inhabited decidable predicate has a `lt`-minimal
                              witness, constructive via `decBoundedExists`).
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
-                             UFD-defining coincidence.
+                             UFD-defining coincidence; a prime dividing a power
+                             divides the base (`irreducible_dvd_pow_iff`).
   - `Factorization.lean`   — every `Nat213` is a product of irreducibles.
   - `FTA.lean`             — the Fundamental Theorem of Arithmetic over `Nat213`.
   - `Infinitude.lean`      — Euclid's theorem (infinitude of primes) over `Nat213`.

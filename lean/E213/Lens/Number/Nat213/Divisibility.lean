@@ -31,7 +31,7 @@ namespace E213.Lens.Number.Nat213.Divisibility
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
   (mul one succ add mul_one one_mul mul_assoc mul_comm succ_ne_one
-   mul_succ_right add_assoc add_one_right pow pow_succ pow_add)
+   mul_succ_right add_assoc add_one_right pow pow_one pow_succ pow_add)
 -- `mul_left_cancel` is taken from `Order` (the **native**, toNat-free cancellation),
 -- not from `Peano` (whose version laundered through Lean `Nat`).  This keeps the
 -- entire divisibility dependency cone toNat-free — see the descent-leg bet.
@@ -125,6 +125,14 @@ theorem pow_dvd_pow (a : Nat213) {m n : Nat213} (h : le m n) : Dvd (pow a m) (po
   · exact dvd_refl (pow a m)
   · obtain ⟨c, hc⟩ := hlt
     exact ⟨pow a c, by rw [← hc, pow_add]⟩
+
+/-- **The base divides every one of its powers** — `a ∣ a^n` for all `n`.  Always holds (no zero
+    exponent: `Nat213` has no zero, so `n ≥ 1` and `a^1 = a`); `a^1` gives `dvd_refl`, `a^(k+1)`
+    gives `dvd_pow_self`. -/
+theorem self_dvd_pow (a n : Nat213) : Dvd a (pow a n) := by
+  cases n with
+  | one => rw [pow_one]; exact dvd_refl a
+  | succ k => exact dvd_pow_self a k
 
 /-- ★★★ **No top**: no `t` is divisible by every `Nat213`.  Divisibility over the Raw-generated ℕ₊
     has a bottom (`one`) but **no top** — the shape *forced* by the primitive: every element is

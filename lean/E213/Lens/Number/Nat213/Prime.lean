@@ -13,9 +13,9 @@ distinguishing's own counting object — the structural reason the FTA's uniquen
 namespace E213.Lens.Number.Nat213.Prime
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
-open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one mul_assoc mul_comm)
+open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one mul_assoc mul_comm pow pow_one pow_succ)
 open E213.Lens.Number.Nat213.Order (mul_left_cancel)
-open E213.Lens.Number.Nat213.Divisibility (Dvd mul_eq_one)
+open E213.Lens.Number.Nat213.Divisibility (Dvd mul_eq_one dvd_trans self_dvd_pow)
 open E213.Lens.Number.Nat213.Irreducible (Irreducible)
 open E213.Lens.Number.Nat213.EuclidUnique (euclid)
 
@@ -46,5 +46,26 @@ theorem prime_imp_irreducible {p : Nat213} (hp : Prime p) : Irreducible p := by
     structural reason the generated FTA's uniqueness holds, computed entirely over `Nat213`. -/
 theorem irreducible_iff_prime {p : Nat213} : Irreducible p ↔ Prime p :=
   ⟨irreducible_imp_prime, prime_imp_irreducible⟩
+
+/-- ★★ **A prime dividing a power divides the base** — `Irreducible p`, `p ∣ aⁿ ⟹ p ∣ a`.
+    Euclid's lemma iterated: induction on `n`, splitting `aⁿ⁺¹ = a · aⁿ` with `euclid`. -/
+theorem irreducible_dvd_pow {p a : Nat213} (hp : Irreducible p) :
+    ∀ n : Nat213, Dvd p (pow a n) → Dvd p a := by
+  intro n
+  induction n with
+  | one => rw [pow_one]; exact id
+  | succ n ih =>
+      rw [pow_succ]
+      intro h
+      rcases euclid hp h with hpa | hpn
+      · exact hpa
+      · exact ih hpn
+
+/-- ★★ **For a prime, dividing a power is exactly dividing the base** —
+    `Irreducible p → (p ∣ aⁿ ↔ p ∣ a)`.  Forward is `irreducible_dvd_pow`; the reverse is
+    `p ∣ a` then `a ∣ aⁿ` (`self_dvd_pow`, `Nat213` has no zero exponent). -/
+theorem irreducible_dvd_pow_iff {p a n : Nat213} (hp : Irreducible p) :
+    Dvd p (pow a n) ↔ Dvd p a :=
+  ⟨irreducible_dvd_pow hp n, fun h => dvd_trans h (self_dvd_pow a n)⟩
 
 end E213.Lens.Number.Nat213.Prime
