@@ -25,7 +25,9 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality
   (pow one mul_one geomSum geomSum_zero geomSum_succ omega_pow_three)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum (sumRange sumRange_succ)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
+  (sumRange sumRange_succ sum_mul_left sum_congr)
+open E213.Meta.Algebra213.Ring213 (mul_zero)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (pow_succ)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar (pow_add)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharOmega (char_omega_value)
@@ -84,5 +86,11 @@ theorem pow_omega_norm_one : ∀ i, (pow Omega i).normSq = 1
 theorem chiExp_unit (i : Nat) : chiExp i * conj (chiExp i) = one := by
   show pow Omega i * (pow Omega i).conj = one
   rw [mul_conj_self, pow_omega_norm_one]; rfl
+
+/-- ★★★★ **Translation invariance of the character sum** — `Σ_{i<3k} χ̂(c+i) = 0`.  The orthogonality
+    is unchanged by an exponent shift: `χ̂(c+i) = χ̂(c)·χ̂(i)` factors `χ̂(c)` out, and `Σ χ̂(i) = 0`.
+    A Jacobi-sum manipulation tool. -/
+theorem chiExp_sum_shift (c k : Nat) : sumRange (fun i => chiExp (c + i)) (3 * k) = 0 := by
+  rw [sum_congr (3 * k) (fun i _ => chiExp_mul c i), sum_mul_left, chiExp_sum, mul_zero]
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFunction
