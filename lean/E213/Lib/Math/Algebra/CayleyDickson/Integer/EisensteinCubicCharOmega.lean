@@ -39,21 +39,37 @@ private theorem mod_three_cases (m : Nat) : m % 3 = 0 ∨ m % 3 = 1 ∨ m % 3 = 
   | 2, _ => exact Or.inr (Or.inr rfl)
   | n + 3, h => exact absurd h (Nat.not_lt.mpr (Nat.le_add_left 3 n))
 
+/-- **Period-3 reduction** — `ω^i = ω^{i mod 3}`. -/
+theorem pow_omega_mod (i : Nat) : pow Omega i = pow Omega (i % 3) := by
+  have step : pow Omega (3 * (i / 3) + i % 3) = pow Omega (i % 3) := by
+    rw [pow_add, pow_omega_three_mul, one_mul]
+  rwa [div_add_mod] at step
+
 /-- ★★★★ **The cubic character of `ω`.**  `(ω/d)₃ = ω^m` is one of the three cube roots of unity,
     determined by `m mod 3`: `ω^m = ω^{m mod 3} ∈ {1, ω, ω²}`.  The supplementary law for the unit
-    `ω`.  `ω^m = ω^{3·(m/3)} · ω^{m mod 3} = ω^{m mod 3}` (period 3), then a three-way case on
-    `m mod 3`.  ∅-axiom. -/
+    `ω`.  `ω^m = ω^{m mod 3}` (period 3), then a three-way case on `m mod 3`.  ∅-axiom. -/
 theorem char_omega_value (m : Nat) :
     pow Omega m = one ∨ pow Omega m = Omega ∨ pow Omega m = Omega * Omega := by
-  have hkey : pow Omega m = pow Omega (m % 3) := by
-    have step : pow Omega (3 * (m / 3) + m % 3) = pow Omega (m % 3) := by
-      rw [pow_add, pow_omega_three_mul, one_mul]
-    rwa [div_add_mod] at step
+  have hkey : pow Omega m = pow Omega (m % 3) := pow_omega_mod m
   rcases mod_three_cases m with h0 | h1 | h2
   · left; rw [hkey, h0]; rfl
   · right; left; rw [hkey, h1]; show pow Omega 0 * Omega = Omega; rw [pow_zero, one_mul]
   · right; right; rw [hkey, h2]
     show (pow Omega 0 * Omega) * Omega = Omega * Omega
     rw [pow_zero, one_mul]
+
+/-- ★★★★ **The cubic-character kernel is the cubic residues** — `ω^i = 1 ⟺ 3 ∣ i`.  The character
+    `χ̂(i) = ωⁱ` is trivial exactly when the index is divisible by 3 (the element is a cubic residue).
+    Period-3 reduction (`pow_omega_mod`) + `ω¹, ω² ≠ 1`.  ∅-axiom. -/
+theorem pow_omega_one_iff (i : Nat) : pow Omega i = one ↔ 3 ∣ i := by
+  constructor
+  · intro h
+    rw [pow_omega_mod] at h
+    rcases mod_three_cases i with h0 | h1 | h2
+    · exact ⟨i / 3, by have hd := div_add_mod i 3; rw [h0, Nat.add_zero] at hd; exact hd.symm⟩
+    · rw [h1] at h; exact absurd h (by decide)
+    · rw [h2] at h; exact absurd h (by decide)
+  · intro ⟨k, hk⟩
+    rw [hk]; exact pow_omega_three_mul k
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharOmega
