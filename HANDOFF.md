@@ -6,14 +6,23 @@ E213` passes clean (463/463).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, twelve iterations)
+## What Was Done This Session (autonomous-research, thirteen iterations)
 
-Twelve focused iterations on the **descent-leg discipline** over `Nat213` (the
+Thirteen focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
 elementary number theory chain on the generated carrier, then **promoting it to a
 `theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
 exponentiation → **p-adic valuation** (both forms, exactness + uniqueness), all
 ∅-axiom.
+
+### Iteration 13: cross-domain essay — the carrier-gap weld
+`theory/essays/synthesis/two_carriers_one_count.md` (essay #112) closes essay
+#103's open frontier: `toNat` is a faithful (injective) `+`/`×` homomorphism
+(`Peano.toNat_{add,mul,injective}`, image ℕ₊) welding the `Nat213` discipline to
+the native-`Nat` corpus — agreement = functoriality of the count-Lens, native
+`Nat` = the readout plus the `0` the spine forbids. Open frontier kept: the
+valuation-specific cross-carrier identity `vp = vpNative ∘ toNat` (not yet a Lean
+theorem) — the concrete next deposit.
 
 ### Iteration 12: promotion to a theory/ chapter (PROMOTION_CRITERIA met)
 The closed leg-2 cone (H1 ∅-axiom ✓, H2 build clean ✓, S1 categorically closed)
@@ -144,6 +153,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+d913cc7 Essay: "Two carriers, one count" — the depth-readout welds the number theory
 b11dc2c Promote: leg-2 number-theory discipline over Nat213 → theory/ chapter
 ea8184d Nat213.Valuation: exactness le_vp_iff — vp is the largest dividing exponent
 8e7408c Nat213.Valuation: uniqueness of the p-adic factorization (welds B's k)
@@ -208,9 +218,10 @@ next moves:
 - A fresh campaign regrounding another field on `subMod`/structural descent (the
   prior handoff's thick target) — e.g. modular arithmetic or a divisor theory over
   `Nat213`, extending the now-promoted cone.
-- Or a cross-domain essay tying the generated discipline to the native-`Nat`
-  corpus (the carrier-gap weld noted in essay #103 `forced_by_the_distinguishing`
-  — leg-2 now fuses the two halves over one carrier).
+- The **valuation cross-carrier identity** `Nat213.Valuation.vp p n =
+  vpNative (toNat p) (toNat n)` — the concrete Lean deposit that would carry the
+  carrier-gap weld (essay #112) all the way to a proven equation between the
+  generated and native valuations. Recorded in `the_descent_leg.md`.
 - Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
 and is research-grade.
