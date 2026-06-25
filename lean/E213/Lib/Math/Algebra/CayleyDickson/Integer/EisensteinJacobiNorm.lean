@@ -1,6 +1,7 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinListSum
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaDomain
+import E213.Lib.Math.NumberTheory.EulerTheorem
 import E213.Meta.Int213.PolyIntMTactic
 
 /-!
@@ -26,6 +27,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinListSum
   (listSum listSum_cons listSum_mul_distrib)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
+open E213.Lib.Math.NumberTheory.EulerTheorem (totativeList)
 
 /-- `conj 0 = 0` in `ℤ[ω]`. -/
 theorem conj_zero : conj (0 : ZOmega) = 0 := rfl
@@ -47,16 +49,16 @@ theorem conj_listSum (f : Nat → ZOmega) : ∀ (L : List Nat),
 
 /-- The cubic Jacobi sum as a `listSum`: `J = Σ_{a < p} χ_ω(a)·χ_ω((1−a) mod p)`. -/
 def jacobiList (p m x : Nat) : ZOmega :=
-  listSum (fun a => chiOmega p m x a * chiOmega p m x ((1 + (p - a)) % p)) (List.range p)
+  listSum (fun a => chiOmega p m x a * chiOmega p m x ((1 + (p - a)) % p)) (totativeList p)
 
 /-- ★★★ **The conjugate Jacobi sum** — `conj J = Σ_{a<p} χ̄_ω(a)·χ̄_ω((1−a) mod p)`.  `conj` distributes
     over the `listSum` (`conj_listSum`) and over each product (`conj_mul`).  ∅-axiom. -/
 theorem jacobiList_conj (p m x : Nat) :
     conj (jacobiList p m x)
       = listSum (fun a => conj (chiOmega p m x a) * conj (chiOmega p m x ((1 + (p - a)) % p)))
-          (List.range p) := by
+          (totativeList p) := by
   rw [jacobiList, conj_listSum]
-  refine E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinListSum.listSum_congr (List.range p)
+  refine E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinListSum.listSum_congr (totativeList p)
     (fun a _ => ?_)
   exact conj_mul _ _
 
@@ -68,8 +70,8 @@ theorem jacobiList_norm_double (p m x : Nat) :
       = listSum (fun a => listSum (fun b =>
           (chiOmega p m x a * chiOmega p m x ((1 + (p - a)) % p))
             * (conj (chiOmega p m x b) * conj (chiOmega p m x ((1 + (p - b)) % p))))
-          (List.range p)) (List.range p) := by
+          (totativeList p)) (totativeList p) := by
   rw [jacobiList_conj, jacobiList]
-  exact listSum_mul_distrib _ _ (List.range p) (List.range p)
+  exact listSum_mul_distrib _ _ (totativeList p) (totativeList p)
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm
