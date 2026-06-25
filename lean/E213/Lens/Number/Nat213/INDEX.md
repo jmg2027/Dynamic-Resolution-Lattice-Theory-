@@ -16,9 +16,10 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              **Chart structure only — no Raw-side arithmetic**
                              (Option C); arithmetic lives on `Nat`/`Peano`.
   - `Peano.lean`           — Inductive `Nat213 | one | succ` with its own
-                             arithmetic (`add`/`mul`, no-zero/no-subtraction
-                             shape *forced* by the primitive).  The carrier the
-                             descent-leg discipline is computed over.
+                             arithmetic (`add`/`mul`/`pow`, no-zero/no-subtraction
+                             shape *forced* by the primitive; `pow_add`/`pow_mul`/
+                             `mul_pow`).  The carrier the descent-leg discipline is
+                             computed over.
   - `Core.lean`            — Lens-derived `{ n : Nat // 1 ≤ n }` Nat-subtype carrier.
   - `Chain.lean`           — Raw-subtype `{ r : Raw // IsMethodAChain r }` carrier;
                              operations route through `Nat` (Option C); `toNat` is a
@@ -65,8 +66,9 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              `gcd_exists_mul`.
   - `Coprime.lean`         — coprimality (`Coprime a b := IsGcd a b one`): Euclid's
                              coprime-division law `coprime_dvd_mul`, descent to
-                             divisors, multiplicative closure (`coprime_mul`).
-                             Built on `Gcd.isGcd_mul_left`.
+                             divisors, multiplicative closure (`coprime_mul`),
+                             power closure (`coprime_pow`). Built on
+                             `Gcd.isGcd_mul_left`.
   - `WellOrder.lean`       — well-foundedness as a named API: `strong_induction`
                              (named `wf_lt.induction`) + `well_ordering` (every
                              inhabited decidable predicate has a `lt`-minimal

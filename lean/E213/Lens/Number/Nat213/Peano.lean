@@ -265,6 +265,50 @@ theorem mul_left_comm (a b c : Nat213) : mul a (mul b c) = mul b (mul a c) := by
 theorem mul_two (n : Nat213) : mul n (succ one) = add n n := by
   rw [mul_succ_right, mul_one]
 
+-- ═══ Exponentiation ═══
+
+/-- Exponentiation `a^n`, recursion on the exponent.  No zero exponent (`Nat213` has no zero);
+    the base is `a^1 = a` (`pow a one = a`), and `a^(n+1) = a · a^n`. -/
+def pow : Nat213 → Nat213 → Nat213
+  | a, one    => a
+  | a, succ n => mul a (pow a n)
+
+/-- `a^1 = a` (the base of the exponent recursion). -/
+theorem pow_one (a : Nat213) : pow a one = a := rfl
+
+/-- `a^(n+1) = a · a^n` (the recursion step). -/
+theorem pow_succ (a n : Nat213) : pow a (succ n) = mul a (pow a n) := rfl
+
+/-- ★ `1^n = 1` — the unit is fixed by exponentiation. -/
+theorem one_pow : ∀ n : Nat213, pow one n = one
+  | one    => rfl
+  | succ n => by show mul one (pow one n) = one; rw [one_mul, one_pow n]
+
+/-- ★★ **`a^(m+n) = a^m · a^n`** — exponents add over products.  Induction on `m`. -/
+theorem pow_add (a : Nat213) : ∀ m n : Nat213, pow a (add m n) = mul (pow a m) (pow a n)
+  | one,    n => rfl
+  | succ m, n => by
+      show mul a (pow a (add m n)) = mul (mul a (pow a m)) (pow a n)
+      rw [pow_add a m n, ← mul_assoc]
+
+/-- ★★ **`a^(m·n) = (a^m)^n`** — the power tower law.  Induction on `n`. -/
+theorem pow_mul (a : Nat213) : ∀ m n : Nat213, pow a (mul m n) = pow (pow a m) n
+  | m, one    => by show pow a (mul m one) = pow a m; rw [mul_one]
+  | m, succ n => by
+      show pow a (mul m (succ n)) = mul (pow a m) (pow (pow a m) n)
+      rw [mul_succ_right, pow_add a m (mul m n), pow_mul a m n]
+
+/-- ★★ **`(a·b)^n = a^n · b^n`** — exponentiation distributes over products (commutativity).
+    Induction on `n`, rearranging the four factors with `mul_assoc`/`mul_comm`. -/
+theorem mul_pow (a b : Nat213) : ∀ n : Nat213, pow (mul a b) n = mul (pow a n) (pow b n)
+  | one    => rfl
+  | succ n => by
+      show mul (mul a b) (pow (mul a b) n) = mul (mul a (pow a n)) (mul b (pow b n))
+      rw [mul_pow a b n, mul_assoc a b (mul (pow a n) (pow b n)),
+          ← mul_assoc b (pow a n) (pow b n), mul_comm b (pow a n),
+          mul_assoc (pow a n) b (pow b n),
+          ← mul_assoc a (pow a n) (mul b (pow b n))]
+
 /-- ★ `succ n ≠ one`: every successor is distinct from the base. -/
 theorem succ_ne_one (n : Nat213) : succ n ≠ one := fun h => Nat213.noConfusion h
 

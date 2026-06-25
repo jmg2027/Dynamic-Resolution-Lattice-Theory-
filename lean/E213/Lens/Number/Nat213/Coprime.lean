@@ -17,7 +17,7 @@ from `Gcd.isGcd_mul_left`: scaling the coprimality `gcd(b,a)=1` by `c` gives `gc
 namespace E213.Lens.Number.Nat213.Coprime
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
-open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one mul_comm)
+open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one mul_comm pow pow_one pow_succ)
 open E213.Lens.Number.Nat213.Divisibility (Dvd one_dvd dvd_refl dvd_trans dvd_mul_left)
 open E213.Lens.Number.Nat213.Gcd
   (IsGcd isGcd_comm isGcd_one_left isGcd_one_right isGcd_self isGcd_unique
@@ -87,5 +87,23 @@ theorem coprime_mul {a b c : Nat213} (hb : Coprime a b) (hc : Coprime a c) :
 theorem mul_coprime {a b c : Nat213} (ha : Coprime a c) (hb : Coprime b c) :
     Coprime (mul a b) c :=
   coprime_comm (coprime_mul (coprime_comm ha) (coprime_comm hb))
+
+/-- **Coprime to a power on the right** — `Coprime a b → Coprime a (b^n)`.  Induction on `n`
+    via `coprime_mul` (`b^(n+1) = b·b^n`). -/
+theorem coprime_pow_right {a b : Nat213} (h : Coprime a b) (n : Nat213) : Coprime a (pow b n) := by
+  induction n with
+  | one => rw [pow_one]; exact h
+  | succ n ih => rw [pow_succ]; exact coprime_mul h ih
+
+/-- **Coprime to a power on the left** — `Coprime a b → Coprime (a^m) b` (via `coprime_comm`). -/
+theorem coprime_pow_left {a b : Nat213} (h : Coprime a b) (m : Nat213) : Coprime (pow a m) b :=
+  coprime_comm (coprime_pow_right (coprime_comm h) m)
+
+/-- ★★★ **Coprimality is preserved by powers on both sides** — `Coprime a b → Coprime (a^m) (b^n)`.
+    Coprime arguments stay coprime under exponentiation: `a^m` is coprime to `b` (`coprime_pow_left`),
+    hence to `b^n` (`coprime_pow_right`).  ∅-axiom. -/
+theorem coprime_pow {a b : Nat213} (h : Coprime a b) (m n : Nat213) :
+    Coprime (pow a m) (pow b n) :=
+  coprime_pow_right (coprime_pow_left h m) n
 
 end E213.Lens.Number.Nat213.Coprime
