@@ -30,7 +30,17 @@ Insights, jotted as they came up during the merge-prep marathon:
    the **carrier** level: the whole order/divisibility/valuation structure is one count read at two
    resolutions (`Nat213` source, `Nat` readout). Captured in essay `two_carriers_one_count`.
 
-Open direction (transportable, low-risk per insight 1): a `ModArithReadout` bridge transporting one
-native modular theorem (Fermat or Euler) to `Nat213` via `modeq_toNat_iff` + a native-form converter,
-demonstrating the inherit-not-rederive pattern. Sits with `the_descent_leg` (leg-2 readout).
+**Realized** (transport campaign): `Lens/Number/Nat213/ModArithReadout.lean`. The native-form
+converter is `mod_eq_imp_additive` (`A % m = B % m → ∃ k l, A + m·k = B + m·l`, the one-time bridge
+from native `%`-form to the additive form `modeq_toNat_iff` speaks; ∅-axiom via the PURE
+`div_add_mod_pure`, not Lean-core `Nat.div_add_mod` which is `[propext]`). The transport functor is
+`modeq_of_toNat_mod` (`a.toNat % m.toNat = b.toNat % m.toNat → ModEq m a b`). Fermat's little theorem
+then transports in one line each: `flt_primary` (`a^p ≡ a (mod p)`, fully `Nat213`-native via
+`toNat_pow`) and `flt_main` (`a^(p-1) ≡ 1 (mod p)`, the unit-group form with the exponent read in as
+`p.toNat - 1`), both inheriting native `universal_flt_*` — **not** re-derived. The
+"build the weld once, inherit the corpus" method (essay #115) demonstrated concretely. ∅-axiom.
+
+Next transportable headlines along the same weld (all native in `Lib/.../ModArith`, `%`-form):
+Wilson (`(p-1)! ≡ -1`), CRT reconstruction, Euler's criterion — each a `modeq_of_toNat_mod` instance
+once stated over the readouts. Sits with `the_descent_leg` (leg-2 readout).
 </content>

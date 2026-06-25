@@ -6,7 +6,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
 `theory/math/numbersystems/naturals_from_the_spine.md`,
 `theory/essays/foundations/raw_and_lens_explained.md`).
 
-## Files (31 + Tower/5)
+## Files (32 + Tower/5)
 
 ### Representations
 
@@ -98,6 +98,13 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              weld `vp_eq_vpSub` (`vp p n = vpSub p.toNat n.toNat`,
                              the generated valuation = native `subMod` `vpSub` of
                              the readouts, via `dvd_toNat_iff` + `toNat_powNat`).
+  - `ModArithReadout.lean` — *transport, not re-derivation*: the native-ℕ modular
+                             corpus (`Lib/.../ModArith`) inherited along `toNat`.
+                             `mod_eq_imp_additive` bridges the native `%`-form to the
+                             additive form `modeq_toNat_iff` speaks; `modeq_of_toNat_mod`
+                             packages the transport functor; **Fermat's little theorem**
+                             over `Nat213` (`flt_primary` `a^p≡a`, `flt_main` `a^(p-1)≡1`)
+                             one-line corollaries of native `universal_flt_*`.
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence; a prime dividing a power
                              divides the base (`irreducible_dvd_pow_iff`).
