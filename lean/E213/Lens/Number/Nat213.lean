@@ -14,6 +14,7 @@ import E213.Lens.Number.Nat213.Divisibility
 import E213.Lens.Number.Nat213.Irreducible
 import E213.Lens.Number.Nat213.Factorization
 import E213.Lens.Number.Nat213.EuclidUnique
+import E213.Lens.Number.Nat213.Gcd
 import E213.Lens.Number.Nat213.FTA
 import E213.Lens.Number.Nat213.Forcing
 import E213.Lens.Number.Nat213.Infinitude
@@ -74,6 +75,11 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            `prime_dvd_prod`.  Subtractive gcd with the scaled
                            multiplicative spec (`gcd_exists_mul`) — the Bézout
                            substitute that fits ℕ₊ (no zero).  Rung 3.
+    * `Gcd`              — the gcd discipline (`IsGcd`): divisibility is a
+                           meet-semilattice — gcd exists (`isGcd_exists`), is
+                           unique (`isGcd_unique`, via `dvd_antisymm`), with the
+                           multiplicative law `gcd(c·a,c·b)=c·gcd(a,b)`
+                           (`isGcd_mul_left`).  Extracted from `gcd_exists_mul`.
     * `FTA`              — **the Fundamental Theorem of Arithmetic** (`fta`):
                            existence + uniqueness-up-to-permutation, generated
                            over `Nat213`.  Native propext-free `Perm`/`erase`.

@@ -6,7 +6,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
 `theory/math/numbersystems/naturals_from_the_spine.md`,
 `theory/essays/foundations/raw_and_lens_explained.md`).
 
-## Files (25 + Tower/5)
+## Files (26 + Tower/5)
 
 ### Representations
 
@@ -57,7 +57,12 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              bottom `one`, no top (`dvd_antisymm`, `dvd_no_top`);
                              refines `le` (`dvd_imp_le`).
   - `Irreducible.lean`     — irreducibility over the Raw-generated ℕ₊.
-  - `EuclidUnique.lean`    — Euclid's lemma (`euclid`) over `Nat213`.
+  - `EuclidUnique.lean`    — Euclid's lemma (`euclid`) over `Nat213`; subtractive
+                             gcd existence + multiplicative spec (`gcd_exists_mul`).
+  - `Gcd.lean`             — the gcd discipline (`IsGcd`): divisibility is a
+                             meet-semilattice — gcd exists + unique + multiplicative
+                             law `gcd(c·a,c·b)=c·gcd(a,b)`. Extracted from
+                             `gcd_exists_mul`.
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence.
   - `Factorization.lean`   — every `Nat213` is a product of irreducibles.
