@@ -419,3 +419,25 @@ multiplicative chain nor the Leg-1 first brick settles:
 The `isPart_wf` engine (above) grounds the *existence* descent in the distinguishing's own descent; the
 uniqueness chain grounds in structural fuel.  Both clear the "no borrowed non-structural WF" bar, but
 leg 1's "generated, not borrowed" bar is stronger and stays open.
+
+### Leg-2 discipline build-out over `Nat213` — status + remaining (2026-06-25)
+
+The leg-2 elementary-number-theory cone is now a coherent chain, all ∅-axiom over the Raw-generated
+`Nat213`: order (`lt`+`le`, both total; mono; cancellation) → divisibility (partial order, `pow`
+facts) → gcd (`Gcd`: meet-semilattice, mult. law) → coprimality (`Coprime`: coprime-division law,
+mult./power closure, Prime↔Coprime bridge) → well-ordering (`WellOrder`: strong induction + decidable
+well-ordering) → exponentiation (`Peano.pow`/`powNat`) → `p`-adic structure (`Valuation`).
+
+**`p`-adic valuation, both forms landed** (`Valuation.lean`):
+- **A (readout):** `vp : Nat213 → Nat213 → Nat` via `powNat`; `pow_vp_dvd` (`p^(vp p n) ∣ n`).
+- **B (native):** `padic_factorization` (`p∣n → n = p^k·m ∧ ¬p∣m`).
+
+**Remaining (open, low-risk):**
+- **vp exactness / `le_vp_iff`** — `p^k ∣ n ⟺ k ≤ vp p n` (the maximality of the readout `vp`).
+  Needs two sub-lemmas: `le a b → a.toNat ≤ b.toNat` (from `lt` add-witness) and `powNat` growth
+  `k < (powNat p k).toNat` for `p ≠ one` (so the search bound `toNat n` covers every `k`). Each a
+  small induction; mirrors `Meta/Nat/VpSub213.{vpSubSearch_ge, le_vpSub_iff}`. NOTE: B already gives
+  the *maximal* split natively for `p∣n`, so this is the ℕ-readout companion, not a gap in content.
+- **B uniqueness** — the `(k,m)` of `padic_factorization` is unique (via `mul_left_cancel` +
+  `irreducible`/`Coprime`); would let `vp p n` (A) be *identified* with B's `k` (a Nat reading of the
+  native exponent), welding the two forms. Moderate; the natural next valuation deposit.
