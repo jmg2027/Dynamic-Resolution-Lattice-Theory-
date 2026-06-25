@@ -6,7 +6,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
 `theory/math/numbersystems/naturals_from_the_spine.md`,
 `theory/essays/foundations/raw_and_lens_explained.md`).
 
-## Files (36 + Tower/5)
+## Files (38 + Tower/5)
 
 ### Representations
 
@@ -128,6 +128,14 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
   - `DiscreteLogReadout.lean` — the capstone: `qr_iff_even_dlog` — the quadratic
                              character is the discrete-log parity (`QR p a ⟺ 2∣k` where
                              `a≡g^k`, `g` a primitive root); squares = even orbit positions.
+  - `ZolotarevReadout.lean` — the permutation faces of the character (Zolotarev's
+                             lemma): `psign213`/`det213` (multiply-by-`a` permutation's
+                             inversion-sign / matrix determinant); `zolotarev`,
+                             `zolotarev_det` (`=1 ⟺ QR p a`).  Closes the one-permutation,
+                             four-readouts identity (square/orbit-parity/sign/determinant).
+  - `BinomialReadout.lean` — the binomial core of prime arithmetic: `freshman_dream`
+                             (`(a+1)^p ≡ a^p+1 mod p`), `middle_binomial_dvd`
+                             (`p ∣ C(p,k+1)`) — the engine behind `flt_primary`.
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence; a prime dividing a power
                              divides the base (`irreducible_dvd_pow_iff`).

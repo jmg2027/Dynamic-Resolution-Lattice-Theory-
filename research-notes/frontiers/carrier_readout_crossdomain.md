@@ -92,7 +92,24 @@ symbol, quadratic reciprocity, and the discrete log (`PrimitiveRootReadout`, `Le
 Primitive roots needed only the order readout already built (`mulOrd`, `maxOrd213 := maxOrd ·`) plus a
 `toNat_surj` lift of the native generator — no new construct.
 
-Remaining open (genuinely new carrier constructs): the permutation-sign (Zolotarev) face of the
-character; Lucas' theorem / binomial-coefficient corpus; higher reciprocity. Sits with
-`the_descent_leg` (leg-2 readout).
+**The permutation faces and the binomial core are now transported too** (`ZolotarevReadout`,
+`BinomialReadout`):
+
+* **Zolotarev** — the Legendre symbol is the **sign** of the multiply-by-`a` permutation, and its
+  permutation-matrix **determinant**: `psign213 a p = 1 ⟺ QR p a` (`zolotarev`), `det213 a p = 1 ⟺
+  QR p a` (`zolotarev_det`). With `LegendreReadout.QR` and `DiscreteLogReadout.qr_iff_even_dlog`, the
+  quadratic character now has **four provably-agreeing readings** on the carrier: square /
+  orbit-parity / inversion-sign / determinant. The sign/det are counts read OUT into `Int` (`{±1}`).
+* **Binomial core** — `freshman_dream` (`(a+1)^p ≡ a^p+1 mod p`) and `middle_binomial_dvd`
+  (`p ∣ C(p,k+1)`), the engine behind `flt_primary`. The dream is `%`-form (existing weld); the
+  vanishing is divisibility of the readout count `choose p k`.
+
+**Higher reciprocity has no native source in the repo** — quadratic reciprocity (+ both supplements)
+is the ceiling present; there is no cubic/Eisenstein/biquadratic reciprocity theorem to transport.
+Lucas' theorem likewise exists only as the `lucasStep` predicate with per-prime smokes (no general
+digit-product theorem), so only its binomial precursors transport. Recorded honestly rather than
+fabricated.
+
+Remaining open (would need NEW native development first, not just a carrier weld): a general Lucas
+theorem; cubic / Eisenstein / higher reciprocity laws. Sits with `the_descent_leg` (leg-2 readout).
 </content>
