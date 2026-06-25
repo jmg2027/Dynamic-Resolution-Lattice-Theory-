@@ -99,14 +99,15 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              the generated valuation = native `subMod` `vpSub` of
                              the readouts, via `dvd_toNat_iff` + `toNat_powNat`).
   - `ModArithReadout.lean` — *transport, not re-derivation*: the native-ℕ modular
-                             corpus (`Lib/.../ModArith`) inherited along `toNat`.
-                             `mod_eq_imp_additive` bridges the native `%`-form to the
-                             additive form `modeq_toNat_iff` speaks; `modeq_of_toNat_mod`
-                             packages the transport functor; **Fermat's little theorem**
-                             (`flt_primary` `a^p≡a`, `flt_main` `a^(p-1)≡1`) and
-                             **Wilson's theorem** (`wilson` `(p-1)!≡p-1`, via `toNat_factorial`)
-                             over `Nat213`, one-line corollaries of native
-                             `universal_flt_*` / `WilsonTheorem.wilson`.
+                             corpus (`Lib/.../ModArith`) inherited along `toNat`.  Welds
+                             per reading-form: `modeq_of_toNat_mod` (`%`-congruence),
+                             `modeq_of_dvd_sub`/`modeq_self_of_dvd` (divisibility),
+                             `gcd213_eq_one_of_coprime` (gcd).  Headlines as one-liners:
+                             **Fermat** (`flt_primary` `a^p≡a`, `flt_main` `a^(p-1)≡1`),
+                             **Wilson** (`wilson` `(p-1)!≡p-1`, via `toNat_factorial`),
+                             **Euler's criterion** (`euler_criterion` `a^m≡±1`, `euler_qr`),
+                             **CRT reconstruction** (`crt_reconstruction`, simultaneous-
+                             congruence existence — complements `Congruence.crt_iff`).
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence; a prime dividing a power
                              divides the base (`irreducible_dvd_pow_iff`).

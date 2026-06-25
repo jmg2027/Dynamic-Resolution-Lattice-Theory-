@@ -47,8 +47,23 @@ operation not yet on the carrier first builds that operation (one clean recursiv
 then inherits the native proof. Three headlines now ride one functor (`modeq_of_toNat_mod`):
 power-based (Fermat ×2) and factorial-based (Wilson).
 
-Next transportable headlines along the same weld (all native in `Lib/.../ModArith`, `%`-form):
-CRT reconstruction, Euler's criterion — each a `modeq_of_toNat_mod` instance once the readout-side
-statement is available (Euler's criterion first needs a carrier Legendre/`QPart` readout). Sits with
-`the_descent_leg` (leg-2 readout).
+**Euler's criterion and CRT reconstruction are now transported too** — and they sharpened the method:
+the native results are *not* all `%`-form. Euler is **divisibility-first** (`p ∣ aᵐ−1 ∨ p ∣ aᵐ+1`) and
+CRT existence is **gcd-first** (`gcd m n = 1`). So the transport functor generalises from one weld to
+a small fixed set, one per *reading form*:
+
+* `modeq_of_toNat_mod` — `%`-congruence of readouts → `ModEq` (Fermat, Wilson, CRT residues);
+* `modeq_of_dvd_sub` / `modeq_self_of_dvd` — divisibility of a difference / of the value → `ModEq`
+  (Euler's `±1`, the `−1` branch as `aᵐ+1 ≡ p ≡ 0`);
+* `gcd213_eq_one_of_coprime` — `Nat213` `Coprime` → native `gcd213 = 1` (CRT's hypothesis).
+
+Results: `euler_criterion` (`aᵐ ≡ 1 ∨ aᵐ+1 ≡ 0`), `euler_qr` (QR branch), `crt_reconstruction`
+(simultaneous-congruence *existence* via lifting the native Bezout `crtSolve` through `toNat_surj` —
+the existence complement to `Congruence.crt_iff`). All ∅-axiom. Euler's criterion did **not** need a
+carrier Legendre/`QPart` readout after all — the divisibility-form native statement transports
+directly. The lesson: pick the weld by the native theorem's *reading form*, not by re-deriving the
+statement on the carrier.
+
+Remaining (deeper, genuinely needs new carrier constructs): a carrier Legendre symbol + quadratic
+reciprocity; the discrete-log / primitive-root corpus. Sits with `the_descent_leg` (leg-2 readout).
 </content>
