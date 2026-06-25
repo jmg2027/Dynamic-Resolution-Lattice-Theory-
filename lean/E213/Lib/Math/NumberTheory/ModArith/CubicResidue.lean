@@ -96,4 +96,40 @@ theorem cube_iff_three_dvd_dlog (p m a : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p
   rw [← hak]
   exact cube_pow_iff_three_dvd_exp p m g hp hpr h3m hm1 hg1 hgle hord k
 
+/-- ★★★★ **Cubic Euler criterion, exponent form.**  `(g^k)^m ≡ 1 (mod p) ⟺ 3 ∣ k` for a primitive
+    root `g` (`3m = p − 1`).  `(g^k)^m = g^{km}`, then the order chain `pow_one_iff_ord_dvd`
+    (`g^{km} ≡ 1 ⟺ (p−1) ∣ km`) and `three_mul_dvd_iff` (`3m ∣ km ⟺ 3 ∣ k`).  ∅-axiom. -/
+theorem pow_m_one_iff_three_dvd_exp (p m g : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m) (hg1 : 1 ≤ g) (hgle : g ≤ p - 1)
+    (hord : ordModP g p = p - 1) (k : Nat) :
+    (g ^ k) ^ m % p = 1 ↔ 3 ∣ k := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)
+  have hglt : g < p := Nat.lt_of_le_of_lt hgle (Nat.sub_lt hppos Nat.zero_lt_one)
+  -- compose iffs explicitly (a `rw` *with* an iff would pull `propext`)
+  have iff1 : (g ^ k) ^ m % p = 1 ↔ ordModP g p ∣ (k * m) := by
+    rw [← pow_mul_loc g k m]
+    exact pow_one_iff_ord_dvd g p hp hpr hg1 hglt (k * m)
+  have iff2 : ordModP g p ∣ (k * m) ↔ 3 ∣ k := by
+    rw [hord, ← h3m]
+    exact three_mul_dvd_iff m k hm1
+  exact iff1.trans iff2
+
+/-- ★★★★★ **Cubic Euler criterion.**  For a prime `p` (`3m = p − 1`, i.e. `p ≡ 1 mod 3`) and a unit
+    `a` (`1 ≤ a < p`):
+
+      `a^m ≡ 1 (mod p)  ⟺  a is a cubic residue mod p`.
+
+    The cubic analogue of the quadratic `a^{(p−1)/2} ≡ 1 ⟺ a` is a QR.  Both sides equal
+    `3 ∣ dlog_g(a)` — `pow_m_one_iff_three_dvd_exp` for the power side, `cube_iff_three_dvd_dlog` for
+    the residue side.  ∅-axiom. -/
+theorem pow_m_one_iff_cube (p m a : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m) (ha1 : 1 ≤ a) (halt : a < p) :
+    a ^ m % p = 1 ↔ ∃ x : Nat, 1 ≤ x ∧ x < p ∧ x ^ 3 % p = a := by
+  obtain ⟨g, k, ⟨hg1, hgle, hord⟩, hak, hcube_iff⟩ :=
+    cube_iff_three_dvd_dlog p m a hp hpr h3m hm1 ha1 halt
+  have hLHS : a ^ m % p = 1 ↔ 3 ∣ k := by
+    rw [hak, ← pow_mod_base (g ^ k) p m]
+    exact pow_m_one_iff_three_dvd_exp p m g hp hpr h3m hm1 hg1 hgle hord k
+  exact hLHS.trans hcube_iff.symm
+
 end E213.Lib.Math.NumberTheory.ModArith.CubicResidue

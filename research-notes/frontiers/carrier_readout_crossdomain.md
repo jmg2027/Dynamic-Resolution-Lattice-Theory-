@@ -261,9 +261,19 @@ norm argument `p = ‖d‖² ∣ ‖↑k‖² = k²` + rational Euclid `nat_prim
 `ModArith/CubicResidue.cube_iff_three_dvd_dlog` (`r^m≡1 ⟺ r` cubic residue `⟺ 3∣dlog`) — `(·/d)₃` is
 now a fully computable `μ₃`-valued cubic-residue symbol.
 
+**Rational cubic Euler criterion done.**  `ModArith/CubicResidue.lean` (`pow_m_one_iff_three_dvd_exp`,
+`pow_m_one_iff_cube`, both ∅-axiom).  ★★★★★ `pow_m_one_iff_cube`: for prime `p` (`3m = p−1`) and a
+unit `a`, `a^m ≡ 1 (mod p) ⟺ a is a cubic residue mod p` — the cubic analogue of the quadratic
+`a^{(p−1)/2} ≡ 1 ⟺ QR`.  Both sides equal `3 ∣ dlog_g(a)` (`pow_m_one_iff_three_dvd_exp` via the order
+chain `pow_one_iff_ord_dvd`+`three_mul_dvd_iff`; `cube_iff_three_dvd_dlog` for the residue side).
+Kept PURE by composing the iffs with `Iff.trans` (a `rw` *with* an iff pulls `propext`).  This is the
+rational engine of the **Eisenstein Euler converse**: chained through `char_one_iff_rational`
+(`(α/d)₃=1 ⟺ p∣(r^m−1) ⟺ r^m≡1`) it gives `(α/d)₃ = 1 ⟺ r` is a rational cubic residue, and lifting a
+rational cube root `x` (`(↑x)³ ≡ ↑r ≡ α mod d`) yields `(α/d)₃ = 1 ⟹ α is a cube in ℤ[ω]/(d)`.
+
 Next rungs:
-**(Euler-converse)** the hard direction `χ(α) = 1 ⟹ α is a cube mod d` (cubic Euler criterion),
-needing the cyclic structure of `(ℤ[ω]/d)ˣ ≅ 𝔽_p^×`;
+**(Euler-converse)** assemble `(α/d)₃ = 1 ⟹ α is a cube mod d` from `char_one_iff_rational` +
+`pow_m_one_iff_cube` + the rational-cube-root lift (the pieces now all exist);
 **(3d-weld)** weld `(α/d)₃` to the rational cubic character `ModArith/CubicResidue.
 cube_iff_three_dvd_dlog` (norm-`p` primes ↔ rational power-residue), giving the character a computable
 `μ₃` readout;
