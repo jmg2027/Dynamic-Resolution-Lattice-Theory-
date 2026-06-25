@@ -6,15 +6,22 @@ E213` passes clean (462/462).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, eight iterations)
+## What Was Done This Session (autonomous-research, nine iterations)
 
-Eight focused iterations on the **descent-leg discipline** over `Nat213` (the
+Nine focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — completing the native order
 (strict + non-strict total orders), extracting the **gcd**, **coprimality**, and
 **well-ordering** disciplines, adding **exponentiation** + `coprime_pow` + its
-order/divisibility facts + the **Prime↔Coprime bridge**, plus dedup and INDEX
-refresh. The `Nat213` elementary-number-theory cone is now a coherent chain:
-order → divisibility → gcd → coprimality → well-ordering, with a full `pow` API.
+order/divisibility facts + the **Prime↔Coprime bridge** + **`prime_dvd_pow`**,
+plus dedup and INDEX refresh. The `Nat213` elementary-number-theory cone is now a
+coherent chain: order → divisibility → gcd → coprimality → well-ordering, with a
+full `pow` API and the prime/power facts.
+
+### Iteration 9: prime divides a power ⟹ divides the base (PURE ✓)
+- **`Divisibility.self_dvd_pow`** — `a ∣ a^n` (always; no zero exponent).
+- **`Prime.irreducible_dvd_pow`** — `Irreducible p`, `p∣a^n ⟹ p∣a` (Euclid
+  iterated by induction on `n`).
+- **`Prime.irreducible_dvd_pow_iff`** — `Irreducible p → (p∣a^n ↔ p∣a)`.
 
 ### Iteration 8: the Prime↔Coprime bridge (PURE ✓)
 `Coprime` gains the named form of the lemma `euclid` computes internally:
@@ -113,6 +120,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+734ea5d Nat213.Prime: a prime dividing a power divides the base (irreducible_dvd_pow)
 bce6f45 Nat213.Coprime: the Prime↔Coprime bridge (irreducible_coprime_iff)
 c9f198f Nat213: pow order/divisibility facts (pow_lt_pow_base, dvd_pow_self, pow_dvd_pow)
 68c4732 Nat213: exponentiation on Peano + coprime_pow
@@ -164,10 +172,17 @@ Remaining natural deposits, low-risk:
   `Factorization`/`EuclidUnique` opens. Clean, low-risk, build-verifiable.
 
 ## Next
-Continue the descent-leg discipline build-out over `Nat213` (the `acc_lt`/`wf_lt`
-relocation org pass is the cleanest remaining low-risk item; the p-adic
-valuation needs a design decision first) or open a fresh campaign regrounding
-another field on `subMod`/structural descent (the prior handoff's thick target).
+The `Nat213` number-theory cone is now richly stocked (order → divisibility →
+gcd → coprimality → well-ordering → pow → prime/power facts). Remaining `Nat213`
+deposits are either design-blocked (p-adic valuation, needs the no-zero readout
+decision) or org-only (the `acc_lt`/`wf_lt` relocation is a 2-file restructure
+due to a circular dep: `WellOrder` needs `Factorization.decBoundedExists` while
+`Factorization` needs `wf_lt` — would require a separate pre-`Factorization`
+`WellFounded.lean`; low value, deferred). **Recommendation: switch targets** —
+open a fresh campaign regrounding another field on `subMod`/structural descent
+(the prior handoff's thick target), or pick a different `theory/` promotion /
+cross-domain essay. The deep conceptual residue (Open Problems 1–2) needs a
+specific new rival model and is research-grade.
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
 and is research-grade.
 
@@ -180,7 +195,8 @@ and is research-grade.
 ```
 lean/E213/Lens/Number/Nat213/Peano.lean          ← +pow + pow_add/pow_mul/mul_pow/one_pow laws
 lean/E213/Lens/Number/Nat213/Order.lean          ← +lt_mul_right, pow_lt_pow_base
-lean/E213/Lens/Number/Nat213/Divisibility.lean   ← +dvd_pow_self, pow_dvd_pow
+lean/E213/Lens/Number/Nat213/Divisibility.lean   ← +dvd_pow_self, pow_dvd_pow, self_dvd_pow
+lean/E213/Lens/Number/Nat213/Prime.lean          ← +irreducible_dvd_pow, irreducible_dvd_pow_iff
 lean/E213/Lens/Number/Nat213/WellOrder.lean      ← NEW: strong_induction + decidable well_ordering
 lean/E213/Lens/Number/Nat213/Coprime.lean        ← NEW: coprimality; +coprime_pow; +Prime↔Coprime bridge
 lean/E213/Lens/Number/Nat213/Gcd.lean            ← NEW: gcd discipline (meet-semilattice, mult. law)
