@@ -4,8 +4,7 @@
 the native-`Nat` corpus** by the depth readout, with a third regrounded field — modular
 arithmetic).  Mirrors `lean/E213/Lens/Number/Nat213/{Order, Divisibility, Irreducible,
 EuclidUnique, Prime, Gcd, Coprime, WellOrder, Valuation, Factorization, FTA, ToNatReadout,
-Congruence}.lean`.  Conceptual residue (Legs 1 & 3) stays open in
-`research-notes/frontiers/the_descent_leg.md`.
+Congruence}.lean`.  Conceptual residue (Legs 1 & 3) stays open (the descent-leg frontier).
 
 ## Overview
 
@@ -166,14 +165,13 @@ counting object.
 
 ## Research-note provenance
 
-`research-notes/frontiers/the_descent_leg.md` (the descent-leg frontier — leg-2 build-out section),
-building on the carrier closed in `theory/math/numbersystems/naturals_from_the_spine.md` and the
-native-`Nat` FTA grounding in `theory/math/numbertheory/grounded_fundamental_theorem.md`.
+The descent-leg frontier (leg-2 build-out), building on the carrier closed in
+`theory/math/numbersystems/naturals_from_the_spine.md` and the native-`Nat` FTA grounding in
+`theory/math/numbertheory/grounded_fundamental_theorem.md`.
 
 ## Open frontier
 
-The arithmetic is closed; the residue is **conceptual** and stays in
-`research-notes/frontiers/the_descent_leg.md`:
+The arithmetic is closed; the residue is **conceptual** and stays open on the descent-leg frontier:
 - **Leg 1** — the carrier still borrows the kernel's `inductive` to *have* `Raw` and `Nat` as the
   `depth` readout (generated-vs-borrowed; conceded).
 - **Leg 3** — no proof that the distinguishing primitive is non-interchangeable with rivals
