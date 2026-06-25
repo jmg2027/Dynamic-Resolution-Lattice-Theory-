@@ -444,7 +444,13 @@ valuation) is now a complete ∅-axiom elementary-number-theory discipline on th
 `Nat213` and the native-`Nat` corpus are one count at two resolutions welded by the depth-readout
 `toNat` (essay `two_carriers_one_count`, closing #103).
 
+**Carrier-readout weld — CLOSED across the discipline**: `ToNatReadout.toNat_faithful` (lt/le/Dvd
+read exactly + `toNat` surjective onto ℕ₊), `Valuation.vp_eq_vpSub` (valuation, value-level),
+`Gcd.isGcd_toNat`/`isGcd_toNat_eq` (gcd, spec- and value-level; required `SubGcd213.gcdW_greatest`,
+the previously-missing greatest property). The generated discipline reads onto the native corpus
+across order, divisibility, gcd, and valuation.
+
 **Remaining is conceptual, not arithmetic** — see Legs 1 & 3 above (generation vs. borrowing, forcing
-vs. matching).  Possible next concrete deposits: the readout identity for the other generated
-operations (a generated `gcd`'s readout = native gcd, each a small `dvd_toNat_iff`/`toNat_*` bridge),
-or an `lcm` dual join (needs an upper bound; deferred).
+vs. matching).  Minor: an `lcm` dual join (needs an upper bound; deferred). The carrier-readout
+pattern (`dvd_toNat_iff` + `toNat_*` + propext-free Nat craft) is now a reusable toolkit for
+regrounding another field on `subMod`/structural descent.
