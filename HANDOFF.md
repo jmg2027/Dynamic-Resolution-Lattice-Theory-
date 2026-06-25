@@ -6,14 +6,21 @@ E213` passes clean (463/463).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, seventeen iterations)
+## What Was Done This Session (autonomous-research, eighteen iterations)
 
-Seventeen focused iterations on the **descent-leg discipline** over `Nat213` (the
+Eighteen focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
 elementary number theory chain on the generated carrier, then **promoting it to a
 `theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
 exponentiation → **p-adic valuation** (both forms, exactness + uniqueness), all
 ∅-axiom.
+
+### Iteration 18: new field — modular arithmetic `Congruence.lean` (PURE ✓)
+A fresh field regrounded on `Nat213` with the carrier toolkit. No subtraction on
+`Nat213`, so the classical `m ∣ a−b` becomes the subtraction-free symmetric
+`ModEq m a b := ∃ k l, a + m·k = b + m·l`. Proved a **congruence on the semiring**
+(`modeq_congruence`): equivalence (refl/symm/trans) + compatible with `+`
+(`add_compat`) and `·` (`mul_right`). Entirely over `Nat213`, no Lean `Nat`.
 
 ### Iteration 17: the value-level gcd weld — `Gcd.isGcd_toNat_eq` (PURE ✓)
 `IsGcd a b d ⟹ d.toNat = gcdW a.toNat b.toNat` (the gcd analogue of `vp_eq_vpSub`,
@@ -189,6 +196,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+e01b6f8 Nat213.Congruence: modular arithmetic regrounded over the Raw spine
 58c0019 Nat213.Gcd: value-level gcd weld isGcd_toNat_eq (+ gcdW_greatest in SubGcd213)
 e69012c Nat213.Gcd: isGcd_toNat — the generated gcd reads out as a native gcd
 4c4c8d1 Nat213.ToNatReadout: the depth readout is a faithful ordered-semiring embedding
@@ -262,9 +270,15 @@ next moves:
   value-level), `ToNatReadout.toNat_faithful` (lt/le/Dvd + surjectivity),
   `Gcd.isGcd_toNat`(_eq) (gcd, spec- and value-level). The generated discipline
   reads onto the native corpus across order, divisibility, gcd, and valuation.
+- **Modular arithmetic campaign just started** (`Congruence.lean`): the congruence
+  core is closed. Natural next deposits, all low-risk:
+  - **`ModEq` readout** `ModEq m a b ↔ a.toNat ≡ b.toNat [m.toNat]` (the native
+    congruence), via `ToNatReadout` + `toNat_add`/`toNat_mul` — completes the
+    carrier-readout story for the new field.
+  - `a ≡ a + m` (the defining "step by m"), `ModEq` ↔ `Dvd m (difference)` once a
+    signed/pair difference is available, and a `Nat213`-CRT for coprime moduli
+    (reusing `Coprime`).
 - Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
-- A fresh campaign regrounding another field on `subMod`/structural descent is the
-  natural next thick target (the carrier-readout pattern is now a reusable toolkit).
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
 and is research-grade.
 
@@ -275,6 +289,7 @@ and is research-grade.
 
 ## File Map (touched this session)
 ```
+lean/E213/Lens/Number/Nat213/Congruence.lean      ← NEW: modular arithmetic (ModEq congruence, subtraction-free)
 lean/E213/Lens/Number/Nat213/ToNatReadout.lean   ← NEW: faithful readout bridge (lt/le/dvd_toNat_iff, toNat_faithful)
 lean/E213/Lens/Number/Nat213/Valuation.lean      ← NEW: p-adic valuation (vp readout + padic_factorization + vp_eq_vpSub weld)
 lean/E213/Lens/Number/Nat213/Peano.lean          ← +pow + pow laws; +powNat (Nat-exponent power) + bridge
