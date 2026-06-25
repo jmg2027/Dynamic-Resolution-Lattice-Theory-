@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 112 essays are grouped into ten thematic sub-directories — distinct
+The 113 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -67,6 +67,12 @@ depth-readout `toNat` — a faithful (injective) `+`/`×` homomorphism with imag
 ℕ₊; agreement = functoriality of the count-Lens, not coincidence; closes #103's
 two-carrier frontier — both forcing scales now run over one carrier, native `Nat`
 the readout plus the `0` the spine forbids),
+`zero_valued_quantities_are_readouts` (over the no-zero `Nat213`, a quantity whose
+range includes `0` or a sign — a valuation, an exponent's empty product, a Bézout
+coefficient/inverse — is read OUT into ℕ, never a carrier element; three witnesses
+(`vp`, `powNat 0`, `coprime_bezout`) of one principle, tied to §6.5/§6.9's `0`/`∞`
+as pre-Lens residue; the no-zero shape is a diagnostic, marking where the generated
+object departs from ℤ/ℕ-with-zero),
 `distinguishability_is_the_one_dial` (one parameter — whether the related atoms
 are distinguishable — at three resolutions: it forces relation arity to 2
 (`arity_two_forced`, the clause-4 distinctness gate), gives/kills commutativity
