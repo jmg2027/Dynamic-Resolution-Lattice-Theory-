@@ -24,6 +24,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt no_zero_di
 open E213.Meta.Int213.Order (sub_self_zero sub_zero)
 open E213.Meta.Int213.PolyIntM (one_mulZ)
 open E213.Meta.Int213 (zero_mul zero_add add_comm)
+open E213.Meta.Algebra213.Ring213 (add_assoc add_zero neg_add_cancel_self)
 
 /-- Pure `a + 0 = a` over `ℤ`. -/
 private theorem int_add_zero (a : Int) : a + 0 = a := by rw [add_comm, zero_add]
@@ -55,14 +56,22 @@ theorem sub_self_zomega (S : ZOmega) : S - S = 0 := by
   · show S.im - S.im = 0
     exact sub_self_zero S.im
 
-/-- ★★★★ **A `μ₃`-scaled fixed sum vanishes.**  If `w·S = S` with `w − 1 ≠ 0`, then `S = 0`:
+/-- **`u − v = 0 ⟹ u = v`** in `ℤ[ω]`. -/
+theorem eq_of_sub_eq_zero {u v : ZOmega} (h : u - v = 0) : u = v := by
+  have h' : u + -v = 0 := h
+  have e : u + -v + v = u := by
+    rw [add_assoc, neg_add_cancel_self, add_zero]
+  rw [h', E213.Meta.Algebra213.Ring213.zero_add] at e
+  exact e.symm
+
+/-- ★★★★ **A `μ₃`-scaled fixed sum vanishes.**  If `w·S = S` with `w ≠ 1`, then `S = 0`:
     `(w−1)·S = w·S − S = S − S = 0` and `ℤ[ω]` has no zero divisors.  The final step of
     `Σ_t χ_ω(t) = 0` (scaling invariance under a non-residue `a`, `w = χ_ω(a) ∈ {ω,ω²}`).  ∅-axiom. -/
-theorem scale_fixed_eq_zero {w S : ZOmega} (hw : w - ofInt 1 ≠ 0) (h : w * S = S) : S = 0 := by
+theorem scale_fixed_eq_zero {w S : ZOmega} (hw : w ≠ ofInt 1) (h : w * S = S) : S = 0 := by
   have key : (w - ofInt 1) * S = 0 := by
     rw [sub_mul_zomega, one_mul_zomega, h, sub_self_zomega]
   rcases no_zero_div (w - ofInt 1) S key with h1 | h2
-  · exact absurd h1 hw
+  · exact absurd (eq_of_sub_eq_zero h1) hw
   · exact h2
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinScaleCancel
