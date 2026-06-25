@@ -138,6 +138,22 @@ helpers `prodTo_{congr,split_first,mod}`; digit descent via the pure nested floo
 **Lucas' theorem is complete in the corpus** in all three forms: digit-step (`lucas_step`), recursive
 (`lucas_div`), explicit digit-product (`lucas_digits`).
 
-Genuinely-absent-from-corpus targets (would need new native development): cubic / Eisenstein / higher
-reciprocity (no native source).  Sits with `the_descent_leg` (leg-2 readout).
+## Cubic / Eisenstein reciprocity — started (cubic-residue foundation)
+
+The rational **cubic-residue character** is now in the corpus — `ModArith/CubicResidue.lean`, the cubic
+analogue of `DiscreteLogParity` (which read the quadratic character as the discrete-log *parity*):
+
+* `cube_pow_iff_three_dvd_exp` — for a prime `p ≡ 1 mod 3` (`3m = p−1`) and primitive root `g`,
+  `g^k` is a cube mod `p` ⟺ `3 ∣ k`;
+* `cube_iff_three_dvd_dlog` — per unit `a`: the cubic character is the mod-3 class of its discrete log.
+
+∅-axiom; proof mirrors `qr_pow_iff_even_exp` (cube-root ⟹ `a^m ≡ 1` by Fermat ⟹ `3m ∣ km` ⟹ `3 ∣ k`;
+converse exhibits `g^{k/3}`).  `three_mul_dvd_iff` is the cubic `two_mul_dvd_iff`.
+
+Runway to the full **cubic (Eisenstein) reciprocity** law: the Eisenstein-integer machinery exists
+(`CayleyDickson/Integer/Eisenstein{Euclidean,Gcd,Dvd,Split,…}` — `ℤ[ω]` as a Euclidean domain), and
+`ModArith/EisensteinCubeRoot` supplies the primitive cube root of unity mod `p`.  Next rungs:
+the cubic character `(·/π)₃` on `ℤ[ω]` (norm-`p` primes ↔ the rational character above), primary
+primes, then the reciprocity `(π/π')₃ = (π'/π)₃` — a large multi-session build over `ℤ[ω]`.
+Higher (Eisenstein/quartic) reciprocity sits beyond.  With `the_descent_leg` (leg-2 readout).
 </content>
