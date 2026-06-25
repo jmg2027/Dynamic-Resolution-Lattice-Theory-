@@ -300,6 +300,12 @@ an exact `ℤ[ω]` identity (the unit part of the cubic-reciprocity supplementar
 2nd supplementary law of QR).  Kept PURE by the repo's pure `AddMod213.div_add_mod` (core
 `Nat.div_add_mod` is `propext`-dirty).
 
+**Character–conjugation relation done — `(ᾱ/d)₃ = conj (α/d)₃`.**  `EisensteinCubicCharConj.lean`
+(`char_conj`, `char_conj_value`, both ∅-axiom).  ★★★★ the cubic character intertwines with
+conjugation: `χ(ᾱ) = conj χ(α)`, since `χ = pow·m` and `conj` is a ring hom (`conj_mul`).  With
+`conj ω = ω²` this pairs `(α/d)₃` with `(ᾱ/d)₃` — the reflection underlying the symmetry of cubic
+reciprocity (the conjugate prime `d̄`).  Clean induction, PURE.
+
 Next rungs:
 **(3d-weld)** weld `(α/d)₃` to the rational cubic character `ModArith/CubicResidue.
 cube_iff_three_dvd_dlog` (norm-`p` primes ↔ rational power-residue), giving the character a computable
