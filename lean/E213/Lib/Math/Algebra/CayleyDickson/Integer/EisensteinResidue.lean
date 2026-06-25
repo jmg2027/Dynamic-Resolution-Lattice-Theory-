@@ -25,8 +25,8 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidue
 
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit (ofInt_mul)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq refl add_compat mul_left)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit (ofInt_mul split_dvd)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq refl symm add_compat mul_left)
 open E213.Meta.Int213 (zero_mul mul_one)
 open E213.Meta.Int213 renaming zero_add → int_zero_add
 open E213.Meta.Int213.Order (sub_zero)
@@ -57,5 +57,28 @@ theorem reduce_to_int {π : ZOmega} {r : Int} (h : ModEq π Omega (ofInt r)) (α
   rw [← ofInt_mul, ofInt_add] at h2
   rw [← hd] at h2
   exact h2
+
+/-- The split's divisibility `d ∣ (x − ω) = ⟨x, −1⟩` says `ω ≡ x (mod d)`: `ModEq d ω ↑x`.  (`x − ω =
+    ↑x + −ω`, so `d ∣ (x − ω)` is `ModEq d ↑x ω`; symmetry flips it.)  ∅-axiom. -/
+theorem omega_cong_of_dvd {d : ZOmega} {x : Int} (h : d ∣ (⟨x, -1⟩ : ZOmega)) :
+    ModEq d Omega (ofInt x) := by
+  have key : (⟨x, -1⟩ : ZOmega) = ofInt x + -Omega := by
+    apply ZOmega.ext
+    · show x = x + -(0 : Int)
+      rw [Int.neg_zero, Int.add_zero]
+    · show (-1 : Int) = 0 + -(1 : Int)
+      rw [int_zero_add]
+  have h2 : d ∣ (ofInt x + -Omega) := key ▸ h
+  exact symm h2
+
+/-- ★★★★ **The residue prime, given a cube root** — for a prime `p` with `p ∣ x²+x+1` (`x ≡ ω`), there
+    is a norm-`p` Eisenstein prime `d` with `ω ≡ x (mod d)`, hence (by `reduce_to_int`) **every** `α ∈
+    ℤ[ω]` reduces mod `d` to the rational integer `α.re + α.im·x`.  `split_dvd` gives `d ∣ (x − ω)`,
+    `omega_cong_of_dvd` reads it as `ω ≡ x`, and `reduce_to_int` propagates it.  ∅-axiom. -/
+theorem exists_residue_prime_int (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ m, m ∣ p → m = 1 ∨ m = p)
+    (hp1 : ¬ ((p : Int) ∣ (1 : Int))) (x : Int) (hx : (p : Int) ∣ (x * x + x + 1)) :
+    ∃ d : ZOmega, d.normSq = (p : Int) ∧ ∀ α, ModEq d α (ofInt (α.re + α.im * x)) := by
+  obtain ⟨d, hdn, hdω⟩ := split_dvd p hp2 hpr hp1 x hx
+  exact ⟨d, hdn, fun α => reduce_to_int (omega_cong_of_dvd hdω) α⟩
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidue

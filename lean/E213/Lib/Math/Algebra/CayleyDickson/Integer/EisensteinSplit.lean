@@ -180,22 +180,20 @@ theorem norm_factor_eq_p (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ m, m ∣ p → m =
 
 /-! ## §5 — the split: `p ∣ x²+x+1` ⟹ `p` is a norm in `ℤ[ω]` -/
 
-/-- ★★★★ **The Eisenstein split.**  If `p` is prime and `p ∣ x² + x + 1` (a primitive cube
-    root mod `p`), then `p = ‖d‖²` for some `d ∈ ℤ[ω]` — i.e. `p = a² − ab + b²`.  The
-    Euclidean gcd `d = gcd(ofInt p, x−ω)` is a proper non-unit divisor: it is non-unit (else
-    a unit Bezout would give `p ∣ conj(x−ω)`, impossible), and its cofactor `e` is non-unit
-    (else `p ∣ (x−ω)`, impossible); so `ofInt p = d·e` reducible and `norm_factor_eq_p` gives
-    `‖d‖² = p`.  (`¬ (p:ℤ) ∣ 1` — true for any prime — is taken as a hypothesis.) -/
-theorem split_norm (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ m, m ∣ p → m = 1 ∨ m = p)
+/-- ★★★★ **The Eisenstein split, with the witnessing divisibility.**  `p` prime, `p ∣ x²+x+1`,
+    `¬(p:ℤ)∣1` ⟹ there is a `d ∈ ℤ[ω]` with `‖d‖² = p` **and** `d ∣ (x − ω) = ⟨x, −1⟩` — the norm-`p`
+    prime dividing `x − ω` (so `ω ≡ x (mod d)`).  Strengthens `split_norm` by exposing the Euclidean
+    gcd's divisibility of `x − ω`. -/
+theorem split_dvd (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ m, m ∣ p → m = 1 ∨ m = p)
     (hp1 : ¬ ((p : Int) ∣ (1 : Int)))
     (x : Int) (hx : (p : Int) ∣ (x * x + x + 1)) :
-    ∃ d : ZOmega, d.normSq = (p : Int) := by
+    ∃ d : ZOmega, d.normSq = (p : Int) ∧ d ∣ (⟨x, -1⟩ : ZOmega) := by
   obtain ⟨k, hk⟩ := hx
   obtain ⟨d, s, t, hbez, hdP, hdω⟩ :=
     gcd_bezout (⟨x, -1⟩ : ZOmega).normSq.natAbs (ZOmega.ofInt (p : Int)) (⟨x, -1⟩ : ZOmega)
       (Nat.le_refl _)
   obtain ⟨e, he⟩ := hdP
-  refine ⟨d, ?_⟩
+  refine ⟨d, ?_, hdω⟩
   apply norm_factor_eq_p p hp2 hpr d e he
   · -- d non-unit
     intro hdunit
@@ -212,6 +210,19 @@ theorem split_norm (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ m, m ∣ p → m = 1 ∨
     obtain ⟨m, hm⟩ := hdω
     apply not_dvd_unit_im (p : Int) (⟨x, -1⟩ : ZOmega) hp1 (Or.inr rfl)
     exact ⟨e.conj * m, by rw [hm, hd_eq, mul_assoc]⟩
+
+/-- ★★★★ **The Eisenstein split.**  If `p` is prime and `p ∣ x² + x + 1` (a primitive cube
+    root mod `p`), then `p = ‖d‖²` for some `d ∈ ℤ[ω]` — i.e. `p = a² − ab + b²`.  The
+    Euclidean gcd `d = gcd(ofInt p, x−ω)` is a proper non-unit divisor: it is non-unit (else
+    a unit Bezout would give `p ∣ conj(x−ω)`, impossible), and its cofactor `e` is non-unit
+    (else `p ∣ (x−ω)`, impossible); so `ofInt p = d·e` reducible and `norm_factor_eq_p` gives
+    `‖d‖² = p`.  (`¬ (p:ℤ) ∣ 1` — true for any prime — is taken as a hypothesis.) -/
+theorem split_norm (p : Nat) (hp2 : 2 ≤ p) (hpr : ∀ m, m ∣ p → m = 1 ∨ m = p)
+    (hp1 : ¬ ((p : Int) ∣ (1 : Int)))
+    (x : Int) (hx : (p : Int) ∣ (x * x + x + 1)) :
+    ∃ d : ZOmega, d.normSq = (p : Int) := by
+  obtain ⟨d, hd, _⟩ := split_dvd p hp2 hpr hp1 x hx
+  exact ⟨d, hd⟩
 
 /-- ★★★★ **The Eisenstein split, form level.**  `p` prime, `p ∣ x²+x+1`, `¬(p:ℤ)∣1` ⟹
     `p = a² − ab + b²` for some integers `a, b` (the real-part/imaginary-part of the norm-`p`
