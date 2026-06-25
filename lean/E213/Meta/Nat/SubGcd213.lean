@@ -78,6 +78,39 @@ theorem gcdSub_dvd_both : ∀ (n a b : Nat), b ≤ n → gcdSub n a b ∣ a ∧ 
       obtain ⟨hg_b, hg_r⟩ := gcdSub_dvd_both f (b' + 1) (subMod a a (b' + 1)) hr_le_f
       exact ⟨g_dvd_of_dvd_subMod hg_b hg_r, hg_b⟩
 
+/-- **Forward lift**: if `d` divides `a` and `b`, it divides the remainder `subMod a a b` (= `a mod
+    b`).  From `subMod_eq` (`a = b*q + subMod a a b`): `subMod a a b = a − b*q`, and `d ∣ a`,
+    `d ∣ b*q` give `d ∣ a − b*q` (`Nat.dvd_sub'`).  The companion to `g_dvd_of_dvd_subMod`. -/
+theorem dvd_subMod_of_dvd {d a b : Nat} (hda : d ∣ a) (hdb : d ∣ b) : d ∣ subMod a a b := by
+  obtain ⟨q, hq⟩ := subMod_eq a a b              -- a = b * q + subMod a a b
+  obtain ⟨x, hx⟩ := hda                          -- a = d * x
+  obtain ⟨y, hy⟩ := hdb                          -- b = d * y
+  have hr : a - b * q = subMod a a b :=
+    (congrArg (· - b * q) hq).trans
+      ((congrArg (· - b * q) (Nat.add_comm (b * q) (subMod a a b))).trans
+        (E213.Tactic.NatHelper.add_sub_cancel_right (subMod a a b) (b * q)))
+  -- subMod a a b = a − b*q = d*x − (d*y)*q = d*(x − y*q)
+  refine ⟨x - y * q, ?_⟩
+  rw [← hr, hx, hy, E213.Tactic.NatHelper.mul_assoc, ← E213.Tactic.NatHelper.mul_sub]
+
+/-- ★★★ **`gcdSub n a b` is divisible by every common divisor** (the *greatest* half of gcd; fuel
+    `n ≥ b`).  Mirrors `gcdSub_dvd_both`: the step `(a, b'+1) → (b'+1, a mod (b'+1))` keeps `d ∣
+    (b'+1)` and gains `d ∣ a mod (b'+1)` (`dvd_subMod_of_dvd`), then recurses.  `Nat.mod`-free,
+    ∅-axiom. -/
+theorem gcdSub_greatest : ∀ (n a b d : Nat), b ≤ n → d ∣ a → d ∣ b → d ∣ gcdSub n a b
+  | 0,     a, b, d, _,  hda, _   => hda
+  | f + 1, a, b, d, hb, hda, hdb => by
+    match b, hb, hdb with
+    | 0,      _,  _   => exact hda
+    | b' + 1, hb, hdb =>
+      show d ∣ gcdSub f (b' + 1) (subMod a a (b' + 1))
+      have hr_lt : subMod a a (b' + 1) < b' + 1 :=
+        subMod_lt a a (b' + 1) (Nat.zero_lt_succ b') (Nat.le_refl a)
+      have hr_le_f : subMod a a (b' + 1) ≤ f :=
+        Nat.le_of_lt_succ (Nat.lt_of_lt_of_le hr_lt hb)
+      exact gcdSub_greatest f (b' + 1) (subMod a a (b' + 1)) d hr_le_f hdb
+        (dvd_subMod_of_dvd hda hdb)
+
 /-! ## §3 — the gcd wrapper + coprimality (brick 3) -/
 
 /-- **The gcd, fuel discharged.**  `gcdW a b = gcd(a, b)` with fuel `a + b`, ample for the divisibility
@@ -91,6 +124,10 @@ theorem gcdW_dvd_left (a b : Nat) : gcdW a b ∣ a :=
 /-- `gcdW a b ∣ b`. -/
 theorem gcdW_dvd_right (a b : Nat) : gcdW a b ∣ b :=
   (gcdSub_dvd_both (a + b) a b (Nat.le_add_left b a)).2
+
+/-- `d ∣ a → d ∣ b → d ∣ gcdW a b` — the greatest property, fuel discharged. -/
+theorem gcdW_greatest {a b d : Nat} (hda : d ∣ a) (hdb : d ∣ b) : d ∣ gcdW a b :=
+  gcdSub_greatest (a + b) a b d (Nat.le_add_left b a) hda hdb
 
 /-- ★★★ **Coprimality of a prime with a non-multiple.**  For `p` prime (`2 ≤ p`, only divisors `1`
     and `p`) with `p ∤ a`, `gcd(p, a) = 1`.  The half of Euclid's lemma that needs *no* Bézout: the

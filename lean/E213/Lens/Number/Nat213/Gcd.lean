@@ -1,5 +1,6 @@
 import E213.Lens.Number.Nat213.EuclidUnique
 import E213.Lens.Number.Nat213.ToNatReadout
+import E213.Meta.Nat.SubGcd213
 
 /-!
 # Lens.Number.Nat213.Gcd — the gcd discipline over the Raw-generated ℕ₊ (∅-axiom)
@@ -24,6 +25,7 @@ open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one one_mul mul_comm toNa
 open E213.Lens.Number.Nat213.Divisibility (Dvd dvd_refl dvd_antisymm one_dvd)
 open E213.Lens.Number.Nat213.EuclidUnique (GcdMulSpec gcd_exists_mul)
 open E213.Lens.Number.Nat213.ToNatReadout (dvd_toNat_iff toNat_surj)
+open E213.Meta.Nat.SubGcd213 (gcdW gcdW_greatest gcdW_dvd_left gcdW_dvd_right)
 
 /-- **Greatest common divisor over the Raw-generated ℕ₊**: `d` is a common divisor of `a`, `b`
     that every common divisor divides — the **greatest lower bound** in the `Dvd` partial order.
@@ -124,5 +126,33 @@ theorem isGcd_toNat {a b d : Nat213} (h : IsGcd a b d) :
   have hcb : Dvd c b := dvd_toNat_iff.mpr (by rw [hc]; exact heb)
   have hcd : c.toNat ∣ d.toNat := dvd_toNat_iff.mp (h.2.2 c hca hcb)
   rw [hc] at hcd; exact hcd
+
+/-- `m ∣ n → 0 < n → m ≤ n` (propext-free: `Nat.le_of_dvd` pulls `propext`).  The quotient is
+    `≥ 1` (else `n = 0`), so `m = m·1 ≤ m·k = n`. -/
+private theorem le_of_dvd_pos {m n : Nat} (hn : 0 < n) (h : m ∣ n) : m ≤ n := by
+  obtain ⟨k, hk⟩ := h
+  have hk1 : 1 ≤ k := by
+    cases k with
+    | zero => rw [Nat.mul_zero] at hk; exact absurd (hk ▸ hn) (Nat.lt_irrefl 0)
+    | succ j => exact Nat.succ_le_succ (Nat.zero_le j)
+  calc m = m * 1 := (Nat.mul_one m).symm
+    _ ≤ m * k := Nat.mul_le_mul (Nat.le_refl m) hk1
+    _ = n := hk.symm
+
+/-- ★★★ **The gcd readout, value-level** — `IsGcd a b d ⟹ d.toNat = gcdW a.toNat b.toNat`: the
+    generated gcd reads onto the native `subMod`-grounded `gcdW` (`Meta/Nat/SubGcd213`).  The gcd
+    analogue of `Valuation.vp_eq_vpSub`, now at value level — possible because `gcdW` is fully
+    characterised (`gcdW_dvd_left`/`right` + `gcdW_greatest`).  Both divide each other (`isGcd_toNat`
+    greatest + `gcdW_greatest`), and both are positive (≥ 1), so `Nat.le_of_dvd` + `Nat.le_antisymm`
+    give equality.  ∅-axiom. -/
+theorem isGcd_toNat_eq {a b d : Nat213} (h : IsGcd a b d) :
+    d.toNat = gcdW a.toNat b.toNat := by
+  obtain ⟨hda, hdb, hgreat⟩ := isGcd_toNat h
+  have hdg : d.toNat ∣ gcdW a.toNat b.toNat := gcdW_greatest hda hdb
+  have hgd : gcdW a.toNat b.toNat ∣ d.toNat :=
+    hgreat _ (gcdW_dvd_left a.toNat b.toNat) (gcdW_dvd_right a.toNat b.toNat)
+  have hd0 : 0 < d.toNat := toNat_ge_one d
+  have hg0 : 0 < gcdW a.toNat b.toNat := Nat.pos_of_dvd_of_pos hgd hd0
+  exact Nat.le_antisymm (le_of_dvd_pos hg0 hdg) (le_of_dvd_pos hd0 hgd)
 
 end E213.Lens.Number.Nat213.Gcd
