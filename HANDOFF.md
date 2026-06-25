@@ -71,12 +71,23 @@ Roadmap `research-notes/frontiers/higher_reciprocity_roadmap.md`.  **A1 + A2 COM
   `chiListSum_scale_zero`.  Permutation from `EulerTheorem.lperm_image`; non-residue = primitive root
   (`chiOmega_ne_one` + `cube_pow_iff_three_dvd_exp`, `g¹` a cube ⟺ `3∣1`, false).
 
-## Frontier — Phase A3 (`N(J)=J·J̄=p`) and the law
-The full **character-orthogonality engine is COMPLETE** (`Σχ_ω=0` unconditional, the cancellation, the
-multiplicativity, `|χ|=1`).  **Remaining for `N(J)=p`:** the `J·J̄` **double sum** — expand
-`Σ_{s,t} χ_ω(s)χ_ω(1−s)χ̄_ω(t)χ̄_ω(1−t)`, reindex `s=t·u`, collapse the inner sum by `Σ_u χ_ω(u)=0`
-(in hand) + `χ_ω·χ̄_ω=1`.  Needs a double-`chiListSum` Fubini manipulation — the next build.  Then the
-law `(π/π')₃=(π'/π)₃` from `J=π` (A4) + the transfer.
+### Phase A3 — toward `N(J)=p` (this session, all PURE)
+- **`Integer/EisensteinListSum`** — generic `listSum f L` (ℤ[ω] list sum) + toolkit: `listSum_lperm`
+  (perm-invariant), `listSum_append`, `listSum_add`/`mul_left`/`congr` (linearity), `listSum_map`
+  (reindex), **`listSum_mul_distrib`** (`(Σf)(Σg)=Σ_s Σ_t f s·g t`, the double-sum engine).
+- **`Integer/EisensteinJacobiNorm`** — `jacobiList = Σ_{a<p} χ_ω(a)·χ_ω((1−a)%p)`; `jacobiList_conj`
+  (`conj J = Σ χ̄_ω·χ̄_ω`, via `conj_listSum` homomorphism); **`jacobiList_norm_double`**
+  (`J·J̄ = Σ_a Σ_b (χ_ω(a)χ_ω(1−a))(χ̄_ω(b)χ̄_ω(1−b))`).
+- **`Integer/EisensteinJacobiReindex`** — **`chiOmega_reindex`** (`χ_ω((b·c)%p)·conj χ_ω(b)=χ_ω(c)`,
+  the per-term `a=b·c` simplification) + `chiOmega_ne_zero`.
+
+## Frontier — `N(J)=p` (final A3 build) and the law
+Substrate + steps 1–4-per-term DONE.  **Remaining: the reindex-sum collapse + assembly** (roadmap A3
+step 4–5) — for each fixed unit `b`, reindex the inner `a`-sum of `jacobiList_norm_double` by
+`a=(b·c)%p` (a unit-permutation of `List.range p`, `lperm_image`-style), apply `chiOmega_reindex`
+termwise, isolate the `a,b∈{0,1}` boundary (where `χ_ω=0`), and collapse the off-diagonal by
+`chiListSum_totatives_zero` (`Σχ_ω=0`); the diagonal gives the count `p`.  This is the major remaining
+combinatorial proof.  Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
 `cd lean && lake build E213.Lib.Math.Algebra.CayleyDickson` ; then from repo root
