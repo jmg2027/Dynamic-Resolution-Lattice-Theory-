@@ -6,16 +6,16 @@ E213` passes clean (465/465).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, twenty-one iterations)
+## What Was Done This Session (autonomous-research, twenty-two iterations)
 
-Twenty-one focused iterations on the **descent-leg discipline** over `Nat213` (the
+Twenty-two focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
 elementary number theory chain on the generated carrier, then **promoting it to a
 `theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
 exponentiation → **p-adic valuation** (both forms, exactness + uniqueness), all
 ∅-axiom.
 
-### Iterations 18–21: new field — modular arithmetic `Congruence.lean` (PURE ✓)
+### Iterations 18–22: new field — modular arithmetic `Congruence.lean` (PURE ✓)
 A fresh field regrounded on `Nat213` with the carrier toolkit. No subtraction on
 `Nat213`, so the classical `m ∣ a−b` becomes the subtraction-free symmetric
 `ModEq m a b := ∃ k l, a + m·k = b + m·l`. **A congruence on the semiring**
@@ -27,8 +27,9 @@ A fresh field regrounded on `Nat213` with the carrier toolkit. No subtraction on
   native ℕ congruence (subtraction-free form) of the readouts; ⟸ lifts native
   witnesses via `toNat_surj` shifted `+1` (the no-zero gap, absorbed by `Nat.mul_succ`).
 Entirely over `Nat213` in the statements; the readout welds the field to native ℕ.
-- **CRT core**: `Coprime.coprime_mul_dvd` (`Coprime m n → m∣d → n∣d → m·n∣d`, via
-  `coprime_dvd_mul`) + `modeq_split` (`a≡b mod m·n → a≡b mod m ∧ a≡b mod n`).
+- **Chinese Remainder Theorem** (both ways): `crt` (`Coprime m n → a≡b mod m →
+  a≡b mod n → a≡b mod m·n`) + `modeq_split` (the converse). Via `modeq_cases`
+  (concrete form of `ModEq`, trichotomy + cancellation) + `coprime_mul_dvd`.
 
 ### Iteration 17: the value-level gcd weld — `Gcd.isGcd_toNat_eq` (PURE ✓)
 `IsGcd a b d ⟹ d.toNat = gcdW a.toNat b.toNat` (the gcd analogue of `vp_eq_vpSub`,
@@ -204,6 +205,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+fc3f798 Nat213.Congruence: the Chinese Remainder Theorem over the Raw spine
 f78fd63 Nat213: CRT core — coprime_mul_dvd + the congruence split direction
 db2ebdf Nat213.Congruence: modeq_toNat_iff — the congruence readout is a full iff
 be77a33 Nat213.Congruence: modular exponentiation + defining step + native readout
@@ -281,16 +283,14 @@ next moves:
   value-level), `ToNatReadout.toNat_faithful` (lt/le/Dvd + surjectivity),
   `Gcd.isGcd_toNat`(_eq) (gcd, spec- and value-level). The generated discipline
   reads onto the native corpus across order, divisibility, gcd, and valuation.
-- **Modular arithmetic campaign** (`Congruence.lean`): congruence core + modular
-  exponentiation + readout iff + CRT core (`coprime_mul_dvd`, `modeq_split`) closed.
-  Next:
-  - **Full congruence CRT** `Coprime m n → ModEq m a b → ModEq n a b → ModEq (m·n) a b`.
-    Route: an extraction `ModEq m a b → a = b ∨ (∃c, a+m·c=b) ∨ (∃c, b+m·c=a)` (via
-    `lt_trichotomy` on the certificate's `k,l` + `add_{left,right}_cancel`); the
-    direction is fixed by `a` vs `b` so `m` and `n` give the same disjunct; then the
-    common difference is a multiple of both `m` and `n` ⟹ (`coprime_mul_dvd`) of
-    `m·n` ⟹ `ModEq (m·n)` (via `modeq_add_mul` + `symm`). ~40 lines; mind `propext`.
-  - Fermat/Euler-style `a^φ ≡ 1` once a unit-group count over `Nat213` exists.
+- **Modular arithmetic campaign** (`Congruence.lean`): congruence ring + modular
+  exponentiation + readout iff + **the full CRT both ways** are closed. The field
+  is a complete regrounding. Possible next deposits:
+  - Fermat/Euler-style `a^φ ≡ 1` once a unit-group count over `Nat213` exists
+    (needs a residue-class / unit-group construction first — a bigger build).
+  - A fourth field: regrounding e.g. continued fractions or a combinatorial
+    identity family on `Nat213`, or returning to the conceptual residue (Legs 1 & 3).
+- Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
 - Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
 and is research-grade.
