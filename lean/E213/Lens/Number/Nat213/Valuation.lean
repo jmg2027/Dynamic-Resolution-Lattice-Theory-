@@ -22,10 +22,12 @@ namespace E213.Lens.Number.Nat213.Valuation
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
-  (mul one succ pow pow_one pow_succ pow_add mul_assoc one_mul powNat powNat_zero powNat_succ)
+  (mul one succ toNat toNat_add toNat_mul toNat_ge_one
+   pow pow_one pow_succ pow_add mul_assoc one_mul powNat powNat_zero powNat_succ powNat_add)
 open E213.Lens.Number.Nat213.Order (lt le lt_add_right mul_right_cancel mul_left_cancel le_total)
 open E213.Lens.Number.Nat213.Divisibility
-  (Dvd one_dvd dvd_mul_left dvd_imp_eq_or_lt dvd_mul_of_dvd_left self_dvd_pow)
+  (Dvd one_dvd dvd_mul_left dvd_mul_right dvd_imp_eq_or_lt dvd_mul_of_dvd_left dvd_trans dvd_imp_le
+   self_dvd_pow)
 open E213.Lens.Number.Nat213.Irreducible (Irreducible)
 open E213.Lens.Number.Nat213.WellOrder (strong_induction)
 
@@ -120,5 +122,58 @@ theorem vpSearch_le (p n : Nat213) : ∀ b : Nat, vpSearch p n b ≤ b
     `p`-power it names is an actual divisor of `n`.  ∅-axiom (the count reads out into ℕ; the
     divisor stays in `Nat213`). -/
 theorem pow_vp_dvd (p n : Nat213) : Dvd (powNat p (vp p n)) n := vpSearch_dvd p n n.toNat
+
+/-! ### Exactness — `vp` is the *largest* exponent (`le_vp_iff`) -/
+
+/-- `le` reads through to `toNat` order. -/
+private theorem le_imp_toNat_le {a b : Nat213} (h : le a b) : a.toNat ≤ b.toNat := by
+  rcases h with rfl | ⟨c, hc⟩
+  · exact Nat.le_refl _
+  · rw [← hc, toNat_add]; exact Nat.le_add_right _ _
+
+/-- For `p ≠ one`, `k ≤ (p^k).toNat` — `p ≥ 2` at least doubles the count each step, so the search
+    bound `toNat n` covers every `k` with `p^k ∣ n`. -/
+private theorem le_toNat_powNat {p : Nat213} (hp : p ≠ one) : ∀ k : Nat, k ≤ (powNat p k).toNat
+  | 0     => Nat.zero_le _
+  | k + 1 => by
+      rw [powNat_succ, toNat_mul]
+      have hp2 : 2 ≤ p.toNat := by
+        cases p with
+        | one => exact absurd rfl hp
+        | succ p' => show 2 ≤ p'.toNat + 1; exact Nat.add_le_add_right (toNat_ge_one p') 1
+      have ih : k ≤ (powNat p k).toNat := le_toNat_powNat hp k
+      calc k + 1 ≤ (powNat p k).toNat + (powNat p k).toNat :=
+              Nat.add_le_add ih (toNat_ge_one _)
+        _ = 2 * (powNat p k).toNat := (Nat.two_mul _).symm
+        _ ≤ p.toNat * (powNat p k).toNat := Nat.mul_le_mul hp2 (Nat.le_refl _)
+
+/-- The search finds an exponent at least as large as any `p^k ∣ n` within its bound. -/
+theorem vpSearch_ge {p n : Nat213} : ∀ b k : Nat, Dvd (powNat p k) n → k ≤ b → k ≤ vpSearch p n b
+  | 0,     k, _, hkb => hkb
+  | b + 1, k, hdvd, hkb => by
+      show k ≤ if Dvd (powNat p (b + 1)) n then b + 1 else vpSearch p n b
+      by_cases h : Dvd (powNat p (b + 1)) n
+      · rw [if_pos h]; exact hkb
+      · rw [if_neg h]
+        rcases Nat.lt_or_ge k (b + 1) with hlt | hge
+        · exact vpSearch_ge b k hdvd (Nat.le_of_lt_succ hlt)
+        · exact absurd (Nat.le_antisymm hkb hge ▸ hdvd) h
+
+/-- ★★★ **Exactness of the `p`-adic valuation** — for a prime `p` (`p ≠ one`),
+    `p^k ∣ n ⟺ k ≤ vp p n`.  `vp p n` is the *largest* `k` whose `p`-power divides `n`.  ⟸ chains
+    `powNat`-monotonicity into `pow_vp_dvd`; ⟹ is the search maximality (`vpSearch_ge`), the bound
+    `toNat n` covering every divisor exponent by `lt_toNat_powNat`.  ∅-axiom. -/
+theorem le_vp_iff {p : Nat213} (hp : p ≠ one) (n : Nat213) (k : Nat) :
+    Dvd (powNat p k) n ↔ k ≤ vp p n := by
+  constructor
+  · intro hdvd
+    have hbound : k ≤ n.toNat :=
+      Nat.le_trans (le_toNat_powNat hp k) (le_imp_toNat_le (dvd_imp_le hdvd))
+    exact vpSearch_ge n.toNat k hdvd hbound
+  · intro hk
+    obtain ⟨d, hd⟩ := Nat.le.dest hk
+    refine dvd_trans ?_ (pow_vp_dvd p n)
+    rw [← hd, powNat_add]
+    exact dvd_mul_right (powNat p k) (powNat p d)
 
 end E213.Lens.Number.Nat213.Valuation

@@ -77,9 +77,9 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              inhabited decidable predicate has a `lt`-minimal
                              witness, constructive via `decBoundedExists`).
   - `Valuation.lean`       — `p`-adic structure: (A) `vp` (multiplicity read OUT
-                             into ℕ via `Peano.powNat`; `pow_vp_dvd`); (B)
-                             `padic_factorization` (native `n=p^k·m`, `¬p∣m`,
-                             for `p∣n`).
+                             into ℕ via `Peano.powNat`; `pow_vp_dvd`; exactness
+                             `le_vp_iff`); (B) `padic_factorization` + uniqueness
+                             (native `n=p^k·m`, `¬p∣m`, for `p∣n`).
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence; a prime dividing a power
                              divides the base (`irreducible_dvd_pow_iff`).
