@@ -274,6 +274,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   rather than a slogan: generate ℕ *from* `Raw` (`Nat₂₁₃`, not Lean's), re-derive one discipline over
   it via a Lens-arrow, and strengthen initiality to *forcing* (unique distinguishing-preserving
   reading). Large, high-risk; the honest fallback is a precise generated-vs-borrowed accounting.
+- `carrier_readout_crossdomain` — **main ↔ branch cross-domain (carrier-readout weld).** The
+  `Nat213` welds (`toNat_faithful`, `vp_eq_vpSub`, `isGcd_toNat_eq`, `modeq_toNat_iff`) form a
+  *transport functor* `Nat213 → Nat`: main's native results (Fermat/Euler/Wilson) can be
+  **transported** to `Nat213` via the readout rather than re-derived (build the weld once, inherit
+  the corpus). Plus: the no-zero readout principle (essay #114) is §6.9's `0/∞`-pre-Lens-residue
+  cashed out operationally; the weld is the carrier-level shadow of "two faces of one count". Open
+  probe: a `ModArithReadout` transporting one native modular theorem to `Nat213`.
 - `the_substance_test` — **the strategic frame** (substance vs wordplay, without
   self-deception): genuine cross-domain unity = shared-engine / shared-kernel
   theorems, not isolated re-derivations.  **State of Line A:** internal complete —
