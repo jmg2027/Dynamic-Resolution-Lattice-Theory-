@@ -63,6 +63,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidue
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResiduePrime
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrime
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConverse

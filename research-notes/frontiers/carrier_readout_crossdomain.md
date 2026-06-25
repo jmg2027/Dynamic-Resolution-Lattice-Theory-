@@ -204,12 +204,22 @@ the **commutativity** of `ℤ[ω]` is essential — it would fail in the non-com
 `char_mul`: `χ(αβ) ≡ χ(α)·χ(β) (mod d)` for `χ(·) = (·)^m` — the homomorphism property
 `(αβ/d)₃ = (α/d)₃·(β/d)₃`, descending from the exact equality.
 
+**Rung 3c-core done — a norm-`p` Eisenstein element is prime; `ℤ[ω]/(d)` is an integral domain.**
+`CayleyDickson/Integer/EisensteinPrime.lean` (`normSq_dvd_dichotomy`, `dvd_of_associate`,
+`norm_prime_euclid`, `residue_no_zero_divisors`, all ∅-axiom).  ★★★★★ `norm_prime_euclid`: `‖π‖² = p`
+prime, `π ∣ αβ` ⟹ `π ∣ α ∨ π ∣ β`.  The proof is the Euclidean gcd dichotomy *as a constructive case
+split*: `gcd_bezout` gives `d = s·α + t·π` dividing both; `‖d‖² ∣ p` so `‖d‖² ∈ {1, p}`
+(`normSq_dvd_dichotomy`); `‖d‖² = p` makes `d` an associate of `π` (`dvd_of_associate`, cofactor
+norm 1 = unit) ⟹ `π ∣ α` (left), `‖d‖² = 1` makes `d` a unit ⟹ Bezout ⟹ `π ∣ β` (right).  **No
+excluded middle** — the norm dichotomy delivers the `∨` directly (so the propext/decidability wall is
+sidestepped).  `residue_no_zero_divisors` is the `ModEq`-reading (`π ∣ x = ModEq π x 0`).  This is the
+heaviest structural lift; it also unlocks unique factorization for rung 5.
+
 Next rungs:
-**(3c)** read the cube-root-of-unity value into `μ₃` *exactly* (it is one of `{1, ω, ω²}`, not merely
-cubing to 1) — needs `d` **prime in `ℤ[ω]`** (so `ℤ[ω]/(d)` is an integral domain) + the factorization
-`χ³−1 = (χ−1)(χ−ω)(χ−ω²)`; `d`'s primality is irreducible⟹prime via the Euclidean structure
-(`EisensteinDivStep.zomega_div_step`), the heaviest remaining lift.  Then weld `(α/d)₃` to
-`ModArith/CubicResidue.cube_iff_three_dvd_dlog`;
+**(3c-value)** read the cube-root-of-unity value into `μ₃` *exactly* (one of `{1, ω, ω²}`): factor
+`χ³−1 = (χ−1)(χ−ω)(χ−ω²)` in `ℤ[ω]` (∅-axiom ring identity), then apply `residue_no_zero_divisors`
+across the triple product to force one factor `≡ 0 (mod d)`, i.e. `χ ≡ 1, ω,` or `ω²`.  Then weld
+`(α/d)₃` to `ModArith/CubicResidue.cube_iff_three_dvd_dlog`;
 **(4)** primary primes (the unique associate `≡ 2 mod 3` among the 6 unit multiples);
 **(5)** the reciprocity `(π/π')₃ = (π'/π)₃`.
 Higher (Eisenstein/quartic) reciprocity sits beyond.  With `the_descent_leg` (leg-2 readout).
