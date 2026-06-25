@@ -86,8 +86,8 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            Euclid's coprime-division law `coprime_dvd_mul`
                            (`gcd(a,b)=1`, `a∣b·c` ⟹ `a∣c`), descent to divisors,
                            multiplicative closure (`coprime_mul`), power closure
-                           (`coprime_pow`), `coprime_self_imp`.  Built on
-                           `Gcd.isGcd_mul_left`.
+                           (`coprime_pow`), `coprime_self_imp`, the Prime↔Coprime
+                           bridge (`irreducible_coprime_iff`).  Built on `Gcd`.
     * `WellOrder`        — `Nat213`'s well-foundedness as a named API:
                            `strong_induction` (named `wf_lt.induction`) and
                            `well_ordering` (every inhabited decidable predicate

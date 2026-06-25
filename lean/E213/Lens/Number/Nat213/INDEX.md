@@ -69,8 +69,8 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
   - `Coprime.lean`         — coprimality (`Coprime a b := IsGcd a b one`): Euclid's
                              coprime-division law `coprime_dvd_mul`, descent to
                              divisors, multiplicative closure (`coprime_mul`),
-                             power closure (`coprime_pow`). Built on
-                             `Gcd.isGcd_mul_left`.
+                             power closure (`coprime_pow`), the Prime↔Coprime bridge
+                             (`irreducible_coprime_iff`). Built on `Gcd`.
   - `WellOrder.lean`       — well-foundedness as a named API: `strong_induction`
                              (named `wf_lt.induction`) + `well_ordering` (every
                              inhabited decidable predicate has a `lt`-minimal

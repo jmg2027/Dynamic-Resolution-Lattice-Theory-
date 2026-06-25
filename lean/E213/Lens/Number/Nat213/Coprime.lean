@@ -18,10 +18,11 @@ namespace E213.Lens.Number.Nat213.Coprime
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one mul_comm pow pow_one pow_succ)
-open E213.Lens.Number.Nat213.Divisibility (Dvd one_dvd dvd_refl dvd_trans dvd_mul_left)
+open E213.Lens.Number.Nat213.Divisibility (Dvd one_dvd dvd_refl dvd_trans dvd_mul_left mul_eq_one)
 open E213.Lens.Number.Nat213.Gcd
   (IsGcd isGcd_comm isGcd_one_left isGcd_one_right isGcd_self isGcd_unique
-   isGcd_mul_left isGcd_greatest)
+   isGcd_mul_left isGcd_greatest isGcd_exists isGcd_dvd_left isGcd_dvd_right)
+open E213.Lens.Number.Nat213.Irreducible (Irreducible irreducible_divisors)
 
 /-- **Coprime over the Raw-generated ℕ₊**: `gcd(a,b) = one` — the only common divisor is the
     bottom of the divisibility order. -/
@@ -105,5 +106,35 @@ theorem coprime_pow_left {a b : Nat213} (h : Coprime a b) (m : Nat213) : Coprime
 theorem coprime_pow {a b : Nat213} (h : Coprime a b) (m n : Nat213) :
     Coprime (pow a m) (pow b n) :=
   coprime_pow_right (coprime_pow_left h m) n
+
+/-! ## The Prime ↔ Coprime bridge (an irreducible is coprime to its non-multiples) -/
+
+/-- ★★★ **An irreducible is coprime to anything it does not divide** — `Irreducible p`, `¬ p ∣ a`
+    ⟹ `Coprime p a`.  The gcd `d` of `p`, `a` divides `p`, so (`irreducible_divisors`) is `one`
+    or `p`; it cannot be `p` (that would make `p ∣ a`), so it is `one`.  This is the lemma the
+    inside of `EuclidUnique.euclid` computes; here it is named, on the `Gcd` discipline. ∅-axiom. -/
+theorem coprime_of_irreducible_not_dvd {p a : Nat213} (hp : Irreducible p) (hpa : ¬ Dvd p a) :
+    Coprime p a := by
+  obtain ⟨d, hd⟩ := isGcd_exists p a
+  rcases irreducible_divisors hp (isGcd_dvd_left hd) with h1 | hpe
+  · rwa [h1] at hd
+  · exact absurd (hpe ▸ isGcd_dvd_right hd) hpa
+
+/-- **An irreducible coprime to `a` does not divide `a`** — the converse direction.  If `p ∣ a`
+    then `p` divides `gcd(p,a) = one` (`isGcd_greatest` with `dvd_refl`), forcing `p = one`,
+    contradicting irreducibility (`hp.1`). -/
+theorem not_dvd_of_irreducible_coprime {p a : Nat213} (hp : Irreducible p) (hcop : Coprime p a) :
+    ¬ Dvd p a := by
+  intro hdvd
+  have hp1 : Dvd p one := isGcd_greatest hcop (dvd_refl p) hdvd
+  obtain ⟨c, hc⟩ := hp1
+  exact hp.1 (mul_eq_one hc.symm).1
+
+/-- ★★★ **For an irreducible, coprimality is exactly non-divisibility** —
+    `Irreducible p → (Coprime p a ↔ ¬ p ∣ a)`.  The clean characterisation of an irreducible's
+    coprimality on the Raw-generated ℕ₊. -/
+theorem irreducible_coprime_iff {p a : Nat213} (hp : Irreducible p) :
+    Coprime p a ↔ ¬ Dvd p a :=
+  ⟨not_dvd_of_irreducible_coprime hp, coprime_of_irreducible_not_dvd hp⟩
 
 end E213.Lens.Number.Nat213.Coprime
