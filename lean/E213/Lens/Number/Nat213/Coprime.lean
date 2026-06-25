@@ -1,4 +1,5 @@
 import E213.Lens.Number.Nat213.Gcd
+import E213.Meta.Nat.SubBezout213
 
 /-!
 # Lens.Number.Nat213.Coprime — coprimality over the Raw-generated ℕ₊ (∅-axiom)
@@ -21,8 +22,9 @@ open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one mul_comm mul_assoc po
 open E213.Lens.Number.Nat213.Divisibility (Dvd one_dvd dvd_refl dvd_trans dvd_mul_left mul_eq_one)
 open E213.Lens.Number.Nat213.Gcd
   (IsGcd isGcd_comm isGcd_one_left isGcd_one_right isGcd_self isGcd_unique
-   isGcd_mul_left isGcd_greatest isGcd_exists isGcd_dvd_left isGcd_dvd_right)
+   isGcd_mul_left isGcd_greatest isGcd_exists isGcd_dvd_left isGcd_dvd_right isGcd_toNat_eq)
 open E213.Lens.Number.Nat213.Irreducible (Irreducible irreducible_divisors)
+open E213.Meta.Nat.SubBezout213 (bezout_one_of_coprime)
 
 /-- **Coprime over the Raw-generated ℕ₊**: `gcd(a,b) = one` — the only common divisor is the
     bottom of the divisibility order. -/
@@ -146,5 +148,17 @@ theorem coprime_mul_dvd {m n d : Nat213} (h : Coprime m n) (hm : Dvd m d) (hn : 
 theorem irreducible_coprime_iff {p a : Nat213} (hp : Irreducible p) :
     Coprime p a ↔ ¬ Dvd p a :=
   ⟨not_dvd_of_irreducible_coprime hp, coprime_of_irreducible_not_dvd hp⟩
+
+/-- ★★★ **Bézout's identity for the generated coprimality (readout form)** — `Coprime a m` over
+    `Nat213` yields native Bézout coefficients: `∃ x y, a.toNat·x = m.toNat·y + 1 ∨
+    m.toNat·y = a.toNat·x + 1`.  Accessed through the carrier weld: `isGcd_toNat_eq` reads
+    `Coprime a m` onto `gcdW a.toNat m.toNat = 1`, then `SubBezout213.bezout_one_of_coprime`
+    (the grounded one-sided ℕ Bézout) applies.  The coefficients are read *out* into ℕ — lifting
+    them back to `Nat213` is blocked by the no-zero shape (a coefficient may be `0`, and the
+    two-sided form needs a `−1` complement `Nat213` cannot build); see `the_descent_leg` frontier.
+    ∅-axiom. -/
+theorem coprime_bezout {a m : Nat213} (hco : Coprime a m) :
+    ∃ x y : Nat, a.toNat * x = m.toNat * y + 1 ∨ m.toNat * y = a.toNat * x + 1 :=
+  bezout_one_of_coprime (isGcd_toNat_eq hco).symm
 
 end E213.Lens.Number.Nat213.Coprime

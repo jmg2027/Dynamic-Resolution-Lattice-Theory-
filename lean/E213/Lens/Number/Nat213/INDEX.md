@@ -72,7 +72,8 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              coprime-division law `coprime_dvd_mul`, descent to
                              divisors, multiplicative closure (`coprime_mul`),
                              power closure (`coprime_pow`), coprime factors multiply
-                             (`coprime_mul_dvd`), the Prime↔Coprime bridge
+                             (`coprime_mul_dvd`), Bézout in readout form
+                             (`coprime_bezout`), the Prime↔Coprime bridge
                              (`irreducible_coprime_iff`). Built on `Gcd`.
   - `ToNatReadout.lean`    — the depth readout `toNat` is a faithful ordered-semiring
                              embedding onto ℕ₊: `lt`/`le`/`Dvd` read as their native
