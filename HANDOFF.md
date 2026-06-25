@@ -6,13 +6,24 @@ E213` passes clean (463/463).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, eleven iterations)
+## What Was Done This Session (autonomous-research, twelve iterations)
 
-Eleven focused iterations on the **descent-leg discipline** over `Nat213` (the
+Twelve focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
-elementary number theory chain on the generated carrier: order → divisibility →
-gcd → coprimality → well-ordering → exponentiation → **p-adic valuation**
-(both forms, exactness + uniqueness), all ∅-axiom.
+elementary number theory chain on the generated carrier, then **promoting it to a
+`theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
+exponentiation → **p-adic valuation** (both forms, exactness + uniqueness), all
+∅-axiom.
+
+### Iteration 12: promotion to a theory/ chapter (PROMOTION_CRITERIA met)
+The closed leg-2 cone (H1 ∅-axiom ✓, H2 build clean ✓, S1 categorically closed)
+promoted to **`theory/math/numbertheory/number_theory_over_the_spine.md`** — a
+mirror chapter organized by the discipline chain, sibling to the carrier chapter
+`naturals_from_the_spine.md` (cross-linked both ways), complementing the
+native-`Nat` `grounded_fundamental_theorem.md`. Registered in `theory/math/INDEX.md`
+(+ the previously-missing `grounded_fundamental_theorem`); promotion #111 logged.
+The conceptual residue (Legs 1 & 3) stays open in `frontiers/the_descent_leg.md`
+(cited in the chapter's Open frontier).
 
 ### Iterations 10–11: p-adic valuation, both forms, closed (PURE ✓) — Valuation.lean
 After a design memo on the no-zero snag (a valuation counts, and the count can be
@@ -133,6 +144,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+b11dc2c Promote: leg-2 number-theory discipline over Nat213 → theory/ chapter
 ea8184d Nat213.Valuation: exactness le_vp_iff — vp is the largest dividing exponent
 8e7408c Nat213.Valuation: uniqueness of the p-adic factorization (welds B's k)
 cc00261 Nat213: p-adic valuation — both forms (powNat + vp readout, padic_factorization)
@@ -188,17 +200,17 @@ Remaining natural deposits, low-risk:
   `Factorization`/`EuclidUnique` opens. Clean, low-risk, build-verifiable.
 
 ## Next
-The `Nat213` leg-2 number-theory cone is **complete** (order → divisibility → gcd
-→ coprimality → well-ordering → pow → prime/power facts → p-adic valuation with
-exactness + uniqueness), all ∅-axiom on the generated carrier. Both valuation
-frontier follow-ups are now CLOSED. The remaining descent-leg work is
-**conceptual** (Legs 1 & 3 — generation-vs-borrowing, forcing-vs-matching;
-research-grade). Recommended next moves:
-- **Promote the `Nat213` cone to a `theory/` chapter** — it is a closed, coherent
-  ∅-axiom discipline ("elementary number theory generated over the Raw spine");
-  a strong promotion candidate per `PROMOTION_CRITERIA.md`.
-- Or a fresh campaign regrounding another field on `subMod`/structural descent
-  (the prior handoff's thick target).
+The `Nat213` leg-2 number-theory cone is **complete and promoted** (chapter
+`theory/math/numbertheory/number_theory_over_the_spine.md`). The remaining
+descent-leg work is **conceptual** (Legs 1 & 3 — generation-vs-borrowing,
+forcing-vs-matching; research-grade, `frontiers/the_descent_leg.md`). Recommended
+next moves:
+- A fresh campaign regrounding another field on `subMod`/structural descent (the
+  prior handoff's thick target) — e.g. modular arithmetic or a divisor theory over
+  `Nat213`, extending the now-promoted cone.
+- Or a cross-domain essay tying the generated discipline to the native-`Nat`
+  corpus (the carrier-gap weld noted in essay #103 `forced_by_the_distinguishing`
+  — leg-2 now fuses the two halves over one carrier).
 - Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
 and is research-grade.
