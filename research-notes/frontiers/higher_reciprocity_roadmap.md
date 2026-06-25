@@ -55,16 +55,27 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
   - `…/Integer/EisensteinResidueFieldCubeRoots.lean` — the lift into `ℤ[ω]`: `cube_roots_rational`
     (`{1,ω,ω²} ≡ {1,x,x²} mod d`), `ofInt_natMod_modEq` (`% p` invisible mod `d`),
     `natMod_value_omega_power` (`ofInt ↑χ(t) ≡` one of `{1,ω,ω²}` mod `d`).
-  - **Remaining A1 polish (optional):** package a single computable `χ_ω : ℕ → ℤ[ω]` (the if-`{0,1,ω,ω²}`
-    selector) with multiplicativity transferred from `cubicChar_mul` via residue-field injectivity
-    (`EisensteinCubicCharWelldef.root_unique`, `p>3`).  Not blocking A2/A3.
-- **A2.** the Jacobi sum `J(χ,χ) = Σ_t χ(t)χ(1−t)` as a concrete finite `sumRange` over `ℤ[ω]`.
-  Indexed over `𝔽_p` residues (with `χ_ω(0)=0`), built on `EisensteinFiniteSum.sumRange`.  ← **next.**
+  - `…/Integer/EisensteinCubicCharFp.lean` — the **computable `χ_ω : ℕ → ℤ[ω]`** (the if-`{0,1,ω,ω²}`
+    selector): `chiOmega_value` / `chiOmega_unit_value` (`μ₃`-valued), `chiOmega_lift`
+    (`ofInt↑χ(t) ≡ χ_ω(t) mod d`), `chiOmega_mul_conj` (`χ_ω·conj χ_ω = 1`, the `|χ|=1` unit-norm).
+  - `…/Integer/EisensteinCubicCharFpMul.lean` — **`χ_ω` multiplicativity** `chiOmega_mul`
+    (`χ_ω(s)·χ_ω(t) = χ_ω(st)`, the keystone), via `mu3_mul_closed` (μ₃ closed under ·) + `mu3_inj`
+    (`root_unique`, μ₃ distinct mod d for `p>3`); plus `mu3_sum_zero` (`1+ω+ω²=0`).
+  - **A1 is COMPLETE** — `χ_ω` is a genuine multiplicative `μ₃`-valued character on `𝔽_p`.
+- **A2.** the Jacobi sum `J(χ,χ) = Σ_t χ_ω(t)·χ_ω(1−t)` as a concrete finite `sumRange` over `ℤ[ω]`.
+  **[DONE — `…/Integer/EisensteinJacobiSum.lean`]** `jacobiSum` indexed over `𝔽_p` (`(1−t)` written
+  `(1+(p−t))%p`); `chiOmega_zero_of_dvd`, boundary terms `t=0,1` vanish (`jacobi_term_zero/one`).
 - **A3.** `N(J) = J·J̄ = p` — the double sum collapsed by orthogonality / translation invariance.
-  The hard analytic core.  Components in hand: `EisensteinCubicCharFunction.chiExp_sum` /
-  `chiExp_sum_shift` (exponent-side `Σχ=0`), `CyclicCharacterOrthogonality.cyclic_orthogonality_modp`
-  (`Σ_{k<n} ωᵏ ≡ 0` in `ℤ/p`).  Gap: the **`𝔽_p`-residue-indexed** `Σ_{t} χ(t) = 0` (scaling-
-  invariance `Σχ(t)=Σχ(at)=χ(a)Σχ(t)` over the unit-permutation `t↦at`), then the `J·J̄` double-sum.
+  ← **current frontier.**  In hand: `chiOmega_mul` (multiplicativity), `mu3_sum_zero` (`1+ω+ω²=0`),
+  `chiOmega_mul_conj` (`|χ|=1`), exponent-side `chiExp_sum`, `CyclicCharacterOrthogonality`.  **Two
+  remaining gaps:**
+  1. **`𝔽_p`-residue `Σ_{t<p} χ_ω(t) = 0`** — needs a **sum-permutation reindexing** lemma for
+     `EisensteinFiniteSum.sumRange` under the unit-permutation `t ↦ (a·t)%p` (no such infra in the repo
+     yet — the missing piece).  Then `Σχ_ω = χ_ω(a)·Σχ_ω` (`chiOmega_mul`) ⟹ `(1−χ_ω(a))·Σ = 0`.
+  2. **Endgame cancellation** `(1−χ_ω(a))·S = 0 ∧ χ_ω(a)≠1 ⟹ S = 0` — `ZOmegaDomain.no_zero_div`
+     + `χ_ω(a) ∈ {ω,ω²}` so `1−χ_ω(a) ≠ 0`.  Needs ZOmega right-distributivity (`ext` + `ring_intZ`
+     route, since `add_mul` is private in `ZOmegaAlgebra213`).
+  Then the `J·J̄` double-sum collapses by translation invariance to `p`.
 - **A4.** `J` primary normalisation → `J = π`.
 
 ### Phase B — the cubic law
@@ -81,6 +92,10 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
   2 allowed-`propext`; see `Integer/INDEX.md` "Cubic / Eisenstein reciprocity").
 - Jacobi-sum substrate seeded: finite sums, `Σ_{j<3k} ωʲ = 0`, the character homomorphism `χ̂(i)=ωⁱ`,
   Schur relations, well-definedness in `μ₃`.
-- **A1 DONE** — the cubic character as a function on `𝔽_p`, `μ₃`-valued, multiplicative, lifted into
-  `ℤ[ω]/(d)` (`CubicCharFp`, `CubeRootsUnityModP`, `EisensteinResidueFieldCubeRoots`).
-- **Next concrete step: A2** — the Jacobi sum `Σ_t χ(t)χ(1−t)` as a concrete `sumRange` over `ℤ[ω]`.
+- **A1 DONE** — the cubic character on `𝔽_p`: `μ₃`-valued, **multiplicative** (`chiOmega_mul`), lifted
+  into `ℤ[ω]/(d)` (`CubicCharFp`, `CubeRootsUnityModP`, `EisensteinResidueFieldCubeRoots`,
+  `EisensteinCubicCharFp`, `EisensteinCubicCharFpMul`).
+- **A2 DONE** — the Jacobi sum `jacobiSum` as a concrete `sumRange` over `ℤ[ω]`
+  (`EisensteinJacobiSum`).
+- **Next concrete step: A3** — `N(J)=p`, blocked on a `sumRange` permutation-reindexing lemma (the
+  `𝔽_p` character-sum `Σχ_ω=0`) + the domain cancellation.  See the A3 entry above.
