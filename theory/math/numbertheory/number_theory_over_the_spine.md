@@ -1,9 +1,11 @@
 # Elementary number theory generated over the Raw spine
 
-**Status**: Closed (the full leg-2 discipline computed over the Raw-generated ℕ₊).
-Mirrors `lean/E213/Lens/Number/Nat213/{Order, Divisibility, Irreducible,
-EuclidUnique, Prime, Gcd, Coprime, WellOrder, Valuation, Factorization, FTA}.lean`.
-Conceptual residue (Legs 1 & 3) stays open in `research-notes/frontiers/the_descent_leg.md`.
+**Status**: Closed (the full leg-2 discipline computed over the Raw-generated ℕ₊, **welded onto
+the native-`Nat` corpus** by the depth readout, with a third regrounded field — modular
+arithmetic).  Mirrors `lean/E213/Lens/Number/Nat213/{Order, Divisibility, Irreducible,
+EuclidUnique, Prime, Gcd, Coprime, WellOrder, Valuation, Factorization, FTA, ToNatReadout,
+Congruence}.lean`.  Conceptual residue (Legs 1 & 3) stays open in
+`research-notes/frontiers/the_descent_leg.md`.
 
 ## Overview
 
@@ -23,6 +25,12 @@ has a bottom (`one`, the atom) but no top (the count never closes), there is no 
 and exponents carry no zero (a multiplicity, being a count, is read *out* into ℕ where `0`
 lives — the legitimate Lens direction).
 
+Two further dimensions complete the picture. First, the generated discipline does not float free of
+the native-`Nat` corpus: the **depth readout `toNat` welds them**, faithfully transporting order,
+divisibility, gcd, valuation, and congruence onto their native counterparts. Second, a **third
+field — modular arithmetic** — is regrounded on the carrier, with the Chinese Remainder Theorem,
+showing the method extends past the single divisibility/factorization arc.
+
 ## Lean source
 
 - Umbrella: `lean/E213/Lens/Number/Nat213.lean`
@@ -35,15 +43,22 @@ lives — the legitimate Lens direction).
   - `EuclidUnique.lean` (142) — Euclid's lemma (`euclid`); subtractive gcd existence with the
     scaled multiplicative spec (`gcd_exists_mul`) — the Bézout substitute that fits ℕ₊ (no zero).
   - `Prime.lean` (71) — irreducible ⟺ prime (`irreducible_iff_prime`); `irreducible_dvd_pow_iff`.
-  - `Gcd.lean` (108) — the gcd discipline (`IsGcd`): divisibility is a meet-semilattice
-    (existence + uniqueness + the multiplicative law).
-  - `Coprime.lean` (140) — coprimality (`Coprime a b := IsGcd a b one`): the coprime-division
-    law, descent to divisors, multiplicative + power closure, the Prime↔Coprime bridge.
-  - `WellOrder.lean` (53) — well-foundedness as a named API (`strong_induction`, `well_ordering`).
-  - `Valuation.lean` (179) — the `p`-adic valuation, both forms (A: ℕ-readout `vp` with exactness;
-    B: native `padic_factorization` with uniqueness).
-  - `Factorization.lean` (196) — factorization existence; decidable `Dvd`; native well-foundedness.
-  - `FTA.lean` (159) — the Fundamental Theorem of Arithmetic, generated over `Nat213`.
+  - `Gcd.lean` — the gcd discipline (`IsGcd`): divisibility is a meet-semilattice
+    (existence + uniqueness + the multiplicative law); the gcd readout (`isGcd_toNat`,
+    `isGcd_toNat_eq`).
+  - `Coprime.lean` — coprimality (`Coprime a b := IsGcd a b one`): the coprime-division
+    law, descent to divisors, multiplicative + power closure, coprime factors multiply
+    (`coprime_mul_dvd`), the Prime↔Coprime bridge.
+  - `WellOrder.lean` — well-foundedness as a named API (`strong_induction`, `well_ordering`).
+  - `Valuation.lean` — the `p`-adic valuation, both forms (A: ℕ-readout `vp` with exactness;
+    B: native `padic_factorization` with uniqueness) + the carrier weld `vp_eq_vpSub`.
+  - `Factorization.lean` — factorization existence; decidable `Dvd`; native well-foundedness.
+  - `FTA.lean` — the Fundamental Theorem of Arithmetic, generated over `Nat213`.
+  - `ToNatReadout.lean` — the depth readout `toNat` is a faithful ordered-semiring embedding
+    onto ℕ₊ (`lt`/`le`/`Dvd` read as native; `toNat_surj`; capstone `toNat_faithful`).
+  - `Congruence.lean` — modular arithmetic: `ModEq m a b := ∃ k l, a+m·k=b+m·l` (subtraction-free)
+    is a congruence on the semiring; modular exponentiation; readout iff; the Chinese Remainder
+    Theorem (`crt_iff`).
 - ∅-axiom status: every theorem reports `#print axioms → "does not depend on any axioms"`.
 
 ## Narrative
@@ -101,6 +116,35 @@ zero, but `Nat213` has none) in the two complementary forms the carrier's shape 
   (`padic_factorization`), and the `(k,m)` is **unique** (`padic_factorization_unique`) — welding
   B's native exponent to A's `vp`.
 
+### The carrier-readout weld
+
+The discipline is *generated* over `Nat213`, but it does not float free of the rich native-`Nat`
+number theory (the corpus's divisibility, valuation, gcd, modular arithmetic over Lean's `Nat`).
+The depth count `toNat : Nat213 → Nat` welds the two: it is a **faithful (injective) `+`/`·`
+homomorphism onto `ℕ₊`** that transports the whole order/divisibility structure *exactly*
+(`ToNatReadout.toNat_faithful`: `lt`/`le`/`Dvd` each read as their native counterpart, both
+directions, and `toNat` is surjective onto `ℕ₊`). So a theorem over `Nat213` and the same theorem
+over native `Nat` are the source-side and readout-side of one statement — the agreement is the
+*functoriality of the count-Lens*, not a coincidence (narrative:
+`theory/essays/synthesis/two_carriers_one_count.md`). The weld is realised at value level for the
+non-trivial operations: `Valuation.vp_eq_vpSub` (the generated `p`-adic valuation equals the native
+`subMod`-grounded `vpSub` of the readouts), `Gcd.isGcd_toNat_eq` (the generated gcd equals the
+native `gcdW`), and `Congruence.modeq_toNat_iff` (the generated congruence is the native one). The
+⟸ directions all lift native witnesses back through `toNat`'s surjectivity — the `0` that native
+`Nat` carries and the spine forbids is exactly the readout's degree of freedom.
+
+### Modular arithmetic (the third regrounded field)
+
+`Nat213` has no subtraction, so the classical `m ∣ a − b` is unavailable; congruence is regrounded
+in the subtraction-free symmetric form `ModEq m a b := ∃ k l, a + m·k = b + m·l` (`Congruence`).
+This is a **congruence on the semiring** (`modeq_congruence`: equivalence + compatible with `+`/`·`),
+carries modular exponentiation (`pow_compat`), reads onto the native ℕ congruence
+(`modeq_toNat_iff`), and supports the **Chinese Remainder Theorem** for coprime moduli
+(`crt_iff`: `a ≡ b (mod m·n) ⟺ a ≡ b (mod m) ∧ a ≡ b (mod n)`) — the combine direction routes the
+common difference through `coprime_mul_dvd` after `modeq_cases` turns the symmetric form into a
+divisibility fact. A complete elementary modular arithmetic, generated on the distinguishing's own
+counting object.
+
 ## Key results
 
 | Theorem | Lean module | Statement (informal) |
@@ -116,6 +160,9 @@ zero, but `Nat213` has none) in the two complementary forms the carrier's shape 
 | `strong_induction`, `well_ordering` | `WellOrder` | ℕ₊ is well-ordered (constructive) |
 | `le_vp_iff` | `Valuation` | `p^k ∣ n ⟺ k ≤ vp p n` — `vp` is the largest dividing exponent |
 | `padic_factorization`(`_unique`) | `Valuation` | `n = p^k·m`, `¬p∣m`, for `p∣n` — exists and unique |
+| `toNat_faithful` | `ToNatReadout` | `toNat` transports `lt`/`le`/`Dvd` exactly + surjective onto ℕ₊ |
+| `vp_eq_vpSub`, `isGcd_toNat_eq` | `Valuation`, `Gcd` | the generated valuation / gcd = the native ones of the readouts |
+| `modeq_congruence`, `crt_iff` | `Congruence` | `ModEq` is a semiring congruence; the Chinese Remainder Theorem |
 
 ## Research-note provenance
 
