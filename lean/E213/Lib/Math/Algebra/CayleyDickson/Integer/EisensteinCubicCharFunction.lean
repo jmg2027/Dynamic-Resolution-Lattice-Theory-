@@ -31,6 +31,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar (pow_add)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharOmega (char_omega_value)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharOrthogonality (geomSum_omega_three_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharConj (char_conj)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDivStep (mul_conj_self)
 
 /-- The cubic character on exponents: `χ̂(i) = ωⁱ`. -/
 def chiExp (i : Nat) : ZOmega := pow Omega i
@@ -69,5 +70,19 @@ theorem pow_mul (z : ZOmega) (a : Nat) : ∀ b, pow z (a * b) = pow (pow z a) b
 theorem chiExp_conj (i : Nat) : conj (chiExp i) = chiExp (2 * i) := by
   show conj (pow Omega i) = pow Omega (2 * i)
   rw [← char_conj Omega i, show conj Omega = pow Omega 2 from by decide, ← pow_mul]
+
+/-- ★★★ **Character values have norm 1** — `‖ωⁱ‖² = 1` (`ω` is a unit, `‖ω‖²=1`).  Induction with
+    norm-multiplicativity. -/
+theorem pow_omega_norm_one : ∀ i, (pow Omega i).normSq = 1
+  | 0 => by decide
+  | i + 1 => by
+      show (pow Omega i * Omega).normSq = 1
+      rw [normSq_mul, pow_omega_norm_one i, show Omega.normSq = 1 from by decide, Int.one_mul]
+
+/-- ★★★ **Character values are units** — `χ̂(i) · conj χ̂(i) = 1` (the `|χ(t)| = 1` metric, behind
+    `|J(χ,χ)|² = p`).  From `mul_conj_self` and `pow_omega_norm_one`. -/
+theorem chiExp_unit (i : Nat) : chiExp i * conj (chiExp i) = one := by
+  show pow Omega i * (pow Omega i).conj = one
+  rw [mul_conj_self, pow_omega_norm_one]; rfl
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFunction
