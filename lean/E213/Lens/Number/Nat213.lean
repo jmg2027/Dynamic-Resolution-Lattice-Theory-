@@ -15,6 +15,7 @@ import E213.Lens.Number.Nat213.Irreducible
 import E213.Lens.Number.Nat213.Factorization
 import E213.Lens.Number.Nat213.EuclidUnique
 import E213.Lens.Number.Nat213.Gcd
+import E213.Lens.Number.Nat213.Coprime
 import E213.Lens.Number.Nat213.FTA
 import E213.Lens.Number.Nat213.Forcing
 import E213.Lens.Number.Nat213.Infinitude
@@ -80,6 +81,10 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            unique (`isGcd_unique`, via `dvd_antisymm`), with the
                            multiplicative law `gcd(c·a,c·b)=c·gcd(a,b)`
                            (`isGcd_mul_left`).  Extracted from `gcd_exists_mul`.
+    * `Coprime`          — coprimality (`Coprime a b := IsGcd a b one`):
+                           Euclid's coprime-division law `coprime_dvd_mul`
+                           (`gcd(a,b)=1`, `a∣b·c` ⟹ `a∣c`), descent to divisors,
+                           `coprime_self_imp`.  Built on `Gcd.isGcd_mul_left`.
     * `FTA`              — **the Fundamental Theorem of Arithmetic** (`fta`):
                            existence + uniqueness-up-to-permutation, generated
                            over `Nat213`.  Native propext-free `Perm`/`erase`.

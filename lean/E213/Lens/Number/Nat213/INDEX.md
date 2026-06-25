@@ -6,7 +6,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
 `theory/math/numbersystems/naturals_from_the_spine.md`,
 `theory/essays/foundations/raw_and_lens_explained.md`).
 
-## Files (26 + Tower/5)
+## Files (27 + Tower/5)
 
 ### Representations
 
@@ -63,6 +63,9 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              meet-semilattice — gcd exists + unique + multiplicative
                              law `gcd(c·a,c·b)=c·gcd(a,b)`. Extracted from
                              `gcd_exists_mul`.
+  - `Coprime.lean`         — coprimality (`Coprime a b := IsGcd a b one`): Euclid's
+                             coprime-division law `coprime_dvd_mul`, descent to
+                             divisors. Built on `Gcd.isGcd_mul_left`.
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence.
   - `Factorization.lean`   — every `Nat213` is a product of irreducibles.
