@@ -59,6 +59,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinEuclidean
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDivStep
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDvd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.CubeRootsOfUnity
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConverse

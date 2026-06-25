@@ -158,8 +158,13 @@ craft: `ℤ[ω]`'s `BEq`-membership (`units6.contains x = true`, defeq to a `||`
 
 Runway to the full **cubic (Eisenstein) reciprocity** law: the Eisenstein-integer machinery exists
 (`CayleyDickson/Integer/Eisenstein{Euclidean,Gcd,Dvd,Split,…}` — `ℤ[ω]` as a Euclidean domain), and
-`ModArith/EisensteinCubeRoot` supplies the primitive cube root of unity mod `p`.  Next rungs:
-**(2)** congruence `α ≡ β (mod π)` + the residue field `ℤ[ω]/(π) ≅ 𝔽_p` (Fermat there ⟹ `α^{(p−1)/3}
+`ModArith/EisensteinCubeRoot` supplies the primitive cube root of unity mod `p`.  **Rung 2a done — congruence in `ℤ[ω]`.** `CayleyDickson/Integer/EisensteinCongruence.lean`,
+`ModEq π α β := π ∣ (α − β)` is an equivalence relation compatible with `+`/`·` (`modEq_congruence`,
+∅-axiom) — the residue classes mod `π` form the ring `ℤ[ω]/(π)`, where the cubic character lives.
+Built on the `Meta.Algebra213.Ring213` ring laws + the Euclidean-`gcd` `zdvd_add`/`zdvd_zero`.
+
+Next rungs:
+**(2b)** the residue field `ℤ[ω]/(π) ≅ 𝔽_p` for `N(π) = p ≡ 1 mod 3` (Fermat there ⟹ `α^{(p−1)/3}
 ∈ μ₃ mod π`, so `(α/π)₃` is well-defined into the `μ₃` above);
 **(3)** character multiplicativity + the weld to the rational cubic character (norm-`p` primes ↔
 `ModArith/CubicResidue.cube_iff_three_dvd_dlog`);
