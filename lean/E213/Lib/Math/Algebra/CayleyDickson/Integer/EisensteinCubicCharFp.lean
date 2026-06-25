@@ -92,6 +92,20 @@ theorem chiOmega_lift {d : ZOmega} {p m x t : Nat} (hp : 1 < p)
       · exact absurd e2 h2
       · rw [e3]; exact trans (ofInt_natMod_modEq hdn) (symm (omega_sq_cong hω))
 
+/-- ★★★ **Non-residues have nontrivial character** — if `t` is a unit with `cubicChar(t) ≠ 1` (a
+    non-cubic-residue), then `χ_ω(t) ≠ 1`.  The value lands in the `cubicChar ≠ 1` branches, i.e.
+    `{ω, ω²}`, both `≠ ofInt 1`.  Supplies the non-residue `a` for character orthogonality.  ∅-axiom. -/
+theorem chiOmega_ne_one (p m x t : Nat) (ht1 : 0 < t) (htlt : t < p)
+    (hc : cubicChar p m t ≠ 1) : chiOmega p m x t ≠ ofInt 1 := by
+  have htnz : ¬ t % p = 0 := by rw [Nat.mod_eq_of_lt htlt]; exact Nat.ne_of_gt ht1
+  show (if t % p = 0 then (0 : ZOmega) else
+        if cubicChar p m t = 1 then ofInt 1 else
+        if cubicChar p m t = x % p then Omega else Omega * Omega) ≠ ofInt 1
+  rw [if_neg htnz, if_neg hc]
+  by_cases h2 : cubicChar p m t = x % p
+  · rw [if_pos h2]; decide
+  · rw [if_neg h2]; decide
+
 /-- ★★★★ **Character values are units of norm 1** — `χ_ω(t) · conj χ_ω(t) = 1` whenever `χ_ω(t) ≠ 0`.
     Each nonzero value is in `{1, ω, ω²}`, all of norm `1` (`mul_conj_self` gives `ofInt ‖·‖²` and the
     three norms are `1`).  The `|χ(t)| = 1` metric behind `|J(χ,χ)|² = p`.  ∅-axiom. -/
