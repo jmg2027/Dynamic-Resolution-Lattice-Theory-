@@ -6,15 +6,21 @@ E213` passes clean (462/462).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, seven iterations)
+## What Was Done This Session (autonomous-research, eight iterations)
 
-Seven focused iterations on the **descent-leg discipline** over `Nat213` (the
+Eight focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — completing the native order
 (strict + non-strict total orders), extracting the **gcd**, **coprimality**, and
 **well-ordering** disciplines, adding **exponentiation** + `coprime_pow` + its
-order/divisibility facts, plus dedup and INDEX refresh. The `Nat213`
-elementary-number-theory cone is now a coherent chain: order → divisibility →
-gcd → coprimality → well-ordering, with a full `pow` API on the arithmetic base.
+order/divisibility facts + the **Prime↔Coprime bridge**, plus dedup and INDEX
+refresh. The `Nat213` elementary-number-theory cone is now a coherent chain:
+order → divisibility → gcd → coprimality → well-ordering, with a full `pow` API.
+
+### Iteration 8: the Prime↔Coprime bridge (PURE ✓)
+`Coprime` gains the named form of the lemma `euclid` computes internally:
+- **`coprime_of_irreducible_not_dvd`** — `Irreducible p`, `¬ p∣a ⟹ Coprime p a`.
+- **`not_dvd_of_irreducible_coprime`** — the converse.
+- **`irreducible_coprime_iff`** — `Irreducible p → (Coprime p a ↔ ¬ p∣a)`.
 
 ### Iteration 7: pow order/divisibility facts (PURE ✓)
 - **`Order.lt_mul_right`** (companion to `lt_mul_left`) + **`Order.pow_lt_pow_base`**
@@ -107,6 +113,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+bce6f45 Nat213.Coprime: the Prime↔Coprime bridge (irreducible_coprime_iff)
 c9f198f Nat213: pow order/divisibility facts (pow_lt_pow_base, dvd_pow_self, pow_dvd_pow)
 68c4732 Nat213: exponentiation on Peano + coprime_pow
 c4c35e8 Nat213.WellOrder: well-foundedness as a named API (strong_induction, well_ordering)
@@ -142,21 +149,25 @@ The `Nat213` elementary-number-theory cone is now a **coherent chain**: order
 divisibility → gcd (`Gcd.lean`: meet-semilattice) → coprimality (`Coprime.lean`:
 coprime-division law + descent + mult. + power closure) → well-ordering
 (`WellOrder.lean`: strong induction + decidable well-ordering), with `pow` on the
-`Peano` arithmetic base, now with `pow` order/divisibility facts
-(`pow_lt_pow_base`, `dvd_pow_self`, `pow_dvd_pow`). Remaining natural deposits,
-low-risk:
-- **prime-power valuation** over `Nat213` (`vp`-style) reusing `pow` + `Gcd`/
-  `Coprime` — a bridge toward an FTA-exponent form on the generated carrier
-  (the grounded `Meta/Nat/VpSub213` is the native-`Nat` analogue to mirror).
+`Peano` arithmetic base, with the full `pow` API and the Prime↔Coprime bridge.
+Remaining natural deposits, low-risk:
+- **prime-power valuation** over `Nat213` (`vp`-style) — NOTE the snag: a valuation
+  counts *how many times* and can be **zero**, but `Nat213` has no zero. A native
+  `vp : Nat213 → Nat213 → Nat` would read OUT into ℕ (a count-Lens readout, the
+  legitimate direction) and need a Nat-exponent `pow` variant (`powNat p 0 = one`),
+  duplicating machinery. Cleaner framing: the **p-adic factorization** `n = p^k · m`
+  with `¬ p ∣ m` stated only for `p ∣ n` (so `k ≥ 1`, expressible in `Nat213`).
+  Deferred — needs design (decide readout-into-ℕ vs. p∣n-restricted form first).
 - an `lcm` as the dual join (harder — needs a bound; defer).
 - consider whether `acc_lt`/`wf_lt` should *move* from `Factorization` to
   `WellOrder` (their natural home) — deferred as an org pass; would touch
-  `Factorization`/`EuclidUnique` opens.
+  `Factorization`/`EuclidUnique` opens. Clean, low-risk, build-verifiable.
 
 ## Next
-Continue the descent-leg discipline build-out over `Nat213` (Open Problem 3 —
-prime-power valuation teed up) or open a fresh campaign regrounding another
-field on `subMod`/structural descent (the prior handoff's thick target).
+Continue the descent-leg discipline build-out over `Nat213` (the `acc_lt`/`wf_lt`
+relocation org pass is the cleanest remaining low-risk item; the p-adic
+valuation needs a design decision first) or open a fresh campaign regrounding
+another field on `subMod`/structural descent (the prior handoff's thick target).
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
 and is research-grade.
 
@@ -171,7 +182,7 @@ lean/E213/Lens/Number/Nat213/Peano.lean          ← +pow + pow_add/pow_mul/mul_
 lean/E213/Lens/Number/Nat213/Order.lean          ← +lt_mul_right, pow_lt_pow_base
 lean/E213/Lens/Number/Nat213/Divisibility.lean   ← +dvd_pow_self, pow_dvd_pow
 lean/E213/Lens/Number/Nat213/WellOrder.lean      ← NEW: strong_induction + decidable well_ordering
-lean/E213/Lens/Number/Nat213/Coprime.lean        ← NEW: coprimality; +power closure coprime_pow
+lean/E213/Lens/Number/Nat213/Coprime.lean        ← NEW: coprimality; +coprime_pow; +Prime↔Coprime bridge
 lean/E213/Lens/Number/Nat213/Gcd.lean            ← NEW: gcd discipline (meet-semilattice, mult. law)
 lean/E213/Lens/Number/Nat213/Order.lean          ← +lt_trans/lt_asymm/lt_strict_total_order/additive monotonicity/le total partial order
 lean/E213/Lens/Number/Nat213/Divisibility.lean   ← reuse Order.lt_trans (private dup removed); +dvd_imp_le
