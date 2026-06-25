@@ -245,11 +245,21 @@ divisibility-`decide` (`decidable_of_iff`) — allowed-not-target per `STRICT_ZE
 made strict-PURE by replacing the finite `decide`s with `centered_div`-based decisions, ~150 lines).
 
 Next rungs:
+**(Euler-converse)** the hard direction `χ(α) = 1 ⟹ α is a cube mod d` (cubic Euler criterion),
+needing the cyclic structure of `(ℤ[ω]/d)ˣ ≅ 𝔽_p^×`;
 **(3d-weld)** weld `(α/d)₃` to the rational cubic character `ModArith/CubicResidue.
 cube_iff_three_dvd_dlog` (norm-`p` primes ↔ rational power-residue), giving the character a computable
 `μ₃` readout;
-**(5)** the reciprocity law `(π/π')₃ = (π'/π)₃` for primary primes (rung 4 supplies the canonical
-representatives that kill the unit ambiguity).
+**(5)** the reciprocity law `(π/π')₃ = (π'/π)₃` for primary primes — the deep capstone (Eisenstein's
+proof: Gauss/Jacobi sums in `ℤ[ω]` over `𝔽_p`, or a cyclotomic counting argument); rung 4 supplies the
+canonical representatives that kill the unit ambiguity, and `cube_char_one` the residue-detection the
+law refines.
+
+**Cube-detection done — `cube ⟹ χ = 1` (cubic Euler criterion, easy direction).**  `EisensteinCubicChar.
+lean` (`cube_char_one`, `cubic_residue_char_one`, both ∅-axiom).  If `α ≡ β³ (mod d)` then
+`χ(α) = (β^m)³ ≡ 1` (`pow_cong` + `pow_mul_distrib`×2 + `char_cubes_to_one` on `β`) — a cube mod `d`
+is a cubic residue, the property that makes `(·/d)₃` a genuine cubic-residue symbol.  Module now
+10 PURE / 0 dirty.
 **(4)** primary primes (the unique associate `≡ 2 mod 3` among the 6 unit multiples);
 **(5)** the reciprocity `(π/π')₃ = (π'/π)₃`.
 Higher (Eisenstein/quartic) reciprocity sits beyond.  With `the_descent_leg` (leg-2 readout).

@@ -135,4 +135,36 @@ theorem char_mul {d : ZOmega} (α β : ZOmega) (m : Nat) :
     ModEq d (pow (α * β) m) (pow α m * pow β m) := by
   rw [pow_mul_distrib]; exact refl d (pow α m * pow β m)
 
+/-! ## The character detects cubic residues (cubic Euler criterion, easy direction)
+
+The defining property of `(·/d)₃`: a **cubic residue** has trivial character.  If `α ≡ β³ (mod d)`,
+then `χ(α) = χ(β)³ ≡ 1` — the cube of a `μ₃`-value is `1`.  This is the direction of the cubic Euler
+criterion `(α/d)₃ = 1 ⟺ α is a cube mod d` that holds from multiplicativity alone (the converse needs
+the cyclic structure of `(ℤ[ω]/d)ˣ`).  It is the property that makes the character a genuine
+**cubic-residue symbol**, on which the reciprocity law `(π/π')₃ = (π'/π)₃` rests. -/
+
+/-- **A cubic residue has trivial character** — if `α ≡ β·β·β (mod d)` and `χ(β)³ ≡ 1`, then
+    `χ(α) ≡ 1 (mod d)`.  `χ(α) = (β³)^m = (β^m)³` (`pow_cong` + `pow_mul_distrib` twice), which is
+    `≡ 1` by hypothesis.  ∅-axiom. -/
+theorem cube_char_one {d α β : ZOmega} {m : Nat}
+    (hcube : ModEq d α (β * β * β))
+    (hβ : ModEq d (pow β m * pow β m * pow β m) (ofInt 1)) :
+    ModEq d (pow α m) (ofInt 1) := by
+  have h1 : ModEq d (pow α m) (pow (β * β * β) m) := pow_cong hcube m
+  have h2 : pow (β * β * β) m = pow β m * pow β m * pow β m := by
+    rw [pow_mul_distrib (β * β) β m, pow_mul_distrib β β m]
+  rw [h2] at h1
+  exact trans h1 hβ
+
+/-- ★★★★ **The cubic character detects cubic residues** — if `α ≡ β³ (mod d)` for `β` with the
+    residue reduction `β ≡ ↑r (mod d)` and rational Fermat `‖d‖² ∣ r^(3m) − 1`, then `χ(α) ≡ 1`:
+    a cube mod `d` is a cubic residue (`(α/d)₃ = 1`).  Combines `cube_char_one` with
+    `char_cubes_to_one` (applied to `β`).  ∅-axiom. -/
+theorem cubic_residue_char_one {d α β : ZOmega} {x : Int} {m : Nat}
+    (hcube : ModEq d α (β * β * β))
+    (hred : ModEq d β (ofInt (β.re + β.im * x)))
+    (hferm : d.normSq ∣ ((β.re + β.im * x) ^ (m + m + m) - 1)) :
+    ModEq d (pow α m) (ofInt 1) :=
+  cube_char_one hcube (char_cubes_to_one hred hferm)
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar
