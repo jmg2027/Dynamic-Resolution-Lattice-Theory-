@@ -309,6 +309,50 @@ theorem mul_pow (a b : Nat213) : ∀ n : Nat213, pow (mul a b) n = mul (pow a n)
           mul_assoc (pow a n) b (pow b n),
           ← mul_assoc a (pow a n) (mul b (pow b n))]
 
+-- ═══ Nat-exponent exponentiation (the count-Lens readout, with a zero exponent) ═══
+
+/-- `a` to a **Lean-`Nat`** power.  The exponent reads *in* from ℕ, so `powNat a 0 = one`
+    (the empty product / identity) is available — unlike `pow`, whose exponent is a `Nat213`
+    and hence ≥ 1.  This is the power a **valuation** needs: a multiplicity can be zero
+    (`Nat213` has no zero, so the count is read *out* into ℕ — the legitimate direction). -/
+def powNat : Nat213 → Nat → Nat213
+  | _, 0     => one
+  | a, k + 1 => mul a (powNat a k)
+
+/-- `a^0 = 1` (the empty product). -/
+theorem powNat_zero (a : Nat213) : powNat a 0 = one := rfl
+
+/-- `a^(k+1) = a · a^k`. -/
+theorem powNat_succ (a : Nat213) (k : Nat) : powNat a (k + 1) = mul a (powNat a k) := rfl
+
+/-- `a^1 = a`. -/
+theorem powNat_one (a : Nat213) : powNat a 1 = a := by
+  show mul a (powNat a 0) = a; rw [powNat_zero, mul_one]
+
+/-- `1^k = 1`. -/
+theorem one_powNat : ∀ k : Nat, powNat one k = one
+  | 0     => rfl
+  | k + 1 => by rw [powNat_succ, one_mul, one_powNat k]
+
+/-- ★ **`a^(m+n) = a^m · a^n`** (Nat exponents).  Induction on `n` — `m+(n+1)` reduces to
+    `(m+n)+1` definitionally, so no Lean-`Nat` lemma is needed; only `Nat213`'s `mul` laws. -/
+theorem powNat_add (a : Nat213) (m : Nat) : ∀ n : Nat,
+    powNat a (m + n) = mul (powNat a m) (powNat a n)
+  | 0     => by show powNat a m = mul (powNat a m) one; rw [mul_one]
+  | n + 1 => by
+      show powNat a (m + (n + 1)) = mul (powNat a m) (mul a (powNat a n))
+      rw [show powNat a (m + (n + 1)) = mul a (powNat a (m + n)) from rfl,
+          powNat_add a m n, mul_left_comm]
+
+/-- ★ **Bridge `pow` ↔ `powNat`** — `a^m = a^(toNat m)`: the `Nat213`-exponent power is the
+    `Nat`-exponent power read at the count of the exponent.  So `powNat` *extends* `pow` to the
+    zero exponent (`pow` is its restriction to `toNat ≥ 1`). -/
+theorem pow_eq_powNat_toNat (a : Nat213) : ∀ m : Nat213, pow a m = powNat a m.toNat
+  | one    => by show pow a one = powNat a 1; rw [pow_one, powNat_one]
+  | succ n => by
+      show mul a (pow a n) = mul a (powNat a n.toNat)
+      rw [pow_eq_powNat_toNat a n]
+
 /-- ★ `succ n ≠ one`: every successor is distinct from the base. -/
 theorem succ_ne_one (n : Nat213) : succ n ≠ one := fun h => Nat213.noConfusion h
 

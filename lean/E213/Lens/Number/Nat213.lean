@@ -17,6 +17,7 @@ import E213.Lens.Number.Nat213.EuclidUnique
 import E213.Lens.Number.Nat213.Gcd
 import E213.Lens.Number.Nat213.Coprime
 import E213.Lens.Number.Nat213.WellOrder
+import E213.Lens.Number.Nat213.Valuation
 import E213.Lens.Number.Nat213.FTA
 import E213.Lens.Number.Nat213.Forcing
 import E213.Lens.Number.Nat213.Infinitude
@@ -92,6 +93,10 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            `strong_induction` (named `wf_lt.induction`) and
                            `well_ordering` (every inhabited decidable predicate
                            has a `lt`-minimal witness, constructive).
+    * `Valuation`        — the `p`-adic structure: (A) `vp : Nat213→Nat213→Nat`
+                           (multiplicity read OUT into ℕ via `Peano.powNat`,
+                           `pow_vp_dvd`); (B) `padic_factorization` (native
+                           `n = p^k·m`, `¬p∣m`, for `p∣n`).
     * `FTA`              — **the Fundamental Theorem of Arithmetic** (`fta`):
                            existence + uniqueness-up-to-permutation, generated
                            over `Nat213`.  Native propext-free `Perm`/`erase`.

@@ -6,7 +6,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
 `theory/math/numbersystems/naturals_from_the_spine.md`,
 `theory/essays/foundations/raw_and_lens_explained.md`).
 
-## Files (28 + Tower/5)
+## Files (29 + Tower/5)
 
 ### Representations
 
@@ -16,10 +16,11 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              **Chart structure only — no Raw-side arithmetic**
                              (Option C); arithmetic lives on `Nat`/`Peano`.
   - `Peano.lean`           — Inductive `Nat213 | one | succ` with its own
-                             arithmetic (`add`/`mul`/`pow`, no-zero/no-subtraction
-                             shape *forced* by the primitive; `pow_add`/`pow_mul`/
-                             `mul_pow`).  The carrier the descent-leg discipline is
-                             computed over.
+                             arithmetic (`add`/`mul`/`pow`/`powNat`, no-zero/no-
+                             subtraction shape *forced* by the primitive;
+                             `pow_add`/`pow_mul`/`mul_pow`; `powNat` = the
+                             `Nat`-exponent power with `powNat a 0 = one`).  The
+                             carrier the descent-leg discipline is computed over.
   - `Core.lean`            — Lens-derived `{ n : Nat // 1 ≤ n }` Nat-subtype carrier.
   - `Chain.lean`           — Raw-subtype `{ r : Raw // IsMethodAChain r }` carrier;
                              operations route through `Nat` (Option C); `toNat` is a
@@ -75,6 +76,10 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              (named `wf_lt.induction`) + `well_ordering` (every
                              inhabited decidable predicate has a `lt`-minimal
                              witness, constructive via `decBoundedExists`).
+  - `Valuation.lean`       — `p`-adic structure: (A) `vp` (multiplicity read OUT
+                             into ℕ via `Peano.powNat`; `pow_vp_dvd`); (B)
+                             `padic_factorization` (native `n=p^k·m`, `¬p∣m`,
+                             for `p∣n`).
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence; a prime dividing a power
                              divides the base (`irreducible_dvd_pow_iff`).
