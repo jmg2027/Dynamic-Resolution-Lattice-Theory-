@@ -17,6 +17,11 @@ its ordered-commutative-semiring arithmetic, and its recursion are all carried b
 *out*, never the source). A companion result shows *no rival primitive* (unary,
 higher-arity, non-distinct, or relational) generates the same richness.
 
+The **discipline computed on this carrier** — order, divisibility, gcd, coprimality,
+well-ordering, exponentiation, primality, the FTA, and the `p`-adic valuation, all generated
+over `Nat213` — is the companion chapter
+`theory/math/numbertheory/number_theory_over_the_spine.md`.
+
 ## Lean source
 
 - Files (∅-axiom, 0 DIRTY):

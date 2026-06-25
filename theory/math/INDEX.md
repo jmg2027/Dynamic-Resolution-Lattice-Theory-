@@ -37,7 +37,7 @@ sandwich-first, the commuting square, layer constants),
 `hodge`, `surfaces`, `universal`, `examples`, `bridge`,
 `cup_ladder_graduation`, `k32_higher_cohomology`, `sym3_spine`.
 
-### `numbertheory/` — `dyadic_fsm`, `modular_arithmetic`, `eisenstein_period_arithmetic`, `euclidean_division`, `legendre_symbol`, `quadratic_reciprocity`, `zolotarev`, `primitive_roots`, `fibonacci_5adic_valuation`, `apery_zeta3_arithmetic`, `chebyshev_prime_counting`, `multiplicative_divisor_theory`, `lifting_the_exponent`.
+### `numbertheory/` — `dyadic_fsm`, `modular_arithmetic`, `eisenstein_period_arithmetic`, `euclidean_division`, `legendre_symbol`, `quadratic_reciprocity`, `zolotarev`, `primitive_roots`, `fibonacci_5adic_valuation`, `apery_zeta3_arithmetic`, `chebyshev_prime_counting`, `multiplicative_divisor_theory`, `lifting_the_exponent`, `grounded_fundamental_theorem`, `number_theory_over_the_spine`.
 
 ### `geometry/` — geometric / topological / discrete-substrate
 `geometry`, `topology`,
