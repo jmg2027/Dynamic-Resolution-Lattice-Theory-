@@ -2,16 +2,28 @@
 
 ## Branch
 `claude/continuation-5yvjwq` — working tree clean, pushed. **Full `lake build
-E213` passes clean (461/461).** All new theorems ∅-axiom (`#print axioms`
+E213` passes clean (462/462).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, four iterations)
+## What Was Done This Session (autonomous-research, five iterations)
 
-Four focused iterations on the **descent-leg discipline** over `Nat213` (the
+Five focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — completing the native order
-(strict + non-strict total orders), then extracting the **gcd** and
-**coprimality** disciplines, plus dedup and INDEX refresh.
+(strict + non-strict total orders), then extracting the **gcd**, **coprimality**,
+and **well-ordering** disciplines, plus dedup and INDEX refresh. The `Nat213`
+elementary-number-theory cone is now a coherent chain: order → divisibility →
+gcd → coprimality → well-ordering.
+
+### Iteration 5: well-ordering `WellOrder.lean` (PURE ✓) — NEW FILE
+`Factorization.wf_lt` (`WellFounded lt`, by structural `acc_lt`) exposed as a
+named API:
+- **`strong_induction`** — the ergonomic named form of `wf_lt.induction`.
+- **`well_ordering`** — every inhabited *decidable* predicate has a `lt`-minimal
+  witness; strong induction on the witness, deciding at each step (via
+  `decBoundedExists`) whether a smaller `P`-element exists. Decidable-`P` only
+  (general `Prop` form needs excluded middle); fully constructive, no `Classical`.
+- Wired into the aggregator (now 462 modules).
 
 ### Iteration 4: coprimality `Coprime.lean` (PURE ✓) — NEW FILE
 Built on `Gcd`: `Coprime a b := IsGcd a b one` (gcd is the divisibility bottom).
@@ -80,6 +92,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+c4c35e8 Nat213.WellOrder: well-foundedness as a named API (strong_induction, well_ordering)
 2e9a270 Nat213.Coprime: multiplicative closure (coprime_mul, mul_coprime)
 4b27642 Nat213.Coprime: coprimality + Euclid's coprime-division law
 8ff4416 Nat213.Gcd: the gcd discipline — divisibility is a meet-semilattice
@@ -107,21 +120,22 @@ fully closable. `frontiers/the_descent_leg.md` (Leg-3) + `frontiers/the_one_act.
 `Nat` as the `depth` readout (conceded). `frontiers/the_descent_leg.md` §5.
 
 ### 3. Further leg-2 disciplines over `Nat213`
-The order cone is **complete** (strict `lt` + non-strict `le`, both total orders;
-additive + multiplicative monotonicity; Dvd↔le bridge), the **gcd** discipline is
-extracted (`Gcd.lean`: meet-semilattice), and **coprimality** is done
-(`Coprime.lean`: Euclid's coprime-division law + descent + multiplicative
-closure). Remaining natural deposits, all low-risk:
-- a **well-ordering / strong-induction principle** on `Nat213` packaged as a
-  reusable lemma from `Factorization.wf_lt` (currently used ad hoc inside
-  `gcd_exists_mul` etc.) — exposing `Nat213`'s well-foundedness as a named API.
+The `Nat213` elementary-number-theory cone is now a **coherent chain**: order
+(strict `lt` + non-strict `le`, both total; monotonicity; Dvd↔le bridge) →
+divisibility → gcd (`Gcd.lean`: meet-semilattice) → coprimality (`Coprime.lean`:
+coprime-division law + descent + mult. closure) → well-ordering (`WellOrder.lean`:
+strong induction + decidable well-ordering). Remaining natural deposits, low-risk:
 - **`coprime_pow`** / `Coprime a b → Coprime (a^n) (b^m)` once a `pow` exists on
-  `Nat213` (check whether Peano has it first).
+  `Nat213` (check whether `Peano` has `pow` first; if not, that's a prerequisite
+  deposit — `pow` iterating `mul`, with `pow_add`/`pow_mul` laws).
 - an `lcm` as the dual join (harder — needs a bound; defer).
+- consider whether `acc_lt`/`wf_lt` should *move* from `Factorization` to
+  `WellOrder` (their natural home) — deferred as an org pass; would touch
+  `Factorization`/`EuclidUnique` opens.
 
 ## Next
 Continue the descent-leg discipline build-out over `Nat213` (Open Problem 3 —
-the well-ordering API is teed up) or open a fresh campaign regrounding another
+`pow` + `coprime_pow` is teed up) or open a fresh campaign regrounding another
 field on `subMod`/structural descent (the prior handoff's thick target). The
 deep conceptual residue (Open Problems 1–2) needs a specific new rival model and
 is research-grade.
@@ -133,6 +147,7 @@ is research-grade.
 
 ## File Map (touched this session)
 ```
+lean/E213/Lens/Number/Nat213/WellOrder.lean      ← NEW: strong_induction + decidable well_ordering
 lean/E213/Lens/Number/Nat213/Coprime.lean        ← NEW: coprimality + coprime-division law + mult. closure
 lean/E213/Lens/Number/Nat213/Gcd.lean            ← NEW: gcd discipline (meet-semilattice, mult. law)
 lean/E213/Lens/Number/Nat213/Order.lean          ← +lt_trans/lt_asymm/lt_strict_total_order/additive monotonicity/le total partial order
