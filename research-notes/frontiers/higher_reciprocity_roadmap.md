@@ -77,15 +77,17 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
   - **Remaining: the `J·J̄ = p` double sum.**  Substrate **DONE** — `EisensteinListSum` (generic
     `listSum f L`, `listSum_mul_distrib`: `(Σ_L f)(Σ_M g) = Σ_s Σ_t f s·g t`, plus perm/linearity/map).
     Concrete sub-plan (the next builds):
-    1. **`jacobiList`** — `J = listSum (fun a => χ_ω(a)·χ_ω((1−a) mod p)) (rangeList p)` over a range
-       list `[0,…,p−1]` (build `rangeList` + `mem_rangeList ↔ a < p`).  Bridge to A2's `jacobiSum`.
-    2. **`jacobiBar = conj J`** — `J̄ = listSum (χ̄_ω(a)·χ̄_ω(1−a))`; `conj` distributes over `listSum`
-       (`conj_listSum`) and over `·` (`conj_mul`), so `J̄ = conj J`.
-    3. **double sum** — `J·J̄ = Σ_a Σ_b χ_ω(a)χ_ω(1−a)χ̄_ω(b)χ̄_ω(1−b)` via `listSum_mul_distrib`.
-    4. **reindex + collapse** (the hard core) — substitute `a = b·c` (`b` a unit, `c` ranges units),
-       `χ_ω(a)χ̄_ω(b) = χ_ω(c)` (`chiOmega_mul` + `chiOmega_mul_conj`); the inner `Σ_c` splits into a
-       `c = 1` diagonal (giving `p − …`) and an off-diagonal killed by `Σ χ_ω = 0`
-       (`chiListSum_totatives_zero`).  Handle the `a,b ∈ {0,1}` boundary terms separately.
+    1. **`jacobiList` DONE** (`EisensteinJacobiNorm`) — `J = listSum (χ_ω(a)·χ_ω((1−a)%p)) (List.range p)`.
+    2. **`jacobiList_conj` DONE** — `conj J = Σ χ̄_ω(a)·χ̄_ω(1−a)` (`conj_listSum` homomorphism + `conj_mul`).
+    3. **`jacobiList_norm_double` DONE** — `J·J̄ = Σ_a Σ_b (χ_ω(a)χ_ω(1−a))·(χ̄_ω(b)χ̄_ω(1−b))`
+       (`listSum_mul_distrib`).
+    4. **reindex + collapse** (the hard core, NEXT) — for each fixed unit `b`, reindex the inner `a`-sum
+       by `a = (b·c) mod p` (a unit-permutation of `List.range`, `lperm_image`-style); termwise
+       `χ_ω(a)χ̄_ω(b) = χ_ω(c)` (`chiOmega_mul` + `chiOmega_mul_conj`).  The inner `Σ_c χ_ω(c)·χ_ω(1−bc)
+       χ̄_ω(1−b)` splits into the `c` with `bc = 1` (diagonal, contributes the `p` count) and the rest,
+       killed by `Σ_c χ_ω(c) = 0` (`chiListSum_totatives_zero`).  The `a,b ∈ {0,1}` boundary terms
+       (where `χ_ω = 0`) are isolated first (`jacobi_term_zero/one`-style).  **This is the major
+       remaining build** — comparable in size to the whole orthogonality engine.
     5. **`N(J) = p`** — assemble.  Then `J` primary ⟹ `J = π` (A4).
 - **A4.** `J` primary normalisation → `J = π`.
 
