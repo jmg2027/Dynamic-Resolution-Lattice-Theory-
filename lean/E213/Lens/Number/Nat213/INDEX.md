@@ -88,7 +88,8 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              (`pow_compat`), the defining step (`modeq_add_mul`), and
                              the readout iff into native ℕ (`modeq_toNat_iff`); the
                              Chinese Remainder Theorem (`crt_iff`, both ways, via
-                             `modeq_cases` + `coprime_mul_dvd`); modulus monotonicity.
+                             `modeq_cases` + `coprime_mul_dvd`); modulus monotonicity;
+                             coprime-factor cancellation (`modeq_cancel_coprime`).
   - `Valuation.lean`       — `p`-adic structure: (A) `vp` (multiplicity read OUT
                              into ℕ via `Peano.powNat`; `pow_vp_dvd`; exactness
                              `le_vp_iff`); (B) `padic_factorization` + uniqueness

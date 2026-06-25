@@ -23,7 +23,7 @@ open E213.Lens.Number.Nat213.Peano.Nat213
    pow pow_one pow_succ toNat toNat_add toNat_mul toNat_injective
    add_right_cancel add_left_cancel add_ne_self)
 open E213.Lens.Number.Nat213.ToNatReadout (toNat_surj)
-open E213.Lens.Number.Nat213.Order (lt_trichotomy)
+open E213.Lens.Number.Nat213.Order (lt lt_trichotomy lt_of_mul_lt_mul_right mul_right_cancel)
 open E213.Lens.Number.Nat213.Divisibility (Dvd)
 open E213.Lens.Number.Nat213.Coprime (Coprime coprime_dvd_mul coprime_comm)
 
@@ -190,6 +190,29 @@ theorem crt {m n a b : Nat213} (hco : Coprime m n)
   · exact refl _ _
   · exact crt_dir hco hc hn
   · exact symm (crt_dir hco hc (symm hn))
+
+/-- The directed cancellation step: `a·c + m·t = b·c` (so `b·c` is the larger), `Coprime m c`
+    ⟹ `a ≡ b (mod m)`.  `a·c < b·c` gives `a < b` (`lt_of_mul_lt_mul_right`), say `b = a+s`; then
+    `m·t = s·c`, so `m ∣ s·c`, so `Coprime m c ⟹ m ∣ s`, giving `b = a + m·u`. -/
+private theorem cancel_dir {m a b c t : Nat213} (hco : Coprime m c)
+    (ht : add (mul a c) (mul m t) = mul b c) : ModEq m a b := by
+  obtain ⟨s, hs⟩ := lt_of_mul_lt_mul_right (⟨mul m t, ht⟩ : lt (mul a c) (mul b c))
+  have hsc : mul m t = mul s c := by
+    apply add_left_cancel (a := mul a c); rw [ht, ← hs, add_mul]
+  have hmcs : Dvd m (mul c s) := by rw [mul_comm c s]; exact ⟨t, hsc.symm⟩
+  obtain ⟨u, hu⟩ := coprime_dvd_mul hco hmcs
+  have hb : add a (mul m u) = b := by rw [← hu]; exact hs
+  rw [← hb]; exact modeq_add_mul m a u
+
+/-- ★★ **Cancellation of a coprime factor** — `Coprime m c → a·c ≡ b·c (mod m) → a ≡ b (mod m)`.
+    Modular division by a unit: a factor coprime to the modulus cancels.  Via `modeq_cases` +
+    `cancel_dir` (the `a`-larger case by `symm`).  ∅-axiom. -/
+theorem modeq_cancel_coprime {m a b c : Nat213} (hco : Coprime m c)
+    (h : ModEq m (mul a c) (mul b c)) : ModEq m a b := by
+  rcases modeq_cases h with heq | ⟨t, ht⟩ | ⟨t, ht⟩
+  · rw [mul_right_cancel heq]; exact refl m b
+  · exact cancel_dir hco ht
+  · exact symm (cancel_dir hco ht)
 
 /-- ★★★ **Chinese Remainder Theorem (the iff)** — for coprime moduli, `a ≡ b (mod m·n)` iff
     `a ≡ b (mod m)` and `a ≡ b (mod n)`.  The standard CRT statement, bundling `modeq_split` (⟹)

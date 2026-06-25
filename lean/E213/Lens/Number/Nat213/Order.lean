@@ -198,6 +198,14 @@ theorem mul_right_cancel {a b c : Nat213} (h : mul a c = mul b c) : a = b := by
 theorem lt_mul_right {a b c : Nat213} (h : lt a b) : lt (mul a c) (mul b c) := by
   rw [mul_comm a c, mul_comm b c]; exact lt_mul_left h
 
+/-- ★ **Right-multiplication reflects strict order** — `a·c < b·c ⟹ a < b` (trichotomy +
+    `lt_mul_right`). -/
+theorem lt_of_mul_lt_mul_right {a b c : Nat213} (h : lt (mul a c) (mul b c)) : lt a b := by
+  rcases lt_trichotomy a b with h1 | h1 | h1
+  · exact h1
+  · exact absurd (h1 ▸ h) (lt_irrefl _)
+  · exact absurd (lt_trans h (lt_mul_right h1)) (lt_irrefl _)
+
 /-- ★★ **Strict monotonicity of exponentiation in the base** — `a < b ⟹ a^n < b^n` for every
     exponent `n`.  Induction on `n`: the step chains `a·a^n < a·b^n < b·b^n`
     (`lt_mul_left` on the IH, then `lt_mul_right` on the base).  No `toNat`. -/
