@@ -53,6 +53,9 @@ showing the method extends past the single divisibility/factorization arc.
     B: native `padic_factorization` with uniqueness) + the carrier weld `vp_eq_vpSub`.
   - `Factorization.lean` — factorization existence; decidable `Dvd`; native well-foundedness.
   - `FTA.lean` — the Fundamental Theorem of Arithmetic, generated over `Nat213`.
+  - `Forcing.lean` — the FTA's carrier is forced by the distinguishing.
+  - `Infinitude.lean` — Euclid's theorem (the primes are infinite) over `Nat213`.
+  - `ChebyshevLower.lean` — the Chebyshev prime-counting lower bound `π(N) ≥ c·N/ln N`.
   - `ToNatReadout.lean` — the depth readout `toNat` is a faithful ordered-semiring embedding
     onto ℕ₊ (`lt`/`le`/`Dvd` read as native; `toNat_surj`; capstone `toNat_faithful`).
   - `Congruence.lean` — modular arithmetic: `ModEq m a b := ∃ k l, a+m·k=b+m·l` (subtraction-free)
@@ -96,7 +99,10 @@ A prime dividing a power divides the base (`irreducible_dvd_pow`). Every `Nat213
 irreducibles (`Factorization.exists_factorization`, well-founded recursion on the native `lt` and a
 *decided* irreducible/composite dichotomy — `decBoundedExists`, no `Classical`), and the
 factorization is unique up to permutation: the **Fundamental Theorem of Arithmetic, generated over
-the distinguishing's own counting object** (`FTA.fta`).
+the distinguishing's own counting object** (`FTA.fta`). The carrier the FTA needs is itself forced by
+the distinguishing (`Forcing`). Two classical primality headlines extend the cone: **Euclid's
+theorem**, the primes are infinite (`Infinitude`), and the **Chebyshev lower bound** on the
+prime-counting function `π(N) ≥ c·N/ln N` (`ChebyshevLower`) — both ∅-axiom over `Nat213`.
 
 ### Well-ordering and the `p`-adic valuation
 
