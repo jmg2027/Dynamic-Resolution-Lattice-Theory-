@@ -6,14 +6,22 @@ E213` passes clean (463/463).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, fifteen iterations)
+## What Was Done This Session (autonomous-research, sixteen iterations)
 
-Fifteen focused iterations on the **descent-leg discipline** over `Nat213` (the
+Sixteen focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
 elementary number theory chain on the generated carrier, then **promoting it to a
 `theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
 exponentiation → **p-adic valuation** (both forms, exactness + uniqueness), all
 ∅-axiom.
+
+### Iteration 16: the gcd readout — `Gcd.isGcd_toNat` (PURE ✓)
+The generated `IsGcd a b d` reads out as a native greatest-common-divisor:
+`d.toNat ∣ a.toNat ∧ d.toNat ∣ b.toNat ∧ ∀ e, e∣a.toNat → e∣b.toNat → e∣d.toNat`
+(the gcd analogue of `vp_eq_vpSub`, at spec level). The native `gcdSub`
+(`Meta/Nat/SubGcd213`) only exposes `dvd_left`/`right`, not the greatest property,
+so the value-level `d.toNat = gcdW` bridge isn't available — this spec-level
+readout is the complete statement, via `dvd_toNat_iff` + `toNat_surj`.
 
 ### Iteration 15: the readout bridge generalized — `ToNatReadout.lean` (PURE ✓)
 Extracted the carrier-readout API (from `Valuation`) into a reusable file and
@@ -172,6 +180,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+e69012c Nat213.Gcd: isGcd_toNat — the generated gcd reads out as a native gcd
 4c4c8d1 Nat213.ToNatReadout: the depth readout is a faithful ordered-semiring embedding
 a54b3e7 Nat213.Valuation: the carrier weld vp_eq_vpSub — generated vp = native vpSub of readouts
 d913cc7 Essay: "Two carriers, one count" — the depth-readout welds the number theory
@@ -239,12 +248,12 @@ next moves:
 - A fresh campaign regrounding another field on `subMod`/structural descent (the
   prior handoff's thick target) — e.g. modular arithmetic or a divisor theory over
   `Nat213`, extending the now-promoted cone.
-- The carrier weld (`vp_eq_vpSub`) and the general readout bridge
-  (`ToNatReadout.toNat_faithful`: `lt`/`le`/`Dvd` all read exactly + surjectivity)
-  are closed. A remaining concrete readout deposit: a **generated `gcd`'s readout =
-  the grounded native `SubGcd213.gcdSub`** (the gcd analogue of `vp_eq_vpSub`,
-  using `dvd_toNat_iff` + the gcd specs) — low-risk if `SubGcd213` exposes a
-  divides-both+greatest characterization; check first.
+- The carrier weld (`vp_eq_vpSub`), the general readout bridge
+  (`ToNatReadout.toNat_faithful`), and the gcd readout (`Gcd.isGcd_toNat`,
+  spec-level) are closed. A value-level gcd bridge `IsGcd a b d → d.toNat =
+  gcdW a.toNat b.toNat` is blocked: `Meta/Nat/SubGcd213.gcdW` lacks the *greatest*
+  property (only `dvd_left`/`right`); proving `gcdW_greatest` there (the Euclidean
+  invariant) would unblock it — a Meta-layer deposit, moderate.
 - Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
 - Or a fresh campaign regrounding another field on `subMod`/structural descent.
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
