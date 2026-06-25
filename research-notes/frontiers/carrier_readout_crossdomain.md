@@ -197,12 +197,19 @@ value is a cube root of unity in the residue field `ℤ[ω]/(d) ≅ 𝔽_p`.  Ch
 rung 2b) → `α^{3m} ≡ (↑r)^{3m}` (`pow_cong`) → `(↑r)^{3m} ≡ ↑1` (`ofInt_pow_modeq_one`, rational
 Fermat `r^{p−1} ≡ 1 mod p`).
 
+**Rung 3d done — the character is multiplicative.**  `EisensteinCubicChar.lean` (`pow_mul_distrib`,
+`char_mul`, both ∅-axiom).  `pow_mul_distrib`: `(αβ)ⁿ = αⁿ·βⁿ` in `ℤ[ω]` — an *exact* ring equality
+(by induction, the `n+1` step rearranges `(αⁿβⁿ)(αβ) = (αⁿα)(βⁿβ)` via `mul_assoc`/`mul_comm`, where
+the **commutativity** of `ℤ[ω]` is essential — it would fail in the non-commutative CD layers).
+`char_mul`: `χ(αβ) ≡ χ(α)·χ(β) (mod d)` for `χ(·) = (·)^m` — the homomorphism property
+`(αβ/d)₃ = (α/d)₃·(β/d)₃`, descending from the exact equality.
+
 Next rungs:
 **(3c)** read the cube-root-of-unity value into `μ₃` *exactly* (it is one of `{1, ω, ω²}`, not merely
-cubing to 1) — needs the residue field's root-counting (`x³ = 1` has exactly 3 roots in `𝔽_p`,
-`p ≡ 1 mod 3`), then weld the character `(α/d)₃` to `ModArith/CubicResidue.cube_iff_three_dvd_dlog`;
-**(3d)** character multiplicativity `(αβ/d)₃ = (α/d)₃·(β/d)₃` + the weld to the rational cubic
-character (norm-`p` primes ↔ `ModArith/CubicResidue.cube_iff_three_dvd_dlog`);
+cubing to 1) — needs `d` **prime in `ℤ[ω]`** (so `ℤ[ω]/(d)` is an integral domain) + the factorization
+`χ³−1 = (χ−1)(χ−ω)(χ−ω²)`; `d`'s primality is irreducible⟹prime via the Euclidean structure
+(`EisensteinDivStep.zomega_div_step`), the heaviest remaining lift.  Then weld `(α/d)₃` to
+`ModArith/CubicResidue.cube_iff_three_dvd_dlog`;
 **(4)** primary primes (the unique associate `≡ 2 mod 3` among the 6 unit multiples);
 **(5)** the reciprocity `(π/π')₃ = (π'/π)₃`.
 Higher (Eisenstein/quartic) reciprocity sits beyond.  With `the_descent_leg` (leg-2 readout).

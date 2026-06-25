@@ -108,4 +108,31 @@ theorem char_cubes_to_one {d α : ZOmega} {x : Int} {m : Nat}
     ofInt_pow_modeq_one h
   rw [← key]; exact trans step1 step2
 
+/-! ## Multiplicativity of the cubic character (rung 3d)
+
+The character `χ(α) = α^m` is a **homomorphism** `(ℤ[ω]/(d))ˣ → μ₃`: `χ(αβ) = χ(α)·χ(β)`.  The
+underlying fact is purely that powering distributes over a commutative product — an *exact* equality
+in `ℤ[ω]` (no congruence needed), which descends to mod `d` a fortiori. -/
+
+/-- **Powering distributes over a commutative product** — `(α·β)ⁿ = αⁿ·βⁿ` in `ℤ[ω]`.  By induction:
+    the `n+1` step rearranges `(αⁿβⁿ)(αβ) = (αⁿα)(βⁿβ)` using `mul_assoc` and `mul_comm` (this is where
+    commutativity of `ℤ[ω]` is essential — it fails in the non-commutative CD layers). -/
+theorem pow_mul_distrib (α β : ZOmega) : ∀ n, pow (α * β) n = pow α n * pow β n
+  | 0 => (mul_one one).symm
+  | n + 1 => by
+      show pow (α * β) n * (α * β) = pow α n * α * (pow β n * β)
+      rw [pow_mul_distrib α β n,
+          mul_assoc (pow α n) (pow β n) (α * β),
+          ← mul_assoc (pow β n) α β,
+          mul_comm (pow β n) α,
+          mul_assoc α (pow β n) β,
+          ← mul_assoc (pow α n) α (pow β n * β)]
+
+/-- ★★★★ **The cubic character is multiplicative** — `χ(αβ) ≡ χ(α)·χ(β) (mod d)` for `χ(·) = (·)^m`.
+    Immediate from the exact ring equality `pow_mul_distrib`; stated as a congruence for the
+    character framing `(αβ/d)₃ = (α/d)₃·(β/d)₃`.  ∅-axiom. -/
+theorem char_mul {d : ZOmega} (α β : ZOmega) (m : Nat) :
+    ModEq d (pow (α * β) m) (pow α m * pow β m) := by
+  rw [pow_mul_distrib]; exact refl d (pow α m * pow β m)
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar
