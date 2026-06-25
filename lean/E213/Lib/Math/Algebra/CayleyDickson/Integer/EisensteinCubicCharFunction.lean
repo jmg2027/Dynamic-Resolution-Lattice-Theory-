@@ -93,4 +93,15 @@ theorem chiExp_unit (i : Nat) : chiExp i * conj (chiExp i) = one := by
 theorem chiExp_sum_shift (c k : Nat) : sumRange (fun i => chiExp (c + i)) (3 * k) = 0 := by
   rw [sum_congr (3 * k) (fun i _ => chiExp_mul c i), sum_mul_left, chiExp_sum, mul_zero]
 
+/-- ★★★★★ **The cubic character is a nontrivial order-3 character with vanishing sum.**  Bundles the
+    defining properties of `χ̂(i) = ωⁱ`: it is a homomorphism, has order 3, is nontrivial, and sums to
+    zero over a full cycle — i.e. a genuine nontrivial multiplicative character of order 3 obeying the
+    orthogonality relation.  ∅-axiom. -/
+theorem cubic_character_summary :
+    (∀ i j, chiExp (i + j) = chiExp i * chiExp j) ∧
+    (∀ i, chiExp (i + 3) = chiExp i) ∧
+    chiExp 1 ≠ one ∧
+    (∀ k, sumRange chiExp (3 * k) = 0) :=
+  ⟨chiExp_mul, chiExp_period, by decide, chiExp_sum⟩
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFunction
