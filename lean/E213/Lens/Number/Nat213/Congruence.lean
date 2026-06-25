@@ -191,6 +191,13 @@ theorem crt {m n a b : Nat213} (hco : Coprime m n)
   · exact crt_dir hco hc hn
   · exact symm (crt_dir hco hc (symm hn))
 
+/-- ★★★ **Chinese Remainder Theorem (the iff)** — for coprime moduli, `a ≡ b (mod m·n)` iff
+    `a ≡ b (mod m)` and `a ≡ b (mod n)`.  The standard CRT statement, bundling `modeq_split` (⟹)
+    and `crt` (⟸).  ∅-axiom. -/
+theorem crt_iff {m n a b : Nat213} (hco : Coprime m n) :
+    ModEq (mul m n) a b ↔ ModEq m a b ∧ ModEq n a b :=
+  ⟨modeq_split, fun h => crt hco h.1 h.2⟩
+
 /-- ★★★ **`ModEq m` is a congruence on the Raw-generated semiring** — an equivalence relation
     compatible with `+` and `·`.  Modular arithmetic generated over `Nat213`, subtraction-free. -/
 theorem modeq_congruence (m : Nat213) :
