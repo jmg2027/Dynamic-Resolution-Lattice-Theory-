@@ -74,10 +74,19 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
     (`chiListSum_map_factor` via `chiOmega_mul`), and a primitive-root non-residue (`chiOmega_ne_one`).
   - **Endgame cancellation DONE** — `EisensteinScaleCancel.scale_fixed_eq_zero` (`w·S=S, w≠1 ⟹ S=0`
     via `ZOmegaDomain.no_zero_div` + `ext`/`ring_intZ` right-distributivity `sub_mul_zomega`).
-  - **Remaining:** the `J·J̄ = p` **double sum** itself — expand `J·J̄ = Σ_{s,t} χ_ω(s)χ_ω(1−s)
-    χ̄_ω(t)χ̄_ω(1−t)`, reindex (`s = t·u`), and collapse the inner sum by `Σ_u χ_ω(u) = 0` (the
-    orthogonality now in hand) + `χ_ω·χ̄_ω = 1` (`chiOmega_mul_conj`).  Needs a double-`sumRange` /
-    `chiListSum` Fubini-style manipulation — the next build.
+  - **Remaining: the `J·J̄ = p` double sum.**  Substrate **DONE** — `EisensteinListSum` (generic
+    `listSum f L`, `listSum_mul_distrib`: `(Σ_L f)(Σ_M g) = Σ_s Σ_t f s·g t`, plus perm/linearity/map).
+    Concrete sub-plan (the next builds):
+    1. **`jacobiList`** — `J = listSum (fun a => χ_ω(a)·χ_ω((1−a) mod p)) (rangeList p)` over a range
+       list `[0,…,p−1]` (build `rangeList` + `mem_rangeList ↔ a < p`).  Bridge to A2's `jacobiSum`.
+    2. **`jacobiBar = conj J`** — `J̄ = listSum (χ̄_ω(a)·χ̄_ω(1−a))`; `conj` distributes over `listSum`
+       (`conj_listSum`) and over `·` (`conj_mul`), so `J̄ = conj J`.
+    3. **double sum** — `J·J̄ = Σ_a Σ_b χ_ω(a)χ_ω(1−a)χ̄_ω(b)χ̄_ω(1−b)` via `listSum_mul_distrib`.
+    4. **reindex + collapse** (the hard core) — substitute `a = b·c` (`b` a unit, `c` ranges units),
+       `χ_ω(a)χ̄_ω(b) = χ_ω(c)` (`chiOmega_mul` + `chiOmega_mul_conj`); the inner `Σ_c` splits into a
+       `c = 1` diagonal (giving `p − …`) and an off-diagonal killed by `Σ χ_ω = 0`
+       (`chiListSum_totatives_zero`).  Handle the `a,b ∈ {0,1}` boundary terms separately.
+    5. **`N(J) = p`** — assemble.  Then `J` primary ⟹ `J = π` (A4).
 - **A4.** `J` primary normalisation → `J = π`.
 
 ### Phase B — the cubic law
