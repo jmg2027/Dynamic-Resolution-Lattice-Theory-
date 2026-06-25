@@ -6,16 +6,16 @@ E213` passes clean (465/465).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, twenty-three iterations)
+## What Was Done This Session (autonomous-research, twenty-four iterations)
 
-Twenty-three focused iterations on the **descent-leg discipline** over `Nat213` (the
+Twenty-four focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
 elementary number theory chain on the generated carrier, then **promoting it to a
 `theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
 exponentiation → **p-adic valuation** (both forms, exactness + uniqueness), all
 ∅-axiom.
 
-### Iterations 18–23: new field — modular arithmetic `Congruence.lean` (PURE ✓)
+### Iterations 18–24: new field — modular arithmetic `Congruence.lean` (PURE ✓)
 A fresh field regrounded on `Nat213` with the carrier toolkit. No subtraction on
 `Nat213`, so the classical `m ∣ a−b` becomes the subtraction-free symmetric
 `ModEq m a b := ∃ k l, a + m·k = b + m·l`. **A congruence on the semiring**
@@ -31,7 +31,8 @@ Entirely over `Nat213` in the statements; the readout welds the field to native 
   a≡b mod n → a≡b mod m·n`) + `modeq_split` (the converse). Via `modeq_cases`
   (concrete form of `ModEq`, trichotomy + cancellation) + `coprime_mul_dvd`.
 - **`modeq_of_dvd_modulus`** (`c∣m → a≡b mod m → a≡b mod c`, generalises split) +
-  **`modeq_one`** (mod-1 trivial, the bottom modulus).
+  **`modeq_one`** (mod-1 trivial, the bottom modulus); **`crt_iff`** (the standard
+  CRT iff capstone).
 
 ### Iteration 17: the value-level gcd weld — `Gcd.isGcd_toNat_eq` (PURE ✓)
 `IsGcd a b d ⟹ d.toNat = gcdW a.toNat b.toNat` (the gcd analogue of `vp_eq_vpSub`,
@@ -207,6 +208,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+5600699 Nat213.Congruence: crt_iff — the standard CRT iff capstone
 2951ee0 Nat213.Congruence: modulus-divisor monotonicity + mod-1 triviality
 fc3f798 Nat213.Congruence: the Chinese Remainder Theorem over the Raw spine
 f78fd63 Nat213: CRT core — coprime_mul_dvd + the congruence split direction
