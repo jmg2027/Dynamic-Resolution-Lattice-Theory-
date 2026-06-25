@@ -309,6 +309,21 @@ theorem mul_pow (a b : Nat213) : ∀ n : Nat213, pow (mul a b) n = mul (pow a n)
           mul_assoc (pow a n) b (pow b n),
           ← mul_assoc a (pow a n) (mul b (pow b n))]
 
+-- ═══ Factorial ═══
+
+/-- `n!` over `Nat213`, recursion on `n`.  No zero exponent (`Nat213` has no zero); the base is
+    `1! = 1` (`factorial one = one`), and `(n+1)! = (n+1) · n!`.  Reads out as the native `n!`
+    (`ModArithReadout.toNat_factorial`), so Wilson's theorem transports along the carrier. -/
+def factorial : Nat213 → Nat213
+  | one    => one
+  | succ n => mul (succ n) (factorial n)
+
+/-- `1! = 1` (the base of the recursion). -/
+theorem factorial_one : factorial one = one := rfl
+
+/-- `(n+1)! = (n+1) · n!` (the recursion step). -/
+theorem factorial_succ (n : Nat213) : factorial (succ n) = mul (succ n) (factorial n) := rfl
+
 -- ═══ Nat-exponent exponentiation (the count-Lens readout, with a zero exponent) ═══
 
 /-- `a` to a **Lean-`Nat`** power.  The exponent reads *in* from ℕ, so `powNat a 0 = one`

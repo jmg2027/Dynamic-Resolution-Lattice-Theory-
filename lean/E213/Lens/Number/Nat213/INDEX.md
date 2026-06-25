@@ -16,7 +16,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              **Chart structure only — no Raw-side arithmetic**
                              (Option C); arithmetic lives on `Nat`/`Peano`.
   - `Peano.lean`           — Inductive `Nat213 | one | succ` with its own
-                             arithmetic (`add`/`mul`/`pow`/`powNat`, no-zero/no-
+                             arithmetic (`add`/`mul`/`pow`/`powNat`/`factorial`, no-zero/no-
                              subtraction shape *forced* by the primitive;
                              `pow_add`/`pow_mul`/`mul_pow`; `powNat` = the
                              `Nat`-exponent power with `powNat a 0 = one`).  The
@@ -103,8 +103,10 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              `mod_eq_imp_additive` bridges the native `%`-form to the
                              additive form `modeq_toNat_iff` speaks; `modeq_of_toNat_mod`
                              packages the transport functor; **Fermat's little theorem**
-                             over `Nat213` (`flt_primary` `a^p≡a`, `flt_main` `a^(p-1)≡1`)
-                             one-line corollaries of native `universal_flt_*`.
+                             (`flt_primary` `a^p≡a`, `flt_main` `a^(p-1)≡1`) and
+                             **Wilson's theorem** (`wilson` `(p-1)!≡p-1`, via `toNat_factorial`)
+                             over `Nat213`, one-line corollaries of native
+                             `universal_flt_*` / `WilsonTheorem.wilson`.
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence; a prime dividing a power
                              divides the base (`irreducible_dvd_pow_iff`).

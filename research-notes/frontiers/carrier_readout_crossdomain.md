@@ -40,7 +40,15 @@ then transports in one line each: `flt_primary` (`a^p ≡ a (mod p)`, fully `Nat
 `p.toNat - 1`), both inheriting native `universal_flt_*` — **not** re-derived. The
 "build the weld once, inherit the corpus" method (essay #115) demonstrated concretely. ∅-axiom.
 
+**Wilson** is now transported too (`wilson`: `(p-1)! ≡ p-1 (mod p)`, the no-negatives form). This
+needed a carrier-side construct — `Peano.factorial` over `Nat213` with readout `toNat_factorial`
+(`(n!).toNat = (n.toNat)!`) — so it shows the *general* shape: a transport whose statement names an
+operation not yet on the carrier first builds that operation (one clean recursive def + its readout),
+then inherits the native proof. Three headlines now ride one functor (`modeq_of_toNat_mod`):
+power-based (Fermat ×2) and factorial-based (Wilson).
+
 Next transportable headlines along the same weld (all native in `Lib/.../ModArith`, `%`-form):
-Wilson (`(p-1)! ≡ -1`), CRT reconstruction, Euler's criterion — each a `modeq_of_toNat_mod` instance
-once stated over the readouts. Sits with `the_descent_leg` (leg-2 readout).
+CRT reconstruction, Euler's criterion — each a `modeq_of_toNat_mod` instance once the readout-side
+statement is available (Euler's criterion first needs a carrier Legendre/`QPart` readout). Sits with
+`the_descent_leg` (leg-2 readout).
 </content>

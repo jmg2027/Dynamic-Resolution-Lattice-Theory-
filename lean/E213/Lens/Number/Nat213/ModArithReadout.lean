@@ -1,6 +1,7 @@
 import E213.Lens.Number.Nat213.Congruence
 import E213.Meta.Nat.NatDiv213
 import E213.Lib.Math.NumberTheory.ModArith.UniversalFLT
+import E213.Lib.Math.NumberTheory.ModArith.WilsonTheorem
 
 /-!
 # Lens.Number.Nat213.ModArithReadout — transporting the native modular corpus onto `Nat213` (∅-axiom)
@@ -27,12 +28,14 @@ namespace E213.Lens.Number.Nat213.ModArithReadout
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
-  (pow powNat one toNat toNat_ge_one pow_eq_powNat_toNat)
+  (pow powNat one succ mul toNat toNat_mul toNat_ge_one pow_eq_powNat_toNat factorial factorial_succ)
 open E213.Lens.Number.Nat213.ToNatReadout (toNat_powNat)
 open E213.Lens.Number.Nat213.Congruence (ModEq modeq_toNat_iff)
 open E213.Meta.Nat.NatDiv213 (div_add_mod_pure)
 open E213.Lib.Math.NumberTheory.ModArith.ModBezout (modBezout)
 open E213.Lib.Math.NumberTheory.ModArith.UniversalFLT (universal_flt_primary universal_flt_main)
+open E213.Lib.Math.Combinatorics.Permutations (fact)
+open E213.Meta.Nat.VpMul (IsPrime213)
 
 /-- ★★ **The native `%`→additive bridge** — `A % m = B % m ⟹ ∃ k l, A + m·k = B + m·l`.  Converts the
     native ℕ `%`-form congruence into the subtraction-free additive form that `modeq_toNat_iff`
@@ -90,5 +93,27 @@ theorem flt_main {a p : Nat213} (hp : 1 < p.toNat) (ha_lt : a.toNat < p.toNat)
   apply modeq_of_toNat_mod
   rw [toNat_powNat]
   exact universal_flt_main a.toNat p.toNat hp (toNat_ge_one a) ha_lt h_prime_gcd
+
+/-- The `Nat213` factorial reads out as the native factorial of the readout:
+    `(n!).toNat = (n.toNat)!`.  Induction on `n`; the step is the readout of `mul` plus the native
+    `fact`'s own recursion (`(n.toNat + 1)! = (n.toNat + 1) · (n.toNat)!`). -/
+theorem toNat_factorial : ∀ n : Nat213, (factorial n).toNat = fact n.toNat
+  | one    => rfl
+  | succ n => by rw [factorial_succ, toNat_mul, toNat_factorial n]; rfl
+
+/-- ★★★ **Wilson's theorem over `Nat213`, transported** — for a prime modulus `succ p₀` (= `p₀+1`;
+    primality encoded as `IsPrime213 (succ p₀).toNat`), `p₀! ≡ p₀ (mod p₀+1)`, i.e. the classical
+    `(p-1)! ≡ -1 (mod p)` in the no-negatives form `(p-1)! ≡ p-1`.  **Not re-derived** — the native
+    `WilsonTheorem.wilson` inherited through `modeq_of_toNat_mod` + `toNat_factorial`.  The native
+    `% p` form gives `(p-1)`, matched to `p₀.toNat % (succ p₀).toNat = p₀.toNat` by
+    `Nat.mod_eq_of_lt` (`p₀.toNat < p₀.toNat + 1`).  ∅-axiom. -/
+theorem wilson {p₀ : Nat213} (hp : IsPrime213 (succ p₀).toNat) :
+    ModEq (succ p₀) (factorial p₀) p₀ := by
+  apply modeq_of_toNat_mod
+  rw [toNat_factorial]
+  have hw : fact p₀.toNat % (succ p₀).toNat = p₀.toNat :=
+    E213.Lib.Math.NumberTheory.ModArith.WilsonTheorem.wilson hp
+  rw [hw]
+  exact (Nat.mod_eq_of_lt (Nat.lt_succ_self p₀.toNat)).symm
 
 end E213.Lens.Number.Nat213.ModArithReadout
