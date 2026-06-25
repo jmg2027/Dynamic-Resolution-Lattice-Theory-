@@ -2,16 +2,30 @@
 
 ## Branch
 `claude/continuation-5yvjwq` — working tree clean, pushed. **Full `lake build
-E213` passes clean (459/459).** All new theorems ∅-axiom (`#print axioms`
+E213` passes clean (460/460).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, two iterations)
+## What Was Done This Session (autonomous-research, three iterations)
 
-Two focused iterations on the **descent-leg discipline** over `Nat213` (the
-Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building out the native order into a
-complete strict+non-strict total order, deduplicating order primitives scattered
-across the discipline files, and refreshing the directory INDEX.
+Three focused iterations on the **descent-leg discipline** over `Nat213` (the
+Raw-generated ℕ₊, `Lens/Number/Nat213/`) — completing the native order
+(strict + non-strict total orders), then extracting the **gcd discipline**
+(divisibility as a meet-semilattice), plus dedup and INDEX refresh.
+
+### Iteration 3: the gcd discipline `Gcd.lean` (PURE ✓) — NEW FILE
+`EuclidUnique.gcd_exists_mul` had proved subtractive-gcd existence with the
+*scaled* multiplicative spec in one well-founded induction (no zero, no
+subtraction operator). Extracted the clean discipline:
+- **`IsGcd a b d`** — the greatest lower bound of `a`, `b` in the `Dvd` partial
+  order. **`isGcd_exists`** (from the algorithm), **`isGcd_unique`** (via
+  `dvd_antisymm` — "the" gcd justified), `isGcd_comm`, projections, `isGcd_self`,
+  `isGcd_one_{left,right}`, `isGcd_of_dvd`.
+- **`isGcd_mul_left`/`isGcd_mul_right`** — the multiplicative law
+  `gcd(c·a,c·b)=c·gcd(a,b)` (Euclid's Bézout substitute), from scaled existence +
+  uniqueness.
+- **`gcd_meet_semilattice`** — capstone: divisibility over `Nat213` is a
+  meet-semilattice. Wired into the aggregator (now 460 modules).
 
 ### Iteration 2: the non-strict order `le` + cross-discipline bridge (PURE ✓)
 - **`Nat213.Order.le`** — promoted the non-strict order from a buried local
@@ -54,6 +68,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+8ff4416 Nat213.Gcd: the gcd discipline — divisibility is a meet-semilattice
 81dc3d1 Nat213.Divisibility: dvd_imp_le — divisibility refines the additive order
 5674cf4 Nat213.Order: promote the non-strict order `le` to a total partial order
 14b855d Nat213.Order: additive monotonicity (lt_add_right, add_lt_add_{left,right})
@@ -78,22 +93,24 @@ fully closable. `frontiers/the_descent_leg.md` (Leg-3) + `frontiers/the_one_act.
 `Nat` as the `depth` readout (conceded). `frontiers/the_descent_leg.md` §5.
 
 ### 3. Further leg-2 disciplines over `Nat213`
-The order cone is now **complete** (strict `lt` + non-strict `le`, both total
-orders; additive + multiplicative monotonicity; the Dvd↔le bridge). Remaining
-natural deposits: a **gcd/Bézout discipline over `Nat213`** (mirroring the
-grounded `SubGcd213`/`SubBezout213` but on the *generated* carrier — note
-`EuclidUnique.gcd_exists_mul` already proves subtractive-gcd existence + the
-multiplicative law, so a clean `Gcd.lean` extracting `gcd`/`gcd_comm`/
-`gcd_dvd_left`/`gcd_greatest` from it is the next low-risk unit), or a
-well-ordering / strong-induction principle on `Nat213` packaged from
-`Factorization.wf_lt`. Low risk, incremental.
+The order cone is **complete** (strict `lt` + non-strict `le`, both total orders;
+additive + multiplicative monotonicity; Dvd↔le bridge) and the **gcd discipline
+is now extracted** (`Gcd.lean`: meet-semilattice, existence/uniqueness/
+multiplicative law). Remaining natural deposits, all low-risk:
+- **coprimality / lcm** over `Nat213`: define `Coprime a b := IsGcd a b one`,
+  prove `coprime_comm`, `coprime_one`, and `Euclid`-flavoured `coprime_dvd_mul`
+  (if `gcd(a,b)=1` and `a ∣ b·c` then `a ∣ c` — directly from `isGcd_mul_left`
+  at the right scaling, the same trick as `euclid`). An `lcm` as the dual join
+  is harder (needs a bound) — defer.
+- a **well-ordering / strong-induction principle** on `Nat213` packaged as a
+  reusable lemma from `Factorization.wf_lt` (currently used ad hoc).
 
 ## Next
 Continue the descent-leg discipline build-out over `Nat213` (Open Problem 3 —
-the gcd extraction is teed up) or open a fresh campaign regrounding another
-field on `subMod`/structural descent (the prior handoff's thick target). The
-deep conceptual residue (Open Problems 1–2) needs a specific new rival model
-and is research-grade.
+coprimality/lcm is teed up) or open a fresh campaign regrounding another field
+on `subMod`/structural descent (the prior handoff's thick target). The deep
+conceptual residue (Open Problems 1–2) needs a specific new rival model and is
+research-grade.
 
 ## Three-tier state
 - No promotions this session (incremental theorem deposits + doc fix; the
@@ -102,10 +119,12 @@ and is research-grade.
 
 ## File Map (touched this session)
 ```
+lean/E213/Lens/Number/Nat213/Gcd.lean            ← NEW: gcd discipline (meet-semilattice, mult. law)
 lean/E213/Lens/Number/Nat213/Order.lean          ← +lt_trans/lt_asymm/lt_strict_total_order/additive monotonicity/le total partial order
 lean/E213/Lens/Number/Nat213/Divisibility.lean   ← reuse Order.lt_trans (private dup removed); +dvd_imp_le
 lean/E213/Lens/Number/Nat213/Factorization.lean  ← order primitives moved to Order; keeps decidability + bounded search
 lean/E213/Lens/Number/Nat213/EuclidUnique.lean   ← lt_trans redirected to Order
-lean/E213/Lens/Number/Nat213/INDEX.md            ← refreshed (12 → 30 files, role-organised; Order/Divisibility lines updated)
+lean/E213/Lens/Number/Nat213.lean                ← +import Gcd (aggregator, 460 modules)
+lean/E213/Lens/Number/Nat213/INDEX.md            ← refreshed (12 → 31 files, role-organised; Order/Divisibility/EuclidUnique/Gcd lines)
 ```
 </content>
