@@ -52,11 +52,13 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
   - `Order.lean`           — native strict total order `lt` (irrefl, trans, asymm,
                              trichotomy) + non-strict total partial order `le`
                              (refl/trans/antisymm/total), additive + multiplicative
-                             monotonicity, native cancellation, square-injectivity
-                             (`mul_self_inj`).  No Lean `Nat` order, no `toNat`.
+                             + power (`pow_lt_pow_base`) monotonicity, native
+                             cancellation, square-injectivity (`mul_self_inj`).
+                             No Lean `Nat` order, no `toNat`.
   - `Divisibility.lean`    — `Dvd` over `Nat213`'s own `mul`: a partial order with
                              bottom `one`, no top (`dvd_antisymm`, `dvd_no_top`);
-                             refines `le` (`dvd_imp_le`).
+                             refines `le` (`dvd_imp_le`); power facts
+                             (`dvd_pow_self`, `pow_dvd_pow`).
   - `Irreducible.lean`     — irreducibility over the Raw-generated ℕ₊.
   - `EuclidUnique.lean`    — Euclid's lemma (`euclid`) over `Nat213`; subtractive
                              gcd existence + multiplicative spec (`gcd_exists_mul`).

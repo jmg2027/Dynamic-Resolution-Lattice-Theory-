@@ -31,7 +31,7 @@ namespace E213.Lens.Number.Nat213.Divisibility
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
   (mul one succ add mul_one one_mul mul_assoc mul_comm succ_ne_one
-   mul_succ_right add_assoc add_one_right)
+   mul_succ_right add_assoc add_one_right pow pow_succ pow_add)
 -- `mul_left_cancel` is taken from `Order` (the **native**, toNat-free cancellation),
 -- not from `Peano` (whose version laundered through Lean `Nat`).  This keeps the
 -- entire divisibility dependency cone toNat-free — see the descent-leg bet.
@@ -111,6 +111,20 @@ theorem dvd_imp_eq_or_lt {a t : Nat213} (h : Dvd a t) : a = t ∨ lt a t := by
     `Order.le` (`le a t = (a = t ∨ lt a t)`).  The bridge between the
     multiplicative (`Dvd`) and additive (`le`) disciplines on `Nat213`. -/
 theorem dvd_imp_le {a t : Nat213} (h : Dvd a t) : le a t := dvd_imp_eq_or_lt h
+
+/-- **The base divides its higher powers** — `a ∣ a^(n+1)`.  `a^(n+1) = a · a^n`, so `a` is the
+    left factor (`dvd_mul_right`). -/
+theorem dvd_pow_self (a n : Nat213) : Dvd a (pow a (succ n)) := by
+  rw [pow_succ]; exact dvd_mul_right a (pow a n)
+
+/-- ★ **Powers are monotone for divisibility** — `m ≤ n → a^m ∣ a^n`.  Equality gives `dvd_refl`;
+    `m < n` gives `n = m + c`, so `a^n = a^m · a^c` (`pow_add`) and `a^m` is the left factor.
+    The `pow`-level twin of `dvd_imp_le`'s order/divisibility bridge. -/
+theorem pow_dvd_pow (a : Nat213) {m n : Nat213} (h : le m n) : Dvd (pow a m) (pow a n) := by
+  rcases h with rfl | hlt
+  · exact dvd_refl (pow a m)
+  · obtain ⟨c, hc⟩ := hlt
+    exact ⟨pow a c, by rw [← hc, pow_add]⟩
 
 /-- ★★★ **No top**: no `t` is divisible by every `Nat213`.  Divisibility over the Raw-generated ℕ₊
     has a bottom (`one`) but **no top** — the shape *forced* by the primitive: every element is

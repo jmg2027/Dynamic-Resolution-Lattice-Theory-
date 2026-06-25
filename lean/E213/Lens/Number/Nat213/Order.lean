@@ -193,6 +193,21 @@ theorem mul_right_cancel {a b c : Nat213} (h : mul a c = mul b c) : a = b := by
   rw [mul_comm c a, mul_comm c b]
   exact h
 
+/-- ★ **Strict monotonicity of right multiplication** — `a < b ⟹ a·c < b·c` (via `mul_comm`
+    + `lt_mul_left`). -/
+theorem lt_mul_right {a b c : Nat213} (h : lt a b) : lt (mul a c) (mul b c) := by
+  rw [mul_comm a c, mul_comm b c]; exact lt_mul_left h
+
+/-- ★★ **Strict monotonicity of exponentiation in the base** — `a < b ⟹ a^n < b^n` for every
+    exponent `n`.  Induction on `n`: the step chains `a·a^n < a·b^n < b·b^n`
+    (`lt_mul_left` on the IH, then `lt_mul_right` on the base).  No `toNat`. -/
+theorem pow_lt_pow_base {a b : Nat213} (h : lt a b) (n : Nat213) : lt (pow a n) (pow b n) := by
+  induction n with
+  | one => rw [pow_one, pow_one]; exact h
+  | succ n ih =>
+      rw [pow_succ, pow_succ]
+      exact lt_trans (lt_mul_left ih) (lt_mul_right h)
+
 /-- ★★★ **`lt` is a strict total order on the Raw-generated ℕ₊** — irreflexive,
     transitive, and trichotomous (every pair is comparable).  The additive order
     on the distinguishing's own counting object, established with **no Lean `Nat`
