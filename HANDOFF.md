@@ -1,14 +1,27 @@
 # Session Handoff — 2026-06-25 (autonomous research: Nat213 number-theory discipline)
 
 ## Branch
-`claude/continuation-5yvjwq` — working tree clean, pushed. **Full `lake build
-E213` passes clean (465/465).** All new theorems ∅-axiom (`#print axioms`
-empty, verified individually). **Session-end purity sweep**: `scan_axioms` over
-every module touched this session (`Order, Divisibility, Gcd, Coprime, WellOrder,
-Valuation, ToNatReadout, Congruence, Prime, Meta.SubGcd213`) = **0 dirty**; the
-nested-namespace `Peano` additions (`powNat`/`pow_add`/`mul_pow`/`pow_eq_powNat_toNat`)
-`#print axioms`-clean individually. Started from `main` after the previous
-grounded-FTA + Leg-1 marathon merged.
+`claude/continuation-5yvjwq` — **merged to `main`** at the end of a merge-prep marathon
+(process → promote-remaining → cross-domain → essay → org-audit → purity → ready-to-merge
+→ handoff → merge). Working tree clean. **Full `lake build E213` passes clean (465/465)**;
+**ready-to-merge verdict: READY** (layer-audit 0 violations, sink-rule 0, purity 0/0/0/0;
+session-wide `scan_axioms` = 0 dirty across every touched module). Next session starts from
+`main`.
+
+## Merge-prep marathon (process / promote / cross-domain / essay / org-audit / purity / ready-to-merge)
+- **main merge**: no-op — `main` had no commits beyond the branch (branch started from main).
+- **/process**: decoupled 3 sink-rule violations in `number_theory_over_the_spine.md` (it cited
+  `the_descent_leg.md` by path); repointed to prose. Sink re-audit 0.
+- **promote-remaining**: added the three pre-existing PURE discipline files (`Forcing`,
+  `Infinitude` = Euclid's theorem, `ChebyshevLower`) to the promoted chapter, completing the cone.
+- **cross-domain** (`frontiers/carrier_readout_crossdomain.md`): the welds are a *transport functor*
+  `Nat213 → Nat` — main's native Fermat/Euler/Wilson can be transported via the readout, not
+  re-derived; the no-zero readout principle is §6.9 cashed out operationally.
+- **/essay**: #115 `regrounding_is_a_readout_not_a_rederivation` (regrounding = carrier + faithful
+  readout + inherit, bounded by the no-zero shape).
+- **/org-audit**: narrative hygiene clean, INDEX counts accurate (114 essays / 275 chapters), new
+  modules wired, new essays listed — nothing to fix.
+- **/purity-check** + **/ready-to-merge**: all green; verdict READY.
 
 ## What Was Done This Session (autonomous-research, twenty-eight iterations)
 
@@ -295,26 +308,18 @@ Remaining natural deposits, low-risk:
   `Factorization`/`EuclidUnique` opens. Clean, low-risk, build-verifiable.
 
 ## Next
-The `Nat213` leg-2 number-theory cone is **complete and promoted** (chapter
-`theory/math/numbertheory/number_theory_over_the_spine.md`). The remaining
-descent-leg work is **conceptual** (Legs 1 & 3 — generation-vs-borrowing,
-forcing-vs-matching; research-grade, `frontiers/the_descent_leg.md`). Recommended
-next moves:
-- A fresh campaign regrounding another field on `subMod`/structural descent (the
-  prior handoff's thick target) — e.g. modular arithmetic or a divisor theory over
-  `Nat213`, extending the now-promoted cone.
-- The full carrier-readout weld is now closed in Lean: `vp_eq_vpSub` (valuation,
-  value-level), `ToNatReadout.toNat_faithful` (lt/le/Dvd + surjectivity),
-  `Gcd.isGcd_toNat`(_eq) (gcd, spec- and value-level). The generated discipline
-  reads onto the native corpus across order, divisibility, gcd, and valuation.
-- **Modular arithmetic campaign** (`Congruence.lean`): congruence ring + modular
-  exponentiation + readout iff + **the full CRT both ways** are closed. The field
-  is a complete regrounding. Possible next deposits:
-  - Fermat/Euler-style `a^φ ≡ 1` once a unit-group count over `Nat213` exists
-    (needs a residue-class / unit-group construction first — a bigger build).
-  - A fourth field: regrounding e.g. continued fractions or a combinatorial
-    identity family on `Nat213`, or returning to the conceptual residue (Legs 1 & 3).
-- Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
+Branch merged; **next session starts from `main`**. The `Nat213` discipline (order →
+divisibility → gcd → coprimality → well-ordering → pow → valuation → congruence/CRT) is
+complete, promoted, and welded to the native corpus by the carrier-readout (`toNat_faithful`,
+`vp_eq_vpSub`, `isGcd_toNat_eq`, `modeq_toNat_iff`). Thick targets for a fresh session:
+- **Transport campaign** (`frontiers/carrier_readout_crossdomain.md`): a `ModArithReadout`
+  transporting one native modular headline (Fermat/Euler) to `Nat213` via `modeq_toNat_iff` —
+  proving the "build the weld, inherit the corpus" method (essay #115). Low-risk, concrete.
+- Fermat/Euler `a^φ ≡ 1` natively over `Nat213` — needs a residue-class / unit-group count
+  construction first (bigger build); the transport route above is the cheaper alternative.
+- The conceptual descent-leg residue (Legs 1 & 3 — generation-vs-borrowing, forcing-vs-matching;
+  `frontiers/the_descent_leg.md`) — research-grade, approach with a specific new rival model.
+- Minor: an `lcm` dual join (needs an upper bound; deferred — no-zero friction, see frontier).
 - Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
 and is research-grade.
