@@ -85,7 +85,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              (subtraction-free, no zero needed) is a congruence on the
                              semiring (`modeq_congruence`); modular exponentiation
                              (`pow_compat`), the defining step (`modeq_add_mul`), and
-                             the readout into native ℕ (`modeq_toNat`).
+                             the readout iff into native ℕ (`modeq_toNat_iff`).
   - `Valuation.lean`       — `p`-adic structure: (A) `vp` (multiplicity read OUT
                              into ℕ via `Peano.powNat`; `pow_vp_dvd`; exactness
                              `le_vp_iff`); (B) `padic_factorization` + uniqueness

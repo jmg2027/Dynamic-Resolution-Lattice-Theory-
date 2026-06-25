@@ -1,4 +1,5 @@
 import E213.Lens.Number.Nat213.Peano
+import E213.Lens.Number.Nat213.ToNatReadout
 
 /-!
 # Lens.Number.Nat213.Congruence — modular arithmetic over the Raw-generated ℕ₊ (∅-axiom)
@@ -18,7 +19,8 @@ namespace E213.Lens.Number.Nat213.Congruence
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
   (add mul one add_assoc add_comm add_left_comm mul_add add_mul mul_assoc mul_comm mul_one
-   pow pow_one pow_succ toNat toNat_add toNat_mul)
+   pow pow_one pow_succ toNat toNat_add toNat_mul toNat_injective)
+open E213.Lens.Number.Nat213.ToNatReadout (toNat_surj)
 
 /-- **Congruence over the Raw-generated ℕ₊**: `a ≡ b (mod m)` iff `a` and `b` reach a common value
     by adding multiples of `m` — `∃ k l, a + m·k = b + m·l`.  Subtraction-free (no zero needed). -/
@@ -102,6 +104,21 @@ theorem modeq_toNat {m a b : Nat213} (h : ModEq m a b) :
   refine ⟨k.toNat, l.toNat, ?_⟩
   have := congrArg toNat h
   rwa [toNat_add, toNat_add, toNat_mul, toNat_mul] at this
+
+/-- ★★★ **Readout iff** — `ModEq m a b ⟺ a.toNat + m.toNat·k = b.toNat + m.toNat·l` for some
+    native `k,l`: the `Nat213` congruence is exactly the native ℕ congruence (subtraction-free
+    form) of the readouts.  ⟹ is `modeq_toNat`; ⟸ lifts native `k,l` back through `toNat`'s
+    surjectivity — shifted by `+1` so both are `≥ 1` (`Nat213` has no zero), which `Nat.mul_succ`
+    absorbs back into the same equation.  ∅-axiom. -/
+theorem modeq_toNat_iff {m a b : Nat213} :
+    ModEq m a b ↔ ∃ k l : Nat, a.toNat + m.toNat * k = b.toNat + m.toNat * l := by
+  refine ⟨modeq_toNat, ?_⟩
+  rintro ⟨k, l, h⟩
+  obtain ⟨k', hk'⟩ := toNat_surj (k + 1) (Nat.le_add_left 1 k)
+  obtain ⟨l', hl'⟩ := toNat_surj (l + 1) (Nat.le_add_left 1 l)
+  refine ⟨k', l', toNat_injective ?_⟩
+  rw [toNat_add, toNat_add, toNat_mul, toNat_mul, hk', hl', Nat.mul_succ, Nat.mul_succ,
+      ← Nat.add_assoc, ← Nat.add_assoc, h]
 
 /-- ★★★ **`ModEq m` is a congruence on the Raw-generated semiring** — an equivalence relation
     compatible with `+` and `·`.  Modular arithmetic generated over `Nat213`, subtraction-free. -/
