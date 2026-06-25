@@ -20,8 +20,9 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd (zdvd_add zdvd_zero)
 open E213.Meta.Algebra213 (Ring213)
 open E213.Meta.Algebra213.Ring213
-  (add_assoc add_comm add_zero add_left_neg mul_assoc add_mul neg_add neg_neg neg_mul
+  (add_assoc add_comm add_zero add_left_neg mul_assoc add_mul mul_add neg_add neg_neg neg_mul
    zero_add add_4_swap_mid mul_neg)
+open E213.Meta.Algebra213.CommRing213 (mul_comm)
 
 /-- `a + -a = 0` (from `add_left_neg` + `add_comm`). -/
 private theorem add_neg_self (a : ZOmega) : a + -a = 0 := by
@@ -34,6 +35,10 @@ private theorem dvd_neg {d x : ZOmega} (h : d ∣ x) : d ∣ -x := by
 /-- `π ∣ x → π ∣ x · e`. -/
 private theorem dvd_mul_right {d x : ZOmega} (h : d ∣ x) (e : ZOmega) : d ∣ x * e := by
   obtain ⟨c, rfl⟩ := h; exact ⟨c * e, mul_assoc d c e⟩
+
+/-- `π ∣ x → π ∣ e · x`. -/
+private theorem dvd_mul_left {d x : ZOmega} (h : d ∣ x) (e : ZOmega) : d ∣ e * x := by
+  obtain ⟨c, rfl⟩ := h; exact ⟨e * c, by rw [← mul_assoc, mul_comm e d, mul_assoc]⟩
 
 /-- **Congruence modulo `π` in `ℤ[ω]`** — `α ≡ β (mod π)` iff `π` divides the difference `α − β`
     (written `α + -β`). -/
@@ -69,6 +74,13 @@ theorem mul_right {π α β : ZOmega} (h : ModEq π α β) (γ : ZOmega) :
   show π ∣ ((α * γ) + -(β * γ))
   have key : (α + -β) * γ = α * γ + -(β * γ) := by rw [add_mul, neg_mul]
   rw [← key]; exact dvd_mul_right h γ
+
+/-- ★ Compatible with left `·` — `α ≡ β ⟹ γ · α ≡ γ · β`. -/
+theorem mul_left {π α β : ZOmega} (h : ModEq π α β) (γ : ZOmega) :
+    ModEq π (γ * α) (γ * β) := by
+  show π ∣ ((γ * α) + -(γ * β))
+  have key : γ * (α + -β) = γ * α + -(γ * β) := by rw [mul_add, mul_neg]
+  rw [← key]; exact dvd_mul_left h γ
 
 /-- ★★★ **`ModEq π` is a congruence on `ℤ[ω]`** — an equivalence relation compatible with `+` and
     `·`.  The residue classes mod `π` form a ring `ℤ[ω]/(π)`; the cubic character lives on it. -/
