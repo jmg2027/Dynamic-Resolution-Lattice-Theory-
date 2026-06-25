@@ -64,6 +64,16 @@ carrier Legendre/`QPart` readout after all — the divisibility-form native stat
 directly. The lesson: pick the weld by the native theorem's *reading form*, not by re-deriving the
 statement on the carrier.
 
+**The multiplicative-order corpus is now transported** (`MulOrderReadout.lean`) — the structure
+theory of the unit group `(ℤ/p)*`. The transport upgraded the functor to its **iff** form
+`modeq_toNat_mod_iff` (`ModEq m a b ⟺ a.toNat % m.toNat = b.toNat % m.toNat`, both directions): the
+order corpus needs *both* legs — the defining congruence `a^ord ≡ 1` lifts OUT (`pow_mulOrd_one`),
+while `aᵏ ≡ 1 ⟹ ord ∣ k` consumes a congruence lifted IN (`mulOrd_dvd`). The order itself is a count
+read OUT into ℕ (`mulOrd a p := ordModP a.toNat p.toNat`, the valuation/no-zero pattern). Results:
+`mulOrd_pos`, `pow_mulOrd_one`, `mulOrd_min` (minimality), `mulOrd_dvd`, `mulOrd_dvd_pred` (Lagrange).
+All ∅-axiom.
+
 Remaining (deeper, genuinely needs new carrier constructs): a carrier Legendre symbol + quadratic
-reciprocity; the discrete-log / primitive-root corpus. Sits with `the_descent_leg` (leg-2 readout).
+reciprocity; primitive roots (`maxOrd = p−1`); the discrete-log corpus. Sits with `the_descent_leg`
+(leg-2 readout).
 </content>

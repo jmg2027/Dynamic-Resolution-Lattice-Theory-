@@ -42,7 +42,7 @@ open E213.Lens.Number.Nat213.Peano.Nat213
   (pow powNat one succ add mul toNat toNat_add toNat_mul toNat_ge_one pow_eq_powNat_toNat
    factorial factorial_succ)
 open E213.Lens.Number.Nat213.ToNatReadout (toNat_surj toNat_powNat)
-open E213.Lens.Number.Nat213.Congruence (ModEq modeq_toNat_iff)
+open E213.Lens.Number.Nat213.Congruence (ModEq modeq_toNat modeq_toNat_iff)
 open E213.Lens.Number.Nat213.Coprime (Coprime)
 open E213.Lens.Number.Nat213.Gcd (isGcd_toNat)
 open E213.Meta.Nat.NatDiv213 (div_add_mod_pure)
@@ -79,6 +79,30 @@ theorem mod_eq_imp_additive {m A B : Nat} (h : A % m = B % m) :
 theorem modeq_of_toNat_mod {m a b : Nat213}
     (h : a.toNat % m.toNat = b.toNat % m.toNat) : ModEq m a b :=
   modeq_toNat_iff.mpr (mod_eq_imp_additive h)
+
+/-- ★★ **The transport functor, forward direction** — a `Nat213` congruence pushes down to a native
+    `%`-congruence of the readouts: `ModEq m a b → a.toNat % m.toNat = b.toNat % m.toNat`.  From the
+    additive certificate (`modeq_toNat`): adding a multiple of `m.toNat` preserves the residue
+    (`add_mul_mod_self_pure`), so `a.toNat % m = (a.toNat+m·k) % m = (b.toNat+m·l) % m = b.toNat % m`.
+    The `mp` companion to `modeq_of_toNat_mod` — needed to transport native results that *consume* a
+    `%`-congruence (e.g. `ord ∣ k` from `aᵏ ≡ 1`).  ∅-axiom. -/
+theorem modeq_imp_toNat_mod {m a b : Nat213} (h : ModEq m a b) :
+    a.toNat % m.toNat = b.toNat % m.toNat := by
+  obtain ⟨k, l, hkl⟩ := modeq_toNat h
+  calc a.toNat % m.toNat
+      = (a.toNat + k * m.toNat) % m.toNat := (add_mul_mod_self_pure a.toNat m.toNat k).symm
+    _ = (a.toNat + m.toNat * k) % m.toNat := by rw [Nat.mul_comm]
+    _ = (b.toNat + m.toNat * l) % m.toNat := by rw [hkl]
+    _ = (b.toNat + l * m.toNat) % m.toNat := by rw [Nat.mul_comm]
+    _ = b.toNat % m.toNat := add_mul_mod_self_pure b.toNat m.toNat l
+
+/-- ★★★ **The transport functor is a readout iff** — `ModEq m a b ⟺ a.toNat % m.toNat = b.toNat %
+    m.toNat`.  The `Nat213` congruence and the native `%`-congruence of the depth readouts are the
+    *same relation* read at the two resolutions.  The capstone weld: native modular results transport
+    in **both** directions through it.  ∅-axiom. -/
+theorem modeq_toNat_mod_iff {m a b : Nat213} :
+    ModEq m a b ↔ a.toNat % m.toNat = b.toNat % m.toNat :=
+  ⟨modeq_imp_toNat_mod, modeq_of_toNat_mod⟩
 
 /-- The `Nat213`-exponent power reads out as the native power of the readouts:
     `(a^m).toNat = a.toNat ^ m.toNat`.  Via the `pow ↔ powNat` bridge (`pow_eq_powNat_toNat`) +

@@ -21,6 +21,7 @@ import E213.Lens.Number.Nat213.ToNatReadout
 import E213.Lens.Number.Nat213.Valuation
 import E213.Lens.Number.Nat213.Congruence
 import E213.Lens.Number.Nat213.ModArithReadout
+import E213.Lens.Number.Nat213.MulOrderReadout
 import E213.Lens.Number.Nat213.FTA
 import E213.Lens.Number.Nat213.Forcing
 import E213.Lens.Number.Nat213.Infinitude

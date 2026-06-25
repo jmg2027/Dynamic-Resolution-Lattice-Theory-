@@ -6,7 +6,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
 `theory/math/numbersystems/naturals_from_the_spine.md`,
 `theory/essays/foundations/raw_and_lens_explained.md`).
 
-## Files (32 + Tower/5)
+## Files (33 + Tower/5)
 
 ### Representations
 
@@ -100,14 +100,21 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              the readouts, via `dvd_toNat_iff` + `toNat_powNat`).
   - `ModArithReadout.lean` — *transport, not re-derivation*: the native-ℕ modular
                              corpus (`Lib/.../ModArith`) inherited along `toNat`.  Welds
-                             per reading-form: `modeq_of_toNat_mod` (`%`-congruence),
-                             `modeq_of_dvd_sub`/`modeq_self_of_dvd` (divisibility),
-                             `gcd213_eq_one_of_coprime` (gcd).  Headlines as one-liners:
-                             **Fermat** (`flt_primary` `a^p≡a`, `flt_main` `a^(p-1)≡1`),
-                             **Wilson** (`wilson` `(p-1)!≡p-1`, via `toNat_factorial`),
-                             **Euler's criterion** (`euler_criterion` `a^m≡±1`, `euler_qr`),
-                             **CRT reconstruction** (`crt_reconstruction`, simultaneous-
-                             congruence existence — complements `Congruence.crt_iff`).
+                             per reading-form: `modeq_toNat_mod_iff` (the capstone — the
+                             `Nat213` congruence *is* the native `%`-congruence of readouts,
+                             both directions), `modeq_of_dvd_sub`/`modeq_self_of_dvd`
+                             (divisibility), `gcd213_eq_one_of_coprime` (gcd).  Headlines as
+                             one-liners: **Fermat** (`flt_primary` `a^p≡a`, `flt_main`
+                             `a^(p-1)≡1`), **Wilson** (`wilson` `(p-1)!≡p-1`, via
+                             `toNat_factorial`), **Euler's criterion** (`euler_criterion`
+                             `a^m≡±1`, `euler_qr`), **CRT reconstruction**
+                             (`crt_reconstruction`, simultaneous-congruence existence —
+                             complements `Congruence.crt_iff`).
+  - `MulOrderReadout.lean` — the **multiplicative-order** corpus (unit group `(ℤ/p)*`)
+                             transported via `modeq_toNat_mod_iff`.  `mulOrd a p` = the
+                             order read OUT into ℕ (valuation pattern); `pow_mulOrd_one`
+                             (`a^ord≡1`), `mulOrd_min` (minimality), `mulOrd_dvd`
+                             (`a^k≡1 ⟹ ord∣k`), `mulOrd_dvd_pred` (Lagrange `ord∣p-1`).
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence; a prime dividing a power
                              divides the base (`irreducible_dvd_pow_iff`).
