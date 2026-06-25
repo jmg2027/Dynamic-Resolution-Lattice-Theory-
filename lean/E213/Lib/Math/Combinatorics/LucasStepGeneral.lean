@@ -8,6 +8,7 @@ import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.MulMod213
 import E213.Meta.Nat.NatRing213
 import E213.Meta.Nat.Gcd213
+import E213.Meta.Nat.NatDiv213
 import E213.Meta.Nat.Valuation
 import E213.Meta.Tactic.NatHelper
 
@@ -49,6 +50,7 @@ open E213.Tactic.NatHelper (mul_assoc add_mul sub_add_cancel add_sub_of_le sub_p
   add_sub_add_left)
 open E213.Meta.Nat.NatRing213 (nat_add_sub_self_right)
 open E213.Meta.Nat.Gcd213 (dvd_add_213)
+open E213.Meta.Nat.NatDiv213 (div_add_mod_pure)
 
 /-- `(p * x) % p = 0`. -/
 theorem mul_p_mod_eq_zero (p x : Nat) : (p * x) % p = 0 := by
@@ -444,6 +446,17 @@ theorem lucas_step {p : Nat} (hp : Prime213 p) (n k r s : Nat)
   rw [add_mod_gen (sumTo (p * k) (fun j => choose (p * n) j * choose r (p * k + s - j)))
         (sumTo (s + 1) (fun t => choose (p * n) (p * k + t) * choose r (p * k + s - (p * k + t)))) p,
       hprefix, Nat.zero_add, mod_mod, hsuffix]
+
+/-- ★★★ **Lucas' theorem, recursive (division) form** — for arbitrary `m, n` (no pre-split into
+    digits): `choose m n ≡ choose (m / p) (n / p) · choose (m % p) (n % p)  (mod p)`.  The digit-step
+    `lucas_step` applied to the base-`p` decomposition `m = p·(m/p) + m%p`, `n = p·(n/p) + n%p`
+    (`div_add_mod_pure`); the low digits `m % p`, `n % p` are `< p` (`Nat.mod_lt`).  Iterating this
+    down the quotients gives the full digit-product `choose m n ≡ ∏ᵢ choose mᵢ nᵢ`.  ∅-axiom. -/
+theorem lucas_div {p : Nat} (hp : Prime213 p) (m n : Nat) :
+    (choose m n) % p = (choose (m / p) (n / p) * choose (m % p) (n % p)) % p := by
+  have hp0 : 0 < p := Nat.lt_of_lt_of_le (by decide) hp.1
+  have key := lucas_step hp (m / p) (n / p) (m % p) (n % p) (Nat.mod_lt m hp0) (Nat.mod_lt n hp0)
+  rwa [div_add_mod_pure m p, div_add_mod_pure n p] at key
 
 /-! ## Smoke tests against the concrete `LucasTheorem.lucasStep` table -/
 

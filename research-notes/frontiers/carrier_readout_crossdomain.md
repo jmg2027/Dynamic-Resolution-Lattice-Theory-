@@ -110,30 +110,29 @@ Lucas' theorem likewise exists only as the `lucasStep` predicate with per-prime 
 digit-product theorem), so only its binomial precursors transport. Recorded honestly rather than
 fabricated.
 
-## General Lucas theorem — native development (in progress)
+## General Lucas theorem — already in the corpus (+ recursive form added)
 
-Lucas is *not* a transport — it needs new native theorems first.  Two findings on opening it:
+Opening Lucas turned up that **most of it was already proved** (two stale "remainder" claims in
+`ModArith/LucasTheorem.lean`, now corrected):
 
-1. **The "Vandermonde absent" claim in `LucasTheorem.lean` was stale.** Vandermonde's identity is
-   already proved in the corpus at `DyadicFSM/FLT/Vandermonde.lean` (`vandermonde : vand a b k =
-   choose (a+b) k`, ∅-axiom). Comment corrected; the genuine remainder is smaller than it read.
+1. **Vandermonde's identity** exists — in fact twice: `DyadicFSM/FLT/Vandermonde.lean` (`vandermonde`)
+   and `Combinatorics/Vandermonde.lean` (`vandermonde`, `vandermonde_sum`).  ∅-axiom.
+2. **The general Lucas digit-step is proved** — `Combinatorics/LucasStepGeneral.lean`, `lucas_step`:
+   `choose (p·n+r) (p·k+s) ≡ choose n k · choose r s (mod p)` for `Prime213 p`, `r,s < p`.  Its
+   ingredients are all there: `gen_freshman` (`p ∤ i → choose (p·n) i ≡ 0`, the carry collapse — the
+   "two-interior-index extraction" worry was solved there via `sumTo_reflect` + `sumTo_split_at`),
+   `choose_pn_pk` (high-digit `choose (p·n) (p·k) ≡ choose n k`), `conv_collapse_lt/ge`.
 
-2. **`prime_dvd_choose_mul` deposited** (`LucasTheorem.lean`, ∅-axiom): `p ∤ j → p ∣ choose (p·n) j` —
-   generalizes `prime_dvd_choose` (the `n=1` row) to every `p·n` row, the carry fact that collapses a
-   Lucas digit-step's cross terms. **Clean proof via absorption** `choose_succ_mul` (`j·C(p·n,j) =
-   p·(n·C(p·n−1,j−1))`) + Euclid — *no* Vandermonde or Σ-surgery needed.
+   *(My session-local `prime_dvd_choose_mul` / `lucas_low` duplicated `gen_freshman` /
+   `lucas_prefix_zero`; reverted to avoid duplication.)*
 
-Precise runway for the digit-step `choose (p·n+r) (p·k+s) ≡ choose n k · choose r s (mod p)` (r,s<p):
-* **collapse recurrence** `choose (p(n+1)) j ≡ choose (p·n) j + choose (p·n) (j−p) (mod p)` —
-  Vandermonde against the `choose p ·` row; every index but the two `p`-multiples `i=j`, `i=j−p`
-  vanishes mod `p` (interior by `prime_dvd_choose`, far by `choose_eq_zero_of_lt`).  *Blocker*: the
-  `sumTo` API extracts only first/last, so isolating the two **interior** surviving indices needs a
-  new "two-index extraction, rest ≡0 mod p" Σ-lemma — the laborious bit.
-* **high-digit recursion** `choose (p·n) (p·k) ≡ choose n k (mod p)` — the `j=p·k` specialisation of
-  the collapse, by induction matched to Pascal.
-* the step is then the product (collapse splits off the low digits `r,s`; carry lemma kills the rest).
+**Deposited** (`LucasStepGeneral.lean`, ∅-axiom): `lucas_div` — the **arbitrary-`m,n` recursive form**
+`choose m n ≡ choose (m/p) (n/p) · choose (m%p) (n%p) (mod p)` (the digit-step on the base-`p`
+decomposition `m = p·(m/p)+m%p`).  This is general Lucas in usable recursive form: no pre-split into
+digits required; iterating it down the quotients determines `choose m n mod p` from the digits.
 
-Remaining open (further new native development): the collapse/high-digit Σ-lemmas above (then full
-Lucas); cubic / Eisenstein / higher reciprocity laws (no native source at all).  Sits with
-`the_descent_leg` (leg-2 readout).
+Remaining (explicit-form presentation, optional): the closed digit-product `choose m n ≡ ∏ᵢ choose mᵢ
+nᵢ` — needs a `prodTo` + base-`p` digit framework (a bounded-iteration induction on `lucas_div`;
+watch `div_div` purity).  Genuinely-absent-from-corpus targets: cubic / Eisenstein / higher
+reciprocity (no native source).  Sits with `the_descent_leg` (leg-2 readout).
 </content>
