@@ -22,10 +22,10 @@ namespace E213.Lens.Number.Nat213.Valuation
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
-  (mul one succ pow pow_one pow_succ mul_assoc one_mul powNat powNat_zero powNat_succ)
-open E213.Lens.Number.Nat213.Order (lt lt_add_right mul_right_cancel)
+  (mul one succ pow pow_one pow_succ pow_add mul_assoc one_mul powNat powNat_zero powNat_succ)
+open E213.Lens.Number.Nat213.Order (lt le lt_add_right mul_right_cancel mul_left_cancel le_total)
 open E213.Lens.Number.Nat213.Divisibility
-  (Dvd one_dvd dvd_mul_left dvd_imp_eq_or_lt)
+  (Dvd one_dvd dvd_mul_left dvd_imp_eq_or_lt dvd_mul_of_dvd_left self_dvd_pow)
 open E213.Lens.Number.Nat213.Irreducible (Irreducible)
 open E213.Lens.Number.Nat213.WellOrder (strong_induction)
 
@@ -54,6 +54,35 @@ theorem padic_factorization {p : Nat213} (hp : Irreducible p) :
     obtain ⟨k, m, hkm, hm⟩ := ih c hcn hpc
     exact ⟨succ k, m, by rw [hc, hkm, pow_succ, mul_assoc], hm⟩
   · exact ⟨one, c, by rw [hc, pow_one], hpc⟩
+
+/-- The exponent of a `p`-adic factorization is determined under `le` — if `p^k₁·m₁ = p^k₂·m₂` with
+    `¬ p ∣ m₁` and `k₁ ≤ k₂`, then `k₁ = k₂`.  A strict `k₁ < k₂` would put a `p` into `m₁`
+    (`p ∣ p^d`, `d ≥ 1`) after cancelling `p^k₁`, contradicting `¬ p ∣ m₁`. -/
+private theorem padic_exp_eq_of_le {p k₁ k₂ m₁ m₂ : Nat213}
+    (h : mul (pow p k₁) m₁ = mul (pow p k₂) m₂) (hm₁ : ¬ Dvd p m₁) (hle : le k₁ k₂) : k₁ = k₂ := by
+  rcases hle with rfl | hlt
+  · rfl
+  · exfalso
+    obtain ⟨d, hd⟩ := hlt
+    rw [← hd, pow_add, mul_assoc] at h
+    have hm : m₁ = mul (pow p d) m₂ := mul_left_cancel h
+    apply hm₁
+    rw [hm]
+    exact dvd_mul_of_dvd_left (self_dvd_pow p d) m₂
+
+/-- ★★★ **Uniqueness of the `p`-adic factorization** — the `(k, m)` of `padic_factorization` is
+    unique: if `p^k₁·m₁ = p^k₂·m₂` with both `m` coprime to `p` (`¬ p ∣ mᵢ`), then `k₁ = k₂` and
+    `m₁ = m₂`.  By `le_total` on the exponents + `padic_exp_eq_of_le`, then `mul_left_cancel`.  This
+    welds the two valuation forms: B's exponent `k` is well-defined, the native counterpart of A's
+    `vp`.  ∅-axiom. -/
+theorem padic_factorization_unique {p k₁ k₂ m₁ m₂ : Nat213}
+    (h : mul (pow p k₁) m₁ = mul (pow p k₂) m₂) (hm₁ : ¬ Dvd p m₁) (hm₂ : ¬ Dvd p m₂) :
+    k₁ = k₂ ∧ m₁ = m₂ := by
+  rcases le_total k₁ k₂ with hle | hle
+  · have hk : k₁ = k₂ := padic_exp_eq_of_le h hm₁ hle
+    subst hk; exact ⟨rfl, mul_left_cancel h⟩
+  · have hk : k₂ = k₁ := padic_exp_eq_of_le h.symm hm₂ hle
+    subst hk; exact ⟨rfl, mul_left_cancel h⟩
 
 /-! ## A — the `p`-adic valuation, read out into ℕ -/
 
