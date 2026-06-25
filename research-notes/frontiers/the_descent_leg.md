@@ -436,7 +436,15 @@ well-ordering) → exponentiation (`Peano.pow`/`powNat`) → `p`-adic structure 
   (the `(k,m)` is unique — welds B's native exponent `k` to A's `vp`). ✓ CLOSED.
 
 The leg-2 `Nat213` cone (order → divisibility → gcd → coprimality → well-ordering → pow → p-adic
-valuation) is now a complete ∅-axiom elementary-number-theory discipline on the generated carrier.
+valuation) is now a complete ∅-axiom elementary-number-theory discipline on the generated carrier,
+**promoted** to `theory/math/numbertheory/number_theory_over_the_spine.md`.
+
+**Carrier weld — CLOSED** (`Valuation.vp_eq_vpSub`): the generated valuation reads onto the native one,
+`vp p n = vpSub p.toNat n.toNat` (via `dvd_toNat_iff` + `toNat_powNat`), so the discipline over
+`Nat213` and the native-`Nat` corpus are one count at two resolutions welded by the depth-readout
+`toNat` (essay `two_carriers_one_count`, closing #103).
+
 **Remaining is conceptual, not arithmetic** — see Legs 1 & 3 above (generation vs. borrowing, forcing
-vs. matching).  Possible next concrete deposit: an `lcm` dual join (needs an upper bound; deferred), or
-promote the whole `Nat213` cone to a `theory/` chapter once judged categorically closed.
+vs. matching).  Possible next concrete deposits: the readout identity for the other generated
+operations (a generated `gcd`'s readout = native gcd, each a small `dvd_toNat_iff`/`toNat_*` bridge),
+or an `lcm` dual join (needs an upper bound; deferred).

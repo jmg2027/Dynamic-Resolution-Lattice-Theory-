@@ -6,14 +6,25 @@ E213` passes clean (463/463).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, thirteen iterations)
+## What Was Done This Session (autonomous-research, fourteen iterations)
 
-Thirteen focused iterations on the **descent-leg discipline** over `Nat213` (the
+Fourteen focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
 elementary number theory chain on the generated carrier, then **promoting it to a
 `theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
 exponentiation → **p-adic valuation** (both forms, exactness + uniqueness), all
 ∅-axiom.
+
+### Iteration 14: the carrier weld as a proven equation (PURE ✓)
+`Valuation.vp_eq_vpSub` — for a prime `p` (`p ≠ one`), `vp p n = vpSub p.toNat
+n.toNat`: the generated `p`-adic valuation over `Nat213` equals the native
+`subMod`-grounded `vpSub` (`Meta/Nat/VpSub213`) of the depth readouts. Both are
+"the largest dividing exponent" (`le_vp_iff` / `le_vpSub_iff`), matched by the
+carrier bridge `dvd_toNat_iff` (`Dvd a b ⟺ a.toNat ∣ b.toNat`, ⟸ via `toNat`
+surjectivity onto ℕ₊) + `toNat_powNat`, closed by `Nat.le_antisymm`. Carries the
+prose weld (essay #112) to a proven equation — closes #103's frontier in Lean.
+Purity craft: `.mp`/`.mpr` application, NOT `rw` on iff lemmas (`rw` iff→eq pulls
+`propext`).
 
 ### Iteration 13: cross-domain essay — the carrier-gap weld
 `theory/essays/synthesis/two_carriers_one_count.md` (essay #112) closes essay
@@ -153,6 +164,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+a54b3e7 Nat213.Valuation: the carrier weld vp_eq_vpSub — generated vp = native vpSub of readouts
 d913cc7 Essay: "Two carriers, one count" — the depth-readout welds the number theory
 b11dc2c Promote: leg-2 number-theory discipline over Nat213 → theory/ chapter
 ea8184d Nat213.Valuation: exactness le_vp_iff — vp is the largest dividing exponent
@@ -218,11 +230,12 @@ next moves:
 - A fresh campaign regrounding another field on `subMod`/structural descent (the
   prior handoff's thick target) — e.g. modular arithmetic or a divisor theory over
   `Nat213`, extending the now-promoted cone.
-- The **valuation cross-carrier identity** `Nat213.Valuation.vp p n =
-  vpNative (toNat p) (toNat n)` — the concrete Lean deposit that would carry the
-  carrier-gap weld (essay #112) all the way to a proven equation between the
-  generated and native valuations. Recorded in `the_descent_leg.md`.
+- The **carrier weld is now closed** (`vp_eq_vpSub`). The remaining breadth is the
+  readout identity for the *other* generated operations against the native corpus
+  (a generated `gcd`'s readout = native gcd, each a small `dvd_toNat_iff`/`toNat_*`
+  bridge) — low-risk, incremental.
 - Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
+- Or a fresh campaign regrounding another field on `subMod`/structural descent.
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
 and is research-grade.
 
