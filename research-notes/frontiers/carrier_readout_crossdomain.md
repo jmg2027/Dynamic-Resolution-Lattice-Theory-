@@ -187,13 +187,22 @@ d)`; with `‖d‖² = p` this is the ring map `ℤ/p → ℤ[ω]/(d)`.  Via `dv
 correspondence are now welds: `reduce_to_int` (`ℤ[ω] → ℤ` mod `d`, rung 2b) and `modEq_ofInt_of_dvd`
 (`ℤ/p ↪ ℤ[ω]/(d)`).
 
+**Rung 3b done — the character cubes to one.**  `CayleyDickson/Integer/EisensteinCubicChar.lean`
+(`pow_cong`, `ofInt_pow`, `ofInt_pow_modeq_one`, `pow_add`, `half_pow_cube_one`, `char_cubes_to_one`,
+all ∅-axiom).  Reusing `RootOfUnityOrthogonality.pow`/`one`, the residue Fermat lift
+`ofInt_pow_modeq_one` (`‖d‖² ∣ aⁿ − 1 ⟹ (↑a)ⁿ ≡ 1 mod d`, via `ofInt_pow` + `modEq_ofInt_of_dvd`) and
+power additivity `pow_add` give the capstone `char_cubes_to_one`: for **any** `α ∈ ℤ[ω]`, the
+half-power `χ(α) := α^m` (`m = (p−1)/3`, `3m = m+m+m`) satisfies `χ(α)³ ≡ 1 (mod d)` — the character
+value is a cube root of unity in the residue field `ℤ[ω]/(d) ≅ 𝔽_p`.  Chain: `α ≡ ↑r` (reduction,
+rung 2b) → `α^{3m} ≡ (↑r)^{3m}` (`pow_cong`) → `(↑r)^{3m} ≡ ↑1` (`ofInt_pow_modeq_one`, rational
+Fermat `r^{p−1} ≡ 1 mod p`).
+
 Next rungs:
-**(3b)** the cubic character itself: define `α^k` on `ℤ[ω]` (or reuse a monoid power), prove the
-residue Fermat `α^{p−1} ≡ 1 (mod d)` (welded — `α ≡ ↑a`, rational Fermat `a^{p−1} ≡ 1 mod p`, descend
-by `modEq_ofInt_of_dvd`), so `α^{(p−1)/3}` is a cube root of unity mod `d`, and read its value into
-`μ₃` (rung 1) — the character `(α/d)₃`, welded to `ModArith/CubicResidue.cube_iff_three_dvd_dlog`;
-**(3)** character multiplicativity + the weld to the rational cubic character (norm-`p` primes ↔
-`ModArith/CubicResidue.cube_iff_three_dvd_dlog`);
+**(3c)** read the cube-root-of-unity value into `μ₃` *exactly* (it is one of `{1, ω, ω²}`, not merely
+cubing to 1) — needs the residue field's root-counting (`x³ = 1` has exactly 3 roots in `𝔽_p`,
+`p ≡ 1 mod 3`), then weld the character `(α/d)₃` to `ModArith/CubicResidue.cube_iff_three_dvd_dlog`;
+**(3d)** character multiplicativity `(αβ/d)₃ = (α/d)₃·(β/d)₃` + the weld to the rational cubic
+character (norm-`p` primes ↔ `ModArith/CubicResidue.cube_iff_three_dvd_dlog`);
 **(4)** primary primes (the unique associate `≡ 2 mod 3` among the 6 unit multiples);
 **(5)** the reciprocity `(π/π')₃ = (π'/π)₃`.
 Higher (Eisenstein/quartic) reciprocity sits beyond.  With `the_descent_leg` (leg-2 readout).
