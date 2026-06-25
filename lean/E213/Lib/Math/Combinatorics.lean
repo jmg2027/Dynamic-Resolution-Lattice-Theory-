@@ -52,6 +52,7 @@ import E213.Lib.Math.Combinatorics.QBinomial
 import E213.Lib.Math.Combinatorics.QBinomialSymmetry
 import E213.Lib.Math.Combinatorics.FibonacciCatalanIdentity
 import E213.Lib.Math.Combinatorics.LucasStepGeneral
+import E213.Lib.Math.Combinatorics.LucasDigitProduct
 import E213.Lib.Math.Combinatorics.GeneratingFunction
 import E213.Lib.Math.Combinatorics.PowerSeriesSemiring
 import E213.Lib.Math.Combinatorics.Simplex5

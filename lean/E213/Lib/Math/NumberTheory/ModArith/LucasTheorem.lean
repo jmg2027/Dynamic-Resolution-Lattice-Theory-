@@ -137,9 +137,10 @@ for low digits `0 ≤ r, s < p`.
 for every `Prime213 p`, `r, s < p`), via Vandermonde's identity
 (`DyadicFSM/FLT/Vandermonde.lean`) plus the mod-p collapse of its cross terms
 (`gen_freshman` : `p ∤ i → choose (p·n) i ≡ 0`).  Its arbitrary-`m,n` recursive form
-is `lucas_div` (`choose m n ≡ choose (m/p) (n/p) · choose (m%p) (n%p)`), in the same
-file.  The concrete instances below are closed by `decide`, agreeing with `lucas_step`
-(see the smoke tests in `LucasStepGeneral`). -/
+is `lucas_div` (`choose m n ≡ choose (m/p) (n/p) · choose (m%p) (n%p)`), and the
+explicit base-`p` digit product `choose m n ≡ ∏ᵢ choose mᵢ nᵢ` is `lucas_digits`
+(`Combinatorics/LucasDigitProduct.lean`).  The concrete instances below are closed by
+`decide`, agreeing with `lucas_step` (see the smoke tests there). -/
 
 /-- The Lucas digit-step congruence as a `Prop` (uniform statement).
     `abbrev` so `decide` unfolds it to the underlying decidable `Nat` equality. -/

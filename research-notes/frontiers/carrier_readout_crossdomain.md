@@ -131,8 +131,13 @@ Opening Lucas turned up that **most of it was already proved** (two stale "remai
 decomposition `m = p·(m/p)+m%p`).  This is general Lucas in usable recursive form: no pre-split into
 digits required; iterating it down the quotients determines `choose m n mod p` from the digits.
 
-Remaining (explicit-form presentation, optional): the closed digit-product `choose m n ≡ ∏ᵢ choose mᵢ
-nᵢ` — needs a `prodTo` + base-`p` digit framework (a bounded-iteration induction on `lucas_div`;
-watch `div_div` purity).  Genuinely-absent-from-corpus targets: cubic / Eisenstein / higher
+**The explicit digit-product is now proved** — `Combinatorics/LucasDigitProduct.lean`, `lucas_digits`:
+for `n < p^L`, `choose m n ≡ ∏_{i<L} choose ((m/p^i) % p) ((n/p^i) % p) (mod p)` (∅-axiom).  Bounded
+iteration of `lucas_div` over the quotient tower (reusing `FactorialLcmProduct.prodTo` + three generic
+helpers `prodTo_{congr,split_first,mod}`; digit descent via the pure nested floor `div_div_pure`).
+**Lucas' theorem is complete in the corpus** in all three forms: digit-step (`lucas_step`), recursive
+(`lucas_div`), explicit digit-product (`lucas_digits`).
+
+Genuinely-absent-from-corpus targets (would need new native development): cubic / Eisenstein / higher
 reciprocity (no native source).  Sits with `the_descent_leg` (leg-2 readout).
 </content>
