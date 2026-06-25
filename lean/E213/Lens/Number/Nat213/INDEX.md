@@ -79,7 +79,10 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
   - `Valuation.lean`       — `p`-adic structure: (A) `vp` (multiplicity read OUT
                              into ℕ via `Peano.powNat`; `pow_vp_dvd`; exactness
                              `le_vp_iff`); (B) `padic_factorization` + uniqueness
-                             (native `n=p^k·m`, `¬p∣m`, for `p∣n`).
+                             (native `n=p^k·m`, `¬p∣m`, for `p∣n`); the carrier
+                             weld `vp_eq_vpSub` (`vp p n = vpSub p.toNat n.toNat`,
+                             the generated valuation = native `subMod` `vpSub` of
+                             the readouts, via `dvd_toNat_iff` + `toNat_powNat`).
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence; a prime dividing a power
                              divides the base (`irreducible_dvd_pow_iff`).

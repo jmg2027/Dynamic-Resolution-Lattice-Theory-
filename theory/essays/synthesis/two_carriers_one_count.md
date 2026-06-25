@@ -64,11 +64,22 @@ one element it cannot reach* — `0`, the diagonal that no spine-pointing covers
 (`seed/AXIOM/06_lens_readings.md` §6.9; the residue `object1_not_surjective` at the level of the
 carrier).
 
+## The weld as a proven equation
+
+The carrier weld is not only the homomorphism but a proven *valuation* identity:
+`Valuation.vp_eq_vpSub` — for a prime `p` (`p ≠ one`), `vp p n = vpSub p.toNat n.toNat`, the
+generated `p`-adic valuation over `Nat213` equals the native `subMod`-grounded `vpSub`
+(`Meta/Nat/VpSub213`) of the readouts. The proof is the count-Lens functoriality made concrete:
+both valuations are "the largest dividing exponent" (`le_vp_iff` / `le_vpSub_iff`), and the
+divisibility carrier bridge `dvd_toNat_iff` (`Dvd a b ⟺ a.toNat ∣ b.toNat`, ⟸ via `toNat`'s
+surjectivity onto ℕ₊) with `toNat_powNat` (`(p^k).toNat = p.toNat^k`) matches the two
+characterizations, so `Nat.le_antisymm` closes it. The two-scale identity of #103 is now a single
+proven equation between the generated and native valuations — the carrier gap, welded in Lean.
+
 ## Open frontier
 
-The carrier weld (`toNat` a faithful homomorphism) is proven. The *valuation*-specific
-cross-carrier identity — `Nat213.Valuation.vp p n = vpNative (toNat p) (toNat n)`, the readout
-of the generated `vp` equalling the native one — is not yet a Lean theorem; it is the concrete
-next deposit that would carry #103's two-scale identity all the way to a single proven equation
-between the generated and native valuations. Tracked under `the_descent_leg`.
+The valuation weld is closed. What remains is breadth: the *same* readout identity for the other
+generated operations against their native-corpus counterparts (e.g. a generated `gcd`'s readout
+equalling the native gcd), each a small bridge of the `dvd_toNat_iff`/`toNat_*` shape. Tracked
+under `the_descent_leg`.
 </content>

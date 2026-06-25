@@ -1,4 +1,5 @@
 import E213.Lens.Number.Nat213.WellOrder
+import E213.Meta.Nat.VpSub213
 
 /-!
 # Lens.Number.Nat213.Valuation — prime-power valuation over the Raw-generated ℕ₊ (∅-axiom)
@@ -21,8 +22,9 @@ times* a prime divides, and that count can be **zero** — but `Nat213` has no z
 namespace E213.Lens.Number.Nat213.Valuation
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
+open E213.Meta.Nat.VpSub213 (vpSub le_vpSub_iff)
 open E213.Lens.Number.Nat213.Peano.Nat213
-  (mul one succ toNat toNat_add toNat_mul toNat_ge_one
+  (mul one succ toNat toNat_add toNat_mul toNat_ge_one toNat_injective
    pow pow_one pow_succ pow_add mul_assoc one_mul powNat powNat_zero powNat_succ powNat_add)
 open E213.Lens.Number.Nat213.Order (lt le lt_add_right mul_right_cancel mul_left_cancel le_total)
 open E213.Lens.Number.Nat213.Divisibility
@@ -175,5 +177,65 @@ theorem le_vp_iff {p : Nat213} (hp : p ≠ one) (n : Nat213) (k : Nat) :
     refine dvd_trans ?_ (pow_vp_dvd p n)
     rw [← hd, powNat_add]
     exact dvd_mul_right (powNat p k) (powNat p d)
+
+/-! ### The carrier weld — `vp` over `Nat213` is the native `vpSub` of the readouts
+
+The depth count `toNat : Nat213 → Nat` is a faithful (injective) `+`/`×` homomorphism onto ℕ₊
+(`Peano.toNat_{add,mul,injective,ge_one}`); this welds the generated valuation (A) to the
+native, `subMod`-grounded `vpSub` (`Meta/Nat/VpSub213`).  Both are characterized as "the largest
+exponent that divides" (`le_vp_iff` / `le_vpSub_iff`), so the carrier bridge for divisibility
+makes them equal.  This carries the prose weld (`theory/essays/synthesis/two_carriers_one_count.md`)
+to a proven equation. ∅-axiom. -/
+
+/-- `toNat` is surjective onto `ℕ₊` — every count `≥ 1` is some `Nat213`'s depth. -/
+private theorem toNat_surj : ∀ m : Nat, 1 ≤ m → ∃ c : Nat213, c.toNat = m
+  | 0     => fun h => absurd h (by decide)
+  | 1     => fun _ => ⟨one, rfl⟩
+  | m + 2 => fun _ => by
+      obtain ⟨c, hc⟩ := toNat_surj (m + 1) (Nat.le_add_left 1 m)
+      exact ⟨succ c, by show c.toNat + 1 = m + 2; rw [hc]⟩
+
+/-- `(p^k).toNat = (p.toNat)^k` — the `Nat`-exponent power commutes with the depth readout. -/
+theorem toNat_powNat (p : Nat213) : ∀ k : Nat, (powNat p k).toNat = p.toNat ^ k
+  | 0     => rfl
+  | k + 1 => by
+      show (mul p (powNat p k)).toNat = p.toNat ^ (k + 1)
+      rw [toNat_mul, toNat_powNat p k, Nat.pow_succ, Nat.mul_comm]
+
+/-- ★ **Divisibility carrier bridge** — `Dvd a b ⟺ a.toNat ∣ b.toNat`.  ⟹ via `toNat_mul`; ⟸
+    lifts the native quotient back through `toNat`'s surjectivity (the quotient is `≥ 1` since
+    `b.toNat ≥ 1`). -/
+theorem dvd_toNat_iff {a b : Nat213} : Dvd a b ↔ a.toNat ∣ b.toNat := by
+  constructor
+  · rintro ⟨c, rfl⟩; exact ⟨c.toNat, toNat_mul a c⟩
+  · rintro ⟨m, hm⟩
+    have hm1 : 1 ≤ m := by
+      cases m with
+      | zero => rw [Nat.mul_zero] at hm; exact absurd (hm ▸ toNat_ge_one b) (by decide)
+      | succ k => exact Nat.succ_le_succ (Nat.zero_le k)
+    obtain ⟨c, hc⟩ := toNat_surj m hm1
+    exact ⟨c, toNat_injective (by rw [toNat_mul, hc]; exact hm)⟩
+
+/-- ★★★ **The carrier weld** — for a prime `p` (`p ≠ one`), the generated valuation equals the
+    native `subMod`-grounded one of the readouts: `vp p n = vpSub p.toNat n.toNat`.  Both are the
+    largest dividing exponent (`le_vp_iff` / `le_vpSub_iff`), matched by the carrier bridge
+    (`dvd_toNat_iff` + `toNat_powNat`).  The prose carrier-gap weld, proven. ∅-axiom. -/
+theorem vp_eq_vpSub {p : Nat213} (hp : p ≠ one) (n : Nat213) :
+    vp p n = vpSub p.toNat n.toNat := by
+  have hp2 : 2 ≤ p.toNat := by
+    cases p with
+    | one => exact absurd rfl hp
+    | succ p' => show 2 ≤ p'.toNat + 1; exact Nat.succ_le_succ (toNat_ge_one p')
+  have hn : 0 < n.toNat := toNat_ge_one n
+  apply Nat.le_antisymm
+  · -- vp p n ≤ vpSub …: the vp-power divides, carried across by the bridge
+    apply (le_vpSub_iff p.toNat n.toNat (vp p n) hp2 hn).mp
+    rw [← toNat_powNat]
+    exact dvd_toNat_iff.mp (pow_vp_dvd p n)
+  · -- vpSub … ≤ vp p n: the vpSub-power divides, carried back by the bridge
+    apply (le_vp_iff hp n (vpSub p.toNat n.toNat)).mp
+    apply dvd_toNat_iff.mpr
+    rw [toNat_powNat]
+    exact (le_vpSub_iff p.toNat n.toNat _ hp2 hn).mpr (Nat.le_refl _)
 
 end E213.Lens.Number.Nat213.Valuation
