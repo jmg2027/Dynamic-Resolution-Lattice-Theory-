@@ -17,6 +17,7 @@ import E213.Lens.Number.Nat213.EuclidUnique
 import E213.Lens.Number.Nat213.Gcd
 import E213.Lens.Number.Nat213.Coprime
 import E213.Lens.Number.Nat213.WellOrder
+import E213.Lens.Number.Nat213.ToNatReadout
 import E213.Lens.Number.Nat213.Valuation
 import E213.Lens.Number.Nat213.FTA
 import E213.Lens.Number.Nat213.Forcing
@@ -93,6 +94,11 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            `strong_induction` (named `wf_lt.induction`) and
                            `well_ordering` (every inhabited decidable predicate
                            has a `lt`-minimal witness, constructive).
+    * `ToNatReadout`     — the depth readout `toNat` is a faithful ordered-semiring
+                           embedding onto ℕ₊: `lt`/`le`/`Dvd` each read as their
+                           native counterpart (`lt_toNat_iff`/`le_toNat_iff`/
+                           `dvd_toNat_iff`), `toNat` surjective (`toNat_surj`),
+                           `toNat_powNat`.  The reusable carrier-readout bridge.
     * `Valuation`        — the `p`-adic structure: (A) `vp : Nat213→Nat213→Nat`
                            (multiplicity read OUT into ℕ via `Peano.powNat`,
                            `pow_vp_dvd`); (B) `padic_factorization` (native

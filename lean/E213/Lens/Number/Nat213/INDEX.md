@@ -6,7 +6,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
 `theory/math/numbersystems/naturals_from_the_spine.md`,
 `theory/essays/foundations/raw_and_lens_explained.md`).
 
-## Files (29 + Tower/5)
+## Files (30 + Tower/5)
 
 ### Representations
 
@@ -72,6 +72,10 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              divisors, multiplicative closure (`coprime_mul`),
                              power closure (`coprime_pow`), the Prime↔Coprime bridge
                              (`irreducible_coprime_iff`). Built on `Gcd`.
+  - `ToNatReadout.lean`    — the depth readout `toNat` is a faithful ordered-semiring
+                             embedding onto ℕ₊: `lt`/`le`/`Dvd` read as their native
+                             counterparts (`{lt,le,dvd}_toNat_iff`), surjective
+                             (`toNat_surj`), `toNat_powNat`, capstone `toNat_faithful`.
   - `WellOrder.lean`       — well-foundedness as a named API: `strong_induction`
                              (named `wf_lt.induction`) + `well_ordering` (every
                              inhabited decidable predicate has a `lt`-minimal
