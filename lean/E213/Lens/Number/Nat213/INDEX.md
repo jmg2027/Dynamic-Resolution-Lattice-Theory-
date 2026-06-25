@@ -6,7 +6,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
 `theory/math/numbersystems/naturals_from_the_spine.md`,
 `theory/essays/foundations/raw_and_lens_explained.md`).
 
-## Files (30 + Tower/5)
+## Files (31 + Tower/5)
 
 ### Representations
 
@@ -81,6 +81,10 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              (named `wf_lt.induction`) + `well_ordering` (every
                              inhabited decidable predicate has a `lt`-minimal
                              witness, constructive via `decBoundedExists`).
+  - `Congruence.lean`      — modular arithmetic: `ModEq m a b := ∃ k l, a+m·k=b+m·l`
+                             (subtraction-free, no zero needed) is an equivalence
+                             compatible with `+`/`·` — a congruence on the semiring
+                             (`modeq_congruence`).
   - `Valuation.lean`       — `p`-adic structure: (A) `vp` (multiplicity read OUT
                              into ℕ via `Peano.powNat`; `pow_vp_dvd`; exactness
                              `le_vp_iff`); (B) `padic_factorization` + uniqueness
