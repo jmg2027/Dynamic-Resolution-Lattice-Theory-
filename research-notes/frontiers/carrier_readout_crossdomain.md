@@ -231,10 +231,25 @@ leg of `(·/d)₃` (rung 3b's "cubes to 1" sharpened to "*is* one of the three")
 > `+0`/`−0`/`−(−c)` from expanded `ω`-coordinates must be `simp`-folded (pure Int lemmas) *before* the
 > tactic.  Reusable pattern for ℤ[ω] polynomial identities.
 
+**Rung 4 done — primary primes (the unique associate `≡ 2 mod 3`).**  `CayleyDickson/Integer/
+EisensteinPrimary.lean`.  ★★★★★ `exists_unique_primary`: for `π` coprime to `3` (`3 ∤ ‖π‖²`), exactly
+one of the six unit multiples `u·π` (`u ∈ units6`) is **primary** (`≡ 2 mod 3`).  Mechanism: reduce
+`π` to a balanced residue `ρ = ⟨ra,rb⟩` (`centered_div_int` + `int_small`); the mod-3 congruence
+`CongMod3` (componentwise `3 ∣ ·`) is an equivalence preserved by multiplication (`cong_mul_left`) and
+descends to the norm (`norm_cong`).  For each of the six **unit** residue classes one explicit unit
+witnesses primality; the three **non-unit** classes (`3 ∣ ‖ρ‖²`) are killed by `3 ∤ ‖π‖²`.  Uniqueness
+via `units6_or` (the pure Bool-`contains` six-way split, `orB_elim`/`of_decide_eq_true`).  The seven
+supporting lemmas (`cong_symm/trans/mul_left`, `norm_cong`, `primary_iff_of_cong`, `units6_or`,
+`norm_dvd_of_residue`) are **PURE**; the capstone carries `propext` solely from Lean-core
+divisibility-`decide` (`decidable_of_iff`) — allowed-not-target per `STRICT_ZERO_AXIOM.md` (could be
+made strict-PURE by replacing the finite `decide`s with `centered_div`-based decisions, ~150 lines).
+
 Next rungs:
 **(3d-weld)** weld `(α/d)₃` to the rational cubic character `ModArith/CubicResidue.
 cube_iff_three_dvd_dlog` (norm-`p` primes ↔ rational power-residue), giving the character a computable
 `μ₃` readout;
+**(5)** the reciprocity law `(π/π')₃ = (π'/π)₃` for primary primes (rung 4 supplies the canonical
+representatives that kill the unit ambiguity).
 **(4)** primary primes (the unique associate `≡ 2 mod 3` among the 6 unit multiples);
 **(5)** the reciprocity `(π/π')₃ = (π'/π)₃`.
 Higher (Eisenstein/quartic) reciprocity sits beyond.  With `the_descent_leg` (leg-2 readout).
