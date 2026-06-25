@@ -281,9 +281,18 @@ flipping with `symm`).  Module now 13 PURE / 0 dirty.  This is the ℤ[ω]-nativ
 of `r` (to apply the Nat-indexed rational criterion) remains to assemble the full Eisenstein Euler
 criterion `(α/d)₃ = 1 ⟺ α is a cube mod d`.
 
+**Cubic Euler criterion for ℤ[ω] CLOSED — `(α/d)₃ = 1 ⟹ α is a cube mod d`.**  `EisensteinCubicEuler.
+lean` (`int_dvd_pow_sub_pow` PURE, `char_one_implies_cube`).  ★★★★★ the converse direction: for the
+residue prime `d` (`‖d‖²=p`) and `α ≡ ↑r` with Nat residue `a ≡ r mod p`, `(α/d)₃ = α^m ≡ 1 (mod d)`
+forces `α ≡ (↑x)³ (mod d)`.  Full assembly: `rational_of_char_one` (weld) → `int_dvd_pow_sub_pow`
+(power congruence, `n∣(a−b) ⟹ n∣(aⁿ−bⁿ)`, PURE) → `pow_m_one_iff_cube` (rational cubic-residue) →
+`cube_lift`.  Together with `cubic_residue_char_one` (the easy `cube ⟹ χ=1`), the cubic Euler criterion
+for the Eisenstein character is complete.  The number-theoretic core is PURE; the capstone carries
+`propext` only from Lean-core ℕ↔ℤ cast bookkeeping (`Int.natCast_pow`/`ofNat_sub`/`natCast_mul`) —
+allowed-not-target.  (The Nat residue `a ≡ r mod p` is a hypothesis since its construction needs the
+`propext`-dirty `Int.emod`; satisfiable for any `α` coprime to `d`.)
+
 Next rungs:
-**(Euler-converse assembly)** glue `char_one_iff_rational` + `pow_m_one_iff_cube` + `cube_lift` into
-`(α/d)₃ = 1 ⟺ α cube mod d` (remaining: Int→Nat reduction `r ↦ r mod p` to feed the Nat criterion);
 **(3d-weld)** weld `(α/d)₃` to the rational cubic character `ModArith/CubicResidue.
 cube_iff_three_dvd_dlog` (norm-`p` primes ↔ rational power-residue), giving the character a computable
 `μ₃` readout;
