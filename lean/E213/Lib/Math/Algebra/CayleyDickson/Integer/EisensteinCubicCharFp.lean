@@ -29,6 +29,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq ref
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidueFieldCubeRoots
   (omega_sq_cong ofInt_natMod_modEq)
 open E213.Lib.Math.NumberTheory.ModArith.CubicCharFp (cubicChar cubicChar_trichotomy)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDivStep (mul_conj_self)
 
 /-- The `ℤ[ω]`-valued cubic character: `χ_ω(t) = 0` if `p ∣ t`, else the `μ₃`-element whose rational
     representative is `t^m % p ∈ {1, x, x²}`. -/
@@ -76,5 +77,16 @@ theorem chiOmega_lift {d : ZOmega} {p m x t : Nat} (hp : 1 < p)
       · exact absurd e1 h1
       · exact absurd e2 h2
       · rw [e3]; exact trans (ofInt_natMod_modEq hdn) (symm (omega_sq_cong hω))
+
+/-- ★★★★ **Character values are units of norm 1** — `χ_ω(t) · conj χ_ω(t) = 1` whenever `χ_ω(t) ≠ 0`.
+    Each nonzero value is in `{1, ω, ω²}`, all of norm `1` (`mul_conj_self` gives `ofInt ‖·‖²` and the
+    three norms are `1`).  The `|χ(t)| = 1` metric behind `|J(χ,χ)|² = p`.  ∅-axiom. -/
+theorem chiOmega_mul_conj (p m x t : Nat) (h : chiOmega p m x t ≠ 0) :
+    chiOmega p m x t * (chiOmega p m x t).conj = ofInt 1 := by
+  rcases chiOmega_value p m x t with h0 | h1 | hw | hw2
+  · exact absurd h0 h
+  · rw [h1, mul_conj_self, show (ofInt 1).normSq = 1 from by decide]
+  · rw [hw, mul_conj_self, show Omega.normSq = 1 from by decide]
+  · rw [hw2, mul_conj_self, show (Omega * Omega).normSq = 1 from by decide]
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp
