@@ -3,7 +3,11 @@
 ## Branch
 `claude/continuation-5yvjwq` — working tree clean, pushed. **Full `lake build
 E213` passes clean (465/465).** All new theorems ∅-axiom (`#print axioms`
-empty, verified individually). Started from `main` after the previous
+empty, verified individually). **Session-end purity sweep**: `scan_axioms` over
+every module touched this session (`Order, Divisibility, Gcd, Coprime, WellOrder,
+Valuation, ToNatReadout, Congruence, Prime, Meta.SubGcd213`) = **0 dirty**; the
+nested-namespace `Peano` additions (`powNat`/`pow_add`/`mul_pow`/`pow_eq_powNat_toNat`)
+`#print axioms`-clean individually. Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
 ## What Was Done This Session (autonomous-research, twenty-five iterations)
