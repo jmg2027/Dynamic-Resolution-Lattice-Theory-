@@ -1,4 +1,5 @@
 import E213.Lib.Math.NumberTheory.ModArith.CubicResidue
+import E213.Lib.Math.NumberTheory.ModArith.CubeRootsUnityModP
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!
@@ -28,6 +29,7 @@ open E213.Lib.Math.NumberTheory.ModArith.CubicResidue (pow_m_one_iff_cube)
 open E213.Meta.Nat.ModPow213 (pow_mod_base)
 open E213.Meta.Nat.MulMod213 (mul_mod_pure)
 open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
+open E213.Lib.Math.NumberTheory.ModArith.CubeRootsUnityModP (cube_root_trichotomy)
 
 /-- The cubic character on `𝔽_p`: `χ(t) = t^m % p` (with `m = (p−1)/3`). -/
 def cubicChar (p m t : Nat) : Nat := t ^ m % p
@@ -74,5 +76,17 @@ theorem cubicChar_one_iff_cube (p m t : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p 
     (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m) (ht1 : 1 ≤ t) (htlt : t < p) :
     cubicChar p m t = 1 ↔ ∃ x : Nat, 1 ≤ x ∧ x < p ∧ x ^ 3 % p = t :=
   pow_m_one_iff_cube p m t hp hpr h3m hm1 ht1 htlt
+
+/-- ★★★★★ **The character is genuinely `μ₃`-valued on `𝔽_p`** — given a rational cube root `x`
+    (`p ∣ x²+x+1`), every unit's character value is one of the three cube roots of unity:
+    `χ(t) = 1 ∨ χ(t) = x % p ∨ χ(t) = (x·x) % p`.  The cube-root property (`cubicChar_cube_one`) fed
+    into the field trichotomy (`CubeRootsUnityModP.cube_root_trichotomy`).  This is the rational image
+    of `μ₃` that the residue-field iso carries into `{1, ω, ω²} ⊂ ℤ[ω]`.  ∅-axiom. -/
+theorem cubicChar_trichotomy (p m x t : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → d = 1 ∨ d = p)
+    (h3m : 3 * m = p - 1) (hx : p ∣ (x * x + x + 1)) (ht1 : 0 < t) (htlt : t < p) :
+    cubicChar p m t = 1 ∨ cubicChar p m t = x % p ∨ cubicChar p m t = (x * x) % p :=
+  cube_root_trichotomy p x (cubicChar p m t) hp hpr hx
+    (Nat.mod_lt _ (Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hp)))
+    (cubicChar_cube_one p m t hp hpr h3m ht1 htlt)
 
 end E213.Lib.Math.NumberTheory.ModArith.CubicCharFp
