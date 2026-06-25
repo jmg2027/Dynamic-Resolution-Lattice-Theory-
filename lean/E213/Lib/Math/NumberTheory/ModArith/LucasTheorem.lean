@@ -34,6 +34,7 @@ open E213.Lib.Math.NumberTheory.PrimeValuation (Prime213 prime_dvd_mul)
 open E213.Meta.Nat.AddMod213 (dvd_of_mod_eq_zero)
 open E213.Meta.Nat.Valuation (mod_zero_of_dvd)
 open E213.Tactic.Pow213 (le_of_dvd_pos)
+open E213.Tactic.NatHelper (mul_assoc)
 
 /-- A prime does not divide a positive number strictly below it:
     `p ∣ m`, `0 < m`, `m < p` is impossible (`le_of_dvd_pos` gives `p ≤ m`). -/
@@ -69,6 +70,27 @@ theorem prime_dvd_choose {p i : Nat} (hp : Prime213 p)
     (hi0 : 0 < i) (hip : i < p) :
     p ∣ choose p i :=
   dvd_of_mod_eq_zero (freshman_binom hp hi0 hip)
+
+/-- ★★★ **Generalized prime-divides-binomial** — for a prime `p`, any positive multiple `p·n` of it,
+    and an exponent `j` *not* divisible by `p`: `p ∣ choose (p·n) j`.  Generalizes `prime_dvd_choose`
+    (the `n = 1` case) from a single prime row to every `p·n` row — the first level of the carry/Kummer
+    fact `vₚ(C(p·n, j)) ≥ 1` when `p ∤ j`, and the divisibility that collapses the cross terms in a
+    Lucas digit-step.
+
+    Clean proof via the **absorption identity** `choose_succ_mul` (no Vandermonde needed):
+    `j · C(p·n, j) = (p·n) · C(p·n − 1, j − 1) = p · (n · C(p·n − 1, j − 1))`, so `p ∣ j · C(p·n, j)`;
+    `p ∤ j` and Euclid (`prime_dvd_mul`) then give `p ∣ C(p·n, j)`.  PURE. -/
+theorem prime_dvd_choose_mul {p n j : Nat} (hp : Prime213 p) (hn : 0 < n)
+    (hj0 : 0 < j) (hpj : ¬ p ∣ j) : p ∣ choose (p * n) j := by
+  have hp0 : 0 < p := Nat.lt_of_lt_of_le (by decide) hp.1
+  have hpos : 0 < p * n := Nat.mul_pos hp0 hn
+  have hpn1 : p * n = (p * n - 1) + 1 := (Nat.succ_pred_eq_of_pos hpos).symm
+  have hj1 : j = (j - 1) + 1 := (Nat.succ_pred_eq_of_pos hj0).symm
+  have key := choose_succ_mul (p * n - 1) (j - 1)
+  rw [← hpn1, ← hj1] at key
+  have hd : p ∣ j * choose (p * n) j := by
+    rw [key, mul_assoc]; exact ⟨n * choose (p * n - 1) (j - 1), rfl⟩
+  exact (prime_dvd_mul hp hd).resolve_left hpj
 
 /-! ## Per-prime smoke tests (decidable `Prime213` witnesses) -/
 
@@ -131,13 +153,20 @@ theorem freshman_7_3 : (choose 7 3) % 7 = 0 :=
 
 `lucasStep p n k r s` is the digit-recurrence step of Lucas' theorem:
   `choose (p*n + r) (p*k + s) ≡ choose n k · choose r s  (mod p)`
-for low digits `0 ≤ r, s < p`.  The abstract form for all `n k r s`
-needs **Vandermonde's identity**
-  `choose (m+n) j = Σ_i choose m i · choose n (j-i)`
-(absent from the corpus `Binomial.lean`, which has Pascal / symmetry /
-`choose_succ_mul` only) plus the mod-p collapse of its cross terms via
-`freshman_binom`.  That is the multi-session remainder.  Each concrete
-instance below is closed by `decide` (closed Nat arithmetic), pinning the
+for low digits `0 ≤ r, s < p`.
+
+Ingredients now in the corpus for the abstract form:
+  · **Vandermonde's identity** `choose (m+n) j = Σ_i choose m i · choose n (j-i)` —
+    proved at `DyadicFSM/FLT/Vandermonde.lean` (`vandermonde`).
+  · **`prime_dvd_choose_mul`** (above): `p ∤ j → p ∣ choose (p·n) j` — the carry fact
+    that collapses the cross terms of the Vandermonde convolution mod `p`.
+
+The remaining two obligations (the next deposit) are the **collapse recurrence**
+`choose (p(n+1)) j ≡ choose (p·n) j + choose (p·n) (j−p)  (mod p)` (Vandermonde against
+the `choose p ·` row, only the two `p`-multiple indices surviving via `prime_dvd_choose`)
+and the **high-digit recursion** `choose (p·n) (p·k) ≡ choose n k  (mod p)` (its `j = p·k`
+specialisation, by induction matched to Pascal); the digit-step is then their product.
+Each concrete instance below is closed by `decide` (closed Nat arithmetic), pinning the
 target and confirming no counterexample across p = 2,3,5,7. -/
 
 /-- The Lucas digit-step congruence as a `Prop` (uniform statement).
