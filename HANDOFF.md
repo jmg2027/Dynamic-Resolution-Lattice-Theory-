@@ -18,6 +18,9 @@ Built on `Gcd`: `Coprime a b := IsGcd a b one` (gcd is the divisibility bottom).
 - **`coprime_dvd_mul`** (headline) — `gcd(a,b)=1` and `a ∣ b·c ⟹ a ∣ c`, the
   `EuclidUnique.euclid` scaling trick packaged generically from
   `Gcd.isGcd_mul_left` (scale `gcd(b,a)=1` by `c` → `gcd(c·b,c·a)=c`).
+- **`coprime_mul`/`mul_coprime`** — multiplicative closure: coprime to each factor
+  ⟹ coprime to the product (a common divisor of `a` and `b·c` is coprime to `b`,
+  so divides `c`, and being coprime to `c` divides `one`).
 - `coprime_comm`, `coprime_one_{left,right}`, `coprime_self_imp` (only the unit is
   self-coprime), `coprime_of_dvd_{left,right}` (descent to divisors).
 - Wired into the aggregator (now 461 modules).
@@ -77,6 +80,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+2e9a270 Nat213.Coprime: multiplicative closure (coprime_mul, mul_coprime)
 4b27642 Nat213.Coprime: coprimality + Euclid's coprime-division law
 8ff4416 Nat213.Gcd: the gcd discipline — divisibility is a meet-semilattice
 81dc3d1 Nat213.Divisibility: dvd_imp_le — divisibility refines the additive order
@@ -106,22 +110,21 @@ fully closable. `frontiers/the_descent_leg.md` (Leg-3) + `frontiers/the_one_act.
 The order cone is **complete** (strict `lt` + non-strict `le`, both total orders;
 additive + multiplicative monotonicity; Dvd↔le bridge), the **gcd** discipline is
 extracted (`Gcd.lean`: meet-semilattice), and **coprimality** is done
-(`Coprime.lean`: Euclid's coprime-division law + descent). Remaining natural
-deposits, all low-risk:
-- **`coprime_mul`**: `Coprime a b → Coprime a c → Coprime a (b·c)` (a coprime to
-  each factor is coprime to the product — the multiplicative closure of
-  coprimality; provable from `coprime_dvd_mul` applied to a common divisor of `a`
-  and `b·c`). A natural companion now that `coprime_dvd_mul` exists.
+(`Coprime.lean`: Euclid's coprime-division law + descent + multiplicative
+closure). Remaining natural deposits, all low-risk:
 - a **well-ordering / strong-induction principle** on `Nat213` packaged as a
-  reusable lemma from `Factorization.wf_lt` (currently used ad hoc).
+  reusable lemma from `Factorization.wf_lt` (currently used ad hoc inside
+  `gcd_exists_mul` etc.) — exposing `Nat213`'s well-foundedness as a named API.
+- **`coprime_pow`** / `Coprime a b → Coprime (a^n) (b^m)` once a `pow` exists on
+  `Nat213` (check whether Peano has it first).
 - an `lcm` as the dual join (harder — needs a bound; defer).
 
 ## Next
 Continue the descent-leg discipline build-out over `Nat213` (Open Problem 3 —
-`coprime_mul` is teed up) or open a fresh campaign regrounding another field on
-`subMod`/structural descent (the prior handoff's thick target). The deep
-conceptual residue (Open Problems 1–2) needs a specific new rival model and is
-research-grade.
+the well-ordering API is teed up) or open a fresh campaign regrounding another
+field on `subMod`/structural descent (the prior handoff's thick target). The
+deep conceptual residue (Open Problems 1–2) needs a specific new rival model and
+is research-grade.
 
 ## Three-tier state
 - No promotions this session (incremental theorem deposits + doc fix; the
@@ -130,7 +133,7 @@ research-grade.
 
 ## File Map (touched this session)
 ```
-lean/E213/Lens/Number/Nat213/Coprime.lean        ← NEW: coprimality + Euclid's coprime-division law
+lean/E213/Lens/Number/Nat213/Coprime.lean        ← NEW: coprimality + coprime-division law + mult. closure
 lean/E213/Lens/Number/Nat213/Gcd.lean            ← NEW: gcd discipline (meet-semilattice, mult. law)
 lean/E213/Lens/Number/Nat213/Order.lean          ← +lt_trans/lt_asymm/lt_strict_total_order/additive monotonicity/le total partial order
 lean/E213/Lens/Number/Nat213/Divisibility.lean   ← reuse Order.lt_trans (private dup removed); +dvd_imp_le
