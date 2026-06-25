@@ -306,6 +306,21 @@ conjugation: `χ(ᾱ) = conj χ(α)`, since `χ = pow·m` and `conj` is a ring h
 `conj ω = ω²` this pairs `(α/d)₃` with `(ᾱ/d)₃` — the reflection underlying the symmetry of cubic
 reciprocity (the conjugate prime `d̄`).  Clean induction, PURE.
 
+**Jacobi-sum substrate started.**  Three ∅-axiom modules toward the reciprocity law's engine:
+- `EisensteinFiniteSum.lean` — generic finite sum `Σ_{k<n} f k` + linearity (`sum_add`, `sum_mul_left`,
+  `sum_congr`); the base for Gauss/Jacobi sums.  6 PURE.
+- `EisensteinCharOrthogonality.lean` — `geomSum_omega_three_mul`: `Σ_{j<3k} ωʲ = 0` (multiplicative
+  cubic-character orthogonality, the `N(J)=p` cancellation).  2 PURE.
+- `EisensteinCubicCharWelldef.lean` — `root_unique` (the three cube roots are distinct mod a norm-`p`
+  prime, `p>3`, via the norm-3 differences) + `char_value_unique`: the character `(·/d)₃` is a
+  **well-defined `μ₃`-valued function**, not just a relation.  2 PURE.  This is the prerequisite for the
+  cubic character *as a function* on `𝔽_p`.
+
+**Remaining for the law itself**: the Jacobi sum `J(χ,χ) = Σ_t χ(t)χ(1−t)` needs the character
+*function* over `𝔽_p` (with the additive `t ↦ 1−t` involution) — the genuinely-deep core still ahead;
+the character-as-function over `𝔽_p` hits the ZOmega-divisibility `decide` propext wall and needs the
+`𝔽_p` additive structure.
+
 Next rungs:
 **(3d-weld)** weld `(α/d)₃` to the rational cubic character `ModArith/CubicResidue.
 cube_iff_three_dvd_dlog` (norm-`p` primes ↔ rational power-residue), giving the character a computable

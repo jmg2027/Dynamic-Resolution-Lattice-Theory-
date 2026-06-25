@@ -71,6 +71,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharOmega
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharConj
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharOrthogonality
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharWelldef
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
