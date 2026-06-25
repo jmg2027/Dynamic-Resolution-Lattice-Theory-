@@ -6,15 +6,21 @@ E213` passes clean (462/462).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, six iterations)
+## What Was Done This Session (autonomous-research, seven iterations)
 
-Six focused iterations on the **descent-leg discipline** over `Nat213` (the
+Seven focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — completing the native order
 (strict + non-strict total orders), extracting the **gcd**, **coprimality**, and
-**well-ordering** disciplines, adding **exponentiation** + `coprime_pow`, plus
-dedup and INDEX refresh. The `Nat213` elementary-number-theory cone is now a
-coherent chain: order → divisibility → gcd → coprimality → well-ordering, with
-`pow` on the arithmetic base.
+**well-ordering** disciplines, adding **exponentiation** + `coprime_pow` + its
+order/divisibility facts, plus dedup and INDEX refresh. The `Nat213`
+elementary-number-theory cone is now a coherent chain: order → divisibility →
+gcd → coprimality → well-ordering, with a full `pow` API on the arithmetic base.
+
+### Iteration 7: pow order/divisibility facts (PURE ✓)
+- **`Order.lt_mul_right`** (companion to `lt_mul_left`) + **`Order.pow_lt_pow_base`**
+  (`a<b → a^n<b^n`, strict monotonicity in the base).
+- **`Divisibility.dvd_pow_self`** (`a ∣ a^(n+1)`) + **`Divisibility.pow_dvd_pow`**
+  (`m ≤ n → a^m ∣ a^n`, via `pow_add`).
 
 ### Iteration 6: exponentiation + power-coprimality (PURE ✓)
 - **`Peano.pow`** — `a^n` recursing on the exponent (`a^1=a` base, no zero
@@ -101,6 +107,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+c9f198f Nat213: pow order/divisibility facts (pow_lt_pow_base, dvd_pow_self, pow_dvd_pow)
 68c4732 Nat213: exponentiation on Peano + coprime_pow
 c4c35e8 Nat213.WellOrder: well-foundedness as a named API (strong_induction, well_ordering)
 2e9a270 Nat213.Coprime: multiplicative closure (coprime_mul, mul_coprime)
@@ -135,12 +142,12 @@ The `Nat213` elementary-number-theory cone is now a **coherent chain**: order
 divisibility → gcd (`Gcd.lean`: meet-semilattice) → coprimality (`Coprime.lean`:
 coprime-division law + descent + mult. + power closure) → well-ordering
 (`WellOrder.lean`: strong induction + decidable well-ordering), with `pow` on the
-`Peano` arithmetic base. Remaining natural deposits, low-risk:
-- **`pow` order/divisibility facts**: `dvd_pow` (`a ∣ a^(n+1)`), `pow_dvd_pow`
-  (`m ≤ n → a^m ∣ a^n`), strict monotonicity `lt → pow lt pow` — round out the
-  `pow` API the way `Order` rounds out `mul`.
-- **prime-power valuation** over `Nat213` (`vp`-style) reusing `pow` + `Gcd` —
-  a bridge toward an FTA-exponent form on the generated carrier.
+`Peano` arithmetic base, now with `pow` order/divisibility facts
+(`pow_lt_pow_base`, `dvd_pow_self`, `pow_dvd_pow`). Remaining natural deposits,
+low-risk:
+- **prime-power valuation** over `Nat213` (`vp`-style) reusing `pow` + `Gcd`/
+  `Coprime` — a bridge toward an FTA-exponent form on the generated carrier
+  (the grounded `Meta/Nat/VpSub213` is the native-`Nat` analogue to mirror).
 - an `lcm` as the dual join (harder — needs a bound; defer).
 - consider whether `acc_lt`/`wf_lt` should *move* from `Factorization` to
   `WellOrder` (their natural home) — deferred as an org pass; would touch
@@ -148,8 +155,8 @@ coprime-division law + descent + mult. + power closure) → well-ordering
 
 ## Next
 Continue the descent-leg discipline build-out over `Nat213` (Open Problem 3 —
-`pow` order/divisibility facts teed up) or open a fresh campaign regrounding
-another field on `subMod`/structural descent (the prior handoff's thick target).
+prime-power valuation teed up) or open a fresh campaign regrounding another
+field on `subMod`/structural descent (the prior handoff's thick target).
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
 and is research-grade.
 
@@ -161,6 +168,8 @@ and is research-grade.
 ## File Map (touched this session)
 ```
 lean/E213/Lens/Number/Nat213/Peano.lean          ← +pow + pow_add/pow_mul/mul_pow/one_pow laws
+lean/E213/Lens/Number/Nat213/Order.lean          ← +lt_mul_right, pow_lt_pow_base
+lean/E213/Lens/Number/Nat213/Divisibility.lean   ← +dvd_pow_self, pow_dvd_pow
 lean/E213/Lens/Number/Nat213/WellOrder.lean      ← NEW: strong_induction + decidable well_ordering
 lean/E213/Lens/Number/Nat213/Coprime.lean        ← NEW: coprimality; +power closure coprime_pow
 lean/E213/Lens/Number/Nat213/Gcd.lean            ← NEW: gcd discipline (meet-semilattice, mult. law)
