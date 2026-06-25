@@ -17,7 +17,7 @@ derivation+citation+dual-function+cross-frame+self-check
 
 ## Reading by theme
 
-The 113 essays are grouped into ten thematic sub-directories — distinct
+The 114 essays are grouped into ten thematic sub-directories — distinct
 facets, not redundancies (the synthesis essays in IV deliberately tie the
 others together):
 
@@ -67,6 +67,12 @@ depth-readout `toNat` — a faithful (injective) `+`/`×` homomorphism with imag
 ℕ₊; agreement = functoriality of the count-Lens, not coincidence; closes #103's
 two-carrier frontier — both forcing scales now run over one carrier, native `Nat`
 the readout plus the `0` the spine forbids),
+`regrounding_is_a_readout_not_a_rederivation` (to reground a discipline on the
+generated carrier you build the carrier + one **faithful readout** (`toNat_faithful`),
+and the native corpus *transports* along it — a transport functor `Nat213 → Nat`
+(`vp_eq_vpSub`/`isGcd_toNat_eq`/`modeq_toNat_iff`); regrounding cost = build the weld
+once, inherit the corpus (native Fermat/Euler transport, not re-derive); hard
+boundary: 0/sign-valued objects stay readouts),
 `zero_valued_quantities_are_readouts` (over the no-zero `Nat213`, a quantity whose
 range includes `0` or a sign — a valuation, an exponent's empty product, a Bézout
 coefficient/inverse — is read OUT into ℕ, never a carrier element; three witnesses
