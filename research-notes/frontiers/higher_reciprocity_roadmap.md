@@ -81,14 +81,20 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
     2. **`jacobiList_conj` DONE** — `conj J = Σ χ̄_ω(a)·χ̄_ω(1−a)` (`conj_listSum` homomorphism + `conj_mul`).
     3. **`jacobiList_norm_double` DONE** — `J·J̄ = Σ_a Σ_b (χ_ω(a)χ_ω(1−a))·(χ̄_ω(b)χ̄_ω(1−b))`
        (`listSum_mul_distrib`).
-    4. **reindex + collapse** (the hard core, NEXT) — for each fixed unit `b`, reindex the inner `a`-sum
-       by `a = (b·c) mod p` (a unit-permutation of `List.range`, `lperm_image`-style); termwise
-       `χ_ω(a)χ̄_ω(b) = χ_ω(c)` (`chiOmega_mul` + `chiOmega_mul_conj`).  The inner `Σ_c χ_ω(c)·χ_ω(1−bc)
-       χ̄_ω(1−b)` splits into the `c` with `bc = 1` (diagonal, contributes the `p` count) and the rest,
-       killed by `Σ_c χ_ω(c) = 0` (`chiListSum_totatives_zero`).  The `a,b ∈ {0,1}` boundary terms
-       (where `χ_ω = 0`) are isolated first (`jacobi_term_zero/one`-style).  **This is the major
-       remaining build** — comparable in size to the whole orthogonality engine.
-    5. **`N(J) = p`** — assemble.  Then `J` primary ⟹ `J = π` (A4).
+    4. **reindex** (NEXT) — `chiOmega_reindex` (DONE, `EisensteinJacobiReindex`) is the per-term
+       `χ_ω((b·c)%p)·χ̄_ω(b) = χ_ω(c)`.  For each fixed unit `b`, reindex the inner `a`-sum of
+       `jacobiList_norm_double` by `a=(b·c)%p` (a unit-permutation of `List.range p`, `lperm_image`-style)
+       ⟹ `J·J̄ = Σ_b χ̄_ω(1−b) · Σ_c χ_ω(c)·χ_ω((1−bc)%p)` (after isolating the `χ_ω=0` boundary
+       `a,b∈{0,1}`).
+    5. **the inner-sum collapse** (the genuine hard core — *NOT* a single `Σχ_ω=0`).  The inner
+       `Σ_c χ_ω(c)·χ_ω((1−bc)%p)` keeps a `b·c` coupling; evaluating it is the crux.  **Two routes,
+       decide on arrival:**
+       (a) *elementary* — the substitution `c ↦ c/(…)` reduces the inner sum to a shifted character sum
+           whose `b≠1` value is `−χ_ω(…)` (so the `b`-sum telescopes via `Σχ_ω=0`) and `b=1` gives the
+           diagonal count — IR Ch 8 style, several more lemmas; OR
+       (b) *Gauss sums* — build the additive character / Gauss sum `g(χ)=Σ χ_ω(t)ζ^t` over `ℤ[ζ_p]`
+           and use `J = g(χ)²/g(χ²)`, `|g|²=p`.  Heavier (needs `ℤ[ζ_p]`) but textbook-standard.
+    6. **`N(J)=p`** then `J=π` (A4); the law `(π/π')₃=(π'/π)₃` + transfer.
 - **A4.** `J` primary normalisation → `J = π`.
 
 ### Phase B — the cubic law
