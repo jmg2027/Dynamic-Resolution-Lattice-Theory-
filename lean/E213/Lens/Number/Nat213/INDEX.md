@@ -6,7 +6,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
 `theory/math/numbersystems/naturals_from_the_spine.md`,
 `theory/essays/foundations/raw_and_lens_explained.md`).
 
-## Files (27 + Tower/5)
+## Files (28 + Tower/5)
 
 ### Representations
 
@@ -67,6 +67,10 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              coprime-division law `coprime_dvd_mul`, descent to
                              divisors, multiplicative closure (`coprime_mul`).
                              Built on `Gcd.isGcd_mul_left`.
+  - `WellOrder.lean`       — well-foundedness as a named API: `strong_induction`
+                             (named `wf_lt.induction`) + `well_ordering` (every
+                             inhabited decidable predicate has a `lt`-minimal
+                             witness, constructive via `decBoundedExists`).
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence.
   - `Factorization.lean`   — every `Nat213` is a product of irreducibles.

@@ -16,6 +16,7 @@ import E213.Lens.Number.Nat213.Factorization
 import E213.Lens.Number.Nat213.EuclidUnique
 import E213.Lens.Number.Nat213.Gcd
 import E213.Lens.Number.Nat213.Coprime
+import E213.Lens.Number.Nat213.WellOrder
 import E213.Lens.Number.Nat213.FTA
 import E213.Lens.Number.Nat213.Forcing
 import E213.Lens.Number.Nat213.Infinitude
@@ -86,6 +87,10 @@ import E213.Lens.Number.Nat213.SignatureMaps
                            (`gcd(a,b)=1`, `a∣b·c` ⟹ `a∣c`), descent to divisors,
                            multiplicative closure (`coprime_mul`),
                            `coprime_self_imp`.  Built on `Gcd.isGcd_mul_left`.
+    * `WellOrder`        — `Nat213`'s well-foundedness as a named API:
+                           `strong_induction` (named `wf_lt.induction`) and
+                           `well_ordering` (every inhabited decidable predicate
+                           has a `lt`-minimal witness, constructive).
     * `FTA`              — **the Fundamental Theorem of Arithmetic** (`fta`):
                            existence + uniqueness-up-to-permutation, generated
                            over `Nat213`.  Native propext-free `Perm`/`erase`.
