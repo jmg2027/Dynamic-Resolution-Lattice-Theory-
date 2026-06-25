@@ -292,6 +292,14 @@ for the Eisenstein character is complete.  The number-theoretic core is PURE; th
 allowed-not-target.  (The Nat residue `a ≡ r mod p` is a hypothesis since its construction needs the
 `propext`-dirty `Int.emod`; satisfiable for any `α` coprime to `d`.)
 
+**Supplementary law for `ω` done — `(ω/d)₃ = ω^m`.**  `EisensteinCubicCharOmega.lean`
+(`pow_omega_three_mul`, `char_omega_value`, both ∅-axiom).  ★★★★ the cubic character of the
+fundamental unit `ω` is a concrete cube root of unity determined by `m mod 3`: `ω^m = ω^{m mod 3} ∈
+{1, ω, ω²}` (period-3 from `ω³=1`).  `ω` being a unit of order 3, this needs **no** residue reduction —
+an exact `ℤ[ω]` identity (the unit part of the cubic-reciprocity supplementary laws, analogue of the
+2nd supplementary law of QR).  Kept PURE by the repo's pure `AddMod213.div_add_mod` (core
+`Nat.div_add_mod` is `propext`-dirty).
+
 Next rungs:
 **(3d-weld)** weld `(α/d)₃` to the rational cubic character `ModArith/CubicResidue.
 cube_iff_three_dvd_dlog` (norm-`p` primes ↔ rational power-residue), giving the character a computable
