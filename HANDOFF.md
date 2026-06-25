@@ -81,13 +81,29 @@ Roadmap `research-notes/frontiers/higher_reciprocity_roadmap.md`.  **A1 + A2 COM
 - **`Integer/EisensteinJacobiReindex`** — **`chiOmega_reindex`** (`χ_ω((b·c)%p)·conj χ_ω(b)=χ_ω(c)`,
   the per-term `a=b·c` simplification) + `chiOmega_ne_zero`.
 
-## Frontier — `N(J)=p` (final A3 build) and the law
-Substrate + steps 1–4-per-term DONE.  **Remaining: the reindex-sum collapse + assembly** (roadmap A3
-step 4–5) — for each fixed unit `b`, reindex the inner `a`-sum of `jacobiList_norm_double` by
-`a=(b·c)%p` (a unit-permutation of `List.range p`, `lperm_image`-style), apply `chiOmega_reindex`
-termwise, isolate the `a,b∈{0,1}` boundary (where `χ_ω=0`), and collapse the off-diagonal by
-`chiListSum_totatives_zero` (`Σχ_ω=0`); the diagonal gives the count `p`.  This is the major remaining
-combinatorial proof.  Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
+### Phase A3 — the `N(J)=p` reduction machinery (this session, all PURE)
+- **`Integer/EisensteinJacobiReduce`** — the multiplicative reindex engine: `listSum_reindex_mul`
+  (`Σ_{s∈tot} G(s)=Σ_{s∈tot} G((a·s)%p)`, `lperm_image`), `chiOmega_reindex_conj`
+  (`χ_ω(a)·χ̄_ω((a·s)%p)=χ̄_ω(s)`), `rearr4`, `jacobi_inner_term`, **`jacobi_inner_reduce`**
+  (inner `b`-sum → `Σ_s χ_ω(1−a)·χ̄_ω(s)·χ̄_ω((1−as)%p)`).
+
+## Frontier — `N(J)=p` needs ADDITIVE characters (route correction) + the law
+**KEY FINDING (verified on paper, roadmap A3 step 5):** the pure multiplicative `ℤ[ω]`-internal route
+is **CIRCULAR** — `jacobi_inner_reduce` gives `J·J̄=Σ_a χ_ω(1−a)·T(a)`, `T(a)=Σ_s χ̄_ω(s)χ̄_ω((1−as)%p)`,
+but `s'=as` makes `T(a)=χ_ω(a)·J̄`, so `J·J̄=J·J̄` (tautology).  `|J|²=p` genuinely needs the **additive
+character** (`|g(χ)|²=p` via additive orthogonality `Σ_t ζ^{at}=0`, `p∤a`).  **The reindex machinery
+above is still valid infra** (Gauss sums are `listSum`s too), just insufficient alone.
+
+**REVISED next sub-project — route (b), Gauss sums** (repo-aligned: build the cyclotomic carrier as a
+number system):
+  1. **`ℤ[ζ_p]`** — parametric cyclotomic ring (`ζ^p=1`), e.g. group ring `ℤ[C_p]` mod the cyclotomic
+     relation `1+ζ+…+ζ^{p−1}=0`.  Sibling of `ZOmega`/`ZI`; generalises the order-3/6
+     `RootOfUnityOrthogonality`.
+  2. **additive orthogonality** `Σ_{t<p} ζ^{at}=0` for `p∤a` (geometric telescope `(ζ^a−1)Σ=ζ^{ap}−1=0`,
+     `ζ^a≠1` in the domain).
+  3. **Gauss sum** `g(χ)=Σ_t χ_ω(t)ζ^t`; `|g(χ)|²=p` (the `s=tu` reindex, now non-circular); then
+     `g(χ)²=J·g(χ²)` ⟹ `N(J)=p`.
+Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
 `cd lean && lake build E213.Lib.Math.Algebra.CayleyDickson` ; then from repo root
