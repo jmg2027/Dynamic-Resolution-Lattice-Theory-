@@ -215,11 +215,26 @@ excluded middle** — the norm dichotomy delivers the `∨` directly (so the pro
 sidestepped).  `residue_no_zero_divisors` is the `ModEq`-reading (`π ∣ x = ModEq π x 0`).  This is the
 heaviest structural lift; it also unlocks unique factorization for rung 5.
 
+**Rung 3c-value done — the cubic character is `μ₃`-valued.**  `CayleyDickson/Integer/
+EisensteinCubicCharValue.lean` (`cubic_factor`, `cube_one_value`, `cubic_char_value`, all ∅-axiom).
+★★★★★ `cube_one_value`: `‖d‖² = p` prime, `y³ ≡ 1 (mod d)` ⟹ `y ≡ 1 ∨ y ≡ ω ∨ y ≡ ω² (mod d)`.  Two
+ingredients: (1) the factorization `cubic_factor` `y³−1 = (y−1)·((y−ω)·(y−ω²))` — an ∅-axiom ring
+identity proved by `ext` + `ring_intZ` on each integer component (after folding the zero/double-neg
+constants with `Int.neg_zero`/`add_zero`/`neg_neg`; the relation `ω²+ω+1=0`, `ω³=1` is carried by the
+numeric coordinates `ω=⟨0,1⟩`, `ω²=⟨-1,-1⟩`); (2) `EisensteinPrime.residue_no_zero_divisors` applied
+**twice** across the triple product.  Capstone `cubic_char_value`: combined with `char_cubes_to_one`,
+**any** `α`'s half-power `χ(α)=α^m` satisfies `χ(α) ≡ 1, ω,` or `ω² (mod d)` — closing the value-group
+leg of `(·/d)₃` (rung 3b's "cubes to 1" sharpened to "*is* one of the three").  No excluded middle
+(the domain law is a constructive disjunction).
+
+> Note on `ring_intZ`: its `norm` does **not** fold additive zero constants (`a + 0 = a` fails), so any
+> `+0`/`−0`/`−(−c)` from expanded `ω`-coordinates must be `simp`-folded (pure Int lemmas) *before* the
+> tactic.  Reusable pattern for ℤ[ω] polynomial identities.
+
 Next rungs:
-**(3c-value)** read the cube-root-of-unity value into `μ₃` *exactly* (one of `{1, ω, ω²}`): factor
-`χ³−1 = (χ−1)(χ−ω)(χ−ω²)` in `ℤ[ω]` (∅-axiom ring identity), then apply `residue_no_zero_divisors`
-across the triple product to force one factor `≡ 0 (mod d)`, i.e. `χ ≡ 1, ω,` or `ω²`.  Then weld
-`(α/d)₃` to `ModArith/CubicResidue.cube_iff_three_dvd_dlog`;
+**(3d-weld)** weld `(α/d)₃` to the rational cubic character `ModArith/CubicResidue.
+cube_iff_three_dvd_dlog` (norm-`p` primes ↔ rational power-residue), giving the character a computable
+`μ₃` readout;
 **(4)** primary primes (the unique associate `≡ 2 mod 3` among the 6 unit multiples);
 **(5)** the reciprocity `(π/π')₃ = (π'/π)₃`.
 Higher (Eisenstein/quartic) reciprocity sits beyond.  With `the_descent_leg` (leg-2 readout).
