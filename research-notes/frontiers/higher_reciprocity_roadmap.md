@@ -97,9 +97,15 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
        `|g(χ)|²=p` (additive orthogonality, the `s=tu` reindex — now genuinely non-circular because the
        additive `ζ^{s−t}` couples), and `g(χ)g(χ)=J(χ,χ)g(χ²)` ⟹ `|J|²=p`.  The reindex/`listSum`
        infra built (steps 1–4, `EisensteinJacobiReduce`) carries over (Gauss sums are also `listSum`s).
-       *New sub-project:* `ℤ[ζ_p]` (parametric cyclotomic ring) + additive-character orthogonality
-       `Σ_{t<p} ζ^{at} = 0` for `p∤a` (generalising `RootOfUnityOrthogonality`'s geometric telescope to
-       order `p`).
+       *New sub-project — REFINED (no quotient ring needed):* work in the **free group ring** `R[C_p]`
+       (`R=ℤ[ω]`, `C_p=ℤ/p`, basis `{e_0,…,e_{p−1}}`, `ζ=e_1`, convolution `e_i·e_j=e_{(i+j)%p}`).  Then
+       (verified on paper) **`g(χ)·conj g(χ) = p·1 − N`** holds *in the group ring itself* (`N=Σ_i e_i`;
+       `e_k`-coefficient of `g·ḡ` is `p−1` for `k=0`, `−1` for `k≠0`, via the `u=k·s⁻¹` reindex +
+       `Σχ_ω=0`) — no cyclotomic quotient.  From `g(χ)²=J·g(χ²)`: `(p−N)²=|J|²(p−N)`, i.e.
+       `p(p−N)=|J|²·p − |J|²·N`; **extract the `e_1`-coefficient** ⟹ `−p=−|J|²` ⟹ `N(J)=p`.  Bricks:
+       `R[C_p]` carrier (`Fin p → ℤ[ω]`, add/convolution-mul), the Gauss sum `g`, the `g·ḡ=p·1−N`
+       coefficient computation (reuses `Σχ_ω=0`, the `s=tu` reindex — non-circular here, the additive
+       `e_{t−s}` couples), the `g(χ)²=J·g(χ²)` identity, `e_1`-extraction.
     6. **`N(J)=p`** then `J=π` (A4); the law `(π/π')₃=(π'/π)₃` + transfer.
 - **A4.** `J` primary normalisation → `J = π`.
 
