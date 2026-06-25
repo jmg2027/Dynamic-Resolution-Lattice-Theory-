@@ -6,14 +6,22 @@ E213` passes clean (463/463).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, fourteen iterations)
+## What Was Done This Session (autonomous-research, fifteen iterations)
 
-Fourteen focused iterations on the **descent-leg discipline** over `Nat213` (the
+Fifteen focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
 elementary number theory chain on the generated carrier, then **promoting it to a
 `theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
 exponentiation → **p-adic valuation** (both forms, exactness + uniqueness), all
 ∅-axiom.
+
+### Iteration 15: the readout bridge generalized — `ToNatReadout.lean` (PURE ✓)
+Extracted the carrier-readout API (from `Valuation`) into a reusable file and
+generalized from `Dvd` to the whole order/divisibility structure: `lt_toNat_iff`,
+`le_toNat_iff`, `dvd_toNat_iff` (each direction, ⟸ via `toNat_surj`), `toNat_powNat`,
+capstone **`toNat_faithful`** — `toNat` transports `lt`/`le`/`Dvd` exactly and is
+surjective onto ℕ₊, i.e. the essay's "faithful homomorphism" made a theorem for the
+whole structure. `Valuation` now imports it; `vp_eq_vpSub` unchanged.
 
 ### Iteration 14: the carrier weld as a proven equation (PURE ✓)
 `Valuation.vp_eq_vpSub` — for a prime `p` (`p ≠ one`), `vp p n = vpSub p.toNat
@@ -164,6 +172,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+4c4c8d1 Nat213.ToNatReadout: the depth readout is a faithful ordered-semiring embedding
 a54b3e7 Nat213.Valuation: the carrier weld vp_eq_vpSub — generated vp = native vpSub of readouts
 d913cc7 Essay: "Two carriers, one count" — the depth-readout welds the number theory
 b11dc2c Promote: leg-2 number-theory discipline over Nat213 → theory/ chapter
@@ -230,10 +239,12 @@ next moves:
 - A fresh campaign regrounding another field on `subMod`/structural descent (the
   prior handoff's thick target) — e.g. modular arithmetic or a divisor theory over
   `Nat213`, extending the now-promoted cone.
-- The **carrier weld is now closed** (`vp_eq_vpSub`). The remaining breadth is the
-  readout identity for the *other* generated operations against the native corpus
-  (a generated `gcd`'s readout = native gcd, each a small `dvd_toNat_iff`/`toNat_*`
-  bridge) — low-risk, incremental.
+- The carrier weld (`vp_eq_vpSub`) and the general readout bridge
+  (`ToNatReadout.toNat_faithful`: `lt`/`le`/`Dvd` all read exactly + surjectivity)
+  are closed. A remaining concrete readout deposit: a **generated `gcd`'s readout =
+  the grounded native `SubGcd213.gcdSub`** (the gcd analogue of `vp_eq_vpSub`,
+  using `dvd_toNat_iff` + the gcd specs) — low-risk if `SubGcd213` exposes a
+  divides-both+greatest characterization; check first.
 - Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
 - Or a fresh campaign regrounding another field on `subMod`/structural descent.
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
@@ -246,7 +257,8 @@ and is research-grade.
 
 ## File Map (touched this session)
 ```
-lean/E213/Lens/Number/Nat213/Valuation.lean      ← NEW: p-adic valuation (vp readout + padic_factorization)
+lean/E213/Lens/Number/Nat213/ToNatReadout.lean   ← NEW: faithful readout bridge (lt/le/dvd_toNat_iff, toNat_faithful)
+lean/E213/Lens/Number/Nat213/Valuation.lean      ← NEW: p-adic valuation (vp readout + padic_factorization + vp_eq_vpSub weld)
 lean/E213/Lens/Number/Nat213/Peano.lean          ← +pow + pow laws; +powNat (Nat-exponent power) + bridge
 lean/E213/Lens/Number/Nat213/Order.lean          ← +lt_mul_right, pow_lt_pow_base
 lean/E213/Lens/Number/Nat213/Divisibility.lean   ← +dvd_pow_self, pow_dvd_pow, self_dvd_pow
