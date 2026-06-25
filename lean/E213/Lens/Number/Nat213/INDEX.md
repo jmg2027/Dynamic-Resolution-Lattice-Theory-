@@ -86,8 +86,9 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              (subtraction-free, no zero needed) is a congruence on the
                              semiring (`modeq_congruence`); modular exponentiation
                              (`pow_compat`), the defining step (`modeq_add_mul`), and
-                             the readout iff into native ℕ (`modeq_toNat_iff`); CRT
-                             split `modeq_split` (`coprime_mul_dvd` is the CRT core).
+                             the readout iff into native ℕ (`modeq_toNat_iff`); the
+                             Chinese Remainder Theorem both ways (`crt` + `modeq_split`,
+                             via `modeq_cases` + `coprime_mul_dvd`).
   - `Valuation.lean`       — `p`-adic structure: (A) `vp` (multiplicity read OUT
                              into ℕ via `Peano.powNat`; `pow_vp_dvd`; exactness
                              `le_vp_iff`); (B) `padic_factorization` + uniqueness

@@ -1,5 +1,6 @@
 import E213.Lens.Number.Nat213.Peano
 import E213.Lens.Number.Nat213.ToNatReadout
+import E213.Lens.Number.Nat213.Coprime
 
 /-!
 # Lens.Number.Nat213.Congruence — modular arithmetic over the Raw-generated ℕ₊ (∅-axiom)
@@ -19,8 +20,12 @@ namespace E213.Lens.Number.Nat213.Congruence
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
   (add mul one add_assoc add_comm add_left_comm mul_add add_mul mul_assoc mul_comm mul_one
-   pow pow_one pow_succ toNat toNat_add toNat_mul toNat_injective)
+   pow pow_one pow_succ toNat toNat_add toNat_mul toNat_injective
+   add_right_cancel add_left_cancel add_ne_self)
 open E213.Lens.Number.Nat213.ToNatReadout (toNat_surj)
+open E213.Lens.Number.Nat213.Order (lt_trichotomy)
+open E213.Lens.Number.Nat213.Divisibility (Dvd)
+open E213.Lens.Number.Nat213.Coprime (Coprime coprime_dvd_mul coprime_comm)
 
 /-- **Congruence over the Raw-generated ℕ₊**: `a ≡ b (mod m)` iff `a` and `b` reach a common value
     by adding multiples of `m` — `∃ k l, a + m·k = b + m·l`.  Subtraction-free (no zero needed). -/
@@ -105,6 +110,23 @@ theorem modeq_toNat {m a b : Nat213} (h : ModEq m a b) :
   have := congrArg toNat h
   rwa [toNat_add, toNat_add, toNat_mul, toNat_mul] at this
 
+/-- ★★ **Concrete form of congruence** — `a ≡ b (mod m)` iff `a = b`, or one is the other plus a
+    multiple of `m`.  Trichotomy on the certificate's `(k,l)`: equal ⟹ `a = b` (cancel); else the
+    larger side carries the extra `m·t`.  The handle that turns `ModEq` into a divisibility fact. -/
+theorem modeq_cases {m a b : Nat213} (h : ModEq m a b) :
+    a = b ∨ (∃ c, add a (mul m c) = b) ∨ (∃ c, add b (mul m c) = a) := by
+  obtain ⟨k, l, h⟩ := h
+  rcases lt_trichotomy k l with hlt | heq | hgt
+  · obtain ⟨t, ht⟩ := hlt
+    refine Or.inr (Or.inr ⟨t, ?_⟩)
+    apply add_right_cancel (c := mul m k)
+    rw [add_assoc, ← mul_add, add_comm t k, ht]; exact h.symm
+  · subst heq; exact Or.inl (add_right_cancel h)
+  · obtain ⟨t, ht⟩ := hgt
+    refine Or.inr (Or.inl ⟨t, ?_⟩)
+    apply add_right_cancel (c := mul m l)
+    rw [add_assoc, ← mul_add, add_comm t l, ht]; exact h
+
 /-- ★ **CRT, split direction** — `a ≡ b (mod m·n) ⟹ a ≡ b (mod m) ∧ a ≡ b (mod n)` (no
     coprimality needed; rescale the certificate's multiples). -/
 theorem modeq_split {m n a b : Nat213} (h : ModEq (mul m n) a b) :
@@ -128,6 +150,32 @@ theorem modeq_toNat_iff {m a b : Nat213} :
   refine ⟨k', l', toNat_injective ?_⟩
   rw [toNat_add, toNat_add, toNat_mul, toNat_mul, hk', hl', Nat.mul_succ, Nat.mul_succ,
       ← Nat.add_assoc, ← Nat.add_assoc, h]
+
+/-- The directed CRT step: with `b = a + m·c` and `a ≡ b (mod n)`, coprimality lifts to
+    `a ≡ b (mod m·n)`.  `n` divides `m·c` (from `a ≡ b (mod n)` via `modeq_cases`, the two wrong
+    directions impossible by `add_ne_self`), so `Coprime m n ⟹ n ∣ c`, giving `b = a + (m·n)·f`. -/
+private theorem crt_dir {m n a b c : Nat213} (hco : Coprime m n)
+    (hc : add a (mul m c) = b) (hn : ModEq n a b) : ModEq (mul m n) a b := by
+  have hnmc : Dvd n (mul m c) := by
+    rcases modeq_cases hn with rfl | ⟨d, hd⟩ | ⟨d, hd⟩
+    · exact absurd hc (add_ne_self _ _)
+    · exact ⟨d, (add_left_cancel (by rw [hd, hc] : add a (mul n d) = add a (mul m c))).symm⟩
+    · exfalso; rw [← hc, add_assoc] at hd; exact add_ne_self a (add (mul m c) (mul n d)) hd
+  obtain ⟨f, hf⟩ := coprime_dvd_mul (coprime_comm hco) hnmc
+  have hb : add a (mul (mul m n) f) = b := by rw [← hc, hf, mul_assoc]
+  rw [← hb]; exact modeq_add_mul (mul m n) a f
+
+/-- ★★★ **Chinese Remainder Theorem (combine direction)** — for coprime moduli, congruence mod `m`
+    and mod `n` give congruence mod `m·n`: `Coprime m n → a ≡ b (mod m) → a ≡ b (mod n) →
+    a ≡ b (mod m·n)`.  The common difference is a multiple of both `m` and `n`, hence (coprime) of
+    `m·n` (`coprime_mul_dvd`'s content, via `crt_dir`).  With `modeq_split`, congruence mod `m·n` ⟺
+    mod `m` and mod `n`.  ∅-axiom. -/
+theorem crt {m n a b : Nat213} (hco : Coprime m n)
+    (hm : ModEq m a b) (hn : ModEq n a b) : ModEq (mul m n) a b := by
+  rcases modeq_cases hm with rfl | ⟨c, hc⟩ | ⟨c, hc⟩
+  · exact refl _ _
+  · exact crt_dir hco hc hn
+  · exact symm (crt_dir hco hc (symm hn))
 
 /-- ★★★ **`ModEq m` is a congruence on the Raw-generated semiring** — an equivalence relation
     compatible with `+` and `·`.  Modular arithmetic generated over `Nat213`, subtraction-free. -/
