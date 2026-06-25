@@ -73,7 +73,26 @@ read OUT into ℕ (`mulOrd a p := ordModP a.toNat p.toNat`, the valuation/no-zer
 `mulOrd_pos`, `pow_mulOrd_one`, `mulOrd_min` (minimality), `mulOrd_dvd`, `mulOrd_dvd_pred` (Lagrange).
 All ∅-axiom.
 
-Remaining (deeper, genuinely needs new carrier constructs): a carrier Legendre symbol + quadratic
-reciprocity; primitive roots (`maxOrd = p−1`); the discrete-log corpus. Sits with `the_descent_leg`
-(leg-2 readout).
+**The whole quadratic-residue programme is now transported** — primitive roots, the carrier Legendre
+symbol, quadratic reciprocity, and the discrete log (`PrimitiveRootReadout`, `LegendreReadout`,
+`DiscreteLogReadout`). Two findings:
+
+1. **A carrier Legendre symbol *was* needed — and it is a clean congruence.** `QR p a := ∃ z : Nat213,
+   z² ≡ a (mod p)` (bound-free, subtraction-free), reconciled with the native bounded existential
+   `∃ z, 1≤z<p ∧ z²%p = a%p` by a single weld `QR_iff_native` (the unit hypothesis `¬ p ∣ a` is what
+   keeps the reduced witness off the `0` the carrier forbids — the no-zero gap once more). Through it:
+   `legendre_mul_t` (multiplicativity), `quadratic_reciprocity_t` (the law), the two supplements,
+   and `qr_iff_even_dlog` (the character is the discrete-log parity — squares = even orbit positions).
+
+2. **Composing-iffs, not rewriting-iffs.** Transporting an `Iff`-valued theorem must build the result
+   with `Iff.trans`/`.mp`/`.mpr`; `rw [an_iff]` rewrites a `Prop` and pulls `propext` (caught by the
+   axiom scan). All `rw` stayed on `Nat` subterms inside the propositions. This is the iff-form
+   analogue of the earlier "pick the weld by reading form" lesson.
+
+Primitive roots needed only the order readout already built (`mulOrd`, `maxOrd213 := maxOrd ·`) plus a
+`toNat_surj` lift of the native generator — no new construct.
+
+Remaining open (genuinely new carrier constructs): the permutation-sign (Zolotarev) face of the
+character; Lucas' theorem / binomial-coefficient corpus; higher reciprocity. Sits with
+`the_descent_leg` (leg-2 readout).
 </content>

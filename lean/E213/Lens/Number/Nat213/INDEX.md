@@ -6,7 +6,7 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
 `theory/math/numbersystems/naturals_from_the_spine.md`,
 `theory/essays/foundations/raw_and_lens_explained.md`).
 
-## Files (33 + Tower/5)
+## Files (36 + Tower/5)
 
 ### Representations
 
@@ -115,6 +115,19 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              order read OUT into ℕ (valuation pattern); `pow_mulOrd_one`
                              (`a^ord≡1`), `mulOrd_min` (minimality), `mulOrd_dvd`
                              (`a^k≡1 ⟹ ord∣k`), `mulOrd_dvd_pred` (Lagrange `ord∣p-1`).
+  - `PrimitiveRootReadout.lean` — group-level unit structure: `maxOrd213 p` (maximal
+                             order, read out), `mulOrd_dvd_maxOrd`, `maxOrd_eq_pred`
+                             (`maxOrd = p-1`, cyclic), `exists_primitive_root` (a full-
+                             order generator exists).
+  - `LegendreReadout.lean` — the **quadratic-residue / Legendre** corpus.  `QR p a :=
+                             ∃ z, z²≡a (mod p)` (carrier-native, bound-free); weld
+                             `QR_iff_native` (unit hypothesis).  `legendre_mul_t`
+                             (multiplicativity), `quadratic_reciprocity_t` (the law),
+                             `first_supplement` (`-1` QR ⟺ `p≡1 mod 4`),
+                             `second_supplement` (`2` QR ⟺ `p≡±1 mod 8`).
+  - `DiscreteLogReadout.lean` — the capstone: `qr_iff_even_dlog` — the quadratic
+                             character is the discrete-log parity (`QR p a ⟺ 2∣k` where
+                             `a≡g^k`, `g` a primitive root); squares = even orbit positions.
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence; a prime dividing a power
                              divides the base (`irreducible_dvd_pow_iff`).
