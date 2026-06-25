@@ -114,4 +114,10 @@ theorem chiOmega_mul {d : ZOmega} {p m x s t : Nat}
     (mu3_mul_closed (chiOmega_unit_value p m x s hs1 hslt) (chiOmega_unit_value p m x t ht1 htlt))
     (chiOmega_unit_value p m x ((s * t) % p) hstpos hstlt) Ccong
 
+/-- ★★★ **The `μ₃` sum vanishes** — `1 + ω + ω² = 0`.  The algebraic kernel of cubic-character
+    orthogonality: a full coset of cubic residues contributes `1 + ω + ω² = 0` to `Σ_t χ_ω(t)`, so the
+    character sum over `𝔽_p*` is `0` (the missing combinatorial step is the equal-coset partition, i.e.
+    the permutation-sum reindexing under `t ↦ a·t`).  ∅-axiom. -/
+theorem mu3_sum_zero : ofInt 1 + Omega + Omega * Omega = 0 := by decide
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFpMul
