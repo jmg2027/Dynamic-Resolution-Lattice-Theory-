@@ -62,15 +62,21 @@ Roadmap `research-notes/frontiers/higher_reciprocity_roadmap.md`.  **A1 + A2 COM
 - **A2 — the Jacobi sum** `Integer/EisensteinJacobiSum`: `jacobiSum = Σ_{t<p} χ_ω(t)·χ_ω((1+(p−t))%p)`;
   `chiOmega_zero_of_dvd`, boundary terms vanish (`jacobi_term_zero/one`).
 
+### Phase A3 — character orthogonality (this session, all PURE)
+- **`Integer/EisensteinScaleCancel`** — `scale_fixed_eq_zero` (`w·S=S, w≠1 ⟹ S=0`, `ℤ[ω]` domain +
+  `ext`/`ring_intZ` distributivity `sub_mul_zomega`, `eq_of_sub_eq_zero`).
+- **`Integer/EisensteinCharSumZero`** — **`chiListSum_totatives_zero`: `Σ_t χ_ω(t)=0` UNCONDITIONAL**
+  for prime `p≡1 mod 3`, `p>3`.  `chiListSum` (`ℤ[ω]` list-sum), `chiListSum_lperm` (perm-invariant via
+  `LPerm`+`add_left_comm`), `chiListSum_map_factor` (`Σχ_ω(a·t)=χ_ω(a)·Σχ_ω` via `chiOmega_mul`),
+  `chiListSum_scale_zero`.  Permutation from `EulerTheorem.lperm_image`; non-residue = primitive root
+  (`chiOmega_ne_one` + `cube_pow_iff_three_dvd_exp`, `g¹` a cube ⟺ `3∣1`, false).
+
 ## Frontier — Phase A3 (`N(J)=J·J̄=p`) and the law
-`N(J)=p` is the current frontier.  The character algebra is in hand (`chiOmega_mul`, `mu3_sum_zero`,
-`chiOmega_mul_conj`).  **Two concrete gaps** (see roadmap A3):
-  1. **`Σ_{t<p} χ_ω(t) = 0`** needs a **`sumRange` permutation-reindexing** lemma under the
-     unit-permutation `t↦(a·t)%p` — no such infra in the repo yet; this is the next thing to build.
-  2. **Endgame cancellation** `(1−χ_ω(a))·S=0 ∧ χ_ω(a)≠1 ⟹ S=0` (`ZOmegaDomain.no_zero_div`;
-     ZOmega right-distributivity via `ext`+`ring_intZ` since `add_mul` is private).
-Then `J·J̄=p` by the translation-invariant double sum.  The reciprocity **law** `(π/π')₃=(π'/π)₃`
-follows from `J=π` (A4) + the transfer (whether `ℤ[ζ_p]`/Gauss sums are needed — decide on arrival).
+The full **character-orthogonality engine is COMPLETE** (`Σχ_ω=0` unconditional, the cancellation, the
+multiplicativity, `|χ|=1`).  **Remaining for `N(J)=p`:** the `J·J̄` **double sum** — expand
+`Σ_{s,t} χ_ω(s)χ_ω(1−s)χ̄_ω(t)χ̄_ω(1−t)`, reindex `s=t·u`, collapse the inner sum by `Σ_u χ_ω(u)=0`
+(in hand) + `χ_ω·χ̄_ω=1`.  Needs a double-`chiListSum` Fubini manipulation — the next build.  Then the
+law `(π/π')₃=(π'/π)₃` from `J=π` (A4) + the transfer.
 
 ## How to verify
 `cd lean && lake build E213.Lib.Math.Algebra.CayleyDickson` ; then from repo root
