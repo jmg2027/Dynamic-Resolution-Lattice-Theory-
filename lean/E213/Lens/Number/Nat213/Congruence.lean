@@ -105,6 +105,15 @@ theorem modeq_toNat {m a b : Nat213} (h : ModEq m a b) :
   have := congrArg toNat h
   rwa [toNat_add, toNat_add, toNat_mul, toNat_mul] at this
 
+/-- ★ **CRT, split direction** — `a ≡ b (mod m·n) ⟹ a ≡ b (mod m) ∧ a ≡ b (mod n)` (no
+    coprimality needed; rescale the certificate's multiples). -/
+theorem modeq_split {m n a b : Nat213} (h : ModEq (mul m n) a b) :
+    ModEq m a b ∧ ModEq n a b := by
+  obtain ⟨k, l, h⟩ := h
+  refine ⟨⟨mul n k, mul n l, ?_⟩, ⟨mul m k, mul m l, ?_⟩⟩
+  · rw [← mul_assoc, ← mul_assoc]; exact h
+  · rw [← mul_assoc, ← mul_assoc, mul_comm n m]; exact h
+
 /-- ★★★ **Readout iff** — `ModEq m a b ⟺ a.toNat + m.toNat·k = b.toNat + m.toNat·l` for some
     native `k,l`: the `Nat213` congruence is exactly the native ℕ congruence (subtraction-free
     form) of the readouts.  ⟹ is `modeq_toNat`; ⟸ lifts native `k,l` back through `toNat`'s

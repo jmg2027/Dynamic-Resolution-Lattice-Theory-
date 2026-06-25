@@ -71,7 +71,8 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
   - `Coprime.lean`         — coprimality (`Coprime a b := IsGcd a b one`): Euclid's
                              coprime-division law `coprime_dvd_mul`, descent to
                              divisors, multiplicative closure (`coprime_mul`),
-                             power closure (`coprime_pow`), the Prime↔Coprime bridge
+                             power closure (`coprime_pow`), coprime factors multiply
+                             (`coprime_mul_dvd`), the Prime↔Coprime bridge
                              (`irreducible_coprime_iff`). Built on `Gcd`.
   - `ToNatReadout.lean`    — the depth readout `toNat` is a faithful ordered-semiring
                              embedding onto ℕ₊: `lt`/`le`/`Dvd` read as their native
@@ -85,7 +86,8 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              (subtraction-free, no zero needed) is a congruence on the
                              semiring (`modeq_congruence`); modular exponentiation
                              (`pow_compat`), the defining step (`modeq_add_mul`), and
-                             the readout iff into native ℕ (`modeq_toNat_iff`).
+                             the readout iff into native ℕ (`modeq_toNat_iff`); CRT
+                             split `modeq_split` (`coprime_mul_dvd` is the CRT core).
   - `Valuation.lean`       — `p`-adic structure: (A) `vp` (multiplicity read OUT
                              into ℕ via `Peano.powNat`; `pow_vp_dvd`; exactness
                              `le_vp_iff`); (B) `padic_factorization` + uniqueness

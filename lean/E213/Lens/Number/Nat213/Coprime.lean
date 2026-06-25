@@ -17,7 +17,7 @@ from `Gcd.isGcd_mul_left`: scaling the coprimality `gcd(b,a)=1` by `c` gives `gc
 namespace E213.Lens.Number.Nat213.Coprime
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
-open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one mul_comm pow pow_one pow_succ)
+open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one mul_comm mul_assoc pow pow_one pow_succ)
 open E213.Lens.Number.Nat213.Divisibility (Dvd one_dvd dvd_refl dvd_trans dvd_mul_left mul_eq_one)
 open E213.Lens.Number.Nat213.Gcd
   (IsGcd isGcd_comm isGcd_one_left isGcd_one_right isGcd_self isGcd_unique
@@ -129,6 +129,16 @@ theorem not_dvd_of_irreducible_coprime {p a : Nat213} (hp : Irreducible p) (hcop
   have hp1 : Dvd p one := isGcd_greatest hcop (dvd_refl p) hdvd
   obtain ⟨c, hc⟩ := hp1
   exact hp.1 (mul_eq_one hc.symm).1
+
+/-- ★★★ **Coprime factors of a common multiple multiply** — `Coprime m n`, `m ∣ d`, `n ∣ d` ⟹
+    `m·n ∣ d`.  From `m ∣ d` write `d = m·c`; then `n ∣ m·c` with `Coprime n m` gives `n ∣ c`
+    (`coprime_dvd_mul`), so `c = n·e` and `d = (m·n)·e`.  The CRT-divisibility core. ∅-axiom. -/
+theorem coprime_mul_dvd {m n d : Nat213} (h : Coprime m n) (hm : Dvd m d) (hn : Dvd n d) :
+    Dvd (mul m n) d := by
+  obtain ⟨c, hc⟩ := hm
+  have hnc : Dvd n c := coprime_dvd_mul (coprime_comm h) (hc ▸ hn)
+  obtain ⟨e, he⟩ := hnc
+  exact ⟨e, by rw [hc, he, ← mul_assoc]⟩
 
 /-- ★★★ **For an irreducible, coprimality is exactly non-divisibility** —
     `Irreducible p → (Coprime p a ↔ ¬ p ∣ a)`.  The clean characterisation of an irreducible's
