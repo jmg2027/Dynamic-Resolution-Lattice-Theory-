@@ -75,6 +75,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharWelldef
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFunction
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidueFieldCubeRoots
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
