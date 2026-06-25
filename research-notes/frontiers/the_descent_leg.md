@@ -428,16 +428,15 @@ facts) → gcd (`Gcd`: meet-semilattice, mult. law) → coprimality (`Coprime`: 
 mult./power closure, Prime↔Coprime bridge) → well-ordering (`WellOrder`: strong induction + decidable
 well-ordering) → exponentiation (`Peano.pow`/`powNat`) → `p`-adic structure (`Valuation`).
 
-**`p`-adic valuation, both forms landed** (`Valuation.lean`):
-- **A (readout):** `vp : Nat213 → Nat213 → Nat` via `powNat`; `pow_vp_dvd` (`p^(vp p n) ∣ n`).
-- **B (native):** `padic_factorization` (`p∣n → n = p^k·m ∧ ¬p∣m`).
+**`p`-adic valuation, both forms landed + closed** (`Valuation.lean`, all ∅-axiom):
+- **A (readout):** `vp : Nat213 → Nat213 → Nat` via `powNat`; `pow_vp_dvd` (`p^(vp p n) ∣ n`);
+  **exactness `le_vp_iff`** (`p^k ∣ n ⟺ k ≤ vp p n` for `p ≠ one` — `vp` is the largest dividing
+  exponent). ✓ CLOSED.
+- **B (native):** `padic_factorization` (`p∣n → n = p^k·m ∧ ¬p∣m`) + **`padic_factorization_unique`**
+  (the `(k,m)` is unique — welds B's native exponent `k` to A's `vp`). ✓ CLOSED.
 
-**Remaining (open, low-risk):**
-- **vp exactness / `le_vp_iff`** — `p^k ∣ n ⟺ k ≤ vp p n` (the maximality of the readout `vp`).
-  Needs two sub-lemmas: `le a b → a.toNat ≤ b.toNat` (from `lt` add-witness) and `powNat` growth
-  `k < (powNat p k).toNat` for `p ≠ one` (so the search bound `toNat n` covers every `k`). Each a
-  small induction; mirrors `Meta/Nat/VpSub213.{vpSubSearch_ge, le_vpSub_iff}`. NOTE: B already gives
-  the *maximal* split natively for `p∣n`, so this is the ℕ-readout companion, not a gap in content.
-- **B uniqueness** — the `(k,m)` of `padic_factorization` is unique (via `mul_left_cancel` +
-  `irreducible`/`Coprime`); would let `vp p n` (A) be *identified* with B's `k` (a Nat reading of the
-  native exponent), welding the two forms. Moderate; the natural next valuation deposit.
+The leg-2 `Nat213` cone (order → divisibility → gcd → coprimality → well-ordering → pow → p-adic
+valuation) is now a complete ∅-axiom elementary-number-theory discipline on the generated carrier.
+**Remaining is conceptual, not arithmetic** — see Legs 1 & 3 above (generation vs. borrowing, forcing
+vs. matching).  Possible next concrete deposit: an `lcm` dual join (needs an upper bound; deferred), or
+promote the whole `Nat213` cone to a `theory/` chapter once judged categorically closed.

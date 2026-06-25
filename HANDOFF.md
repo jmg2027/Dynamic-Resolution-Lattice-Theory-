@@ -6,24 +6,29 @@ E213` passes clean (463/463).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, ten iterations)
+## What Was Done This Session (autonomous-research, eleven iterations)
 
-Ten focused iterations on the **descent-leg discipline** over `Nat213` (the
-Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the full leg-2 elementary
-number theory chain on the generated carrier: order → divisibility → gcd →
-coprimality → well-ordering → exponentiation → **p-adic valuation**, all ∅-axiom.
+Eleven focused iterations on the **descent-leg discipline** over `Nat213` (the
+Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
+elementary number theory chain on the generated carrier: order → divisibility →
+gcd → coprimality → well-ordering → exponentiation → **p-adic valuation**
+(both forms, exactness + uniqueness), all ∅-axiom.
 
-### Iteration 10: p-adic valuation, both forms (PURE ✓) — NEW FILE Valuation.lean
+### Iterations 10–11: p-adic valuation, both forms, closed (PURE ✓) — Valuation.lean
 After a design memo on the no-zero snag (a valuation counts, and the count can be
-zero, but `Nat213` has no zero), implemented **both** agreed forms:
+zero, but `Nat213` has no zero), implemented **both** agreed forms and closed both
+frontier follow-ups:
 - **A (readout into ℕ):** `Peano.powNat` (Nat-exponent power, `powNat a 0 = one`),
   with `powNat_add` + the bridge `pow_eq_powNat_toNat`. `Valuation.vp :
-  Nat213→Nat213→Nat` (multiplicity reads OUT into ℕ where 0 lives — the legitimate
-  Lens direction), `vpSearch` (downward search on `decDvd`, no Classical),
-  `pow_vp_dvd` (`p^(vp p n) ∣ n`).
-- **B (native):** `Valuation.padic_factorization` — for irreducible `p` with
-  `p∣n`, `n = p^k·m` with `¬p∣m` (k≥1, expressible in `Nat213`), by strong
-  induction. Fully native, no readout.
+  Nat213→Nat213→Nat` (multiplicity reads OUT into ℕ where 0 lives), `vpSearch`
+  (downward search on `decDvd`, no Classical), `pow_vp_dvd`, and **exactness
+  `le_vp_iff`** (`p^k ∣ n ⟺ k ≤ vp p n` for `p ≠ one` — `vp` is the largest
+  dividing exponent).
+- **B (native):** `padic_factorization` (`p∣n → n = p^k·m`, `¬p∣m`) + **uniqueness
+  `padic_factorization_unique`** (the `(k,m)` is unique — welds B's native exponent
+  to A's `vp`). Fully native, no readout.
+The leg-2 `Nat213` cone is now a complete ∅-axiom elementary-number-theory
+discipline on the generated carrier.
 
 ### Iteration 9: prime divides a power ⟹ divides the base (PURE ✓)
 - **`Divisibility.self_dvd_pow`** — `a ∣ a^n` (always; no zero exponent).
@@ -128,6 +133,8 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+ea8184d Nat213.Valuation: exactness le_vp_iff — vp is the largest dividing exponent
+8e7408c Nat213.Valuation: uniqueness of the p-adic factorization (welds B's k)
 cc00261 Nat213: p-adic valuation — both forms (powNat + vp readout, padic_factorization)
 734ea5d Nat213.Prime: a prime dividing a power divides the base (irreducible_dvd_pow)
 bce6f45 Nat213.Coprime: the Prime↔Coprime bridge (irreducible_coprime_iff)
@@ -181,20 +188,18 @@ Remaining natural deposits, low-risk:
   `Factorization`/`EuclidUnique` opens. Clean, low-risk, build-verifiable.
 
 ## Next
-The `Nat213` number-theory cone is now richly stocked (order → divisibility →
-gcd → coprimality → well-ordering → pow → prime/power facts → p-adic valuation,
-both forms). Remaining `Nat213` valuation work (recorded in
-`frontiers/the_descent_leg.md` "Leg-2 discipline build-out" §):
-- **vp exactness / `le_vp_iff`** (`p^k ∣ n ⟺ k ≤ vp p n`) — needs `le→toNat≤` +
-  `powNat` growth sub-lemmas; mirrors `VpSub213`. B already gives the maximal
-  split natively, so this is the readout companion, not a content gap.
-- **B uniqueness** — `(k,m)` of `padic_factorization` unique; welds A's `vp` to
-  B's `k`. Moderate; natural next valuation deposit.
-
-Otherwise **switch targets** — a fresh campaign regrounding another field on
-`subMod`/structural descent (the prior handoff's thick target), or a `theory/`
-promotion / cross-domain essay. The deep conceptual residue (Open Problems 1–2)
-needs a specific new rival model and is research-grade.
+The `Nat213` leg-2 number-theory cone is **complete** (order → divisibility → gcd
+→ coprimality → well-ordering → pow → prime/power facts → p-adic valuation with
+exactness + uniqueness), all ∅-axiom on the generated carrier. Both valuation
+frontier follow-ups are now CLOSED. The remaining descent-leg work is
+**conceptual** (Legs 1 & 3 — generation-vs-borrowing, forcing-vs-matching;
+research-grade). Recommended next moves:
+- **Promote the `Nat213` cone to a `theory/` chapter** — it is a closed, coherent
+  ∅-axiom discipline ("elementary number theory generated over the Raw spine");
+  a strong promotion candidate per `PROMOTION_CRITERIA.md`.
+- Or a fresh campaign regrounding another field on `subMod`/structural descent
+  (the prior handoff's thick target).
+- Minor leftover: an `lcm` dual join (needs an upper bound; deferred).
 The deep conceptual residue (Open Problems 1–2) needs a specific new rival model
 and is research-grade.
 
