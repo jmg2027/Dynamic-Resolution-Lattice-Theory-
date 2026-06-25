@@ -19,7 +19,7 @@ namespace E213.Lens.Number.Nat213.Congruence
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
-  (add mul one add_assoc add_comm add_left_comm mul_add add_mul mul_assoc mul_comm mul_one
+  (add mul one add_assoc add_comm add_left_comm mul_add add_mul mul_assoc mul_comm mul_one one_mul
    pow pow_one pow_succ toNat toNat_add toNat_mul toNat_injective
    add_right_cancel add_left_cancel add_ne_self)
 open E213.Lens.Number.Nat213.ToNatReadout (toNat_surj)
@@ -109,6 +109,20 @@ theorem modeq_toNat {m a b : Nat213} (h : ModEq m a b) :
   refine ⟨k.toNat, l.toNat, ?_⟩
   have := congrArg toNat h
   rwa [toNat_add, toNat_add, toNat_mul, toNat_mul] at this
+
+/-- ★ **Modulus-divisor monotonicity** — a congruence survives passing to a divisor modulus:
+    `c ∣ m → a ≡ b (mod m) → a ≡ b (mod c)`.  (Generalises `modeq_split`: `m ∣ m·n`.)  Rescale the
+    certificate's multiples through `m = c·e`. -/
+theorem modeq_of_dvd_modulus {c m a b : Nat213} (hcm : Dvd c m) (h : ModEq m a b) :
+    ModEq c a b := by
+  obtain ⟨e, he⟩ := hcm
+  obtain ⟨k, l, h⟩ := h
+  refine ⟨mul e k, mul e l, ?_⟩
+  rw [← mul_assoc, ← mul_assoc, ← he]; exact h
+
+/-- `mod 1` is trivial — everything is congruent (the bottom modulus, since `one ∣` everything). -/
+theorem modeq_one (a b : Nat213) : ModEq one a b :=
+  ⟨b, a, by rw [one_mul, one_mul, add_comm]⟩
 
 /-- ★★ **Concrete form of congruence** — `a ≡ b (mod m)` iff `a = b`, or one is the other plus a
     multiple of `m`.  Trichotomy on the certificate's `(k,l)`: equal ⟹ `a = b` (cancel); else the
