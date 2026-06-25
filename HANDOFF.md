@@ -10,9 +10,9 @@ nested-namespace `Peano` additions (`powNat`/`pow_add`/`mul_pow`/`pow_eq_powNat_
 `#print axioms`-clean individually. Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, twenty-five iterations)
+## What Was Done This Session (autonomous-research, twenty-six iterations)
 
-Twenty-five focused iterations on the **descent-leg discipline** over `Nat213` (the
+Twenty-six focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
 elementary number theory chain on the generated carrier, then **promoting it to a
 `theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
@@ -46,7 +46,8 @@ Entirely over `Nat213` in the statements; the readout welds the field to native 
   (concrete form of `ModEq`, trichotomy + cancellation) + `coprime_mul_dvd`.
 - **`modeq_of_dvd_modulus`** (`c∣m → a≡b mod m → a≡b mod c`, generalises split) +
   **`modeq_one`** (mod-1 trivial, the bottom modulus); **`crt_iff`** (the standard
-  CRT iff capstone).
+  CRT iff capstone); **`modeq_cancel_coprime`** (cancel a coprime factor — modular
+  division by a unit).
 
 ### Iteration 17: the value-level gcd weld — `Gcd.isGcd_toNat_eq` (PURE ✓)
 `IsGcd a b d ⟹ d.toNat = gcdW a.toNat b.toNat` (the gcd analogue of `vp_eq_vpSub`,
@@ -222,6 +223,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+7d02de2 Nat213.Congruence: cancellation of a coprime factor (modular division by a unit)
 e5af494 Promote (extend #111): carrier-readout weld + modular-arithmetic field into the chapter
 5600699 Nat213.Congruence: crt_iff — the standard CRT iff capstone
 2951ee0 Nat213.Congruence: modulus-divisor monotonicity + mod-1 triviality
