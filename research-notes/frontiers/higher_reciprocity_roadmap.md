@@ -66,16 +66,18 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
   **[DONE — `…/Integer/EisensteinJacobiSum.lean`]** `jacobiSum` indexed over `𝔽_p` (`(1−t)` written
   `(1+(p−t))%p`); `chiOmega_zero_of_dvd`, boundary terms `t=0,1` vanish (`jacobi_term_zero/one`).
 - **A3.** `N(J) = J·J̄ = p` — the double sum collapsed by orthogonality / translation invariance.
-  ← **current frontier.**  In hand: `chiOmega_mul` (multiplicativity), `mu3_sum_zero` (`1+ω+ω²=0`),
-  `chiOmega_mul_conj` (`|χ|=1`), exponent-side `chiExp_sum`, `CyclicCharacterOrthogonality`.  **Two
-  remaining gaps:**
-  1. **`𝔽_p`-residue `Σ_{t<p} χ_ω(t) = 0`** — needs a **sum-permutation reindexing** lemma for
-     `EisensteinFiniteSum.sumRange` under the unit-permutation `t ↦ (a·t)%p` (no such infra in the repo
-     yet — the missing piece).  Then `Σχ_ω = χ_ω(a)·Σχ_ω` (`chiOmega_mul`) ⟹ `(1−χ_ω(a))·Σ = 0`.
-  2. **Endgame cancellation** `(1−χ_ω(a))·S = 0 ∧ χ_ω(a)≠1 ⟹ S = 0` — `ZOmegaDomain.no_zero_div`
-     + `χ_ω(a) ∈ {ω,ω²}` so `1−χ_ω(a) ≠ 0`.  Needs ZOmega right-distributivity (`ext` + `ring_intZ`
-     route, since `add_mul` is private in `ZOmegaAlgebra213`).
-  Then the `J·J̄` double-sum collapses by translation invariance to `p`.
+  ← **current frontier.**  **Character-orthogonality engine COMPLETE** (this session):
+  - **`Σ_t χ_ω(t) = 0` DONE, unconditional** — `EisensteinCharSumZero.chiListSum_totatives_zero`.  The
+    `sumRange`-permutation problem was solved by routing through the existing **`LPerm`** list-permutation
+    infra (`EulerTheorem.lperm_image` — the unit-multiplication map permutes `totativeList p`) with a
+    `ZOmega` list-sum `chiListSum` proved `LPerm`-invariant (`chiListSum_lperm`), scaling-factored
+    (`chiListSum_map_factor` via `chiOmega_mul`), and a primitive-root non-residue (`chiOmega_ne_one`).
+  - **Endgame cancellation DONE** — `EisensteinScaleCancel.scale_fixed_eq_zero` (`w·S=S, w≠1 ⟹ S=0`
+    via `ZOmegaDomain.no_zero_div` + `ext`/`ring_intZ` right-distributivity `sub_mul_zomega`).
+  - **Remaining:** the `J·J̄ = p` **double sum** itself — expand `J·J̄ = Σ_{s,t} χ_ω(s)χ_ω(1−s)
+    χ̄_ω(t)χ̄_ω(1−t)`, reindex (`s = t·u`), and collapse the inner sum by `Σ_u χ_ω(u) = 0` (the
+    orthogonality now in hand) + `χ_ω·χ̄_ω = 1` (`chiOmega_mul_conj`).  Needs a double-`sumRange` /
+    `chiListSum` Fubini-style manipulation — the next build.
 - **A4.** `J` primary normalisation → `J = π`.
 
 ### Phase B — the cubic law
