@@ -17,7 +17,8 @@ namespace E213.Lens.Number.Nat213.Congruence
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213
-  (add mul one add_assoc add_comm add_left_comm mul_add add_mul mul_assoc)
+  (add mul one add_assoc add_comm add_left_comm mul_add add_mul mul_assoc mul_comm mul_one
+   pow pow_one pow_succ toNat toNat_add toNat_mul)
 
 /-- **Congruence over the Raw-generated ℕ₊**: `a ≡ b (mod m)` iff `a` and `b` reach a common value
     by adding multiples of `m` — `∃ k l, a + m·k = b + m·l`.  Subtraction-free (no zero needed). -/
@@ -69,6 +70,38 @@ theorem mul_right {m a b : Nat213} (h : ModEq m a b) (c : Nat213) :
       = mul (add a (mul m k)) c := by rw [add_mul, mul_assoc]
     _ = mul (add b (mul m l)) c := by rw [h]
     _ = add (mul b c) (mul m (mul l c)) := by rw [add_mul, mul_assoc]
+
+/-- Compatible with left `·` — `a ≡ b ⟹ c·a ≡ c·b` (via `mul_comm`). -/
+theorem mul_left {m a b : Nat213} (h : ModEq m a b) (c : Nat213) :
+    ModEq m (mul c a) (mul c b) := by
+  rw [mul_comm c a, mul_comm c b]; exact mul_right h c
+
+/-- ★ **Full multiplicative compatibility** — `a ≡ b`, `c ≡ d ⟹ a·c ≡ b·d`. -/
+theorem mul_compat {m a b c d : Nat213} (h1 : ModEq m a b) (h2 : ModEq m c d) :
+    ModEq m (mul a c) (mul b d) :=
+  trans (mul_right h1 c) (mul_left h2 b)
+
+/-- ★★ **Modular exponentiation** — `a ≡ b ⟹ a^n ≡ b^n` (induction on `n` via `mul_compat`). -/
+theorem pow_compat {m a b : Nat213} (h : ModEq m a b) (n : Nat213) :
+    ModEq m (pow a n) (pow b n) := by
+  induction n with
+  | one => rw [pow_one, pow_one]; exact h
+  | succ n ih => rw [pow_succ, pow_succ]; exact mul_compat h ih
+
+/-- ★ **The defining step** — `a ≡ a + m·k`: adding any multiple of `m` lands in the same class. -/
+theorem modeq_add_mul (m a k : Nat213) : ModEq m a (add a (mul m k)) :=
+  ⟨add k one, one, by rw [mul_add, ← add_assoc]⟩
+
+/-- ★★ **Readout into ℕ** — `a ≡ b (mod m)` over `Nat213` pushes forward to the native ℕ congruence
+    in the same subtraction-free form: `a.toNat + m.toNat·k = b.toNat + m.toNat·l`.  The
+    carrier-readout for the congruence field (forward direction, via the `toNat` `+`/`·`
+    homomorphism). -/
+theorem modeq_toNat {m a b : Nat213} (h : ModEq m a b) :
+    ∃ k l : Nat, a.toNat + m.toNat * k = b.toNat + m.toNat * l := by
+  obtain ⟨k, l, h⟩ := h
+  refine ⟨k.toNat, l.toNat, ?_⟩
+  have := congrArg toNat h
+  rwa [toNat_add, toNat_add, toNat_mul, toNat_mul] at this
 
 /-- ★★★ **`ModEq m` is a congruence on the Raw-generated semiring** — an equivalence relation
     compatible with `+` and `·`.  Modular arithmetic generated over `Nat213`, subtraction-free. -/

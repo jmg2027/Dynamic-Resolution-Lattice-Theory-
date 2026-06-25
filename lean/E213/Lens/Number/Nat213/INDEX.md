@@ -82,9 +82,10 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              inhabited decidable predicate has a `lt`-minimal
                              witness, constructive via `decBoundedExists`).
   - `Congruence.lean`      — modular arithmetic: `ModEq m a b := ∃ k l, a+m·k=b+m·l`
-                             (subtraction-free, no zero needed) is an equivalence
-                             compatible with `+`/`·` — a congruence on the semiring
-                             (`modeq_congruence`).
+                             (subtraction-free, no zero needed) is a congruence on the
+                             semiring (`modeq_congruence`); modular exponentiation
+                             (`pow_compat`), the defining step (`modeq_add_mul`), and
+                             the readout into native ℕ (`modeq_toNat`).
   - `Valuation.lean`       — `p`-adic structure: (A) `vp` (multiplicity read OUT
                              into ℕ via `Peano.powNat`; `pow_vp_dvd`; exactness
                              `le_vp_iff`); (B) `padic_factorization` + uniqueness
