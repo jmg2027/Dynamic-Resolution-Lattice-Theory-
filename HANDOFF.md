@@ -10,9 +10,9 @@ nested-namespace `Peano` additions (`powNat`/`pow_add`/`mul_pow`/`pow_eq_powNat_
 `#print axioms`-clean individually. Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, twenty-six iterations)
+## What Was Done This Session (autonomous-research, twenty-seven iterations)
 
-Twenty-six focused iterations on the **descent-leg discipline** over `Nat213` (the
+Twenty-seven focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
 elementary number theory chain on the generated carrier, then **promoting it to a
 `theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
@@ -223,6 +223,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+4c44d6a Nat213.Coprime: coprime_bezout — Bézout's identity via the carrier weld
 7d02de2 Nat213.Congruence: cancellation of a coprime factor (modular division by a unit)
 e5af494 Promote (extend #111): carrier-readout weld + modular-arithmetic field into the chapter
 5600699 Nat213.Congruence: crt_iff — the standard CRT iff capstone

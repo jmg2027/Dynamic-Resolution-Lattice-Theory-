@@ -451,6 +451,14 @@ the previously-missing greatest property). The generated discipline reads onto t
 across order, divisibility, gcd, and valuation.
 
 **Remaining is conceptual, not arithmetic** — see Legs 1 & 3 above (generation vs. borrowing, forcing
-vs. matching).  Minor: an `lcm` dual join (needs an upper bound; deferred). The carrier-readout
-pattern (`dvd_toNat_iff` + `toNat_*` + propext-free Nat craft) is now a reusable toolkit for
-regrounding another field on `subMod`/structural descent.
+vs. matching). The carrier-readout pattern (`dvd_toNat_iff` + `toNat_*` + propext-free Nat craft) is
+now a reusable toolkit for regrounding another field on `subMod`/structural descent.
+
+**No-zero friction (a genuine carrier characteristic, not a gap).** Bézout's identity is available in
+*readout form* (`Coprime.coprime_bezout`: `Coprime a m → ∃ x y:Nat, a.toNat·x = m.toNat·y+1 ∨ …`, via
+the weld + `SubBezout213`), but the **full modular inverse** `Coprime a m → ∃ x:Nat213, a·x ≡ 1 (mod
+m)` does **not** lift cleanly: native Bézout coefficients can be `0` (no `Nat213`), and the two-sided
+form's second branch needs a `−1`/`m−1` complement the no-subtraction carrier cannot build. Same shape
+as the valuation no-zero decision — the inverse, like the count, is most naturally a *readout*, not a
+native element. An `lcm` dual join (needs an upper bound) sits with this. Deferred; the obstruction is
+informative (it marks where the generated carrier genuinely differs from ℤ/ℕ-with-zero).
