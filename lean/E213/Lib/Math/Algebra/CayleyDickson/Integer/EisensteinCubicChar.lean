@@ -35,7 +35,7 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence
-  (ModEq refl trans mul_right mul_left)
+  (ModEq refl symm trans mul_right mul_left)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit (ofInt_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidue (modEq_ofInt_of_dvd)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality
@@ -166,6 +166,19 @@ theorem cubic_residue_char_one {d α β : ZOmega} {x : Int} {m : Nat}
     (hferm : d.normSq ∣ ((β.re + β.im * x) ^ (m + m + m) - 1)) :
     ModEq d (pow α m) (ofInt 1) :=
   cube_char_one hcube (char_cubes_to_one hred hferm)
+
+/-- ★★★★ **A rational cube root lifts to an Eisenstein cube** — if `α ≡ ↑r (mod d)` and `‖d‖² ∣
+    (y³ − r)` (i.e. `y³ ≡ r (mod p)`, `r` is a rational cube), then `α ≡ (↑y)³ (mod d)` — `α` is a cube
+    in `ℤ[ω]/(d)`.  This is the lift that converts the **rational** cubic-residue witness into an
+    **Eisenstein** cube, the converse companion to `cubic_residue_char_one`.  `↑r ≡ ↑(y³) (mod d)`
+    (`modEq_ofInt_of_dvd`), and `↑(y³) = ↑y·↑y·↑y` (`ofInt_mul`).  ∅-axiom. -/
+theorem cube_lift {d α : ZOmega} {r y : Int}
+    (hred : ModEq d α (ofInt r)) (hcube : d.normSq ∣ (y * y * y - r)) :
+    ModEq d α (ofInt y * ofInt y * ofInt y) := by
+  have h1 : ModEq d (ofInt (y * y * y)) (ofInt r) := modEq_ofInt_of_dvd hcube
+  have h2 : ofInt (y * y * y) = ofInt y * ofInt y * ofInt y := by rw [← ofInt_mul, ← ofInt_mul]
+  rw [h2] at h1
+  exact trans hred (symm h1)
 
 /-! ## The rational weld — `(α/d)₃` is the rational power `r^m` (toward the reciprocity readout)
 

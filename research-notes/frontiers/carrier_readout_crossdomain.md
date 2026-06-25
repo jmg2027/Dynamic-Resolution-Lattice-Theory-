@@ -271,9 +271,19 @@ rational engine of the **Eisenstein Euler converse**: chained through `char_one_
 (`(α/d)₃=1 ⟺ p∣(r^m−1) ⟺ r^m≡1`) it gives `(α/d)₃ = 1 ⟺ r` is a rational cubic residue, and lifting a
 rational cube root `x` (`(↑x)³ ≡ ↑r ≡ α mod d`) yields `(α/d)₃ = 1 ⟹ α is a cube in ℤ[ω]/(d)`.
 
+**Euler-converse lift done — rational cube ⟹ Eisenstein cube.**  `EisensteinCubicChar.lean`
+(`cube_lift`, ∅-axiom).  ★★★★ if `α ≡ ↑r (mod d)` and `‖d‖² ∣ (y³ − r)` (`y³ ≡ r mod p`, `r` a
+rational cube), then `α ≡ (↑y)³ (mod d)` — the rational cube root `y` lifts to an Eisenstein cube root
+`↑y`.  `modEq_ofInt_of_dvd` + `ofInt_mul` + `symm`/`trans` (no Int subtraction lemmas — `Int.neg_sub`/
+`Int.mul_neg` are `propext`-dirty, sidestepped by applying `modEq_ofInt_of_dvd` to `y³−r` directly and
+flipping with `symm`).  Module now 13 PURE / 0 dirty.  This is the ℤ[ω]-native converse companion to
+`cubic_residue_char_one`; with `char_one_iff_rational` + `pow_m_one_iff_cube` only the Int→Nat reduction
+of `r` (to apply the Nat-indexed rational criterion) remains to assemble the full Eisenstein Euler
+criterion `(α/d)₃ = 1 ⟺ α is a cube mod d`.
+
 Next rungs:
-**(Euler-converse)** assemble `(α/d)₃ = 1 ⟹ α is a cube mod d` from `char_one_iff_rational` +
-`pow_m_one_iff_cube` + the rational-cube-root lift (the pieces now all exist);
+**(Euler-converse assembly)** glue `char_one_iff_rational` + `pow_m_one_iff_cube` + `cube_lift` into
+`(α/d)₃ = 1 ⟺ α cube mod d` (remaining: Int→Nat reduction `r ↦ r mod p` to feed the Nat criterion);
 **(3d-weld)** weld `(α/d)₃` to the rational cubic character `ModArith/CubicResidue.
 cube_iff_three_dvd_dlog` (norm-`p` primes ↔ rational power-residue), giving the character a computable
 `μ₃` readout;
