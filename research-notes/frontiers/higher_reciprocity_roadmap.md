@@ -86,14 +86,20 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
        `jacobiList_norm_double` by `a=(b·c)%p` (a unit-permutation of `List.range p`, `lperm_image`-style)
        ⟹ `J·J̄ = Σ_b χ̄_ω(1−b) · Σ_c χ_ω(c)·χ_ω((1−bc)%p)` (after isolating the `χ_ω=0` boundary
        `a,b∈{0,1}`).
-    5. **the inner-sum collapse** (the genuine hard core — *NOT* a single `Σχ_ω=0`).  The inner
-       `Σ_c χ_ω(c)·χ_ω((1−bc)%p)` keeps a `b·c` coupling; evaluating it is the crux.  **Two routes,
-       decide on arrival:**
-       (a) *elementary* — the substitution `c ↦ c/(…)` reduces the inner sum to a shifted character sum
-           whose `b≠1` value is `−χ_ω(…)` (so the `b`-sum telescopes via `Σχ_ω=0`) and `b=1` gives the
-           diagonal count — IR Ch 8 style, several more lemmas; OR
-       (b) *Gauss sums* — build the additive character / Gauss sum `g(χ)=Σ χ_ω(t)ζ^t` over `ℤ[ζ_p]`
-           and use `J = g(χ)²/g(χ²)`, `|g|²=p`.  Heavier (needs `ℤ[ζ_p]`) but textbook-standard.
+    5. **the inner-sum collapse** (the genuine hard core — *NOT* a single `Σχ_ω=0`).  **ROUTE CHOSEN:
+       (a) elementary, `ℤ[ω]`-internal `𝔽_p` counting** — the repo-aligned path (CLAUDE.md "algebraic
+       priority: counting, not continuous variation; discrete structure first"; minimise assumptions, so
+       NO new `ℤ[ζ_p]`).  The Gauss-sum route (b) (`g(χ)=Σχ_ω(t)ζ^t` over `ℤ[ζ_p]`, `J=g(χ)²/g(χ²)`) is
+       rejected as it imports a heavy cyclotomic field.  Derived reduction (verified on paper):
+       - reindex the inner `a`-sum by `a = (b·t) mod p` (`b` unit ⟹ `t↦bt` permutes **all** of
+         `[0,p)`), giving `J·J̄ = Σ_{b unit} Σ_t χ_ω(t)·χ_ω((1−bt)%p)·χ̄_ω((1−b)%p)`
+         (using `χ_ω(bt)χ̄_ω(b)=χ_ω(t)` per `chiOmega_reindex`-style, `χ_ω(b)` unit-cancel).
+       - `χ_ω(t)·χ_ω((1−bt)%p) = χ_ω((t(1−bt))%p)` (`chiOmega_mul`) ⟹
+         `J·J̄ = Σ_{b≠1 unit} χ̄_ω((1−b)%p) · S(b)`, `S(b) = Σ_t χ_ω((t(1−bt))%p)`.
+       - `S(1)` (diagonal) gives the `p`-count; `S(b)` for `b≠1` is a **quadratic character sum**
+         `Σ_w χ_ω(c²−w²)` (complete the square `t(1−bt)`), which evaluates to a single character value
+         so the `b`-sum telescopes by `Σχ_ω=0`.  Sub-bricks: full-range mult-permutation lemma
+         (`range_mul_lperm`), the `χ(t)χ(1−bt)=χ(t(1−bt))` step, the quadratic-sum evaluation.
     6. **`N(J)=p`** then `J=π` (A4); the law `(π/π')₃=(π'/π)₃` + transfer.
 - **A4.** `J` primary normalisation → `J = π`.
 
