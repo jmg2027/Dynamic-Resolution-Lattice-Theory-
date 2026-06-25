@@ -9,7 +9,7 @@ These are the **first non-trivial witnesses** for the
 `Meta.SelfRecognising` axiom-game.  Each cluster has shape
 (carrier · arithmetic · domain · instance · hom).
 
-## Files (32)
+## Files (70)
 
 ### ZI = ℤ[i] (Gaussian integers)
   - `ZI.lean`           — type + arithmetic
@@ -54,6 +54,22 @@ These are the **first non-trivial witnesses** for the
   - `EisensteinEuclidean.lean` — the covering-radius bound (`covering_bound`): the Eisenstein
     lattice's covering radius² is `≤ 3/4 < 1`, the geometric reason `ℤ[ω]` is norm-Euclidean
     (the split-prime descent's load-bearing inequality)
+
+  **Cubic / Eisenstein reciprocity — the cubic character `(·/d)₃ = α^m`** (`d` a norm-`p` prime,
+  `p ≡ 1 mod 3`, `m = (p−1)/3`).  Complete cubic-character theory + Jacobi-sum substrate; the
+  reciprocity *law* itself is the open frontier (`research-notes/frontiers/carrier_readout_crossdomain.md`).
+  - `CubeRootsOfUnity.lean` — value group `μ₃ = {1,ω,ω²}` (`x³=1 ⟺ x∈μ₃`)
+  - `EisensteinCongruence.lean` / `EisensteinResidue.lean` / `EisensteinResiduePrime.lean` —
+    `α≡β (mod π)`, the reduction `ℤ[ω]/(d)=ℤ`-image, the residue prime for `p≡1 mod 3`
+  - `EisensteinPrime.lean` — a norm-`p` element is prime (`norm_prime_euclid`); `ℤ[ω]/(d)` integral domain
+  - `EisensteinCubicChar.lean` — cubes-to-one, multiplicativity, cube-detection, rational weld
+  - `EisensteinCubicCharValue.lean` — `cubic_factor` + the value is exactly `1, ω,` or `ω²`
+  - `EisensteinCubicCharWelldef.lean` — the three roots distinct mod `d`: `(·/d)₃` a well-defined function
+  - `EisensteinCubicWeld.lean` / `EisensteinCubicEuler.lean` — `(α/d)₃=1 ⟺ r` cubic residue; `⟹ α` a cube
+  - `EisensteinPrimary.lean` — the unique primary associate `≡ 2 (mod 3)`
+  - `EisensteinCubicCharOmega.lean` / `EisensteinCubicCharConj.lean` — supplementary laws `(ω/d)₃`, `(ᾱ/d)₃`
+  - `EisensteinFiniteSum.lean` / `EisensteinCharOrthogonality.lean` / `EisensteinCubicCharFunction.lean` —
+    Jacobi-sum substrate: `Σ_{k<n} f k`, `Σ_{j<3k} ωʲ = 0`, the character homomorphism `χ̂(i)=ωⁱ`
 
 ### ZSqrt = ℤ[√D] (parametric family)
   - `ZSqrt.lean`              — generic carrier
