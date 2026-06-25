@@ -150,10 +150,20 @@ analogue of `DiscreteLogParity` (which read the quadratic character as the discr
 ∅-axiom; proof mirrors `qr_pow_iff_even_exp` (cube-root ⟹ `a^m ≡ 1` by Fermat ⟹ `3m ∣ km` ⟹ `3 ∣ k`;
 converse exhibits `g^{k/3}`).  `three_mul_dvd_iff` is the cubic `two_mul_dvd_iff`.
 
+**Rung 1 done — the character's value group `μ₃`.** `CayleyDickson/Integer/CubeRootsOfUnity.lean`,
+`cube_root_unity` (∅-axiom): `x³ = 1 ⟺ x ∈ {1, ω, ω²}` in `ℤ[ω]` — the codomain of `(·/π)₃`.  Purity
+craft: `ℤ[ω]`'s `BEq`-membership (`units6.contains x = true`, defeq to a `||`-chain) extracted via
+`orB_elim` + `of_decide_eq_true` per branch, avoiding the `propext`-tainted `List.contains_iff_mem` /
+`List.mem_cons` simp lemmas.  Plus `omega_primitive` / `omega2_facts` (the `μ₃` group law).
+
 Runway to the full **cubic (Eisenstein) reciprocity** law: the Eisenstein-integer machinery exists
 (`CayleyDickson/Integer/Eisenstein{Euclidean,Gcd,Dvd,Split,…}` — `ℤ[ω]` as a Euclidean domain), and
 `ModArith/EisensteinCubeRoot` supplies the primitive cube root of unity mod `p`.  Next rungs:
-the cubic character `(·/π)₃` on `ℤ[ω]` (norm-`p` primes ↔ the rational character above), primary
-primes, then the reciprocity `(π/π')₃ = (π'/π)₃` — a large multi-session build over `ℤ[ω]`.
+**(2)** congruence `α ≡ β (mod π)` + the residue field `ℤ[ω]/(π) ≅ 𝔽_p` (Fermat there ⟹ `α^{(p−1)/3}
+∈ μ₃ mod π`, so `(α/π)₃` is well-defined into the `μ₃` above);
+**(3)** character multiplicativity + the weld to the rational cubic character (norm-`p` primes ↔
+`ModArith/CubicResidue.cube_iff_three_dvd_dlog`);
+**(4)** primary primes (the unique associate `≡ 2 mod 3` among the 6 unit multiples);
+**(5)** the reciprocity `(π/π')₃ = (π'/π)₃`.
 Higher (Eisenstein/quartic) reciprocity sits beyond.  With `the_descent_leg` (leg-2 readout).
 </content>
