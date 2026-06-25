@@ -65,8 +65,8 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              gcd existence + multiplicative spec (`gcd_exists_mul`).
   - `Gcd.lean`             — the gcd discipline (`IsGcd`): divisibility is a
                              meet-semilattice — gcd exists + unique + multiplicative
-                             law `gcd(c·a,c·b)=c·gcd(a,b)`. Extracted from
-                             `gcd_exists_mul`.
+                             law `gcd(c·a,c·b)=c·gcd(a,b)`; reads out as a native gcd
+                             (`isGcd_toNat`). Extracted from `gcd_exists_mul`.
   - `Coprime.lean`         — coprimality (`Coprime a b := IsGcd a b one`): Euclid's
                              coprime-division law `coprime_dvd_mul`, descent to
                              divisors, multiplicative closure (`coprime_mul`),

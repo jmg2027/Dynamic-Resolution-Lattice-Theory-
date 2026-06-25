@@ -1,4 +1,5 @@
 import E213.Lens.Number.Nat213.EuclidUnique
+import E213.Lens.Number.Nat213.ToNatReadout
 
 /-!
 # Lens.Number.Nat213.Gcd — the gcd discipline over the Raw-generated ℕ₊ (∅-axiom)
@@ -19,9 +20,10 @@ distinguishing's own counting object — with the multiplicative law `gcd(c·a,c
 namespace E213.Lens.Number.Nat213.Gcd
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
-open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one one_mul mul_comm)
+open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one one_mul mul_comm toNat_ge_one)
 open E213.Lens.Number.Nat213.Divisibility (Dvd dvd_refl dvd_antisymm one_dvd)
 open E213.Lens.Number.Nat213.EuclidUnique (GcdMulSpec gcd_exists_mul)
+open E213.Lens.Number.Nat213.ToNatReadout (dvd_toNat_iff toNat_surj)
 
 /-- **Greatest common divisor over the Raw-generated ℕ₊**: `d` is a common divisor of `a`, `b`
     that every common divisor divides — the **greatest lower bound** in the `Dvd` partial order.
@@ -104,5 +106,23 @@ theorem gcd_meet_semilattice :
     ∧ (∀ a b d₁ d₂ : Nat213, IsGcd a b d₁ → IsGcd a b d₂ → d₁ = d₂)
     ∧ (∀ a b d c : Nat213, IsGcd a b d → IsGcd (mul c a) (mul c b) (mul c d)) :=
   ⟨isGcd_exists, fun _ _ _ _ => isGcd_unique, fun _ _ _ c h => isGcd_mul_left h c⟩
+
+/-- ★★★ **The generated gcd reads out as a native greatest-common-divisor** — `IsGcd a b d`
+    implies `d.toNat` divides both `a.toNat`, `b.toNat` and is divisible by every native common
+    divisor.  The gcd analogue of `Valuation.vp_eq_vpSub`, at spec level: the `Nat213` meet-
+    semilattice structure is the readout of the native gcd structure.  ⟹ via `dvd_toNat_iff`; the
+    greatest clause lifts a native common divisor `e` back through `toNat`'s surjectivity onto ℕ₊
+    (`toNat_surj`; `e ≥ 1` since `e ∣ a.toNat` and `a.toNat ≥ 1`), runs it through `IsGcd`'s own
+    greatest clause, and reads the result back out.  ∅-axiom. -/
+theorem isGcd_toNat {a b d : Nat213} (h : IsGcd a b d) :
+    d.toNat ∣ a.toNat ∧ d.toNat ∣ b.toNat ∧
+      ∀ e : Nat, e ∣ a.toNat → e ∣ b.toNat → e ∣ d.toNat := by
+  refine ⟨dvd_toNat_iff.mp h.1, dvd_toNat_iff.mp h.2.1, fun e hea heb => ?_⟩
+  have he1 : 1 ≤ e := Nat.pos_of_dvd_of_pos hea (toNat_ge_one a)
+  obtain ⟨c, hc⟩ := toNat_surj e he1
+  have hca : Dvd c a := dvd_toNat_iff.mpr (by rw [hc]; exact hea)
+  have hcb : Dvd c b := dvd_toNat_iff.mpr (by rw [hc]; exact heb)
+  have hcd : c.toNat ∣ d.toNat := dvd_toNat_iff.mp (h.2.2 c hca hcb)
+  rw [hc] at hcd; exact hcd
 
 end E213.Lens.Number.Nat213.Gcd
