@@ -51,6 +51,10 @@ theorem cubicChar_cube_one (p m t : Nat) (hp : 1 < p) (hpr : ∀ d, d ∣ p → 
   rw [← pow_mod_base (t ^ m) p 3, ← pow_mul_loc t m 3, Nat.mul_comm m 3, h3m]
   exact fermat t p hp hpr ht1 htlt
 
+/-- **`χ` only sees `t mod p`** — `χ(a % p) = χ(a)`.  `(a%p)^m ≡ a^m (mod p)` (`pow_mod_base`). -/
+theorem cubicChar_mod (p m a : Nat) : cubicChar p m (a % p) = cubicChar p m a :=
+  (pow_mod_base a p m).symm
+
 /-- ★★★ **The cubic character is multiplicative** — `χ(s·t) ≡ χ(s)·χ(t) (mod p)`.  From `(s·t)^m =
     s^m·t^m` and modular multiplicativity.  ∅-axiom. -/
 theorem cubicChar_mul (p m s t : Nat) :

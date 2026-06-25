@@ -54,6 +54,20 @@ theorem chiOmega_value (p m x t : Nat) :
       · rw [if_pos h2]; exact Or.inr (Or.inr (Or.inl rfl))
       · rw [if_neg h2]; exact Or.inr (Or.inr (Or.inr rfl))
 
+/-- ★★★ **A unit's character value is a genuine cube root of unity** — for `0 < t < p`,
+    `χ_ω(t) ∈ {1, ω, ω²}` (the `t % p ≠ 0` branch excludes `0`).  ∅-axiom. -/
+theorem chiOmega_unit_value (p m x t : Nat) (ht1 : 0 < t) (htlt : t < p) :
+    chiOmega p m x t = ofInt 1 ∨ chiOmega p m x t = Omega ∨ chiOmega p m x t = Omega * Omega := by
+  have htnz : ¬ t % p = 0 := by rw [Nat.mod_eq_of_lt htlt]; exact Nat.ne_of_gt ht1
+  unfold chiOmega
+  rw [if_neg htnz]
+  by_cases h1 : cubicChar p m t = 1
+  · rw [if_pos h1]; exact Or.inl rfl
+  · rw [if_neg h1]
+    by_cases h2 : cubicChar p m t = x % p
+    · rw [if_pos h2]; exact Or.inr (Or.inl rfl)
+    · rw [if_neg h2]; exact Or.inr (Or.inr rfl)
+
 /-- ★★★★ **The lift congruence** — `ofInt ↑(χ(t)) ≡ χ_ω(t) (mod d)` for a unit `t` (`0 < t < p`).  The
     rational character value `t^m % p` and the `μ₃`-element `χ_ω(t)` are congruent in `ℤ[ω]/(d) = 𝔽_p`,
     i.e. `χ_ω` represents the cubic character with genuine cube-root-of-unity values.  The trichotomy
