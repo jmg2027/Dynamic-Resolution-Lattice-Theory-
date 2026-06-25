@@ -65,7 +65,8 @@ Raw-generated `Nat213`** — the **descent leg** made concrete (narrative:
                              `gcd_exists_mul`.
   - `Coprime.lean`         — coprimality (`Coprime a b := IsGcd a b one`): Euclid's
                              coprime-division law `coprime_dvd_mul`, descent to
-                             divisors. Built on `Gcd.isGcd_mul_left`.
+                             divisors, multiplicative closure (`coprime_mul`).
+                             Built on `Gcd.isGcd_mul_left`.
   - `Prime.lean`           — irreducible ⟺ prime (`irreducible_iff_prime`), the
                              UFD-defining coincidence.
   - `Factorization.lean`   — every `Nat213` is a product of irreducibles.

@@ -18,7 +18,7 @@ namespace E213.Lens.Number.Nat213.Coprime
 
 open E213.Lens.Number.Nat213.Peano (Nat213)
 open E213.Lens.Number.Nat213.Peano.Nat213 (mul one mul_one mul_comm)
-open E213.Lens.Number.Nat213.Divisibility (Dvd one_dvd dvd_trans dvd_mul_left)
+open E213.Lens.Number.Nat213.Divisibility (Dvd one_dvd dvd_refl dvd_trans dvd_mul_left)
 open E213.Lens.Number.Nat213.Gcd
   (IsGcd isGcd_comm isGcd_one_left isGcd_one_right isGcd_self isGcd_unique
    isGcd_mul_left isGcd_greatest)
@@ -69,5 +69,23 @@ theorem coprime_dvd_mul' {a b c : Nat213} (hcop : Coprime a b) (hdvd : Dvd a (mu
     Dvd a c := by
   apply coprime_dvd_mul hcop
   rwa [mul_comm b c]
+
+/-- ★★★ **Coprimality is closed under products** — `Coprime a b → Coprime a c → Coprime a (b·c)`.
+    A common divisor `e` of `a` and `b·c` is coprime to `b` (descent, `coprime_of_dvd_left`), so
+    divides `c` (`coprime_dvd_mul`); being also coprime to `c`, it divides `gcd(e,c) = one`. The
+    multiplicative closure of coprimality, from `coprime_dvd_mul` alone. ∅-axiom. -/
+theorem coprime_mul {a b c : Nat213} (hb : Coprime a b) (hc : Coprime a c) :
+    Coprime a (mul b c) := by
+  refine ⟨one_dvd a, one_dvd (mul b c), fun e hea hebc => ?_⟩
+  have heb : Coprime e b := coprime_of_dvd_left hea hb
+  have hec : Dvd e c := coprime_dvd_mul heb hebc
+  have hcc : Coprime e c := coprime_of_dvd_left hea hc
+  exact isGcd_greatest hcc (dvd_refl e) hec
+
+/-- Coprimality is closed under products on the left — `Coprime a c → Coprime b c →
+    Coprime (a·b) c` (via `coprime_comm` + `coprime_mul`). -/
+theorem mul_coprime {a b c : Nat213} (ha : Coprime a c) (hb : Coprime b c) :
+    Coprime (mul a b) c :=
+  coprime_comm (coprime_mul (coprime_comm ha) (coprime_comm hb))
 
 end E213.Lens.Number.Nat213.Coprime
