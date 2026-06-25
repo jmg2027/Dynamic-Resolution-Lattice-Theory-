@@ -59,6 +59,7 @@ import E213.Lib.Math.NumberTheory.ModArith.EveryOrdDvdMax
 import E213.Lib.Math.NumberTheory.ModArith.PrimitiveRoot
 import E213.Lib.Math.NumberTheory.ModArith.DiscreteLogParity
 import E213.Lib.Math.NumberTheory.ModArith.CubicResidue
+import E213.Lib.Math.NumberTheory.ModArith.CubicCharFp
 import E213.Lib.Math.NumberTheory.ModArith.CharacterOrthogonality
 import E213.Lib.Math.NumberTheory.ModArith.CyclicCharacterOrthogonality
 import E213.Lib.Math.NumberTheory.Lcm213
