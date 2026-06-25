@@ -6,14 +6,24 @@ E213` passes clean (465/465).** All new theorems ∅-axiom (`#print axioms`
 empty, verified individually). Started from `main` after the previous
 grounded-FTA + Leg-1 marathon merged.
 
-## What Was Done This Session (autonomous-research, twenty-four iterations)
+## What Was Done This Session (autonomous-research, twenty-five iterations)
 
-Twenty-four focused iterations on the **descent-leg discipline** over `Nat213` (the
+Twenty-five focused iterations on the **descent-leg discipline** over `Nat213` (the
 Raw-generated ℕ₊, `Lens/Number/Nat213/`) — building the **complete** leg-2
 elementary number theory chain on the generated carrier, then **promoting it to a
 `theory/` chapter**: order → divisibility → gcd → coprimality → well-ordering →
 exponentiation → **p-adic valuation** (both forms, exactness + uniqueness), all
 ∅-axiom.
+
+### Iteration 25: extend the promoted chapter (#113) — highest-value consolidation
+The native-`Nat` modular-arithmetic corpus (`Lib/.../ModArith`, 60+ files) already
+holds Fermat/Euler/Wilson richly, so re-deriving them over `Nat213` would be
+redundant — the session's actual value is the **carrier-readout weld** connecting
+the *generated* pole to that *re-derived* pole. Brought the promoted chapter
+`number_theory_over_the_spine.md` in sync with the post-#111 Lean: two new sections
+(the carrier-readout weld: `toNat_faithful` + `vp_eq_vpSub`/`isGcd_toNat_eq`/
+`modeq_toNat_iff`; the modular-arithmetic field + `crt_iff`), updated source list +
+key-results table + status/overview. Logged promotion #113 (chapter extension).
 
 ### Iterations 18–24: new field — modular arithmetic `Congruence.lean` (PURE ✓)
 A fresh field regrounded on `Nat213` with the carrier toolkit. No subtraction on
@@ -208,6 +218,7 @@ one-line descriptions and a current count.
 
 ## Commits this session
 ```
+e5af494 Promote (extend #111): carrier-readout weld + modular-arithmetic field into the chapter
 5600699 Nat213.Congruence: crt_iff — the standard CRT iff capstone
 2951ee0 Nat213.Congruence: modulus-divisor monotonicity + mod-1 triviality
 fc3f798 Nat213.Congruence: the Chinese Remainder Theorem over the Raw spine
