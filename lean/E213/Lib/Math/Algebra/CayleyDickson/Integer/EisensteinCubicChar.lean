@@ -167,4 +167,38 @@ theorem cubic_residue_char_one {d α β : ZOmega} {x : Int} {m : Nat}
     ModEq d (pow α m) (ofInt 1) :=
   cube_char_one hcube (char_cubes_to_one hred hferm)
 
+/-! ## The rational weld — `(α/d)₃` is the rational power `r^m` (toward the reciprocity readout)
+
+The cubic character of `α ∈ ℤ[ω]` reduces to a **rational** computation: if `ω ≡ x (mod d)` so that
+`α ≡ ↑r (mod d)` with `r = α.re + α.im·x` (the residue-field generator, `EisensteinResidue.
+reduce_to_int`), then
+
+  `(α/d)₃ = α^m ≡ ↑(r^m)  (mod d)`.
+
+So the Eisenstein cubic character is the image of the **rational** power-residue `r^m mod p`
+(`p = ‖d‖²`).  This is the weld to `ModArith/CubicResidue.cube_iff_three_dvd_dlog`: `r^m ≡ 1 (mod p)`
+iff `r` is a rational cubic residue iff `3 ∣ dlog_g(r)` — making `(·/d)₃` a computable `μ₃`-valued
+symbol.  The remaining `d ↔ p` transfer (`d ∣ ↑k ⟹ p ∣ k`, the converse of `modEq_ofInt_of_dvd`)
+needs the norm-`p` prime's Euclid lemma and is recorded as the open weld leg. -/
+
+/-- ★★★★ **The cubic character is the rational power mod `d`** — `α^m ≡ ↑(r^m) (mod d)` for the
+    residue generator `r = α.re + α.im·x` (when `α ≡ ↑r`).  `pow_cong` on the reduction, then
+    `ofInt_pow`.  ∅-axiom. -/
+theorem char_eq_rational_pow {d α : ZOmega} {x : Int} {m : Nat}
+    (hred : ModEq d α (ofInt (α.re + α.im * x))) :
+    ModEq d (pow α m) (ofInt ((α.re + α.im * x) ^ m)) := by
+  have h1 := pow_cong hred m
+  rw [ofInt_pow] at h1
+  exact h1
+
+/-- ★★★★ **Rational cubic residue ⟹ trivial Eisenstein character** — if `‖d‖² ∣ r^m − 1` (`r` is a
+    rational cubic residue, `r^m ≡ 1 mod p`), then `(α/d)₃ = α^m ≡ 1 (mod d)`.  The constructive
+    weld leg: a rational power-residue fact lifts to the Eisenstein character.  `char_eq_rational_pow`
+    then `modEq_ofInt_of_dvd`.  ∅-axiom. -/
+theorem char_one_of_rational {d α : ZOmega} {x : Int} {m : Nat}
+    (hred : ModEq d α (ofInt (α.re + α.im * x)))
+    (h : d.normSq ∣ ((α.re + α.im * x) ^ m - 1)) :
+    ModEq d (pow α m) (ofInt 1) :=
+  trans (char_eq_rational_pow hred) (modEq_ofInt_of_dvd h)
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar

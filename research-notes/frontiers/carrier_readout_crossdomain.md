@@ -244,6 +244,17 @@ supporting lemmas (`cong_symm/trans/mul_left`, `norm_cong`, `primary_iff_of_cong
 divisibility-`decide` (`decidable_of_iff`) — allowed-not-target per `STRICT_ZERO_AXIOM.md` (could be
 made strict-PURE by replacing the finite `decide`s with `centered_div`-based decisions, ~150 lines).
 
+**Rational weld done — `(α/d)₃ ≡ r^m (mod d)`.**  `EisensteinCubicChar.lean` (`char_eq_rational_pow`,
+`char_one_of_rational`, both ∅-axiom).  The Eisenstein cubic character reduces to a **rational**
+power-residue: with `r = α.re + α.im·x` the residue-field generator (`reduce_to_int`),
+`α^m ≡ ↑(r^m) (mod d)` — so `(·/d)₃` is the image of `r^m mod p` (`p = ‖d‖²`), the weld to
+`ModArith/CubicResidue.cube_iff_three_dvd_dlog` (`r^m ≡ 1 ⟺ r` cubic residue `⟺ 3∣dlog`).
+`char_one_of_rational`: a rational residue fact (`‖d‖² ∣ r^m−1`) lifts to a trivial Eisenstein
+character.  Module now 12 PURE / 0 dirty.  **Open weld leg**: the `d → p` transfer
+(`d ∣ ↑k ⟹ p ∣ k`, converse of `modEq_ofInt_of_dvd`) needs the norm-`p` Euclid lemma
+(`norm_prime_euclid`) + `(ofInt k).normSq = k²` + `nat_prime_dvd_mul` — a few lines of natAbs
+plumbing (carries `propext` via `Int.natAbs_mul`).
+
 Next rungs:
 **(Euler-converse)** the hard direction `χ(α) = 1 ⟹ α is a cube mod d` (cubic Euler criterion),
 needing the cyclic structure of `(ℤ[ω]/d)ˣ ≅ 𝔽_p^×`;
