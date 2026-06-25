@@ -80,6 +80,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFpMul
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinScaleCancel
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharSumZero
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinListSum
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
