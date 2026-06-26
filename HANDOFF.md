@@ -61,17 +61,32 @@ residue-symbol layer fell:
 - **`cubic_residue_symbol_well_defined`**: the residue symbol is the *unique* μ₃ value `≡ J^{(q²−1)/3}`,
   namely `χ(q)` (explicit `∃`-unique form; `∃!` notation is Mathlib-only, unavailable here).
 
-## Remaining work — the `π ↔ π'` transfer (the last frontier)
+## Split-prime arc (Phase B2f) — the second-prime-split Frobenius is built (PURE)
 
-`cubic_reciprocity_law` gives the **symbol identity** `(π/q)₃ = χ(q)` for `q` a *rational* prime
-`≡ 2 (mod 3)`.  The fully symmetric statement `(π/π')₃ = (π'/π)₃` between two *Eisenstein* primes is the
-remaining leg — and it is a **large parallel development**, not a quick swap:
-- The current arc analyses the Gauss sum **modulo a rational inert prime `q`** (Frobenius = `q`-power,
-  `ℤ[ω]/(q) ≅ 𝔽_{q²}`).  For a second *Eisenstein* prime `π'` of norm `p' ≡ 1 (mod 3)` (split), the
-  analysis is **modulo `π'`** (Frobenius = `p'`-power, `ℤ[ω]/(π') ≅ 𝔽_{p'}`) — a parallel of the entire
-  B2e Gauss-sum-Frobenius arc for the **split** case.
-- With both symbol identities in hand, compare using the primary normalisation (`jacobi_primary`, now
-  PURE) to kill the unit ambiguity ⟹ `(π/π')₃ = (π'/π)₃`.
+Toward `(π/π')₃ = (π'/π)₃` (both primes Eisenstein), the second prime `π'` is *split*
+(`pr = ‖π'‖² ≡ 1 mod 3`), so the analysis is **modulo `π'`** (`ℤ[ω]/(π') ≅ 𝔽_{p'}`, `p'`-power
+Frobenius) — the parallel of the inert B2e arc.  Done this session, all PURE:
+- **`EisensteinSplitFermat.split_fermat`**: `z^{pr} ≡ z (mod π')` — Fermat in `𝔽_{p'}` (the split
+  analog of `frob_sq_modEq`).  Helper `modEq_descend` (ModEq descends to divisors of the modulus).
+- **`EisensteinCubicCharPow.chiOmega_pow_p`**: `χ(t)^{pr} = χ(t)` for `pr ≡ 1 mod 3` (identity, vs the
+  inert conjugate).
+- **`EisensteinConvGaussFrobenius.gauss_pow_modEq_char`**: `g(χ)^{⋆pr}(k) ≡ Σ_t χ(t)·e_{(t·pr)%p}(k)
+  (mod ofInt pr)` (split first half).
+- **`EisensteinConvGaussReindex`** (4 thms): `gauss_char_reindex_collapse`,
+  `gauss_pow_modEq_char_reindexed`, `char_reindex_split`, **`gauss_pow_modEq_char_factored`** —
+  **`g(χ)^{⋆pr}(k) ≡ χ̄(pr)·χ(k) (mod ofInt pr)`**, the split factored Frobenius (mirror of
+  `gauss_pow_modEq_factored`; note the `χ ↔ χ̄` swap).
+
+## Remaining work — finish the split-split law
+
+`cubic_reciprocity_law` gives `(π/q)₃ = χ(q)` for `q` *rational* inert.  For two Eisenstein primes the
+split factored Frobenius (above) is built **up to `gauss_pow_modEq_factored` parity**; what remains
+mirrors the inert tail but for the split case (and needs the classical exponent worked out — the inert
+`(q²−1)/3` becomes the split `(p'−1)/3`-type residue character):
+- the cube/norm assembly (`gauss_pow_succ_*` / `gauss_convPow3` analogs) **mod `ofInt pr`**, then the
+  **descent to `mod π'`** (via `split_fermat`'s `π' ∣ ofInt pr`, `modEq_descend`);
+- the exponent collapse to the split residue character, the μ₃-lift (`mu3_eq_of_modEq`, reusable), and
+- the final `π ↔ π'` comparison using the primary normalisation (`jacobi_primary`, now PURE).
 
 Reference: Ireland–Rosen ch. 9.
 
