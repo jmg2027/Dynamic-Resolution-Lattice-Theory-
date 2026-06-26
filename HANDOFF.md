@@ -187,11 +187,14 @@ also a nontrivial cubic char) ⟹ `Y⋆Y = (g²)⋆(ḡ²) = |J|²·Y`.  Compari
       `#print axioms jacobi_norm → does not depend on any axioms`.
 
   **★ The Jacobi-sum norm law `N(J)=p` is DONE.**
-  - **A4 (partial) ✓** — `Integer/EisensteinJacobiPrime.jacobi_prime`: **`J` is a prime of `ℤ[ω]`**
-    (`J∣α·β ⟹ J∣α ∨ J∣β`, direct from `jacobi_norm` + `norm_prime_euclid`).  So `J=π` up to a unit.
-  - **A4-rem** the *primary* normalisation `J ≡ −1 mod 3` (fix the unit ⟹ `J=π` exactly).  Then
-    **Phase B** — the cubic reciprocity law `(π/π')₃=(π'/π)₃` + the rational transfer (the deep step;
-    classically the congruence `g(χ)^p ≡ …` / the explicit Gauss-sum computation — a fresh large phase).
+  - **A4 ✓ COMPLETE** — `Integer/EisensteinJacobiPrime` (`jacobi_prime`: **`J` is a prime of `ℤ[ω]`**;
+    `jacobi_splits_p`: **`p = J·J̄`** explicit splitting) + `Integer/EisensteinJacobiPrimary`
+    (**`jacobi_primary`**: `J` has a unique primary associate `u·J ≡ 2 mod 3`, via `exists_unique_primary`
+    — carries allowed `propext`).  **`J` is pinned to the canonical primary Eisenstein prime `π` above `p`.**
+  - **Phase B (the remaining frontier)** — the cubic reciprocity law `(π/π')₃=(π'/π)₃` + the rational
+    transfer.  The deep step (classically: the cubic residue symbol `χ_π(α)≡α^((Nπ−1)/3) mod π`, its
+    Euler criterion + multiplicativity, then the law via the Gauss-sum congruence `g(χ)^q ≡ …`) — a fresh
+    large phase comparable to `N(J)=p`.  The whole **Jacobi-sum core (A1–A4) is now DONE**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
