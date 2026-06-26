@@ -88,6 +88,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeSum
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiag
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinInvPerm
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharDiv
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
