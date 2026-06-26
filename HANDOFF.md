@@ -163,18 +163,19 @@ also a nontrivial cubic char) ⟹ `Y⋆Y = (g²)⋆(ḡ²) = |J|²·Y`.  Compari
   - **5c** `g(χ²)·conj g(χ²) = Yfun` — reuse `gauss_conj_norm` machinery for the character `χ²=χ̄`.
   - **5d-partial** conv comm **✓** — `Integer/EisensteinConvComm` (`refl_invol`, `rangeList_refl_lperm`,
     **`conv_comm`**: `(f⋆g)(k)=(g⋆f)(k)`, `k<p`).
-  - **5d-rem** conv **assoc** (`conv_assoc`) — scaffolding **ready**: `sum_swap` (Σ_jΣ_i=Σ_iΣ_j),
-    `sum_mul_right`, `sum_mul_left`, `add_shift_index` (`((l+i)%p+p−i)%p=l`).  Recipe: distribute
-    (`sum_mul_right`) → `sum_swap` → reindex inner `j=(l+i)%p` (`rangeList_add_lperm`) → `sum_mul_left`.
-    **Blocker = one index identity** `(k+p−(l+i)%p)%p = ((k+p−i)%p+p−l)%p`.  **Reduction worked out:**
-    both sides `→ (k+(p−i)+(p−l))%p` (RHS by `add_sub_assoc`+`mod_add_mod`; LHS by `add_sub_assoc`),
-    leaving the sub-identity **`hsub`**: `((p−i)+(p−l))%p = (p−(i+l)%p)%p` (i.e. `neg i +mod neg l =
-    neg(i+l)`).  Prove `hsub` via `(p−i)+(p−l)=2p−(i+l)` then `(2p−s)%p=(p−s%p)%p` (`s=i+l≤2p`;
-    `double_neg`-style, or cases `s<p`/`s≥p` — when `s≥p` both sides `=(2p−s)%p` directly).  Then
-    `Y⋆Y = (g·ḡ)² = (g·g)·(ḡ·ḡ) = |J|²·Y` (also needs the **conjugate** Gauss–Jacobi `ḡ·ḡ=J̄·g(χ̄²)`
-    and `5c`/`5b-rem`), and `Y⋆Y = p·Y` (`Yfun_conv`); read off `e_1` (`Yfun 1 = −1 ≠ 0`) ⟹
-    **`N(J)=|J|²=p`**.  NB the four-factor reassembly needs assoc+comm applied to the *full* elements
-    (so `5b-rem` n=0 coeff is required), and `ḡ·ḡ` is a *distinct* Gauss–Jacobi for `χ̄` (redo 5b-shape).
+  - **5d group-ring algebra ✓ COMPLETE** — `Integer/EisensteinConvComm` (`conv_comm`),
+    `Integer/EisensteinConvAssocIndex` (`conv_assoc_index`, `neg_add_mod`, `two_sub_mod`, `sub_sub_two`),
+    `Integer/EisensteinConvAssoc` (**`conv_assoc`**).  Plus `sum_swap`/`sum_mul_right` in `FiniteSum`.
+    **`R[C_p]` convolution is now a verified commutative ring** (bilinear + comm + assoc).
+  - **5d-rem (final assembly)** — the remaining mechanical phase:
+    1. **conv_congr**: `conv p f g k = conv p f' g' k` when `f=f'`, `g=g'` on `[0,p)` (sum_congr; lets
+       us swap `conv gauss gaussConj` for `Yfun` via `gauss_conj_norm`, since conv only reads `[0,p)`).
+    2. **reassoc**: `(g·ḡ)⋆(g·ḡ) = (g·g)⋆(ḡ·ḡ)` coefficientwise (chain `conv_assoc`/`conv_comm` at `k`).
+    3. so `(g·g)⋆(ḡ·ḡ) = Yfun⋆Yfun = ofInt(↑p)·Yfun` (`Yfun_conv` via conv_congr+reassoc).
+    4. **5b-rem** `(g⋆g)(0)=0` (needs `Σ_{tot}χ_ω(i)²=0`, χ²-orthogonality via `scale_fixed_eq_zero`)
+       — to have `g·g` as a *full* coeff function; **5c** `ḡ·ḡ` (conjugate Gauss–Jacobi `=J̄·g(χ̄²)`,
+       redo 5b-shape for `χ̄`) and `g(χ²)·g(χ̄²)`-norm.  Read off `e_1` of step-3's identity
+       (`Yfun 1 = −1 ≠ 0`) ⟹ **`N(J)=|J|²=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
