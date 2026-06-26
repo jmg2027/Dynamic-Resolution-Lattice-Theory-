@@ -34,6 +34,7 @@ carried.
 | Hyper | `Hyper213` (cofinite equiv); tetration in `Meta/Nat/HyperLadder` | closed |
 | Divisor theory | `MobiusInversion.mobius_inversion`, `DirichletConvolution` | closed |
 | Quadratic reciprocity | `QuadraticReciprocity.quadratic_reciprocity` | closed |
+| Cubic / Eisenstein reciprocity | `EisensteinJacobiNormLaw.jacobi_norm` (`N(J)=p`) + cubic residue symbol + primary `J=π` | closed core + frontier (the law `(π/π')₃=(π'/π)₃`) |
 | Zolotarev | `Zolotarev.zolotarev_mu` | closed |
 | Legendre / LTE | `LiftingExponent.lifting_prime_power`, `gauss_qr` | closed |
 | Modular / CRT / F_p² | `ModArith` CRT + `FP2Sqrt5.fp2Frob_*` | closed |
