@@ -84,6 +84,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReindex
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReduce
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
