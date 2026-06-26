@@ -34,8 +34,13 @@ Estimated scale: comparable to the whole `N(J)=p` campaign (the group-ring machi
 mod-`q` reduction + Frobenius is the genuinely new part).
 
 ## First concrete bricks (entry points)
-- **B0** connect the `ℤ[ω]` symbol on rational integers to the rational cubic residue:
-  `χ_d(ofInt a) ≡ 1 ⟺ a` is a cubic residue mod `p` (lift `cubicChar_one_iff_cube` through `ofInt_pow`
-  + `d ∣ ofInt k ⟺ p ∣ k`).  Foundation for stating supplementary laws.
+- **B0 — DONE** (∅-axiom up to allowed `propext`): the `ℤ[ω]` symbol on rational integers ⟺ the
+  rational cubic residue, `EisensteinCubicSymbolRational.cubic_symbol_rational_iff`:
+  `(↑a/d)₃ = (↑a)^m ≡ 1 (mod d) ⟺ ∃ y, y³ ≡ a (mod p)`.  For `α = ofInt ↑a` the residue generator
+  collapses (`im = 0`), so the symbol is the embedded rational power `(↑a)^m` directly — no
+  `x`-substitution.  Chain: `ofInt_pow` + `p_dvd_of_dvd_ofInt` (the `d→p` norm transfer) ⟶
+  `p ∣ ((↑a)^m−1)`, the ℕ↔ℤ bridge `pow_mod_one_iff_int` ⟶ `a^m%p=1`, then `pow_m_one_iff_cube`.
+  This pins the abstract symbol to `ModArith/CubicResidue`'s rational predicate — foundation for the
+  supplementary laws.
 - **B1** `g(χ)³ = p·J` (step 1 above) — reuses the convolution ring + `gauss_sq_full`.
 - **B2** the mod-`q` group-ring reduction + the freshman's dream (the new subsystem, step 2).
