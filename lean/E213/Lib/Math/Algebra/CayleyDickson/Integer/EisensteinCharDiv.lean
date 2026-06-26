@@ -32,6 +32,7 @@ open E213.Lib.Math.NumberTheory.ModArith.CubicCharFp (cubicChar)
 open E213.Tactic.NatHelper (gcd213)
 open E213.Meta.Nat.MulMod213 (mul_mod_right_pure)
 open E213.Meta.Nat.AddMod213 (add_mod_left)
+open E213.Meta.Nat.NatRing213 (nat_sub_add_cancel)
 
 /-- ★★ **`χ_ω(1) = 1`** (for `1 < p`): `1 % p = 1 ≠ 0` and `cubicChar(1) = 1^m % p = 1`. -/
 theorem chiOmega_one {p m x : Nat} (hp : 1 < p) : chiOmega p m x 1 = ofInt 1 := by
@@ -84,4 +85,27 @@ theorem mul_succ_inv {v w p : Nat} (hp : 0 < p) (h : (v * w) % p = 1 % p) :
     ((v + 1) * w) % p = (1 + w) % p := by
   rw [Nat.succ_mul, add_mod_left hp (v * w) w, h, ← add_mod_left hp 1 w]
 
-end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharDiv
+/-- ★★★★ **The ratio character term** — for `2 ≤ u < p` (`u−1` a unit), `χ_ω(u)·χ̄_ω((u−1)%p) =
+    χ_ω((1 + (u−1)⁻¹) % p)`, i.e. `χ(u/(u−1)) = χ(1 + 1/(u−1))`.  `chiOmega_div` gives `χ_ω(u/(u−1))`,
+    then `mul_succ_inv` rewrites the index `u·(u−1)⁻¹ = 1 + (u−1)⁻¹`.  The off-diagonal `C = −1`
+    per-term, ready for the `(u−1)⁻¹`-inversion + `1+·`-shift reindex.  ∅-axiom. -/
+theorem chiOmega_ratio_term {d : ZOmega} {p m x u : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
+    (hω : ModEq d Omega (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
+    (hu : 2 ≤ u) (hult : u < p) (hcop : gcd213 (u - 1) p = 1) :
+    chiOmega p m x u * conj (chiOmega p m x ((u - 1) % p))
+      = chiOmega p m x ((1 + aInv ((u - 1) % p) p) % p) := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hp)
+  have hu1le : 1 ≤ u := Nat.le_trans (by decide) hu
+  have hu1lt : u - 1 < p := Nat.lt_of_le_of_lt (Nat.sub_le u 1) hult
+  have hu1mod : (u - 1) % p = u - 1 := Nat.mod_eq_of_lt hu1lt
+  have hu1pos : 0 < (u - 1) % p := by
+    rw [hu1mod]; exact Nat.lt_of_lt_of_le (by decide) (Nat.sub_le_sub_right hu 1)
+  have hu0 : 0 < u := Nat.lt_of_lt_of_le (by decide) hu
+  have hcop' : gcd213 ((u - 1) % p) p = 1 := by rw [hu1mod]; exact hcop
+  rw [chiOmega_div hp hp3 hpr h3m hdn hω hx hu0 hult hu1pos (Nat.mod_lt _ hppos) hcop']
+  congr 1
+  have hvw : ((u - 1) * aInv ((u - 1) % p) p) % p = 1 % p := by
+    rw [hu1mod]; exact aInv_spec hppos hcop
+  have hms := mul_succ_inv hppos hvw
+  rwa [nat_sub_add_cancel hu1le] at hms
