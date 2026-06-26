@@ -161,9 +161,11 @@ also a nontrivial cubic char) ⟹ `Y⋆Y = (g²)⋆(ḡ²) = |J|²·Y`.  Compari
   - **5b-rem** the `n=0` coeff `(g⋆g)(0)=0` (`=J·χ_ω(0)²=0`) — needs `Σ_{i∈tot}χ_ω(i)²=0` (χ²-orthogonality;
     reuse `scale_fixed_eq_zero` with `χ²(a)=χ_ω(a)²∈{ω,ω²}≠1`, `chiOmega_mul` for χ² multiplicativity).
   - **5c** `g(χ²)·conj g(χ²) = Yfun` — reuse `gauss_conj_norm` machinery for the character `χ²=χ̄`.
-  - **5d** conv comm (`conv_comm`, reflection reindex `i↦(k+p−i)%p`) + assoc (`conv_assoc`, double sum),
-    then `Y⋆Y = (g·ḡ)² = (g·g)·(ḡ·ḡ) = |J|²·Y` and `Y⋆Y = p·Y` (`Yfun_conv`); read off `e_1`
-    (`Yfun 1 = −1 ≠ 0`) ⟹ **`N(J)=|J|²=p`**.
+  - **5d-partial** conv comm **✓** — `Integer/EisensteinConvComm` (`refl_invol`, `rangeList_refl_lperm`,
+    **`conv_comm`**: `(f⋆g)(k)=(g⋆f)(k)`, `k<p`).
+  - **5d-rem** conv **assoc** (`conv_assoc`, double-sum reindex `l=(j+p−i)%p` with an index identity —
+    the hardest remaining brick, ~80 lines), then `Y⋆Y = (g·ḡ)² = (g·g)·(ḡ·ḡ) = |J|²·Y` and
+    `Y⋆Y = p·Y` (`Yfun_conv`); read off `e_1` (`Yfun 1 = −1 ≠ 0`) ⟹ **`N(J)=|J|²=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
