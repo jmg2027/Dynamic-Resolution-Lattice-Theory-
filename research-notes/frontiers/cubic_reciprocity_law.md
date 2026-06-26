@@ -115,8 +115,15 @@ mod-`q` reduction + Frobenius is the genuinely new part).
       `sum_pow_modEq_prime`); helper `convPow_zero_fun` (`0^{⋆q}=0`) needs `conv_zero_right` (added to
       `EisensteinConvPow`).  Applied to `g(χ)=Σ_t χ(t)·e_t` this gives
       `g^{⋆q} ≡ Σ_t χ(t)^q·e_t^{⋆q} (mod q)` — the first half of the Frobenius congruence.
-      **Next (B2e.5):** basis-power `e_t^{⋆q} = e_{tq%p}` (pure convolution), `χ(t)^q = χ̄(t)`
-      (μ₃ + `q≡2 mod 3`), and the `tq` reindex to assemble `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.
+    - **B2e.5 — DONE** (∅-axiom; `basis_conv`/`conv_basis_index` **PURE**, `basisPow_eq` propext):
+      **basis-vector convolution + power**, `EisensteinConvBasis`.  `basis a = e_a = ζ^a` (indicator,
+      `e_0 = delta`); `basis_conv` (`(e_a⋆e_b)(k) = e_{(a+b)%p}(k)`, the `C_p` group law, via
+      `sum_single` + index condition `conv_basis_index` proved from `add_shift_index`/`mod_add_mod`);
+      `basisPow_eq` (`e_t^{⋆q}(k) = e_{(t·q)%p}(k)`, induction + `basis_conv`).  This is the
+      `ζ^t ↦ ζ^{tq}` Frobenius reindex.
+      **Next (B2e.6):** scalar pull `(c·e_t)^{⋆q} = c^q·e_t^{⋆q}` (needs `conv_scalar_right`),
+      `χ(t)^q = χ̄(t)` (μ₃ + `q≡2 mod 3`), and the `tq`-reindex to assemble
+      `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.
     The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
     **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
     + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution
