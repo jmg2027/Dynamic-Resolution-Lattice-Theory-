@@ -49,7 +49,8 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss gauss
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq mul_right symm trans mul_left)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFrobeniusConj (conj_modEq_pow pow_modEq)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFunction (pow_mul)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius (gauss_pow_modEq_conj)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius
+  (gauss_pow_modEq_conj gauss_pow_modEq_char)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum (sumRange sum_single)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality
   (one mul_one one_mul pow pow_zero pow_succ)
@@ -216,6 +217,97 @@ theorem gauss_pow_modEq_factored_all {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (
     rw [show (aInv q p * 0) % p = 0 from by rw [Nat.mul_zero, zero_mod], hc0, conj_zero] at hcol
     rwa [hc0, conj_zero, mul_zero]
   · exact gauss_pow_modEq_factored hp hp3 hpr h3m hdn hω hx hq3 hqr hcop hq1 hqlt hkpos hk
+
+/-! ## The split-prime mirror — `g(χ)^{⋆pr}(k) ≡ χ̄(pr)·χ(k) (mod ofInt pr)` for `pr ≡ 1 (mod 3)`
+
+For a second prime that is *split* (`pr = ‖π'‖² ≡ 1 mod 3`), the character power is the identity
+(`χ(t)^{pr} = χ(t)`, `gauss_pow_modEq_char`), so the reindex collapses to `χ((pr⁻¹·k)%p)` (not `χ̄`),
+which the multiplicative split factors as `χ̄(pr)·χ(k)`.  Mirror of the inert `conj`-chain above. -/
+
+/-- **The indicator reindex collapse (character form)** — `Σ_t χ(t)·e_{(t·q)%p}(k) = χ((q⁻¹·k)%p)`.
+    Identical single-term extraction as `gauss_conj_reindex_collapse`, with `χ` in place of `χ̄`. -/
+theorem gauss_char_reindex_collapse (p m x q : Nat) (hp : 1 < p) (hq : gcd213 q p = 1)
+    {k : Nat} (hk : k < p) :
+    sumRange (fun t => chiOmega p m x t * basis ((t * q) % p) k) p
+      = chiOmega p m x ((aInv q p * k) % p) := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hp)
+  have ht0lt : (aInv q p * k) % p < p := Nat.mod_lt _ hppos
+  have hidx : ((aInv q p * k) % p * q) % p = k := reindex_idx p q hp hq hk
+  rw [sum_single p ((aInv q p * k) % p) ht0lt
+      (fun t => chiOmega p m x t * basis ((t * q) % p) k)
+      (fun t htlt htne => by
+        show chiOmega p m x t * (if k = (t * q) % p then one else 0) = 0
+        have hne : (t * q) % p ≠ k := by
+          intro he
+          apply htne
+          have h2 : (q * t) % p = (q * ((aInv q p * k) % p)) % p := by
+            rw [Nat.mul_comm q t, Nat.mul_comm q ((aInv q p * k) % p), he, hidx]
+          have hcanc := cancel_unit hp hq h2 ht0lt
+          rwa [Nat.mod_eq_of_lt htlt] at hcanc
+        rw [if_neg (fun h => hne h.symm), mul_zero])]
+  show chiOmega p m x ((aInv q p * k) % p) * (if k = ((aInv q p * k) % p * q) % p then one else 0)
+      = chiOmega p m x ((aInv q p * k) % p)
+  rw [hidx, if_pos rfl, mul_one]
+
+/-- **The split-prime Frobenius, reindexed** — `g(χ)^{⋆pr}(k) ≡ χ((pr⁻¹·k)%p) (mod ofInt pr)` for a
+    split prime `pr ≡ 1 (mod 3)`, unit mod `p`.  `gauss_pow_modEq_char` + `gauss_char_reindex_collapse`. -/
+theorem gauss_pow_modEq_char_reindexed (p m x pr : Nat) (hp : 1 < p) (hpr1 : 1 < pr)
+    (hpr3 : pr % 3 = 1) (hprr : ∀ e, e ∣ pr → e = 1 ∨ e = pr) (hcop : gcd213 pr p = 1)
+    {k : Nat} (hk : k < p) :
+    ModEq (ofInt ((pr : Nat) : Int)) (convPow p (gauss p m x) pr k)
+      (chiOmega p m x ((aInv pr p * k) % p)) := by
+  have h := gauss_pow_modEq_char p m x pr hpr1 hpr3 hprr hk
+  rwa [gauss_char_reindex_collapse p m x pr hp hcop hk] at h
+
+/-- **The reindex multiplicative split (character form)** — `χ((q⁻¹·k)%p) = χ̄(q)·χ(k)` for units `q, k`.
+    `χ((q⁻¹·k)%p) = χ(q⁻¹)·χ(k)` (`chiOmega_mul`) and `χ(q⁻¹) = χ̄(q)` (same `hD` as the conj split). -/
+theorem char_reindex_split {d : ZOmega} {p m x q k : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
+    (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
+    (hq : gcd213 q p = 1) (hq1 : 0 < q) (hqlt : q < p) (hk1 : 0 < k) (hklt : k < p) :
+    chiOmega p m x ((aInv q p * k) % p) = conj (chiOmega p m x q) * chiOmega p m x k := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hp)
+  have hqilt : aInv q p % p < p := Nat.mod_lt _ hppos
+  have hqiq : (aInv q p % p * q) % p = 1 := by
+    rw [← mul_mod_left_pure (aInv q p) q p, Nat.mul_comm (aInv q p) q, aInv_spec hppos hq,
+        Nat.mod_eq_of_lt hp]
+  have hqipos : 0 < aInv q p % p := by
+    rcases Nat.eq_zero_or_pos (aInv q p % p) with h0 | h
+    · rw [h0, Nat.zero_mul, zero_mod] at hqiq; exact absurd hqiq (by decide)
+    · exact h
+  have hD : chiOmega p m x (aInv q p % p) = conj (chiOmega p m x q) := by
+    have hmul : chiOmega p m x (aInv q p % p) * chiOmega p m x q = ofInt 1 := by
+      rw [chiOmega_mul hp hp3 hpr h3m hdn hω hx hqipos hqilt hq1 hqlt, hqiq]
+      exact chiOmega_one p m x hp
+    calc chiOmega p m x (aInv q p % p)
+        = chiOmega p m x (aInv q p % p) * ofInt 1 := (mul_one _).symm
+      _ = chiOmega p m x (aInv q p % p) * (chiOmega p m x q * conj (chiOmega p m x q)) := by
+          rw [chiOmega_mul_conj p m x q (chiOmega_ne_zero p m x q hq1 hqlt)]
+      _ = chiOmega p m x (aInv q p % p) * chiOmega p m x q * conj (chiOmega p m x q) :=
+          (mul_assoc _ _ _).symm
+      _ = ofInt 1 * conj (chiOmega p m x q) := by rw [hmul]
+      _ = conj (chiOmega p m x q) := one_mul_zomega _
+  rw [show (aInv q p * k) % p = (aInv q p % p * k) % p from mul_mod_left_pure (aInv q p) k p,
+      ← chiOmega_mul hp hp3 hpr h3m hdn hω hx hqipos hqilt hk1 hklt, hD]
+
+/-- ★★★★★ **The split-prime Gauss-sum Frobenius congruence (factored form)** — for a split prime
+    `pr ≡ 1 (mod 3)` (`pr = ‖π'‖²`), unit mod `p` (`p > 3`), and a unit coefficient `0 < k < p`,
+
+      `g(χ)^{⋆pr}(k) ≡ χ̄(pr) · χ(k)   (mod ofInt pr)`.
+
+    `gauss_pow_modEq_char_reindexed` gives `χ((pr⁻¹·k)%p)`; `char_reindex_split` factors it as
+    `χ̄(pr)·χ(k)`.  The split analog of `gauss_pow_modEq_factored` (`χ(q)·χ̄(k)` for inert `q`) — note the
+    roles of `χ` and `χ̄` swap.  This is the second-prime-split Frobenius, mod `ofInt pr`; it descends to
+    `mod π'` via `π' ∣ ofInt pr`.  ∅-axiom (PURE). -/
+theorem gauss_pow_modEq_char_factored {d : ZOmega} {p m x pr : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
+    (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
+    (hpr1 : 1 < pr) (hpr3 : pr % 3 = 1) (hprr : ∀ e, e ∣ pr → e = 1 ∨ e = pr)
+    (hcop : gcd213 pr p = 1) (hprpos : 0 < pr) (hprlt : pr < p) {k : Nat} (hk1 : 0 < k) (hklt : k < p) :
+    ModEq (ofInt ((pr : Nat) : Int)) (convPow p (gauss p m x) pr k)
+      (conj (chiOmega p m x pr) * chiOmega p m x k) := by
+  have h := gauss_pow_modEq_char_reindexed p m x pr hp hpr1 hpr3 hprr hcop hklt
+  rwa [char_reindex_split hp hp3 hpr h3m hdn hω hx hcop hprpos hprlt hk1 hklt] at h
 
 /-! ## Bridging the Frobenius RHS `g(χ̄)` to the norm factor `gaussConj` -/
 
