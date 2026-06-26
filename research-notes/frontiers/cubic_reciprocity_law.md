@@ -82,9 +82,17 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
   i.e. **`(π/q)₃`**.  So `(π/q)₃ = χ(q)`; with `χ(q) = (q/π)₃` (residue-symbol identification) this is
   reciprocity, and the `π↔π'` symmetry gives `(π/π')₃ = (π'/π)₃`.
   - **`conj z ≡ z^q (mod q)`** — buildable from `add_pow_modEq_prime` (binary freshman, PURE) +
-    `ofInt_pow`/`pow_mul_distrib` + **ℤ-Fermat** `(ofInt a)^q ≡ ofInt a (mod q)` (lift of the PURE Nat
-    `FermatFixedPoint.fermat_fixed_point`, with the sign handled — `q` odd for `q>2`) + `ω^q = ω²`
+    `ofInt_pow`/`pow_mul_distrib` + **ℤ-Fermat** `(ofInt a)^q ≡ ofInt a (mod q)` + `ω^q = ω²`
     (`pow_omega_mod`, exact since `q≡2 mod 3`).  `z = ofInt z.re + ofInt z.im·ω`, `conj(a+bω)=a+bω²`.
+  - **ℤ-Fermat is the one foundational sub-project (obstacles found, scoped):** `(↑q) ∣ (a^q − a)` for
+    `a:Int`.  *Blockers:* no `Int.induction_on` (no Mathlib), no PURE 213-native Int `emod`/`ediv`
+    (`Meta/Int213/*` is polynomial-tactic infra, not modular arithmetic).  *Route* — case on the Int
+    constructor (`ofNat`/`negSucc`, the native recursor, no Mathlib): `ofNat n` → `q ∣ (n^q − n)` from
+    Nat `fermat_fixed_point` (`n^q % q = n % q`) + `div_add_mod` (PURE) + the cast `↑(n^q−n)=↑n^q−↑n`
+    (`n ≤ n^q`); `negSucc` (`a = −↑m`) → parity-case `q`: `q` odd ⟹ `(−↑m)^q = −↑(m^q)`, so
+    `a^q − a = −(↑(m^q)−↑m)`; `q = 2` ⟹ `(−↑m)² + ↑m = ↑(m²+m) = ↑(m(m+1))`, even.  Each case PURE; needs
+    a PURE `(−1:Int)^q = −1` for odd `q` (`q=2k+1`, `((−1)²)^k·(−1)`) and the Nat-Fermat→`∣` step
+    `n^q % q = n % q ∧ n ≤ n^q ⟹ q ∣ (n^q−n)`.  ~100 lines, no new axioms.
   - then the exponent identity `2s+1+qs = (q²−1)/3` (Nat arithmetic with `q=3s+2`), and the
     residue-symbol identification `χ(q) = (q/π)₃`.
 
