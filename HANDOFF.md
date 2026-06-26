@@ -100,16 +100,18 @@ above is still valid infra** (Gauss sums are `listSum`s too), just insufficient 
     (`R=ℤ[ω]`, elements = coefficient functions `Nat→ℤ[ω]` mod `p`, `ζ^i=e_i`): `conv` (convolution),
     `conv_add_right`, `conv_scalar_left` (bilinearity).  Discipline: **coefficient equations only**
     (no element equality — `funext` is `Quot`-backed).
-  - **Next bricks (the `g·ḡ = p·1 − N` coefficient computation):**
-    1. `gauss := chiOmega`, `gaussConj k := conj (χ_ω ((p−k)%p))` (the Gauss sum + its conjugate as
-       coefficient functions).
-    2. **diagonal** `conv p gauss gaussConj 0 = ofInt ↑(p−1)` — the `k=0` coefficient; `Σ_{i<p}
-       χ_ω(i)·conj χ_ω(i)`, each unit term `=1` (`chiOmega_mul_conj`+`chiOmega_ne_zero`), `i=0` term `0`,
-       count `p−1`.  (Needs a pure mod helper `(p−(p−i)%p)%p = i` for `i<p` + a counting induction.)
-    3. **off-diagonal** `conv p gauss gaussConj k = ofInt (−1)` for `0<k<p` — the `u=k·s⁻¹` reindex +
-       `Σχ_ω=0` (`chiListSum_totatives_zero`); the genuinely non-circular step (additive `e_{t−s}`).
-    4. `g(χ)² = J·g(χ²)` as a coefficient identity (`listSum_mul_distrib`-style convolution).
-    5. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
+  - **`Integer/EisensteinGaussSum` DONE (defs + diagonal):** `gauss := chiOmega`,
+    `gaussConj k := conj χ_ω((p−k)%p)`; `conv_diag_index` (`k=0` double-`mod` collapse, pure
+    `sub_sub_self_pure`); **`gauss_conj_zero`: `(g⋆ḡ)(0) = ↑(p−1)`** (the `e_0`-coefficient, via
+    `diag_count` counting the `p−1` units).
+  - **Next bricks (the rest of `g·ḡ = p·1 − N` ⟹ `N(J)=p`):**
+    1. **off-diagonal** `(g⋆ḡ)(k) = ↑(−1)` for `0<k<p` — `(g⋆ḡ)(k)=Σ_i χ_ω(i)·χ̄_ω((i−k)%p)`; the
+       reindex is a **Möbius-type bijection** `i ↦ i·(i−k)⁻¹` (units∖{k} → units∖{1}, `w≠1`), then
+       `Σ_{w≠1} χ_ω(w) = −1` (`Σχ_ω=0`).  ← **the genuine hard core**: this bijection is more involved
+       than the multiplicative `lperm_image` (it's a fractional-linear map; needs its own `LPerm` over
+       `totativeList`).  Plus the off-diagonal index helper `(p−(k+p−i)%p)%p = (i−k)%p`.
+    2. `g(χ)² = J·g(χ²)` as a coefficient identity (convolution = `listSum_mul_distrib`-style).
+    3. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
