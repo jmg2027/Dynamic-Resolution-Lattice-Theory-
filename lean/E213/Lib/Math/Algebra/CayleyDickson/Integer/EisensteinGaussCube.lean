@@ -91,6 +91,23 @@ private theorem chiOmega_reflect {d : ZOmega} {p m x i : Nat} (hp : 1 < p) (hp3 
   rw [hidx, ← chiOmega_mul hp hp3 hpr h3m hdn hω hx hpm1pos hpm1lt hipos hilt, hchi_pm1,
       one_mul_zomega]
 
+/-- ★★★★ **The conjugate Gauss sum is the character-conjugate** — `gaussConj(k) = conj χ(k)` for `k < p`.
+    Since `χ(−1) = 1` (`p−1` is a cube, `chiOmega_reflect`), the ring-conjugate `gaussConj(k) =
+    conj χ((p−k)%p)` collapses to the character-conjugate `conj χ(k)`.  So the conjugate Gauss sum
+    `gaussConj` **is** `g(χ̄)` (coefficient `conj χ(k)`) — the bridge that turns the Frobenius RHS
+    `g(χ̄)⋆g` into the computed norm `g⋆gaussConj = Yfun`.  ∅-axiom up to allowed `propext`. -/
+theorem gaussConj_eq_charConj {d : ZOmega} {p m x k : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ t, t ∣ p → t = 1 ∨ t = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hk : k < p) :
+    gaussConj p m x k = conj (chiOmega p m x k) := by
+  rcases Nat.eq_zero_or_pos k with hk0 | hkpos
+  · subst hk0
+    show conj (chiOmega p m x ((p - 0) % p)) = conj (chiOmega p m x 0)
+    rw [Nat.sub_zero, Nat.mod_self]
+  · show conj (chiOmega p m x ((p - k) % p)) = conj (chiOmega p m x k)
+    rw [chiOmega_reflect hp hp3 hpr h3m hm1 hdn hω hx hkpos hk]
+
 /-- **`(g⋆g)(j) = J·ḡ(j)`** — the Gauss square is the Jacobi sum times the conjugate Gauss sum
     (`g(χ)² = J·g(χ̄)`), as a coefficient equation for `j < p`.  From `gauss_sq_full`
     (`(g⋆g)(j) = J·χ_ω(j)²`) plus `χ_ω(j)² = gaussConj(j)` (`chiOmega_reflect` + `conj_chiOmega_eq_sq`;

@@ -1,6 +1,8 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvCongruence
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReindex
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiagOne
 import E213.Lib.Math.NumberTheory.EulerTheorem
 import E213.Meta.Nat.MulMod213
 
@@ -29,8 +31,12 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBasis (basis)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow (convPow convPow_succ)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_scalar_left)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_scalar_left conv_congr)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvCongruence (conv_modEq_left)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvComm (conv_comm)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube (gaussConj_eq_charConj)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiagOne (gauss_conj_norm)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinNormConv (Yfun)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss gaussConj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius (gauss_pow_modEq_conj)
@@ -242,5 +248,33 @@ theorem gauss_pow_succ_modEq {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 : 3 
   have h1 := conv_modEq_left p (gauss p m x) k
     (fun i hi => gauss_pow_modEq_factored_all hp hp3 hpr h3m hdn hω hx hq3 hqr hcop hq1 hqlt hi)
   rwa [conv_scalar_left p (chiOmega p m x q) (fun i => conj (chiOmega p m x i)) (gauss p m x) k] at h1
+
+/-- ★★★★★ **The Frobenius congruence at `q+1`, evaluated** — for a prime `q ≡ 2 (mod 3)`, unit mod `p`,
+    and `k < p`,
+
+      `g(χ)^{⋆(q+1)}(k) ≡ χ(q) · Yfun(k)   (mod ofInt q)`,
+
+    where `Yfun(k) = (p−1)` at `k=0`, `−1` otherwise (in `ℤ[ζ_p]`, `Yfun ↦ p` at `e_0`, `↦ 0` else).
+    Evaluates the norm RHS of `gauss_pow_succ_modEq`: the character-conjugate Gauss sum `g(χ̄)` equals
+    the ring-conjugate `gaussConj` (`gaussConj_eq_charConj`, since `χ(−1)=1`), so
+    `g(χ̄)⋆g = gaussConj⋆g = g⋆gaussConj = Yfun` (`conv_comm` + `gauss_conj_norm`).  This is the
+    Frobenius side of the cubic-reciprocity `g^{⋆N}`-comparison, in closed form.  ∅-axiom up to allowed
+    `propext`. -/
+theorem gauss_pow_succ_modEq_Yfun {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hq3 : q % 3 = 2) (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q)
+    (hcop : gcd213 q p = 1) (hq1 : 0 < q) (hqlt : q < p) {k : Nat} (hk : k < p) :
+    ModEq (ofInt ((q : Nat) : Int)) (convPow p (gauss p m x) (q + 1) k)
+      (chiOmega p m x q * Yfun p k) := by
+  have hpp : 0 < p := Nat.lt_of_le_of_lt (Nat.zero_le k) hk
+  have heq : conv p (fun i => conj (chiOmega p m x i)) (gauss p m x) k = Yfun p k := by
+    rw [conv_congr p k hpp
+          (fun i hi => (gaussConj_eq_charConj hp hp3 hpr h3m hm1 hdn hω hx hi).symm)
+          (fun _ _ => rfl),
+        conv_comm p (gaussConj p m x) (gauss p m x) hk]
+    exact gauss_conj_norm hp hp3 hpr h3m hm1 hdn hω hx hk
+  have hsucc := gauss_pow_succ_modEq hp hp3 hpr h3m hdn hω hx hq3 hqr hcop hq1 hqlt hk
+  rwa [heq] at hsucc
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex
