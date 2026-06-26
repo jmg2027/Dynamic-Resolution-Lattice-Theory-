@@ -114,14 +114,16 @@ above is still valid infra** (Gauss sums are `listSum`s too), just insufficient 
     (`(p−(k+p−i)%p)%p = (i+p−k)%p`, pure ℕ arithmetic via 4 sub-identities + `sub_pos_pure`);
     **`gauss_offdiag_sum`: `(g⋆ḡ)(k) = Σ_{i<p} χ_ω(i)·χ̄_ω((i+p−k)%p)`** for `k<p`.
   - `chiOmega_mod` (`EisensteinCubicCharFp`): `χ_ω(a%p)=χ_ω(a)` — the index-bookkeeping helper.
-  - **Next bricks (finish off-diagonal `(g⋆ḡ)(k)=↑(−1)`, then `N(J)=p`):**  The off-diagonal `−1` is
-    intrinsically the character-sum identity `Σ_i χ_ω(i)·χ̄_ω((i+p−k)%p) = −1`, evaluated by:
-    1. **per-term** `χ_ω(i)·χ̄_ω((i−k)%p) = χ_ω((i·(i−k)⁻¹)%p) = χ_ω((1 + k·(i−k)⁻¹... ))` — really
-       `χ(t+r)χ̄(t)=χ(1+r·t⁻¹)`; needs a per-term `χ_ω(b)·χ̄_ω(c)=χ_ω((b·c⁻¹)%p)` (`c⁻¹=aInv c p`).
-    2. **inversion permutation** `t↦(aInv t p)` over `totativeList` (a units-inversion `LPerm`, an
-       involution — TO BUILD, sibling of `rangeList_mul_lperm`); plus the `z=1+w` shift
-       (`rangeList_add_lperm`), ending in `Σ_{z≠1}χ_ω(z)=−1` (`chiListSum_totatives_zero`).
-       ← the remaining analytic core (a genuine multi-lemma grind).
+  - **`Integer/EisensteinInvPerm` DONE** — `totativeList_inv_lperm`: inversion `t↦(aInv t p)%p` permutes
+    `totativeList p` (involution `t⁻¹⁻¹=t`, via `cancel_unit`).  **The reindex toolkit is now COMPLETE:
+    mult (`lperm_image`/`rangeList_mul_lperm`) + additive (`rangeList_add_lperm`) + inversion (this).**
+  - **Next bricks (finish off-diagonal `(g⋆ḡ)(k)=↑(−1)`, then `N(J)=p`) — all permutations in hand:**
+    1. **mult reindex** `i=(k·u)%p` (`rangeList_mul_lperm`+`sumRange_eq_listSum`+`chiOmega_mul`/`_mod`)
+       ⟹ `(g⋆ḡ)(k) = C := Σ_u χ_ω(u)·χ̄_ω((u−1)%p)` (`k`-indep); needs the index helper
+       `((k·u)%p+p−k)%p = (k·(u−1))%p`.
+    2. **`C = −1`** — per-term `χ_ω(b)·χ̄_ω(c)=χ_ω((b·c⁻¹)%p)`, then `u↦u−1` shift
+       (`rangeList_add_lperm`) + `j↦j⁻¹` inversion (`totativeList_inv_lperm`) + `z=1+w` shift
+       ⟹ `Σ_{z≠1}χ_ω(z)=−1` (`chiListSum_totatives_zero`).  ← execution on complete infra.
     3. `g(χ)² = J·g(χ²)` coefficient identity (convolution = `listSum_mul_distrib`-style).
     4. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
