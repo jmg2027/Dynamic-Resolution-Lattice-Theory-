@@ -139,9 +139,21 @@ mod-`q` reduction + Frobenius is the genuinely new part).
       three closed pieces, no new machinery: `gauss_eq_sum_basis` under `convPow_congr` (rewrite
       `g = Σ_t χ(t)·e_t` inside the `⋆`-power), `convPow_sum_modEq_prime` (push the `q`-th `⋆`-power
       through the finite sum), `scaledBasisPow_eq` (evaluate each term `(χ(t)·e_t)^{⋆q} = χ(t)^q·e_{tq%p}`).
-      **Next (B2e.10 — the second half / number-theory fold):** `χ(t)^q = χ̄(t)` (μ₃ + `q≡2 mod 3`) and
-      the `t↦tq%p` reindex (a permutation of `[0,p)`, `q` invertible mod `p`) to collapse
-      `Σ_t χ̄(t)·e_{tq%p}` into `χ̄(q)·g(χ)` — assembling `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.
+    - **B2e.10a — DONE** (∅-axiom, **PURE**): the **μ₃ character-power Frobenius**,
+      `EisensteinCubicCharPow.chiOmega_pow_q`: `χ_ω(t)^q = conj χ_ω(t)` for `q ≡ 2 (mod 3)`.  Case
+      analysis on the four values `{0,1,ω,ω²}` (`0^q=0` (`q≥1`), `1^q=1`, `ω^q=ω^{q%3}=ω²`,
+      `(ω²)^q=ω^q·ω^q=ω`); `conj z = z²` on `μ₃` (`conj_chiOmega_eq_sq`) packages it as `χ^q = χ̄`.
+    - **B2e.10b — DONE** (∅-axiom up to allowed `propext`): the **Frobenius congruence up to reindex**,
+      `EisensteinConvGaussFrobenius.gauss_pow_modEq_conj`:
+      `g(χ)^{⋆q}(k) ≡ Σ_{t<p} χ̄(t)·e_{(t·q)%p}(k) (mod ofInt q)` for prime `q ≡ 2 (mod 3)`, `k<p`.
+      Combines `gauss_pow_modEq` (B2e.9) with `chiOmega_pow_q` (B2e.10a) termwise (`sum_congr`).
+      **Next (B2e.11 — the `t↦tq%p` reindex):** `q` is invertible mod `p` (distinct primes), so
+      `t↦(tq)%p` is a permutation of `[0,p)`.  Reindexing `Σ_t χ̄(t)·e_{tq%p} = Σ_s χ̄((s·q⁻¹)%p)·e_s`,
+      then `χ̄((s q⁻¹)%p) = χ̄(s)·χ̄(q⁻¹)` (multiplicativity `chiOmega_mul`, **already built**) factors
+      out the constant `χ̄(q⁻¹) = χ(q)`, collapsing the sum into `χ(q)·g(χ̄)` — the honest closed form
+      `g(χ)^{⋆q} ≡ χ(q)·g(χ̄) (mod q)` (with `χ^q = χ̄`, so `g(χ^q) = g(χ̄)`).  Needs: the modular
+      inverse `q⁻¹ mod p`, the `t↦tq%p` bijection on `[0,p)`, and a `sumRange` permutation-reindex
+      lemma for `ZOmega` (the combinatorial step also flagged in `chiOmega_mul`/`mu3_sum_zero`).
     The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
     **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
     + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution
