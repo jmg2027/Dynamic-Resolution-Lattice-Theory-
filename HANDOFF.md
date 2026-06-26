@@ -122,19 +122,27 @@ above is still valid infra** (Gauss sums are `listSum`s too), just insufficient 
     (`χ_ω(b)·χ̄_ω(c)=χ_ω((b·aInv c p)%p)`, the per-term ratio identity), `chiOmega_one`, `aInv_mod_pos`.
   - `EisensteinCharDiv` (extended): `mul_succ_inv` (`(v+1)·w≡1+w` when `v·w≡1`) and
     **`chiOmega_ratio_term`** (`χ_ω(u)·χ̄_ω((u−1)%p) = χ_ω((1+(u−1)⁻¹)%p)` for `2≤u<p`).
-  - **The per-term + permutation LAYER IS NOW COMPLETE.**  Every reusable piece for the off-diagonal
-    `−1` is built and PURE: all 3 permutations (mult/add/inv), ℤ[ω] cancellation, `chiOmega_div`,
-    `chiOmega_ratio_term`.  **Remaining = the SUM-LEVEL INTEGRATION (a distinct, intricate phase):**
-    1. **mult-reindex assembly** `i=(k·u)%p` ⟹ `(g⋆ḡ)(k) = C := Σ_u χ_ω(u)·χ̄_ω((u−1)%p)` (`k`-indep);
-       `sumRange_eq_listSum` + `rangeList_mul_lperm` + `listSum_lperm`/`_map`/`_congr`; needs index helper
-       `((k·u)%p+p−k)%p = (k·(u−1))%p`.
-    2. **`C = −1` assembly** — apply `chiOmega_ratio_term` per-term, then `(u−1)⁻¹`-inversion
-       (`totativeList_inv_lperm`) + `1+·`-shift (`rangeList_add_lperm`) reindex ⟹ the sum becomes
-       `Σ_{z∈units, z≠1} χ_ω(z) = −χ_ω(1) = −1` (`chiListSum_totatives_zero` + `chiOmega_one`).
-       **Boundary subtlety:** the sum is over **units∖{1}** (the `u=0,1` degenerate terms vanish; the
-       reindexes carry the exclusion) — the integration's tricky bookkeeping.
-    3. `g(χ)² = J·g(χ²)` coefficient identity (convolution = `listSum_mul_distrib`-style).
-    4. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
+  - **SUM-LEVEL INTEGRATION — in progress (additive-shift route, cleaner than mult-reindex).**
+    Off-diagonal `(g⋆ḡ)(k) = ofInt(−1)` for `0<k<p`.  Concrete plan (the wrap `j+k≡0` term vanishes
+    since `χ_ω(0)=0`; reindexes are clean unit-permutations):
+    - **DONE `Integer/EisensteinGaussShift`** — `add_shift_index` (`((j+k)%p+p−k)%p=j`) +
+      **`gauss_offdiag_shift`**: `(g⋆ḡ)(k) = Σ_{j<p} χ_ω((j+k)%p)·χ̄_ω(j)` (reindex `i=(j+k)%p`, the
+      one-sided form — NO nasty index helper).
+    - **DONE `Integer/EisensteinRangeTotatives`** — `mem_totativeList_prime`,
+      `rangeList_perm_cons_totatives`, **`listSum_rangeList_split`** (`Σ_{[0,p)}F = F 0 + Σ_{tot}F`):
+      drops the `j=0` term (`χ̄_ω(0)=0`), moving to the units sum the inversion reindex needs.
+    - **TODO 1 — per-term `chiOmega_shift_term`** (the crux, handles the wrap): for unit `j`,
+      `χ_ω((j+k)%p)·χ̄_ω(j) = χ_ω((1+(k·(aInv j p %p))%p)%p)`.  Case `(j+k)%p≠0`: `chiOmega_div` +
+      `(j+k)·j⁻¹ = 1+k·j⁻¹`.  Case `(j+k)%p=0` (i.e. `j=p−k`): LHS `=χ_ω(0)·…=0`, and the target index
+      `(1+k·j⁻¹)%p=0` too (`k·j⁻¹+(p−k)·j⁻¹ = p·j⁻¹ ≡0`, `(p−k)·j⁻¹≡1`, so `k·j⁻¹≡−1`).
+    - **TODO 2 — two clean reindexes:** inversion (`totativeList_inv_lperm`) then mult-by-`k`
+      (`lperm_image`), via `listSum_map`/`listSum_lperm` ⟹ `C = Σ_{z∈tot} χ_ω((1+z)%p)` (`k`-indep).
+    - **TODO 3 — `C=−ofInt 1`:** add-shift perm `z↦(z+1)%p` (`rangeList_add_lperm`) + `listSum_rangeList_split`
+      twice + `chiListSum_totatives_zero` ⟹ `χ_ω(1)+C = Σ_{[0,p)}χ_ω = 0`, so `C=−χ_ω(1)=ofInt(−1)`.
+      (Needs `chiListSum_eq_listSum`: `chiListSum = listSum (chiOmega …)`.)
+    - **TODO 4 — assemble `g·ḡ = p·1 − N`:** `e_0=↑(p−1)` (`gauss_conj_zero`), `e_k=−1` (above).
+    - **TODO 5 — `g(χ)² = J·g(χ²)`** coefficient identity (convolution = `listSum_mul_distrib`-style),
+      then extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
