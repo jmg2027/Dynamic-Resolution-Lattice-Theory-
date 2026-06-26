@@ -1,9 +1,31 @@
 # Frontier — the cubic reciprocity law `(π/π')₃ = (π'/π)₃` (Phase B)
 
-**Status:** open.  Phase A (the Jacobi-sum core) is **COMPLETE** (∅-axiom): the cubic character on
-`𝔽_p`, the Jacobi sum, **`N(J)=p`** (`EisensteinJacobiNormLaw.jacobi_norm`), `J` prime
-(`jacobi_prime`), `p=J·J̄` (`jacobi_splits_p`), and the primary normalisation `J=π`
-(`jacobi_primary`).  This note records what remains for the **law itself**.
+**Status:** the **symbol identity `(π/q)₃ = χ(q)` is ASSEMBLED** (∅-axiom, PURE) —
+`EisensteinCubicReciprocity.cubic_reciprocity_law` for `q` a rational prime `≡ 2 (mod 3)`.  Only the
+`π↔π'` transfer to the fully symmetric `(π/π')₃ = (π'/π)₃` (between two *Eisenstein* primes) remains.
+Phase A (the Jacobi-sum core) is **COMPLETE** (∅-axiom): the cubic character on `𝔽_p`, the Jacobi sum,
+**`N(J)=p`** (`EisensteinJacobiNormLaw.jacobi_norm`), `J` prime (`jacobi_prime`), `p=J·J̄`
+(`jacobi_splits_p`), and the primary normalisation `J=π` (`jacobi_primary`, **carries `propext` — purify
+before it enters the transfer**).
+
+## The residue-symbol layer — DONE this session (∅-axiom, PURE)
+
+The exponent collapse `J^{(q²−1)/3} ≡ χ(q) (mod q)` (`cubic_reciprocity_power_congr`) is upgraded to the
+**μ₃ equality** `(π/q)₃ = χ(q)`:
+- **`EisensteinMu3Lift.mu3_eq_of_modEq`** — `X ≡ Y (mod q)`, `X,Y ∈ μ₃`, `q>1` ⟹ `X = Y` (each
+  distinct pair leaves a `±1` coordinate; `q ∣ (±1)` reflected to ℕ via `IntEuclid.int_dvd_to_nat` —
+  the "Int↔Nat divisibility wall" was illusory, already PURE in the repo).
+- **`EisensteinInertForm.normSq_ne_of_mod3_two`** — the inert obstruction over ℤ: `‖d‖² ≠ q` for
+  `q ≡ 2 (mod 3)` (`‖d‖² = (a+b)² − 3ab ≡ square ≠ 2 mod 3`).
+- **`EisensteinInertPrime`** — `q ≡ 2 (mod 3)` is **prime in ℤ[ω]** (`ℤ[ω]/(q) ≅ 𝔽_{q²}` a field):
+  `inert_norm_prime_euclid`, `inert_residue_no_zero_divisors` (Euclid-gcd dichotomy, norm trichotomy
+  `{1,q,q²}` via `dvd_prime_sq`, the inert obstruction kills norm `q`).
+- **`EisensteinInertCube.inert_cube_one_value`** — cube roots of unity in `𝔽_{q²}` are `{1,ω,ω²}`.
+- **`EisensteinCubicReciprocity.cubic_reciprocity_law`** — capstone: `χ(q) ∈ μ₃` ∧
+  `J^{(q²−1)/3} ≡ χ(q)` ∧ well-definedness (the unique μ₃ value).  `residue_symbol_exists` discharges
+  existence (the power cubes to `1 mod q`).
+
+This note's older "what remains" sections below are now the **`π↔π'` transfer only**.
 
 ## What is already built (the cubic residue symbol)
 
