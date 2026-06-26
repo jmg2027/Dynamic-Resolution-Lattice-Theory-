@@ -144,6 +144,15 @@ infrastructure + quadratic reciprocity), so this would be novel.
    A needs `pr<p`, relation B needs `p<pr` — they can't coexist, so the ordering constraint must go (it is
    only used for `chiOmega_mul`/`chiOmega_ne_zero` unit-residue + for `pr≠p`).  This also generalises the
    inert law.
+   - **DONE (PURE): the relaxed root lemmas** `EisensteinCubicCharFpGen.chiOmega_mul_gen` /
+     `chiOmega_ne_zero_gen` (any unit `¬p∣q`, not just `<p`; via `chiOmega_mod` + `mul_mod_pure`).
+   - **NEXT (threading):** drop `hqlt : q < p` from `char_reindex_split` / `char_conj_reindex_split`
+     (`EisensteinConvGaussReindex`, the central shared file — careful: the inert law depends on it; either
+     modify in place to generalise both, or add `_gen` parallel copies for the split chain), then thread
+     the drop through `gauss_pow_modEq_char_factored` → `split_reciprocity_congr{,_eisenstein,_pi}` →
+     `split_conj_residue_relation`; and replace `jacobi_ne_zero_mod_pi`'s `pr<p` with `pr≠p`.  Derivations
+     needed: `¬p∣q` from `gcd213 q p = 1` (via `gcd213_greatest` + `eq_one_of_dvd_one`), and
+     `¬p∣(aInv q p % p)` from `0 < · < p` (via `Pow213.le_of_dvd_pos`).
 2. **Build relation B** = the split arc instantiated for the *second* prime (`d := π'`, `p := pr`,
    `m := (pr−1)/3`, second prime `:= π` of norm `p`).  All hypotheses are symmetric & available
    (`hπ'ω`, `hω`); the second prime's Jacobi-sum data is generic in `(p,m,x)`.
