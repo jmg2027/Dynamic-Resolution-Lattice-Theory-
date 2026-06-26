@@ -113,13 +113,15 @@ above is still valid infra** (Gauss sums are `listSum`s too), just insufficient 
   - **`Integer/EisensteinGaussOffDiag` DONE (index + reformulation):** `conv_offdiag_index`
     (`(p−(k+p−i)%p)%p = (i+p−k)%p`, pure ℕ arithmetic via 4 sub-identities + `sub_pos_pure`);
     **`gauss_offdiag_sum`: `(g⋆ḡ)(k) = Σ_{i<p} χ_ω(i)·χ̄_ω((i+p−k)%p)`** for `k<p`.
-  - **Next bricks (finish off-diagonal `= ↑(−1)`, then `N(J)=p`):**
-    1. **mult reindex** `i=(k·u)%p` (`sumRange_eq_listSum` + `rangeList_mul_lperm` + `listSum_map`)
-       collapses the `χ_ω(k)·χ̄_ω(k)` factors ⟹ `(g⋆ḡ)(k) = C := Σ_u χ_ω(u)·χ̄_ω((u−1)%p)` (`k`-indep).
-       Needs a `chiOmega_mod` lemma (`χ_ω` sees only `t mod p`) for the `(ku)%p` index bookkeeping.
-    2. **`C = −1`** — `u↦u−1` shift (`rangeList_add_lperm`, `c=p−1`) + multiplicative inversion `v↦v⁻¹`
-       (a units-inversion `LPerm` — to build) + per-term `χ_ω(b)·χ̄_ω(c)=χ_ω((b·c⁻¹)%p)`, ending in
-       `Σ_{z≠1}χ_ω(z)=−1` (`Σχ_ω=0`).  ← the remaining analytic core.
+  - `chiOmega_mod` (`EisensteinCubicCharFp`): `χ_ω(a%p)=χ_ω(a)` — the index-bookkeeping helper.
+  - **Next bricks (finish off-diagonal `(g⋆ḡ)(k)=↑(−1)`, then `N(J)=p`):**  The off-diagonal `−1` is
+    intrinsically the character-sum identity `Σ_i χ_ω(i)·χ̄_ω((i+p−k)%p) = −1`, evaluated by:
+    1. **per-term** `χ_ω(i)·χ̄_ω((i−k)%p) = χ_ω((i·(i−k)⁻¹)%p) = χ_ω((1 + k·(i−k)⁻¹... ))` — really
+       `χ(t+r)χ̄(t)=χ(1+r·t⁻¹)`; needs a per-term `χ_ω(b)·χ̄_ω(c)=χ_ω((b·c⁻¹)%p)` (`c⁻¹=aInv c p`).
+    2. **inversion permutation** `t↦(aInv t p)` over `totativeList` (a units-inversion `LPerm`, an
+       involution — TO BUILD, sibling of `rangeList_mul_lperm`); plus the `z=1+w` shift
+       (`rangeList_add_lperm`), ending in `Σ_{z≠1}χ_ω(z)=−1` (`chiListSum_totatives_zero`).
+       ← the remaining analytic core (a genuine multi-lemma grind).
     3. `g(χ)² = J·g(χ²)` coefficient identity (convolution = `listSum_mul_distrib`-style).
     4. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
