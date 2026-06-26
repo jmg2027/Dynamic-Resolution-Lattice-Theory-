@@ -22,9 +22,10 @@ forbidden `funext`/`Quot.sound`).  ∅-axiom.
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
 
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_add_left)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (one one_mul)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum (sumRange sum_single)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
+  (sumRange sum_single sum_congr sum_zero_fun)
 open E213.Meta.Algebra213.Ring213 (zero_mul)
 
 /-- The convolution identity `e_0 ∈ R[C_p]` — the basis vector at index `0` (`δ_{i,0}`). -/
@@ -60,5 +61,30 @@ theorem convPow_one (p : Nat) (f : Nat → ZOmega) {k : Nat} (hk : k < p) :
     convPow p f 1 k = f k := by
   rw [convPow_succ, convPow_zero]
   exact convOne_left p f hk
+
+/-! ## Convolution is linear over finite sums of group-ring elements (toward the binomial theorem) -/
+
+/-- `(0 ⋆ g)(k) = 0` — convolution by the zero element. -/
+theorem conv_zero_left (p : Nat) (g : Nat → ZOmega) (k : Nat) :
+    conv p (fun _ => (0 : ZOmega)) g k = 0 := by
+  show sumRange (fun i => (0 : ZOmega) * g ((k + p - i) % p)) p = 0
+  rw [sum_congr p (fun i _ => zero_mul (g ((k + p - i) % p)))]
+  exact sum_zero_fun p
+
+/-- ★★★★ **Convolution distributes over a finite sum on the left** — for a family `F j` of group-ring
+    elements, `((Σ_{j<m} F j) ⋆ g)(k) = Σ_{j<m} (F j ⋆ g)(k)`.  By induction on `m` from
+    `conv_add_left` (binary bilinearity) and `conv_zero_left`.  The left-linearity needed to expand a
+    binomial sum inside an outer convolution.  ∅-axiom. -/
+theorem conv_sumRange_left (p : Nat) (F : Nat → (Nat → ZOmega)) (g : Nat → ZOmega) (k : Nat) :
+    ∀ m, conv p (fun i => sumRange (fun j => F j i) m) g k
+       = sumRange (fun j => conv p (F j) g k) m
+  | 0 => by
+      show conv p (fun _ => (0 : ZOmega)) g k = (0 : ZOmega)
+      exact conv_zero_left p g k
+  | m + 1 => by
+      show conv p (fun i => sumRange (fun j => F j i) m + F m i) g k
+         = sumRange (fun j => conv p (F j) g k) m + conv p (F m) g k
+      rw [conv_add_left p (fun i => sumRange (fun j => F j i) m) (F m) g k,
+          conv_sumRange_left p F g k m]
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow

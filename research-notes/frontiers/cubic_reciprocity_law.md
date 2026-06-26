@@ -82,6 +82,10 @@ mod-`q` reduction + Frobenius is the genuinely new part).
       `EisensteinConvPow`.  `delta = e_0` (basis vector at `0`), `convPow p f n` (`n`-fold `⋆`-power,
       `f^{⋆0}=e_0`), with `convPow_zero`, `convPow_succ`, the left identity law `convOne_left`
       (`(e_0⋆f)(k)=f k` for `k<p`, via `sum_single` + `(k+p)%p=k`), and `convPow_one`.
+    - **B2e.2a — DONE** (∅-axiom, **PURE**): convolution **left-linearity over finite sums**,
+      `conv_zero_left` (`(0⋆g)(k)=0`) and `conv_sumRange_left`
+      (`((Σ_{j<m} F j)⋆g)(k) = Σ_{j<m} (F j ⋆ g)(k)`, induction on `m` from `conv_add_left`).  The
+      backbone for distributing a binomial sum inside an outer convolution.
     The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
     **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
     + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution
