@@ -104,14 +104,21 @@ above is still valid infra** (Gauss sums are `listSum`s too), just insufficient 
     `gaussConj k := conj χ_ω((p−k)%p)`; `conv_diag_index` (`k=0` double-`mod` collapse, pure
     `sub_sub_self_pure`); **`gauss_conj_zero`: `(g⋆ḡ)(0) = ↑(p−1)`** (the `e_0`-coefficient, via
     `diag_count` counting the `p−1` units).
-  - **Next bricks (the rest of `g·ḡ = p·1 − N` ⟹ `N(J)=p`):**
-    1. **off-diagonal** `(g⋆ḡ)(k) = ↑(−1)` for `0<k<p` — `(g⋆ḡ)(k)=Σ_i χ_ω(i)·χ̄_ω((i−k)%p)`; the
-       reindex is a **Möbius-type bijection** `i ↦ i·(i−k)⁻¹` (units∖{k} → units∖{1}, `w≠1`), then
-       `Σ_{w≠1} χ_ω(w) = −1` (`Σχ_ω=0`).  ← **the genuine hard core**: this bijection is more involved
-       than the multiplicative `lperm_image` (it's a fractional-linear map; needs its own `LPerm` over
-       `totativeList`).  Plus the off-diagonal index helper `(p−(k+p−i)%p)%p = (i−k)%p`.
-    2. `g(χ)² = J·g(χ²)` as a coefficient identity (convolution = `listSum_mul_distrib`-style).
-    3. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
+  - **Reindex toolkit for the off-diagonal — DONE this session:**
+    - `Combinatorics/RangeList` — pure `rangeList [0,n)` + `mem_rangeList`/`nodup_rangeList`
+      (Lean-core `List.range` lemmas are `Classical`-dirty).
+    - `Integer/EisensteinRangeSum` — `sumRange_eq_listSum` (bridge `conv` sums to `listSum` so they
+      reindex by `[0,p)`-permutations), `rangeList_mul_lperm` (`i↦(a·i)%p` permutes `[0,p)`),
+      `rangeList_add_lperm` (`i↦(i+c)%p` permutes `[0,p)`).  The mult+add permutation toolkit.
+  - **Next bricks (the off-diagonal `(g⋆ḡ)(k) = ↑(−1)`, `0<k<p`, then `N(J)=p`):**
+    1. **index helper** `(p−(k+p−i)%p)%p = (i+p−k)%p` ⟹ `(g⋆ḡ)(k)=Σ_i χ_ω(i)·χ̄_ω((i+p−k)%p)`.
+    2. **mult reindex** `i=(k·u)%p` (`rangeList_mul_lperm` + bridge) collapses `χ_ω((ku)%p)·χ̄_ω(k)`
+       factors ⟹ `(g⋆ḡ)(k) = C := Σ_u χ_ω(u)·χ̄_ω((u−1)%p)` (a constant, `k`-independent).
+    3. **`C = −1`** — `u↦u−1` shift (`rangeList_add_lperm`, `c=p−1`) then the multiplicative inversion
+       `v↦v⁻¹` (needs a units inversion `LPerm`) + the per-term `χ_ω(b)·χ̄_ω(c)=χ_ω((b·c⁻¹)%p)`, ending in
+       `Σ_{z≠1}χ_ω(z)=−1` (`Σχ_ω=0`).  ← the remaining analytic core.
+    4. `g(χ)² = J·g(χ²)` coefficient identity (convolution = `listSum_mul_distrib`-style).
+    5. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
