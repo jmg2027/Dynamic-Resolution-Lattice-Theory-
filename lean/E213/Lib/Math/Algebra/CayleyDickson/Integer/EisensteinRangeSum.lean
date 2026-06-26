@@ -2,6 +2,8 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinListSum
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
 import E213.Lib.Math.Combinatorics.RangeList
 import E213.Lib.Math.NumberTheory.EulerTheorem
+import E213.Meta.Nat.AddMod213
+import E213.Meta.Nat.NatRing213
 
 /-!
 # Bridging `sumRange [0,n)` to `listSum (rangeList n)` (∅-axiom, Phase A3 / route b)
@@ -27,6 +29,8 @@ open E213.Lib.Math.NumberTheory.EulerTheorem (aInv inv_mul_image mul_inv_image l
 open E213.Tactic.List213 (nodup_map_of_inj mem_map_of_mem exists_of_mem_map)
 open E213.Tactic.NatHelper (gcd213)
 open E213.Meta.Algebra213.Ring213 (add_comm)
+open E213.Meta.Nat.AddMod213 (add_mod add_mod_left mod_self mod_mod)
+open E213.Meta.Nat.NatRing213 (nat_sub_add_cancel nat_add_sub_self_right)
 
 /-- ★★★ **`sumRange = listSum ∘ rangeList`** — the indexed sum over `[0,n)` is the list sum over
     `rangeList n`.  Induction + `add_comm` (the lists are reverse-ordered).  ∅-axiom. -/
@@ -57,6 +61,48 @@ theorem rangeList_mul_lperm {p a : Nat} (hp : 0 < p) (ha : gcd213 a p = 1) :
       rw [mul_inv_image hp ha, Nat.mod_eq_of_lt (mem_rangeList.mp hy)]
     rw [← himg]
     exact mem_map_of_mem (fun i => (a * i) % p) (mem_rangeList.mpr (Nat.mod_lt _ hp))
+  · intro hy
+    obtain ⟨i, _, rfl⟩ := exists_of_mem_map hy
+    exact mem_rangeList.mpr (Nat.mod_lt _ hp)
+
+/-- Pure `(a + p) % p = a % p`. -/
+private theorem add_p_mod {p : Nat} (hp : 0 < p) (a : Nat) : (a + p) % p = a % p := by
+  rw [add_mod hp a p, mod_self, Nat.add_zero, mod_mod]
+
+/-- Pure `p − (p − c) = c` for `c ≤ p`. -/
+private theorem sub_sub_self_pure {c p : Nat} (h : c ≤ p) : p - (p - c) = c := by
+  have key : c + (p - c) = p := by rw [Nat.add_comm]; exact nat_sub_add_cancel h
+  calc p - (p - c) = (c + (p - c)) - (p - c) := by rw [key]
+    _ = c := nat_add_sub_self_right c (p - c)
+
+/-- The additive-shift inverse cancels: `((i + c) % p + (p − c)) % p = i` for `i < p`, `c ≤ p`. -/
+private theorem add_shift_cancel {p c : Nat} (hp : 0 < p) (hc : c ≤ p) {i : Nat} (hi : i < p) :
+    ((i + c) % p + (p - c)) % p = i := by
+  rw [← add_mod_left hp (i + c) (p - c),
+      show i + c + (p - c) = i + p from by
+        rw [Nat.add_assoc, Nat.add_comm c (p - c), nat_sub_add_cancel hc],
+      add_p_mod hp, Nat.mod_eq_of_lt hi]
+
+/-- ★★★★ **The full-range additive-shift permutation** — `i ↦ (i + c) mod p` permutes `[0,p)` for
+    `c ≤ p`: `LPerm (rangeList p) (map (·+c) (rangeList p))`.  Injective/surjective by the shift inverse
+    `· + (p−c)` (`add_shift_cancel`).  The additive sibling of `rangeList_mul_lperm`, for the Gauss-sum
+    off-diagonal's `u ↦ u−1` reindex.  ∅-axiom. -/
+theorem rangeList_add_lperm {p c : Nat} (hp : 0 < p) (hc : c ≤ p) :
+    LPerm (rangeList p) ((rangeList p).map (fun i => (i + c) % p)) := by
+  have hinj : ∀ i, i ∈ rangeList p → ∀ j, j ∈ rangeList p → (i + c) % p = (j + c) % p → i = j := by
+    intro i hi j hj he
+    have ei := add_shift_cancel hp hc (mem_rangeList.mp hi)
+    have ej := add_shift_cancel hp hc (mem_rangeList.mp hj)
+    rw [← ei, ← ej, he]
+  refine lperm_of_nodup_mem_iff (nodup_rangeList p)
+    (nodup_map_of_inj hinj (nodup_rangeList p)) (fun y => ?_)
+  constructor
+  · intro hy
+    have himg : ((y + (p - c)) % p + c) % p = y := by
+      have h := add_shift_cancel hp (Nat.sub_le p c) (i := y) (mem_rangeList.mp hy)
+      rwa [sub_sub_self_pure hc] at h
+    rw [← himg]
+    exact mem_map_of_mem (fun i => (i + c) % p) (mem_rangeList.mpr (Nat.mod_lt _ hp))
   · intro hy
     obtain ⟨i, _, rfl⟩ := exists_of_mem_map hy
     exact mem_rangeList.mpr (Nat.mod_lt _ hp)
