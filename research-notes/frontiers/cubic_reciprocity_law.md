@@ -51,10 +51,16 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
 - **`gauss_pow_succ_modEq_Yfun` — DONE**: **`g(χ)^{⋆(q+1)}(k) ≡ χ(q)·Yfun(k) (mod q)`** — evaluates the
   norm RHS via `gaussConj_eq_charConj` + `conv_comm` + `gauss_conj_norm` (`g⋆gaussConj=Yfun`).  The
   **Frobenius side** of the `g^{⋆N}`-comparison, in closed form (`Yfun ↦ p` at `e_0` in `ℤ[ζ_p]`).
-- **NEXT**: the **cube side** — `g(χ)^{⋆3}(k) = J·Yfun(k)` (rephrase `gauss_cube`'s `g⋆(g⋆g)` as
-  `convPow p g 3`, via `conv_assoc`/`convOne_left`).  Then compare `g^{⋆(q+1)}` vs a cube-based
-  evaluation of the same exponent (relating `q+1` to the `3`-structure and the norm `g⋆ḡ=Yfun`),
-  extracting the μ₃ unit comparison with `jacobi_primary` (`J=π`) to land `(π/π')₃ = (π'/π)₃`.
+- **`gauss_convPow3` — DONE**: the **cube side** `g(χ)^{⋆3}(k) = J·Yfun(k)` (rephrases `gauss_cube`'s
+  `g⋆(g⋆g)` as `convPow p g 3`, via `convPow_succ`/`convOne_left`/`conv_congr`/`conv_comm`).  Both sides
+  of the `g^{⋆N}`-comparison are now in the same `convPow`/`Yfun` frame:
+  - Frobenius: `g^{⋆(q+1)}(k) ≡ χ(q)·Yfun(k) (mod q)`  (`gauss_pow_succ_modEq_Yfun`),
+  - cube:      `g^{⋆3}(k) = J·Yfun(k)`                  (`gauss_convPow3`).
+- **NEXT (the μ₃ comparison, the law's last leg)**: both sides share the `Yfun` factor.  Combine to
+  relate `χ(q)` and `J = π` mod `q` — e.g. compute `g^{⋆(q+1)}` along a multiple-of-3 route through
+  `gauss_convPow3` (`g^{⋆3}=J·Yfun`, `Yfun⋆Yfun = p·Yfun`) and equate with the Frobenius value `χ(q)·Yfun`,
+  extracting a `J`-vs-`χ(q)` congruence mod `q`.  Then `jacobi_primary` (`J=π`) and the second prime's
+  primary normalisation give `(π/π')₃ = (π'/π)₃`.  Reference: Ireland–Rosen ch. 9.
 
 Estimated scale: the engine (`N(J)=p`, the Frobenius congruence) is now built; the remaining step 3 is the
 μ₃-comparison assembly — smaller than the engine, but still a careful multi-brick argument.

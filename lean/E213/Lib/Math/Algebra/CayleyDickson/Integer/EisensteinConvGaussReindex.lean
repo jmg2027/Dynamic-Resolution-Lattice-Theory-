@@ -30,7 +30,9 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBasis (basis)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow (convPow convPow_succ)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow (convPow convPow_succ convOne_left)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube (gauss_cube)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum (jacobiSum)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_scalar_left conv_congr)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvCongruence (conv_modEq_left)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvComm (conv_comm)
@@ -276,5 +278,26 @@ theorem gauss_pow_succ_modEq_Yfun {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3
     exact gauss_conj_norm hp hp3 hpr h3m hm1 hdn hω hx hk
   have hsucc := gauss_pow_succ_modEq hp hp3 hpr h3m hdn hω hx hq3 hqr hcop hq1 hqlt hk
   rwa [heq] at hsucc
+
+/-- ★★★★★ **The cube side in `convPow` form** — `g(χ)^{⋆3}(k) = J · Yfun(k)` for `k < p`.  Rephrases
+    `gauss_cube` (`g ⋆ (g⋆g) = J·Yfun`) as the third convolution power `convPow p g 3`: `convPow_succ`
+    unfolds `g^{⋆3} = (g^{⋆2}) ⋆ g`, `convOne_left` collapses `g^{⋆1} = e_0 ⋆ g = g`, `conv_congr`
+    rewrites `g^{⋆2} = g⋆g`, and `conv_comm` flips `(g⋆g)⋆g` to `g⋆(g⋆g)` to meet `gauss_cube`.
+    Puts the **cube side** of the reciprocity `g^{⋆N}`-comparison in the same `convPow`/`Yfun` frame as the
+    Frobenius side (`gauss_pow_succ_modEq_Yfun`).  ∅-axiom up to allowed `propext`. -/
+theorem gauss_convPow3 {d : ZOmega} {p m x : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ t, t ∣ p → t = 1 ∨ t = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) {k : Nat} (hk : k < p) :
+    convPow p (gauss p m x) 3 k = jacobiSum p m x * Yfun p k := by
+  have hpp : 0 < p := Nat.lt_of_le_of_lt (Nat.zero_le k) hk
+  have h2 : ∀ j, j < p → convPow p (gauss p m x) 2 j = conv p (gauss p m x) (gauss p m x) j :=
+    fun j hj => by
+      show conv p (convPow p (gauss p m x) 1) (gauss p m x) j = conv p (gauss p m x) (gauss p m x) j
+      exact conv_congr p j hpp (fun i hi => convOne_left p (gauss p m x) hi) (fun _ _ => rfl)
+  show conv p (convPow p (gauss p m x) 2) (gauss p m x) k = jacobiSum p m x * Yfun p k
+  rw [conv_congr p k hpp (fun i hi => h2 i hi) (fun _ _ => rfl),
+      conv_comm p (fun j => conv p (gauss p m x) (gauss p m x) j) (gauss p m x) hk]
+  exact gauss_cube hp hp3 hpr h3m hm1 hdn hω hx hk
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex
