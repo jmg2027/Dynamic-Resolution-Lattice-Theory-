@@ -55,5 +55,12 @@ mod-`q` reduction + Frobenius is the genuinely new part).
     `(n+1)·C(n,k) = (k+1)·C(n+1,k+1)` (`succ_mul_binom`, induction on the Pascal recursion of the
     213-native `binom`) at `n+1=q, k+1=t`: `t·binom q t = q·binom(q−1)(t−1)`, so `q ∣ t·binom q t`;
     with `q ∤ t` (`0<t<q`) the Euclid lemma `nat_prime_dvd_mul` gives `q ∣ binom q t`.  Also
-    `binom_zero_right`, `binom_one`.  Next: the binomial theorem `(a+b)^n = Σ_k C(n,k)·a^k·b^{n−k}`
-    in `ℤ[ω]`, then the freshman's dream `(a+b)^q ≡ a^q + b^q (mod q)` (B2b).
+    `binom_zero_right`, `binom_one`.
+  - **B2b — DONE** (∅-axiom up to allowed `propext`): the **binomial theorem in `ℤ[ω]`**,
+    `EisensteinBinomial.add_pow`: `(a+b)^n = Σ_{k=0}^{n} binom n k · a^k · b^{n−k}` (`sumRange` over
+    `[0,n+1)`, coefficient embedded as `cz n k = ofInt (binom n k)`).  Classical Pascal induction:
+    distribute `(a+b)^{n+1} = (a+b)^n·(a+b)`, peel one sum from below (`sumRange_succ_bottom`,
+    a new reindex lemma) and the other from above, recombine via Pascal `cz_pascal`, boundary terms
+    giving `a^{n+1}`, `b^{n+1}`.  Helpers `cz_{zero,diag,pascal}`, `bterm_mul_{a,b}`.  Next: the
+    freshman's dream `(a+b)^q ≡ a^q + b^q (mod ofInt q)` — interior terms vanish by
+    `prime_dvd_binom` (B2c).
