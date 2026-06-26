@@ -98,4 +98,22 @@ theorem residue_symbol_exists {d : ZOmega} {p m x q s : Nat} (hp : 1 < p) (hp3 :
     rwa [hχcube] at h3
   exact inert_cube_one_value hq3 hqr hq1' hcube
 
+/-- ★★★★★ **The cubic residue symbol `(π/q)₃` is well defined and equals `χ(q)`** — there is a *unique*
+    `μ₃` value congruent to `J^{(q²−1)/3}` mod `q`, and it is `χ(q)`.  Existence among `{1,ω,ω²}` is
+    `residue_symbol_exists`; `χ(q)` is one such value (`cubic_reciprocity_law` 1+2); uniqueness is (3).
+    This is the cleanest statement of the symbol identity `(π/q)₃ = χ(q) = (q/π)₃`.  ∅-axiom (PURE). -/
+theorem cubic_residue_symbol_well_defined {d : ZOmega} {p m x q s : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hq3 : q % 3 = 2) (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q)
+    (hcop : gcd213 q p = 1) (hq1 : 0 < q) (hqlt : q < p) (hs : q + 1 = 3 * (s + 1)) :
+    ∃ V : ZOmega, ((V = ofInt 1 ∨ V = Omega ∨ V = Omega2)
+        ∧ ModEq (ofInt ((q : Nat) : Int)) (pow (jacobiSum p m x) ((2 * s + 1) + q * s)) V)
+      ∧ (∀ W : ZOmega, ((W = ofInt 1 ∨ W = Omega ∨ W = Omega2)
+          ∧ ModEq (ofInt ((q : Nat) : Int)) (pow (jacobiSum p m x) ((2 * s + 1) + q * s)) W) →
+            W = V) := by
+  obtain ⟨hχmu3, hcong, huniq⟩ :=
+    cubic_reciprocity_law hp hp3 hpr h3m hm1 hdn hω hx hq3 hqr hcop hq1 hqlt hs
+  exact ⟨chiOmega p m x q, ⟨hχmu3, hcong⟩, fun W hW => huniq W hW.1 hW.2⟩
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicReciprocity
