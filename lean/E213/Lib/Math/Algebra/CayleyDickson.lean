@@ -109,6 +109,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNormLaw
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiPrime
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicSymbolRational
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit

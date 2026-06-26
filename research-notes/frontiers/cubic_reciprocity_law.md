@@ -42,5 +42,11 @@ mod-`q` reduction + Frobenius is the genuinely new part).
   `p ∣ ((↑a)^m−1)`, the ℕ↔ℤ bridge `pow_mod_one_iff_int` ⟶ `a^m%p=1`, then `pow_m_one_iff_cube`.
   This pins the abstract symbol to `ModArith/CubicResidue`'s rational predicate — foundation for the
   supplementary laws.
-- **B1** `g(χ)³ = p·J` (step 1 above) — reuses the convolution ring + `gauss_sq_full`.
+- **B1 — DONE** (∅-axiom, **PURE**): the Gauss-sum cube `EisensteinGaussCube.gauss_cube`:
+  `(g ⋆ (g ⋆ g))(k) = J · Yfun p k` for `k < p` — the group-ring form of `g(χ)³ = p·J`
+  (`Yfun = p·e_0 − N`; in `ℤ[ζ_p]` the all-ones `N ↦ 0` recovers `p·J`).  Chain: `conv_assoc` ⟶
+  `(g⋆g)⋆g`, `gauss_sq_eq_J_gaussConj` (`g⋆g = J·ḡ`, since `g(χ²)=ḡ` via `chiOmega_reflect` +
+  `conj_chiOmega_eq_sq`) under `conv_congr`, `conv_scalar_left` to pull `J` out, `conv_comm` to
+  `g⋆ḡ`, then `gauss_conj_eq_Yfun`.  No new ring machinery needed — fully reused `gauss_sq_full`
+  + the norm `g⋆ḡ`.
 - **B2** the mod-`q` group-ring reduction + the freshman's dream (the new subsystem, step 2).
