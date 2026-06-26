@@ -167,15 +167,18 @@ also a nontrivial cubic char) ⟹ `Y⋆Y = (g²)⋆(ḡ²) = |J|²·Y`.  Compari
     `Integer/EisensteinConvAssocIndex` (`conv_assoc_index`, `neg_add_mod`, `two_sub_mod`, `sub_sub_two`),
     `Integer/EisensteinConvAssoc` (**`conv_assoc`**).  Plus `sum_swap`/`sum_mul_right` in `FiniteSum`.
     **`R[C_p]` convolution is now a verified commutative ring** (bilinear + comm + assoc).
-  - **5d-rem (final assembly)** — the remaining mechanical phase:
-    1. **conv_congr**: `conv p f g k = conv p f' g' k` when `f=f'`, `g=g'` on `[0,p)` (sum_congr; lets
-       us swap `conv gauss gaussConj` for `Yfun` via `gauss_conj_norm`, since conv only reads `[0,p)`).
-    2. **reassoc**: `(g·ḡ)⋆(g·ḡ) = (g·g)⋆(ḡ·ḡ)` coefficientwise (chain `conv_assoc`/`conv_comm` at `k`).
-    3. so `(g·g)⋆(ḡ·ḡ) = Yfun⋆Yfun = ofInt(↑p)·Yfun` (`Yfun_conv` via conv_congr+reassoc).
-    4. **5b-rem** `(g⋆g)(0)=0` (needs `Σ_{tot}χ_ω(i)²=0`, χ²-orthogonality via `scale_fixed_eq_zero`)
-       — to have `g·g` as a *full* coeff function; **5c** `ḡ·ḡ` (conjugate Gauss–Jacobi `=J̄·g(χ̄²)`,
-       redo 5b-shape for `χ̄`) and `g(χ²)·g(χ̄²)`-norm.  Read off `e_1` of step-3's identity
-       (`Yfun 1 = −1 ≠ 0`) ⟹ **`N(J)=|J|²=p`**.
+  - **5d group-ring spine ✓ COMPLETE** — `conv_congr` (`EisensteinGroupRing`),
+    `conv_four_swap` (`EisensteinConvFourSwap`: `(a⋆b)²=(a⋆a)⋆(b⋆b)`), and **`gg_gbgb_eq`**
+    (`EisensteinGaussNormSq`): **`(g⋆g)⋆(ḡ⋆ḡ)(k) = ofInt(↑p)·Yfun p k`** for `k<p` (via reassoc +
+    `gauss_conj_eq_Yfun` + `Yfun_conv`).  The structural core of `N(J)=p` is DONE.
+  - **5d-rem (character side — the remaining mechanical phase)** to read `|J|²=p` off `gg_gbgb_eq`:
+    1. **5b-rem** `(g⋆g)(0)=0` (needs `Σ_{i∈tot}χ_ω(i)²=0`, χ²-orthogonality via `scale_fixed_eq_zero`
+       + `chiOmega_mul` for χ² multiplicativity) → `g⋆g = J·G₂` as a *full* coeff fn (`G₂(i)=χ_ω(i)²`).
+    2. **conjugate Gauss–Jacobi** `ḡ⋆ḡ = J̄·conj G₂` — `(ḡ⋆ḡ)(k)=conj((g⋆g)((p−k)%p))` (conj is a
+       ring hom; one reflection lemma), then `J̄=conj J`.
+    3. **5c** `G₂ ⋆ conj G₂ = Yfun` — the norm of the χ² Gauss sum (χ² is also a nontrivial cubic
+       char; reuse the `gauss_conj_norm` shape).  So `(g⋆g)⋆(ḡ⋆ḡ) = |J|²·(G₂⋆conjG₂) = |J|²·Yfun`.
+    4. with `gg_gbgb_eq` (`=p·Yfun`): `|J|²·Yfun = p·Yfun`; read `e_1` (`Yfun 1=−1≠0`) ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
