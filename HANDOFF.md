@@ -131,18 +131,26 @@ above is still valid infra** (Gauss sums are `listSum`s too), just insufficient 
     - **DONE `Integer/EisensteinRangeTotatives`** — `mem_totativeList_prime`,
       `rangeList_perm_cons_totatives`, **`listSum_rangeList_split`** (`Σ_{[0,p)}F = F 0 + Σ_{tot}F`):
       drops the `j=0` term (`χ̄_ω(0)=0`), moving to the units sum the inversion reindex needs.
-    - **TODO 1 — per-term `chiOmega_shift_term`** (the crux, handles the wrap): for unit `j`,
-      `χ_ω((j+k)%p)·χ̄_ω(j) = χ_ω((1+(k·(aInv j p %p))%p)%p)`.  Case `(j+k)%p≠0`: `chiOmega_div` +
-      `(j+k)·j⁻¹ = 1+k·j⁻¹`.  Case `(j+k)%p=0` (i.e. `j=p−k`): LHS `=χ_ω(0)·…=0`, and the target index
-      `(1+k·j⁻¹)%p=0` too (`k·j⁻¹+(p−k)·j⁻¹ = p·j⁻¹ ≡0`, `(p−k)·j⁻¹≡1`, so `k·j⁻¹≡−1`).
-    - **TODO 2 — two clean reindexes:** inversion (`totativeList_inv_lperm`) then mult-by-`k`
-      (`lperm_image`), via `listSum_map`/`listSum_lperm` ⟹ `C = Σ_{z∈tot} χ_ω((1+z)%p)` (`k`-indep).
-    - **TODO 3 — `C=−ofInt 1`:** add-shift perm `z↦(z+1)%p` (`rangeList_add_lperm`) + `listSum_rangeList_split`
-      twice + `chiListSum_totatives_zero` ⟹ `χ_ω(1)+C = Σ_{[0,p)}χ_ω = 0`, so `C=−χ_ω(1)=ofInt(−1)`.
-      (Needs `chiListSum_eq_listSum`: `chiListSum = listSum (chiOmega …)`.)
-    - **TODO 4 — assemble `g·ḡ = p·1 − N`:** `e_0=↑(p−1)` (`gauss_conj_zero`), `e_k=−1` (above).
-    - **TODO 5 — `g(χ)² = J·g(χ²)`** coefficient identity (convolution = `listSum_mul_distrib`-style),
-      then extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
+    - **DONE `Integer/EisensteinShiftTerm`** — **`chiOmega_shift_term`** (the per-term crux, handles the
+      wrap): for unit `j`, `χ_ω((j+k)%p)·χ̄_ω(j) = χ_ω((1+(k·j⁻¹))%p)`.  `(j+k)%p≠0`: `chiOmega_div`;
+      `(j+k)%p=0`: both sides `χ_ω(0)=0` (same index algebra forces target index `≡0`).
+    - **DONE `Integer/EisensteinGaussOffDiagOne`** — `offdiag_const` (`Σ_{z∈tot}χ_ω((1+z)%p)=ofInt(−1)`
+      via add-shift perm + split + orthogonality), **`gauss_conj_offdiag`: `(g⋆ḡ)(k)=ofInt(−1)`**
+      (`0<k<p`; inversion + mult reindex collapse to `offdiag_const`), and **`gauss_conj_norm`**:
+      `(g⋆ḡ)(k) = ofInt(p−1) if k=0 else ofInt(−1)` for `k<p`.  **`g·conj g = p·1 − N` is now PROVEN
+      (coefficient form).**
+
+### Phase A3 — REMAINING: `N(J)=p` from `g·ḡ = p·1−N` (TODO 5, the next sub-project)
+**Key simplification found:** let `Y := g·conj g` (coeffs `p−1` at `e_0`, `−1` else).  Then
+**`Y⋆Y = p·Y`** is *pure convolution combinatorics* (`Y=p·e_0−N`, `N⋆N=p·N`, `e_0` is the conv unit).
+And the Gauss–Jacobi relation gives `g²=J·g(χ²)`, `ḡ²=J̄·conj g(χ²)`, with `g(χ²)·conj g(χ²)=Y` (χ² is
+also a nontrivial cubic char) ⟹ `Y⋆Y = (g²)⋆(ḡ²) = |J|²·Y`.  Comparing the `e_1`-coefficient
+(`Y_1=−1≠0`): `|J|²·(−1) = p·(−1)`, so **`N(J)=|J|²=p`**.  Bricks:
+  - **5a** `Yfun⋆Yfun = p·Yfun` (pure ℤ[ω]/Int convolution counting; `Yfun k = if k%p=0 then p−1 else −1`).
+  - **5b** `(gauss⋆gauss)(n) = jacobiSum · g(χ²)(n)` — the Gauss–Jacobi coefficient identity
+    `Σ_a χ_ω(a)·χ_ω((n−a)%p) = J·χ̄_ω(n)` (the hard one; reindex `a↦n·a` for `n` a unit).
+  - **5c** `g(χ²)·conj g(χ²) = Yfun` — reuse `gauss_conj_norm` machinery for the character `χ²=χ̄`.
+  - **5d** assemble `|J|²·Y = Y⋆Y = p·Y`, extract `e_1` ⟹ **`N(J)=p`** (needs conv assoc/comm in `R[C_p]`).
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
