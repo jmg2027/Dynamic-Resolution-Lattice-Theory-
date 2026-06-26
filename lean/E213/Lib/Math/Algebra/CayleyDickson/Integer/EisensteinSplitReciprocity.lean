@@ -48,12 +48,11 @@ theorem split_reciprocity_congr {d : ZOmega} {p m x pr s : Nat} (hp : 1 < p) (hp
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
     (hdn : d.normSq = (p : Int)) (hω : ModEq d ZOmega.ZOmega.Omega (ofInt ((x : Nat) : Int)))
     (hx : p ∣ (x * x + x + 1)) (hpr3 : pr % 3 = 1) (hprr : ∀ e, e ∣ pr → e = 1 ∨ e = pr)
-    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hprlt : pr < p) (hs : pr = 3 * (s + 1) + 1) :
+    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hs : pr = 3 * (s + 1) + 1) :
     ModEq (ofInt ((pr : Nat) : Int))
       (pow (jacobiSum p m x) (s + 1) * pow (ofInt ((p : Nat) : Int)) (s + 1))
       (conj (chiOmega p m x pr)) := by
   have h1lt : (1 : Nat) < p := hp
-  have hprpos : 0 < pr := Nat.lt_of_lt_of_le Nat.zero_lt_one (Nat.le_of_lt hpr1)
   have hg1 : gauss p m x 1 = ofInt 1 := chiOmega_one h1lt
   have hc1 : chiOmega p m x 1 = ofInt 1 := chiOmega_one h1lt
   -- cube side at k = 1, simplified `g(1) = 1`
@@ -61,7 +60,7 @@ theorem split_reciprocity_congr {d : ZOmega} {p m x pr s : Nat} (hp : 1 < p) (hp
   rw [← hs, hg1, mul_ofInt_one] at hcube
   -- Frobenius side at k = 1, simplified `χ(1) = 1`
   have hfrob := gauss_pow_modEq_char_factored hp hp3 hpr h3m hdn hω hx hpr1 hpr3 hprr hcop
-    hprpos hprlt (k := 1) (by decide) h1lt
+    (k := 1) (by decide) h1lt
   rw [hc1, mul_ofInt_one, hcube] at hfrob
   exact hfrob
 
@@ -77,11 +76,11 @@ theorem split_reciprocity_congr_eisenstein {d : ZOmega} {p m x pr s : Nat} (hp :
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
     (hdn : d.normSq = (p : Int)) (hω : ModEq d ZOmega.ZOmega.Omega (ofInt ((x : Nat) : Int)))
     (hx : p ∣ (x * x + x + 1)) (hpr3 : pr % 3 = 1) (hprr : ∀ e, e ∣ pr → e = 1 ∨ e = pr)
-    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hprlt : pr < p) (hs : pr = 3 * (s + 1) + 1) :
+    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hs : pr = 3 * (s + 1) + 1) :
     ModEq (ofInt ((pr : Nat) : Int))
       (pow (jacobiSum p m x) (2 * (s + 1)) * pow (conj (jacobiSum p m x)) (s + 1))
       (conj (chiOmega p m x pr)) := by
-  have hcong := split_reciprocity_congr hp hp3 hpr h3m hm1 hdn hω hx hpr3 hprr hcop hpr1 hprlt hs
+  have hcong := split_reciprocity_congr hp hp3 hpr h3m hm1 hdn hω hx hpr3 hprr hcop hpr1 hs
   have heq : pow (jacobiSum p m x) (s + 1) * pow (ofInt ((p : Nat) : Int)) (s + 1)
       = pow (jacobiSum p m x) (2 * (s + 1)) * pow (conj (jacobiSum p m x)) (s + 1) := by
     rw [← jacobi_splits_p hp hp3 hpr h3m hm1 hdn hω hx,
@@ -100,12 +99,12 @@ theorem split_reciprocity_congr_pi {d : ZOmega} {p m x pr s : Nat} (hp : 1 < p) 
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
     (hdn : d.normSq = (p : Int)) (hω : ModEq d ZOmega.ZOmega.Omega (ofInt ((x : Nat) : Int)))
     (hx : p ∣ (x * x + x + 1)) (hpr3 : pr % 3 = 1) (hprr : ∀ e, e ∣ pr → e = 1 ∨ e = pr)
-    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hprlt : pr < p) (hs : pr = 3 * (s + 1) + 1)
+    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hs : pr = 3 * (s + 1) + 1)
     {π' : ZOmega} (hπ'norm : π'.normSq = (pr : Int)) :
     ModEq π' (pow (jacobiSum p m x) (2 * (s + 1)) * pow (conj (jacobiSum p m x)) (s + 1))
       (conj (chiOmega p m x pr)) := by
   have hbase := split_reciprocity_congr_eisenstein hp hp3 hpr h3m hm1 hdn hω hx hpr3 hprr hcop
-    hpr1 hprlt hs
+    hpr1 hs
   have hdvd : π' ∣ ofInt ((pr : Nat) : Int) := ⟨conj π', by rw [mul_conj_self π', hπ'norm]⟩
   exact modEq_descend hdvd hbase
 

@@ -63,7 +63,7 @@ theorem modEq_cancel_right {π α β γ : ZOmega} {pr : Nat}
 theorem jacobi_ne_zero_mod_pi {d : ZOmega} {p m x pr : Nat} {π : ZOmega} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
     (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
-    (hx : p ∣ (x * x + x + 1)) (hπnorm : π.normSq = (pr : Int)) (hpr1 : 1 < pr) (hprlt : pr < p) :
+    (hx : p ∣ (x * x + x + 1)) (hπnorm : π.normSq = (pr : Int)) (hpr1 : 1 < pr) (hprne : pr ≠ p) :
     ¬ ModEq π (jacobiSum p m x) 0 := by
   intro h
   have hdvd : π ∣ jacobiSum p m x := by
@@ -77,7 +77,7 @@ theorem jacobi_ne_zero_mod_pi {d : ZOmega} {p m x pr : Nat} {π : ZOmega} (hp : 
     rwa [Int.natAbs_ofNat] at hh
   rcases hpr pr hnat with h1 | hpeq
   · exact absurd h1 (Nat.ne_of_gt hpr1)
-  · exact absurd hpeq (Nat.ne_of_lt hprlt)
+  · exact absurd hpeq hprne
 
 /-- ★★★★★ **The split residue symbol is μ₃-valued** — `J^{3(s+1)} ≡ 1 (mod π')` for an Eisenstein prime
     `π'` of norm `pr = 3(s+1)+1` (`ω ≡ x' mod π'`), `1 < pr < p`.  So `(π/π')₃ := J^{s+1} mod π'` is a
@@ -86,12 +86,12 @@ theorem jacobi_ne_zero_mod_pi {d : ZOmega} {p m x pr : Nat} {π : ZOmega} (hp : 
 theorem split_residue_cube_one {d : ZOmega} {p m x pr s : Nat} {π' : ZOmega} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
     (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
-    (hx : p ∣ (x * x + x + 1)) (hprr : ∀ k, k ∣ pr → k = 1 ∨ k = pr) (hpr1 : 1 < pr) (hprlt : pr < p)
+    (hx : p ∣ (x * x + x + 1)) (hprr : ∀ k, k ∣ pr → k = 1 ∨ k = pr) (hpr1 : 1 < pr) (hprne : pr ≠ p)
     (hπ'norm : π'.normSq = (pr : Int)) {x' : Int} (hπ'ω : ModEq π' Omega (ofInt x'))
     (hs : pr = 3 * (s + 1) + 1) :
     ModEq π' (pow (jacobiSum p m x) (3 * (s + 1))) (ofInt 1) := by
   have hJne : ¬ ModEq π' (jacobiSum p m x) 0 :=
-    jacobi_ne_zero_mod_pi hp hp3 hpr h3m hm1 hdn hω hx hπ'norm hpr1 hprlt
+    jacobi_ne_zero_mod_pi hp hp3 hpr h3m hm1 hdn hω hx hπ'norm hpr1 hprne
   have hferm := split_fermat hpr1 hprr hπ'norm hπ'ω (jacobiSum p m x)
   rw [hs, pow_succ] at hferm
   have hJ1 : ModEq π' (pow (jacobiSum p m x) (3 * (s + 1)) * jacobiSum p m x)
@@ -112,14 +112,14 @@ theorem split_conj_residue_relation {d : ZOmega} {p m x pr s : Nat} {π' : ZOmeg
     (hp3 : 3 < p) (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
     (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
     (hx : p ∣ (x * x + x + 1)) (hpr3 : pr % 3 = 1) (hprr : ∀ k, k ∣ pr → k = 1 ∨ k = pr)
-    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hprlt : pr < p)
+    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hprne : pr ≠ p)
     (hπ'norm : π'.normSq = (pr : Int)) {x' : Int} (hπ'ω : ModEq π' Omega (ofInt x'))
     (hs : pr = 3 * (s + 1) + 1) :
     ModEq π' (pow (conj (jacobiSum p m x)) (s + 1))
       (conj (chiOmega p m x pr) * pow (jacobiSum p m x) (s + 1)) := by
-  have hA := split_reciprocity_congr_pi hp hp3 hpr h3m hm1 hdn hω hx hpr3 hprr hcop hpr1 hprlt hs
+  have hA := split_reciprocity_congr_pi hp hp3 hpr h3m hm1 hdn hω hx hpr3 hprr hcop hpr1 hs
     hπ'norm
-  have hB := split_residue_cube_one hp hp3 hpr h3m hm1 hdn hω hx hprr hpr1 hprlt hπ'norm hπ'ω hs
+  have hB := split_residue_cube_one hp hp3 hpr h3m hm1 hdn hω hx hprr hpr1 hprne hπ'norm hπ'ω hs
   -- multiply (A) by J^{s+1}, rearrange `J^{2(s+1)}·J̄^{s+1}·J^{s+1} = J^{3(s+1)}·J̄^{s+1}`
   have hA' := mul_right hA (pow (jacobiSum p m x) (s + 1))
   have hrearr : pow (jacobiSum p m x) (2 * (s + 1)) * pow (conj (jacobiSum p m x)) (s + 1)

@@ -8,6 +8,8 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFrobeniusConj
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFunction
 import E213.Lib.Math.NumberTheory.EulerTheorem
 import E213.Meta.Nat.MulMod213
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFpGen
+import E213.Lib.Math.NumberTheory.ModArith.CoprimeMultiplicative
 
 /-!
 # The `t ↦ tq%p` reindex — closing the Gauss-sum Frobenius congruence (∅-axiom)
@@ -58,6 +60,11 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (conj_mul conj_co
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega_mul_conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFpMul (chiOmega_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReindex (chiOmega_ne_zero)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFpGen
+  (chiOmega_mul_gen chiOmega_ne_zero_gen)
+open E213.Lib.Math.NumberTheory.ModArith.CoprimeMultiplicative (eq_one_of_dvd_one)
+open E213.Meta.Nat.Gcd213 (gcd213_greatest)
+open E213.Tactic.Pow213 (le_of_dvd_pos)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinScaleCancel (one_mul_zomega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum (chiOmega_zero_of_dvd)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm (conj_zero)
@@ -264,9 +271,12 @@ theorem gauss_pow_modEq_char_reindexed (p m x pr : Nat) (hp : 1 < p) (hpr1 : 1 <
 theorem char_reindex_split {d : ZOmega} {p m x q k : Nat} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
     (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
-    (hq : gcd213 q p = 1) (hq1 : 0 < q) (hqlt : q < p) (hk1 : 0 < k) (hklt : k < p) :
+    (hq : gcd213 q p = 1) (hk1 : 0 < k) (hklt : k < p) :
     chiOmega p m x ((aInv q p * k) % p) = conj (chiOmega p m x q) * chiOmega p m x k := by
   have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hp)
+  have hnpq : ¬ p ∣ q := fun hd =>
+    absurd (eq_one_of_dvd_one (hq ▸ gcd213_greatest q p p hd ⟨1, (Nat.mul_one p).symm⟩))
+      (Nat.ne_of_gt hp)
   have hqilt : aInv q p % p < p := Nat.mod_lt _ hppos
   have hqiq : (aInv q p % p * q) % p = 1 := by
     rw [← mul_mod_left_pure (aInv q p) q p, Nat.mul_comm (aInv q p) q, aInv_spec hppos hq,
@@ -275,14 +285,16 @@ theorem char_reindex_split {d : ZOmega} {p m x q k : Nat} (hp : 1 < p) (hp3 : 3 
     rcases Nat.eq_zero_or_pos (aInv q p % p) with h0 | h
     · rw [h0, Nat.zero_mul, zero_mod] at hqiq; exact absurd hqiq (by decide)
     · exact h
+  have hnpi : ¬ p ∣ (aInv q p % p) := fun hd =>
+    absurd hqilt (Nat.not_lt.mpr (le_of_dvd_pos p (aInv q p % p) hqipos hd))
   have hD : chiOmega p m x (aInv q p % p) = conj (chiOmega p m x q) := by
     have hmul : chiOmega p m x (aInv q p % p) * chiOmega p m x q = ofInt 1 := by
-      rw [chiOmega_mul hp hp3 hpr h3m hdn hω hx hqipos hqilt hq1 hqlt, hqiq]
+      rw [chiOmega_mul_gen hp hp3 hpr h3m hdn hω hx hnpi hnpq, hqiq]
       exact chiOmega_one p m x hp
     calc chiOmega p m x (aInv q p % p)
         = chiOmega p m x (aInv q p % p) * ofInt 1 := (mul_one _).symm
       _ = chiOmega p m x (aInv q p % p) * (chiOmega p m x q * conj (chiOmega p m x q)) := by
-          rw [chiOmega_mul_conj p m x q (chiOmega_ne_zero p m x q hq1 hqlt)]
+          rw [chiOmega_mul_conj p m x q (chiOmega_ne_zero_gen p m x q hp hnpq)]
       _ = chiOmega p m x (aInv q p % p) * chiOmega p m x q * conj (chiOmega p m x q) :=
           (mul_assoc _ _ _).symm
       _ = ofInt 1 * conj (chiOmega p m x q) := by rw [hmul]
@@ -303,11 +315,11 @@ theorem gauss_pow_modEq_char_factored {d : ZOmega} {p m x pr : Nat} (hp : 1 < p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
     (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
     (hpr1 : 1 < pr) (hpr3 : pr % 3 = 1) (hprr : ∀ e, e ∣ pr → e = 1 ∨ e = pr)
-    (hcop : gcd213 pr p = 1) (hprpos : 0 < pr) (hprlt : pr < p) {k : Nat} (hk1 : 0 < k) (hklt : k < p) :
+    (hcop : gcd213 pr p = 1) {k : Nat} (hk1 : 0 < k) (hklt : k < p) :
     ModEq (ofInt ((pr : Nat) : Int)) (convPow p (gauss p m x) pr k)
       (conj (chiOmega p m x pr) * chiOmega p m x k) := by
   have h := gauss_pow_modEq_char_reindexed p m x pr hp hpr1 hpr3 hprr hcop hklt
-  rwa [char_reindex_split hp hp3 hpr h3m hdn hω hx hcop hprpos hprlt hk1 hklt] at h
+  rwa [char_reindex_split hp hp3 hpr h3m hdn hω hx hcop hk1 hklt] at h
 
 /-! ## Bridging the Frobenius RHS `g(χ̄)` to the norm factor `gaussConj` -/
 
