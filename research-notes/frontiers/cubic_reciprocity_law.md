@@ -129,10 +129,13 @@ mod-`q` reduction + Frobenius is the genuinely new part).
       `EisensteinConvBasis.scaledBasisPow_eq`: `(c·e_t)^{⋆q}(k) = c^q·e_{(t·q)%p}(k)` (`t,k<p`),
       combining `convPow_scalar` + `basisPow_eq`.  With `c = χ(t)` this is the per-`t` Gauss-sum
       Frobenius term `(χ(t)·e_t)^{⋆q}(k) = χ(t)^q·e_{tq%p}(k)`.
-      **Next (B2e.8):** `gauss = Σ_t χ(t)·e_t` coefficient-wise (`gauss i = Σ_t χ(t)·basis t i`,
-      `sum_single`) + `convPow_congr` (power respects agreement on `[0,p)`) to feed
-      `convPow_sum_modEq_prime`; then `χ(t)^q = χ̄(t)` (μ₃ + `q≡2 mod 3`) and the `tq`-reindex to
-      assemble `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.
+    - **B2e.8 — DONE** (∅-axiom, **PURE**): `EisensteinConvPow.convPow_congr` (the `⋆`-power respects
+      agreement on `[0,p)`, induction via `conv_congr`) and `EisensteinConvBasis.gauss_eq_sum_basis`
+      (`g(χ)(i) = Σ_{t<p} χ(t)·e_t(i)` for `i<p`, via `sum_single`) — rewriting `gauss = Σ_t χ(t)·e_t`,
+      the form `convPow_sum_modEq_prime` consumes.
+      **Next (B2e.9):** chain `gauss_eq_sum_basis` (under `convPow_congr`) → `convPow_sum_modEq_prime`
+      → `scaledBasisPow_eq` to get `g^{⋆q}(k) ≡ Σ_t χ(t)^q·e_{tq%p}(k) (mod q)`; then `χ(t)^q = χ̄(t)`
+      (μ₃ + `q≡2 mod 3`) and the `t↦tq%p` reindex to assemble `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.
     The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
     **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
     + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution

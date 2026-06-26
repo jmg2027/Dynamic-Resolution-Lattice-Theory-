@@ -74,6 +74,17 @@ theorem convPow_one (p : Nat) (f : Nat → ZOmega) {k : Nat} (hk : k < p) :
   rw [convPow_succ, convPow_zero]
   exact convOne_left p f hk
 
+/-- ★★★★ **The convolution power respects agreement on `[0,p)`** — if `f i = f' i` for all `i < p`,
+    then `f^{⋆q}(k) = f'^{⋆q}(k)` for `k < p`.  By induction on `q` via `conv_congr`.  Lets a base
+    function be swapped for any `[0,p)`-equal representative inside a `⋆`-power.  ∅-axiom. -/
+theorem convPow_congr (p : Nat) {f f' : Nat → ZOmega} (hp : 0 < p)
+    (hff : ∀ i, i < p → f i = f' i) :
+    ∀ (q : Nat) {k : Nat}, k < p → convPow p f q k = convPow p f' q k
+  | 0, _, _ => rfl
+  | q + 1, k, hk => by
+      rw [convPow_succ, convPow_succ]
+      exact conv_congr p k hp (fun i hi => convPow_congr p hp hff q hi) (fun i hi => hff i hi)
+
 /-! ## Convolution is linear over finite sums of group-ring elements (toward the binomial theorem) -/
 
 /-- `(0 ⋆ g)(k) = 0` — convolution by the zero element. -/
