@@ -14,7 +14,8 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
 
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega
-open E213.Meta.Algebra213.Ring213 (add_assoc add_comm add_zero zero_add add_4_swap_mid mul_add mul_zero)
+open E213.Meta.Algebra213.Ring213
+  (add_assoc add_comm add_zero zero_add add_4_swap_mid mul_add mul_zero)
 
 /-- `Σ_{k=0}^{n-1} f k` (left fold, `n = 0` empty). -/
 def sumRange (f : Nat → ZOmega) : Nat → ZOmega
@@ -57,5 +58,27 @@ theorem sum_congr {f g : Nat → ZOmega} (n : Nat) (h : ∀ k, k < n → f k = g
   | succ n ih =>
       rw [sumRange_succ, sumRange_succ, ih (fun k hk => h k (Nat.lt_succ_of_lt hk)),
           h n (Nat.lt_succ_self n)]
+
+/-- ★★★★ **Single-nonzero-index extraction** — if `f i = 0` for every `i < n` with `i ≠ i₀`
+    (and `i₀ < n`), then `Σ_{i<n} f i = f i₀`.  Induction on `n`, splitting `i₀ = n` (the rest of the
+    sum vanishes) vs `i₀ < n` (the top term vanishes).  The coefficient-reading primitive for the group
+    ring: convolution against a basis vector `e_{i₀}` reads off the `i₀`-coefficient.  ∅-axiom. -/
+theorem sum_single : ∀ (n i₀ : Nat), i₀ < n → ∀ (f : Nat → ZOmega),
+    (∀ i, i < n → i ≠ i₀ → f i = 0) → sumRange f n = f i₀
+  | 0, i₀, hi0, _, _ => absurd hi0 (Nat.not_lt_zero i₀)
+  | n + 1, i₀, hi0, f, h => by
+      rw [sumRange_succ]
+      rcases Nat.lt_or_eq_of_le (Nat.le_of_lt_succ hi0) with hlt | heq
+      · -- i₀ < n : the top term f n vanishes, recurse on [0,n)
+        have hfn : f n = 0 := h n (Nat.lt_succ_self n) (Nat.ne_of_lt hlt).symm
+        have hrec : sumRange f n = f i₀ :=
+          sum_single n i₀ hlt f (fun i hi hne => h i (Nat.lt_succ_of_lt hi) hne)
+        rw [hrec, hfn, add_zero]
+      · -- i₀ = n : the lower sum vanishes
+        have hz : sumRange f n = 0 := by
+          rw [sum_congr n (fun i hi => h i (Nat.lt_succ_of_lt hi)
+                (by rw [heq]; exact Nat.ne_of_lt hi))]
+          exact sum_zero_fun n
+        rw [hz, zero_add, heq]
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
