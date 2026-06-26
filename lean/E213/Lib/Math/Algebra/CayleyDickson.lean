@@ -122,6 +122,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinInertCube
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicReciprocity
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitFermat
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharSumRange
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinYfunGauss
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBinomial
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvFreshman

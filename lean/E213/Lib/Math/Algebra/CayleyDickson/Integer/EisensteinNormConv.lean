@@ -44,7 +44,7 @@ def Yfun (p k : Nat) : ZOmega := if k = 0 then ofInt (((p - 1 : Nat)) : Int) els
 def Bfun (p k : Nat) : ZOmega := if k = 0 then ofInt ((p : Nat) : Int) else 0
 
 /-- `Bfun p 0 = ofInt ↑p`. -/
-private theorem Bfun_zero {p : Nat} : Bfun p 0 = ofInt ((p : Nat) : Int) := by
+theorem Bfun_zero {p : Nat} : Bfun p 0 = ofInt ((p : Nat) : Int) := by
   unfold Bfun; rw [if_pos rfl]
 
 /-- Pure `i < k ⟹ 0 < k − i`. -/
@@ -60,7 +60,7 @@ theorem sum_ones : ∀ n : Nat, sumRange (fun _ => ofInt 1) n = ofInt ((n : Nat)
       rfl
 
 /-- The decomposition `Yfun p k = ofInt(−1) + Bfun p k` (pointwise; `1 ≤ p`). -/
-private theorem Y_decomp {p : Nat} (hp1 : 1 ≤ p) (k : Nat) :
+theorem Y_decomp {p : Nat} (hp1 : 1 ≤ p) (k : Nat) :
     Yfun p k = ofInt (-1) + Bfun p k := by
   unfold Yfun Bfun
   by_cases hk : k = 0
