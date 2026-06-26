@@ -99,6 +99,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussJacobiTerm
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussJacobi
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvComm
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvAssocIndex
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvAssoc
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
