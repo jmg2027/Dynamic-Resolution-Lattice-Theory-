@@ -51,18 +51,27 @@ residue-symbol layer fell:
 
 5. **`EisensteinCubicReciprocity`** — the capstone above.
 
+## Also done — primary normalisation purified + symbol packaged as `∃!`
+
+- **`jacobi_primary` / `exists_unique_primary` are now PURE** (were propext-dirty).  The leak was the
+  Lean-core `Int`-`∣` `decide`; replaced with a ℕ-side `beq` reflection toolkit in `EisensteinPrimary`
+  (`dvd3_true`/`dvd3_false`/`isPrimary_of`/`not_isPrimary_{re,im}`, all PURE).  Also fixed an
+  `Int.mul_sub` (propext) → `ring_intZ` calc in `jacobi_primary`.  **The transfer's first blocker is
+  cleared.**
+- **`cubic_residue_symbol_well_defined`**: the residue symbol is the *unique* μ₃ value `≡ J^{(q²−1)/3}`,
+  namely `χ(q)` (explicit `∃`-unique form; `∃!` notation is Mathlib-only, unavailable here).
+
 ## Remaining work — the `π ↔ π'` transfer (the last frontier)
 
 `cubic_reciprocity_law` gives the **symbol identity** `(π/q)₃ = χ(q)` for `q` a *rational* prime
 `≡ 2 (mod 3)`.  The fully symmetric statement `(π/π')₃ = (π'/π)₃` between two *Eisenstein* primes is the
-remaining leg:
-- **Purify `jacobi_primary`** (`EisensteinPrimary.exists_unique_primary`, the `J = π` normalisation):
-  it carries `propext` (buried in a `decide`-heavy case-bash).  Must be PURE before it enters the law.
-- **Run the congruence with `π, π'` swapped** and compare the two `μ₃` symbols, using the primary
-  normalisation to kill the unit ambiguity, to land `(π/π')₃ = (π'/π)₃`.
-- Optional: package `(π/q)₃` as a *defined* symbol `z^{(q²−1)/3} in 𝔽_{q²}` and prove the
-  multiplicativity/value laws against it (currently the symbol is "the unique `μ₃` value congruent to
-  the power", via `cubic_reciprocity_law` (3)).
+remaining leg — and it is a **large parallel development**, not a quick swap:
+- The current arc analyses the Gauss sum **modulo a rational inert prime `q`** (Frobenius = `q`-power,
+  `ℤ[ω]/(q) ≅ 𝔽_{q²}`).  For a second *Eisenstein* prime `π'` of norm `p' ≡ 1 (mod 3)` (split), the
+  analysis is **modulo `π'`** (Frobenius = `p'`-power, `ℤ[ω]/(π') ≅ 𝔽_{p'}`) — a parallel of the entire
+  B2e Gauss-sum-Frobenius arc for the **split** case.
+- With both symbol identities in hand, compare using the primary normalisation (`jacobi_primary`, now
+  PURE) to kill the unit ambiguity ⟹ `(π/π')₃ = (π'/π)₃`.
 
 Reference: Ireland–Rosen ch. 9.
 
