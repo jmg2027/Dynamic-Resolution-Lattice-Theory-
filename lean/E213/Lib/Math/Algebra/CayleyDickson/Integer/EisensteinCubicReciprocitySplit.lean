@@ -62,6 +62,26 @@ theorem split_conj_residue_relation_B {d d₂ : ZOmega} {p m x pr m₂ x₂ : Na
     hpr1 hpr3 hprr h3m₂ hm1₂ hdn₂ hω₂ hx₂ hp3mod hpr hcop hp hne hdn hω hs
   rwa [hsB] at hB
 
+/-- ★★★★★ **The μ₃ reciprocity algebra** — the finite-group step that closes the cross-modulus synthesis.
+    For cube roots of unity `A, S, C, E` with the two symmetric relations
+
+      `C = conj E · A²`   and   `E = conj C · S²`,
+
+    necessarily `A = S`.  (Mathematically: `conj E = C·S` from the second relation — `conj(S²)=S` for μ₃ —
+    so `C = C·S·A²`, cancel `C`, and `S·A² = 1` gives `S = A^{-2} = A`.)  A finite check over the `3⁴`
+    literal assignments — contradictory assignments killed by `hI`/`hII`, the rest forced to `A = S`.
+    ∅-axiom (PURE; `decide` on ℤ[ω] literals). -/
+theorem mu3_reciprocity_algebra {A S C E : ZOmega}
+    (hA : A = ofInt 1 ∨ A = Omega ∨ A = Omega2) (hS : S = ofInt 1 ∨ S = Omega ∨ S = Omega2)
+    (hC : C = ofInt 1 ∨ C = Omega ∨ C = Omega2) (hE : E = ofInt 1 ∨ E = Omega ∨ E = Omega2)
+    (hI : C = conj E * (A * A)) (hII : E = conj C * (S * S)) : A = S := by
+  rcases hA with rfl | rfl | rfl <;> rcases hS with rfl | rfl | rfl <;>
+    rcases hC with rfl | rfl | rfl <;> rcases hE with rfl | rfl | rfl <;>
+    first
+      | rfl
+      | (exact absurd hI (by decide))
+      | (exact absurd hII (by decide))
+
 /-- ★★★★★ **Relation B's residue symbol is μ₃-valued (mod `d = π`).**  `(π'/π)₃ := J₂^m mod d` is one of
     `1, ω, ω²` — the swapped instantiation of `split_residue_symbol_exists` (second prime as character
     data, first prime `d` as modulus).  Gives `(π'/π)₃` as a well-defined cube root of unity, the mirror
