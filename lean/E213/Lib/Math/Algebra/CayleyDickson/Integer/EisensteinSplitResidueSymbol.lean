@@ -2,6 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitFermat
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrime
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNormLaw
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitReciprocity
 
 /-!
 # The split residue symbol `(π/π')₃ = J^{s+1}` is μ₃-valued (∅-axiom)
@@ -33,7 +34,13 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitFermat (split_fe
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd (ofInt_one_mul)
 open E213.Lib.Math.NumberTheory.PolyRoot (int_dvd_to_nat)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (pow pow_succ)
-open E213.Meta.Algebra213.Ring213 (add_mul neg_mul add_zero)
+open E213.Meta.Algebra213.Ring213 (add_mul neg_mul add_zero mul_assoc)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (conj mul_comm)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (mul_right trans symm)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar (pow_add)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitReciprocity (split_reciprocity_congr_pi)
+open E213.Tactic.NatHelper (gcd213)
 
 /-- **Right cancellation in `𝔽_{p'} = ℤ[ω]/(π')`** — `α·γ ≡ β·γ (mod π')` with `γ ≢ 0` and `‖π'‖² = pr`
     prime forces `α ≡ β (mod π')`.  `(α−β)·γ ≡ 0` + `residue_no_zero_divisors` + `γ ≢ 0`.  ∅-axiom. -/
@@ -90,5 +97,43 @@ theorem split_residue_cube_one {d : ZOmega} {p m x pr s : Nat} {π' : ZOmega} (h
   have hJ1 : ModEq π' (pow (jacobiSum p m x) (3 * (s + 1)) * jacobiSum p m x)
       (ofInt 1 * jacobiSum p m x) := by rwa [ofInt_one_mul]
   exact modEq_cancel_right hprr hpr1 hπ'norm hJne hJ1
+
+/-- ★★★★★ **The conjugate-symbol relation** — for an Eisenstein prime `π'` of norm `pr = 3(s+1)+1`
+    (`ω ≡ x' mod π'`), `1 < pr < p`, a unit mod `p`:
+
+      `J̄^{s+1} ≡ χ̄(pr) · J^{s+1}   (mod π')`        (`J̄ = conj J`).
+
+    Multiply the all-Eisenstein congruence `J^{2(s+1)}·J̄^{s+1} ≡ χ̄(pr)` (`split_reciprocity_congr_pi`)
+    by `J^{s+1}` and collapse `J^{3(s+1)} ≡ 1` (`split_residue_cube_one`).  In symbol form
+    `(π̄/π')₃ = χ̄(pr)·(π/π')₃` — relating the residue symbols of `π` and its conjugate `π̄` at `π'`
+    through the rational character of `N(π')`.  The `J̄`-elimination done **without** an inert-style
+    Frobenius (which fails for split `π'`).  ∅-axiom (PURE). -/
+theorem split_conj_residue_relation {d : ZOmega} {p m x pr s : Nat} {π' : ZOmega} (hp : 1 < p)
+    (hp3 : 3 < p) (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hpr3 : pr % 3 = 1) (hprr : ∀ k, k ∣ pr → k = 1 ∨ k = pr)
+    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hprlt : pr < p)
+    (hπ'norm : π'.normSq = (pr : Int)) {x' : Int} (hπ'ω : ModEq π' Omega (ofInt x'))
+    (hs : pr = 3 * (s + 1) + 1) :
+    ModEq π' (pow (conj (jacobiSum p m x)) (s + 1))
+      (conj (chiOmega p m x pr) * pow (jacobiSum p m x) (s + 1)) := by
+  have hA := split_reciprocity_congr_pi hp hp3 hpr h3m hm1 hdn hω hx hpr3 hprr hcop hpr1 hprlt hs
+    hπ'norm
+  have hB := split_residue_cube_one hp hp3 hpr h3m hm1 hdn hω hx hprr hpr1 hprlt hπ'norm hπ'ω hs
+  -- multiply (A) by J^{s+1}, rearrange `J^{2(s+1)}·J̄^{s+1}·J^{s+1} = J^{3(s+1)}·J̄^{s+1}`
+  have hA' := mul_right hA (pow (jacobiSum p m x) (s + 1))
+  have hrearr : pow (jacobiSum p m x) (2 * (s + 1)) * pow (conj (jacobiSum p m x)) (s + 1)
+        * pow (jacobiSum p m x) (s + 1)
+      = pow (jacobiSum p m x) (3 * (s + 1)) * pow (conj (jacobiSum p m x)) (s + 1) := by
+    rw [mul_assoc, mul_comm (pow (conj (jacobiSum p m x)) (s + 1)) (pow (jacobiSum p m x) (s + 1)),
+        ← mul_assoc, ← pow_add (jacobiSum p m x) (2 * (s + 1)) (s + 1),
+        show 2 * (s + 1) + (s + 1) = 3 * (s + 1) from (Nat.succ_mul 2 (s + 1)).symm]
+  rw [hrearr] at hA'
+  -- collapse `J^{3(s+1)} ≡ 1`, giving `J^{3(s+1)}·J̄^{s+1} ≡ J̄^{s+1}`
+  have hC : ModEq π' (pow (jacobiSum p m x) (3 * (s + 1)) * pow (conj (jacobiSum p m x)) (s + 1))
+      (pow (conj (jacobiSum p m x)) (s + 1)) := by
+    have hb := mul_right hB (pow (conj (jacobiSum p m x)) (s + 1))
+    rwa [ofInt_one_mul] at hb
+  exact trans (symm hC) hA'
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitResidueSymbol
