@@ -9,7 +9,7 @@ These are the **first non-trivial witnesses** for the
 `Meta.SelfRecognising` axiom-game.  Each cluster has shape
 (carrier · arithmetic · domain · instance · hom).
 
-## Files (70)
+## Files (131)
 
 ### ZI = ℤ[i] (Gaussian integers)
   - `ZI.lean`           — type + arithmetic
@@ -56,8 +56,10 @@ These are the **first non-trivial witnesses** for the
     (the split-prime descent's load-bearing inequality)
 
   **Cubic / Eisenstein reciprocity — the cubic character `(·/d)₃ = α^m`** (`d` a norm-`p` prime,
-  `p ≡ 1 mod 3`, `m = (p−1)/3`).  Complete cubic-character theory + Jacobi-sum substrate; the
-  reciprocity *law* itself is the open frontier.
+  `p ≡ 1 mod 3`, `m = (p−1)/3`).  Complete cubic-character theory + Jacobi-sum substrate.  The
+  reciprocity *law* is largely built: the **inert law is complete** (`(π/q)₃ = χ(q)` for rational
+  `q ≡ 2 mod 3`) and the **split-split law has both halves** built; only the cross-modulus synthesis
+  is open (`research-notes/frontiers/cubic_reciprocity_law.md`).
   - `CubeRootsOfUnity.lean` — value group `μ₃ = {1,ω,ω²}` (`x³=1 ⟺ x∈μ₃`)
   - `EisensteinCongruence.lean` / `EisensteinResidue.lean` / `EisensteinResiduePrime.lean` —
     `α≡β (mod π)`, the reduction `ℤ[ω]/(d)=ℤ`-image, the residue prime for `p≡1 mod 3`
@@ -70,6 +72,24 @@ These are the **first non-trivial witnesses** for the
   - `EisensteinCubicCharOmega.lean` / `EisensteinCubicCharConj.lean` — supplementary laws `(ω/d)₃`, `(ᾱ/d)₃`
   - `EisensteinFiniteSum.lean` / `EisensteinCharOrthogonality.lean` / `EisensteinCubicCharFunction.lean` —
     Jacobi-sum substrate: `Σ_{k<n} f k`, `Σ_{j<3k} ωʲ = 0`, the character homomorphism `χ̂(i)=ωⁱ`
+
+  **The reciprocity law (Phase B, ∅-axiom PURE)** — Gauss-sum Frobenius → residue-symbol assembly.
+  - `EisensteinConvGaussFrobenius.lean` / `EisensteinConvGaussReindex.lean` — the Gauss-sum Frobenius
+    `g(χ)^{⋆q}(k) ≡ χ(q)·χ̄(k) (mod q)` (inert) and `≡ χ̄(pr)·χ(k) (mod pr)` (split), via the `t↦tq%p` reindex
+  - `EisensteinIntFermat.lean` / `EisensteinFrobeniusConj.lean` — ℤ-Fermat; `conj z ≡ z^q (mod q)` =
+    `q`-power Frobenius on `ℤ[ω]/(q) ≅ 𝔽_{q²}` (inert), and `z^{q²} ≡ z`
+  - `EisensteinMu3Lift.lean` — `X ≡ Y (mod q), X,Y ∈ μ₃ ⟹ X = Y` (distinct cube roots stay distinct)
+  - `EisensteinInertForm.lean` / `EisensteinInertPrime.lean` / `EisensteinInertCube.lean` — a rational
+    prime `q ≡ 2 mod 3` is prime in `ℤ[ω]` (`𝔽_{q²}` field); cube roots of unity there are `{1,ω,ω²}`
+  - `EisensteinCubicReciprocity.lean` — ★ **the inert law** `(π/q)₃ = χ(q)`, the residue symbol as a
+    unique μ₃ value (`cubic_reciprocity_law`, `cubic_residue_symbol_well_defined`)
+  - `EisensteinSplitFermat.lean` / `EisensteinCharSumRange.lean` / `EisensteinYfunGauss.lean` — split-prime
+    `𝔽_{p'}` Fermat `z^{pr} ≡ z (mod π')`; `Σχ = 0`; `Yfun ⋆ g = p·g`
+  - `EisensteinSplitCube.lean` / `EisensteinSplitReciprocity.lean` — `g^{⋆pr} = J^{s+1}·p^{s+1}·g`;
+    `J^{2(s+1)}·J̄^{s+1} ≡ χ̄(pr)` (all-Eisenstein) and its descent to `mod π'`
+  - `EisensteinSplitResidueSymbol.lean` — ★ `(π/π')₃ = J^{s+1}` μ₃-valued; **`J̄^{s+1} ≡ χ̄(pr)·J^{s+1}
+    (mod π')`** (the mod-`π'` half)
+  - `EisensteinCharNormSplit.lean` — ★ **`χ_ω(N(π')) ≡ (π'/π)₃·(π̄'/π)₃ (mod d)`** (the mod-`d` half)
 
 ### ZSqrt = ℤ[√D] (parametric family)
   - `ZSqrt.lean`              — generic carrier
