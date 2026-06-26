@@ -171,14 +171,19 @@ also a nontrivial cubic char) ⟹ `Y⋆Y = (g²)⋆(ḡ²) = |J|²·Y`.  Compari
     `conv_four_swap` (`EisensteinConvFourSwap`: `(a⋆b)²=(a⋆a)⋆(b⋆b)`), and **`gg_gbgb_eq`**
     (`EisensteinGaussNormSq`): **`(g⋆g)⋆(ḡ⋆ḡ)(k) = ofInt(↑p)·Yfun p k`** for `k<p` (via reassoc +
     `gauss_conj_eq_Yfun` + `Yfun_conv`).  The structural core of `N(J)=p` is DONE.
-  - **5d-rem (character side — the remaining mechanical phase)** to read `|J|²=p` off `gg_gbgb_eq`:
-    1. **5b-rem** `(g⋆g)(0)=0` (needs `Σ_{i∈tot}χ_ω(i)²=0`, χ²-orthogonality via `scale_fixed_eq_zero`
-       + `chiOmega_mul` for χ² multiplicativity) → `g⋆g = J·G₂` as a *full* coeff fn (`G₂(i)=χ_ω(i)²`).
-    2. **conjugate Gauss–Jacobi** `ḡ⋆ḡ = J̄·conj G₂` — `(ḡ⋆ḡ)(k)=conj((g⋆g)((p−k)%p))` (conj is a
-       ring hom; one reflection lemma), then `J̄=conj J`.
-    3. **5c** `G₂ ⋆ conj G₂ = Yfun` — the norm of the χ² Gauss sum (χ² is also a nontrivial cubic
-       char; reuse the `gauss_conj_norm` shape).  So `(g⋆g)⋆(ḡ⋆ḡ) = |J|²·(G₂⋆conjG₂) = |J|²·Yfun`.
-    4. with `gg_gbgb_eq` (`=p·Yfun`): `|J|²·Yfun = p·Yfun`; read `e_1` (`Yfun 1=−1≠0`) ⟹ **`N(J)=p`**.
+  - **5b ✓ FULLY COMPLETE** — `Integer/EisensteinCubicCharSq` (`conj_chiOmega_eq_sq`: `conj χ=χ²`;
+    **`chiOmega_sq_orth`**: `Σ_{tot}χ_ω(i)²=0` via conjugation of `χ`-orthogonality),
+    `Integer/EisensteinGaussSqZero` (`gauss_sq_zero`: `(g⋆g)(0)=0` via `χ((p−i)%p)=χ(i)` [`p−1` a cube,
+    `χ(p−1)=1`] + χ²-orth; **`gauss_sq_full`: `(g⋆g)(n)=jacobiSum·χ_ω(n)²` for ALL `n<p`**).
+    **The full Gauss–Jacobi relation `g(χ)²=J·g(χ²)` is DONE.**
+  - **5d-rem (conjugate side + extraction — the final phase)** to read `|J|²=p` off `gg_gbgb_eq`:
+    1. **conjugate convolution** `(ḡ⋆ḡ)(k)=conj((g⋆g)((p−k)%p))` (reflection reindex `i↦(p−i)%p` +
+       `conj_mul`/`conj_listSum`; one index identity).  Then via `gauss_sq_full`+`conj`: `ḡ⋆ḡ = J̄·conjG₂`.
+    2. **factor**: `(g⋆g)⋆(ḡ⋆ḡ)` — rewrite `g⋆g=J·G₂` (conv_congr+`gauss_sq_full`), pull `J` out
+       (`conv_scalar_left`), likewise `J̄` ⟹ `= |J|²·(G₂⋆conjG₂)`.  (`G₂(i)=χ_ω(i)²`, `|J|²=J·conj J`.)
+    3. **5c** `G₂⋆conjG₂ = Yfun` — norm of the χ² Gauss sum (χ² also a nontrivial cubic char; reuse
+       `gauss_conj_norm` shape).  So `(g⋆g)⋆(ḡ⋆ḡ)=|J|²·Yfun`; with `gg_gbgb_eq` (`=p·Yfun`):
+       `|J|²·Yfun=p·Yfun`; read `e_1` (`Yfun 1=−1≠0`) ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
