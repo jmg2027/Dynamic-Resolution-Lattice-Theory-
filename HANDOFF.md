@@ -8,9 +8,9 @@ external axiom / 0 native_decide / 0 Classical / 0 Mathlib.
 
 ## What Was Done This Session
 
-Continued the cubic-reciprocity Phase B (Open Problem 1 from the prior handoff): **the Gauss-sum
-Frobenius congruence `g(χ)^{⋆q} ≡ … (mod q)` — assembled to one step short of closed form** (the
-`t↦tq%p` reindex).  Three new ∅-axiom theorems, all building cleanly:
+Continued the cubic-reciprocity Phase B (Open Problem 1 from the prior handoff): **the cubic Gauss-sum
+Frobenius congruence `g(χ)^{⋆q}(k) ≡ χ(q)·χ̄(k) (mod q)` is now COMPLETE** — assembled and the `t↦tq%p`
+reindex closed.  Five new ∅-axiom theorems (+ helpers), all building cleanly:
 
 ### 1. B2e.9 — the Frobenius congruence, first half
 `EisensteinConvGaussFrobenius.gauss_pow_modEq` (propext):
@@ -28,8 +28,19 @@ Case analysis on the four character values `{0,1,ω,ω²}`: `0^q=0` (`q≥1`), `
 ### 3. B2e.10b — the Frobenius congruence up to reindex
 `EisensteinConvGaussFrobenius.gauss_pow_modEq_conj` (propext):
 `g(χ)^{⋆q}(k) ≡ Σ_{t<p} χ̄(t) · e_{(t·q)%p}(k) (mod ofInt q)` for prime `q ≡ 2 (mod 3)`, `k<p`.
-Combines #1 and #2 termwise (`sum_congr` rewriting `χ(t)^q ↦ conj χ(t)`).  This is the Frobenius
-congruence **up to the `t↦tq%p` reindex** — the only step that remains.
+Combines #1 and #2 termwise (`sum_congr` rewriting `χ(t)^q ↦ conj χ(t)`).
+
+### 4. B2e.11 — the `t↦tq%p` reindex, closing the Frobenius congruence
+`EisensteinConvGaussReindex` (propext).  Key: the basis vectors `e_{(tq)%p}` are **indicators**, so at a
+fixed coefficient `k` the sum collapses to the single surviving term — no permutation-sum machinery.
+- `gauss_conj_reindex_collapse`: `Σ_t χ̄(t)·e_{(tq)%p}(k) = χ̄((q⁻¹·k)%p)` (existence by `aInv_spec`
+  /`reindex_idx`, uniqueness by `cancel_unit`, extracted via `sum_single`).
+- `gauss_pow_modEq_reindexed` (collapse): `g(χ)^{⋆q}(k) ≡ χ̄((q⁻¹·k)%p) (mod q)`.
+- `char_conj_reindex_split`: `χ̄((q⁻¹·k)%p) = χ(q)·χ̄(k)` (`chiOmega_mul` + `conj_mul` +
+  `χ(q⁻¹)=conj χ(q)`; helper `chiOmega_one`).
+- **`gauss_pow_modEq_factored`** (closed): **`g(χ)^{⋆q}(k) ≡ χ(q)·χ̄(k) (mod q)`** for prime
+  `q ≡ 2 (mod 3)`, unit mod `p`, unit coefficient `0<k<p` — the classical Frobenius congruence of the
+  cubic Gauss sum (coefficient-wise `g(χ)^{⋆q} ≡ χ(q)·g(χ̄)`).
 
 ## Current Precision Results
 No new physics constants (pure-math arc — cubic / Eisenstein reciprocity).  Physics table in
@@ -37,53 +48,49 @@ No new physics constants (pure-math arc — cubic / Eisenstein reciprocity).  Ph
 
 ## Open Problems (Priority Order)
 
-### 1. B2e.11 — the `t↦tq%p` reindex (closes the Frobenius congruence)
-From `gauss_pow_modEq_conj`: `g(χ)^{⋆q} ≡ Σ_t χ̄(t)·e_{tq%p} (mod q)`.  `q` is invertible mod `p`
-(distinct primes), so `t↦(tq)%p` is a permutation of `[0,p)`.  Reindex `Σ_t χ̄(t)·e_{tq%p} =
-Σ_s χ̄((s·q⁻¹)%p)·e_s`; then `χ̄((s q⁻¹)%p) = χ̄(s)·χ̄(q⁻¹)` (multiplicativity `chiOmega_mul`,
-**already built**) factors out `χ̄(q⁻¹) = χ(q)`, collapsing into **`χ(q)·g(χ̄)`** — the honest closed
-form `g(χ)^{⋆q} ≡ χ(q)·g(χ̄) (mod q)` (note `χ^q = χ̄`, so `g(χ^q)=g(χ̄)`; this is the accurate RHS,
-refining the prior handoff's aspirational "χ̄(q)·g(χ)").
-**Pieces available:** `aInv` (modular inverse), `LPerm`, the `totativeList_inv_lperm` pattern
-(`EisensteinInvPerm`).  **Needs building:** (a) `totativeList_mul_lperm` — `t↦(t·q)%p` permutes the
-totatives (the "permutation-sum reindex under `t↦a·t`" flagged in `chiOmega_mul`/`mu3_sum_zero`
-docstrings; likely parallels the orthogonality sum-zero machinery in `EisensteinCharSumZero`);
-(b) a **`sumRange`↔`listSum`-over-`totativeList` bridge** — the Gauss sum here is `sumRange … p`
-(the `t=0` term has coefficient `χ̄(0)=0`, so it drops), but the permutation machinery is `listSum`
-over `totativeList`; (c) `sumRange`/`listSum` permutation-reindex invariance for `ZOmega`.
+### 1. The cubic reciprocity law `(π/π')₃ = (π'/π)₃` itself — now the on-path target
+The **Gauss-sum Frobenius congruence is COMPLETE** (B2e.11, `gauss_pow_modEq_factored`).  The law's
+proof now assembles two evaluations of `g(χ)^{⋆q}` (for a second rational prime `q ≡ 2 mod 3`):
+- **Frobenius side:** `g(χ)^{⋆q}(k) ≡ χ(q)·χ̄(k) (mod q)` (`gauss_pow_modEq_factored`).
+- **Cube side:** `g(χ)³ = p·J` (`EisensteinGaussCube.gauss_cube`, B1) iterated — `g^{⋆q} = g·(g³)^{(q−1)/3}`
+  needs `q ≡ 1 mod 3` for an integer exponent, OR work with `g^{⋆q}` via `g·g^{q−1}` and the norm
+  `g·ḡ = p`.  Classical route (Ireland–Rosen ch. 9): relate `g(χ)^q` to `g(χ̄)` and use `g(χ)g(χ̄)=±p`
+  to extract the μ₃ comparison, the primary normalisation `jacobi_primary` (`J=π`) killing the unit
+  ambiguity, yielding `(π/π')₃ = (π'/π)₃`.
+**Next bricks:** (a) the second-prime Gauss-sum norm `g(χ)·g(χ̄) ≡ ? (mod q)` linking the two sides;
+(b) the μ₃-value extraction comparing `χ(q)` (Frobenius) with the cube-side residue symbol;
+(c) assemble using `jacobi_primary`.  Frontier note: `research-notes/frontiers/cubic_reciprocity_law.md`
+(roadmap `higher_reciprocity_roadmap.md`).
 
-### 2. The cubic reciprocity law `(π/π')₃ = (π'/π)₃` itself
-After the Frobenius congruence: compute `g^N` two ways (`g³=p·J` from B1; Frobenius from B2e) and
-compare μ₃ values using the primary normalisation (`jacobi_primary`).  Frontier note:
-`research-notes/frontiers/cubic_reciprocity_law.md` (roadmap `higher_reciprocity_roadmap.md`).
-
-### 3. (refactor) one `Frobenius-from-interior-binomial-vanishing` lemma
+### 2. (refactor) one `Frobenius-from-interior-binomial-vanishing` lemma
 The cubic, p-adic (Teichmüller), and prime-counting Frobenius uses are corollaries of
 `prime_dvd_binom` + a binomial theorem over the respective carrier — not yet one Lean lemma.
 Frontier note: `research-notes/frontiers/cubic_reciprocity_crossdomain.md`.
 
 ## Unresolved from This Session
-None attempted-and-failed.  The reindex (B2e.11) was scoped but deferred — it is a self-contained
-combinatorial sub-problem (multiplication permutes totatives + a `sumRange`↔`listSum` bridge), not a
-dead end.
+None.  Open Problem 1 from the prior handoff (the Gauss-sum Frobenius congruence) was **fully closed**
+this session — the `t↦tq%p` reindex turned out to need *no* permutation-sum machinery (the basis
+indicators collapse the sum to a single term at each coefficient).
 
 ## Next
-Build B2e.11 (Open Problem 1): `totativeList_mul_lperm` (multiplication-by-`q` permutes totatives),
-the `sumRange`↔`listSum`/`totativeList` bridge, and the `ZOmega` permutation-reindex, then assemble
-`g(χ)^{⋆q} ≡ χ(q)·g(χ̄) (mod q)` — the closed Frobenius congruence.
+The cubic reciprocity law itself (Open Problem 1 above): assemble the two evaluations of `g(χ)^{⋆q}`
+(Frobenius `gauss_pow_modEq_factored` vs. cube `gauss_cube`), via a second-prime Gauss-sum norm and the
+primary normalisation `jacobi_primary`.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: none (Phase B still open; promotes with the reciprocity law).
+- **Promotions this session**: none (Phase B still open; promotes with the reciprocity law).  The
+  Gauss-sum Frobenius congruence is closed but the *law* (its consumer) is the promotable unit.
 - **Promotion candidates**: none outstanding for this arc.
 - **Active scratchpad**: `research-notes/frontiers/{cubic_reciprocity_law, higher_reciprocity_roadmap,
-  cubic_reciprocity_crossdomain}.md` (B2e.9 / B2e.10a / B2e.10b recorded in `cubic_reciprocity_law.md`).
+  cubic_reciprocity_crossdomain}.md` (B2e.9–B2e.11 recorded in `cubic_reciprocity_law.md`).
 
 ## File Map
 ```
 NEW (Lean):
   lean/.../CayleyDickson/Integer/EisensteinConvGaussFrobenius.lean   ← B2e.9 + B2e.10b (gauss Frobenius)
   lean/.../CayleyDickson/Integer/EisensteinCubicCharPow.lean         ← B2e.10a (χ(t)^q = χ̄(t), PURE)
+  lean/.../CayleyDickson/Integer/EisensteinConvGaussReindex.lean     ← B2e.11 (reindex → factored form)
 MODIFIED:
-  lean/E213/Lib/Math/Algebra/CayleyDickson.lean                     ← aggregator imports (2 new)
-  research-notes/frontiers/cubic_reciprocity_law.md                 ← B2e.9 / B2e.10a / B2e.10b rows
+  lean/E213/Lib/Math/Algebra/CayleyDickson.lean                     ← aggregator imports (3 new)
+  research-notes/frontiers/cubic_reciprocity_law.md                 ← B2e.9–B2e.11 rows
 ```
