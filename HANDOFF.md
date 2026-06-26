@@ -104,7 +104,17 @@ None.  Open Problem 1 from the prior handoff (the Gauss-sum Frobenius congruence
 this session — the `t↦tq%p` reindex turned out to need *no* permutation-sum machinery (the basis
 indicators collapse the sum to a single term at each coefficient).
 
-## Next — the exponent collapse to `(π/q)₃` (precise finishing route, verified on paper)
+## ℤ-Fermat — DONE this session (all PURE)
+`EisensteinIntFermat`: `(↑q) ∣ (a^q − a)` for every `a:Int`, prime `q`, and the lift `ofInt_fermat`
+(`(ofInt a)^q ≡ ofInt a (mod q)`) — **the gate brick for `conj z ≡ z^q`**, all ∅-axiom PURE.  Built via
+the ℤ[ω] freshman routed through `ofInt` (no `Int.induction_on`, no Int mod, no parity case); PURE
+despite Lean-core Int algebra leaking `propext` (routed through `Int213` + `ring_intZ` dvd helpers).
+
+## Next — `conj z ≡ z^q` then the exponent collapse to `(π/q)₃` (precise finishing route)
+**`conj z ≡ z^q (mod q)` is now unblocked** (ℤ-Fermat done; `decomp`, `pow_omega_mod`, freshman all
+PURE).  Assembly: `z = ofInt z.re + ofInt z.im·ω` → freshman → `ofInt_fermat` + `ω^q=ω²` →
+`z^q ≡ ofInt z.re + ofInt z.im·ω² = conj z`.  Caveat: the final component equality needs **explicit
+`Int213` lemmas** (`ring_intZ` can't fold `C0·var`/constant-zero products) — see frontier note.
 The all-Eisenstein congruence `J^{2s+1}·J̄^s ≡ χ(q) (mod q)` collapses to a single power of `J` via the
 **Frobenius on `𝔽_{q²}`** (`q ≡ 2 mod 3` inert, `ℤ[ω]/(q) ≅ 𝔽_{q²}`, conjugation = `q`-power):
 

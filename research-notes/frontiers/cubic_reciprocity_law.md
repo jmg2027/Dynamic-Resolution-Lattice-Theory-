@@ -84,15 +84,22 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
   - **`conj z ≡ z^q (mod q)`** — buildable from `add_pow_modEq_prime` (binary freshman, PURE) +
     `ofInt_pow`/`pow_mul_distrib` + **ℤ-Fermat** `(ofInt a)^q ≡ ofInt a (mod q)` + `ω^q = ω²`
     (`pow_omega_mod`, exact since `q≡2 mod 3`).  `z = ofInt z.re + ofInt z.im·ω`, `conj(a+bω)=a+bω²`.
-  - **ℤ-Fermat is the one foundational sub-project (obstacles found, scoped):** `(↑q) ∣ (a^q − a)` for
-    `a:Int`.  *Blockers:* no `Int.induction_on` (no Mathlib), no PURE 213-native Int `emod`/`ediv`
-    (`Meta/Int213/*` is polynomial-tactic infra, not modular arithmetic).  *Route* — case on the Int
-    constructor (`ofNat`/`negSucc`, the native recursor, no Mathlib): `ofNat n` → `q ∣ (n^q − n)` from
-    Nat `fermat_fixed_point` (`n^q % q = n % q`) + `div_add_mod` (PURE) + the cast `↑(n^q−n)=↑n^q−↑n`
-    (`n ≤ n^q`); `negSucc` (`a = −↑m`) → parity-case `q`: `q` odd ⟹ `(−↑m)^q = −↑(m^q)`, so
-    `a^q − a = −(↑(m^q)−↑m)`; `q = 2` ⟹ `(−↑m)² + ↑m = ↑(m²+m) = ↑(m(m+1))`, even.  Each case PURE; needs
-    a PURE `(−1:Int)^q = −1` for odd `q` (`q=2k+1`, `((−1)²)^k·(−1)`) and the Nat-Fermat→`∣` step
-    `n^q % q = n % q ∧ n ≤ n^q ⟹ q ∣ (n^q−n)`.  ~100 lines, no new axioms.
+  - **ℤ-Fermat — DONE (all PURE)** (`EisensteinIntFermat`): `(↑q) ∣ (a^q − a)` for every `a:Int`, prime
+    `q`.  The expected blockers (no `Int.induction_on`; Lean-core `Int` algebra leaking `propext`) were
+    sidestepped: the proof routes the **binary freshman** `add_pow_modEq_prime` (ℤ[ω], PURE) through
+    `ofInt`, reflected back by `ofIntDvd_reflect`; `pos_fermat` by `ℕ`-induction (freshman at `B=1`); the
+    negative branch needs **no parity case** — `(−A)^q ≡ −A^q` comes from the freshman at `A+(−A)=0`
+    (`neg_pow_modEq`); `int_fermat` cases on the native Int constructor (`ofNat`/`negSucc`).  PURE despite
+    Lean-core leaks: routed through `Int213` (`zero_mul`/`add_neg_cancel`/`zero_add`) + PURE `ring_intZ`
+    for the dvd-witness arithmetic (`dvd_add_p`/`dvd_sub_p`/`dvd_of_dvd_neg_p`).  Lift: **`ofInt_fermat`**
+    `(ofInt a)^q ≡ ofInt a (mod q)`.
+  - **NEXT — `conj z ≡ z^q (mod q)`** (now unblocked, all prerequisites PURE): `z = ofInt z.re +
+    ofInt z.im·ω` (`EisensteinResidue.decomp`); freshman splits `z^q ≡ (ofInt z.re)^q + (ofInt z.im·ω)^q`;
+    `ofInt_fermat` collapses the rational powers; `pow Omega q = ω²` (`pow_omega_mod` + `q%3=2`, exact);
+    so `z^q ≡ ofInt z.re + ofInt z.im·ω² = conj z`.  *Caveat:* the final `conj z = ofInt z.re +
+    ofInt z.im·(ω·ω)` component equality needs **explicit `Int213` lemmas per component** — `ring_intZ`
+    does not fold `C0·var` / `C0·C(−1)` (constant-zero products), so use `zero_mul`/`mul_neg`/`sub_zero`
+    (PURE) on each `.re`/`.im` goal rather than `ring_intZ`.
   - then the exponent identity `2s+1+qs = (q²−1)/3` (Nat arithmetic with `q=3s+2`), and the
     residue-symbol identification `χ(q) = (q/π)₃`.
 
