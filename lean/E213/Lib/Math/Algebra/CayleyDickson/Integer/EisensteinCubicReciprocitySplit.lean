@@ -1,4 +1,5 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitResidueSymbol
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharNormSplit
 
 /-!
 # The split-prime cross-modulus synthesis — relation B by swapped instantiation (∅-axiom)
@@ -31,6 +32,11 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (Omega2)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (pow)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitResidueSymbol
   (split_conj_residue_relation split_residue_symbol_exists)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharNormSplit (chiOmega_eq_eisChar_gen)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNormLaw (jacobi_norm)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDivStep (mul_conj_self)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar (pow_mul_distrib)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (trans)
 open E213.Tactic.NatHelper (gcd213 sub_add_cancel)
 
 /-- ★★★★★ **Relation B — the conjugate-symbol relation for the second prime (mod `d = π`).**
@@ -61,6 +67,31 @@ theorem split_conj_residue_relation_B {d d₂ : ZOmega} {p m x pr m₂ x₂ : Na
     (s := m - 1) (π' := d) (x' := ((x : Nat) : Int))
     hpr1 hpr3 hprr h3m₂ hm1₂ hdn₂ hω₂ hx₂ hp3mod hpr hcop hp hne hdn hω hs
   rwa [hsB] at hB
+
+/-- ★★★★★ **Norm-multiplicativity of the rational character** — `χ_{d₂}(p) ≡ J^{m₂}·(conj J)^{m₂}
+    (mod d₂)`, where `J = jacobiSum p m x` is the (primary) prime of norm `p` and `d₂` is the modulus
+    prime of norm `pr` (character `chiOmega pr m₂ x₂`).  The rational character of `p = N(J)` factors as
+    the product of the residue symbols of `J` and `conj J` at `d₂`:  `χ_{d₂}(p) ≡ pow (ofInt p) m₂`
+    (`chiOmega_eq_eisChar_gen`, `¬ pr ∣ p`) `= pow (J·conj J) m₂` (`ofInt p = J·conj J` via `jacobi_norm`
+    + `mul_conj_self`) `= J^{m₂}·(conj J)^{m₂}` (`pow_mul_distrib`).  Brick 8 of the synthesis.
+    ∅-axiom (PURE). -/
+theorem char_norm_mult {d d₂ : ZOmega} {p m x pr m₂ x₂ : Nat}
+    (hp : 1 < p) (hp3 : 3 < p) (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hpr1 : 1 < pr) (hprr : ∀ k, k ∣ pr → k = 1 ∨ k = pr)
+    (h3m₂ : 3 * m₂ = pr - 1) (hdn₂ : d₂.normSq = (pr : Int))
+    (hω₂ : ModEq d₂ Omega (ofInt ((x₂ : Nat) : Int))) (hx₂ : pr ∣ (x₂ * x₂ + x₂ + 1))
+    (hnprp : ¬ pr ∣ p) :
+    ModEq d₂ (chiOmega pr m₂ x₂ p)
+      (pow (jacobiSum p m x) m₂ * pow (conj (jacobiSum p m x)) m₂) := by
+  have hofp : jacobiSum p m x * conj (jacobiSum p m x) = ofInt ((p : Nat) : Int) := by
+    rw [mul_conj_self, jacobi_norm hp hp3 hpr h3m hm1 hdn hω hx]
+  have hpow : pow (ofInt ((p : Nat) : Int)) m₂
+      = pow (jacobiSum p m x) m₂ * pow (conj (jacobiSum p m x)) m₂ := by
+    rw [← hofp, pow_mul_distrib]
+  have h1 := chiOmega_eq_eisChar_gen (d := d₂) (p := pr) (m := m₂) (x := x₂) (t := p)
+    hpr1 hprr h3m₂ hdn₂ hω₂ hx₂ hnprp
+  rwa [hpow] at h1
 
 /-- ★★★★★ **The μ₃ reciprocity algebra** — the finite-group step that closes the cross-modulus synthesis.
     For cube roots of unity `A, S, C, E` with the two symmetric relations
