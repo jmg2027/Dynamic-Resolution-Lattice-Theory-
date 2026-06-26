@@ -50,3 +50,10 @@ mod-`q` reduction + Frobenius is the genuinely new part).
   `g⋆ḡ`, then `gauss_conj_eq_Yfun`.  No new ring machinery needed — fully reused `gauss_sq_full`
   + the norm `g⋆ḡ`.
 - **B2** the mod-`q` group-ring reduction + the freshman's dream (the new subsystem, step 2).
+  - **B2a — DONE** (∅-axiom, **PURE**): `NumberTheory.BinomPrime.prime_dvd_binom` — `q ∣ binom q t`
+    for a prime `q` and `0 < t < q`, the **crux of Frobenius**.  Via the absorption identity
+    `(n+1)·C(n,k) = (k+1)·C(n+1,k+1)` (`succ_mul_binom`, induction on the Pascal recursion of the
+    213-native `binom`) at `n+1=q, k+1=t`: `t·binom q t = q·binom(q−1)(t−1)`, so `q ∣ t·binom q t`;
+    with `q ∤ t` (`0<t<q`) the Euclid lemma `nat_prime_dvd_mul` gives `q ∣ binom q t`.  Also
+    `binom_zero_right`, `binom_one`.  Next: the binomial theorem `(a+b)^n = Σ_k C(n,k)·a^k·b^{n−k}`
+    in `ℤ[ω]`, then the freshman's dream `(a+b)^q ≡ a^q + b^q (mod q)` (B2b).

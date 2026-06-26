@@ -85,6 +85,7 @@ import E213.Lib.Math.Algebra.Polynomial213
 import E213.Lib.Math.NumberTheory.PrimeDescentObservations
 import E213.Lib.Math.NumberTheory.CastingOutNines
 import E213.Lib.Math.NumberTheory.FourSquareSeed
+import E213.Lib.Math.NumberTheory.BinomPrime
 import E213.Lib.Math.NumberTheory.FourSquare
 import E213.Lib.Math.NumberTheory.PolyRoot.FactorTheorem
 import E213.Lib.Math.NumberTheory.PolyRoot.IntEuclid
