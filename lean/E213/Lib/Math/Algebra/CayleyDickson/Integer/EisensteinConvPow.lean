@@ -29,7 +29,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvAssoc (conv_assoc
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (one one_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
   (sumRange sum_single sum_congr sum_zero_fun)
-open E213.Meta.Algebra213.Ring213 (zero_mul)
+open E213.Meta.Algebra213.Ring213 (zero_mul mul_zero)
 
 /-- The convolution identity `e_0 ∈ R[C_p]` — the basis vector at index `0` (`δ_{i,0}`). -/
 def delta : Nat → ZOmega := fun i => if i = 0 then one else 0
@@ -78,6 +78,13 @@ theorem conv_zero_left (p : Nat) (g : Nat → ZOmega) (k : Nat) :
     conv p (fun _ => (0 : ZOmega)) g k = 0 := by
   show sumRange (fun i => (0 : ZOmega) * g ((k + p - i) % p)) p = 0
   rw [sum_congr p (fun i _ => zero_mul (g ((k + p - i) % p)))]
+  exact sum_zero_fun p
+
+/-- `(f ⋆ 0)(k) = 0` — convolution by the zero element on the right. -/
+theorem conv_zero_right (p : Nat) (f : Nat → ZOmega) (k : Nat) :
+    conv p f (fun _ => (0 : ZOmega)) k = 0 := by
+  show sumRange (fun i => f i * (0 : ZOmega)) p = 0
+  rw [sum_congr p (fun i _ => mul_zero (f i))]
   exact sum_zero_fun p
 
 /-- ★★★★ **Convolution distributes over a finite sum on the left** — for a family `F j` of group-ring

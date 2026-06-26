@@ -21,10 +21,10 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvFreshman
 
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq refl add_compat)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq refl trans add_compat)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
-  (convPow convPow_zero convOne_left convOne_right)
+  (convPow convPow_zero convPow_succ convOne_left convOne_right conv_zero_right)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBinomial (convPow_add_pow)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinBinomial
   (cz cz_zero cz_diag sumRange_succ_bottom)
@@ -102,5 +102,38 @@ theorem convPow_add_pow_modEq_prime (p : Nat) (f g : Nat → ZOmega) (q : Nat) (
         = convPow p f (Q + 1) k + convPow p g (Q + 1) k := by rw [add_zero, add_comm]
     rw [h2] at h1
     exact h1
+
+/-- The zero element to a positive `⋆`-power is `0`: `(fun _ => 0)^{⋆q}(k) = 0` for `q ≥ 1`, `k < p`. -/
+private theorem convPow_zero_fun (p : Nat) {q : Nat} (hq : 1 < q) {k : Nat} (hk : k < p) :
+    convPow p (fun _ => (0 : ZOmega)) q k = 0 := by
+  have hq0 : q ≠ 0 := by intro h; rw [h] at hq; exact absurd hq (by decide)
+  obtain ⟨Q, hQ⟩ := Nat.exists_eq_succ_of_ne_zero hq0
+  rw [hQ, convPow_succ]
+  exact conv_zero_right p (convPow p (fun _ => (0 : ZOmega)) Q) k
+
+/-- ★★★★★ **The convolution multinomial freshman's dream** — the `n`-ary group-ring Frobenius:
+
+      `(Σ_{t<n} X t)^{⋆q}(k) ≡ Σ_{t<n} (X t)^{⋆q}(k)   (mod ofInt q)`   for prime `q`, `k < p`,
+
+    where `Σ_{t<n} X t` is the pointwise sum of the group-ring elements `X t`.  Iterates the binary
+    convolution dream (`convPow_add_pow_modEq_prime`) over the finite sum.  Applied to the Gauss sum
+    `g(χ) = Σ_t χ(t)·e_t`, this is the first half of the Frobenius congruence
+    `g^{⋆q} ≡ Σ_t χ(t)^q·e_t^{⋆q} (mod q)`.  ∅-axiom up to allowed `propext`. -/
+theorem convPow_sum_modEq_prime (p : Nat) (X : Nat → (Nat → ZOmega)) (q : Nat) (hq : 1 < q)
+    (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q) {k : Nat} (hk : k < p) : ∀ n,
+    ModEq (ofInt ((q : Nat) : Int))
+      (convPow p (fun i => sumRange (fun t => X t i) n) q k)
+      (sumRange (fun t => convPow p (X t) q k) n)
+  | 0 => by
+      show ModEq (ofInt ((q : Nat) : Int)) (convPow p (fun _ => (0 : ZOmega)) q k) (0 : ZOmega)
+      rw [convPow_zero_fun p hq hk]; exact refl _ 0
+  | n + 1 => by
+      show ModEq (ofInt ((q : Nat) : Int))
+        (convPow p (fun i => sumRange (fun t => X t i) n + X n i) q k)
+        (sumRange (fun t => convPow p (X t) q k) n + convPow p (X n) q k)
+      exact trans
+        (convPow_add_pow_modEq_prime p (fun i => sumRange (fun t => X t i) n) (X n) q hq hqr hk)
+        (add_compat (convPow_sum_modEq_prime p X q hq hqr hk n)
+          (refl _ (convPow p (X n) q k)))
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvFreshman

@@ -108,9 +108,15 @@ mod-`q` reduction + Frobenius is the genuinely new part).
       (`0<j<q`) are `q`-divisible (`prime_dvd_binom` → `ofInt_dvd` → `dvd_mul_of_dvd_left`), so the
       interior sum `≡ 0` (`dvd_sumRange` + `modEq_zero_of_dvd`).  Reuses the `ℤ[ω]` dvd toolkit from
       `EisensteinFreshman`.  The Frobenius endomorphism of `R[C_p]` mod `q`.
-      **Next (B2e.4):** the multinomial version `(Σ_t x_t)^{⋆q} ≡ Σ_t x_t^{⋆q}` (template:
-      `sum_pow_modEq_prime`), then basis-power `e_t^{⋆q} = e_{tq%p}`, `χ(t)^q = χ̄(t)`, and the
-      `tq` reindex to assemble `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.
+    - **B2e.4 — DONE** (∅-axiom up to allowed `propext`): the **convolution multinomial dream**,
+      `EisensteinConvFreshman.convPow_sum_modEq_prime`:
+      `(Σ_{t<n} X t)^{⋆q}(k) ≡ Σ_{t<n} (X t)^{⋆q}(k) (mod ofInt q)` for prime `q`, `k<p` (pointwise
+      sum of group-ring elements `X t`).  Iterates the binary dream over the finite sum (template:
+      `sum_pow_modEq_prime`); helper `convPow_zero_fun` (`0^{⋆q}=0`) needs `conv_zero_right` (added to
+      `EisensteinConvPow`).  Applied to `g(χ)=Σ_t χ(t)·e_t` this gives
+      `g^{⋆q} ≡ Σ_t χ(t)^q·e_t^{⋆q} (mod q)` — the first half of the Frobenius congruence.
+      **Next (B2e.5):** basis-power `e_t^{⋆q} = e_{tq%p}` (pure convolution), `χ(t)^q = χ̄(t)`
+      (μ₃ + `q≡2 mod 3`), and the `tq` reindex to assemble `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.
     The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
     **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
     + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution
