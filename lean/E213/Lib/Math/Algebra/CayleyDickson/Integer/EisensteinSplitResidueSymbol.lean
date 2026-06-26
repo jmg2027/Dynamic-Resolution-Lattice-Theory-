@@ -40,6 +40,9 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (mul_right trans symm)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar (pow_add)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitReciprocity (split_reciprocity_congr_pi)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharValue (cube_one_value)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (Omega2)
+open E213.Meta.Nat.NatRing213 (three_mul_eq)
 open E213.Tactic.NatHelper (gcd213)
 
 /-- **Right cancellation in `𝔽_{p'} = ℤ[ω]/(π')`** — `α·γ ≡ β·γ (mod π')` with `γ ≢ 0` and `‖π'‖² = pr`
@@ -135,5 +138,26 @@ theorem split_conj_residue_relation {d : ZOmega} {p m x pr s : Nat} {π' : ZOmeg
     have hb := mul_right hB (pow (conj (jacobiSum p m x)) (s + 1))
     rwa [ofInt_one_mul] at hb
   exact trans (symm hC) hA'
+
+/-- ★★★★★ **The split residue symbol lands in `μ₃`** — `(π/π')₃ := J^{s+1} mod π'` is one of `1, ω, ω²`
+    (mod `π'`).  Its cube is `J^{3(s+1)} ≡ 1` (`split_residue_cube_one`), so `cube_one_value` (applied to
+    the split prime `π'`, norm `pr`) reads off the value.  The split analog of `residue_symbol_exists`
+    (inert): the residue symbol exists as a well-defined cube root of unity in `𝔽_{p'} = ℤ[ω]/(π')`.
+    ∅-axiom (PURE). -/
+theorem split_residue_symbol_exists {d : ZOmega} {p m x pr s : Nat} {π' : ZOmega} (hp : 1 < p)
+    (hp3 : 3 < p) (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hprr : ∀ k, k ∣ pr → k = 1 ∨ k = pr) (hpr1 : 1 < pr) (hprne : pr ≠ p)
+    (hπ'norm : π'.normSq = (pr : Int)) {x' : Int} (hπ'ω : ModEq π' Omega (ofInt x'))
+    (hs : pr = 3 * (s + 1) + 1) :
+    ModEq π' (pow (jacobiSum p m x) (s + 1)) (ofInt 1)
+      ∨ ModEq π' (pow (jacobiSum p m x) (s + 1)) Omega
+      ∨ ModEq π' (pow (jacobiSum p m x) (s + 1)) Omega2 := by
+  have hcube0 := split_residue_cube_one hp hp3 hpr h3m hm1 hdn hω hx hprr hpr1 hprne hπ'norm hπ'ω hs
+  have hpow3 : pow (jacobiSum p m x) (3 * (s + 1))
+      = pow (jacobiSum p m x) (s + 1) * pow (jacobiSum p m x) (s + 1) * pow (jacobiSum p m x) (s + 1) := by
+    rw [three_mul_eq (s + 1), pow_add, pow_add]
+  rw [hpow3] at hcube0
+  exact cube_one_value hprr hpr1 hπ'norm hcube0
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitResidueSymbol
