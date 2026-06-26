@@ -70,5 +70,19 @@ mod-`q` reduction + Frobenius is the genuinely new part).
     give `b^q`, `a^q`, and every interior term is `q`-divisible (`ofIntq_dvd_bterm`: `q ∣ binom q t`
     lifts via `ofInt_dvd` to `ofInt q ∣ cz q t`), so the interior sum is `≡ 0` (`dvd_sumRange` +
     `modEq_zero_of_dvd`).  Reusable `ℤ[ω]` dvd toolkit added: `dvd_add`, `dvd_mul_of_dvd_left`,
-    `ofInt_dvd`, `dvd_sumRange` (all PURE).  **Next (B2d):** extend the two-term dream to the
-    multinomial / group-ring Gauss sum, then the Frobenius congruence `g^q ≡ χ̄(q)·g (mod q)`.
+    `ofInt_dvd`, `dvd_sumRange` (all PURE).
+  - **B2d — DONE** (∅-axiom up to allowed `propext`): the **multinomial (`n`-ary) freshman's dream
+    in `ℤ[ω]`**, `EisensteinFreshman.sum_pow_modEq_prime`:
+    `(Σ_{i<n} f i)^q ≡ Σ_{i<n} (f i)^q (mod ofInt q)` for prime `q`.  Iterates the two-term dream
+    over the finite sum (induction on `n`: each `succ` peels `f n`, applies `add_pow_modEq_prime`
+    and the inductive congruence under `+`).  Helper `pow_zero_base_pos`.  This is the
+    **coefficient-ring template** for the on-path target.
+  - **B2e — OPEN (the genuinely new large phase):** the **group-ring (convolution) Frobenius**.
+    The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
+    **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
+    + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution
+    ring): define `convPow`, prove the convolution binomial theorem coefficient-wise (reusing
+    `conv_add`, `conv_scalar_left`, `conv_assoc`, `conv_comm`), then the freshman's dream mod `q`.
+    Then `g^{⋆q} ≡ Σ_t χ(t)^q · e_{tq%p} (mod q)`, `χ(t)^q = χ̄(t)` (μ₃ + `q≡2 mod 3`) and the `tq`
+    reindex give `g^{⋆q} ≡ χ̄(q)·g (mod q)` — the Frobenius congruence.  The `ℤ[ω]` versions above
+    are the faithful template; the convolution versions are the remaining work.

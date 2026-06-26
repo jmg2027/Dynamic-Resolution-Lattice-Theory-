@@ -24,12 +24,12 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFreshman
 
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq refl add_compat)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq refl trans add_compat)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinBinomial
   (cz cz_zero cz_diag bterm add_pow sumRange_succ_bottom)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit (ofInt_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality
-  (pow pow_zero one_mul mul_one)
+  (pow pow_zero pow_succ one_mul mul_one)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
   (sumRange sumRange_zero sumRange_succ)
 open E213.Lib.Physics.Simplex.Counts (binom)
@@ -115,5 +115,32 @@ theorem add_pow_modEq_prime (a b : ZOmega) (q : Nat) (hq : 1 < q)
       rw [add_zero, add_comm]
     rw [h2] at h1
     exact h1
+
+/-- `pow (0 : ZOmega) q = 0` for `q ≥ 1`. -/
+private theorem pow_zero_base_pos {q : Nat} (hq : 1 < q) : pow (0 : ZOmega) q = 0 := by
+  have hq0 : q ≠ 0 := by intro h; rw [h] at hq; exact absurd hq (by decide)
+  obtain ⟨Q, hQ⟩ := Nat.exists_eq_succ_of_ne_zero hq0
+  rw [hQ, pow_succ, mul_zero]
+
+/-- ★★★★★ **The multinomial freshman's dream in `ℤ[ω]`** — the `n`-ary Frobenius:
+
+      `(Σ_{i<n} f i)^q ≡ Σ_{i<n} (f i)^q   (mod ofInt q)`   for prime `q`.
+
+    Iterating the two-term dream (`add_pow_modEq_prime`) over the finite sum: each `succ` step peels
+    `f n` and applies the binary dream plus the inductive congruence under `+`.  The coefficient-ring
+    template for the group-ring (Gauss-sum) Frobenius.  ∅-axiom up to allowed `propext`. -/
+theorem sum_pow_modEq_prime (f : Nat → ZOmega) {q : Nat} (hq : 1 < q)
+    (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q) (n : Nat) :
+    ModEq (ofInt ((q : Nat) : Int)) (pow (sumRange f n) q)
+      (sumRange (fun i => pow (f i) q) n) := by
+  induction n with
+  | zero =>
+      show ModEq (ofInt ((q : Nat) : Int)) (pow (0 : ZOmega) q) (0 : ZOmega)
+      rw [pow_zero_base_pos hq]; exact refl _ 0
+  | succ n ih =>
+      show ModEq (ofInt ((q : Nat) : Int)) (pow (sumRange f n + f n) q)
+        (sumRange (fun i => pow (f i) q) n + pow (f n) q)
+      exact trans (add_pow_modEq_prime (sumRange f n) (f n) q hq hqr)
+        (add_compat ih (refl _ (pow (f n) q)))
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFreshman
