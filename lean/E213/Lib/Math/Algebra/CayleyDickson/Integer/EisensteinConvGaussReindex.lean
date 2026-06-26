@@ -28,7 +28,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBasis (basis)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow (convPow)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss gaussConj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius (gauss_pow_modEq_conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum (sumRange sum_single)
@@ -195,5 +195,25 @@ theorem gauss_pow_modEq_factored_all {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (
     rw [show (aInv q p * 0) % p = 0 from by rw [Nat.mul_zero, Nat.zero_mod], hc0, conj_zero] at hcol
     rwa [hc0, conj_zero, mul_zero]
   · exact gauss_pow_modEq_factored hp hp3 hpr h3m hdn hω hx hq3 hqr hcop hq1 hqlt hkpos hk
+
+/-! ## Bridging the Frobenius RHS `g(χ̄)` to the norm factor `gaussConj` -/
+
+/-- The reflection index is an involution on `[0,p)`: `(p − (p−k)%p) % p = k` for `k < p`. -/
+private theorem refl_idx {p k : Nat} (hp : 0 < p) (hk : k < p) : (p - (p - k) % p) % p = k := by
+  rcases Nat.eq_zero_or_pos k with hk0 | hkpos
+  · subst hk0; rw [Nat.sub_zero, Nat.mod_self, Nat.sub_zero, Nat.mod_self]
+  · rw [Nat.mod_eq_of_lt (Nat.sub_lt hp hkpos), Nat.sub_sub_self (Nat.le_of_lt hk),
+        Nat.mod_eq_of_lt hk]
+
+/-- ★★★★ **The Frobenius RHS is the norm factor, reflected** — `conj χ(k) = gaussConj((p−k)%p)` for
+    `k < p`.  The Frobenius congruence's right factor `g(χ̄)(k) = conj χ(k)` (the **character-conjugate**
+    Gauss sum) and the norm's right factor `gaussConj(j) = conj χ((p−j)%p)` (the **ring-conjugate**)
+    differ only by the reflection `j ↦ (p−j)%p` (an involution, `refl_idx`).  This is the bridge that
+    feeds the Frobenius output `χ(q)·g(χ̄)` into the Gauss-sum norm `g ⋆ gaussConj = Yfun`
+    (`gauss_conj_norm`) for the reciprocity-law assembly.  ∅-axiom up to allowed `propext`. -/
+theorem charConj_eq_gaussConj_reflect (p m x k : Nat) (hp : 0 < p) (hk : k < p) :
+    conj (chiOmega p m x k) = gaussConj p m x ((p - k) % p) := by
+  show conj (chiOmega p m x k) = conj (chiOmega p m x ((p - (p - k) % p) % p))
+  rw [refl_idx hp hk]
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex
