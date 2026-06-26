@@ -147,16 +147,13 @@ And the Gauss–Jacobi relation gives `g²=J·g(χ²)`, `ḡ²=J̄·conj g(χ²)
 also a nontrivial cubic char) ⟹ `Y⋆Y = (g²)⋆(ḡ²) = |J|²·Y`.  Comparing the `e_1`-coefficient
 (`Y_1=−1≠0`): `|J|²·(−1) = p·(−1)`, so **`N(J)=|J|²=p`**.  Bricks:
   - **Infra READY:** `conv_add_left`+`conv_add_right` (conv bilinearity), `sum_single` (read off the
-    `i₀`-coefficient: `f` vanishes off `i₀<n` ⟹ `Σf = f i₀`), `sum_add`/`sum_mul_left`/`sum_congr`.
-  - **5a** `Yfun⋆Yfun = ofInt(↑p)·Yfun` (pure convolution counting; `Yfun k = if k%p=0 then ofInt(p−1)
-    else ofInt(−1)`).  **⚠ funext-trap:** `Yfun = A+B` as *functions* needs `funext` (Quot-backed,
-    FORBIDDEN) — so do NOT use `conv_add_left` on `Yfun` directly.  Instead compute the sum **directly**:
-    `Yfun i = ofInt(−1)+Bfun i` *pointwise* (`Bfun i = if i=0 then ofInt p else 0`), expand the summand
-    `(ofInt(−1)+Bfun i)·(ofInt(−1)+Bfun((n+p−i)%p))` via `mul_add`/`add_mul`, split with `sum_add`, and
-    evaluate the 4 pieces: `Σ ofInt 1 = ofInt ↑p` (`sum_ones`, TODO), two single-point sums via
-    `sum_single` (`= ofInt(−p)`), and `Σ Bfun i·Bfun(..)` via `sum_single` (`= ofInt p·Bfun n`).  Needs
-    `ofInt_mul` (public — only `ofInt_mul'` private in `ZOmegaAlgebra213`; add to `EisensteinResidue`)
-    and `sum_ones` (cast-arith via the `rfl` Nat→Int trick in `diag_count`).
+    `i₀`-coefficient: `f` vanishes off `i₀<n` ⟹ `Σf = f i₀`), `sum_ones` (`Σ ofInt 1 = ofInt ↑n`),
+    `sum_add`/`sum_mul_left`/`sum_congr`, `ofInt_mul`/`ofInt_add`/`ofInt_neg`.
+    **⚠ funext-trap recorded:** `Yfun=A+B` as *functions* needs `funext` (Quot-backed, FORBIDDEN); do
+    the bilinear expansion *pointwise inside the summand* (`sum_congr`), not via `conv_add_left` on `Yfun`.
+    **⚠ ring_intZ-trap:** `ring_intZ` chokes on `(−1)*q` (`(C 1).neg.mul`) — use `neg_mul`+`one_mulZ`.
+  - **DONE `Integer/EisensteinNormConv`** — `Yfun`/`Bfun` defs + **`Yfun_conv`: `(Yfun⋆Yfun)(n) =
+    ofInt(↑p)·Yfun n`** (= `Y²=p·Y`, pure convolution counting via the pointwise decomposition).  **5a ✓.**
   - **5b** `(gauss⋆gauss)(n) = jacobiSum · g(χ²)(n)` — the Gauss–Jacobi coefficient identity
     `Σ_a χ_ω(a)·χ_ω((n−a)%p) = J·χ̄_ω(n)` (the hard one; reindex `a↦n·a` for `n` a unit).
   - **5c** `g(χ²)·conj g(χ²) = Yfun` — reuse `gauss_conj_norm` machinery for the character `χ²=χ̄`.
