@@ -1,5 +1,6 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvComm
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvAssoc
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality
 
 /-!
@@ -22,7 +23,9 @@ forbidden `funext`/`Quot.sound`).  ∅-axiom.
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
 
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_add_left)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_add_left conv_congr)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvComm (conv_comm)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvAssoc (conv_assoc)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (one one_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
   (sumRange sum_single sum_congr sum_zero_fun)
@@ -86,5 +89,28 @@ theorem conv_sumRange_left (p : Nat) (F : Nat → (Nat → ZOmega)) (g : Nat →
          = sumRange (fun j => conv p (F j) g k) m + conv p (F m) g k
       rw [conv_add_left p (fun i => sumRange (fun j => F j i) m) (F m) g k,
           conv_sumRange_left p F g k m]
+
+/-! ## Convolution-power exponent raising (the `⋆`-analogs of `bterm_mul_a` / `bterm_mul_b`) -/
+
+/-- **Raise the `f`-exponent** — `((f^{⋆j} ⋆ g^{⋆m}) ⋆ f)(k) = (f^{⋆(j+1)} ⋆ g^{⋆m})(k)` for `k<p`.
+    `conv_assoc` to `f^{⋆j} ⋆ (g^{⋆m} ⋆ f)`, `conv_comm` to commute `g^{⋆m} ⋆ f`, `conv_assoc` back,
+    then `convPow_succ` (`f^{⋆j} ⋆ f = f^{⋆(j+1)}`).  ∅-axiom. -/
+theorem convProd_mul_f (p : Nat) (f g : Nat → ZOmega) (j m : Nat) {k : Nat} (hk : k < p) :
+    conv p (fun i => conv p (convPow p f j) (convPow p g m) i) f k
+      = conv p (convPow p f (j + 1)) (convPow p g m) k := by
+  have hp : 0 < p := Nat.lt_of_le_of_lt (Nat.zero_le k) hk
+  rw [conv_assoc p (convPow p f j) (convPow p g m) f hk,
+      conv_congr p k hp (fun _ _ => rfl) (fun i hi => conv_comm p (convPow p g m) f hi),
+      ← conv_assoc p (convPow p f j) f (convPow p g m) hk]
+  exact conv_congr p k hp (fun _ _ => rfl) (fun _ _ => rfl)
+
+/-- **Raise the `g`-exponent** — `((f^{⋆j} ⋆ g^{⋆m}) ⋆ g)(k) = (f^{⋆j} ⋆ g^{⋆(m+1)})(k)` for `k<p`.
+    `conv_assoc` then `convPow_succ` (`g^{⋆m} ⋆ g = g^{⋆(m+1)}`); no commutation needed.  ∅-axiom. -/
+theorem convProd_mul_g (p : Nat) (f g : Nat → ZOmega) (j m : Nat) {k : Nat} (hk : k < p) :
+    conv p (fun i => conv p (convPow p f j) (convPow p g m) i) g k
+      = conv p (convPow p f j) (convPow p g (m + 1)) k := by
+  have hp : 0 < p := Nat.lt_of_le_of_lt (Nat.zero_le k) hk
+  rw [conv_assoc p (convPow p f j) (convPow p g m) g hk]
+  exact conv_congr p k hp (fun _ _ => rfl) (fun _ _ => rfl)
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow

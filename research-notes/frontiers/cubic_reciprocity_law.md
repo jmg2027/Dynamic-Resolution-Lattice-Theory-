@@ -86,6 +86,14 @@ mod-`q` reduction + Frobenius is the genuinely new part).
       `conv_zero_left` (`(0⋆g)(k)=0`) and `conv_sumRange_left`
       (`((Σ_{j<m} F j)⋆g)(k) = Σ_{j<m} (F j ⋆ g)(k)`, induction on `m` from `conv_add_left`).  The
       backbone for distributing a binomial sum inside an outer convolution.
+    - **B2e.2b — DONE** (∅-axiom, **PURE**): convolution-power **exponent raising**, the `⋆`-analogs
+      of `bterm_mul_a/b`: `convProd_mul_f` (`((f^{⋆j}⋆g^{⋆m})⋆f)(k) = (f^{⋆(j+1)}⋆g^{⋆m})(k)`, via
+      `conv_assoc`+`conv_comm`+`convPow_succ`) and `convProd_mul_g`
+      (`((f^{⋆j}⋆g^{⋆m})⋆g)(k) = (f^{⋆j}⋆g^{⋆(m+1)})(k)`, `conv_assoc`+`convPow_succ`).  **Next
+      (B2e.2c):** assemble the convolution binomial theorem
+      `(f⊕g)^{⋆n}(k) = Σ_{j} cz n j · (f^{⋆j}⋆g^{⋆(n−j)})(k)` by Pascal induction (template: `add_pow`,
+      now with `conv_add_right` / `conv_sumRange_left` / `convProd_mul_{f,g}` in place of the ℤ[ω]
+      ring ops).
     The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
     **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
     + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution
