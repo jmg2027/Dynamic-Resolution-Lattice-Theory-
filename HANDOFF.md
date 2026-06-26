@@ -68,6 +68,9 @@ fixed coefficient `k` the sum collapses to the single surviving term — no perm
 - **`cubic_reciprocity_congr`**: equate cube vs. Frobenius side at `k=1` (`Yfun(1)=−1` cancels) →
   **`J^{s+1}·p^s ≡ χ(q) (mod q)`** (`s+1 = (q+1)/3`) — the arithmetic heart of cubic reciprocity,
   tying `J=π` to the cubic character value `χ(q)` modulo the second prime.
+- **`cubic_reciprocity_congr_eisenstein`**: substitute `p = J·J̄` (`jacobi_splits_p`) → the all-Eisenstein
+  form **`J^{2s+1}·J̄^s ≡ χ(q) (mod q)`** (`pow_mul_distrib` + `pow_add`) — purely in the prime `J=π` and
+  its conjugate, the symmetric form the `π↔π'` transfer consumes.
 
 ## Current Precision Results
 No new physics constants (pure-math arc — cubic / Eisenstein reciprocity).  Physics table in
@@ -101,13 +104,25 @@ None.  Open Problem 1 from the prior handoff (the Gauss-sum Frobenius congruence
 this session — the `t↦tq%p` reindex turned out to need *no* permutation-sum machinery (the basis
 indicators collapse the sum to a single term at each coefficient).
 
-## Next
-The cubic reciprocity law itself (Open Problem 1 above).  The **μ₃ comparison is now closed**:
-`cubic_reciprocity_congr` gives `J^{s+1}·p^s ≡ χ(q) (mod q)` (`s+1=(q+1)/3`).  Last leg: interpret it
-— `J=π` (`jacobi_primary`) identifies the LHS with `π`, and `χ(q) = (q/π)₃` is the cubic residue
-symbol; running the congruence with the two primary primes `π, π'` swapped and comparing gives
-`(π/π')₃ = (π'/π)₃` (the residue-symbol identification + the `π↔π'` transfer/symmetry step).
-Reference: Ireland–Rosen ch. 9.
+## Next — the exponent collapse to `(π/q)₃` (precise finishing route, verified on paper)
+The all-Eisenstein congruence `J^{2s+1}·J̄^s ≡ χ(q) (mod q)` collapses to a single power of `J` via the
+**Frobenius on `𝔽_{q²}`** (`q ≡ 2 mod 3` inert, `ℤ[ω]/(q) ≅ 𝔽_{q²}`, conjugation = `q`-power):
+
+1. **`conj z ≡ z^q (mod q)`** — the central remaining brick.  Prerequisites all **PURE & verified**
+   available: `add_pow_modEq_prime` (binary freshman ℤ[ω]) + `ofInt_pow`/`pow_mul_distrib` +
+   **ℤ-Fermat** `(ofInt a)^q ≡ ofInt a (mod q)` (lift of Nat `FermatFixedPoint.fermat_fixed_point`,
+   PURE; cleanest via `Int.induction_on` + the ofInt-routed freshman `q ∣ (a+1)^q − a^q − 1`,
+   avoiding sign-casing) + `ω^q = ω²` (`pow_omega_mod`, exact).  `z = ofInt z.re + ofInt z.im·ω`,
+   `conj(a+bω) = a+bω²`.
+2. then `J̄^s ≡ J^{qs}`, so `J^{2s+1}·J̄^s ≡ J^{2s+1+qs}`; with `q = 3s+2` the exponent is **exactly
+   `(q²−1)/3`** (`2s+1+qs = (3s+1)(s+1) = (q−1)(q+1)/3`).  Lands `J^{(q²−1)/3} ≡ χ(q) (mod q)`.
+3. `J^{(q²−1)/3} mod q` **is** the cubic residue character of `J=π` in `𝔽_{q²}^×` = `(π/q)₃`; with
+   `χ(q) = (q/π)₃` (residue-symbol identification) + the `π↔π'` symmetry ⟹ `(π/π')₃ = (π'/π)₃`.
+
+So the remaining chain is: **ℤ-Fermat → `conj z ≡ z^q` → exponent collapse (`J^{(q²−1)/3} ≡ χ(q)`) →
+residue-symbol identification → `π↔π'` transfer**.  Reference: Ireland–Rosen ch. 9.  (Note: the later
+`jacobi_primary` (`J=π`) carries `propext` — purify it before it enters the final law, same method as
+this session's arc.)
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: none (Phase B still open; promotes with the reciprocity law).  The

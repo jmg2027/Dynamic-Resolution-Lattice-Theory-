@@ -66,15 +66,30 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
   `EisensteinConvPow`); `Yfun_convPow` (`Yfun^{⋆(s+1)} = p^s·Yfun`); `gauss_pow_succ_cube`
   (`g^{⋆(q+1)} = J^{s+1}·p^s·Yfun` via `convPow_mul` + `gauss_convPow3` + `convPow_scalar` + `Yfun_convPow`).
 - **`cubic_reciprocity_congr_eisenstein` — DONE** (PURE): eliminating `p = J·J̄` (`jacobi_splits_p`) gives the all-Eisenstein form `J^{2s+1}·J̄^s ≡ χ(q) (mod q)` — purely in the prime `J=π` and its conjugate, the symmetric form the transfer consumes.
-- **NEXT (the law proper)**: interpret the congruence.  `J = π` (`jacobi_primary`), so
-  `J^{s+1}·p^s ≡ χ(q) (mod q)` reads as a relation between `π` (the prime above `p`) and the cubic
-  character value `χ(q) = (q/π)₃`.  The **transfer / symmetry step** — running the same congruence with
-  the roles of the two primary primes `π, π'` swapped and comparing — yields `(π/π')₃ = (π'/π)₃`.  This is
-  the final assembly (residue-symbol identification `χ(q) = (q/π)₃` + the `π ↔ π'` symmetry).  Reference:
-  Ireland–Rosen ch. 9.
+- **NEXT — the exponent collapse to `(π/q)₃` (the precise finishing route, verified on paper)**.
+  The all-Eisenstein congruence `J^{2s+1}·J̄^s ≡ χ(q) (mod q)` collapses to a **single power of `J`** via
+  the **Frobenius on `𝔽_{q²}`**: since `q ≡ 2 (mod 3)` is inert in `ℤ[ω]`, `ℤ[ω]/(q) ≅ 𝔽_{q²}` and the
+  conjugation is the `q`-power Frobenius —
 
-Estimated scale: the engine (`N(J)=p`, the Frobenius congruence, the μ₃ comparison) is now built; the
-remaining is the residue-symbol identification + the `π↔π'` transfer.
+      **`conj z ≡ z^q   (mod q)`**   (the central remaining brick).
+
+  Then `J̄^s ≡ J^{qs}`, so `J^{2s+1}·J̄^s ≡ J^{2s+1+qs} (mod q)`, and with `q = 3s+2` the exponent is
+  **exactly `2s+1+qs = (3s+1)(s+1) = (q−1)(q+1)/3 = (q²−1)/3`**.  Hence
+
+      `J^{(q²−1)/3} ≡ χ(q)   (mod q)`,
+
+  and `J^{(q²−1)/3} mod q` **is** the cubic residue character of `J = π` in `𝔽_{q²}^×` (order `q²−1`),
+  i.e. **`(π/q)₃`**.  So `(π/q)₃ = χ(q)`; with `χ(q) = (q/π)₃` (residue-symbol identification) this is
+  reciprocity, and the `π↔π'` symmetry gives `(π/π')₃ = (π'/π)₃`.
+  - **`conj z ≡ z^q (mod q)`** — buildable from `add_pow_modEq_prime` (binary freshman, PURE) +
+    `ofInt_pow`/`pow_mul_distrib` + **ℤ-Fermat** `(ofInt a)^q ≡ ofInt a (mod q)` (lift of the PURE Nat
+    `FermatFixedPoint.fermat_fixed_point`, with the sign handled — `q` odd for `q>2`) + `ω^q = ω²`
+    (`pow_omega_mod`, exact since `q≡2 mod 3`).  `z = ofInt z.re + ofInt z.im·ω`, `conj(a+bω)=a+bω²`.
+  - then the exponent identity `2s+1+qs = (q²−1)/3` (Nat arithmetic with `q=3s+2`), and the
+    residue-symbol identification `χ(q) = (q/π)₃`.
+
+Estimated scale: the engine (`N(J)=p`, the Frobenius congruence, the μ₃ comparison) is built; the
+remaining is **ℤ-Fermat → `conj z ≡ z^q` → exponent collapse → residue-symbol identification → transfer**.
 
 ## First concrete bricks (entry points)
 - **B0 — DONE** (∅-axiom, PURE): the `ℤ[ω]` symbol on rational integers ⟺ the
