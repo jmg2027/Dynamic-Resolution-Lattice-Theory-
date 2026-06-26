@@ -65,8 +65,13 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
 - **A2.** the Jacobi sum `J(χ,χ) = Σ_t χ_ω(t)·χ_ω(1−t)` as a concrete finite `sumRange` over `ℤ[ω]`.
   **[DONE — `…/Integer/EisensteinJacobiSum.lean`]** `jacobiSum` indexed over `𝔽_p` (`(1−t)` written
   `(1+(p−t))%p`); `chiOmega_zero_of_dvd`, boundary terms `t=0,1` vanish (`jacobi_term_zero/one`).
-- **A3.** `N(J) = J·J̄ = p` — the double sum collapsed by orthogonality / translation invariance.
-  ← **current frontier.**  **Character-orthogonality engine COMPLETE** (this session):
+- **A3.** `N(J) = J·J̄ = p` — **✅ DONE (∅-axiom), route (b) free group ring `R[C_p]`.**
+  Final theorem `EisensteinJacobiNormLaw.jacobi_norm : (jacobiSum p m x).normSq = p`
+  (`#print axioms → does not depend on any axioms`).  The complete chain (this campaign, ~22 PURE
+  modules): `g·conj g = p·1−N` (`gauss_conj_norm`), `Y²=p·Y` (`Yfun_conv`), `g(χ)²=J·g(χ²)` at all
+  coeffs (`gauss_sq_full`), the full convolution ring (`conv_comm`/`conv_assoc`/`conv_four_swap`),
+  `(g·g)·(ḡ·ḡ)=p·Y` (`gg_gbgb_eq`), the conjugate convolution (`gbgb_eq_conj_gg`), χ²-orthogonality
+  (`chiOmega_sq_orth`), and the `e_1`-extraction (`jacobi_norm`).  History of the route correction:
   - **`Σ_t χ_ω(t) = 0` DONE, unconditional** — `EisensteinCharSumZero.chiListSum_totatives_zero`.  The
     `sumRange`-permutation problem was solved by routing through the existing **`LPerm`** list-permutation
     infra (`EulerTheorem.lperm_image` — the unit-multiplication map permutes `totativeList p`) with a
@@ -128,5 +133,6 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
   `EisensteinCubicCharFp`, `EisensteinCubicCharFpMul`).
 - **A2 DONE** — the Jacobi sum `jacobiSum` as a concrete `sumRange` over `ℤ[ω]`
   (`EisensteinJacobiSum`).
-- **Next concrete step: A3** — `N(J)=p`, blocked on a `sumRange` permutation-reindexing lemma (the
-  `𝔽_p` character-sum `Σχ_ω=0`) + the domain cancellation.  See the A3 entry above.
+- **A3 `N(J)=p` COMPLETE** (∅-axiom, `EisensteinJacobiNormLaw.jacobi_norm`) — see A3 entry above.
+- **Next concrete step: A4** — `J` primary normalisation → `J = π` (the Jacobi sum is, up to the
+  primary unit, the prime `π` above `p`).  Then Phase B — the cubic law `(π/π')₃=(π'/π)₃` + transfer.
