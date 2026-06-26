@@ -64,3 +64,11 @@ mod-`q` reduction + Frobenius is the genuinely new part).
     giving `a^{n+1}`, `b^{n+1}`.  Helpers `cz_{zero,diag,pascal}`, `bterm_mul_{a,b}`.  Next: the
     freshman's dream `(a+b)^q ≡ a^q + b^q (mod ofInt q)` — interior terms vanish by
     `prime_dvd_binom` (B2c).
+  - **B2c — DONE** (∅-axiom up to allowed `propext`): the **freshman's dream in `ℤ[ω]`**,
+    `EisensteinFreshman.add_pow_modEq_prime`: `(a+b)^q ≡ a^q + b^q (mod ofInt q)` for prime `q` —
+    the **Frobenius endomorphism mod `q`**.  `add_pow` expands the `q`-th power; the two endpoints
+    give `b^q`, `a^q`, and every interior term is `q`-divisible (`ofIntq_dvd_bterm`: `q ∣ binom q t`
+    lifts via `ofInt_dvd` to `ofInt q ∣ cz q t`), so the interior sum is `≡ 0` (`dvd_sumRange` +
+    `modEq_zero_of_dvd`).  Reusable `ℤ[ω]` dvd toolkit added: `dvd_add`, `dvd_mul_of_dvd_left`,
+    `ofInt_dvd`, `dvd_sumRange` (all PURE).  **Next (B2d):** extend the two-term dream to the
+    multinomial / group-ring Gauss sum, then the Frobenius congruence `g^q ≡ χ̄(q)·g (mod q)`.
