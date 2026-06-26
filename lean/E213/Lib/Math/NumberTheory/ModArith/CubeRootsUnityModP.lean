@@ -16,8 +16,7 @@ This is the field fact behind the cubic character being **`μ₃`-valued as a fu
 value `χ(t) = t^m % p` (`CubicCharFp`, a cube root of unity by `cubicChar_cube_one`) is forced into the
 three-element set `{1, x, x²}`, which the residue-field iso
 (`EisensteinResidueFieldCubeRoots.cube_roots_rational`) carries onto `{1, ω, ω²} ⊂ ℤ[ω]`.  The Jacobi
-sum's character then takes genuinely-`μ₃` values (`research-notes/frontiers/higher_reciprocity_roadmap.md`,
-Phase A1).
+sum's character then takes genuinely-`μ₃` values (Phase A1).
 
 The argument is the cubic factorisation over `𝔽_p`: `y³−1 = (y−1)(y²+y+1)` and `(y−x)(y−x²) ≡ y²+y+1`
 (using `x+x² ≡ −1`, `x³ ≡ 1`), each split by Euclid's lemma (`int_euclid` route).  ∅-axiom.

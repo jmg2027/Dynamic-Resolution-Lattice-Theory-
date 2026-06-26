@@ -11,8 +11,7 @@ The per-term simplification driving the `N(J) = p` reindexing.  For units `b, c`
 `χ_ω((b·c)%p) = χ_ω(b)·χ_ω(c)` (`chiOmega_mul`), and `χ_ω(b)·conj χ_ω(b) = 1` (`chiOmega_mul_conj`,
 unit norm), so the `χ_ω(b)` factors cancel.  Under the substitution `a = (b·c) mod p` this turns the
 Jacobi double-sum term `χ_ω(a)·χ̄_ω(b)` into `χ_ω(c)` — the form on which the inner character sum
-collapses by orthogonality `Σ_c χ_ω(c) = 0` (`research-notes/frontiers/higher_reciprocity_roadmap.md`,
-A3 step 4).  ∅-axiom.
+collapses by orthogonality `Σ_c χ_ω(c) = 0` (A3 step 4).  ∅-axiom.
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReindex

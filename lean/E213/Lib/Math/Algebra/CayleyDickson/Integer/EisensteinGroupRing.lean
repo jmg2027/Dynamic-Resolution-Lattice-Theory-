@@ -13,8 +13,7 @@ and multiplication is **convolution**
 To stay ∅-axiom we never compare *elements* (function equality would need `funext`, which is
 `Quot`-backed); **every identity is a coefficient equation** `(… )(k) = …`.  This file gives `conv` and
 its bilinearity (`conv_add_right`, `conv_scalar_left`) — the algebra for `g(χ)·conj g(χ) = p·1 − N` and
-the `e_1`-coefficient extraction giving `N(J)=p` (`research-notes/frontiers/higher_reciprocity_roadmap.md`,
-A3 route b).  ∅-axiom.
+the `e_1`-coefficient extraction giving `N(J)=p` (A3 route b).  ∅-axiom.
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing

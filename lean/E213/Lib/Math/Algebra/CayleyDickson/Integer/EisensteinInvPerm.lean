@@ -13,7 +13,7 @@ Multiplicative inversion permutes the totatives: for a prime `p`, the map `t ↦
 This is the inversion reindex the cubic Gauss sum's off-diagonal `C = −1` needs (`χ(j+1)χ̄(j) =
 χ(1+j⁻¹)`, reindex `w = j⁻¹`).  Injective/surjective by modular cancellation (`cancel_unit`) + the
 involution.  The sibling of `EisensteinRangeSum.rangeList_mul_lperm` for inversion, not multiplication.
-∅-axiom.  (`research-notes/frontiers/higher_reciprocity_roadmap.md`, A3 route b.)
+∅-axiom.  (A3 route b.)
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinInvPerm

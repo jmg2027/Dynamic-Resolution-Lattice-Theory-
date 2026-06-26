@@ -14,8 +14,7 @@ totatives is invariant under it:
 Combined with the conjugate per-term identity `χ_ω(a)·χ̄_ω((a·s) mod p) = χ̄_ω(s)`
 (`chiOmega_reindex_conj`, the `conj` sibling of `chiOmega_reindex`), the inner `b`-sum of
 `jacobiList_norm_double` reindexes (`b = a·s`) so the `χ_ω(a)·χ̄_ω(b)` pairing collapses to `χ̄_ω(s)`.
-This is the engine of the `N(J)=p` reduction (`research-notes/frontiers/higher_reciprocity_roadmap.md`,
-A3 step 4–5).  ∅-axiom.
+This is the engine of the `N(J)=p` reduction (A3 step 4–5).  ∅-axiom.
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReduce

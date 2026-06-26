@@ -16,7 +16,7 @@ i.e. `χ((j+k)/j) = χ(1 + k/j)`.  Two cases on the numerator `(j+k)%p`:
     algebra forces the target index `(1+k·j⁻¹)%p = ((j+k)·j⁻¹)%p = 0`, so the right side is `χ_ω(0)=0`.
 
 The single per-term brick the inversion + multiplication reindexes act on to give the off-diagonal `−1`.
-∅-axiom.  (`research-notes/frontiers/higher_reciprocity_roadmap.md`, A3 route b.)
+∅-axiom.  (A3 route b.)
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinShiftTerm

@@ -21,7 +21,7 @@ via `chiOmega_mul`).  So `Σ = χ_ω(a)·Σ`, and `χ_ω(a) ≠ 1` in the integr
 
 This is the `𝔽_p`-residue character orthogonality (the `Σ_t χ_ω(t) = 0` that the exponent-side
 `chiExp_sum` could not reach), and the engine of the Jacobi-sum norm law `N(J) = p` (Phase A3,
-`research-notes/frontiers/higher_reciprocity_roadmap.md`).  The unit list + permutation hypotheses are
+the cubic-reciprocity roadmap).  The unit list + permutation hypotheses are
 supplied by `EulerTheorem.totativeList` / `lperm_image` and a primitive root.  ∅-axiom.
 -/
 

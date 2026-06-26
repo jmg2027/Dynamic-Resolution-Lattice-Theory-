@@ -15,8 +15,7 @@ mod `p`** (`cubicChar_cube_one`); the map is multiplicative (`cubicChar_mul`), u
 (`cubicChar_unit`), and trivial exactly on the cubic residues (`cubicChar_one_iff_cube`, restating the
 cubic Euler criterion).  This is the rational home of the cubic character — the `t^m`-route value that
 the residue-field iso (`EisensteinResidueFieldCubeRoots.cube_roots_rational`) carries into `μ₃ ⊂ ℤ[ω]`,
-the first brick of the Jacobi-sum core (`research-notes/frontiers/higher_reciprocity_roadmap.md`,
-Phase A1).  ∅-axiom.
+the first brick of the Jacobi-sum core (Phase A1).  ∅-axiom.
 -/
 
 namespace E213.Lib.Math.NumberTheory.ModArith.CubicCharFp

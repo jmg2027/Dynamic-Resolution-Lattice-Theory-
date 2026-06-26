@@ -11,7 +11,7 @@ index simplified by
 
 i.e. the `(i−k) mod p` shift.  Pure `ℕ` mod/sub arithmetic (`add_sub_assoc`, `add_sub_add_right`,
 `add_p_mod`, `sub_sub_self_pure`), case-split on `i ⋚ k`.  First brick of the off-diagonal coefficient
-`(g⋆ḡ)(k) = −1` (`research-notes/frontiers/higher_reciprocity_roadmap.md`, A3 route b).  ∅-axiom.
+`(g⋆ḡ)(k) = −1` (A3 route b).  ∅-axiom.
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiag

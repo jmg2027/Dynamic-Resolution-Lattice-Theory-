@@ -16,7 +16,7 @@ its conjugate, and the **double-sum form of the norm** `N(J) = J·J̄`:
 
 This sets up `N(J) = p`: the remaining step is the reindexing `a = b·c` collapsing the inner sum by
 the character orthogonality `Σ_c χ_ω(c) = 0` (`EisensteinCharSumZero.chiListSum_totatives_zero`) — the
-final A3 build (`research-notes/frontiers/higher_reciprocity_roadmap.md`).  Supporting: `conj` is a
+final A3 build.  Supporting: `conj` is a
 `listSum` homomorphism (`conj_listSum`, from componentwise `conj_add`/`conj_zero`).  ∅-axiom.
 -/
 

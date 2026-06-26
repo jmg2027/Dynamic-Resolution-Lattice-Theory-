@@ -15,7 +15,7 @@ pointwise (`B k = ofInt p` if `k=0` else `0`); expand the summand bilinearly and
 pieces: `Σ ofInt 1 = ofInt ↑p` (`sum_ones`), two single-point sums (`sum_single`, `= ±ofInt p` shapes),
 and the `B⋆B` term `= ofInt p · B n`.  The `ofInt ↑p + ofInt(−1)·ofInt ↑p = 0` cancellation leaves
 `ofInt ↑p · (−1 + B n) = ofInt ↑p · Yfun n`.  Combined with the Gauss–Jacobi relation `g²=J·g(χ²)`,
-this gives the Jacobi-sum norm `N(J)=p` (`research-notes/frontiers/higher_reciprocity_roadmap.md`, A3).
+this gives the Jacobi-sum norm `N(J)=p` (A3).
 ∅-axiom.
 -/
 

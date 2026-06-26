@@ -12,7 +12,7 @@ permutation `EisensteinRangeSum.rangeList_add_lperm`) to the cleaner one-sided f
 The inner index collapses to `j` itself (`add_shift_index`: `((j+k)%p + p − k)%p = j`), since
 `(j+k) + (p−k) = j + p ≡ j`.  This is the form on which the `j⁻¹`-inversion + `k·`-multiplication
 reindexes act to give the off-diagonal constant `−1` (the `e_k`-coefficient of `g·ḡ = p·1 − N`).
-∅-axiom.  (`research-notes/frontiers/higher_reciprocity_roadmap.md`, A3 route b.)
+∅-axiom.  (A3 route b.)
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussShift

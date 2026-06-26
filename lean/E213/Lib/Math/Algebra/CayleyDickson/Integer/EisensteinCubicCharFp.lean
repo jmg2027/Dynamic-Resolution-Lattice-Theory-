@@ -18,7 +18,7 @@ character value `t^m % p` and the `μ₃`-element `χ_ω(t)` agree in the residu
 The selector relies on the value trichotomy `CubicCharFp.cubicChar_trichotomy` and the branch lifts of
 `EisensteinResidueFieldCubeRoots` (`ofInt_natMod_modEq`, `cube_roots_rational`, `omega_sq_cong`).
 ∅-axiom.  (Multiplicativity `χ_ω(st) = χ_ω(s)χ_ω(t)`, needing residue-field injectivity
-`root_unique` for `p > 3`, is deferred — `research-notes/frontiers/higher_reciprocity_roadmap.md` A1.)
+`root_unique` for `p > 3`, is deferred — the cubic-reciprocity roadmap A1.)
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp

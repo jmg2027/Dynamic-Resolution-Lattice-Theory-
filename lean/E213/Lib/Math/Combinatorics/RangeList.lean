@@ -12,7 +12,7 @@ lemmas, exactly as the repo rebuilt `totListUpto` to avoid the dirty core list l
   * `nodup_rangeList` — `(rangeList n).Nodup`
 
 These feed the **additive-shift permutations** of `[0,p)` (`x ↦ (x+c)%p`) needed for the cubic Gauss
-sum's off-diagonal coefficient (`research-notes/frontiers/higher_reciprocity_roadmap.md`, A3 route b).
+sum's off-diagonal coefficient (A3 route b).
 ∅-axiom.
 -/
 

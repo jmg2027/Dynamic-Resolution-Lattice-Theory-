@@ -57,7 +57,7 @@ These are the **first non-trivial witnesses** for the
 
   **Cubic / Eisenstein reciprocity — the cubic character `(·/d)₃ = α^m`** (`d` a norm-`p` prime,
   `p ≡ 1 mod 3`, `m = (p−1)/3`).  Complete cubic-character theory + Jacobi-sum substrate; the
-  reciprocity *law* itself is the open frontier (`research-notes/frontiers/carrier_readout_crossdomain.md`).
+  reciprocity *law* itself is the open frontier.
   - `CubeRootsOfUnity.lean` — value group `μ₃ = {1,ω,ω²}` (`x³=1 ⟺ x∈μ₃`)
   - `EisensteinCongruence.lean` / `EisensteinResidue.lean` / `EisensteinResiduePrime.lean` —
     `α≡β (mod π)`, the reduction `ℤ[ω]/(d)=ℤ`-image, the residue prime for `p≡1 mod 3`

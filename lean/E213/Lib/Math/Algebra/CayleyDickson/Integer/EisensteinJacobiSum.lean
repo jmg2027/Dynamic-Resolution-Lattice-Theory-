@@ -18,7 +18,7 @@ sum over the `p − 2` interior residues `t ∈ {2, …, p−1}`, all of whose f
 of unity.
 
 The norm law `N(J) = J·J̄ = p` (Phase A3) — via `𝔽_p` character orthogonality `Σ_t χ_ω(t) = 0` and the
-collapsing double sum — is the open frontier (`research-notes/frontiers/higher_reciprocity_roadmap.md`).
+collapsing double sum — is the open frontier.
 ∅-axiom.
 -/
 

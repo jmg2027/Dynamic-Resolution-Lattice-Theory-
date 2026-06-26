@@ -253,6 +253,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `cubic_reciprocity_law` (+ roadmap `higher_reciprocity_roadmap`) — **the cubic / Eisenstein
+  reciprocity law `(π/π')₃ = (π'/π)₃`.**  Phase A **CLOSED** ∅-axiom (the cubic character on `𝔽_p`,
+  the Jacobi sum, `N(J)=p` `EisensteinJacobiNormLaw.jacobi_norm`, `J` prime, `p=J·J̄`, the primary
+  normalisation `J=π`).  Phase B **in progress**: the law's Frobenius engine — `g(χ)³=p·J`
+  (`EisensteinGaussCube`), the mod-`q` subsystem (`BinomPrime.prime_dvd_binom`, the `ℤ[ω]` +
+  group-ring binomial theorems / freshman's dreams `EisensteinBinomial`/`EisensteinConvBinomial`/
+  `EisensteinConvFreshman`, basis convolution `EisensteinConvBasis`).  **Open**: assemble the
+  Frobenius congruence `g^{⋆q} ≡ χ̄(q)·g (mod q)` (`χ(t)^q=χ̄(t)` + the `tq`-reindex), then compare
+  `g^N` two ways for the law.  Status tracker = `cubic_reciprocity_law.md`.
 - `foundations_corpus_crossdomain` — **5 cross-domain insights** linking this branch's foundational
   layer to the discipline corpus: the one-diagonal under the König/omniscience family; the descent leg
   re-rooting the number-theory marathon over `Nat213`; the schema as the CRT-LensIso/incidence-Fubini
