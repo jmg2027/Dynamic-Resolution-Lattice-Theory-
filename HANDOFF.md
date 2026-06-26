@@ -109,18 +109,31 @@ correctly**, in `EisensteinSplitResidueSymbol`:
   congruence by `J^{s+1}` and collapse `J^{3(s+1)} ≡ 1`.  Symbol form `(π̄/π')₃ = χ̄(pr)·(π/π')₃`.  No
   inert-Frobenius guess — the cube-root collapse does the `J̄`-elimination.
 
-## Remaining work — the final identification (needs χ on `ℤ[ω]`, Ireland–Rosen ch. 9)
+## χ-on-ℤ[ω] infrastructure started (PURE)
 
-`(π̄/π')₃ = χ̄(pr)·(π/π')₃` is a clean relation, but `χ̄(pr) = χ̄(N(π'))` is the rational character of the
-**integer** `N(π')` — and the **fundamental limitation** is that `chiOmega` is defined only on `𝔽_p`
-(rational residues), not on Eisenstein integers.  To reach `(π/π')₃ = (π'/π)₃` one must:
-- **extend `χ` to `ℤ[ω]`** (`χ(α) = α^{(p−1)/3} mod π`) and prove norm-multiplicativity
-  `χ(N(π')) = χ(π')·χ(π̄')`, identifying `(π'/π)₃ = χ(π')`;
-- then combine with `split_conj_residue_relation` + `mu3_eq_of_modEq` (reusable) + the primary
-  normalisation (`jacobi_primary`, now PURE) to land the symmetric law.
+The ℤ[ω] cubic character `χ_d(α) = α^m mod d` already exists (`EisensteinCubicChar.char_mul`
+multiplicativity, `cubic_char_value` μ₃-valued, `char_cubes_to_one`).  New this round:
+- **`EisensteinCharNormSplit.eisChar_norm_split`**: `χ_d(N(π')) ≡ χ_d(π')·χ_d(π̄') (mod d)` — since
+  `N(π') = π'·π̄'` as Eisenstein integers (`mul_conj_self`) and `char_mul` is multiplicative.  Relates
+  the rational character of the norm to the Eisenstein residue symbols `χ_d(π') = (π'/π)₃`, `χ_d(π̄')`.
 
-This `χ`-on-`ℤ[ω]` extension is a real sub-development (not a mechanical brick).  Everything up to and
-including `split_conj_residue_relation` is built and PURE.
+## Remaining work — the cross-modulus reciprocity combination (needs Ireland–Rosen ch. 9)
+
+Two clean congruences are in hand, **in different moduli**:
+- **mod `π'`**: `J̄^{s+1} ≡ χ̄(pr)·J^{s+1}` (`split_conj_residue_relation`), i.e. `(π̄/π')₃ = χ̄(pr)·(π/π')₃`.
+- **mod `d`** (`= π`): `χ_d(N(π')) ≡ χ_d(π')·χ_d(π̄')` (`eisChar_norm_split`).
+
+Closing `(π/π')₃ = (π'/π)₃` needs to **combine these across the two prime moduli `π` and `π'`** — the
+genuine heart of cubic reciprocity.  Missing identifications (each a real sub-lemma, to be assembled per
+the reference, NOT by analogy):
+- `chiOmega(pr) ≡ χ_d(ofInt pr) (mod d)` (rational `𝔽_p` char = ℤ[ω] char of the embedded integer; via
+  `chiOmega_lift` + `ofInt_pow` + `d ∣ ofInt p`);
+- the symbol identification `(π'/π)₃ = χ_d(π')` and the `π̄`/`π` symmetry under the **primary**
+  normalisation (`jacobi_primary`, now PURE) — `J = π` primary makes `J̄ = π̄` the primary conjugate;
+- the final `mu3_eq_of_modEq` (reusable) lift to a μ₃ equality.
+
+Everything up to and including `eisChar_norm_split` is built and PURE.  The cross-modulus combination is
+the next real sub-development.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: none yet — Phase B's promotable unit is the *law*, now assembled; the
