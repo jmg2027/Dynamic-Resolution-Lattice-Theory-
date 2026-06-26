@@ -186,8 +186,12 @@ also a nontrivial cubic char) ⟹ `Y⋆Y = (g²)⋆(ḡ²) = |J|²·Y`.  Compari
       `(J·conj J)·ofInt(−1)`; cancel `ofInt(−1)` ⟹ `J·conj J = ofInt(↑p) = ofInt(‖J‖²)` ⟹ **`‖J‖²=p`**.
       `#print axioms jacobi_norm → does not depend on any axioms`.
 
-  **★ The Jacobi-sum norm law `N(J)=p` is DONE.**  Next: `J=π` (A4 — the Jacobi sum is a primary prime)
-  and the cubic reciprocity law `(π/π')₃=(π'/π)₃` + the rational transfer.
+  **★ The Jacobi-sum norm law `N(J)=p` is DONE.**
+  - **A4 (partial) ✓** — `Integer/EisensteinJacobiPrime.jacobi_prime`: **`J` is a prime of `ℤ[ω]`**
+    (`J∣α·β ⟹ J∣α ∨ J∣β`, direct from `jacobi_norm` + `norm_prime_euclid`).  So `J=π` up to a unit.
+  - **A4-rem** the *primary* normalisation `J ≡ −1 mod 3` (fix the unit ⟹ `J=π` exactly).  Then
+    **Phase B** — the cubic reciprocity law `(π/π')₃=(π'/π)₃` + the rational transfer (the deep step;
+    classically the congruence `g(χ)^p ≡ …` / the explicit Gauss-sum computation — a fresh large phase).
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
