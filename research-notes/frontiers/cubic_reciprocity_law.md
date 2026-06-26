@@ -65,6 +65,7 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
   Supporting bricks (all PURE): `convPow_add`/`convPow_mul` (convolution-monoid exponent laws,
   `EisensteinConvPow`); `Yfun_convPow` (`Yfun^{⋆(s+1)} = p^s·Yfun`); `gauss_pow_succ_cube`
   (`g^{⋆(q+1)} = J^{s+1}·p^s·Yfun` via `convPow_mul` + `gauss_convPow3` + `convPow_scalar` + `Yfun_convPow`).
+- **`cubic_reciprocity_congr_eisenstein` — DONE** (PURE): eliminating `p = J·J̄` (`jacobi_splits_p`) gives the all-Eisenstein form `J^{2s+1}·J̄^s ≡ χ(q) (mod q)` — purely in the prime `J=π` and its conjugate, the symmetric form the transfer consumes.
 - **NEXT (the law proper)**: interpret the congruence.  `J = π` (`jacobi_primary`), so
   `J^{s+1}·p^s ≡ χ(q) (mod q)` reads as a relation between `π` (the prime above `p`) and the cubic
   character value `χ(q) = (q/π)₃`.  The **transfer / symmetry step** — running the same congruence with

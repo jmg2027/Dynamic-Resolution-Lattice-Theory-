@@ -3,6 +3,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvCongruence
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReindex
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiagOne
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiPrime
 import E213.Lib.Math.NumberTheory.EulerTheorem
 import E213.Meta.Nat.MulMod213
 
@@ -34,6 +35,8 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
   (convPow convPow_succ convOne_left convPow_one convPow_scalar convPow_congr convPow_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube (gauss_cube)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum (jacobiSum)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiPrime (jacobi_splits_p)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar (pow_add pow_mul_distrib)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_scalar_left conv_congr)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvCongruence (conv_modEq_left)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvComm (conv_comm)
@@ -379,5 +382,30 @@ theorem cubic_reciprocity_congr {d : ZOmega} {p m x q s : Nat} (hp : 1 < p) (hp3
     rw [mul_assoc (chiOmega p m x q) (ofInt (-1)) (ofInt (-1)), hnn, mul_one]
   rw [hcollapse, hrhs] at hmul
   exact hmul
+
+/-- ★★★★★ **The cubic reciprocity congruence, all-Eisenstein form** — eliminating the rational `p` via
+    `p = J·J̄` (`jacobi_splits_p`):
+
+      `J^{2s+1} · J̄^s ≡ χ(q)   (mod q)`        (`J = jacobiSum`, `s+1 = (q+1)/3`).
+
+    `pow_mul_distrib` splits `(J·J̄)^s = J^s·J̄^s`, `pow_add` merges `J^{s+1}·J^s = J^{2s+1}`.  The
+    congruence now lives purely in the Eisenstein prime `J = π` and its conjugate `J̄`, the symmetric form
+    the `π ↔ π'` transfer step consumes.  ∅-axiom (PURE). -/
+theorem cubic_reciprocity_congr_eisenstein {d : ZOmega} {p m x q s : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hq3 : q % 3 = 2) (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q)
+    (hcop : gcd213 q p = 1) (hq1 : 0 < q) (hqlt : q < p) (hs : q + 1 = 3 * (s + 1)) :
+    ModEq (ofInt ((q : Nat) : Int))
+      (pow (jacobiSum p m x) (2 * s + 1) * pow (conj (jacobiSum p m x)) s) (chiOmega p m x q) := by
+  have hcong := cubic_reciprocity_congr hp hp3 hpr h3m hm1 hdn hω hx hq3 hqr hcop hq1 hqlt hs
+  have heq : pow (jacobiSum p m x) (s + 1) * pow (ofInt ((p : Nat) : Int)) s
+      = pow (jacobiSum p m x) (2 * s + 1) * pow (conj (jacobiSum p m x)) s := by
+    rw [← jacobi_splits_p hp hp3 hpr h3m hm1 hdn hω hx,
+        pow_mul_distrib (jacobiSum p m x) (conj (jacobiSum p m x)) s,
+        ← mul_assoc, ← pow_add (jacobiSum p m x) (s + 1) s,
+        show (s + 1) + s = 2 * s + 1 from by rw [Nat.two_mul, Nat.add_right_comm]]
+  rw [heq] at hcong
+  exact hcong
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex
