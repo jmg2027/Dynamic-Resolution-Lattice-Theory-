@@ -98,22 +98,29 @@ The split-prime cube-side chain is complete (`pr = 3(s+1)+1 ≡ 1 mod 3`, the se
   (`π' ∣ ofInt pr` via `mul_conj_self` + `modEq_descend`).  The congruence now lives in
   `𝔽_{p'} = ℤ[ω]/(π')`.
 
-## Remaining work — the final collapse (needs Ireland–Rosen ch. 9, do NOT guess)
+## Also done (PURE): residue symbol μ₃-valued + the conjugate-symbol relation
 
-`J^{2(s+1)}·J̄^{s+1} ≡ χ̄(pr) (mod π')` is the split engine through the `𝔽_{p'}` descent.  The collapse to
-the symbol identity `(π/π')₃ = (π'/π)₃` is where the **split case genuinely diverges from the inert one**:
-- Mod a *split* `π'`, `conj` is **not** a Frobenius endomorphism of `𝔽_{p'}` — it maps
-  `ℤ[ω]/(π') → ℤ[ω]/(π̄')`.  So the inert trick `J̄ ≡ J^q (mod q)` (`conj_modEq_pow`, which needed `q`
-  *inert*) has **no direct analog**, and eliminating `J̄` via `J·J̄ = p` is circular (gives back
-  `J^{s+1}·p^{s+1}`).  The correct collapse must be pinned from the reference before building.
-- Likely ingredients: `(π/π')₃ := J^{s+1} mod π'` is μ₃-valued (`split_fermat` ⟹ `J^{3(s+1)} = J^{pr−1}
-  ≡ 1` for `J` a unit mod `π'`, i.e. `π' ∤ J` — from `N(π')=pr ∤ p=N(J)`); the rational character
-  `χ̄(pr) = χ̄(N(π'))` must be related to `(π'/π)₃` (norm-multiplicativity, `χ` extended to `ℤ[ω]`);
-  then `mu3_eq_of_modEq` (reusable) + the primary normalisation (`jacobi_primary`, now PURE) finish.
+The `J̄`-elimination — which seemed blocked (no inert-style Frobenius for split `π'`) — is **done
+correctly**, in `EisensteinSplitResidueSymbol`:
+- **`split_residue_cube_one`**: `J^{3(s+1)} ≡ 1 (mod π')` — so `(π/π')₃ := J^{s+1} mod π'` is μ₃-valued.
+  Via `split_fermat` (`J^{pr} ≡ J`) + right-cancel `J` (a unit mod `π'`: `jacobi_ne_zero_mod_pi`,
+  `π' ∤ J` else `pr ∣ p`).  Helpers `modEq_cancel_right` (cancellation in the domain `ℤ[ω]/(π')`).
+- **`split_conj_residue_relation`**: **`J̄^{s+1} ≡ χ̄(pr)·J^{s+1} (mod π')`** — multiply the all-Eisenstein
+  congruence by `J^{s+1}` and collapse `J^{3(s+1)} ≡ 1`.  Symbol form `(π̄/π')₃ = χ̄(pr)·(π/π')₃`.  No
+  inert-Frobenius guess — the cube-root collapse does the `J̄`-elimination.
 
-**Engineering note:** everything up to and including `split_reciprocity_congr_pi` is built and PURE.  The
-final identification needs the classical proof worked out — building it by analogy risks wrong theorems
-(the inert↔split asymmetry above is real).  Pin the exponent/collapse from Ireland–Rosen ch. 9 first.
+## Remaining work — the final identification (needs χ on `ℤ[ω]`, Ireland–Rosen ch. 9)
+
+`(π̄/π')₃ = χ̄(pr)·(π/π')₃` is a clean relation, but `χ̄(pr) = χ̄(N(π'))` is the rational character of the
+**integer** `N(π')` — and the **fundamental limitation** is that `chiOmega` is defined only on `𝔽_p`
+(rational residues), not on Eisenstein integers.  To reach `(π/π')₃ = (π'/π)₃` one must:
+- **extend `χ` to `ℤ[ω]`** (`χ(α) = α^{(p−1)/3} mod π`) and prove norm-multiplicativity
+  `χ(N(π')) = χ(π')·χ(π̄')`, identifying `(π'/π)₃ = χ(π')`;
+- then combine with `split_conj_residue_relation` + `mu3_eq_of_modEq` (reusable) + the primary
+  normalisation (`jacobi_primary`, now PURE) to land the symmetric law.
+
+This `χ`-on-`ℤ[ω]` extension is a real sub-development (not a mechanical brick).  Everything up to and
+including `split_conj_residue_relation` is built and PURE.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: none yet — Phase B's promotable unit is the *law*, now assembled; the
