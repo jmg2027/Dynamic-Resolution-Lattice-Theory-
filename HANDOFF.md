@@ -77,16 +77,26 @@ Frobenius) — the parallel of the inert B2e arc.  Done this session, all PURE:
   **`g(χ)^{⋆pr}(k) ≡ χ̄(pr)·χ(k) (mod ofInt pr)`**, the split factored Frobenius (mirror of
   `gauss_pow_modEq_factored`; note the `χ ↔ χ̄` swap).
 
+## Cube-side groundwork — `Σχ = 0` done (PURE)
+
+- **`EisensteinCharSumRange.chiOmega_sumRange_zero`**: `Σ_{t<p} χ_ω(t) = 0` in **`sumRange` form** (the
+  convolution `⋆` is sumRange-native), via the scaling argument on `sumRange` directly
+  (`rangeList_mul_lperm` permutes all of `[0,p)`).  The orthogonality behind `allones ⋆ g = 0`, hence
+  `Yfun ⋆ g = p·g` — the cube-side identity of the split assembly.
+
 ## Remaining work — finish the split-split law
 
-`cubic_reciprocity_law` gives `(π/q)₃ = χ(q)` for `q` *rational* inert.  For two Eisenstein primes the
-split factored Frobenius (above) is built **up to `gauss_pow_modEq_factored` parity**; what remains
-mirrors the inert tail but for the split case (and needs the classical exponent worked out — the inert
-`(q²−1)/3` becomes the split `(p'−1)/3`-type residue character):
-- the cube/norm assembly (`gauss_pow_succ_*` / `gauss_convPow3` analogs) **mod `ofInt pr`**, then the
-  **descent to `mod π'`** (via `split_fermat`'s `π' ∣ ofInt pr`, `modEq_descend`);
-- the exponent collapse to the split residue character, the μ₃-lift (`mu3_eq_of_modEq`, reusable), and
-- the final `π ↔ π'` comparison using the primary normalisation (`jacobi_primary`, now PURE).
+`cubic_reciprocity_law` gives `(π/q)₃ = χ(q)` for `q` *rational* inert.  The split factored Frobenius is
+built **up to `gauss_pow_modEq_factored` parity**, and `Σχ = 0` (above) is in hand.  What remains mirrors
+the inert tail (and needs the classical exponent: the inert `(q²−1)/3` becomes a split `(p'−1)/3`-type
+residue character):
+- **`Yfun ⋆ g = p·g`**: split `Yfun = p·δ₀ − allones`; `allones ⋆ g = Σχ = 0` (now available) + the
+  reflection reindex `Σ_i g((k+p−i)%p) = Σ_j g(j)` (via `rangeList_refl_lperm`, as in `conv_comm`).
+- the cube/norm assembly `g^{⋆pr} = J^s·p^s·g` (`pr = 3s+1`: `(g^{⋆3})^{⋆s}⋆g = J^s·Yfun^{⋆s}⋆g`,
+  `Yfun^{⋆s} = p^{s-1}·Yfun`, `Yfun⋆g = p·g`), giving `J^s·p^s ≡ χ̄(pr) (mod ofInt pr)` at `k=1`;
+- the **descent to `mod π'`** (via `split_fermat`'s `π' ∣ ofInt pr`, `modEq_descend`), the exponent
+  collapse to the split residue character, the μ₃-lift (`mu3_eq_of_modEq`, reusable), and
+- the final `π ↔ π'` comparison via the primary normalisation (`jacobi_primary`, now PURE).
 
 Reference: Ireland–Rosen ch. 9.
 
