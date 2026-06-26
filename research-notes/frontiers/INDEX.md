@@ -261,7 +261,9 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   group-ring binomial theorems / freshman's dreams `EisensteinBinomial`/`EisensteinConvBinomial`/
   `EisensteinConvFreshman`, basis convolution `EisensteinConvBasis`).  **Open**: assemble the
   Frobenius congruence `g^{⋆q} ≡ χ̄(q)·g (mod q)` (`χ(t)^q=χ̄(t)` + the `tq`-reindex), then compare
-  `g^N` two ways for the law.  Status tracker = `cubic_reciprocity_law.md`.
+  `g^N` two ways for the law.  Status tracker = `cubic_reciprocity_law.md`; cross-domain links to the
+  main corpus (convolution algebra, Frobenius crux, two-squares norm, discrete-log ladder) in
+  `cubic_reciprocity_crossdomain.md`.
 - `foundations_corpus_crossdomain` — **5 cross-domain insights** linking this branch's foundational
   layer to the discipline corpus: the one-diagonal under the König/omniscience family; the descent leg
   re-rooting the number-theory marathon over `Nat213`; the schema as the CRT-LensIso/incidence-Fubini
