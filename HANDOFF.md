@@ -120,14 +120,19 @@ above is still valid infra** (Gauss sums are `listSum`s too), just insufficient 
   - **`Integer/EisensteinScaleCancel`** (extended): `mul_sub_zomega`, `mul_left_cancel_zomega`
     (ℤ[ω] left cancellation).  **`Integer/EisensteinCharDiv`**: **`chiOmega_div`**
     (`χ_ω(b)·χ̄_ω(c)=χ_ω((b·aInv c p)%p)`, the per-term ratio identity), `chiOmega_one`, `aInv_mod_pos`.
-  - **ALL foundational building blocks for the off-diagonal `−1` are now in place**
-    (permutations mult/add/inv, cancellation, the division identity).  **Remaining = ASSEMBLY of the
-    sum manipulations:**
+  - `EisensteinCharDiv` (extended): `mul_succ_inv` (`(v+1)·w≡1+w` when `v·w≡1`) and
+    **`chiOmega_ratio_term`** (`χ_ω(u)·χ̄_ω((u−1)%p) = χ_ω((1+(u−1)⁻¹)%p)` for `2≤u<p`).
+  - **The per-term + permutation LAYER IS NOW COMPLETE.**  Every reusable piece for the off-diagonal
+    `−1` is built and PURE: all 3 permutations (mult/add/inv), ℤ[ω] cancellation, `chiOmega_div`,
+    `chiOmega_ratio_term`.  **Remaining = the SUM-LEVEL INTEGRATION (a distinct, intricate phase):**
     1. **mult-reindex assembly** `i=(k·u)%p` ⟹ `(g⋆ḡ)(k) = C := Σ_u χ_ω(u)·χ̄_ω((u−1)%p)` (`k`-indep);
-       `sumRange_eq_listSum` + `rangeList_mul_lperm` + `listSum_lperm`/`_map`/`_congr` + per-term
-       (`chiOmega_mul`/`chiOmega_div`); needs index helper `((k·u)%p+p−k)%p = (k·(u−1))%p`.
-    2. **`C = −1` assembly** — `u↦u−1` shift + `j↦j⁻¹` inversion (`totativeList_inv_lperm`) + `z=1+w`
-       shift + `chiOmega_div` per-term ⟹ `Σ_{z≠1}χ_ω(z)=−1` (`chiListSum_totatives_zero`).
+       `sumRange_eq_listSum` + `rangeList_mul_lperm` + `listSum_lperm`/`_map`/`_congr`; needs index helper
+       `((k·u)%p+p−k)%p = (k·(u−1))%p`.
+    2. **`C = −1` assembly** — apply `chiOmega_ratio_term` per-term, then `(u−1)⁻¹`-inversion
+       (`totativeList_inv_lperm`) + `1+·`-shift (`rangeList_add_lperm`) reindex ⟹ the sum becomes
+       `Σ_{z∈units, z≠1} χ_ω(z) = −χ_ω(1) = −1` (`chiListSum_totatives_zero` + `chiOmega_one`).
+       **Boundary subtlety:** the sum is over **units∖{1}** (the `u=0,1` degenerate terms vanish; the
+       reindexes carry the exclusion) — the integration's tricky bookkeeping.
     3. `g(χ)² = J·g(χ²)` coefficient identity (convolution = `listSum_mul_distrib`-style).
     4. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
