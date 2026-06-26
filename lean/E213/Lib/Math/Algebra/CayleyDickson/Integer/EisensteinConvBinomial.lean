@@ -29,7 +29,8 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
   (delta convPow convPow_zero convPow_succ convOne_left convOne_right conv_sumRange_left
    convProd_mul_f convProd_mul_g)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinBinomial
-  (cz cz_zero cz_diag cz_pascal sumRange_succ_bottom)
+  (cz cz_zero cz_diag cz_pascal sumRange_succ_bottom sub_sub)
+open E213.Tactic.NatHelper (sub_add_cancel sub_pos_of_lt)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
   (sumRange sumRange_succ sum_add sum_congr)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (one one_mul)
@@ -112,7 +113,7 @@ theorem convPow_add_pow (p : Nat) (f g : Nat → ZOmega) : ∀ (n k : Nat), k < 
                 * conv p (convPow p f (j + 1)) (convPow p g ((n - (j + 1)) + 1)) k) n]
         exact sum_congr n (fun j hj => by
           have hbexp : (n - (j + 1)) + 1 = n - j := by
-            rw [← Nat.sub_sub, Nat.sub_add_cancel (Nat.sub_pos_of_lt hj)]
+            rw [← sub_sub, sub_add_cancel (sub_pos_of_lt hj)]
           have hbexp2 : (n + 1) - (j + 1) = n - j := Nat.succ_sub_succ n j
           rw [hbexp, hbexp2, ← add_mul, ← cz_pascal n j])
       rw [← hmerge]

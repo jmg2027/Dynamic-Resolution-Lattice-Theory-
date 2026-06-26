@@ -33,6 +33,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
   (sumRange sum_single sum_congr sum_zero_fun sum_mul_left)
 open E213.Meta.Algebra213.Ring213 (zero_mul mul_zero mul_assoc)
 open E213.Meta.Algebra213.CommRing213 (mul_comm)
+open E213.Meta.Nat.AddMod213 (add_mod mod_self mod_mod)
 
 /-- The convolution identity `e_0 ∈ R[C_p]` — the basis vector at index `0` (`δ_{i,0}`). -/
 def delta : Nat → ZOmega := fun i => if i = 0 then one else 0
@@ -60,7 +61,8 @@ theorem convOne_left (p : Nat) (f : Nat → ZOmega) {k : Nat} (hk : k < p) :
           show (if i = 0 then one else 0) * f ((k + p - i) % p) = 0
           rw [if_neg hi0, zero_mul])]
   show (if (0 : Nat) = 0 then one else 0) * f ((k + p - 0) % p) = f k
-  rw [if_pos rfl, one_mul, Nat.sub_zero, Nat.add_mod_right, Nat.mod_eq_of_lt hk]
+  rw [if_pos rfl, one_mul, Nat.sub_zero, add_mod hp k p, mod_self, Nat.add_zero, mod_mod k p,
+      Nat.mod_eq_of_lt hk]
 
 /-- ★★★★ **The right identity law** — `(f ⋆ e_0)(k) = f k` for `k < p`.  Immediate from
     `convOne_left` via commutativity (`conv_comm`).  ∅-axiom. -/

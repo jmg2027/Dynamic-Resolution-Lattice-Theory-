@@ -40,6 +40,14 @@ open E213.Meta.Nat.BinomSymm (binom_diag)
 open E213.Meta.Algebra213.Ring213
   (add_assoc add_comm add_zero zero_add mul_add add_mul mul_assoc)
 open E213.Meta.Algebra213.CommRing213 (mul_comm)
+open E213.Tactic.NatHelper (sub_add_cancel sub_pos_of_lt)
+
+/-- **Pure `n − m − k = n − (m + k)`** — the 213-native replacement for the `propext`-dirty
+    `Nat.sub_sub` (Lean-core well-founded recursion).  Induction on `k` via `Nat.sub_succ`. -/
+theorem sub_sub (n m k : Nat) : n - m - k = n - (m + k) := by
+  induction k with
+  | zero => rfl
+  | succ k ih => rw [Nat.sub_succ, ih, Nat.add_succ, Nat.sub_succ]
 
 /-- The binomial coefficient embedded in `ℤ[ω]`: `cz n k = ofInt (binom n k)`. -/
 def cz (n k : Nat) : ZOmega := ofInt ((binom n k : Nat) : Int)
@@ -138,7 +146,7 @@ theorem add_pow (a b : ZOmega) : ∀ n : Nat,
                       (fun k => cz n (k + 1) * (pow a (k + 1) * pow b ((n - (k + 1)) + 1))) n]
         exact sum_congr n (fun k hk => by
           have hbexp : (n - (k + 1)) + 1 = n - k := by
-            rw [← Nat.sub_sub, Nat.sub_add_cancel (Nat.sub_pos_of_lt hk)]
+            rw [← sub_sub, sub_add_cancel (sub_pos_of_lt hk)]
           show cz n k * (pow a (k + 1) * pow b (n - k))
              + cz n (k + 1) * (pow a (k + 1) * pow b ((n - (k + 1)) + 1))
              = cz (n + 1) (k + 1) * (pow a (k + 1) * pow b ((n + 1) - (k + 1)))

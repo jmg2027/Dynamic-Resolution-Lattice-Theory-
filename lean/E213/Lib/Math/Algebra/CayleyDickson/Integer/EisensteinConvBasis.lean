@@ -28,7 +28,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussShift (add_shift
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeSum (add_p_mod)
-open E213.Meta.Nat.AddMod213 (mod_add_mod)
+open E213.Meta.Nat.AddMod213 (mod_add_mod zero_mod)
 open E213.Meta.Nat.NatRing213 (nat_sub_add_cancel)
 open E213.Meta.Algebra213.Ring213 (zero_mul mul_zero)
 
@@ -75,7 +75,7 @@ theorem basisPow_eq {p t : Nat} (hp : 0 < p) (ht : t < p) :
     ∀ (q : Nat) {k : Nat}, k < p → convPow p (basis t) q k = basis ((t * q) % p) k
   | 0, k, _ => by
       show delta k = basis ((t * 0) % p) k
-      rw [Nat.mul_zero, Nat.zero_mod]; rfl
+      rw [Nat.mul_zero, zero_mod]; rfl
   | q + 1, k, hk => by
       rw [convPow_succ,
           conv_congr p k hp (fun i hi => basisPow_eq hp ht q hi) (fun _ _ => rfl),

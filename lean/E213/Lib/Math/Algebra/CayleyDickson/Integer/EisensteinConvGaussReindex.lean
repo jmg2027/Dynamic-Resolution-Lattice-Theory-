@@ -53,8 +53,9 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum (chiOmega_z
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm (conj_zero)
 open E213.Lib.Math.NumberTheory.ModArith.CubicCharFp (cubicChar)
 open E213.Lib.Math.NumberTheory.EulerTheorem (aInv aInv_spec cancel_unit)
-open E213.Tactic.NatHelper (gcd213)
+open E213.Tactic.NatHelper (gcd213 sub_sub_self)
 open E213.Meta.Nat.MulMod213 (mul_mod_left_pure mul_mod_right_pure)
+open E213.Meta.Nat.AddMod213 (mod_self zero_mod)
 open E213.Meta.Algebra213.Ring213 (mul_zero mul_assoc)
 
 /-- The reindex target `t₀ = (q⁻¹·k) mod p` lands the basis indicator on `k`: `(t₀·q) mod p = k`.
@@ -64,7 +65,7 @@ private theorem reindex_idx (p q : Nat) (hp : 1 < p) (hq : gcd213 q p = 1) {k : 
   have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hp)
   rw [← mul_mod_left_pure (aInv q p * k) q p,
       show aInv q p * k * q = k * (q * aInv q p) from by
-        rw [Nat.mul_comm (aInv q p) k, Nat.mul_assoc, Nat.mul_comm (aInv q p) q],
+        rw [Nat.mul_comm (aInv q p) k, E213.Tactic.NatHelper.mul_assoc, Nat.mul_comm (aInv q p) q],
       mul_mod_right_pure k (q * aInv q p) p, aInv_spec hppos hq,
       Nat.mod_eq_of_lt hp, Nat.mul_one, Nat.mod_eq_of_lt hk]
 
@@ -146,7 +147,7 @@ theorem char_conj_reindex_split {d : ZOmega} {p m x q k : Nat} (hp : 1 < p) (hp3
         Nat.mod_eq_of_lt hp]
   have hqipos : 0 < aInv q p % p := by
     rcases Nat.eq_zero_or_pos (aInv q p % p) with h0 | h
-    · rw [h0, Nat.zero_mul, Nat.zero_mod] at hqiq; exact absurd hqiq (by decide)
+    · rw [h0, Nat.zero_mul, zero_mod] at hqiq; exact absurd hqiq (by decide)
     · exact h
   -- `χ(q⁻¹) = conj χ(q)`
   have hD : chiOmega p m x (aInv q p % p) = conj (chiOmega p m x q) := by
@@ -203,7 +204,7 @@ theorem gauss_pow_modEq_factored_all {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (
   · subst hk0
     have hc0 : chiOmega p m x 0 = 0 := chiOmega_zero_of_dvd p m x 0 ⟨0, rfl⟩
     have hcol := gauss_pow_modEq_reindexed p m x q hp hq3 hqr hcop hk
-    rw [show (aInv q p * 0) % p = 0 from by rw [Nat.mul_zero, Nat.zero_mod], hc0, conj_zero] at hcol
+    rw [show (aInv q p * 0) % p = 0 from by rw [Nat.mul_zero, zero_mod], hc0, conj_zero] at hcol
     rwa [hc0, conj_zero, mul_zero]
   · exact gauss_pow_modEq_factored hp hp3 hpr h3m hdn hω hx hq3 hqr hcop hq1 hqlt hkpos hk
 
@@ -212,8 +213,8 @@ theorem gauss_pow_modEq_factored_all {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (
 /-- The reflection index is an involution on `[0,p)`: `(p − (p−k)%p) % p = k` for `k < p`. -/
 private theorem refl_idx {p k : Nat} (hp : 0 < p) (hk : k < p) : (p - (p - k) % p) % p = k := by
   rcases Nat.eq_zero_or_pos k with hk0 | hkpos
-  · subst hk0; rw [Nat.sub_zero, Nat.mod_self, Nat.sub_zero, Nat.mod_self]
-  · rw [Nat.mod_eq_of_lt (Nat.sub_lt hp hkpos), Nat.sub_sub_self (Nat.le_of_lt hk),
+  · subst hk0; rw [Nat.sub_zero, mod_self, Nat.sub_zero, mod_self]
+  · rw [Nat.mod_eq_of_lt (Nat.sub_lt hp hkpos), sub_sub_self (Nat.le_of_lt hk),
         Nat.mod_eq_of_lt hk]
 
 /-- ★★★★ **The Frobenius RHS is the norm factor, reflected** — `conj χ(k) = gaussConj((p−k)%p)` for

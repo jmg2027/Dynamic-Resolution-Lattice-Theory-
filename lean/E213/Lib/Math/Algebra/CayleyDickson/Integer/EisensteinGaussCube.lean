@@ -104,7 +104,7 @@ theorem gaussConj_eq_charConj {d : ZOmega} {p m x k : Nat} (hp : 1 < p) (hp3 : 3
   rcases Nat.eq_zero_or_pos k with hk0 | hkpos
   · subst hk0
     show conj (chiOmega p m x ((p - 0) % p)) = conj (chiOmega p m x 0)
-    rw [Nat.sub_zero, Nat.mod_self]
+    rw [Nat.sub_zero, mod_self]
   · show conj (chiOmega p m x ((p - k) % p)) = conj (chiOmega p m x k)
     rw [chiOmega_reflect hp hp3 hpr h3m hm1 hdn hω hx hkpos hk]
 
