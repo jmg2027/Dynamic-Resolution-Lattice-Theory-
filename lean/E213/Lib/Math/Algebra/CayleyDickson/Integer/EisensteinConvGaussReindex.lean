@@ -4,6 +4,8 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReindex
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiagOne
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiPrime
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFrobeniusConj
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFunction
 import E213.Lib.Math.NumberTheory.EulerTheorem
 import E213.Meta.Nat.MulMod213
 
@@ -44,7 +46,9 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube (gaussConj_
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiagOne (gauss_conj_norm)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinNormConv (Yfun Yfun_conv)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss gaussConj)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq mul_right)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq mul_right symm trans mul_left)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFrobeniusConj (conj_modEq_pow pow_modEq)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFunction (pow_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius (gauss_pow_modEq_conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum (sumRange sum_single)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality
@@ -407,5 +411,35 @@ theorem cubic_reciprocity_congr_eisenstein {d : ZOmega} {p m x q s : Nat} (hp : 
         show (s + 1) + s = 2 * s + 1 from by rw [Nat.two_mul, Nat.add_right_comm]]
   rw [heq] at hcong
   exact hcong
+
+/-- ★★★★★ **The cubic reciprocity congruence as a residue-character power** — for a prime `q ≡ 2 (mod 3)`
+    (`q + 1 = 3(s+1)`, unit mod `p`),
+
+      `J^{(2s+1) + q·s} ≡ χ(q)   (mod q)`        (`J = jacobiSum`;  `(2s+1)+q·s = (q²−1)/3`).
+
+    The **Frobenius collapse**: `conj_modEq_pow` (`J̄ = conj J ≡ J^q`, since `q` is inert) raised to the
+    `s`-th power (`pow_modEq`) gives `J̄^s ≡ J^{q·s}`; substituting into the all-Eisenstein form
+    `cubic_reciprocity_congr_eisenstein` (`J^{2s+1}·J̄^s ≡ χ(q)`) and merging the exponents (`pow_add`)
+    lands a single power of `J`.  The exponent `(2s+1)+q·s = (q²−1)/3` is exactly the order of the cubic
+    residue character of `J = π` in `𝔽_{q²}^×` — so the LHS **is** `(π/q)₃`, the heart of cubic
+    reciprocity.  ∅-axiom (PURE). -/
+theorem cubic_reciprocity_power_congr {d : ZOmega} {p m x q s : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hq3 : q % 3 = 2) (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q)
+    (hcop : gcd213 q p = 1) (hq1 : 0 < q) (hqlt : q < p) (hs : q + 1 = 3 * (s + 1)) :
+    ModEq (ofInt ((q : Nat) : Int))
+      (pow (jacobiSum p m x) ((2 * s + 1) + q * s)) (chiOmega p m x q) := by
+  have hbase := cubic_reciprocity_congr_eisenstein hp hp3 hpr h3m hm1 hdn hω hx hq3 hqr hcop hq1 hqlt hs
+  have hq1' : 1 < q := Nat.lt_of_lt_of_le (by decide) (hq3 ▸ Nat.mod_le q 3)
+  -- J̄^s ≡ (J^q)^s = J^{q·s}
+  have hJbar : ModEq (ofInt ((q : Nat) : Int))
+      (pow (conj (jacobiSum p m x)) s) (pow (jacobiSum p m x) (q * s)) := by
+    have hps := pow_modEq (symm (conj_modEq_pow hq1' hqr hq3 (jacobiSum p m x))) s
+    rwa [← pow_mul (jacobiSum p m x) q s] at hps
+  -- J^{2s+1}·J̄^s ≡ J^{2s+1}·J^{q·s} = J^{(2s+1)+q·s}
+  have hstep := mul_left hJbar (pow (jacobiSum p m x) (2 * s + 1))
+  rw [← pow_add (jacobiSum p m x) (2 * s + 1) (q * s)] at hstep
+  exact trans (symm hstep) hbase
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex

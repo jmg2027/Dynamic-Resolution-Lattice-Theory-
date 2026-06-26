@@ -25,14 +25,14 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFrobeniusConj
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt Omega conj conj_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence
-  (ModEq trans add_compat mul_right)
+  (ModEq refl trans add_compat mul_left mul_right)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm (conj_add)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidue (decomp)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFreshman (add_pow_modEq_prime)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar (pow_mul_distrib)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharOmega (pow_omega_mod)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinIntFermat (ofInt_fermat)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (pow)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (pow pow_succ one)
 
 /-- `conj (ofInt z) = ofInt z` — conjugation fixes the rational integers (`⟨z,0⟩ ↦ ⟨z−0,−0⟩ = ⟨z,0⟩`). -/
 private theorem conj_ofInt (z : Int) : conj (ofInt z) = ofInt z := by
@@ -62,5 +62,14 @@ theorem conj_modEq_pow {q : Nat} (hq : 1 < q) (hqr : ∀ d, d ∣ q → d = 1 �
   refine add_compat (ofInt_fermat hq hqr z.re) ?_
   rw [pow_mul_distrib (ofInt z.im) Omega q, omega_pow_q hq3]
   exact mul_right (ofInt_fermat hq hqr z.im) (Omega * Omega)
+
+/-- ★★★ **`ModEq` respects powering** — `a ≡ b (mod M) ⟹ a^n ≡ b^n (mod M)`.  Induction on `n` via
+    `mul_right`/`mul_left`.  ∅-axiom. -/
+theorem pow_modEq {M a b : ZOmega} (h : ModEq M a b) :
+    ∀ n : Nat, ModEq M (pow a n) (pow b n)
+  | 0 => refl M one
+  | n + 1 => by
+      rw [pow_succ, pow_succ]
+      exact trans (mul_right (pow_modEq h n) a) (mul_left h (pow b n))
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFrobeniusConj
