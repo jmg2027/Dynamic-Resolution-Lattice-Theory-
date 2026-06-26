@@ -107,9 +107,22 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
     ofInt z.im·(ω·ω)` component equality needs **explicit `Int213` lemmas per component** — `ring_intZ`
     does not fold `C0·var` / `C0·C(−1)` (constant-zero products), so use `zero_mul`/`mul_neg`/`sub_zero`
     (PURE) on each `.re`/`.im` goal rather than `ring_intZ`.
+  - **`frob_sq_modEq` — DONE (PURE)** (`EisensteinFrobeniusConj`): the **𝔽_{q²} Fermat**
+    `z^{q²} ≡ z (mod q)` (Frobenius² = id: `conj_modEq_pow` twice + `conj_conj`).  Makes `J^{(q²−1)/3}` a
+    cube root of unity mod `q` (`(J^{(q²−1)/3})³ = J^{q²−1} ≡ 1` for `J` a unit mod `q`) — the
+    μ₃-valuedness behind the symbol `(π/q)₃`.
   - **NEXT (the last leg — residue-symbol identification + transfer)**: `cubic_reciprocity_power_congr`
     gives `J^{(q²−1)/3} ≡ χ(q) (mod q)` — the LHS is `(π/q)₃` (cubic character of `π` mod `q`), the RHS
     `χ(q)` is `(q/π)₃` (cubic character of `q` mod the prime above `p`, by construction of `chiOmega`).
+    *μ₃-lift sub-brick (next):* lift the congruence to a μ₃ **equality** via **`1,ω,ω²` distinct mod `q`**.
+    Clean component route (PURE bits built): `dvd_re_of_ofInt_dvd`/`dvd_im_of_ofInt_dvd`
+    (`ofInt q ∣ d ⟹ q ∣ d.re` and `q ∣ d.im`, `EisensteinIntFermat`); each μ₃ difference has a `±1`
+    component (`ω−1=⟨−1,1⟩`, `ω²−1=⟨−2,−1⟩`, `ω²−ω=⟨−1,−2⟩`), so `q ∣ (±1)`, contradicting `q>1`.
+    **Foundational wall:** the last step `↑q ∣ (±1:Int) ⟹ q ∣ 1 (Nat) ⟹ q=1` needs a **PURE Int↔Nat
+    divisibility reflection** `(↑q ∣ ↑n) → q ∣ n`, but every Lean-core path leaks `propext`
+    (`Int.ofNat_dvd`, `Int.natAbs_mul`, `Int.natAbs_dvd_natAbs`, `Nat.dvd_one` all dirty; only
+    `eq_one_of_dvd_one` and `dvd_of_dvd_neg_p` are PURE).  Building PURE `int_ofNat_dvd` (via `Int.toNat`
+    + sign reasoning) is the next foundational sub-task — gates the μ₃ lift.
     Remaining: (a) *formally identify* `J^{(q²−1)/3} mod q = (π/q)₃` (define the cubic residue symbol in
     `𝔽_{q²} = ℤ[ω]/(q)` as `z^{(q²−1)/3}` and match) and `χ(q) = (q/π)₃`; (b) the **`π ↔ π'` transfer** —
     run the congruence with the two primary primes swapped (`jacobi_primary` pins `J = π`; note it

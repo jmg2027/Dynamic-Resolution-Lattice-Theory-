@@ -67,6 +67,22 @@ theorem ofIntDvd_reflect {a b : Int} (h : ofInt a ∣ ofInt b) : a ∣ b := by
   have hb : (ofInt b).re = b := rfl
   rw [← hb, hz, h2]
 
+/-- ★★★ **`ofInt a ∣ d ⟹ a ∣ d.re`** — the real-part component of an `ofInt`-divisibility (the `im = 0`
+    factor of `ofInt a`).  ∅-axiom. -/
+theorem dvd_re_of_ofInt_dvd {a : Int} {d : ZOmega} (h : ofInt a ∣ d) : a ∣ d.re := by
+  obtain ⟨w, hw⟩ := h
+  refine ⟨w.re, ?_⟩
+  have h2 : d.re = a * w.re - 0 * w.im := congrArg ZOmega.re hw
+  rw [h2, zero_mul, Int.sub_eq_add_neg, Int.neg_zero, Int.add_zero]
+
+/-- ★★★ **`ofInt a ∣ d ⟹ a ∣ d.im`** — the imaginary-part component of an `ofInt`-divisibility.
+    ∅-axiom. -/
+theorem dvd_im_of_ofInt_dvd {a : Int} {d : ZOmega} (h : ofInt a ∣ d) : a ∣ d.im := by
+  obtain ⟨w, hw⟩ := h
+  refine ⟨w.im, ?_⟩
+  have h2 : d.im = a * w.im + 0 * w.re - 0 * w.im := congrArg ZOmega.im hw
+  rw [h2, zero_mul, Int.add_zero, zero_mul, Int.sub_eq_add_neg, Int.neg_zero, Int.add_zero]
+
 /-- ★★★★ **The freshman's dream in `ℤ`** — `(↑q) ∣ ((A+B)^q − (A^q + B^q))` for a prime `q`.  The ℤ
     shadow of `add_pow_modEq_prime` (in `ℤ[ω]`), pulled back along `ofInt` by `ofIntDvd_reflect`.
     ∅-axiom. -/
