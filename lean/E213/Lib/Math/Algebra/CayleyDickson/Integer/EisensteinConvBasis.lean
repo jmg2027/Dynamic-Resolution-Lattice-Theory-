@@ -21,8 +21,8 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBasis
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_congr)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
-  (delta convPow convPow_zero convPow_succ)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (one one_mul)
+  (delta convPow convPow_zero convPow_succ convPow_scalar)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (one one_mul pow)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum (sumRange sum_single)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussShift (add_shift_index)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeSum (add_p_mod)
@@ -80,5 +80,13 @@ theorem basisPow_eq {p t : Nat} (hp : 0 < p) (ht : t < p) :
           basis_conv hp (Nat.mod_lt (t * q) hp) ht hk]
       show basis ((t * q % p + t) % p) k = basis ((t * (q + 1)) % p) k
       rw [mod_add_mod hp (t * q) t, show t * q + t = t * (q + 1) from by rw [Nat.mul_add, Nat.mul_one]]
+
+/-- ★★★★★ **The scaled-basis convolution power** — `(c · e_t)^{⋆q}(k) = c^q · e_{(t·q)%p}(k)` for
+    `t,k < p`.  Combines `convPow_scalar` (`(c·h)^{⋆q} = c^q·h^{⋆q}`) with `basisPow_eq`
+    (`e_t^{⋆q} = e_{tq%p}`).  This is the per-`t` term of the Gauss-sum Frobenius: with `c = χ(t)`,
+    `(χ(t)·e_t)^{⋆q}(k) = χ(t)^q · e_{tq%p}(k)`.  ∅-axiom up to allowed `propext`. -/
+theorem scaledBasisPow_eq {p t : Nat} (hp : 0 < p) (ht : t < p) (c : ZOmega) (q : Nat) {k : Nat}
+    (hk : k < p) : convPow p (fun i => c * basis t i) q k = pow c q * basis ((t * q) % p) k := by
+  rw [convPow_scalar p c (basis t) q hk, basisPow_eq hp ht q hk]
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBasis
