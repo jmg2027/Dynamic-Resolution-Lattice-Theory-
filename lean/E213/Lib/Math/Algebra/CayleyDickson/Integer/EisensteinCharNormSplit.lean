@@ -2,6 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDivStep
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidueFieldCubeRoots
+import E213.Lib.Math.NumberTheory.FourSquareSeed
 
 /-!
 # The ℤ[ω] cubic character splits over the norm — `χ_d(N(π')) = χ_d(π')·χ_d(π̄')` (∅-axiom)
@@ -29,8 +30,10 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar (char_mul o
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDivStep (mul_conj_self)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (pow)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (trans symm)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega chiOmega_lift)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega chiOmega_lift chiOmega_mod)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidueFieldCubeRoots (ofInt_natMod_modEq)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar (pow_cong)
+open E213.Lib.Math.NumberTheory.FourSquareSeed (dvd_of_mod_zero)
 open E213.Lib.Math.NumberTheory.ModArith.CubicCharFp (cubicChar)
 
 /-- ★★★★ **The ℤ[ω] cubic character splits over the norm** — `χ_d(N(π')) ≡ χ_d(π')·χ_d(π̄') (mod d)`.
@@ -66,6 +69,26 @@ theorem chiOmega_eq_eisChar {d : ZOmega} {p m x t : Nat} (hp : 1 < p)
     rw [ofInt_pow]; rw [natcast_pow t m]
   rw [hpoweq]
   exact trans (symm hlift) hmod
+
+/-- ★★★★ **`χ_ω = χ_d` on the embedded integer, for any unit `¬ p ∣ t`** (not just `t < p`).  Reduce
+    `t` to `t % p` (`chiOmega_mod`), apply `chiOmega_eq_eisChar` at the positive residue `0 < t%p < p`,
+    and lift `pow (ofInt (t%p)) m ≡ pow (ofInt t) m` (`ofInt_natMod_modEq` + `pow_cong`).  The relaxation
+    the cross-modulus reciprocity needs: `χ_{π'}(p)` has its argument `p` possibly `> pr = ‖π'‖²`.
+    ∅-axiom (PURE). -/
+theorem chiOmega_eq_eisChar_gen {d : ZOmega} {p m x t : Nat} (hp : 1 < p)
+    (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
+    (hω : ModEq d ZOmega.ZOmega.Omega (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
+    (ht : ¬ p ∣ t) :
+    ModEq d (chiOmega p m x t) (pow (ofInt ((t : Nat) : Int)) m) := by
+  have hppos : 0 < p := Nat.lt_of_lt_of_le (by decide) (Nat.le_of_lt hp)
+  have ht0 : 0 < t % p := by
+    rcases Nat.eq_zero_or_pos (t % p) with h0 | h
+    · exact absurd (dvd_of_mod_zero t p h0) ht
+    · exact h
+  have htlt : t % p < p := Nat.mod_lt _ hppos
+  rw [← chiOmega_mod p m x t]
+  exact trans (chiOmega_eq_eisChar hp hpr h3m hdn hω hx ht0 htlt)
+    (pow_cong (ofInt_natMod_modEq (a := t) hdn) m)
 
 /-- ★★★★★ **The rational character of `N(π')` is the product of Eisenstein residue symbols** —
 
