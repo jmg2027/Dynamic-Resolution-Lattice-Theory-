@@ -38,6 +38,8 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFpMul (chiOmega_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReindex (chiOmega_ne_zero)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinScaleCancel (one_mul_zomega)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum (chiOmega_zero_of_dvd)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm (conj_zero)
 open E213.Lib.Math.NumberTheory.ModArith.CubicCharFp (cubicChar)
 open E213.Lib.Math.NumberTheory.EulerTheorem (aInv aInv_spec cancel_unit)
 open E213.Tactic.NatHelper (gcd213)
@@ -169,5 +171,29 @@ theorem gauss_pow_modEq_factored {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 
       (chiOmega p m x q * conj (chiOmega p m x k)) := by
   have h := gauss_pow_modEq_reindexed p m x q hp hq3 hqr hcop hklt
   rwa [char_conj_reindex_split hp hp3 hpr h3m hdn hω hx hcop hq1 hqlt hk1 hklt] at h
+
+/-- ★★★★★ **The closed Gauss-sum Frobenius congruence (all coefficients)** — `gauss_pow_modEq_factored`
+    extended to every coefficient `k < p`, the full group-ring congruence
+
+      `g(χ)^{⋆q} ≡ χ(q) · g(χ̄)   (mod ofInt q)`   coefficient-wise (`g(χ̄)(k) = χ̄(k) = conj χ(k)`).
+
+    The `0 < k` case is `gauss_pow_modEq_factored`; at `k = 0` both sides vanish (`χ(0) = 0`, and the
+    collapse term `χ̄((q⁻¹·0)%p) = χ̄(0) = 0`).  This is the form the cubic-reciprocity law consumes —
+    propagated through products by `EisensteinConvCongruence.conv_modEq_left`.  ∅-axiom up to allowed
+    `propext`. -/
+theorem gauss_pow_modEq_factored_all {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
+    (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
+    (hq3 : q % 3 = 2) (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q) (hcop : gcd213 q p = 1)
+    (hq1 : 0 < q) (hqlt : q < p) {k : Nat} (hk : k < p) :
+    ModEq (ofInt ((q : Nat) : Int)) (convPow p (gauss p m x) q k)
+      (chiOmega p m x q * conj (chiOmega p m x k)) := by
+  rcases Nat.eq_zero_or_pos k with hk0 | hkpos
+  · subst hk0
+    have hc0 : chiOmega p m x 0 = 0 := chiOmega_zero_of_dvd p m x 0 ⟨0, rfl⟩
+    have hcol := gauss_pow_modEq_reindexed p m x q hp hq3 hqr hcop hk
+    rw [show (aInv q p * 0) % p = 0 from by rw [Nat.mul_zero, Nat.zero_mod], hc0, conj_zero] at hcol
+    rwa [hc0, conj_zero, mul_zero]
+  · exact gauss_pow_modEq_factored hp hp3 hpr h3m hdn hω hx hq3 hqr hcop hq1 hqlt hkpos hk
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex

@@ -22,16 +22,31 @@ So the *symbol* is done; the *reciprocity relation between two symbols* is the o
 ## What remains — the law's proof (a fresh large machinery)
 
 The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modulo a second prime**:
-1. **`g(χ)³ = p·J`** (the Gauss-sum cube) — from `g(χ)²=J·g(χ²)` (`gauss_sq_full`, DONE) plus
-   `g(χ)·g(χ²)=p` (a norm identity for the `χ²` Gauss sum).  Mostly assemblable from existing pieces.
-2. **The Frobenius congruence `g(χ)^q ≡ χ̄(q)·g(χ) (mod q)`** for a second rational prime `q` — needs the
-   Gauss sum reduced mod `q` (the `(x+y)^q ≡ x^q+y^q mod q` freshman's-dream in the cyclotomic /
-   group-ring carrier).  **This is the new subsystem** (mod-`q` reduction of `R[C_p]`).
+1. **`g(χ)³ = p·J`** (the Gauss-sum cube) — **DONE** (`EisensteinGaussCube.gauss_cube`, group-ring form
+   `(g⋆(g⋆g))(k) = J·Yfun p k`).
+2. **The Frobenius congruence `g(χ)^{⋆q} ≡ χ(q)·g(χ̄) (mod q)`** for a second rational prime `q ≡ 2 mod 3`
+   — **DONE** (Phase B2e, `EisensteinConvGaussReindex.gauss_pow_modEq_factored_all`, all coefficients).
 3. **Assemble** `(π/π')₃ = (π'/π)₃` by computing `g^N` two ways and comparing μ₃ values, using the
-   primary normalisation (`jacobi_primary`) to kill the unit ambiguity.
+   primary normalisation (`jacobi_primary`) to kill the unit ambiguity.  **This is the remaining work.**
 
-Estimated scale: comparable to the whole `N(J)=p` campaign (the group-ring machinery is reusable; the
-mod-`q` reduction + Frobenius is the genuinely new part).
+### Toolkit for step 3 (built this session)
+- **`EisensteinConvCongruence`** (all PURE): the mod-`M` congruence `ModEq` propagates through `⋆`
+  (`conv_modEq_left`/`conv_modEq_right`) and through `⋆`-powers (`convPow_modEq`).  The bridge that
+  carries the Frobenius congruence (`mod q`) into products with the cube `g³=p·J` and the norm
+  `g⋆ḡ=Yfun` (both `⋆`-identities).
+- **`gauss_pow_modEq_factored_all`**: the Frobenius congruence as a full group-ring congruence (every
+  coefficient `k<p`), the form step 3 multiplies against the cube/norm relations.
+
+### The genuinely-remaining bricks for step 3
+- Relate the **character-conjugate** Gauss sum `g(χ̄)` (coefficient `χ̄(k)=conj χ(k)`, the Frobenius RHS)
+  to the **ring-conjugate** `gaussConj` (coefficient `conj χ((p−k)%p)`, the norm's right factor) — they
+  differ by the reflection `k↦(p−k)%p` (`g(χ̄)(k) = gaussConj((p−k)%p)`).  Needed to feed the Frobenius
+  output into `gauss_conj_norm` (`g⋆gaussConj = Yfun`).
+- Compute `g(χ)^{⋆N}` two ways (`N` the relevant exponent: via the cube `g³=p·J` for the `3∣` part, via
+  the Frobenius for the `mod q` part) and compare the resulting μ₃ unit using `jacobi_primary` (`J=π`).
+
+Estimated scale: the engine (`N(J)=p`, the Frobenius congruence) is now built; the remaining step 3 is the
+μ₃-comparison assembly — smaller than the engine, but still a careful multi-brick argument.
 
 ## First concrete bricks (entry points)
 - **B0 — DONE** (∅-axiom up to allowed `propext`): the `ℤ[ω]` symbol on rational integers ⟺ the
