@@ -114,9 +114,12 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
     6. **`N(J)=p`** then `J=π` (A4); the law `(π/π')₃=(π'/π)₃` + transfer.
 - **A4.** `J` primary normalisation → `J = π`.
 
-### Phase B — the cubic law
-- `(π/π')₃ = (π'/π)₃` from `J = π` + the transfer (determine here whether Gauss sums / `ℤ[ζ_p]`
-  are genuinely required for the last step).
+### Phase B — the cubic law  *(open; scoped in `frontiers/cubic_reciprocity_law.md`)*
+- **The cubic residue symbol `χ_d(α)=α^m` is COMPLETE** (μ₃-valued `cubic_char_value`, multiplicative
+  `char_mul`, Euler both ways `cubic_residue_char_one`/`char_one_implies_cube`).
+- `(π/π')₃ = (π'/π)₃` from `J=π` (`jacobi_primary`, DONE) + the **Gauss-sum-mod-`q`** argument: `g(χ)³=p·J`
+  (reuses the conv ring), the Frobenius congruence `g(χ)^q ≡ χ̄(q)g(χ) mod q` (the new subsystem = mod-`q`
+  reduction of `R[C_p]` + freshman's dream), then compare `g^N` two ways.  A fresh large phase.
 
 ### Phase C — quartic / biquadratic (`ℤ[i]`)
 - replay the substrate (`μ₄ = {1,i,−1,−i}`, residue prime, character, Euler criterion — fast, the
