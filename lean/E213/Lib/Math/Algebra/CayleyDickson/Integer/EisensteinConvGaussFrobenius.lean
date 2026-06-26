@@ -27,7 +27,7 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobeni
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharPow (chiOmega_pow_q)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharPow (chiOmega_pow_q chiOmega_pow_p)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow (convPow convPow_congr)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvFreshman (convPow_sum_modEq_prime)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBasis
@@ -81,6 +81,28 @@ theorem gauss_pow_modEq_conj (p m x q : Nat) (hq3 : q % 3 = 2)
       = sumRange (fun t => conj (chiOmega p m x t) * basis ((t * q) % p) k) p :=
     sum_congr p (fun t _ => by rw [chiOmega_pow_q p m x t q hq3])
   have h := gauss_pow_modEq p m x q hp hq hqr hk
+  rw [hre] at h
+  exact h
+
+/-- ★★★★★ **The Gauss-sum Frobenius for a split prime** — for a rational prime `pr ≡ 1 (mod 3)` (`pr = ‖π'‖²`,
+    `π'` split) and `k < p`,
+
+      `g(χ)^{⋆pr}(k) ≡ Σ_{t<p} χ(t) · e_{(t·pr)%p}(k)   (mod ofInt pr)`.
+
+    Combines `gauss_pow_modEq` with the split character-power `chiOmega_pow_p` (`χ(t)^{pr} = χ(t)` for
+    `pr ≡ 1 mod 3`, the **identity**, vs the inert conjugate).  The split-prime first half of
+    `g(χ)^{⋆pr} ≡ χ̄(pr)·g(χ) (mod π')` — up to the `t ↦ t·pr%p` reindex (and the descent `mod ofInt pr`
+    ⟹ `mod π'`, since `π' ∣ ofInt pr`).  ∅-axiom (PURE). -/
+theorem gauss_pow_modEq_char (p m x pr : Nat) (hpr1 : 1 < pr) (hpr3 : pr % 3 = 1)
+    (hprr : ∀ e, e ∣ pr → e = 1 ∨ e = pr) {k : Nat} (hk : k < p) :
+    ModEq (ofInt ((pr : Nat) : Int))
+      (convPow p (gauss p m x) pr k)
+      (sumRange (fun t => chiOmega p m x t * basis ((t * pr) % p) k) p) := by
+  have hp : 0 < p := Nat.lt_of_le_of_lt (Nat.zero_le k) hk
+  have hre : sumRange (fun t => pow (chiOmega p m x t) pr * basis ((t * pr) % p) k) p
+      = sumRange (fun t => chiOmega p m x t * basis ((t * pr) % p) k) p :=
+    sum_congr p (fun t _ => by rw [chiOmega_pow_p p m x t pr hpr3])
+  have h := gauss_pow_modEq p m x pr hp hpr1 hprr hk
   rw [hre] at h
   exact h
 

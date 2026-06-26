@@ -54,4 +54,18 @@ theorem chiOmega_pow_q (p m x t q : Nat) (hq : q % 3 = 2) :
   · rw [pow_omega_mod, hq]; decide
   · rw [pow_mul_distrib, pow_omega_mod, hq]; decide
 
+/-- ★★★★ **The μ₃ character-power for a split prime** — `χ_ω(t)^{p'} = χ_ω(t)` for `p' ≡ 1 (mod 3)`.
+    On `{0, 1, ω, ω²}` the `p'`-th power is the **identity** (not the conjugate, as in `chiOmega_pow_q`):
+    `0^{p'} = 0`, `1^{p'} = 1`, `ω^{p'} = ω^{p' mod 3} = ω`, `(ω²)^{p'} = ω^{p'}·ω^{p'} = ω·ω = ω²`.  The
+    number-theory half of the **split-prime** Gauss-sum Frobenius `g(χ)^{⋆p'} ≡ χ̄(p')·g(χ) (mod π')`
+    (`χ(t)^{p'} = χ(t)`, vs the inert `χ(t)^q = χ̄(t)`).  ∅-axiom (PURE). -/
+theorem chiOmega_pow_p (p m x t pr : Nat) (hpr : pr % 3 = 1) :
+    pow (chiOmega p m x t) pr = chiOmega p m x t := by
+  have hp1 : 0 < pr := Nat.lt_of_lt_of_le (by decide) (hpr ▸ Nat.mod_le pr 3)
+  rcases chiOmega_value p m x t with h | h | h | h <;> rw [h]
+  · rw [pow_zero_pos hp1]
+  · rw [pow_one_base]
+  · rw [pow_omega_mod, hpr]; decide
+  · rw [pow_mul_distrib, pow_omega_mod, hpr]; decide
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharPow
