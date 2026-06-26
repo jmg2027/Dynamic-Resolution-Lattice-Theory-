@@ -38,12 +38,17 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
   coefficient `k<p`), the form step 3 multiplies against the cube/norm relations.
 
 ### The genuinely-remaining bricks for step 3
-- Relate the **character-conjugate** Gauss sum `g(χ̄)` (coefficient `χ̄(k)=conj χ(k)`, the Frobenius RHS)
-  to the **ring-conjugate** `gaussConj` (coefficient `conj χ((p−k)%p)`, the norm's right factor) — they
-  differ by the reflection `k↦(p−k)%p` (`g(χ̄)(k) = gaussConj((p−k)%p)`).  Needed to feed the Frobenius
-  output into `gauss_conj_norm` (`g⋆gaussConj = Yfun`).
-- Compute `g(χ)^{⋆N}` two ways (`N` the relevant exponent: via the cube `g³=p·J` for the `3∣` part, via
-  the Frobenius for the `mod q` part) and compare the resulting μ₃ unit using `jacobi_primary` (`J=π`).
+- **`charConj_eq_gaussConj_reflect` — DONE**: `conj χ(k) = gaussConj((p−k)%p)` relates the
+  character-conjugate Gauss sum `g(χ̄)` (Frobenius RHS) to the ring-conjugate `gaussConj` (norm factor),
+  differing by the reflection `k↦(p−k)%p` (an involution).
+- **`gauss_pow_succ_modEq` — DONE**: `g(χ)^{⋆(q+1)}(k) ≡ χ(q)·(g(χ̄)⋆g)(k) (mod q)` (via `convPow_succ`
+  + `conv_modEq_left` + `conv_scalar_left`) — pushes the Frobenius congruence one power up so the RHS is
+  the Gauss-sum norm `g(χ̄)⋆g`.
+- **NEXT**: evaluate `(g(χ̄)⋆g)(k)` — reindex the convolution by the reflection
+  (`charConj_eq_gaussConj_reflect`) to convert `g(χ̄)⋆g` into the computed norm `g⋆gaussConj = Yfun`
+  (`gauss_conj_norm`), giving `g(χ)^{⋆(q+1)} ≡ χ(q)·Yfun (mod q)` (`Yfun ↦ p` at `e_0` in `ℤ[ζ_p]`).
+- Then compute `g(χ)^{⋆N}` two ways (the `3∣` part via the cube `g³=p·J`, the `mod q` part via the
+  Frobenius chain) and compare the resulting μ₃ unit using `jacobi_primary` (`J=π`).
 
 Estimated scale: the engine (`N(J)=p`, the Frobenius congruence) is now built; the remaining step 3 is the
 μ₃-comparison assembly — smaller than the engine, but still a careful multi-brick argument.

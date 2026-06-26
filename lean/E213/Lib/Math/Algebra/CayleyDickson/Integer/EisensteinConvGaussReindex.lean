@@ -1,4 +1,5 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvCongruence
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReindex
 import E213.Lib.Math.NumberTheory.EulerTheorem
 import E213.Meta.Nat.MulMod213
@@ -27,7 +28,9 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBasis (basis)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow (convPow)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow (convPow convPow_succ)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_scalar_left)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvCongruence (conv_modEq_left)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss gaussConj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius (gauss_pow_modEq_conj)
@@ -215,5 +218,29 @@ theorem charConj_eq_gaussConj_reflect (p m x k : Nat) (hp : 0 < p) (hk : k < p) 
     conj (chiOmega p m x k) = gaussConj p m x ((p - k) % p) := by
   show conj (chiOmega p m x k) = conj (chiOmega p m x ((p - (p - k) % p) % p))
   rw [refl_idx hp hk]
+
+/-- ★★★★★ **The Frobenius congruence pushed one power up** — for a prime `q ≡ 2 (mod 3)`, unit mod `p`,
+    and `k < p`,
+
+      `g(χ)^{⋆(q+1)}(k) ≡ χ(q) · (g(χ̄) ⋆ g(χ))(k)   (mod ofInt q)`,
+
+    where `g(χ̄) = fun i ↦ conj χ(i)` is the character-conjugate Gauss sum.  `convPow_succ` opens
+    `g^{⋆(q+1)} = g^{⋆q} ⋆ g`; `conv_modEq_left` replaces `g^{⋆q}` by its Frobenius value
+    `χ(q)·g(χ̄)` (`gauss_pow_modEq_factored_all`, all coefficients); `conv_scalar_left` pulls the
+    constant `χ(q)` out of the convolution.  The on-path step toward computing `g^{⋆N}` two ways for the
+    reciprocity law: the RHS `g(χ̄)⋆g` is the Gauss-sum norm (evaluable via
+    `charConj_eq_gaussConj_reflect` + `gauss_conj_norm`).  ∅-axiom up to allowed `propext`. -/
+theorem gauss_pow_succ_modEq {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
+    (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
+    (hq3 : q % 3 = 2) (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q) (hcop : gcd213 q p = 1)
+    (hq1 : 0 < q) (hqlt : q < p) {k : Nat} (hk : k < p) :
+    ModEq (ofInt ((q : Nat) : Int)) (convPow p (gauss p m x) (q + 1) k)
+      (chiOmega p m x q
+        * conv p (fun i => conj (chiOmega p m x i)) (gauss p m x) k) := by
+  rw [convPow_succ]
+  have h1 := conv_modEq_left p (gauss p m x) k
+    (fun i hi => gauss_pow_modEq_factored_all hp hp3 hpr h3m hdn hω hx hq3 hqr hcop hq1 hqlt hi)
+  rwa [conv_scalar_left p (chiOmega p m x q) (fun i => conj (chiOmega p m x i)) (gauss p m x) k] at h1
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex
