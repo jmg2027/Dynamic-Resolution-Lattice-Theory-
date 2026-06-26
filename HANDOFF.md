@@ -57,6 +57,9 @@ fixed coefficient `k` the sum collapses to the single surviving term — no perm
 - `gauss_pow_succ_modEq` then `gauss_pow_succ_modEq_Yfun`: **`g(χ)^{⋆(q+1)}(k) ≡ χ(q)·Yfun(k) (mod q)`**
   — the Frobenius congruence pushed to `q+1` and the norm RHS evaluated (`gaussConj_eq_charConj` +
   `conv_comm` + `gauss_conj_norm`).  The **Frobenius side** of the `g^{⋆N}`-comparison, closed form.
+- `gauss_convPow3`: **`g(χ)^{⋆3}(k) = J·Yfun(k)`** — `gauss_cube` rephrased in `convPow` form
+  (`convPow_succ`/`convOne_left`/`conv_congr`/`conv_comm`).  The **cube side**, same `convPow`/`Yfun`
+  frame as the Frobenius side.
 
 ## Current Precision Results
 No new physics constants (pure-math arc — cubic / Eisenstein reciprocity).  Physics table in
@@ -91,10 +94,12 @@ this session — the `t↦tq%p` reindex turned out to need *no* permutation-sum 
 indicators collapse the sum to a single term at each coefficient).
 
 ## Next
-The cubic reciprocity law itself (Open Problem 1 above).  The **Frobenius side** is now closed form
-(`gauss_pow_succ_modEq_Yfun`: `g(χ)^{⋆(q+1)} ≡ χ(q)·Yfun (mod q)`).  Next: the **cube side** —
-rephrase `gauss_cube` (`g⋆(g⋆g) = J·Yfun`) as `convPow p g 3 = J·Yfun` (`conv_assoc`/`convOne_left`),
-then compare the two `g^{⋆N}` evaluations and extract the μ₃ unit using `jacobi_primary` (`J=π`).
+The cubic reciprocity law itself (Open Problem 1 above).  **Both sides of the `g^{⋆N}`-comparison are
+now in the same `convPow`/`Yfun` frame**: Frobenius `g^{⋆(q+1)} ≡ χ(q)·Yfun (mod q)`
+(`gauss_pow_succ_modEq_Yfun`) and cube `g^{⋆3} = J·Yfun` (`gauss_convPow3`).  Last leg: the **μ₃
+comparison** — combine the two (the shared `Yfun` factor, `Yfun⋆Yfun = p·Yfun`) to relate `χ(q)` and
+`J=π` mod `q`, then `jacobi_primary` + the second prime's primary normalisation give `(π/π')₃=(π'/π)₃`.
+Reference: Ireland–Rosen ch. 9.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: none (Phase B still open; promotes with the reciprocity law).  The
