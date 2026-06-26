@@ -117,13 +117,17 @@ above is still valid infra** (Gauss sums are `listSum`s too), just insufficient 
   - **`Integer/EisensteinInvPerm` DONE** — `totativeList_inv_lperm`: inversion `t↦(aInv t p)%p` permutes
     `totativeList p` (involution `t⁻¹⁻¹=t`, via `cancel_unit`).  **The reindex toolkit is now COMPLETE:
     mult (`lperm_image`/`rangeList_mul_lperm`) + additive (`rangeList_add_lperm`) + inversion (this).**
-  - **Next bricks (finish off-diagonal `(g⋆ḡ)(k)=↑(−1)`, then `N(J)=p`) — all permutations in hand:**
-    1. **mult reindex** `i=(k·u)%p` (`rangeList_mul_lperm`+`sumRange_eq_listSum`+`chiOmega_mul`/`_mod`)
-       ⟹ `(g⋆ḡ)(k) = C := Σ_u χ_ω(u)·χ̄_ω((u−1)%p)` (`k`-indep); needs the index helper
-       `((k·u)%p+p−k)%p = (k·(u−1))%p`.
-    2. **`C = −1`** — per-term `χ_ω(b)·χ̄_ω(c)=χ_ω((b·c⁻¹)%p)`, then `u↦u−1` shift
-       (`rangeList_add_lperm`) + `j↦j⁻¹` inversion (`totativeList_inv_lperm`) + `z=1+w` shift
-       ⟹ `Σ_{z≠1}χ_ω(z)=−1` (`chiListSum_totatives_zero`).  ← execution on complete infra.
+  - **`Integer/EisensteinScaleCancel`** (extended): `mul_sub_zomega`, `mul_left_cancel_zomega`
+    (ℤ[ω] left cancellation).  **`Integer/EisensteinCharDiv`**: **`chiOmega_div`**
+    (`χ_ω(b)·χ̄_ω(c)=χ_ω((b·aInv c p)%p)`, the per-term ratio identity), `chiOmega_one`, `aInv_mod_pos`.
+  - **ALL foundational building blocks for the off-diagonal `−1` are now in place**
+    (permutations mult/add/inv, cancellation, the division identity).  **Remaining = ASSEMBLY of the
+    sum manipulations:**
+    1. **mult-reindex assembly** `i=(k·u)%p` ⟹ `(g⋆ḡ)(k) = C := Σ_u χ_ω(u)·χ̄_ω((u−1)%p)` (`k`-indep);
+       `sumRange_eq_listSum` + `rangeList_mul_lperm` + `listSum_lperm`/`_map`/`_congr` + per-term
+       (`chiOmega_mul`/`chiOmega_div`); needs index helper `((k·u)%p+p−k)%p = (k·(u−1))%p`.
+    2. **`C = −1` assembly** — `u↦u−1` shift + `j↦j⁻¹` inversion (`totativeList_inv_lperm`) + `z=1+w`
+       shift + `chiOmega_div` per-term ⟹ `Σ_{z≠1}χ_ω(z)=−1` (`chiListSum_totatives_zero`).
     3. `g(χ)² = J·g(χ²)` coefficient identity (convolution = `listSum_mul_distrib`-style).
     4. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
