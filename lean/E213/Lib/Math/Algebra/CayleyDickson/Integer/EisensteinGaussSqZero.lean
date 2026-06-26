@@ -22,7 +22,8 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt Omega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFpMul (chiOmega_mul)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum (chiOmega_zero_of_dvd)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum (jacobiSum chiOmega_zero_of_dvd)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussJacobi (gauss_sq_unit)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss)
@@ -88,5 +89,21 @@ theorem gauss_sq_zero {d : ZOmega} {p m x : Nat} (hp : 1 < p) (hp3 : 3 < p)
               one_mul_zomega]
         rw [hchineg])]
   exact chiOmega_sq_orth hp hp3 hpr h3m hm1 hdn hω hx
+
+/-- ★★★★★ **The Gauss–Jacobi relation at every coefficient** — `(g⋆g)(n) = jacobiSum·χ_ω(n)²` for all
+    `n < p` (`g(χ)² = J·g(χ²)` in `R[C_p]`, since `g(χ²)(n) = χ_ω(n)²`).  Unit `n`: `gauss_sq_unit`;
+    `n=0`: `gauss_sq_zero` (both sides `0`).  ∅-axiom. -/
+theorem gauss_sq_full {d : ZOmega} {p m x n : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hn : n < p) :
+    conv p (gauss p m x) (gauss p m x) n
+      = jacobiSum p m x * (chiOmega p m x n * chiOmega p m x n) := by
+  rcases Nat.eq_zero_or_pos n with hz | hpos
+  · subst hz
+    rw [gauss_sq_zero hp hp3 hpr h3m hm1 hdn hω hx,
+        chiOmega_zero_of_dvd p m x 0 ⟨0, rfl⟩, zero_mul,
+        E213.Meta.Algebra213.Ring213.mul_zero]
+  · exact gauss_sq_unit hp hp3 hpr h3m hdn hω hx hpos hn
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSqZero
