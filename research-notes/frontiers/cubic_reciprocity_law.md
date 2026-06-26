@@ -44,11 +44,17 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
 - **`gauss_pow_succ_modEq` — DONE**: `g(χ)^{⋆(q+1)}(k) ≡ χ(q)·(g(χ̄)⋆g)(k) (mod q)` (via `convPow_succ`
   + `conv_modEq_left` + `conv_scalar_left`) — pushes the Frobenius congruence one power up so the RHS is
   the Gauss-sum norm `g(χ̄)⋆g`.
-- **NEXT**: evaluate `(g(χ̄)⋆g)(k)` — reindex the convolution by the reflection
-  (`charConj_eq_gaussConj_reflect`) to convert `g(χ̄)⋆g` into the computed norm `g⋆gaussConj = Yfun`
-  (`gauss_conj_norm`), giving `g(χ)^{⋆(q+1)} ≡ χ(q)·Yfun (mod q)` (`Yfun ↦ p` at `e_0` in `ℤ[ζ_p]`).
-- Then compute `g(χ)^{⋆N}` two ways (the `3∣` part via the cube `g³=p·J`, the `mod q` part via the
-  Frobenius chain) and compare the resulting μ₃ unit using `jacobi_primary` (`J=π`).
+- **`gaussConj_eq_charConj` — DONE** (`EisensteinGaussCube`): `gaussConj(k) = conj χ(k)` for `k<p` —
+  since `χ(−1)=1` (`p−1` a cube, `chiOmega_reflect`), the ring-conjugate `gaussConj` **is** the
+  character-conjugate `g(χ̄)`.  (Stronger than the reflection `charConj_eq_gaussConj_reflect`: an exact
+  scalar/identity equality, because `m=(p−1)/3` is even.)
+- **`gauss_pow_succ_modEq_Yfun` — DONE**: **`g(χ)^{⋆(q+1)}(k) ≡ χ(q)·Yfun(k) (mod q)`** — evaluates the
+  norm RHS via `gaussConj_eq_charConj` + `conv_comm` + `gauss_conj_norm` (`g⋆gaussConj=Yfun`).  The
+  **Frobenius side** of the `g^{⋆N}`-comparison, in closed form (`Yfun ↦ p` at `e_0` in `ℤ[ζ_p]`).
+- **NEXT**: the **cube side** — `g(χ)^{⋆3}(k) = J·Yfun(k)` (rephrase `gauss_cube`'s `g⋆(g⋆g)` as
+  `convPow p g 3`, via `conv_assoc`/`convOne_left`).  Then compare `g^{⋆(q+1)}` vs a cube-based
+  evaluation of the same exponent (relating `q+1` to the `3`-structure and the norm `g⋆ḡ=Yfun`),
+  extracting the μ₃ unit comparison with `jacobi_primary` (`J=π`) to land `(π/π')₃ = (π'/π)₃`.
 
 Estimated scale: the engine (`N(J)=p`, the Frobenius congruence) is now built; the remaining step 3 is the
 μ₃-comparison assembly — smaller than the engine, but still a careful multi-brick argument.

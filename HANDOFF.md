@@ -52,6 +52,11 @@ fixed coefficient `k` the sum collapses to the single surviving term — no perm
 - `charConj_eq_gaussConj_reflect`: `conj χ(k) = gaussConj((p−k)%p)` — bridges the Frobenius RHS `g(χ̄)`
   (character-conjugate) to the norm factor `gaussConj` (ring-conjugate), differing by the reflection
   `k↦(p−k)%p` (`refl_idx`, an involution).
+- `EisensteinGaussCube.gaussConj_eq_charConj`: `gaussConj(k) = conj χ(k)` — the **exact** identity
+  (since `χ(−1)=1`, `m=(p−1)/3` even): the ring-conjugate `gaussConj` *is* `g(χ̄)`.
+- `gauss_pow_succ_modEq` then `gauss_pow_succ_modEq_Yfun`: **`g(χ)^{⋆(q+1)}(k) ≡ χ(q)·Yfun(k) (mod q)`**
+  — the Frobenius congruence pushed to `q+1` and the norm RHS evaluated (`gaussConj_eq_charConj` +
+  `conv_comm` + `gauss_conj_norm`).  The **Frobenius side** of the `g^{⋆N}`-comparison, closed form.
 
 ## Current Precision Results
 No new physics constants (pure-math arc — cubic / Eisenstein reciprocity).  Physics table in
@@ -86,10 +91,10 @@ this session — the `t↦tq%p` reindex turned out to need *no* permutation-sum 
 indicators collapse the sum to a single term at each coefficient).
 
 ## Next
-The cubic reciprocity law itself (Open Problem 1 above).  Concrete first brick now that the toolkit is
-in place: `g(χ)^{⋆(q+1)} ≡ χ(q)·(g(χ̄)⋆g) (mod q)` via `convPow_succ` + `conv_modEq_left`
-(`gauss_pow_modEq_factored_all`), then evaluate `g(χ̄)⋆g` through `charConj_eq_gaussConj_reflect` +
-`gauss_conj_norm` (`g⋆gaussConj=Yfun`).  Then the μ₃-comparison + `jacobi_primary`.
+The cubic reciprocity law itself (Open Problem 1 above).  The **Frobenius side** is now closed form
+(`gauss_pow_succ_modEq_Yfun`: `g(χ)^{⋆(q+1)} ≡ χ(q)·Yfun (mod q)`).  Next: the **cube side** —
+rephrase `gauss_cube` (`g⋆(g⋆g) = J·Yfun`) as `convPow p g 3 = J·Yfun` (`conv_assoc`/`convOne_left`),
+then compare the two `g^{⋆N}` evaluations and extract the μ₃ unit using `jacobi_primary` (`J=π`).
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: none (Phase B still open; promotes with the reciprocity law).  The
