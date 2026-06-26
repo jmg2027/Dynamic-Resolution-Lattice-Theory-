@@ -81,7 +81,7 @@ Chapter exists when the Lean sub-tree closed per
     integration, narrative depth, physics deployment,
     architecture)
 
-## Current chapters (275 total, incl. 114 essays)
+## Current chapters (276 total, incl. 115 essays)
 
 | Area | Chapters | Sub-INDEX |
 |---|---:|---|
