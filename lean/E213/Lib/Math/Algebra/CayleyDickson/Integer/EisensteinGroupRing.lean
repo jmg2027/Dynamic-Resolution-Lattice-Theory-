@@ -61,4 +61,14 @@ theorem conv_scalar_left (p : Nat) (c : ZOmega) (f g : Nat → ZOmega) (k : Nat)
   exact sum_congr p (fun i _ =>
     E213.Meta.Algebra213.Ring213.mul_assoc c (f i) (g ((k + p - i) % p)))
 
+/-- ★★★ **Convolution congruence** — `conv p f g k = conv p f' g' k` whenever `f = f'` and `g = g'`
+    on `[0,p)`.  `conv` only reads its arguments at indices `< p` (the summation index `i` and the
+    reflected index `(k+p−i)%p`), so agreement on `[0,p)` suffices.  This lets a coefficient function
+    (e.g. `conv gauss gaussConj`, known `= Yfun` on `[0,p)`) be swapped for its closed form inside an
+    outer convolution.  ∅-axiom. -/
+theorem conv_congr (p : Nat) {f f' g g' : Nat → ZOmega} (k : Nat) (hp : 0 < p)
+    (hf : ∀ i, i < p → f i = f' i) (hg : ∀ i, i < p → g i = g' i) :
+    conv p f g k = conv p f' g' k :=
+  sum_congr p (fun i hi => by rw [hf i hi, hg ((k + p - i) % p) (Nat.mod_lt _ hp)])
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing
