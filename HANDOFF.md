@@ -125,18 +125,32 @@ Two clean congruences, **in the two prime moduli**, are now in hand — decompos
   rational character of the norm = the product of the Eisenstein residue symbols `(π'/π)₃·(π̄'/π)₃`.
   Built from `chiOmega_eq_eisChar` (`𝔽_p` char = ℤ[ω] char of the embedded integer) + `eisChar_norm_split`.
 
-## Remaining work — the cross-modulus synthesis (the one irreducibly reference-dependent step)
+## Remaining work — the cross-modulus synthesis — PATH FOUND (Ireland–Rosen ch. 9, via deep research)
 
-Closing `(π/π')₃ = (π'/π)₃` needs to **combine the two congruences across the incompatible moduli `π`
-and `π'`** — the genuine heart of cubic reciprocity, and the only step not decomposable into mechanical
-bricks.  Both congruences are concrete relations among μ₃ values (`χ̄(pr) = conj(chiOmega pr)` is a literal
-`{1,ω,ω²}` element); the synthesis ties `(π/π')₃` (mod `π'`) to `(π'/π)₃` (mod `d`) using the **primary**
-normalisation (`jacobi_primary`, now PURE — `J = π` primary, so `J̄ = π̄` the primary conjugate) and the
-`μ₃`-lift (`mu3_eq_of_modEq`, reusable).  This requires the classical argument (Ireland–Rosen ch. 9)
-worked out — building it by analogy would risk wrong theorems (the two-moduli structure is subtle).
+The proof is no longer reference-blocked.  Deep research recovered the exact classical argument (Xu REU
+2021 §4 / Ireland–Rosen ch. 9; extracted in `research-notes/frontiers/cubic_reciprocity_synthesis_from_IR.md`).
+**No proof-assistant formalization of cubic reciprocity exists anywhere** (Mathlib has only Jacobi/Gauss
+infrastructure + quadratic reciprocity), so this would be novel.
 
-Everything up to and including both halves (`split_conj_residue_relation`, `chiOmega_norm_eq_symbol_product`)
-is built and PURE.
+**Case 3 (both primes split) uses TWO symmetric Gauss-sum computations + a cancellation:**
+- mod `π₂`: `χ_{π₁}(p₂²) = χ_{π₂}(p₁·π₁)`  (relation A — ≈ my `split_conj_residue_relation`)
+- mod `π₁`: `χ_{π₂}(p₁²) = χ_{π₁}(p₂·π₂)`  (relation B — the SAME machinery with the two primes SWAPPED)
+- combine via the conjugate law `χ_π(ᾱ) = conj χ_π(α)` (Case 1) + multiplicativity, cancelling the unit
+  `χ_{π₂}(p₁π₁)` ⟹ `χ_{π₁}(π₂) = χ_{π₂}(π₁)`.
+
+**The build (bounded, multi-round; Lean self-verifies each congruence so no wrong-theorem risk):**
+1. **Relax `q < p` → "`q` a unit residue mod `p`"** (`gcd(q,p)=1` + `p∤q`) across the split arc
+   (`gauss_pow_modEq_char_*`, `split_reciprocity_*`, `split_conj_residue_relation`).  *Essential*: relation
+   A needs `pr<p`, relation B needs `p<pr` — they can't coexist, so the ordering constraint must go (it is
+   only used for `chiOmega_mul`/`chiOmega_ne_zero` unit-residue + for `pr≠p`).  This also generalises the
+   inert law.
+2. **Build relation B** = the split arc instantiated for the *second* prime (`d := π'`, `p := pr`,
+   `m := (pr−1)/3`, second prime `:= π` of norm `p`).  All hypotheses are symmetric & available
+   (`hπ'ω`, `hω`); the second prime's Jacobi-sum data is generic in `(p,m,x)`.
+3. **The combination lemma** — short ℤ[ω] algebra (`char_mul` + conjugate law + `modEq_cancel_right`).
+
+Everything up to both halves (`split_conj_residue_relation`, `chiOmega_norm_eq_symbol_product`) is built
+and PURE; the synthesis is now a clear bounded build, not a reference gap.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: none yet — Phase B's promotable unit is the *law*, now assembled; the
