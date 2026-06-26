@@ -32,7 +32,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum (chiOmega_z
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidue (ofInt_add ofInt_neg)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss gaussConj)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss gaussConj gauss_conj_zero)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussShift (gauss_offdiag_shift)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinShiftTerm (chiOmega_shift_term)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeTotatives
@@ -142,5 +142,25 @@ theorem gauss_conj_offdiag {d : ZOmega} {p m x k : Nat} (hp : 1 < p) (hp3 : 3 < 
       (listSum_lperm (fun z => chiOmega p m x ((1 + z) % p))
         (lperm_image hp hkgcd)).symm]
   exact offdiag_const hp hp3 hpr h3m hm1 hdn hω hx
+
+/-- ★★★★★ **The Gauss-sum norm `g·conj g = p·1 − N`** (coefficient form) — for every `k < p`,
+
+  `(g ⋆ conj g)(k) = ofInt(p−1)` if `k = 0`,  `ofInt(−1)` otherwise.
+
+  The `e_0`-coefficient `p−1` (`gauss_conj_zero`, the `p−1` units on the diagonal) and the off-diagonal
+  `−1` (`gauss_conj_offdiag`) together state `g·conj g = p·e_0 − Σ_k e_k = p·1 − N` in `R[C_p]`.  This
+  is the `|g(χ)|²`-structure feeding the Jacobi-sum norm `N(J)=p` (the pure convolution identity
+  `N⋆N = p·N`, then the Gauss–Jacobi relation `g(χ)²=J·g(χ²)`).  ∅-axiom. -/
+theorem gauss_conj_norm {d : ZOmega} {p m x k : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ t, t ∣ p → t = 1 ∨ t = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hkp : k < p) :
+    conv p (gauss p m x) (gaussConj p m x) k
+      = (if k = 0 then ofInt (((p - 1 : Nat)) : Int) else ofInt (-1)) := by
+  rcases Nat.eq_zero_or_pos k with hz | hpos
+  · subst hz; rw [if_pos rfl]; exact gauss_conj_zero p m x
+  · have hne : k ≠ 0 := fun h => absurd (h ▸ hpos) (by decide)
+    rw [if_neg hne]
+    exact gauss_conj_offdiag hp hp3 hpr h3m hm1 hdn hω hx hpos hkp
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiagOne
