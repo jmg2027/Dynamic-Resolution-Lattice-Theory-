@@ -125,41 +125,48 @@ Two clean congruences, **in the two prime moduli**, are now in hand — decompos
   rational character of the norm = the product of the Eisenstein residue symbols `(π'/π)₃·(π̄'/π)₃`.
   Built from `chiOmega_eq_eisChar` (`𝔽_p` char = ℤ[ω] char of the embedded integer) + `eisChar_norm_split`.
 
-## Remaining work — the cross-modulus synthesis — PATH FOUND (Ireland–Rosen ch. 9, via deep research)
+## Cross-modulus synthesis — STRUCTURE VERIFIED, only assembly remains (Phase B2h–B2n, this session)
 
-The proof is no longer reference-blocked.  Deep research recovered the exact classical argument (Xu REU
-2021 §4 / Ireland–Rosen ch. 9; extracted in `research-notes/frontiers/cubic_reciprocity_synthesis_from_IR.md`).
+**The combination closes — proven by Lean.**  The full derivation was worked out and the closing
+finite-group step is **built and PURE** (`mu3_reciprocity_algebra`): the split cubic reciprocity law
+`(π/π')₃ = (π'/π)₃` follows from two element equations among μ₃ literals.  No reference gap, no
+structural risk — the algebra is verified.  (The source REU note's literal equations were OCR-garbled;
+the honest derivation is in `research-notes/frontiers/cubic_reciprocity_synthesis_from_IR.md`, corrected.)
+
+**The closing derivation (all μ₃ literals; `J = π = jacobiSum p m x`, `J₂ = π' = jacobiSum pr m₂ x₂`):**
+- `A := (π/π')₃ = J^{m₂} mod π'`,  `B := (π̄/π')₃ = (conj J)^{m₂} mod π'`  (`m₂ = (pr−1)/3`)
+- `S := (π'/π)₃ = J₂^{m} mod π`,  `T := (π̄'/π)₃ = (conj J₂)^{m} mod π`  (`m = (p−1)/3`)
+- `E := χ_π(pr) = chiOmega p m x pr`,  `C := χ_{π'}(p) = chiOmega pr m₂ x₂ p`  (rational chars, μ₃ literals)
+- relation A: `B = conj(E)·A` (mod π');  relation B: `T = conj(C)·S` (mod π)
+- norm-mult: `C = A·B` (mod π');  `E = S·T` (mod π)   [`χ_{π'}(N(π)) = χ_{π'}(π)·χ_{π'}(π̄)`]
+- substitute: `C = conj(E)·A²`,  `E = conj(C)·S²`  ⟹  **`A = S`** (`mu3_reciprocity_algebra`). ∎
+
+**DONE this session (8 PURE bricks):**
+1. **Relaxation `pr < p` → `pr ≠ p` / `¬ p ∣ q`** across the split arc (B2h) — `chiOmega_*_gen`,
+   `char_reindex_split`, `gauss_pow_modEq_char_factored`, `split_reciprocity_congr{,_eisenstein,_pi}`,
+   `jacobi_ne_zero_mod_pi`, `split_residue_cube_one`, `split_conj_residue_relation`.  Lets relations A & B
+   coexist (A uses the first prime as unit arg, B the second).
+2. **Relation B** `split_conj_residue_relation_B` (B2i) — swapped instantiation, mod π.
+3. **Both symbols μ₃-valued** `split_residue_symbol_exists{,_B}` (B2j, B2k) — `(π/π')₃, (π'/π)₃ ∈ {1,ω,ω²}`.
+4. **Eisenstein μ₃-lift** `mu3_eq_of_modEq_pi` (B2l) — μ₃ congruence mod π' is equality (norm-3 difference).
+5. **Conjugate-modulus bridge** `conj_modEq` (B2m) — `A≡B mod d ⟹ conj A≡conj B mod conj d` (honest
+   "conjugate law"; `EisensteinConjModEq`).
+6. **μ₃ reciprocity algebra** `mu3_reciprocity_algebra` (B2n) — `C=conj E·A² ∧ E=conj C·S² ⟹ A=S`.
+
+**REMAINING (assembly — bricks 7–9):**
+7. **Relax `chiOmega_eq_eisChar`** (`EisensteinCharNormSplit`) from `t < p` to `¬ p ∣ t` (relax
+   `chiOmega_lift` via `chiOmega_mod`, parallel to `chiOmega_mul_gen`) — needed because `C = χ_{π'}(p)`
+   has arg `p` possibly `> pr`.
+8. **Norm-multiplicativity** `C ≡ A·B (mod π')`:  `χ_{π'}(p) ≡ pow(ofInt p) m₂` (`chiOmega_eq_eisChar`gen)
+   `= pow(J·conj J) m₂` (`ofInt p = J·conj J` via `jacobi_norm` + `mul_conj_self`) `= A·B`
+   (`pow_mul_distrib`).  Symmetric `E ≡ S·T (mod π)`.
+9. **Capstone** `split_cubic_reciprocity`: assemble relation A + norm-mult → `C ≡ conj(E)·A² (mod π')`,
+   pin to literals (`mu3_eq_of_modEq_pi` + `chiOmega_unit_value` for C, E) → equation (I); symmetric →
+   (II); feed `mu3_reciprocity_algebra` ⟹ `(π/π')₃ = (π'/π)₃`.
+
 **No proof-assistant formalization of cubic reciprocity exists anywhere** (Mathlib has only Jacobi/Gauss
-infrastructure + quadratic reciprocity), so this would be novel.
-
-**Case 3 (both primes split) uses TWO symmetric Gauss-sum computations + a cancellation:**
-- mod `π₂`: `χ_{π₁}(p₂²) = χ_{π₂}(p₁·π₁)`  (relation A — ≈ my `split_conj_residue_relation`)
-- mod `π₁`: `χ_{π₂}(p₁²) = χ_{π₁}(p₂·π₂)`  (relation B — the SAME machinery with the two primes SWAPPED)
-- combine via the conjugate law `χ_π(ᾱ) = conj χ_π(α)` (Case 1) + multiplicativity, cancelling the unit
-  `χ_{π₂}(p₁π₁)` ⟹ `χ_{π₁}(π₂) = χ_{π₂}(π₁)`.
-
-**The build (bounded, multi-round; Lean self-verifies each congruence so no wrong-theorem risk):**
-1. **Relax `q < p` → "`q` a unit residue mod `p`"** (`gcd(q,p)=1` + `p∤q`) across the split arc
-   (`gauss_pow_modEq_char_*`, `split_reciprocity_*`, `split_conj_residue_relation`).  *Essential*: relation
-   A needs `pr<p`, relation B needs `p<pr` — they can't coexist, so the ordering constraint must go (it is
-   only used for `chiOmega_mul`/`chiOmega_ne_zero` unit-residue + for `pr≠p`).  This also generalises the
-   inert law.
-   - **DONE (PURE): the relaxed root lemmas** `EisensteinCubicCharFpGen.chiOmega_mul_gen` /
-     `chiOmega_ne_zero_gen` (any unit `¬p∣q`, not just `<p`; via `chiOmega_mod` + `mul_mod_pure`).
-   - **NEXT (threading):** drop `hqlt : q < p` from `char_reindex_split` / `char_conj_reindex_split`
-     (`EisensteinConvGaussReindex`, the central shared file — careful: the inert law depends on it; either
-     modify in place to generalise both, or add `_gen` parallel copies for the split chain), then thread
-     the drop through `gauss_pow_modEq_char_factored` → `split_reciprocity_congr{,_eisenstein,_pi}` →
-     `split_conj_residue_relation`; and replace `jacobi_ne_zero_mod_pi`'s `pr<p` with `pr≠p`.  Derivations
-     needed: `¬p∣q` from `gcd213 q p = 1` (via `gcd213_greatest` + `eq_one_of_dvd_one`), and
-     `¬p∣(aInv q p % p)` from `0 < · < p` (via `Pow213.le_of_dvd_pos`).
-2. **Build relation B** = the split arc instantiated for the *second* prime (`d := π'`, `p := pr`,
-   `m := (pr−1)/3`, second prime `:= π` of norm `p`).  All hypotheses are symmetric & available
-   (`hπ'ω`, `hω`); the second prime's Jacobi-sum data is generic in `(p,m,x)`.
-3. **The combination lemma** — short ℤ[ω] algebra (`char_mul` + conjugate law + `modEq_cancel_right`).
-
-Everything up to both halves (`split_conj_residue_relation`, `chiOmega_norm_eq_symbol_product`) is built
-and PURE; the synthesis is now a clear bounded build, not a reference gap.
+infrastructure + quadratic reciprocity), so this is novel.  Everything PURE; Lean self-verifies each
+congruence so no wrong-theorem risk.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: none yet — Phase B's promotable unit is the *law*, now assembled; the
