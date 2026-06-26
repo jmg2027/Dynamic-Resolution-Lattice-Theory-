@@ -40,6 +40,16 @@ theorem sub_mul_zomega (a b c : ZOmega) : (a - b) * c = a * c - b * c := by
        = (a.re * c.im + a.im * c.re - a.im * c.im) - (b.re * c.im + b.im * c.re - b.im * c.im)
     ring_intZ
 
+/-- **Left distributivity over subtraction** — `a·(b − c) = a·b − a·c` in `ℤ[ω]`. -/
+theorem mul_sub_zomega (a b c : ZOmega) : a * (b - c) = a * b - a * c := by
+  refine ZOmega.ext ?_ ?_
+  · show a.re * (b.re - c.re) - a.im * (b.im - c.im)
+       = (a.re * b.re - a.im * b.im) - (a.re * c.re - a.im * c.im)
+    ring_intZ
+  · show a.re * (b.im - c.im) + a.im * (b.re - c.re) - a.im * (b.im - c.im)
+       = (a.re * b.im + a.im * b.re - a.im * b.im) - (a.re * c.im + a.im * c.re - a.im * c.im)
+    ring_intZ
+
 /-- **`1 · S = S`** in `ℤ[ω]` (`ofInt 1 = ⟨1,0⟩`). -/
 theorem one_mul_zomega (S : ZOmega) : ofInt 1 * S = S := by
   refine ZOmega.ext ?_ ?_
@@ -73,5 +83,13 @@ theorem scale_fixed_eq_zero {w S : ZOmega} (hw : w ≠ ofInt 1) (h : w * S = S) 
   rcases no_zero_div (w - ofInt 1) S key with h1 | h2
   · exact absurd (eq_of_sub_eq_zero h1) hw
   · exact h2
+
+/-- ★★★ **Left cancellation** — `a·b = a·c` with `a ≠ 0` ⟹ `b = c` in the integral domain `ℤ[ω]`.
+    `a·(b−c) = a·b − a·c = 0`, then `no_zero_div`.  ∅-axiom. -/
+theorem mul_left_cancel_zomega {a b c : ZOmega} (ha : a ≠ 0) (h : a * b = a * c) : b = c := by
+  have hz : a * (b - c) = 0 := by rw [mul_sub_zomega, h, sub_self_zomega]
+  rcases no_zero_div a (b - c) hz with h0 | h0
+  · exact absurd h0 ha
+  · exact eq_of_sub_eq_zero h0
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinScaleCancel
