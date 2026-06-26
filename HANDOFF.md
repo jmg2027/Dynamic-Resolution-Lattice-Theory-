@@ -110,15 +110,18 @@ above is still valid infra** (Gauss sums are `listSum`s too), just insufficient 
     - `Integer/EisensteinRangeSum` — `sumRange_eq_listSum` (bridge `conv` sums to `listSum` so they
       reindex by `[0,p)`-permutations), `rangeList_mul_lperm` (`i↦(a·i)%p` permutes `[0,p)`),
       `rangeList_add_lperm` (`i↦(i+c)%p` permutes `[0,p)`).  The mult+add permutation toolkit.
-  - **Next bricks (the off-diagonal `(g⋆ḡ)(k) = ↑(−1)`, `0<k<p`, then `N(J)=p`):**
-    1. **index helper** `(p−(k+p−i)%p)%p = (i+p−k)%p` ⟹ `(g⋆ḡ)(k)=Σ_i χ_ω(i)·χ̄_ω((i+p−k)%p)`.
-    2. **mult reindex** `i=(k·u)%p` (`rangeList_mul_lperm` + bridge) collapses `χ_ω((ku)%p)·χ̄_ω(k)`
-       factors ⟹ `(g⋆ḡ)(k) = C := Σ_u χ_ω(u)·χ̄_ω((u−1)%p)` (a constant, `k`-independent).
-    3. **`C = −1`** — `u↦u−1` shift (`rangeList_add_lperm`, `c=p−1`) then the multiplicative inversion
-       `v↦v⁻¹` (needs a units inversion `LPerm`) + the per-term `χ_ω(b)·χ̄_ω(c)=χ_ω((b·c⁻¹)%p)`, ending in
+  - **`Integer/EisensteinGaussOffDiag` DONE (index + reformulation):** `conv_offdiag_index`
+    (`(p−(k+p−i)%p)%p = (i+p−k)%p`, pure ℕ arithmetic via 4 sub-identities + `sub_pos_pure`);
+    **`gauss_offdiag_sum`: `(g⋆ḡ)(k) = Σ_{i<p} χ_ω(i)·χ̄_ω((i+p−k)%p)`** for `k<p`.
+  - **Next bricks (finish off-diagonal `= ↑(−1)`, then `N(J)=p`):**
+    1. **mult reindex** `i=(k·u)%p` (`sumRange_eq_listSum` + `rangeList_mul_lperm` + `listSum_map`)
+       collapses the `χ_ω(k)·χ̄_ω(k)` factors ⟹ `(g⋆ḡ)(k) = C := Σ_u χ_ω(u)·χ̄_ω((u−1)%p)` (`k`-indep).
+       Needs a `chiOmega_mod` lemma (`χ_ω` sees only `t mod p`) for the `(ku)%p` index bookkeeping.
+    2. **`C = −1`** — `u↦u−1` shift (`rangeList_add_lperm`, `c=p−1`) + multiplicative inversion `v↦v⁻¹`
+       (a units-inversion `LPerm` — to build) + per-term `χ_ω(b)·χ̄_ω(c)=χ_ω((b·c⁻¹)%p)`, ending in
        `Σ_{z≠1}χ_ω(z)=−1` (`Σχ_ω=0`).  ← the remaining analytic core.
-    4. `g(χ)² = J·g(χ²)` coefficient identity (convolution = `listSum_mul_distrib`-style).
-    5. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
+    3. `g(χ)² = J·g(χ²)` coefficient identity (convolution = `listSum_mul_distrib`-style).
+    4. extract the `e_1`-coefficient of `(p−N)²=|J|²(p−N)` ⟹ **`N(J)=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
