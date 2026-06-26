@@ -104,17 +104,23 @@ None.  Open Problem 1 from the prior handoff (the Gauss-sum Frobenius congruence
 this session — the `t↦tq%p` reindex turned out to need *no* permutation-sum machinery (the basis
 indicators collapse the sum to a single term at each coefficient).
 
-## ℤ-Fermat — DONE this session (all PURE)
-`EisensteinIntFermat`: `(↑q) ∣ (a^q − a)` for every `a:Int`, prime `q`, and the lift `ofInt_fermat`
-(`(ofInt a)^q ≡ ofInt a (mod q)`) — **the gate brick for `conj z ≡ z^q`**, all ∅-axiom PURE.  Built via
-the ℤ[ω] freshman routed through `ofInt` (no `Int.induction_on`, no Int mod, no parity case); PURE
-despite Lean-core Int algebra leaking `propext` (routed through `Int213` + `ring_intZ` dvd helpers).
+## The Frobenius collapse — DONE this session (all PURE)
+- `EisensteinIntFermat`: ℤ-Fermat `(↑q) ∣ (a^q − a)` + `ofInt_fermat` (`(ofInt a)^q ≡ ofInt a (mod q)`).
+- `EisensteinFrobeniusConj.conj_modEq_pow`: **`z^q ≡ conj z (mod q)`** for prime `q ≡ 2 mod 3` (`q` inert,
+  conjugation = `q`-power Frobenius on `ℤ[ω]/(q) ≅ 𝔽_{q²}`) — `decomp` + freshman + `ofInt_fermat` +
+  `ω^q=ω²`.  Plus `pow_modEq` (ModEq respects powering).
+- `cubic_reciprocity_power_congr`: **`J^{(2s+1)+q·s} ≡ χ(q) (mod q)`** (`(2s+1)+q·s = (q²−1)/3`) — raise
+  `conj_modEq_pow` to the `s`-th power (`J̄^s ≡ J^{q·s}`), substitute into `J^{2s+1}·J̄^s ≡ χ(q)`, merge
+  exponents.  The LHS `J^{(q²−1)/3} mod q` **is** `(π/q)₃` — the arithmetic heart of cubic reciprocity.
+All ∅-axiom PURE.
 
-## Next — `conj z ≡ z^q` then the exponent collapse to `(π/q)₃` (precise finishing route)
-**`conj z ≡ z^q (mod q)` is now unblocked** (ℤ-Fermat done; `decomp`, `pow_omega_mod`, freshman all
-PURE).  Assembly: `z = ofInt z.re + ofInt z.im·ω` → freshman → `ofInt_fermat` + `ω^q=ω²` →
-`z^q ≡ ofInt z.re + ofInt z.im·ω² = conj z`.  Caveat: the final component equality needs **explicit
-`Int213` lemmas** (`ring_intZ` can't fold `C0·var`/constant-zero products) — see frontier note.
+## Next — the last leg (residue-symbol identification + π↔π' transfer)
+`cubic_reciprocity_power_congr` gives `J^{(q²−1)/3} ≡ χ(q) (mod q)` = `(π/q)₃ = (q/π)₃`-shaped.  Remaining:
+(a) formally define the cubic residue symbol in `𝔽_{q²} = ℤ[ω]/(q)` as `z^{(q²−1)/3}` and identify the
+LHS with `(π/q)₃`, `χ(q)` with `(q/π)₃`; (b) the **`π↔π'` transfer** — run it with the two primary primes
+swapped (`jacobi_primary` pins `J=π`; **it carries `propext`, purify first**) and compare to land
+`(π/π')₃ = (π'/π)₃`.  The arithmetic engine is complete; the remaining is the symbol-definition layer +
+the symmetry comparison.
 The all-Eisenstein congruence `J^{2s+1}·J̄^s ≡ χ(q) (mod q)` collapses to a single power of `J` via the
 **Frobenius on `𝔽_{q²}`** (`q ≡ 2 mod 3` inert, `ℤ[ω]/(q) ≅ 𝔽_{q²}`, conjugation = `q`-power):
 

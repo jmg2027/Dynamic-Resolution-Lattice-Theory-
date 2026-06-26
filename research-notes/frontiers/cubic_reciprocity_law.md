@@ -84,7 +84,14 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
   - **`conj z ≡ z^q (mod q)`** — buildable from `add_pow_modEq_prime` (binary freshman, PURE) +
     `ofInt_pow`/`pow_mul_distrib` + **ℤ-Fermat** `(ofInt a)^q ≡ ofInt a (mod q)` + `ω^q = ω²`
     (`pow_omega_mod`, exact since `q≡2 mod 3`).  `z = ofInt z.re + ofInt z.im·ω`, `conj(a+bω)=a+bω²`.
-  - **ℤ-Fermat — DONE (all PURE)** (`EisensteinIntFermat`): `(↑q) ∣ (a^q − a)` for every `a:Int`, prime
+  - **The Frobenius collapse — DONE (all PURE)**.  `conj z ≡ z^q (mod q)`
+    (`EisensteinFrobeniusConj.conj_modEq_pow`, `q` inert) raised to the `s`-th power and substituted into
+    `J^{2s+1}·J̄^s ≡ χ(q)` lands the **residue-character power**
+    **`J^{(2s+1)+q·s} ≡ χ(q) (mod q)`** (`cubic_reciprocity_power_congr`), with `(2s+1)+q·s = (q²−1)/3`.
+    Supporting PURE bricks: `EisensteinIntFermat` (ℤ-Fermat + `ofInt_fermat`), `conj_modEq_pow`,
+    `pow_modEq` (ModEq respects powering).  The LHS `J^{(q²−1)/3} mod q` **is** the cubic residue
+    character of `J = π` in `𝔽_{q²}^×` = `(π/q)₃`.
+  - **`EisensteinIntFermat` — DONE (all PURE)**: `(↑q) ∣ (a^q − a)` for every `a:Int`, prime
     `q`.  The expected blockers (no `Int.induction_on`; Lean-core `Int` algebra leaking `propext`) were
     sidestepped: the proof routes the **binary freshman** `add_pow_modEq_prime` (ℤ[ω], PURE) through
     `ofInt`, reflected back by `ofIntDvd_reflect`; `pos_fermat` by `ℕ`-induction (freshman at `B=1`); the
@@ -100,8 +107,14 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
     ofInt z.im·(ω·ω)` component equality needs **explicit `Int213` lemmas per component** — `ring_intZ`
     does not fold `C0·var` / `C0·C(−1)` (constant-zero products), so use `zero_mul`/`mul_neg`/`sub_zero`
     (PURE) on each `.re`/`.im` goal rather than `ring_intZ`.
-  - then the exponent identity `2s+1+qs = (q²−1)/3` (Nat arithmetic with `q=3s+2`), and the
-    residue-symbol identification `χ(q) = (q/π)₃`.
+  - **NEXT (the last leg — residue-symbol identification + transfer)**: `cubic_reciprocity_power_congr`
+    gives `J^{(q²−1)/3} ≡ χ(q) (mod q)` — the LHS is `(π/q)₃` (cubic character of `π` mod `q`), the RHS
+    `χ(q)` is `(q/π)₃` (cubic character of `q` mod the prime above `p`, by construction of `chiOmega`).
+    Remaining: (a) *formally identify* `J^{(q²−1)/3} mod q = (π/q)₃` (define the cubic residue symbol in
+    `𝔽_{q²} = ℤ[ω]/(q)` as `z^{(q²−1)/3}` and match) and `χ(q) = (q/π)₃`; (b) the **`π ↔ π'` transfer** —
+    run the congruence with the two primary primes swapped (`jacobi_primary` pins `J = π`; note it
+    carries `propext`, purify first) and compare to land `(π/π')₃ = (π'/π)₃`.  The arithmetic engine is
+    complete; the remaining is the symbol-definition layer + the symmetry comparison.
 
 Estimated scale: the engine (`N(J)=p`, the Frobenius congruence, the μ₃ comparison) is built; the
 remaining is **ℤ-Fermat → `conj z ≡ z^q` → exponent collapse → residue-symbol identification → transfer**.
