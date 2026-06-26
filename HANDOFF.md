@@ -176,14 +176,18 @@ also a nontrivial cubic char) ⟹ `Y⋆Y = (g²)⋆(ḡ²) = |J|²·Y`.  Compari
     `Integer/EisensteinGaussSqZero` (`gauss_sq_zero`: `(g⋆g)(0)=0` via `χ((p−i)%p)=χ(i)` [`p−1` a cube,
     `χ(p−1)=1`] + χ²-orth; **`gauss_sq_full`: `(g⋆g)(n)=jacobiSum·χ_ω(n)²` for ALL `n<p`**).
     **The full Gauss–Jacobi relation `g(χ)²=J·g(χ²)` is DONE.**
-  - **5d-rem (conjugate side + extraction — the final phase)** to read `|J|²=p` off `gg_gbgb_eq`:
-    1. **conjugate convolution** `(ḡ⋆ḡ)(k)=conj((g⋆g)((p−k)%p))` (reflection reindex `i↦(p−i)%p` +
-       `conj_mul`/`conj_listSum`; one index identity).  Then via `gauss_sq_full`+`conj`: `ḡ⋆ḡ = J̄·conjG₂`.
-    2. **factor**: `(g⋆g)⋆(ḡ⋆ḡ)` — rewrite `g⋆g=J·G₂` (conv_congr+`gauss_sq_full`), pull `J` out
-       (`conv_scalar_left`), likewise `J̄` ⟹ `= |J|²·(G₂⋆conjG₂)`.  (`G₂(i)=χ_ω(i)²`, `|J|²=J·conj J`.)
-    3. **5c** `G₂⋆conjG₂ = Yfun` — norm of the χ² Gauss sum (χ² also a nontrivial cubic char; reuse
-       `gauss_conj_norm` shape).  So `(g⋆g)⋆(ḡ⋆ḡ)=|J|²·Yfun`; with `gg_gbgb_eq` (`=p·Yfun`):
-       `|J|²·Yfun=p·Yfun`; read `e_1` (`Yfun 1=−1≠0`) ⟹ **`N(J)=p`**.
+  - **5d ✓ COMPLETE — `N(J)=p` PROVEN (∅-axiom).**
+    - `Integer/EisensteinConjConv` (`gbgb_eq_conj_gg`: `(ḡ⋆ḡ)(k)=conj((g⋆g)((p−k)%p))`, `conj_sumRange`,
+      `conj_conv_index`).
+    - `Integer/EisensteinJacobiNormLaw` — `conj_sq_chiOmega` (`conj(χ·χ)=χ`), `chi2_offdiag_one`
+      (`Σ conj χ(i)·χ((i+p−1)%p)=−1`, the conj of `(g⋆ḡ)(1)`), **`jacobi_norm`:
+      `(jacobiSum p m x).normSq = p`**.  Read the `e_1` coeff of `(g·g)⋆(ḡ·ḡ)` two ways: `gg_gbgb_eq`
+      gives `ofInt(↑p)·Yfun 1`; per-term factoring (`gauss_sq_full`+`gbgb_eq_conj_gg`) gives
+      `(J·conj J)·ofInt(−1)`; cancel `ofInt(−1)` ⟹ `J·conj J = ofInt(↑p) = ofInt(‖J‖²)` ⟹ **`‖J‖²=p`**.
+      `#print axioms jacobi_norm → does not depend on any axioms`.
+
+  **★ The Jacobi-sum norm law `N(J)=p` is DONE.**  Next: `J=π` (A4 — the Jacobi sum is a primary prime)
+  and the cubic reciprocity law `(π/π')₃=(π'/π)₃` + the rational transfer.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
