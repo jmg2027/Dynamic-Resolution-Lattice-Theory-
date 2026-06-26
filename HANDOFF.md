@@ -60,6 +60,15 @@ fixed coefficient `k` the sum collapses to the single surviving term — no perm
   (`convPow_succ`/`convOne_left`/`conv_congr`/`conv_comm`).  The **cube side**, same `convPow`/`Yfun`
   frame as the Frobenius side.
 
+### 6. The cubic reciprocity congruence (the μ₃ comparison — all PURE)
+- `EisensteinConvPow.convPow_add` / `convPow_mul`: the convolution-monoid exponent laws
+  (`f^{⋆(m+n)} = f^{⋆m}⋆f^{⋆n}`, `f^{⋆(ab)} = (f^{⋆a})^{⋆b}`).
+- `Yfun_convPow`: `Yfun^{⋆(s+1)} = p^s·Yfun` (iterating `Yfun_conv`).
+- `gauss_pow_succ_cube`: `g(χ)^{⋆(q+1)} = J^{s+1}·p^s·Yfun` (cube side, `q+1 = 3(s+1)`).
+- **`cubic_reciprocity_congr`**: equate cube vs. Frobenius side at `k=1` (`Yfun(1)=−1` cancels) →
+  **`J^{s+1}·p^s ≡ χ(q) (mod q)`** (`s+1 = (q+1)/3`) — the arithmetic heart of cubic reciprocity,
+  tying `J=π` to the cubic character value `χ(q)` modulo the second prime.
+
 ## Current Precision Results
 No new physics constants (pure-math arc — cubic / Eisenstein reciprocity).  Physics table in
 `catalogs/physics-constants.md` unchanged.
@@ -93,11 +102,11 @@ this session — the `t↦tq%p` reindex turned out to need *no* permutation-sum 
 indicators collapse the sum to a single term at each coefficient).
 
 ## Next
-The cubic reciprocity law itself (Open Problem 1 above).  **Both sides of the `g^{⋆N}`-comparison are
-now in the same `convPow`/`Yfun` frame**: Frobenius `g^{⋆(q+1)} ≡ χ(q)·Yfun (mod q)`
-(`gauss_pow_succ_modEq_Yfun`) and cube `g^{⋆3} = J·Yfun` (`gauss_convPow3`).  Last leg: the **μ₃
-comparison** — combine the two (the shared `Yfun` factor, `Yfun⋆Yfun = p·Yfun`) to relate `χ(q)` and
-`J=π` mod `q`, then `jacobi_primary` + the second prime's primary normalisation give `(π/π')₃=(π'/π)₃`.
+The cubic reciprocity law itself (Open Problem 1 above).  The **μ₃ comparison is now closed**:
+`cubic_reciprocity_congr` gives `J^{s+1}·p^s ≡ χ(q) (mod q)` (`s+1=(q+1)/3`).  Last leg: interpret it
+— `J=π` (`jacobi_primary`) identifies the LHS with `π`, and `χ(q) = (q/π)₃` is the cubic residue
+symbol; running the congruence with the two primary primes `π, π'` swapped and comparing gives
+`(π/π')₃ = (π'/π)₃` (the residue-symbol identification + the `π↔π'` transfer/symmetry step).
 Reference: Ireland–Rosen ch. 9.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")

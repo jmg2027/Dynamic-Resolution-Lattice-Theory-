@@ -56,14 +56,24 @@ The classical route (Ireland–Rosen, ch. 9) needs the Gauss sum analysed **modu
   of the `g^{⋆N}`-comparison are now in the same `convPow`/`Yfun` frame:
   - Frobenius: `g^{⋆(q+1)}(k) ≡ χ(q)·Yfun(k) (mod q)`  (`gauss_pow_succ_modEq_Yfun`),
   - cube:      `g^{⋆3}(k) = J·Yfun(k)`                  (`gauss_convPow3`).
-- **NEXT (the μ₃ comparison, the law's last leg)**: both sides share the `Yfun` factor.  Combine to
-  relate `χ(q)` and `J = π` mod `q` — e.g. compute `g^{⋆(q+1)}` along a multiple-of-3 route through
-  `gauss_convPow3` (`g^{⋆3}=J·Yfun`, `Yfun⋆Yfun = p·Yfun`) and equate with the Frobenius value `χ(q)·Yfun`,
-  extracting a `J`-vs-`χ(q)` congruence mod `q`.  Then `jacobi_primary` (`J=π`) and the second prime's
-  primary normalisation give `(π/π')₃ = (π'/π)₃`.  Reference: Ireland–Rosen ch. 9.
+- **The μ₃ comparison — DONE** (`cubic_reciprocity_congr`, PURE).  For `q+1 = 3(s+1)`, both sides of the
+  `g^{⋆(q+1)}`-comparison share the `Yfun` factor; equating at `k=1` (`Yfun(1)=−1`, a unit) gives the
+  **cubic reciprocity congruence**
 
-Estimated scale: the engine (`N(J)=p`, the Frobenius congruence) is now built; the remaining step 3 is the
-μ₃-comparison assembly — smaller than the engine, but still a careful multi-brick argument.
+      `J^{s+1} · p^s ≡ χ(q)   (mod q)`        (`J = jacobiSum`, `s+1 = (q+1)/3`).
+
+  Supporting bricks (all PURE): `convPow_add`/`convPow_mul` (convolution-monoid exponent laws,
+  `EisensteinConvPow`); `Yfun_convPow` (`Yfun^{⋆(s+1)} = p^s·Yfun`); `gauss_pow_succ_cube`
+  (`g^{⋆(q+1)} = J^{s+1}·p^s·Yfun` via `convPow_mul` + `gauss_convPow3` + `convPow_scalar` + `Yfun_convPow`).
+- **NEXT (the law proper)**: interpret the congruence.  `J = π` (`jacobi_primary`), so
+  `J^{s+1}·p^s ≡ χ(q) (mod q)` reads as a relation between `π` (the prime above `p`) and the cubic
+  character value `χ(q) = (q/π)₃`.  The **transfer / symmetry step** — running the same congruence with
+  the roles of the two primary primes `π, π'` swapped and comparing — yields `(π/π')₃ = (π'/π)₃`.  This is
+  the final assembly (residue-symbol identification `χ(q) = (q/π)₃` + the `π ↔ π'` symmetry).  Reference:
+  Ireland–Rosen ch. 9.
+
+Estimated scale: the engine (`N(J)=p`, the Frobenius congruence, the μ₃ comparison) is now built; the
+remaining is the residue-symbol identification + the `π↔π'` transfer.
 
 ## First concrete bricks (entry points)
 - **B0 — DONE** (∅-axiom, PURE): the `ℤ[ω]` symbol on rational integers ⟺ the
