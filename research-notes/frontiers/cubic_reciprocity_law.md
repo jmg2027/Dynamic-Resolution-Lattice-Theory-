@@ -101,9 +101,16 @@ mod-`q` reduction + Frobenius is the genuinely new part).
       + `conv_sumRange_left` (push the inductive binomial sum through the outer `⋆`),
       `convProd_mul_{f,g}` (raise the `⋆`-exponents), `convOne_{left,right}` (the `e_0` boundaries),
       and `cz_pascal` for the recombination.  The `⋆`-analog of B2b — the group-ring core of Frobenius.
-      **Next (B2e.3):** the convolution freshman's dream `(f⊕g)^{⋆q} ≡ f^{⋆q} ⊕ g^{⋆q} (mod q)`
-      (interior `binom q j` vanish mod `q`, coefficient-wise), then multinomial + the Gauss-sum
-      Frobenius `g^{⋆q} ≡ χ̄(q)·g (mod q)`.
+    - **B2e.3 — DONE** (∅-axiom up to allowed `propext`): the **convolution freshman's dream**,
+      `EisensteinConvFreshman.convPow_add_pow_modEq_prime`:
+      `(f⊕g)^{⋆q}(k) ≡ f^{⋆q}(k) + g^{⋆q}(k) (mod ofInt q)` for prime `q`, `k<p`.  Mirror of
+      `add_pow_modEq_prime` with `convPow_add_pow` + the conv boundary terms; interior `binom q j`
+      (`0<j<q`) are `q`-divisible (`prime_dvd_binom` → `ofInt_dvd` → `dvd_mul_of_dvd_left`), so the
+      interior sum `≡ 0` (`dvd_sumRange` + `modEq_zero_of_dvd`).  Reuses the `ℤ[ω]` dvd toolkit from
+      `EisensteinFreshman`.  The Frobenius endomorphism of `R[C_p]` mod `q`.
+      **Next (B2e.4):** the multinomial version `(Σ_t x_t)^{⋆q} ≡ Σ_t x_t^{⋆q}` (template:
+      `sum_pow_modEq_prime`), then basis-power `e_t^{⋆q} = e_{tq%p}`, `χ(t)^q = χ̄(t)`, and the
+      `tq` reindex to assemble `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.
     The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
     **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
     + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution

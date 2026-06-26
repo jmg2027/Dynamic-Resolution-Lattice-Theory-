@@ -114,6 +114,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinBinomial
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFreshman
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBinomial
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvFreshman
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
