@@ -7,7 +7,7 @@ import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.NatRing213
 
 /-!
-# The cubic Gauss sum `g(χ) = Σ_t χ_ω(t)·ζ^t` in the group ring (∅-axiom, Phase A3 / route b)
+# The cubic Gauss sum `g(χ) = Σ_t χ_ω(t)·ζ^t` in the group ring (∅-axiom)
 
 The Gauss sum and its conjugate as **coefficient functions** in the free group ring `R[C_p]`
 (`EisensteinGroupRing`):

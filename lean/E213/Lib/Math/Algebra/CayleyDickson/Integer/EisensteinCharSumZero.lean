@@ -6,7 +6,7 @@ import E213.Lib.Math.NumberTheory.ModArith.PrimitiveRoot
 import E213.Lib.Math.NumberTheory.ModArith.CubicResidue
 
 /-!
-# Cubic-character orthogonality over `𝔽_p*` — `Σ_t χ_ω(t) = 0` (∅-axiom, Phase A3)
+# Cubic-character orthogonality over `𝔽_p*` — `Σ_t χ_ω(t) = 0` (∅-axiom)
 
 The character sum of the cubic character over a unit list vanishes.  For a non-cubic-residue `a`
 (`χ_ω(a) ≠ 1`) and a list `L` of units that the multiplication map `t ↦ (a·t) mod p` **permutes**
@@ -20,8 +20,8 @@ via `chiOmega_mul`).  So `Σ = χ_ω(a)·Σ`, and `χ_ω(a) ≠ 1` in the integr
 (`EisensteinScaleCancel.scale_fixed_eq_zero`).
 
 This is the `𝔽_p`-residue character orthogonality (the `Σ_t χ_ω(t) = 0` that the exponent-side
-`chiExp_sum` could not reach), and the engine of the Jacobi-sum norm law `N(J) = p` (Phase A3,
-the cubic-reciprocity roadmap).  The unit list + permutation hypotheses are
+`chiExp_sum` could not reach), and the engine of the Jacobi-sum norm law `N(J) = p`.  The unit list
++ permutation hypotheses are
 supplied by `EulerTheorem.totativeList` / `lperm_image` and a primitive root.  ∅-axiom.
 -/
 
@@ -107,7 +107,7 @@ theorem chiListSum_scale_zero {d : ZOmega} {p m x a : Nat} (hp : 1 < p) (hp3 : 3
     iff `3 ∣ 1`, false — `cube_pow_iff_three_dvd_exp`), so `χ_ω(g) ≠ 1` (`chiOmega_ne_one`); and `g`
     permutes the totatives by multiplication (`lperm_image`).  `chiListSum_scale_zero` then gives the
     vanishing.  This is the full `𝔽_p*` character orthogonality `Σ χ_ω = 0`, the engine of `N(J) = p`
-    (Phase A3).  ∅-axiom. -/
+   .  ∅-axiom. -/
 theorem chiListSum_totatives_zero {d : ZOmega} {p m x : Nat} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
     (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))

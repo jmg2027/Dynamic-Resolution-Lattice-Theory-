@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBinomial
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFreshman
 
 /-!
-# The convolution freshman's dream in `R[C_p]` — `(f⊕g)^{⋆q} ≡ f^{⋆q} ⊕ g^{⋆q} (mod q)` (Phase B2e.3)
+# The convolution freshman's dream in `R[C_p]` — `(f⊕g)^{⋆q} ≡ f^{⋆q} ⊕ g^{⋆q} (mod q)`
 
 ★★★★★ `convPow_add_pow_modEq_prime` : the Frobenius endomorphism of the group ring, coefficient-wise:
 
@@ -12,7 +12,7 @@ The convolution binomial theorem `convPow_add_pow` expands the `q`-th `⋆`-powe
 give `g^{⋆q}(k)` (`j=0`, `e_0 ⋆ g^{⋆q}`) and `f^{⋆q}(k)` (`j=q`, `f^{⋆q} ⋆ e_0`), and every interior
 coefficient `binom q j` (`0<j<q`) is `q`-divisible (`BinomPrime.prime_dvd_binom`), so the whole
 interior sum vanishes mod `ofInt q`.  The `⋆`-analog of `EisensteinFreshman.add_pow_modEq_prime` —
-the engine of the Gauss-sum Frobenius `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)` (Phase B2).
+the engine of the Gauss-sum Frobenius `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.
 
 Carries `propext` (allowed-not-target) from `convPow_add_pow`; the divisibility core is PURE.
 -/

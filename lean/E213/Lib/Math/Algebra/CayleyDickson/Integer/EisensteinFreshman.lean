@@ -14,7 +14,7 @@ The binomial theorem `add_pow` expands `(a+b)^q = Σ_{k=0}^{q} binom q k · a^k 
 endpoints give `b^q` (`k=0`) and `a^q` (`k=q`), and every **interior** coefficient `binom q k`
 (`0<k<q`) is divisible by `q` (`BinomPrime.prime_dvd_binom`), so the whole interior sum vanishes mod
 `ofInt q`.  This is the Frobenius (`x ↦ x^q`) ring-endomorphism-mod-`q`, the engine of the
-cubic-reciprocity Frobenius congruence `g(χ)^q ≡ χ̄(q)·g(χ) (mod q)` (Phase B2).
+cubic-reciprocity Frobenius congruence `g(χ)^q ≡ χ̄(q)·g(χ) (mod q)`.
 
 Carries `propext` (allowed-not-target) only from the `add_pow` cast bookkeeping; the divisibility
 core is PURE.

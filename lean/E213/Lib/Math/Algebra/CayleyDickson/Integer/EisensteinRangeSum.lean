@@ -6,7 +6,7 @@ import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.NatRing213
 
 /-!
-# Bridging `sumRange [0,n)` to `listSum (rangeList n)` (∅-axiom, Phase A3 / route b)
+# Bridging `sumRange [0,n)` to `listSum (rangeList n)` (∅-axiom)
 
 `EisensteinFiniteSum.sumRange f n` (the indexed sum over `[0,n)`) equals `listSum f (rangeList n)` (the
 list sum over the pure range list) — `sumRange_eq_listSum`.  This lets the convolution sums of the Gauss

@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberTheory.ModArith.CubeRootsUnityModP
 import E213.Meta.Nat.PolyNatMTactic
 
 /-!
-# The cubic character as a computable function on `𝔽_p` — `χ(t) = t^m % p` (∅-axiom, Phase A1)
+# The cubic character as a computable function on `𝔽_p` — `χ(t) = t^m % p` (∅-axiom)
 
 The cubic character on **rational** residues `t ∈ 𝔽_p` (`p ≡ 1 mod 3`, `3m = p − 1`) is the
 power-residue map
@@ -15,7 +15,7 @@ mod `p`** (`cubicChar_cube_one`); the map is multiplicative (`cubicChar_mul`), u
 (`cubicChar_unit`), and trivial exactly on the cubic residues (`cubicChar_one_iff_cube`, restating the
 cubic Euler criterion).  This is the rational home of the cubic character — the `t^m`-route value that
 the residue-field iso (`EisensteinResidueFieldCubeRoots.cube_roots_rational`) carries into `μ₃ ⊂ ℤ[ω]`,
-the first brick of the Jacobi-sum core (Phase A1).  ∅-axiom.
+the first brick of the Jacobi-sum core.  ∅-axiom.
 -/
 
 namespace E213.Lib.Math.NumberTheory.ModArith.CubicCharFp

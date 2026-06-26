@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeSum
 
 /-!
-# Convolution is commutative — `f ⋆ g = g ⋆ f` (∅-axiom, Phase A3 / route b)
+# Convolution is commutative — `f ⋆ g = g ⋆ f` (∅-axiom)
 
 In the group ring `R[C_p]`, convolution is commutative (coefficientwise, for `k < p`):
 

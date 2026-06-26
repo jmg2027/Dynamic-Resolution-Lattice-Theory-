@@ -6,8 +6,7 @@ import E213.Lib.Math.Analysis.CascadeCalculus.Instance
   Cascade-calculus formalization — algebra of locality / aggregation
   / depth across cascading systems.  Companion to PatternCatalog/.
 
-  These were 2 loose files at `Math/` root before M14 Phase B3
-  collected them into this sub-cluster.
+  This sub-cluster groups 2 thematically-related files.
 
   ## Files
 

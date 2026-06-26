@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvAssocIndex
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussShift
 
 /-!
-# Convolution is associative — `(f ⋆ g) ⋆ h = f ⋆ (g ⋆ h)` (∅-axiom, Phase A3 / route b)
+# Convolution is associative — `(f ⋆ g) ⋆ h = f ⋆ (g ⋆ h)` (∅-axiom)
 
 In the group ring `R[C_p]`, convolution is associative (coefficientwise, for `k < p`):
 

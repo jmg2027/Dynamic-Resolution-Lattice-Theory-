@@ -1,7 +1,7 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiag
 
 /-!
-# The off-diagonal coefficient as a one-sided shifted sum (∅-axiom, Phase A3 / route b)
+# The off-diagonal coefficient as a one-sided shifted sum (∅-axiom)
 
 The `k≠0` convolution coefficient `(g⋆ḡ)(k) = Σ_{i<p} χ_ω(i)·conj χ_ω((i+p−k)%p)`
 (`EisensteinGaussOffDiag.gauss_offdiag_sum`) is reindexed `i ↦ (j+k)%p` (the additive-shift

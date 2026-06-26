@@ -3,7 +3,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidue
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeSum
 
 /-!
-# The norm element squares to `p` times itself — `N ⋆ N = p · N` (∅-axiom, Phase A3 / route b)
+# The norm element squares to `p` times itself — `N ⋆ N = p · N` (∅-axiom)
 
 Let `Yfun p` be the coefficient function of `g·conj g = p·1 − N` (`gauss_conj_norm`):
 `Yfun p k = ofInt(p−1)` if `k=0`, else `ofInt(−1)`.  Then in the group ring `R[C_p]`

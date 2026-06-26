@@ -4,7 +4,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussJacobiIndex
 import E213.Lib.Math.NumberTheory.ModArith.LegendreMultiplicative
 
 /-!
-# The `n=0` Gauss-square coefficient — `(g⋆g)(0) = 0` (∅-axiom, Phase A3 / route b)
+# The `n=0` Gauss-square coefficient — `(g⋆g)(0) = 0` (∅-axiom)
 
 The diagonal coefficient of `g(χ)²`:
 

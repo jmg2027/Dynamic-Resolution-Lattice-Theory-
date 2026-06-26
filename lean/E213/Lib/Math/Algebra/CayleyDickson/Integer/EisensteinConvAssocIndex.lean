@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeSum
 import E213.Meta.Nat.NatRing213
 
 /-!
-# The convolution-associativity index identity (∅-axiom, Phase A3 / route b)
+# The convolution-associativity index identity (∅-axiom)
 
 The double-sum reindex behind `conv_assoc` needs
 

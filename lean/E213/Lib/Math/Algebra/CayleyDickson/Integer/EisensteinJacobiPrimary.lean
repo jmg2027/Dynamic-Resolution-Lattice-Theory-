@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNormLaw
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 
 /-!
-# The Jacobi sum has a unique primary associate — `J = π` normalisation (Phase A4)
+# The Jacobi sum has a unique primary associate — `J = π` normalisation
 
 `N(J)=p` with `3 ∤ p` (since `p ≡ 1 mod 3`) puts the Jacobi sum in the scope of
 `EisensteinPrimary.exists_unique_primary`: exactly one of its six unit associates is **primary**

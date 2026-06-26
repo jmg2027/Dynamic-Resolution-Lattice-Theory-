@@ -4,7 +4,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvAssoc
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvComm
 
 /-!
-# The Gauss-sum cube `g(χ)³ = J·(g⋆ḡ)` in the group ring (∅-axiom, Phase B1)
+# The Gauss-sum cube `g(χ)³ = J·(g⋆ḡ)` in the group ring (∅-axiom)
 
 ★★★★★ `gauss_cube` : in the free group ring `R[C_p]`, the cube of the cubic Gauss sum is the Jacobi
 sum times the norm element:

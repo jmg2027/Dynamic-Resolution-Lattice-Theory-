@@ -3,7 +3,7 @@ import E213.Meta.Nat.MulMod213
 import E213.Meta.Nat.AddMod213
 
 /-!
-# The units-inversion permutation `t ↦ t⁻¹ mod p` (∅-axiom, Phase A3 / route b)
+# The units-inversion permutation `t ↦ t⁻¹ mod p` (∅-axiom)
 
 Multiplicative inversion permutes the totatives: for a prime `p`, the map `t ↦ (aInv t p) mod p`
 (`aInv` = the Bezout inverse) is a **bijection of `totativeList p`** (an involution `t⁻¹⁻¹ = t`):

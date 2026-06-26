@@ -1,7 +1,7 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
 
 /-!
-# The group ring `ℤ[ω][C_p]` for the cubic Gauss sum (∅-axiom, Phase A3 / route b)
+# The group ring `ℤ[ω][C_p]` for the cubic Gauss sum (∅-axiom)
 
 The additive-character carrier the Gauss sum `g(χ) = Σ_t χ_ω(t)·ζ^t` lives in.  Rather than build the
 cyclotomic quotient `ℤ[ζ_p]`, we work in the **free group ring** `R[C_p]` (`R = ℤ[ω]`, `C_p = ℤ/p`):

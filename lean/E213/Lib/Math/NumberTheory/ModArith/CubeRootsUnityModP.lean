@@ -4,7 +4,7 @@ import E213.Lib.Math.NumberTheory.FourSquareSeed
 import E213.Meta.Int213.PolyIntMTactic
 
 /-!
-# The three cube roots of unity mod `p` are `{1, x, x²}` (∅-axiom, Phase A1)
+# The three cube roots of unity mod `p` are `{1, x, x²}` (∅-axiom)
 
 For a prime `p` and a rational cube root `x` (`p ∣ x²+x+1`, supplied by
 `EisensteinConverse.cube_root_exists` for `p ≡ 1 mod 3`), **every** solution of `y³ ≡ 1 (mod p)` with
@@ -16,7 +16,7 @@ This is the field fact behind the cubic character being **`μ₃`-valued as a fu
 value `χ(t) = t^m % p` (`CubicCharFp`, a cube root of unity by `cubicChar_cube_one`) is forced into the
 three-element set `{1, x, x²}`, which the residue-field iso
 (`EisensteinResidueFieldCubeRoots.cube_roots_rational`) carries onto `{1, ω, ω²} ⊂ ℤ[ω]`.  The Jacobi
-sum's character then takes genuinely-`μ₃` values (Phase A1).
+sum's character then takes genuinely-`μ₃` values.
 
 The argument is the cubic factorisation over `𝔽_p`: `y³−1 = (y−1)(y²+y+1)` and `(y−x)(y−x²) ≡ y²+y+1`
 (using `x+x² ≡ −1`, `x³ ≡ 1`), each split by Euclid's lemma (`int_euclid` route).  ∅-axiom.

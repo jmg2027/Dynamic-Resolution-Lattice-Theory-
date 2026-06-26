@@ -5,7 +5,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaDomain
 
 /-!
-# The conjugate convolution `ḡ ⋆ ḡ = conj(g ⋆ g)∘(−·)` (∅-axiom, Phase A3 / route b)
+# The conjugate convolution `ḡ ⋆ ḡ = conj(g ⋆ g)∘(−·)` (∅-axiom)
 
 `conj g` is a ring homomorphism with the index reflection `(conj g)_k = conj(g_{−k})`, so
 

@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeSum
 
 /-!
-# The cubic Gauss sum's off-diagonal index helper (∅-axiom, Phase A3 / route b)
+# The cubic Gauss sum's off-diagonal index helper (∅-axiom)
 
 The `k≠0` convolution coefficient `(g⋆ḡ)(k) = Σ_{i<p} χ_ω(i)·conj χ_ω((p−(k+p−i)%p)%p)` has its inner
 index simplified by

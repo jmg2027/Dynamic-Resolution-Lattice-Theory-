@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidueFieldCubeRoo
 import E213.Lib.Math.NumberTheory.ModArith.CubicCharFp
 
 /-!
-# The `ℤ[ω]`-valued cubic character on `𝔽_p` — `χ_ω : ℕ → ℤ[ω]` (∅-axiom, Phase A1/A2)
+# The `ℤ[ω]`-valued cubic character on `𝔽_p` — `χ_ω : ℕ → ℤ[ω]` (∅-axiom)
 
 The cubic character valued in `μ₃ ⊂ ℤ[ω]` (rather than as a rational residue) — the form the Jacobi sum
 needs.  Given the residue prime `d` (`‖d‖² = p`, `ω ≡ x mod d`) and the cube root `x` (`p ∣ x²+x+1`),

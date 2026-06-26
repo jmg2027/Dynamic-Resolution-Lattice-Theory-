@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharSumZero
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm
 
 /-!
-# `χ²`-orthogonality — `Σ_{i∈tot} χ_ω(i)² = 0` (∅-axiom, Phase A3 / route b)
+# `χ²`-orthogonality — `Σ_{i∈tot} χ_ω(i)² = 0` (∅-axiom)
 
 For a cubic character, the square equals the conjugate (`χ(t)² = conj χ(t)`, since each value lies in
 `{0,1,ω,ω²}` and `conj` is the `μ₃`-inverse, `conj_chiOmega_eq_sq`).  Hence the `χ²`-orthogonality

@@ -5,7 +5,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharSq
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussJacobiTerm
 
 /-!
-# The Jacobi-sum norm law `N(J) = p` (∅-axiom, Phase A3 / route b — THE GOAL)
+# The Jacobi-sum norm law `N(J) = p` (∅-axiom)
 
 The cubic Jacobi sum has norm `p`:
 

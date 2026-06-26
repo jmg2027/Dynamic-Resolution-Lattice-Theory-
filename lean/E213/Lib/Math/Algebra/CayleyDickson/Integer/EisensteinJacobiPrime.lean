@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNormLaw
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrime
 
 /-!
-# The Jacobi sum is a prime of `ℤ[ω]` (∅-axiom, Phase A4)
+# The Jacobi sum is a prime of `ℤ[ω]` (∅-axiom)
 
 `N(J)=p` (`jacobi_norm`) makes the cubic Jacobi sum an element of norm a rational prime `p ≡ 1 mod 3`,
 hence a **prime element** of `ℤ[ω]`:

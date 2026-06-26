@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaAlgebra213
 import E213.Lib.Math.Combinatorics.Permutations
 
 /-!
-# Generic `ℤ[ω]`-valued list sums — the substrate for the Jacobi double sum (∅-axiom, Phase A3)
+# Generic `ℤ[ω]`-valued list sums — the substrate for the Jacobi double sum (∅-axiom)
 
 `listSum f L = Σ_{t ∈ L} f t` for any `f : ℕ → ℤ[ω]` — the list-indexed sum (the substrate the
 permutation arguments need, where `EisensteinFiniteSum.sumRange` is index-by-`[0,n)`).  This generalises

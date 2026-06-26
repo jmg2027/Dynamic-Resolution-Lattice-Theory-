@@ -12,10 +12,8 @@ import E213.Lib.Math.Foundations.PatternCatalog.Span
   patterns and the closure of the catalog under operational
   primitives.
 
-  These were 5 loose files at `Math/` root before M14 Phase B2
-  collected them into this sub-cluster.  The original
-  `PatternCatalog.lean` (top-level catalog type) renamed to
-  `PatternCatalog/Core.lean` per the M11 chapter convention.
+  This sub-cluster groups 5 thematically-related pattern-catalog files;
+  the top-level catalog type lives in `PatternCatalog/Core.lean`.
 
   ## Files
 

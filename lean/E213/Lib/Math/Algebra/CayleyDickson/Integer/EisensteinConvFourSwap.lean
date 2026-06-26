@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvAssoc
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvComm
 
 /-!
-# Reassociating `(a·b)·(a·b) = (a·a)·(b·b)` in the group ring (∅-axiom, Phase A3 / route b)
+# Reassociating `(a·b)·(a·b) = (a·a)·(b·b)` in the group ring (∅-axiom)
 
 In the commutative ring `R[C_p]` (convolution: bilinear + `conv_comm` + `conv_assoc`),
 

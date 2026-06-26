@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinBinomial
 
 /-!
-# The binomial theorem for convolution in `R[C_p]` (∅-axiom, Phase B2e.2c)
+# The binomial theorem for convolution in `R[C_p]` (∅-axiom)
 
 ★★★★★ `convPow_add_pow` : the binomial theorem for the convolution power, **coefficient-wise**:
 
@@ -17,7 +17,7 @@ Equality is coefficient-wise because function equality in `R[C_p]` would need th
 `funext`/`Quot.sound`.
 
 Toward the convolution freshman's dream `(f ⊕ g)^{⋆q} ≡ f^{⋆q} ⊕ g^{⋆q} (mod q)` and the Gauss-sum
-Frobenius `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)` (Phase B2).  ∅-axiom up to allowed `propext`.
+Frobenius `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.  ∅-axiom up to allowed `propext`.
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBinomial

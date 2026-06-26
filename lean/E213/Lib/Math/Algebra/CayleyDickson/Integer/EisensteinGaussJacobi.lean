@@ -4,7 +4,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeTotatives
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeSum
 
 /-!
-# The Gauss–Jacobi relation `g(χ)² = J·g(χ²)` at unit coefficients (∅-axiom, Phase A3 / route b)
+# The Gauss–Jacobi relation `g(χ)² = J·g(χ²)` at unit coefficients (∅-axiom)
 
 The `e_n`-coefficient (`0<n<p`) of `g(χ)²` in the group ring:
 

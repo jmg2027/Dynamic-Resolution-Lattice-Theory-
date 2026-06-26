@@ -3,7 +3,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiReindex
 import E213.Lib.Math.NumberTheory.EulerTheorem
 
 /-!
-# Reducing the Jacobi-sum norm by the unit-multiplication reindex (∅-axiom, Phase A3)
+# Reducing the Jacobi-sum norm by the unit-multiplication reindex (∅-axiom)
 
 The list-sum reindex that drives `N(J) = J·J̄ = p`.  For a unit `a` (`gcd(a,p)=1`), multiplication
 `s ↦ (a·s) mod p` **permutes** `totativeList p` (`EulerTheorem.lperm_image`), so any sum over the

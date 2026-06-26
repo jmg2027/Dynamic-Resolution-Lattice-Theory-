@@ -4,7 +4,7 @@ import E213.Lib.Math.NumberTheory.FourSquareSeed
 import E213.Meta.Nat.NatRing213
 
 /-!
-# The cubic Jacobi sum `J(χ,χ) = Σ_t χ_ω(t)·χ_ω(1−t)` as a concrete `ℤ[ω]` element (∅-axiom, Phase A2)
+# The cubic Jacobi sum `J(χ,χ) = Σ_t χ_ω(t)·χ_ω(1−t)` as a concrete `ℤ[ω]` element (∅-axiom)
 
 With the computable `ℤ[ω]`-valued cubic character `χ_ω` (`EisensteinCubicCharFp.chiOmega`), the Jacobi
 sum of cubic reciprocity is the **concrete finite sum**
@@ -17,7 +17,7 @@ boundary terms `t = 0` (`χ_ω(0) = 0`) and `t = 1` (`χ_ω(1−1) = χ_ω(0) = 
 sum over the `p − 2` interior residues `t ∈ {2, …, p−1}`, all of whose factors are genuine cube roots
 of unity.
 
-The norm law `N(J) = J·J̄ = p` (Phase A3) — via `𝔽_p` character orthogonality `Σ_t χ_ω(t) = 0` and the
+The norm law `N(J) = J·J̄ = p` — via `𝔽_p` character orthogonality `Σ_t χ_ω(t) = 0` and the
 collapsing double sum — is the open frontier.
 ∅-axiom.
 -/

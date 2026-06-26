@@ -19,7 +19,7 @@ binom n (k+1)` (`cz_pascal`), the boundary terms supplying `a^{n+1}` and `b^{n+1
 
 Toward the **freshman's dream** `(a+b)^q ≡ a^q + b^q (mod q)` (prime `q`): all interior coefficients
 `binom q k` (`0<k<q`) are divisible by `q` (`BinomPrime.prime_dvd_binom`), so only the endpoints
-survive mod `q` — the Frobenius endomorphism for the cubic-reciprocity congruence (Phase B2).
+survive mod `q` — the Frobenius endomorphism for the cubic-reciprocity congruence.
 
 Carries `propext` (allowed-not-target) only from ℕ↔ℤ cast / `Nat.sub` bookkeeping; the ring core is
 PURE.

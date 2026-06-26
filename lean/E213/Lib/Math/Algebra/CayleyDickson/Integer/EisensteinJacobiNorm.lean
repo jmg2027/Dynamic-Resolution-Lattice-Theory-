@@ -5,7 +5,7 @@ import E213.Lib.Math.NumberTheory.EulerTheorem
 import E213.Meta.Int213.PolyIntMTactic
 
 /-!
-# The cubic Jacobi sum and its norm `N(J) = J·J̄` — list form (∅-axiom, Phase A3)
+# The cubic Jacobi sum and its norm `N(J) = J·J̄` — list form (∅-axiom)
 
 The Jacobi sum in the generic `listSum` framework (so the orthogonality/permutation machinery applies),
 its conjugate, and the **double-sum form of the norm** `N(J) = J·J̄`:

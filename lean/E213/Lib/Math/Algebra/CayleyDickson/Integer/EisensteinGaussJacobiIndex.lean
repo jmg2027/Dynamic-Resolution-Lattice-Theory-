@@ -3,7 +3,7 @@ import E213.Lib.Math.NumberTheory.FactorialLcmDvd
 import E213.Meta.Nat.MulMod213
 
 /-!
-# The Gauss–Jacobi reindex index identity (∅-axiom, Phase A3 / route b)
+# The Gauss–Jacobi reindex index identity (∅-axiom)
 
 For the Gauss-square coefficient `(g⋆g)(n) = Σ_i χ_ω(i)·χ_ω((n+p−i)%p)`, the multiplicative reindex
 `i = (n·t)%p` needs the inner index

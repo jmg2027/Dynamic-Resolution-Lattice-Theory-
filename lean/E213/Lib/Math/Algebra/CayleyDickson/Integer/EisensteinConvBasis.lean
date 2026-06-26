@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussShift
 
 /-!
-# Basis-vector convolution and powers in `R[C_p]` — `e_a ⋆ e_b = e_{(a+b)%p}` (Phase B2e.5)
+# Basis-vector convolution and powers in `R[C_p]` — `e_a ⋆ e_b = e_{(a+b)%p}`
 
 The group multiplication of the cyclic group `C_p` lifted to the group ring: the basis vector
 `e_a = ζ^a` (the indicator `δ_{·,a}`) convolves by index addition mod `p`, and its `q`-th power is the
@@ -12,7 +12,7 @@ basis vector at `tq mod p`:
   `basisPow_eq`   : `e_t^{⋆q}(k) = e_{(t·q)%p}(k)`       (`t,k < p`).
 
 The second is what turns the Gauss-sum Frobenius `g^{⋆q} ≡ Σ_t χ(t)^q·e_t^{⋆q}` into
-`Σ_t χ(t)^q·e_{tq%p}` — the `ζ^t ↦ ζ^{tq}` reindex of the Frobenius congruence (Phase B2).  Note
+`Σ_t χ(t)^q·e_{tq%p}` — the `ζ^t ↦ ζ^{tq}` reindex of the Frobenius congruence.  Note
 `delta = e_0` is the unit.  ∅-axiom up to allowed `propext` (the `ite` of the basis indicator).
 -/
 

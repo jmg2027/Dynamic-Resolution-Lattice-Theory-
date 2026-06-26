@@ -12,7 +12,7 @@ import E213.Meta.Nat.PolyNatMTactic
 
 This is the **crux of the Frobenius endomorphism** (the freshman's dream `(a+b)^q ≡ a^q + b^q mod q`):
 the binomial theorem's interior terms all vanish mod `q`.  Toward the cubic-reciprocity Frobenius
-congruence `g(χ)^q ≡ χ̄(q)·g(χ) (mod q)` (Phase B2).
+congruence `g(χ)^q ≡ χ̄(q)·g(χ) (mod q)`.
 
 ## Proof
 

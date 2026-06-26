@@ -3,7 +3,7 @@ import E213.Meta.Nat.AddMod213
 import E213.Meta.Int213.PolyIntMTactic
 
 /-!
-# The residue-field cube roots of unity — `{1, ω, ω²} ≡ {1, x, x²} (mod d)` (∅-axiom, Phase A1)
+# The residue-field cube roots of unity — `{1, ω, ω²} ≡ {1, x, x²} (mod d)` (∅-axiom)
 
 The residue prime `d` (`‖d‖² = p ≡ 1 mod 3`) carries `ω ≡ x (mod d)` for a rational cube root `x`
 (`p ∣ x²+x+1`, `EisensteinResiduePrime`).  Then the three cube roots of unity in `ℤ[ω]/(d)` reduce to
@@ -13,7 +13,7 @@ the three **rational** cube roots `{1, x, x²}` of `1` mod `p`:
 
 This is the residue-field realisation of `μ₃` — the bridge needed to evaluate the cubic character on
 **rational** residues `t ∈ 𝔽_p` (`χ(t) = the μ₃ value whose rational rep is `t^m mod p`), the first
-brick of the Jacobi-sum core (Phase A1).
+brick of the Jacobi-sum core.
 ∅-axiom.
 -/
 

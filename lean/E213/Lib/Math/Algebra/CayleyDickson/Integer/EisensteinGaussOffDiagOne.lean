@@ -5,7 +5,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinInvPerm
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharSumZero
 
 /-!
-# The cubic Gauss-sum off-diagonal coefficient is `−1` (∅-axiom, Phase A3 / route b)
+# The cubic Gauss-sum off-diagonal coefficient is `−1` (∅-axiom)
 
 The `e_k`-coefficient (`0<k<p`) of `g·conj g` in the free group ring `R[C_p]`:
 

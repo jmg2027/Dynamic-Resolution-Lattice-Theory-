@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaDomain
 import E213.Meta.Int213.PolyIntMTactic
 
 /-!
-# The endgame cancellation — a `μ₃`-scaled fixed sum is zero (∅-axiom, Phase A3)
+# The endgame cancellation — a `μ₃`-scaled fixed sum is zero (∅-axiom)
 
 The last step of cubic-character orthogonality.  If a sum `S ∈ ℤ[ω]` is **fixed by a nontrivial
 `μ₃`-scaling**, `w·S = S` with `w ≠ 1`, then `S = 0`:
@@ -13,7 +13,7 @@ The last step of cubic-character orthogonality.  If a sum `S ∈ ℤ[ω]` is **f
 This is exactly the shape `Σ_t χ_ω(t) = χ_ω(a)·Σ_t χ_ω(t)` takes once the scaling invariance
 `Σ_t χ_ω(t) = Σ_t χ_ω(a·t)` (`chiOmega_mul` + the unit-permutation reindexing) is in hand: with `a` a
 non-cubic-residue, `χ_ω(a) ∈ {ω, ω²} ≠ 1`, so the character sum vanishes (`research-notes/frontiers/
-higher_reciprocity_roadmap.md`, Phase A3).  Supporting ring identities `sub_mul_zomega`,
+higher_reciprocity_roadmap.md`).  Supporting ring identities `sub_mul_zomega`,
 `one_mul_zomega`, `sub_self_zomega` are proved componentwise (`ext` + pure `Int213`).  ∅-axiom.
 -/
 

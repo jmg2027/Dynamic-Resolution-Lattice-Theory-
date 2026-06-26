@@ -5,7 +5,7 @@ import E213.Lib.Math.NumberTheory.EulerTheorem
 import E213.Meta.Nat.MulMod213
 
 /-!
-# The cubic character division identity — `χ_ω(b)·χ̄_ω(c) = χ_ω((b·c⁻¹) mod p)` (∅-axiom, Phase A3)
+# The cubic character division identity — `χ_ω(b)·χ̄_ω(c) = χ_ω((b·c⁻¹) mod p)` (∅-axiom)
 
 For units `b, c`, the character of a ratio:
 

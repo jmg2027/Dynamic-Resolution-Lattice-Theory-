@@ -4,7 +4,7 @@ import E213.Lib.Math.NumberTheory.EulerTheorem
 import E213.Lib.Math.NumberTheory.ModArith.MarkovPrimeFactor
 
 /-!
-# Splitting a `[0,p)` sum into its `0`-term and the unit sum (∅-axiom, Phase A3 / route b)
+# Splitting a `[0,p)` sum into its `0`-term and the unit sum (∅-axiom)
 
 For a prime `p`, the full residue list `rangeList p = [0,p)` is `0 :: totativeList p` up to permutation
 (every nonzero residue below a prime is a unit).  Hence a `ℤ[ω]`-valued sum over `[0,p)` splits:

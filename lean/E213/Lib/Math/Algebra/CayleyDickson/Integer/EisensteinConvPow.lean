@@ -4,7 +4,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvAssoc
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality
 
 /-!
-# The convolution identity and power in the group ring `R[C_p]` (∅-axiom, Phase B2e)
+# The convolution identity and power in the group ring `R[C_p]` (∅-axiom)
 
 The substrate for the **group-ring (convolution) Frobenius** `g^{⋆q} ≡ χ̄(q)·g (mod q)`.  The free
 group ring `R[C_p]` (`EisensteinGroupRing`) has convolution `⋆` as multiplication; this file adds its

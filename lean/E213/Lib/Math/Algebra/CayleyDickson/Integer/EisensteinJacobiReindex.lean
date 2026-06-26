@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFpMul
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinScaleCancel
 
 /-!
-# The Jacobi-sum reindex identity — `χ_ω(b·c)·χ̄_ω(b) = χ_ω(c)` (∅-axiom, Phase A3 step 4)
+# The Jacobi-sum reindex identity — `χ_ω(b·c)·χ̄_ω(b) = χ_ω(c)` (∅-axiom)
 
 The per-term simplification driving the `N(J) = p` reindexing.  For units `b, c`,
 

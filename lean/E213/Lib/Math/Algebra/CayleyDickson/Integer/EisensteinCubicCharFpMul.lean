@@ -4,7 +4,7 @@ import E213.Lib.Math.NumberTheory.FourSquareSeed
 import E213.Lib.Math.NumberTheory.ModArith.ZolotarevCycle
 
 /-!
-# The `ℤ[ω]`-valued cubic character is multiplicative — `χ_ω(s)·χ_ω(t) = χ_ω(st)` (∅-axiom, Phase A1)
+# The `ℤ[ω]`-valued cubic character is multiplicative — `χ_ω(s)·χ_ω(t) = χ_ω(st)` (∅-axiom)
 
 The keystone character identity.  For units `s, t ∈ 𝔽_p*`,
 
@@ -16,7 +16,7 @@ through `ℤ[ω]/(d) = 𝔽_p`) — and both lie in `μ₃`.  Since the three cu
 mod `d`** (`EisensteinCubicCharWelldef.root_unique`, `p > 3`), congruence forces equality.
 
 This is the multiplicativity a character must satisfy — the property that turns the Jacobi sum
-manipulation (Phase A3, `Σ_t χ_ω(t) = 0` by scaling invariance) into the norm law `N(J) = p`.  The
+manipulation (`Σ_t χ_ω(t) = 0` by scaling invariance) into the norm law `N(J) = p`.  The
 supporting `μ₃` facts: `mu3_mul_closed` (closed under `·`), `mu3_inj` (injective mod `d`).  ∅-axiom.
 -/
 

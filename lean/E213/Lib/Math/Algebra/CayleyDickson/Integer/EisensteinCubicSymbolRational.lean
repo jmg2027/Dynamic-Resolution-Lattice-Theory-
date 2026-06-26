@@ -2,7 +2,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicWeld
 import E213.Lib.Math.NumberTheory.ModArith.CubicResidue
 
 /-!
-# The Eisenstein cubic symbol on a rational integer ⟺ rational cubic residue (Phase B0)
+# The Eisenstein cubic symbol on a rational integer ⟺ rational cubic residue
 
 ★★★★★ `cubic_symbol_rational_iff` : for the residue prime `d` (`‖d‖² = p ≡ 1 mod 3`) and a rational
 unit `a` (`1 ≤ a < p`), the `ℤ[ω]` cubic symbol read on the embedded integer `↑a` is trivial **iff**
@@ -10,7 +10,7 @@ unit `a` (`1 ≤ a < p`), the `ℤ[ω]` cubic symbol read on the embedded intege
 
   `(↑a / d)₃ = (↑a)^m ≡ 1 (mod d)  ⟺  ∃ y, y³ ≡ a (mod p)`.
 
-This is the **bottom rung of Phase B** (the cubic reciprocity law): it pins the abstract `ℤ[ω]`
+This is the **bottom rung of the cubic reciprocity law**: it pins the abstract `ℤ[ω]`
 character `(·/d)₃` to the concrete rational cubic-residue predicate of `ModArith/CubicResidue`,
 the foundation on which the supplementary laws and the reciprocity readout are stated.
 
@@ -77,7 +77,7 @@ private theorem pow_mod_one_iff_int {a m p : Nat} (hp : 1 < p) (ha1 : 1 ≤ a) :
 
       `(↑a/d)₃ = (↑a)^m ≡ 1 (mod d)  ⟺  ∃ y, 1 ≤ y < p ∧ y³ ≡ a (mod p)`.
 
-    The bottom rung of Phase B — the abstract `ℤ[ω]` symbol pinned to the rational cubic-residue
+    The bottom rung of the cubic reciprocity law — the abstract `ℤ[ω]` symbol pinned to the rational cubic-residue
     predicate.  `⟹`: `ModEq` ⟶ `d ∣ ofInt((↑a)^m − 1)` ⟶[`p_dvd_of_dvd_ofInt`] `p ∣ ((↑a)^m − 1)`
     ⟶[`pow_mod_one_iff_int`] `a^m%p=1` ⟶[`pow_m_one_iff_cube`].  `⟸`: reverse, lifting via
     `ofInt_pow_modeq_one` (`d.normSq = ↑p`).  Carries `propext` only from ℕ↔ℤ cast bookkeeping. -/
