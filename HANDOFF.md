@@ -90,20 +90,30 @@ The split-prime cube-side chain is complete (`pr = 3(s+1)+1 ≡ 1 mod 3`, the se
   — the split analog of `cubic_reciprocity_congr` (cube side `=` Frobenius side at `k=1`; `g(1)=χ(1)=1`
   is the unit cancellation; character conjugated `χ̄(pr)` vs inert `χ(q)`).
 
-## Remaining work — finish the split-split law
+## Done (PURE): the all-Eisenstein form + descent to `𝔽_{p'}`
 
-`split_reciprocity_congr` is the split engine.  What remains:
-- **descent to `mod π'`**: `J^{s+1}·p^{s+1} ≡ χ̄(pr) (mod π')` via `π' ∣ ofInt pr` + `modEq_descend`
-  (`EisensteinSplitFermat`).
-- **eliminate `p^{s+1}` / collapse to a residue character of `π`**: `p = J·J̄` (`jacobi_splits_p`), and
-  the split Frobenius `split_fermat` (`z^{pr} ≡ z mod π'`, i.e. `𝔽_{p'}` Fermat) collapses the `J̄`
-  powers — landing `J^{(pr−1)/3·…}`-type ≡ `χ̄(pr)`, the cubic residue character `(π/π')₃`.  *Exact
-  exponent/collapse to be pinned from Ireland–Rosen ch. 9* (the inert used `frob_sq` + `conj≡z^q`; the
-  split uses `split_fermat` + the `𝔽_{p'}`-conjugation).
-- the **μ₃-lift** (`mu3_eq_of_modEq`, reusable) to upgrade `mod π'` congruence to a μ₃ equality, and the
-  final `π ↔ π'` comparison via the primary normalisation (`jacobi_primary`, now PURE).
+- **`split_reciprocity_congr_eisenstein`**: `J^{2(s+1)}·J̄^{s+1} ≡ χ̄(pr) (mod ofInt pr)` (eliminate
+  `p = J·J̄`; split analog of `cubic_reciprocity_congr_eisenstein`).
+- **`split_reciprocity_congr_pi`**: descends it to `mod π'` for an Eisenstein prime `π'` of norm `pr`
+  (`π' ∣ ofInt pr` via `mul_conj_self` + `modEq_descend`).  The congruence now lives in
+  `𝔽_{p'} = ℤ[ω]/(π')`.
 
-Reference: Ireland–Rosen ch. 9.
+## Remaining work — the final collapse (needs Ireland–Rosen ch. 9, do NOT guess)
+
+`J^{2(s+1)}·J̄^{s+1} ≡ χ̄(pr) (mod π')` is the split engine through the `𝔽_{p'}` descent.  The collapse to
+the symbol identity `(π/π')₃ = (π'/π)₃` is where the **split case genuinely diverges from the inert one**:
+- Mod a *split* `π'`, `conj` is **not** a Frobenius endomorphism of `𝔽_{p'}` — it maps
+  `ℤ[ω]/(π') → ℤ[ω]/(π̄')`.  So the inert trick `J̄ ≡ J^q (mod q)` (`conj_modEq_pow`, which needed `q`
+  *inert*) has **no direct analog**, and eliminating `J̄` via `J·J̄ = p` is circular (gives back
+  `J^{s+1}·p^{s+1}`).  The correct collapse must be pinned from the reference before building.
+- Likely ingredients: `(π/π')₃ := J^{s+1} mod π'` is μ₃-valued (`split_fermat` ⟹ `J^{3(s+1)} = J^{pr−1}
+  ≡ 1` for `J` a unit mod `π'`, i.e. `π' ∤ J` — from `N(π')=pr ∤ p=N(J)`); the rational character
+  `χ̄(pr) = χ̄(N(π'))` must be related to `(π'/π)₃` (norm-multiplicativity, `χ` extended to `ℤ[ω]`);
+  then `mu3_eq_of_modEq` (reusable) + the primary normalisation (`jacobi_primary`, now PURE) finish.
+
+**Engineering note:** everything up to and including `split_reciprocity_congr_pi` is built and PURE.  The
+final identification needs the classical proof worked out — building it by analogy risks wrong theorems
+(the inert↔split asymmetry above is real).  Pin the exponent/collapse from Ireland–Rosen ch. 9 first.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: none yet — Phase B's promotable unit is the *law*, now assembled; the
