@@ -16,7 +16,12 @@ i.e. the `(i−k) mod p` shift.  Pure `ℕ` mod/sub arithmetic (`add_sub_assoc`,
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiag
 
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeSum (add_p_mod sub_sub_self_pure)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss gaussConj)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum (sumRange sum_congr)
 open E213.Meta.Nat.AddMod213 (mod_self)
 open E213.Meta.Nat.NatRing213 (nat_sub_add_cancel nat_add_sub_self_right)
 open E213.Tactic.NatHelper (add_sub_assoc add_sub_add_right)
@@ -62,5 +67,23 @@ theorem conv_offdiag_index {p k i : Nat} (hk : k < p) (hi : i < p) :
     rw [kpi_gt hki, Nat.mod_eq_of_lt (Nat.sub_lt hp (sub_pos_pure hgt)),
         sub_sub_self_pure (Nat.le_of_lt himk_lt), Nat.mod_eq_of_lt himk_lt,
         ipk_gt hki, add_p_mod hp, Nat.mod_eq_of_lt himk_lt]
+
+/-- ★★★ **The off-diagonal convolution term** — for `i < p`, `gauss(i)·gaussConj((k+p−i)%p) =
+    χ_ω(i)·conj χ_ω((i+p−k)%p)`.  `conv_offdiag_index` simplifies the index.  ∅-axiom. -/
+theorem gauss_offdiag_term {p m x k i : Nat} (hk : k < p) (hi : i < p) :
+    gauss p m x i * gaussConj p m x ((k + p - i) % p)
+      = chiOmega p m x i * conj (chiOmega p m x ((i + p - k) % p)) := by
+  show chiOmega p m x i * conj (chiOmega p m x ((p - (k + p - i) % p) % p))
+     = chiOmega p m x i * conj (chiOmega p m x ((i + p - k) % p))
+  rw [conv_offdiag_index hk hi]
+
+/-- ★★★★ **The off-diagonal coefficient as a shifted character sum** — for `k < p`,
+    `(g⋆ḡ)(k) = Σ_{i<p} χ_ω(i)·conj χ_ω((i+p−k)%p)`.  `gauss_offdiag_term` under `sum_congr`.  The form
+    the multiplicative reindex `i=(k·u)%p` collapses to the `k`-independent constant `C = −1`.  ∅-axiom. -/
+theorem gauss_offdiag_sum {p m x k : Nat} (hk : k < p) :
+    conv p (gauss p m x) (gaussConj p m x) k
+      = sumRange (fun i => chiOmega p m x i * conj (chiOmega p m x ((i + p - k) % p))) p := by
+  show sumRange (fun i => gauss p m x i * gaussConj p m x ((k + p - i) % p)) p = _
+  exact sum_congr p (fun i hi => gauss_offdiag_term hk hi)
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiag
