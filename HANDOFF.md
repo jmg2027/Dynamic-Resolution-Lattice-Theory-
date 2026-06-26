@@ -77,26 +77,31 @@ Frobenius) — the parallel of the inert B2e arc.  Done this session, all PURE:
   **`g(χ)^{⋆pr}(k) ≡ χ̄(pr)·χ(k) (mod ofInt pr)`**, the split factored Frobenius (mirror of
   `gauss_pow_modEq_factored`; note the `χ ↔ χ̄` swap).
 
-## Cube-side groundwork — `Σχ = 0` done (PURE)
+## Split reciprocity congruence — DONE (PURE), the split "engine"
 
-- **`EisensteinCharSumRange.chiOmega_sumRange_zero`**: `Σ_{t<p} χ_ω(t) = 0` in **`sumRange` form** (the
-  convolution `⋆` is sumRange-native), via the scaling argument on `sumRange` directly
-  (`rangeList_mul_lperm` permutes all of `[0,p)`).  The orthogonality behind `allones ⋆ g = 0`, hence
-  `Yfun ⋆ g = p·g` — the cube-side identity of the split assembly.
+The split-prime cube-side chain is complete (`pr = 3(s+1)+1 ≡ 1 mod 3`, the second prime split):
+- **`EisensteinCharSumRange.chiOmega_sumRange_zero`**: `Σ_{t<p} χ_ω(t) = 0` (`sumRange` form, the
+  scaling argument via `rangeList_mul_lperm`).
+- **`EisensteinYfunGauss.Yfun_conv_gauss`**: `Yfun ⋆ g = p·g` (`Yfun = −1 + p·δ₀`; the `−1` part is
+  `Σχ = 0` after the reflection reindex `rangeList_refl_lperm`; the `p·δ₀` part is the single `p·g(k)`).
+- **`EisensteinSplitCube.gauss_convPow_split`**: `g(χ)^{⋆(3(s+1)+1)} = J^{s+1}·p^{s+1}·g` (cube side;
+  the extra `⋆g` turns the trailing `Yfun` into `Yfun⋆g = p·g`).
+- **`EisensteinSplitReciprocity.split_reciprocity_congr`**: **`J^{s+1}·p^{s+1} ≡ χ̄(pr) (mod ofInt pr)`**
+  — the split analog of `cubic_reciprocity_congr` (cube side `=` Frobenius side at `k=1`; `g(1)=χ(1)=1`
+  is the unit cancellation; character conjugated `χ̄(pr)` vs inert `χ(q)`).
 
 ## Remaining work — finish the split-split law
 
-`cubic_reciprocity_law` gives `(π/q)₃ = χ(q)` for `q` *rational* inert.  The split factored Frobenius is
-built **up to `gauss_pow_modEq_factored` parity**, and `Σχ = 0` (above) is in hand.  What remains mirrors
-the inert tail (and needs the classical exponent: the inert `(q²−1)/3` becomes a split `(p'−1)/3`-type
-residue character):
-- **`Yfun ⋆ g = p·g`**: split `Yfun = p·δ₀ − allones`; `allones ⋆ g = Σχ = 0` (now available) + the
-  reflection reindex `Σ_i g((k+p−i)%p) = Σ_j g(j)` (via `rangeList_refl_lperm`, as in `conv_comm`).
-- the cube/norm assembly `g^{⋆pr} = J^s·p^s·g` (`pr = 3s+1`: `(g^{⋆3})^{⋆s}⋆g = J^s·Yfun^{⋆s}⋆g`,
-  `Yfun^{⋆s} = p^{s-1}·Yfun`, `Yfun⋆g = p·g`), giving `J^s·p^s ≡ χ̄(pr) (mod ofInt pr)` at `k=1`;
-- the **descent to `mod π'`** (via `split_fermat`'s `π' ∣ ofInt pr`, `modEq_descend`), the exponent
-  collapse to the split residue character, the μ₃-lift (`mu3_eq_of_modEq`, reusable), and
-- the final `π ↔ π'` comparison via the primary normalisation (`jacobi_primary`, now PURE).
+`split_reciprocity_congr` is the split engine.  What remains:
+- **descent to `mod π'`**: `J^{s+1}·p^{s+1} ≡ χ̄(pr) (mod π')` via `π' ∣ ofInt pr` + `modEq_descend`
+  (`EisensteinSplitFermat`).
+- **eliminate `p^{s+1}` / collapse to a residue character of `π`**: `p = J·J̄` (`jacobi_splits_p`), and
+  the split Frobenius `split_fermat` (`z^{pr} ≡ z mod π'`, i.e. `𝔽_{p'}` Fermat) collapses the `J̄`
+  powers — landing `J^{(pr−1)/3·…}`-type ≡ `χ̄(pr)`, the cubic residue character `(π/π')₃`.  *Exact
+  exponent/collapse to be pinned from Ireland–Rosen ch. 9* (the inert used `frob_sq` + `conj≡z^q`; the
+  split uses `split_fermat` + the `𝔽_{p'}`-conjugation).
+- the **μ₃-lift** (`mu3_eq_of_modEq`, reusable) to upgrade `mod π'` congruence to a μ₃ equality, and the
+  final `π ↔ π'` comparison via the primary normalisation (`jacobi_primary`, now PURE).
 
 Reference: Ireland–Rosen ch. 9.
 
