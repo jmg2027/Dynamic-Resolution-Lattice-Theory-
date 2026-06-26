@@ -1,65 +1,112 @@
-# Session Handoff — Cubic / Eisenstein Reciprocity arc (autonomous)
+# Session Handoff — 2026-06-26
 
 ## Branch
-`claude/transport-campaign-progress-dafaoa`.  Full `lake build E213.Lib.Math.Algebra.CayleyDickson`
-passes clean.  ∅-axiom standard: PURE where stated; the rest carry **only** `propext` (Lean-4 kernel
-base, allowed-not-target per `STRICT_ZERO_AXIOM.md` — from ℕ↔ℤ cast / `Nat.sub` / `ite` bookkeeping).
-No `Classical.choice` / `Quot.sound` / `native_decide` / Mathlib anywhere.
+`claude/transport-campaign-progress-dafaoa` — ahead of origin (push pending at session end).
+Full `lake build E213` clean.  ∅-axiom standard: PURE where stated, the rest carry **only** `propext`
+(Lean-4 kernel base, allowed-not-target per `STRICT_ZERO_AXIOM.md`).  Purity-check: 0 sorry / 0
+external axiom / 0 native_decide / 0 Classical / 0 Mathlib.
 
-## Goal of the arc
-**The cubic reciprocity law `(π/π')₃ = (π'/π)₃`** over the Eisenstein integers `ℤ[ω]`.
-Roadmap: `research-notes/frontiers/higher_reciprocity_roadmap.md`; the law itself:
-`research-notes/frontiers/cubic_reciprocity_law.md` (the live status tracker — **read it first**).
+## What Was Done This Session
 
-## Phase A — COMPLETE (∅-axiom)
-The cubic character on `𝔽_p`, the Jacobi sum, **`N(J)=p`** (`EisensteinJacobiNormLaw.jacobi_norm`),
-`J` prime (`jacobi_prime`), `p = J·J̄` (`jacobi_splits_p`), the primary normalisation `J=π`
-(`jacobi_primary`).  Plus the full cubic-residue-symbol theory (μ₃-valued, multiplicative, Euler both
-ways, the rational weld).  Details: the `cubic_reciprocity_law.md` frontier "What is already built".
+### 1. Phase A cubic reciprocity — promoted to `theory/`
+`N(J)=p` (`EisensteinJacobiNormLaw.jacobi_norm`, PURE) + the cubic residue symbol + primary
+normalisation `J=π` were promoted to a mirror chapter
+`theory/math/numbertheory/cubic_residue_and_jacobi_sum.md` (catalogued in
+`catalogs/derivation-breadth.md`; ledger row 116).  The reciprocity *law* stays the chapter's Open
+frontier (Phase B), so the frontier note remains active — S3-permitted.
 
-## Phase B — the law itself (IN PROGRESS, this session)
-Status tracker = `cubic_reciprocity_law.md`.  Bricks built (all build clean + axiom-scanned):
+### 2. Phase B — the cubic reciprocity law's Frobenius engine (the bulk of the Lean work)
+Built coefficient-wise in the free group ring `R[C_p]` (`R=ℤ[ω]`, convolution `⋆`; equality is
+coefficient-wise — function equality would need the forbidden `funext`/`Quot.sound`):
+- **B0** `EisensteinCubicSymbolRational.cubic_symbol_rational_iff` — ℤ[ω] symbol on a rational integer
+  ⟺ rational cubic residue.
+- **B1** `EisensteinGaussCube.gauss_cube` — `g(χ)³ = p·J` (group ring, **PURE**).
+- **B2a** `NumberTheory.BinomPrime.prime_dvd_binom` — `q ∣ binom q t` for `0<t<q` (**PURE**), via the
+  absorption identity `succ_mul_binom`.  The Frobenius crux.
+- **B2b** `EisensteinBinomial.add_pow` — the binomial theorem in `ℤ[ω]`.
+- **B2c** `EisensteinFreshman.add_pow_modEq_prime` — freshman's dream `(a+b)^q ≡ a^q+b^q (mod q)`.
+- **B2d** `EisensteinFreshman.sum_pow_modEq_prime` — `ℤ[ω]` multinomial dream.
+- **B2e** the group-ring convolution Frobenius:
+  - `EisensteinConvPow` — `delta=e_0`, `convPow`, `convOne_left/right`, `conv_zero_left/right`,
+    `conv_sumRange_left`, `convProd_mul_{f,g}`, `conv_scalar_right`, `convPow_scalar`,
+    `convPow_congr` (mostly PURE).
+  - `EisensteinConvBinomial.convPow_add_pow` — the convolution binomial theorem.
+  - `EisensteinConvFreshman.convPow_add_pow_modEq_prime` + `convPow_sum_modEq_prime` — convolution
+    binary + multinomial freshman's dreams.
+  - `EisensteinConvBasis.basis_conv` (`e_a⋆e_b=e_{(a+b)%p}`, PURE) + `basisPow_eq`
+    (`e_t^{⋆q}=e_{tq%p}`) + `scaledBasisPow_eq` (`(c·e_t)^{⋆q}=c^q·e_{tq%p}`) + `gauss_eq_sum_basis`
+    (`g=Σ_t χ(t)·e_t`, PURE).
 
-- **B0** `EisensteinCubicSymbolRational.cubic_symbol_rational_iff` — the `ℤ[ω]` symbol on a rational
-  integer ⟺ rational cubic residue.
-- **B1** `EisensteinGaussCube.gauss_cube` — `g(χ)³ = p·J` in the group ring (**PURE**).
-- **B2** the Frobenius engine (the new mod-`q` subsystem):
-  - **B2a** `NumberTheory.BinomPrime.prime_dvd_binom` — `q ∣ binom q t` for `0<t<q` (**PURE**).
-  - **B2b** `EisensteinBinomial.add_pow` — the binomial theorem in `ℤ[ω]`.
-  - **B2c** `EisensteinFreshman.add_pow_modEq_prime` — freshman's dream `(a+b)^q ≡ a^q+b^q (mod q)`.
-  - **B2d** `EisensteinFreshman.sum_pow_modEq_prime` — the `ℤ[ω]` multinomial dream.
-  - **B2e** the **group-ring (convolution) Frobenius** (equality is coefficient-wise — no funext):
-    - **B2e.1** `EisensteinConvPow` — `delta = e_0`, `convPow` (`⋆`-power), `convOne_left/right`.
-    - **B2e.2a** `conv_zero_left/right`, `conv_sumRange_left` (conv linear over finite sums, PURE).
-    - **B2e.2b** `convProd_mul_f/g` — `⋆`-exponent raising (PURE).
-    - **B2e.2c** `EisensteinConvBinomial.convPow_add_pow` — the **convolution binomial theorem**.
-    - **B2e.3** `EisensteinConvFreshman.convPow_add_pow_modEq_prime` — convolution freshman's dream.
-    - **B2e.4** `EisensteinConvFreshman.convPow_sum_modEq_prime` — convolution multinomial dream.
-    - **B2e.5** `EisensteinConvBasis.basis_conv` (`e_a⋆e_b = e_{(a+b)%p}`, PURE) + `basisPow_eq`
-      (`e_t^{⋆q} = e_{tq%p}`); the `ζ^t↦ζ^{tq}` reindex.
-    - **B2e.6** `EisensteinConvPow.conv_scalar_right` + `convPow_scalar` (`(c·h)^{⋆q}=c^q·h^{⋆q}`, PURE).
+### 3. Marathon hygiene (process / org-audit / cross-domain / essay)
+- **process**: decoupled 17 `lean/` docstrings from frontier-note citations (sink rule → 0
+  violations); registered the cubic-reciprocity frontier in `frontiers/INDEX.md`.
+- **org-audit**: stripped session-phase tags ("Phase A1..B2e.5", "route b", "THE GOAL", "before M14
+  Phase B2/B3") from ~37 permanent-tier docstrings → current-state-only.
+- **cross-domain**: `research-notes/frontiers/cubic_reciprocity_crossdomain.md` — 5 shared-engine
+  links to main (one convolution algebra; one Frobenius crux `prime_dvd_binom` serving p-adic, cubic,
+  prime-counting; `N(J)=p` = disc −3 two-squares analogue; cubic = discrete-log-mod-3 ladder).
+- **essay**: `theory/essays/synthesis/the_frobenius_is_interior_count_collapse.md` (ledger row 117).
 
-## Next steps (B2e.7 → the Frobenius congruence `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`)
-The pieces are all in hand; remaining assembly:
-1. **Per-`t` Gauss term**: `(χ(t)·e_t)^{⋆q}(k) = χ(t)^q·e_{tq%p}(k)` — combine `convPow_scalar` +
-   `basisPow_eq`.  And `gauss = Σ_t χ(t)·e_t` coefficient-wise (`gauss i = Σ_t χ(t)·basis t i`,
-   `sum_single`); a `convPow_congr` (power respects agreement on `[0,p)`) to swap the base.
-2. **Character power** `χ(t)^q = χ̄(t)` for `q ≡ 2 (mod 3)` (μ₃: `χ^q = χ^{q%3} = χ² = χ̄`).
-3. **`tq`-reindex** `Σ_t χ̄(t)·e_{tq%p} = χ̄(q)·g` (permutation of `[0,p)` by `t↦tq%p`).
-4. Assemble `g^{⋆q} ≡ χ̄(q)·g (mod q)` via `convPow_sum_modEq_prime`.
+## Current Precision Results
+No new physics constants this session (pure-math arc — cubic / Eisenstein reciprocity).  The headline
+∅-axiom result is `N(J)=p` (`jacobi_norm`, **PURE**); the physics table in
+`catalogs/physics-constants.md` is unchanged.
 
-Then the **law**: compute `g^N` two ways (`g³=pJ` from B1, Frobenius from B2e), compare μ₃ values
-using the primary normalisation (`jacobi_primary`).  See `cubic_reciprocity_law.md` "What remains".
+## Open Problems (Priority Order)
 
-## Operating notes (traps hit this session)
-- `R[C_p]` equality is **coefficient-wise** (`conv p f g k = …`); function equality needs `funext`
-  (`Quot.sound`) — forbidden.  Every convolution identity is `∀ k < p, …`.
-- `binom n 0` is **not** `rfl`-reducible with `n` a variable (Pascal recursion splits on the first
-  arg) — use `binom_zero_right`.
-- `convPow_succ` is `rfl`; the `fun i => conv … i ≡ convPow … (n+1)` defeq is closed by
-  `conv_congr … (fun _ _ => rfl)`, not by `rw`'s auto-`rfl`.
-- The `ℤ[ω]` binomial / Frobenius tail is a verbatim template: `add_pow` ⟶ `convPow_add_pow`,
-  `add_pow_modEq_prime` ⟶ `convPow_add_pow_modEq_prime`, `sum_pow_modEq_prime` ⟶
-  `convPow_sum_modEq_prime` (same proof skeleton, ring ops → conv ops).
-- propext is fine (allowed-not-target); chase PURE only when cheap (e.g. `le_of_dvd_pos` over core
-  `Nat.le_of_dvd`).
+### 1. Assemble the Frobenius congruence `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`
+All pieces are built; remaining is the chain:
+- `gauss_eq_sum_basis` under `convPow_congr` → `convPow_sum_modEq_prime` → `scaledBasisPow_eq` gives
+  `g^{⋆q}(k) ≡ Σ_t χ(t)^q·e_{tq%p}(k) (mod q)`.
+- **`χ(t)^q = χ̄(t)`** for `q ≡ 2 (mod 3)` (μ₃: `χ^q = χ^{q%3} = χ² = χ̄`) — the number-theory step.
+- the `t ↦ tq%p` reindex of `[0,p)` (a permutation) to fold `Σ_t χ̄(t)·e_{tq%p}` into `χ̄(q)·g`.
+Frontier note: `research-notes/frontiers/cubic_reciprocity_law.md` (roadmap
+`higher_reciprocity_roadmap.md`); registered in `frontiers/INDEX.md`.
+
+### 2. The cubic reciprocity law `(π/π')₃ = (π'/π)₃` itself
+After the Frobenius congruence: compute `g^N` two ways (`g³=p·J` from B1; Frobenius from B2e) and
+compare μ₃ values using the primary normalisation (`jacobi_primary`).  Same frontier note.
+
+### 3. (refactor) one `Frobenius-from-interior-binomial-vanishing` lemma
+The cubic, p-adic (Teichmüller), and prime-counting Frobenius uses are corollaries of
+`prime_dvd_binom` + a binomial theorem over the respective carrier — not yet one Lean lemma.
+Frontier note: `research-notes/frontiers/cubic_reciprocity_crossdomain.md`.
+
+## Unresolved from This Session
+None attempted-and-failed.  The group-ring Frobenius required re-proving the binomial / freshman
+machinery for convolution coefficient-wise (the `ℤ[ω]` versions are not reusable on `R[C_p]` because
+of the no-funext rule); this was completed (B2e.1–B2e.8), not a dead end.
+
+## Next
+Build `χ(t)^q = χ̄(t)` (μ₃ character power for `q ≡ 2 mod 3`), then the `t ↦ tq%p` reindex, then
+chain to `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)` — Open Problem 1.
+
+## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
+- **Promotions this session**: `theory/math/numbertheory/cubic_residue_and_jacobi_sum.md` ← the closed
+  Phase-A cubic Lean sub-tree (frontier note kept active — open Phase B).
+- **Promotion candidates**: none outstanding for this arc (Phase B is open; promotes with the law).
+- **Active scratchpad**: `research-notes/frontiers/{cubic_reciprocity_law, higher_reciprocity_roadmap,
+  cubic_reciprocity_crossdomain}.md`.
+
+## File Map
+```
+NEW (Lean):
+  lean/E213/Lib/Math/NumberTheory/BinomPrime.lean                          ← q ∣ binom q t (PURE)
+  lean/.../CayleyDickson/Integer/EisensteinCubicSymbolRational.lean        ← B0
+  lean/.../CayleyDickson/Integer/EisensteinGaussCube.lean                  ← g³=pJ (PURE)
+  lean/.../CayleyDickson/Integer/EisensteinBinomial.lean                   ← ℤ[ω] binomial theorem
+  lean/.../CayleyDickson/Integer/EisensteinFreshman.lean                   ← ℤ[ω] freshman + multinomial
+  lean/.../CayleyDickson/Integer/EisensteinConvPow.lean                    ← convPow + linearity + scalar
+  lean/.../CayleyDickson/Integer/EisensteinConvBinomial.lean               ← convolution binomial theorem
+  lean/.../CayleyDickson/Integer/EisensteinConvFreshman.lean               ← convolution freshman + multinomial
+  lean/.../CayleyDickson/Integer/EisensteinConvBasis.lean                  ← e_a⋆e_b, e_t^{⋆q}, gauss=Σχe
+NEW (narrative):
+  theory/math/numbertheory/cubic_residue_and_jacobi_sum.md                 ← promotion chapter
+  theory/essays/synthesis/the_frobenius_is_interior_count_collapse.md      ← essay
+  research-notes/frontiers/cubic_reciprocity_{law,crossdomain}.md          ← frontier + cross-domain
+MODIFIED:
+  lean/E213/Lib/Math/Algebra/CayleyDickson.lean, Lib/Math.lean             ← aggregator imports
+  ~37 lean/ docstrings                                                     ← phase-tag de-narration
+  catalogs/derivation-breadth.md, research-notes/frontiers/INDEX.md        ← cubic-reciprocity rows
+  theory/{INDEX,essays/INDEX}.md, research-notes/promotion_essay_log.md    ← essay/chapter registration
+```
