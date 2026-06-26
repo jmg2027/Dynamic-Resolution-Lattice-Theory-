@@ -147,13 +147,22 @@ mod-`q` reduction + Frobenius is the genuinely new part).
       `EisensteinConvGaussFrobenius.gauss_pow_modEq_conj`:
       `g(χ)^{⋆q}(k) ≡ Σ_{t<p} χ̄(t)·e_{(t·q)%p}(k) (mod ofInt q)` for prime `q ≡ 2 (mod 3)`, `k<p`.
       Combines `gauss_pow_modEq` (B2e.9) with `chiOmega_pow_q` (B2e.10a) termwise (`sum_congr`).
-      **Next (B2e.11 — the `t↦tq%p` reindex):** `q` is invertible mod `p` (distinct primes), so
-      `t↦(tq)%p` is a permutation of `[0,p)`.  Reindexing `Σ_t χ̄(t)·e_{tq%p} = Σ_s χ̄((s·q⁻¹)%p)·e_s`,
-      then `χ̄((s q⁻¹)%p) = χ̄(s)·χ̄(q⁻¹)` (multiplicativity `chiOmega_mul`, **already built**) factors
-      out the constant `χ̄(q⁻¹) = χ(q)`, collapsing the sum into `χ(q)·g(χ̄)` — the honest closed form
-      `g(χ)^{⋆q} ≡ χ(q)·g(χ̄) (mod q)` (with `χ^q = χ̄`, so `g(χ^q) = g(χ̄)`).  Needs: the modular
-      inverse `q⁻¹ mod p`, the `t↦tq%p` bijection on `[0,p)`, and a `sumRange` permutation-reindex
-      lemma for `ZOmega` (the combinatorial step also flagged in `chiOmega_mul`/`mu3_sum_zero`).
+    - **B2e.11 — DONE** (∅-axiom up to allowed `propext`): the **`t↦tq%p` reindex — the Frobenius
+      congruence in closed form**, `EisensteinConvGaussReindex`.  Key simplification: the basis vectors
+      `e_{(tq)%p}` are **indicators**, so at a fixed coefficient `k` the sum `Σ_t χ̄(t)·e_{tq%p}(k)`
+      collapses to the **single** surviving term — no permutation-sum machinery needed.
+      - `gauss_conj_reindex_collapse`: `Σ_{t<p} χ̄(t)·e_{(tq)%p}(k) = χ̄((q⁻¹·k)%p)` (`q⁻¹ = aInv q p`).
+        Existence of the surviving index by `aInv_spec` (`reindex_idx`: `(t₀·q)%p = k`), uniqueness by
+        `cancel_unit` (injectivity of `t↦tq%p`), extracted with `sum_single`.
+      - `gauss_pow_modEq_reindexed` (collapse form): `g(χ)^{⋆q}(k) ≡ χ̄((q⁻¹·k)%p) (mod q)`.
+      - `char_conj_reindex_split`: `χ̄((q⁻¹·k)%p) = χ(q)·χ̄(k)` for unit `k` — `chiOmega_mul` +
+        `conj_mul` + `χ(q⁻¹) = conj χ(q)` (both invert `χ(q)`; via `chiOmega_mul_conj` + `chiOmega_one`).
+      - **`gauss_pow_modEq_factored`** (closed): **`g(χ)^{⋆q}(k) ≡ χ(q)·χ̄(k) (mod q)`** for a prime
+        `q ≡ 2 (mod 3)`, unit mod `p`, unit coefficient `0<k<p` — the classical Frobenius congruence of
+        the cubic Gauss sum (coefficient-wise `g(χ)^{⋆q} ≡ χ(q)·g(χ̄)`, with `g(χ̄)(k)=χ̄(k)`).
+
+    **The Gauss-sum Frobenius congruence (Phase B2e) is COMPLETE.**  The remaining work is the reciprocity
+    law assembly itself (compute `g^N` two ways, compare μ₃ values) — see the section below.
     The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
     **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
     + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution

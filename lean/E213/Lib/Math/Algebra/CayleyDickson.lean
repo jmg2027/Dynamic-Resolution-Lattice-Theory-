@@ -118,6 +118,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBinomial
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvFreshman
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBasis
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
