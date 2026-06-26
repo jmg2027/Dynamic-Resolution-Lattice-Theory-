@@ -66,11 +66,11 @@ theorem rangeList_mul_lperm {p a : Nat} (hp : 0 < p) (ha : gcd213 a p = 1) :
     exact mem_rangeList.mpr (Nat.mod_lt _ hp)
 
 /-- Pure `(a + p) % p = a % p`. -/
-private theorem add_p_mod {p : Nat} (hp : 0 < p) (a : Nat) : (a + p) % p = a % p := by
+theorem add_p_mod {p : Nat} (hp : 0 < p) (a : Nat) : (a + p) % p = a % p := by
   rw [add_mod hp a p, mod_self, Nat.add_zero, mod_mod]
 
 /-- Pure `p − (p − c) = c` for `c ≤ p`. -/
-private theorem sub_sub_self_pure {c p : Nat} (h : c ≤ p) : p - (p - c) = c := by
+theorem sub_sub_self_pure {c p : Nat} (h : c ≤ p) : p - (p - c) = c := by
   have key : c + (p - c) = p := by rw [Nat.add_comm]; exact nat_sub_add_cancel h
   calc p - (p - c) = (c + (p - c)) - (p - c) := by rw [key]
     _ = c := nat_add_sub_self_right c (p - c)
