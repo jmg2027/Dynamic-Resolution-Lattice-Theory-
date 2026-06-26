@@ -1,5 +1,7 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitCube
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharDiv
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitFermat
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiPrime
 
 /-!
 # The split-prime reciprocity congruence — `J^{s+1}·p^{s+1} ≡ χ̄(pr) (mod ofInt pr)` (∅-axiom)
@@ -33,6 +35,11 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex (gau
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd (mul_ofInt_one)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (pow)
 open E213.Tactic.NatHelper (gcd213)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiPrime (jacobi_splits_p)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicChar (pow_add pow_mul_distrib)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitFermat (modEq_descend)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDivStep (mul_conj_self)
+open E213.Meta.Algebra213.Ring213 (mul_assoc)
 
 /-- ★★★★★ **The split-prime reciprocity congruence** — `J^{s+1}·p^{s+1} ≡ χ̄(pr) (mod ofInt pr)` for a
     split prime `pr = 3(s+1)+1`, unit mod `p` (`p > 3`).  Cube side `=` Frobenius side at `k = 1`.
@@ -57,5 +64,49 @@ theorem split_reciprocity_congr {d : ZOmega} {p m x pr s : Nat} (hp : 1 < p) (hp
     hprpos hprlt (k := 1) (by decide) h1lt
   rw [hc1, mul_ofInt_one, hcube] at hfrob
   exact hfrob
+
+/-- ★★★★★ **The split reciprocity congruence, all-Eisenstein form** — eliminating `p = J·J̄`
+    (`jacobi_splits_p`):
+
+      `J^{2(s+1)} · J̄^{s+1} ≡ χ̄(pr)   (mod ofInt pr)`        (`J = jacobiSum`).
+
+    `pow_mul_distrib` splits `(J·J̄)^{s+1} = J^{s+1}·J̄^{s+1}`, `pow_add` merges `J^{s+1}·J^{s+1} =
+    J^{2(s+1)}`.  Purely in the Eisenstein prime `J = π` and its conjugate — the symmetric form the
+    `π ↔ π'` transfer consumes (split analog of `cubic_reciprocity_congr_eisenstein`).  ∅-axiom (PURE). -/
+theorem split_reciprocity_congr_eisenstein {d : ZOmega} {p m x pr s : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d ZOmega.ZOmega.Omega (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hpr3 : pr % 3 = 1) (hprr : ∀ e, e ∣ pr → e = 1 ∨ e = pr)
+    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hprlt : pr < p) (hs : pr = 3 * (s + 1) + 1) :
+    ModEq (ofInt ((pr : Nat) : Int))
+      (pow (jacobiSum p m x) (2 * (s + 1)) * pow (conj (jacobiSum p m x)) (s + 1))
+      (conj (chiOmega p m x pr)) := by
+  have hcong := split_reciprocity_congr hp hp3 hpr h3m hm1 hdn hω hx hpr3 hprr hcop hpr1 hprlt hs
+  have heq : pow (jacobiSum p m x) (s + 1) * pow (ofInt ((p : Nat) : Int)) (s + 1)
+      = pow (jacobiSum p m x) (2 * (s + 1)) * pow (conj (jacobiSum p m x)) (s + 1) := by
+    rw [← jacobi_splits_p hp hp3 hpr h3m hm1 hdn hω hx,
+        pow_mul_distrib (jacobiSum p m x) (conj (jacobiSum p m x)) (s + 1),
+        ← mul_assoc, ← pow_add (jacobiSum p m x) (s + 1) (s + 1),
+        show (s + 1) + (s + 1) = 2 * (s + 1) from by rw [Nat.two_mul]]
+  rw [heq] at hcong
+  exact hcong
+
+/-- ★★★★★ **The split reciprocity congruence, modulo the second prime `π'`** —
+    `J^{2(s+1)}·J̄^{s+1} ≡ χ̄(pr) (mod π')` for an Eisenstein prime `π'` of norm `pr`.  Descent of the
+    all-Eisenstein form along `π' ∣ ofInt pr` (`π'·π̄' = ofInt ‖π'‖² = ofInt pr`, `mul_conj_self`) via
+    `modEq_descend`.  The congruence now lives in `𝔽_{p'} = ℤ[ω]/(π')`, where the `𝔽_{p'}`-Fermat
+    (`split_fermat`) collapses the `J̄` powers to the cubic residue symbol `(π/π')₃`.  ∅-axiom (PURE). -/
+theorem split_reciprocity_congr_pi {d : ZOmega} {p m x pr s : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d ZOmega.ZOmega.Omega (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hpr3 : pr % 3 = 1) (hprr : ∀ e, e ∣ pr → e = 1 ∨ e = pr)
+    (hcop : gcd213 pr p = 1) (hpr1 : 1 < pr) (hprlt : pr < p) (hs : pr = 3 * (s + 1) + 1)
+    {π' : ZOmega} (hπ'norm : π'.normSq = (pr : Int)) :
+    ModEq π' (pow (jacobiSum p m x) (2 * (s + 1)) * pow (conj (jacobiSum p m x)) (s + 1))
+      (conj (chiOmega p m x pr)) := by
+  have hbase := split_reciprocity_congr_eisenstein hp hp3 hpr h3m hm1 hdn hω hx hpr3 hprr hcop
+    hpr1 hprlt hs
+  have hdvd : π' ∣ ofInt ((pr : Nat) : Int) := ⟨conj π', by rw [mul_conj_self π', hπ'norm]⟩
+  exact modEq_descend hdvd hbase
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitReciprocity
