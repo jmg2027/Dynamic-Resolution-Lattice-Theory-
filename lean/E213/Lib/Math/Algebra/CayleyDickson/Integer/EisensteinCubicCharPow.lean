@@ -15,8 +15,8 @@ conjugate `conj z = z²` on `μ₃` (`conj_chiOmega_eq_sq`) packages the result 
 
 This is the **number-theory half** of the Gauss-sum Frobenius congruence `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`:
 applied termwise to the first half `g^{⋆q} ≡ Σ_t χ(t)^q·e_{tq%p}` (`gauss_pow_modEq`), it turns the
-exponentiated characters into conjugates, leaving the `t ↦ tq%p` reindex as the final step.  ∅-axiom up
-to allowed `propext`.
+exponentiated characters into conjugates, leaving the `t ↦ tq%p` reindex as the final step.  ∅-axiom
+(PURE).
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharPow
@@ -42,8 +42,8 @@ private theorem pow_zero_pos : ∀ {q : Nat}, 0 < q → pow (0 : ZOmega) q = 0
 
 /-- ★★★★ **The μ₃ character-power Frobenius** — `χ_ω(t)^q = conj χ_ω(t)` for `q ≡ 2 (mod 3)`.  On each
     of the four character values `{0, 1, ω, ω²}` the `q`-th power equals the square (`conj` on `μ₃`):
-    `0^q = 0`, `1^q = 1`, `ω^q = ω^{q%3} = ω²`, `(ω²)^q = ω^q·ω^q = ω²·ω² = ω`.  ∅-axiom up to allowed
-    `propext`. -/
+    `0^q = 0`, `1^q = 1`, `ω^q = ω^{q%3} = ω²`, `(ω²)^q = ω^q·ω^q = ω²·ω² = ω`.  ∅-axiom (PURE).
+     -/
 theorem chiOmega_pow_q (p m x t q : Nat) (hq : q % 3 = 2) :
     pow (chiOmega p m x t) q = conj (chiOmega p m x t) := by
   have hq1 : 0 < q := Nat.lt_of_lt_of_le (by decide) (hq ▸ Nat.mod_le q 3)

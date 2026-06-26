@@ -19,7 +19,7 @@ This is the **first half** of the Frobenius congruence `g(χ)^{⋆q} ≡ χ̄(q)
 **second half** is the number-theory fold: `χ(t)^q = χ̄(t)` (μ₃ + `q ≡ 2 mod 3`) and the `t ↦ tq%p`
 reindex (a permutation of `[0,p)`) that collapses `Σ_t χ̄(t)·e_{tq%p}` into `χ̄(q)·g(χ)`.
 
-∅-axiom up to allowed `propext` (inherited from `convPow_sum_modEq_prime` / `scaledBasisPow_eq`).
+∅-axiom (PURE).
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius
@@ -43,7 +43,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (pow)
     `convPow_congr` swaps `g(χ)` for `Σ_t χ(t)·e_t` inside the `⋆`-power (`gauss_eq_sum_basis`); the
     convolution multinomial Frobenius `convPow_sum_modEq_prime` distributes the `q`-th `⋆`-power across
     the finite sum; and `scaledBasisPow_eq` evaluates each per-`t` term as `χ(t)^q · e_{tq%p}`.  The
-    first half of `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.  ∅-axiom up to allowed `propext`. -/
+    first half of `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.  ∅-axiom (PURE). -/
 theorem gauss_pow_modEq (p m x q : Nat) (hp : 0 < p) (hq : 1 < q)
     (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q) {k : Nat} (hk : k < p) :
     ModEq (ofInt ((q : Nat) : Int))
@@ -69,7 +69,7 @@ theorem gauss_pow_modEq (p m x q : Nat) (hp : 0 < p) (hq : 1 < q)
     (`χ(t)^q = conj χ(t)` for `q ≡ 2 mod 3`), rewriting each exponentiated character as its conjugate.
     This is the Frobenius congruence **up to the `t ↦ tq%p` reindex**: the only step that remains is the
     permutation-sum reindexing (`q` invertible mod `p`) that collapses `Σ_t χ̄(t)·e_{tq%p}` into the
-    closed `χ̄`-Gauss-sum form `χ(q)·g(χ̄)`.  ∅-axiom up to allowed `propext`. -/
+    closed `χ̄`-Gauss-sum form `χ(q)·g(χ̄)`.  ∅-axiom (PURE). -/
 theorem gauss_pow_modEq_conj (p m x q : Nat) (hq3 : q % 3 = 2)
     (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q) {k : Nat} (hk : k < p) :
     ModEq (ofInt ((q : Nat) : Int))

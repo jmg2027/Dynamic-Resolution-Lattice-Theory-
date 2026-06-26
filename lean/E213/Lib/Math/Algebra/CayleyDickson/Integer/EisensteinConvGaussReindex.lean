@@ -21,7 +21,7 @@ character value `χ̄(t₀)` (`gauss_conj_reindex_collapse`), which the multipli
 as `χ̄((q⁻¹·k)%p) = χ̄(q⁻¹)·χ̄(k) = χ(q)·χ̄(k)`.
 
 No permutation-sum machinery is needed: the indicator collapse replaces the classical "reindex the whole
-sum" step with a single-term extraction.  ∅-axiom up to allowed `propext`.
+sum" step with a single-term extraction.  ∅-axiom (PURE).
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex
@@ -76,7 +76,7 @@ private theorem reindex_idx (p q : Nat) (hp : 1 < p) (hq : gcd213 q p = 1) {k : 
     The basis vector `e_{(tq)%p}` is the indicator `δ_{k,(tq)%p}`, so only the unique `t₀ = (q⁻¹·k)%p`
     with `(t₀·q)%p = k` (`reindex_idx`) contributes; injectivity of `t ↦ (tq)%p` (`cancel_unit`) kills the
     rest.  The `t ↦ tq%p` reindex of the Gauss-sum Frobenius, done by single-term extraction.
-    ∅-axiom up to allowed `propext`. -/
+    ∅-axiom (PURE). -/
 theorem gauss_conj_reindex_collapse (p m x q : Nat) (hp : 1 < p) (hq : gcd213 q p = 1)
     {k : Nat} (hk : k < p) :
     sumRange (fun t => conj (chiOmega p m x t) * basis ((t * q) % p) k) p
@@ -108,7 +108,7 @@ theorem gauss_conj_reindex_collapse (p m x q : Nat) (hp : 1 < p) (hq : gcd213 q 
     `gauss_pow_modEq_conj` reduces `g(χ)^{⋆q}(k)` to `Σ_t χ̄(t)·e_{tq%p}(k)`, and
     `gauss_conj_reindex_collapse` collapses that indicator-weighted sum to the single surviving term
     `χ̄((q⁻¹·k)%p)`.  This is the `t↦tq%p` reindex **done** — the Frobenius congruence in closed form,
-    one multiplicative split (`chiOmega_mul`) away from `χ(q)·χ̄(k)`.  ∅-axiom up to allowed `propext`. -/
+    one multiplicative split (`chiOmega_mul`) away from `χ(q)·χ̄(k)`.  ∅-axiom (PURE). -/
 theorem gauss_pow_modEq_reindexed (p m x q : Nat) (hp : 1 < p) (hq3 : q % 3 = 2)
     (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q) (hcop : gcd213 q p = 1) {k : Nat} (hk : k < p) :
     ModEq (ofInt ((q : Nat) : Int)) (convPow p (gauss p m x) q k)
@@ -133,7 +133,7 @@ private theorem chiOmega_one (p m x : Nat) (hp : 1 < p) :
     `χ((q⁻¹·k)%p) = χ(q⁻¹)·χ(k)` (`chiOmega_mul`), `conj` distributes (`conj_mul`), and
     `conj χ(q⁻¹) = χ(q)` because `χ(q⁻¹) = conj χ(q)` (both invert `χ(q)`: `χ(q⁻¹)·χ(q) = χ(1) = 1`
     and `χ(q)·conj χ(q) = 1`).  Splits the collapsed Frobenius term into the `χ(q)·g(χ̄)` form.
-    ∅-axiom up to allowed `propext`. -/
+    ∅-axiom (PURE). -/
 theorem char_conj_reindex_split {d : ZOmega} {p m x q k : Nat} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
     (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
@@ -173,7 +173,7 @@ theorem char_conj_reindex_split {d : ZOmega} {p m x q k : Nat} (hp : 1 < p) (hp3
     `gauss_pow_modEq_reindexed` gives the collapsed term `χ̄((q⁻¹·k)%p)`; `char_conj_reindex_split`
     factors it as `χ(q)·χ̄(k)`.  Coefficient-wise this is `g(χ)^{⋆q} ≡ χ(q)·g(χ̄) (mod q)` (with
     `g(χ̄)(k) = χ̄(k)`) — **the classical Frobenius congruence of the cubic Gauss sum**, the engine of
-    the cubic reciprocity law.  ∅-axiom up to allowed `propext`. -/
+    the cubic reciprocity law.  ∅-axiom (PURE). -/
 theorem gauss_pow_modEq_factored {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
     (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
@@ -191,8 +191,8 @@ theorem gauss_pow_modEq_factored {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 
 
     The `0 < k` case is `gauss_pow_modEq_factored`; at `k = 0` both sides vanish (`χ(0) = 0`, and the
     collapse term `χ̄((q⁻¹·0)%p) = χ̄(0) = 0`).  This is the form the cubic-reciprocity law consumes —
-    propagated through products by `EisensteinConvCongruence.conv_modEq_left`.  ∅-axiom up to allowed
-    `propext`. -/
+    propagated through products by `EisensteinConvCongruence.conv_modEq_left`.  ∅-axiom (PURE).
+     -/
 theorem gauss_pow_modEq_factored_all {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
     (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
@@ -222,7 +222,7 @@ private theorem refl_idx {p k : Nat} (hp : 0 < p) (hk : k < p) : (p - (p - k) % 
     Gauss sum) and the norm's right factor `gaussConj(j) = conj χ((p−j)%p)` (the **ring-conjugate**)
     differ only by the reflection `j ↦ (p−j)%p` (an involution, `refl_idx`).  This is the bridge that
     feeds the Frobenius output `χ(q)·g(χ̄)` into the Gauss-sum norm `g ⋆ gaussConj = Yfun`
-    (`gauss_conj_norm`) for the reciprocity-law assembly.  ∅-axiom up to allowed `propext`. -/
+    (`gauss_conj_norm`) for the reciprocity-law assembly.  ∅-axiom (PURE). -/
 theorem charConj_eq_gaussConj_reflect (p m x k : Nat) (hp : 0 < p) (hk : k < p) :
     conj (chiOmega p m x k) = gaussConj p m x ((p - k) % p) := by
   show conj (chiOmega p m x k) = conj (chiOmega p m x ((p - (p - k) % p) % p))
@@ -238,7 +238,7 @@ theorem charConj_eq_gaussConj_reflect (p m x k : Nat) (hp : 0 < p) (hk : k < p) 
     `χ(q)·g(χ̄)` (`gauss_pow_modEq_factored_all`, all coefficients); `conv_scalar_left` pulls the
     constant `χ(q)` out of the convolution.  The on-path step toward computing `g^{⋆N}` two ways for the
     reciprocity law: the RHS `g(χ̄)⋆g` is the Gauss-sum norm (evaluable via
-    `charConj_eq_gaussConj_reflect` + `gauss_conj_norm`).  ∅-axiom up to allowed `propext`. -/
+    `charConj_eq_gaussConj_reflect` + `gauss_conj_norm`).  ∅-axiom (PURE). -/
 theorem gauss_pow_succ_modEq {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hdn : d.normSq = (p : Int))
     (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int))) (hx : p ∣ (x * x + x + 1))
@@ -261,8 +261,8 @@ theorem gauss_pow_succ_modEq {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 : 3 
     Evaluates the norm RHS of `gauss_pow_succ_modEq`: the character-conjugate Gauss sum `g(χ̄)` equals
     the ring-conjugate `gaussConj` (`gaussConj_eq_charConj`, since `χ(−1)=1`), so
     `g(χ̄)⋆g = gaussConj⋆g = g⋆gaussConj = Yfun` (`conv_comm` + `gauss_conj_norm`).  This is the
-    Frobenius side of the cubic-reciprocity `g^{⋆N}`-comparison, in closed form.  ∅-axiom up to allowed
-    `propext`. -/
+    Frobenius side of the cubic-reciprocity `g^{⋆N}`-comparison, in closed form.  ∅-axiom (PURE).
+     -/
 theorem gauss_pow_succ_modEq_Yfun {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
     (hdn : d.normSq = (p : Int)) (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int)))
@@ -285,7 +285,7 @@ theorem gauss_pow_succ_modEq_Yfun {d : ZOmega} {p m x q : Nat} (hp : 1 < p) (hp3
     unfolds `g^{⋆3} = (g^{⋆2}) ⋆ g`, `convOne_left` collapses `g^{⋆1} = e_0 ⋆ g = g`, `conv_congr`
     rewrites `g^{⋆2} = g⋆g`, and `conv_comm` flips `(g⋆g)⋆g` to `g⋆(g⋆g)` to meet `gauss_cube`.
     Puts the **cube side** of the reciprocity `g^{⋆N}`-comparison in the same `convPow`/`Yfun` frame as the
-    Frobenius side (`gauss_pow_succ_modEq_Yfun`).  ∅-axiom up to allowed `propext`. -/
+    Frobenius side (`gauss_pow_succ_modEq_Yfun`).  ∅-axiom (PURE). -/
 theorem gauss_convPow3 {d : ZOmega} {p m x : Nat} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ t, t ∣ p → t = 1 ∨ t = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
     (hdn : d.normSq = (p : Int)) (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int)))

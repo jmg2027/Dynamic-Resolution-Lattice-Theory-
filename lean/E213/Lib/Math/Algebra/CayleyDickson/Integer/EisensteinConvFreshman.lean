@@ -14,7 +14,7 @@ coefficient `binom q j` (`0<j<q`) is `q`-divisible (`BinomPrime.prime_dvd_binom`
 interior sum vanishes mod `ofInt q`.  The `⋆`-analog of `EisensteinFreshman.add_pow_modEq_prime` —
 the engine of the Gauss-sum Frobenius `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.
 
-Carries `propext` (allowed-not-target) from `convPow_add_pow`; the divisibility core is PURE.
+PURE (∅-axiom).
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvFreshman
@@ -48,7 +48,7 @@ private theorem modEq_zero_of_dvd {d x : ZOmega} (h : d ∣ x) : ModEq d x 0 := 
 /-- ★★★★★ **The convolution freshman's dream** — `(f⊕g)^{⋆q}(k) ≡ f^{⋆q}(k) + g^{⋆q}(k) (mod ofInt q)`
     for a prime `q` and `k < p`.  The convolution binomial expansion's two endpoints survive; every
     interior term is `q`-divisible (interior `binom q j`), so the interior sum is `≡ 0`.  The
-    Frobenius endomorphism of `R[C_p]` mod `q`.  ∅-axiom up to allowed `propext`. -/
+    Frobenius endomorphism of `R[C_p]` mod `q`.  ∅-axiom (PURE). -/
 theorem convPow_add_pow_modEq_prime (p : Nat) (f g : Nat → ZOmega) (q : Nat) (hq : 1 < q)
     (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q) {k : Nat} (hk : k < p) :
     ModEq (ofInt ((q : Nat) : Int)) (convPow p (fun i => f i + g i) q k)
@@ -118,7 +118,7 @@ private theorem convPow_zero_fun (p : Nat) {q : Nat} (hq : 1 < q) {k : Nat} (hk 
     where `Σ_{t<n} X t` is the pointwise sum of the group-ring elements `X t`.  Iterates the binary
     convolution dream (`convPow_add_pow_modEq_prime`) over the finite sum.  Applied to the Gauss sum
     `g(χ) = Σ_t χ(t)·e_t`, this is the first half of the Frobenius congruence
-    `g^{⋆q} ≡ Σ_t χ(t)^q·e_t^{⋆q} (mod q)`.  ∅-axiom up to allowed `propext`. -/
+    `g^{⋆q} ≡ Σ_t χ(t)^q·e_t^{⋆q} (mod q)`.  ∅-axiom (PURE). -/
 theorem convPow_sum_modEq_prime (p : Nat) (X : Nat → (Nat → ZOmega)) (q : Nat) (hq : 1 < q)
     (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q) {k : Nat} (hk : k < p) : ∀ n,
     ModEq (ofInt ((q : Nat) : Int))

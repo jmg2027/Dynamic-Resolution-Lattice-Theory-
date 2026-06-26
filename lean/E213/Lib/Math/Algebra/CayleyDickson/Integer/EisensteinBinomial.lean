@@ -21,8 +21,7 @@ Toward the **freshman's dream** `(a+b)^q ≡ a^q + b^q (mod q)` (prime `q`): all
 `binom q k` (`0<k<q`) are divisible by `q` (`BinomPrime.prime_dvd_binom`), so only the endpoints
 survive mod `q` — the Frobenius endomorphism for the cubic-reciprocity congruence.
 
-Carries `propext` (allowed-not-target) only from ℕ↔ℤ cast / `Nat.sub` bookkeeping; the ring core is
-PURE.
+PURE (∅-axiom).
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinBinomial
@@ -104,7 +103,7 @@ theorem sumRange_succ_bottom (f : Nat → ZOmega) : ∀ n : Nat,
 
 /-- ★★★★★ **The binomial theorem in `ℤ[ω]`** — `(a+b)^n = Σ_{k=0}^{n} binom n k · a^k · b^{n−k}`.
     Classical Pascal induction: distribute `(a+b)^{n+1} = (a+b)^n·(a+b)`, shift the `a`-sum down one
-    index, recombine via `cz_pascal`.  ∅-axiom up to allowed `propext`. -/
+    index, recombine via `cz_pascal`.  ∅-axiom (PURE). -/
 theorem add_pow (a b : ZOmega) : ∀ n : Nat,
     pow (a + b) n = sumRange (fun k => bterm a b n k) (n + 1)
   | 0 => by

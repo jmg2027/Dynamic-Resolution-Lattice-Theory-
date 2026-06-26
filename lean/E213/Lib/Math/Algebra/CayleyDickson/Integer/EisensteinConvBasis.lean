@@ -13,7 +13,7 @@ basis vector at `tq mod p`:
 
 The second is what turns the Gauss-sum Frobenius `g^{⋆q} ≡ Σ_t χ(t)^q·e_t^{⋆q}` into
 `Σ_t χ(t)^q·e_{tq%p}` — the `ζ^t ↦ ζ^{tq}` reindex of the Frobenius congruence.  Note
-`delta = e_0` is the unit.  ∅-axiom up to allowed `propext` (the `ite` of the basis indicator).
+`delta = e_0` is the unit.  ∅-axiom (PURE).
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBasis
@@ -86,7 +86,7 @@ theorem basisPow_eq {p t : Nat} (hp : 0 < p) (ht : t < p) :
 /-- ★★★★★ **The scaled-basis convolution power** — `(c · e_t)^{⋆q}(k) = c^q · e_{(t·q)%p}(k)` for
     `t,k < p`.  Combines `convPow_scalar` (`(c·h)^{⋆q} = c^q·h^{⋆q}`) with `basisPow_eq`
     (`e_t^{⋆q} = e_{tq%p}`).  This is the per-`t` term of the Gauss-sum Frobenius: with `c = χ(t)`,
-    `(χ(t)·e_t)^{⋆q}(k) = χ(t)^q · e_{tq%p}(k)`.  ∅-axiom up to allowed `propext`. -/
+    `(χ(t)·e_t)^{⋆q}(k) = χ(t)^q · e_{tq%p}(k)`.  ∅-axiom (PURE). -/
 theorem scaledBasisPow_eq {p t : Nat} (hp : 0 < p) (ht : t < p) (c : ZOmega) (q : Nat) {k : Nat}
     (hk : k < p) : convPow p (fun i => c * basis t i) q k = pow c q * basis ((t * q) % p) k := by
   rw [convPow_scalar p c (basis t) q hk, basisPow_eq hp ht q hk]
@@ -94,7 +94,7 @@ theorem scaledBasisPow_eq {p t : Nat} (hp : 0 < p) (ht : t < p) (c : ZOmega) (q 
 /-- ★★★★ **The Gauss sum as a sum of scaled basis vectors** — `g(χ)(i) = Σ_{t<p} χ(t)·e_t(i)` for
     `i < p`.  Only the `t=i` term survives (`e_t = δ_{·,t}`), giving `χ(i) = g(χ)(i)`.  This rewrites
     `gauss = Σ_t χ(t)·e_t`, the form the multinomial Frobenius `convPow_sum_modEq_prime` consumes.
-    ∅-axiom up to allowed `propext`. -/
+    ∅-axiom (PURE). -/
 theorem gauss_eq_sum_basis {p m x i : Nat} (hi : i < p) :
     gauss p m x i = sumRange (fun t => chiOmega p m x t * basis t i) p := by
   show chiOmega p m x i = sumRange (fun t => chiOmega p m x t * basis t i) p

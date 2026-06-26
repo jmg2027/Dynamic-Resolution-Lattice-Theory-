@@ -95,7 +95,7 @@ private theorem chiOmega_reflect {d : ZOmega} {p m x i : Nat} (hp : 1 < p) (hp3 
     Since `χ(−1) = 1` (`p−1` is a cube, `chiOmega_reflect`), the ring-conjugate `gaussConj(k) =
     conj χ((p−k)%p)` collapses to the character-conjugate `conj χ(k)`.  So the conjugate Gauss sum
     `gaussConj` **is** `g(χ̄)` (coefficient `conj χ(k)`) — the bridge that turns the Frobenius RHS
-    `g(χ̄)⋆g` into the computed norm `g⋆gaussConj = Yfun`.  ∅-axiom up to allowed `propext`. -/
+    `g(χ̄)⋆g` into the computed norm `g⋆gaussConj = Yfun`.  ∅-axiom (PURE). -/
 theorem gaussConj_eq_charConj {d : ZOmega} {p m x k : Nat} (hp : 1 < p) (hp3 : 3 < p)
     (hpr : ∀ t, t ∣ p → t = 1 ∨ t = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
     (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))

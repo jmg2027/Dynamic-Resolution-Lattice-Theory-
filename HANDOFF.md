@@ -2,8 +2,7 @@
 
 ## Branch
 `claude/handoff-continuation-dqjw6i` — ahead of origin (push at session end).
-Full `lake build E213` clean.  ∅-axiom standard: PURE where stated, the rest carry **only** `propext`
-(Lean-4 kernel base, allowed-not-target per `STRICT_ZERO_AXIOM.md`).  Purity-check: 0 sorry / 0
+Full `lake build E213` clean.  ∅-axiom standard: every theorem this session is **PURE** (`#print axioms` → "does not depend on any axioms").  Purity-check: 0 sorry / 0
 external axiom / 0 native_decide / 0 Classical / 0 Mathlib.
 
 ## What Was Done This Session
@@ -13,7 +12,7 @@ Frobenius congruence `g(χ)^{⋆q}(k) ≡ χ(q)·χ̄(k) (mod q)` is now COMPLET
 reindex closed.  Five new ∅-axiom theorems (+ helpers), all building cleanly:
 
 ### 1. B2e.9 — the Frobenius congruence, first half
-`EisensteinConvGaussFrobenius.gauss_pow_modEq` (propext):
+`EisensteinConvGaussFrobenius.gauss_pow_modEq` (PURE):
 `g(χ)^{⋆q}(k) ≡ Σ_{t<p} χ(t)^q · e_{(t·q)%p}(k) (mod ofInt q)` for prime `q`, `k<p`.  Assembles three
 closed pieces, **no new machinery**: `gauss_eq_sum_basis` under `convPow_congr` (rewrite
 `g = Σ_t χ(t)·e_t` inside the `⋆`-power) → `convPow_sum_modEq_prime` (push the `q`-th `⋆`-power through
@@ -26,12 +25,12 @@ Case analysis on the four character values `{0,1,ω,ω²}`: `0^q=0` (`q≥1`), `
 `pow_one_base`, `pow_zero_pos`.
 
 ### 3. B2e.10b — the Frobenius congruence up to reindex
-`EisensteinConvGaussFrobenius.gauss_pow_modEq_conj` (propext):
+`EisensteinConvGaussFrobenius.gauss_pow_modEq_conj` (PURE):
 `g(χ)^{⋆q}(k) ≡ Σ_{t<p} χ̄(t) · e_{(t·q)%p}(k) (mod ofInt q)` for prime `q ≡ 2 (mod 3)`, `k<p`.
 Combines #1 and #2 termwise (`sum_congr` rewriting `χ(t)^q ↦ conj χ(t)`).
 
 ### 4. B2e.11 — the `t↦tq%p` reindex, closing the Frobenius congruence
-`EisensteinConvGaussReindex` (propext).  Key: the basis vectors `e_{(tq)%p}` are **indicators**, so at a
+`EisensteinConvGaussReindex` (PURE).  Key: the basis vectors `e_{(tq)%p}` are **indicators**, so at a
 fixed coefficient `k` the sum collapses to the single surviving term — no permutation-sum machinery.
 - `gauss_conj_reindex_collapse`: `Σ_t χ̄(t)·e_{(tq)%p}(k) = χ̄((q⁻¹·k)%p)` (existence by `aInv_spec`
   /`reindex_idx`, uniqueness by `cancel_unit`, extracted via `sum_single`).

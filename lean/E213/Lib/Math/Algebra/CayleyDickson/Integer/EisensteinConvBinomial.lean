@@ -17,7 +17,7 @@ Equality is coefficient-wise because function equality in `R[C_p]` would need th
 `funext`/`Quot.sound`.
 
 Toward the convolution freshman's dream `(f ⊕ g)^{⋆q} ≡ f^{⋆q} ⊕ g^{⋆q} (mod q)` and the Gauss-sum
-Frobenius `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.  ∅-axiom up to allowed `propext`.
+Frobenius `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)`.  ∅-axiom (PURE).
 -/
 
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBinomial
@@ -38,8 +38,8 @@ open E213.Meta.Algebra213.Ring213 (add_assoc add_comm add_mul zero_add)
 
 /-- ★★★★★ **The convolution binomial theorem (coefficient-wise)** —
     `(f ⊕ g)^{⋆n}(k) = Σ_{j=0}^{n} binom n j · (f^{⋆j} ⋆ g^{⋆(n−j)})(k)` for `k < p`.  Pascal induction
-    on `n`, with the convolution machinery replacing the `ℤ[ω]` ring ops.  ∅-axiom up to allowed
-    `propext`. -/
+    on `n`, with the convolution machinery replacing the `ℤ[ω]` ring ops.  ∅-axiom (PURE).
+     -/
 theorem convPow_add_pow (p : Nat) (f g : Nat → ZOmega) : ∀ (n k : Nat), k < p →
     convPow p (fun i => f i + g i) n k
       = sumRange (fun j => cz n j * conv p (convPow p f j) (convPow p g (n - j)) k) (n + 1)
