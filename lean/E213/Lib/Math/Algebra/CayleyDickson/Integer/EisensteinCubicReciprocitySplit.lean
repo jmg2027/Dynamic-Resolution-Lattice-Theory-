@@ -27,9 +27,10 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt Omega conj
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum (jacobiSum)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (Omega2)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (pow)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplitResidueSymbol
-  (split_conj_residue_relation)
+  (split_conj_residue_relation split_residue_symbol_exists)
 open E213.Tactic.NatHelper (gcd213 sub_add_cancel)
 
 /-- ★★★★★ **Relation B — the conjugate-symbol relation for the second prime (mod `d = π`).**
@@ -59,6 +60,28 @@ theorem split_conj_residue_relation_B {d d₂ : ZOmega} {p m x pr m₂ x₂ : Na
   have hB := split_conj_residue_relation (d := d₂) (p := pr) (m := m₂) (x := x₂) (pr := p)
     (s := m - 1) (π' := d) (x' := ((x : Nat) : Int))
     hpr1 hpr3 hprr h3m₂ hm1₂ hdn₂ hω₂ hx₂ hp3mod hpr hcop hp hne hdn hω hs
+  rwa [hsB] at hB
+
+/-- ★★★★★ **Relation B's residue symbol is μ₃-valued (mod `d = π`).**  `(π'/π)₃ := J₂^m mod d` is one of
+    `1, ω, ω²` — the swapped instantiation of `split_residue_symbol_exists` (second prime as character
+    data, first prime `d` as modulus).  Gives `(π'/π)₃` as a well-defined cube root of unity, the mirror
+    of `(π/π')₃` from `split_residue_symbol_exists`.  ∅-axiom (PURE). -/
+theorem split_residue_symbol_exists_B {d d₂ : ZOmega} {p m x pr m₂ x₂ : Nat}
+    (hp : 1 < p) (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
+    (hpr1 : 1 < pr) (hpr3 : 3 < pr) (hprr : ∀ k, k ∣ pr → k = 1 ∨ k = pr)
+    (h3m₂ : 3 * m₂ = pr - 1) (hm1₂ : 1 ≤ m₂) (hdn₂ : d₂.normSq = (pr : Int))
+    (hω₂ : ModEq d₂ Omega (ofInt ((x₂ : Nat) : Int))) (hx₂ : pr ∣ (x₂ * x₂ + x₂ + 1))
+    (hne : p ≠ pr) :
+    ModEq d (pow (jacobiSum pr m₂ x₂) m) (ofInt 1)
+      ∨ ModEq d (pow (jacobiSum pr m₂ x₂) m) Omega
+      ∨ ModEq d (pow (jacobiSum pr m₂ x₂) m) Omega2 := by
+  have hsB : (m - 1) + 1 = m := sub_add_cancel hm1
+  have hs : p = 3 * ((m - 1) + 1) + 1 := by
+    rw [hsB, h3m, sub_add_cancel (Nat.le_of_lt hp)]
+  have hB := split_residue_symbol_exists (d := d₂) (p := pr) (m := m₂) (x := x₂) (pr := p)
+    (s := m - 1) (π' := d) (x' := ((x : Nat) : Int))
+    hpr1 hpr3 hprr h3m₂ hm1₂ hdn₂ hω₂ hx₂ hpr hp hne hdn hω hs
   rwa [hsB] at hB
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicReciprocitySplit
