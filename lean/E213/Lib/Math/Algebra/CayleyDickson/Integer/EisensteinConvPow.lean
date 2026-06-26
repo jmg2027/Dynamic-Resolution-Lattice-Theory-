@@ -59,6 +59,12 @@ theorem convOne_left (p : Nat) (f : Nat → ZOmega) {k : Nat} (hk : k < p) :
   show (if (0 : Nat) = 0 then one else 0) * f ((k + p - 0) % p) = f k
   rw [if_pos rfl, one_mul, Nat.sub_zero, Nat.add_mod_right, Nat.mod_eq_of_lt hk]
 
+/-- ★★★★ **The right identity law** — `(f ⋆ e_0)(k) = f k` for `k < p`.  Immediate from
+    `convOne_left` via commutativity (`conv_comm`).  ∅-axiom. -/
+theorem convOne_right (p : Nat) (f : Nat → ZOmega) {k : Nat} (hk : k < p) :
+    conv p f delta k = f k := by
+  rw [conv_comm p f delta hk]; exact convOne_left p f hk
+
 /-- `f^{⋆1}(k) = f k` for `k < p`. -/
 theorem convPow_one (p : Nat) (f : Nat → ZOmega) {k : Nat} (hk : k < p) :
     convPow p f 1 k = f k := by

@@ -94,6 +94,16 @@ mod-`q` reduction + Frobenius is the genuinely new part).
       `(f⊕g)^{⋆n}(k) = Σ_{j} cz n j · (f^{⋆j}⋆g^{⋆(n−j)})(k)` by Pascal induction (template: `add_pow`,
       now with `conv_add_right` / `conv_sumRange_left` / `convProd_mul_{f,g}` in place of the ℤ[ω]
       ring ops).
+    - **B2e.2c — DONE** (∅-axiom up to allowed `propext`): the **convolution binomial theorem**,
+      `EisensteinConvBinomial.convPow_add_pow`:
+      `(f⊕g)^{⋆n}(k) = Σ_{j=0}^{n} binom n j · (f^{⋆j} ⋆ g^{⋆(n−j)})(k)` for `k<p` (coefficient-wise).
+      Same Pascal induction as `add_pow`, with `conv_add_right` (distribute over `f⊕g`), `conv_congr`
+      + `conv_sumRange_left` (push the inductive binomial sum through the outer `⋆`),
+      `convProd_mul_{f,g}` (raise the `⋆`-exponents), `convOne_{left,right}` (the `e_0` boundaries),
+      and `cz_pascal` for the recombination.  The `⋆`-analog of B2b — the group-ring core of Frobenius.
+      **Next (B2e.3):** the convolution freshman's dream `(f⊕g)^{⋆q} ≡ f^{⋆q} ⊕ g^{⋆q} (mod q)`
+      (interior `binom q j` vanish mod `q`, coefficient-wise), then multinomial + the Gauss-sum
+      Frobenius `g^{⋆q} ≡ χ̄(q)·g (mod q)`.
     The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
     **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
     + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution
