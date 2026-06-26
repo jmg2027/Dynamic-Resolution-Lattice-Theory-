@@ -42,6 +42,17 @@ fixed coefficient `k` the sum collapses to the single surviving term — no perm
   `q ≡ 2 (mod 3)`, unit mod `p`, unit coefficient `0<k<p` — the classical Frobenius congruence of the
   cubic Gauss sum (coefficient-wise `g(χ)^{⋆q} ≡ χ(q)·g(χ̄)`).
 
+### 5. Toolkit toward the reciprocity-law assembly (step 3)
+- `EisensteinConvCongruence` (**all PURE**): the mod-`M` congruence `ModEq` propagates through `⋆`
+  (`conv_modEq_left`/`conv_modEq_right`, via `sumRange_modEq`) and through `⋆`-powers (`convPow_modEq`).
+  The bridge that carries the Frobenius congruence (`mod q`) into products with the cube `g³=p·J`
+  (`gauss_cube`) and the norm `g⋆ḡ=Yfun` (`gauss_conj_norm`) — both `⋆`-identities.
+- `gauss_pow_modEq_factored_all`: the Frobenius congruence as a full group-ring congruence (every
+  coefficient `k<p`, `k=0` both-sides-zero) — the form the law consumes.
+- `charConj_eq_gaussConj_reflect`: `conj χ(k) = gaussConj((p−k)%p)` — bridges the Frobenius RHS `g(χ̄)`
+  (character-conjugate) to the norm factor `gaussConj` (ring-conjugate), differing by the reflection
+  `k↦(p−k)%p` (`refl_idx`, an involution).
+
 ## Current Precision Results
 No new physics constants (pure-math arc — cubic / Eisenstein reciprocity).  Physics table in
 `catalogs/physics-constants.md` unchanged.
@@ -57,10 +68,12 @@ proof now assembles two evaluations of `g(χ)^{⋆q}` (for a second rational pri
   `g·ḡ = p`.  Classical route (Ireland–Rosen ch. 9): relate `g(χ)^q` to `g(χ̄)` and use `g(χ)g(χ̄)=±p`
   to extract the μ₃ comparison, the primary normalisation `jacobi_primary` (`J=π`) killing the unit
   ambiguity, yielding `(π/π')₃ = (π'/π)₃`.
-**Next bricks:** (a) the second-prime Gauss-sum norm `g(χ)·g(χ̄) ≡ ? (mod q)` linking the two sides;
-(b) the μ₃-value extraction comparing `χ(q)` (Frobenius) with the cube-side residue symbol;
-(c) assemble using `jacobi_primary`.  Frontier note: `research-notes/frontiers/cubic_reciprocity_law.md`
-(roadmap `higher_reciprocity_roadmap.md`).
+**Next bricks** (toolkit now in place — `EisensteinConvCongruence`, `gauss_pow_modEq_factored_all`,
+`charConj_eq_gaussConj_reflect`): (a) push the Frobenius congruence through `⋆ g` via `conv_modEq_left`
+to get `g(χ)^{⋆(q+1)} ≡ χ(q)·(g(χ̄)⋆g) (mod q)`, then use the reflection bridge + `gauss_conj_norm`
+(`g⋆gaussConj=Yfun`) to evaluate the RHS; (b) the μ₃-value extraction comparing `χ(q)` (Frobenius) with
+the cube-side residue symbol; (c) assemble using `jacobi_primary`.  Frontier note:
+`research-notes/frontiers/cubic_reciprocity_law.md` (roadmap `higher_reciprocity_roadmap.md`).
 
 ### 2. (refactor) one `Frobenius-from-interior-binomial-vanishing` lemma
 The cubic, p-adic (Teichmüller), and prime-counting Frobenius uses are corollaries of
@@ -73,9 +86,10 @@ this session — the `t↦tq%p` reindex turned out to need *no* permutation-sum 
 indicators collapse the sum to a single term at each coefficient).
 
 ## Next
-The cubic reciprocity law itself (Open Problem 1 above): assemble the two evaluations of `g(χ)^{⋆q}`
-(Frobenius `gauss_pow_modEq_factored` vs. cube `gauss_cube`), via a second-prime Gauss-sum norm and the
-primary normalisation `jacobi_primary`.
+The cubic reciprocity law itself (Open Problem 1 above).  Concrete first brick now that the toolkit is
+in place: `g(χ)^{⋆(q+1)} ≡ χ(q)·(g(χ̄)⋆g) (mod q)` via `convPow_succ` + `conv_modEq_left`
+(`gauss_pow_modEq_factored_all`), then evaluate `g(χ̄)⋆g` through `charConj_eq_gaussConj_reflect` +
+`gauss_conj_norm` (`g⋆gaussConj=Yfun`).  Then the μ₃-comparison + `jacobi_primary`.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: none (Phase B still open; promotes with the reciprocity law).  The
@@ -89,8 +103,9 @@ primary normalisation `jacobi_primary`.
 NEW (Lean):
   lean/.../CayleyDickson/Integer/EisensteinConvGaussFrobenius.lean   ← B2e.9 + B2e.10b (gauss Frobenius)
   lean/.../CayleyDickson/Integer/EisensteinCubicCharPow.lean         ← B2e.10a (χ(t)^q = χ̄(t), PURE)
-  lean/.../CayleyDickson/Integer/EisensteinConvGaussReindex.lean     ← B2e.11 (reindex → factored form)
+  lean/.../CayleyDickson/Integer/EisensteinConvGaussReindex.lean     ← B2e.11 reindex + factored_all + reflect
+  lean/.../CayleyDickson/Integer/EisensteinConvCongruence.lean       ← ModEq-respects-⋆ toolkit (PURE)
 MODIFIED:
-  lean/E213/Lib/Math/Algebra/CayleyDickson.lean                     ← aggregator imports (3 new)
-  research-notes/frontiers/cubic_reciprocity_law.md                 ← B2e.9–B2e.11 rows
+  lean/E213/Lib/Math/Algebra/CayleyDickson.lean                     ← aggregator imports (4 new)
+  research-notes/frontiers/cubic_reciprocity_law.md                 ← B2e.9–B2e.11 + law-toolkit rows
 ```
