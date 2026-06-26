@@ -154,10 +154,16 @@ also a nontrivial cubic char) ⟹ `Y⋆Y = (g²)⋆(ḡ²) = |J|²·Y`.  Compari
     **⚠ ring_intZ-trap:** `ring_intZ` chokes on `(−1)*q` (`(C 1).neg.mul`) — use `neg_mul`+`one_mulZ`.
   - **DONE `Integer/EisensteinNormConv`** — `Yfun`/`Bfun` defs + **`Yfun_conv`: `(Yfun⋆Yfun)(n) =
     ofInt(↑p)·Yfun n`** (= `Y²=p·Y`, pure convolution counting via the pointwise decomposition).  **5a ✓.**
-  - **5b** `(gauss⋆gauss)(n) = jacobiSum · g(χ²)(n)` — the Gauss–Jacobi coefficient identity
-    `Σ_a χ_ω(a)·χ_ω((n−a)%p) = J·χ̄_ω(n)` (the hard one; reindex `a↦n·a` for `n` a unit).
+  - **5b ✓ (unit coefficients)** — `Integer/EisensteinGaussJacobiIndex` (`gj_index`, modular negation via
+    `neg_mul_mod`), `Integer/EisensteinGaussJacobiTerm` (`gj_term`: `χ(nt)·χ(n(1−t))=χ(n)²·χ(t)·χ(1−t)`,
+    `mul_swap_mid`), `Integer/EisensteinGaussJacobi` (`jacobi_eq_listSum`, **`gauss_sq_unit`:
+    `(g⋆g)(n)=jacobiSum·χ_ω(n)²` for `0<n<p`**) — i.e. `g(χ)²=J·g(χ²)` at unit coeffs (`g(χ²)(n)=χ_ω(n)²`).
+  - **5b-rem** the `n=0` coeff `(g⋆g)(0)=0` (`=J·χ_ω(0)²=0`) — needs `Σ_{i∈tot}χ_ω(i)²=0` (χ²-orthogonality;
+    reuse `scale_fixed_eq_zero` with `χ²(a)=χ_ω(a)²∈{ω,ω²}≠1`, `chiOmega_mul` for χ² multiplicativity).
   - **5c** `g(χ²)·conj g(χ²) = Yfun` — reuse `gauss_conj_norm` machinery for the character `χ²=χ̄`.
-  - **5d** assemble `|J|²·Y = Y⋆Y = p·Y`, extract `e_1` ⟹ **`N(J)=p`** (needs conv assoc/comm in `R[C_p]`).
+  - **5d** conv comm (`conv_comm`, reflection reindex `i↦(k+p−i)%p`) + assoc (`conv_assoc`, double sum),
+    then `Y⋆Y = (g·ḡ)² = (g·g)·(ḡ·ḡ) = |J|²·Y` and `Y⋆Y = p·Y` (`Yfun_conv`); read off `e_1`
+    (`Yfun 1 = −1 ≠ 0`) ⟹ **`N(J)=|J|²=p`**.
 Then `J=π` (A4) and the law `(π/π')₃=(π'/π)₃` + the transfer.
 
 ## How to verify
