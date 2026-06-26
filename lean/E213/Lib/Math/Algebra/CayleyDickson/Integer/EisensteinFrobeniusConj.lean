@@ -1,6 +1,7 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinIntFermat
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharOmega
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFunction
 
 /-!
 # The Frobenius `conj z ≡ z^q (mod q)` on `ℤ[ω]/(q) ≅ 𝔽_{q²}` (∅-axiom)
@@ -23,9 +24,10 @@ all-Eisenstein congruence `J^{2s+1}·J̄^s ≡ χ(q)` into the single residue-ch
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFrobeniusConj
 
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt Omega conj conj_mul)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt Omega conj conj_mul conj_conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence
-  (ModEq refl trans add_compat mul_left mul_right)
+  (ModEq refl symm trans add_compat mul_left mul_right)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFunction (pow_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNorm (conj_add)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidue (decomp)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFreshman (add_pow_modEq_prime)
@@ -71,5 +73,19 @@ theorem pow_modEq {M a b : ZOmega} (h : ModEq M a b) :
   | n + 1 => by
       rw [pow_succ, pow_succ]
       exact trans (mul_right (pow_modEq h n) a) (mul_left h (pow b n))
+
+/-- ★★★★★ **Fermat in `𝔽_{q²}` (Frobenius squared = identity)** — `z^{q²} ≡ z (mod q)` for a prime
+    `q ≡ 2 (mod 3)`.  Conjugation is the `q`-power Frobenius (`conj_modEq_pow`) and an involution
+    (`conj_conj`), so applying it twice is the identity: `z = conj(conj z) ≡ (conj z)^q ≡ (z^q)^q =
+    z^{q²} (mod q)`.  The finite-field Fermat that makes `J^{(q²−1)/3}` a cube root of unity mod `q`
+    (its cube is `J^{q²−1} ≡ 1` for `J` coprime to `q`) — the μ₃-valuedness behind the residue symbol
+    `(π/q)₃`.  ∅-axiom (PURE). -/
+theorem frob_sq_modEq {q : Nat} (hq : 1 < q) (hqr : ∀ d, d ∣ q → d = 1 ∨ d = q) (hq3 : q % 3 = 2)
+    (z : ZOmega) : ModEq (ofInt ((q : Nat) : Int)) (pow z (q * q)) z := by
+  have hAc := conj_modEq_pow hq hqr hq3 (conj z)
+  rw [conj_conj] at hAc
+  have hCC := pow_modEq (symm (conj_modEq_pow hq hqr hq3 z)) q
+  rw [← pow_mul z q q] at hCC
+  exact symm (trans (symm hAc) hCC)
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFrobeniusConj
