@@ -125,13 +125,51 @@ Two clean congruences, **in the two prime moduli**, are now in hand — decompos
   rational character of the norm = the product of the Eisenstein residue symbols `(π'/π)₃·(π̄'/π)₃`.
   Built from `chiOmega_eq_eisChar` (`𝔽_p` char = ℤ[ω] char of the embedded integer) + `eisChar_norm_split`.
 
-## Cross-modulus synthesis — STRUCTURE VERIFIED, only assembly remains (Phase B2h–B2n, this session)
+## ★★★★★ CUBIC RECIPROCITY — the split case is COMPLETE and PURE (Phase B2h–B2q, this session)
 
+**`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`** — for two distinct primary Eisenstein
+primes `J = jacobiSum p m x` (norm `p`) and `J₂ = jacobiSum pr m₂ x₂` (norm `pr`), both `≡ 1 (mod 3)`,
+the cubic residue symbols are **equal**:  `(J/J₂)₃ = (J₂/J)₃`, i.e. `A = S` for `J^{m₂} ≡ A (mod d₂)`,
+`J₂^{m} ≡ S (mod d)`.  `#print axioms → "does not depend on any axioms"` (strict ∅-axiom).
+
+**No proof-assistant formalization of cubic reciprocity exists anywhere** (Mathlib has only Jacobi/Gauss
+infrastructure + quadratic reciprocity) — this is **novel**.  Together with the inert
+`cubic_reciprocity_law` (`(π/q)₃ = χ(q)` for `q ≡ 2 mod 3`), both cases of the cubic reciprocity law are
+now formalized ∅-axiom.
+
+**The assembled derivation** (all μ₃ literals; `C = χ_{d₂}(p)`, `E = χ_d(pr)` rational characters):
+- equation (I) `C = conj E·A²` : relation A (`split_conj_residue_relation`, mod d₂) + norm-mult
+  (`char_norm_mult`, mod d₂), combined by `combine_relation`.
+- equation (II) `E = conj C·S²` : the swapped pair (relation B + swapped norm-mult, mod d).
+- `mu3_reciprocity_algebra` (finite μ₃ group step) closes `A = S`.
+
+The source REU note's literal equations were OCR-garbled (its "conjugate law" `χ_π(ᾱ)=conj χ_π(α)` is
+false); the honest derivation — corrected & verified — is in
+`research-notes/frontiers/cubic_reciprocity_synthesis_from_IR.md`.
+
+### The 9 PURE bricks built this session (all ∅-axiom)
+1. **B2h** relaxation `pr < p → pr ≠ p / ¬ p ∣ q` across the split arc (`chiOmega_*_gen`,
+   `char_reindex_split`, `gauss_pow_modEq_char_factored`, `split_reciprocity_congr{,_eisenstein,_pi}`,
+   `jacobi_ne_zero_mod_pi`, `split_residue_cube_one`, `split_conj_residue_relation`).
+2. **B2i** `split_conj_residue_relation_B` — relation B (swapped instantiation, mod d).
+3. **B2j/B2k** `split_residue_symbol_exists{,_B}` — both symbols μ₃-valued.
+4. **B2l** `mu3_eq_of_modEq_pi` — Eisenstein-modulus μ₃ lift (norm-3 difference).
+5. **B2m** `conj_modEq` (`EisensteinConjModEq`) — the honest conjugate law `A≡B mod d ⟹ conj A≡conj B mod conj d`.
+6. **B2n** `mu3_reciprocity_algebra` — the finite-group closer `C=conj E·A² ∧ E=conj C·S² ⟹ A=S`.
+7. **B2o** `chiOmega_eq_eisChar_gen` — relax `χ_ω = χ_d` to any unit `¬ p ∣ t`.
+8. **B2p** `char_norm_mult` — `χ_{d₂}(p) ≡ J^{m₂}·(conj J)^{m₂} (mod d₂)`.
+9. **B2q** `split_cubic_reciprocity` — the capstone (+ `chiOmega_unit_value_gen`, `combine_relation`,
+   `mu3_conj`, `mu3_mul`).
+
+### Promotion candidate
+The whole cubic-reciprocity arc (inert `cubic_reciprocity_law` + split `split_cubic_reciprocity` + the
+Gauss-sum/Jacobi-sum Frobenius infrastructure) now **closes the frontier** and is a strong promotion
+candidate to `theory/` (`theory/PROMOTION_CRITERIA.md` H1–H4 + S1–S3).  Next session: assess promotion,
+write the narrative chapter, archive the `research-notes/frontiers/cubic_reciprocity_*` scratch.
+
+### (historical) the path, now closed
 **The combination closes — proven by Lean.**  The full derivation was worked out and the closing
-finite-group step is **built and PURE** (`mu3_reciprocity_algebra`): the split cubic reciprocity law
-`(π/π')₃ = (π'/π)₃` follows from two element equations among μ₃ literals.  No reference gap, no
-structural risk — the algebra is verified.  (The source REU note's literal equations were OCR-garbled;
-the honest derivation is in `research-notes/frontiers/cubic_reciprocity_synthesis_from_IR.md`, corrected.)
+finite-group step is built and PURE (`mu3_reciprocity_algebra`).
 
 **The closing derivation (all μ₃ literals; `J = π = jacobiSum p m x`, `J₂ = π' = jacobiSum pr m₂ x₂`):**
 - `A := (π/π')₃ = J^{m₂} mod π'`,  `B := (π̄/π')₃ = (conj J)^{m₂} mod π'`  (`m₂ = (pr−1)/3`)
@@ -153,20 +191,8 @@ the honest derivation is in `research-notes/frontiers/cubic_reciprocity_synthesi
    "conjugate law"; `EisensteinConjModEq`).
 6. **μ₃ reciprocity algebra** `mu3_reciprocity_algebra` (B2n) — `C=conj E·A² ∧ E=conj C·S² ⟹ A=S`.
 
-**REMAINING (assembly — bricks 7–9):**
-7. **Relax `chiOmega_eq_eisChar`** (`EisensteinCharNormSplit`) from `t < p` to `¬ p ∣ t` (relax
-   `chiOmega_lift` via `chiOmega_mod`, parallel to `chiOmega_mul_gen`) — needed because `C = χ_{π'}(p)`
-   has arg `p` possibly `> pr`.
-8. **Norm-multiplicativity** `C ≡ A·B (mod π')`:  `χ_{π'}(p) ≡ pow(ofInt p) m₂` (`chiOmega_eq_eisChar`gen)
-   `= pow(J·conj J) m₂` (`ofInt p = J·conj J` via `jacobi_norm` + `mul_conj_self`) `= A·B`
-   (`pow_mul_distrib`).  Symmetric `E ≡ S·T (mod π)`.
-9. **Capstone** `split_cubic_reciprocity`: assemble relation A + norm-mult → `C ≡ conj(E)·A² (mod π')`,
-   pin to literals (`mu3_eq_of_modEq_pi` + `chiOmega_unit_value` for C, E) → equation (I); symmetric →
-   (II); feed `mu3_reciprocity_algebra` ⟹ `(π/π')₃ = (π'/π)₃`.
-
-**No proof-assistant formalization of cubic reciprocity exists anywhere** (Mathlib has only Jacobi/Gauss
-infrastructure + quadratic reciprocity), so this is novel.  Everything PURE; Lean self-verifies each
-congruence so no wrong-theorem risk.
+**Bricks 7–9 (assembly) — DONE this session** (B2o `chiOmega_eq_eisChar_gen`, B2p `char_norm_mult`,
+B2q `split_cubic_reciprocity`).  The law is complete and PURE.
 
 ## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
 - **Promotions this session**: none yet — Phase B's promotable unit is the *law*, now assembled; the
