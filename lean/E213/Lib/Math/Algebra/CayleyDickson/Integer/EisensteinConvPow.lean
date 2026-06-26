@@ -23,13 +23,16 @@ forbidden `funext`/`Quot.sound`).  ∅-axiom.
 namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
 
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_add_left conv_congr)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing
+  (conv conv_add_left conv_scalar_left conv_congr)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvComm (conv_comm)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvAssoc (conv_assoc)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (one one_mul)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality
+  (one one_mul pow pow_zero pow_succ)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
-  (sumRange sum_single sum_congr sum_zero_fun)
-open E213.Meta.Algebra213.Ring213 (zero_mul mul_zero)
+  (sumRange sum_single sum_congr sum_zero_fun sum_mul_left)
+open E213.Meta.Algebra213.Ring213 (zero_mul mul_zero mul_assoc)
+open E213.Meta.Algebra213.CommRing213 (mul_comm)
 
 /-- The convolution identity `e_0 ∈ R[C_p]` — the basis vector at index `0` (`δ_{i,0}`). -/
 def delta : Nat → ZOmega := fun i => if i = 0 then one else 0
@@ -102,6 +105,36 @@ theorem conv_sumRange_left (p : Nat) (F : Nat → (Nat → ZOmega)) (g : Nat →
          = sumRange (fun j => conv p (F j) g k) m + conv p (F m) g k
       rw [conv_add_left p (fun i => sumRange (fun j => F j i) m) (F m) g k,
           conv_sumRange_left p F g k m]
+
+/-! ## Right scalar pull and the scalar convolution power -/
+
+/-- **Right scalar pull** — `(f ⋆ (c·g))(k) = c·(f ⋆ g)(k)`.  `mul_comm`/`mul_assoc` termwise, then
+    `sum_mul_left`.  The companion of `conv_scalar_left`.  ∅-axiom. -/
+theorem conv_scalar_right (p : Nat) (c : ZOmega) (f g : Nat → ZOmega) (k : Nat) :
+    conv p f (fun i => c * g i) k = c * conv p f g k := by
+  show sumRange (fun i => f i * (c * g ((k + p - i) % p))) p
+     = c * sumRange (fun i => f i * g ((k + p - i) % p)) p
+  rw [← sum_mul_left c (fun i => f i * g ((k + p - i) % p)) p]
+  exact sum_congr p (fun i _ => by
+    rw [← mul_assoc (f i) c (g ((k + p - i) % p)), mul_comm (f i) c,
+        mul_assoc c (f i) (g ((k + p - i) % p))])
+
+/-- ★★★★ **The scalar convolution power** — `(c · h)^{⋆q}(k) = c^q · h^{⋆q}(k)` for `k < p`.  By
+    induction: `(c·h)^{⋆(q+1)} = (c^q·h^{⋆q}) ⋆ (c·h) = c^q·c·(h^{⋆q} ⋆ h) = c^{q+1}·h^{⋆(q+1)}`
+    (`conv_scalar_left` + `conv_scalar_right`).  Lets a scaled basis vector `χ(t)·e_t` be powered:
+    `(χ(t)·e_t)^{⋆q} = χ(t)^q · e_t^{⋆q}`.  ∅-axiom. -/
+theorem convPow_scalar (p : Nat) (c : ZOmega) (h : Nat → ZOmega) :
+    ∀ (q : Nat) {k : Nat}, k < p → convPow p (fun i => c * h i) q k = pow c q * convPow p h q k
+  | 0, k, _ => by
+      show delta k = pow c 0 * delta k
+      rw [pow_zero, one_mul]
+  | q + 1, k, hk => by
+      have hp : 0 < p := Nat.lt_of_le_of_lt (Nat.zero_le k) hk
+      rw [convPow_succ,
+          conv_congr p k hp (fun i hi => convPow_scalar p c h q hi) (fun _ _ => rfl),
+          conv_scalar_left p (pow c q) (convPow p h q) (fun i => c * h i) k,
+          conv_scalar_right p c (convPow p h q) h k,
+          convPow_succ, pow_succ, mul_assoc (pow c q) c (conv p (convPow p h q) h k)]
 
 /-! ## Convolution-power exponent raising (the `⋆`-analogs of `bterm_mul_a` / `bterm_mul_b`) -/
 
