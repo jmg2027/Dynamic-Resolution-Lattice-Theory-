@@ -1,8 +1,15 @@
 # Frontier — the cubic reciprocity law `(π/π')₃ = (π'/π)₃` (Phase B)
 
-**Status:** the **symbol identity `(π/q)₃ = χ(q)` is ASSEMBLED** (∅-axiom, PURE) —
-`EisensteinCubicReciprocity.cubic_reciprocity_law` for `q` a rational prime `≡ 2 (mod 3)`.  Only the
-`π↔π'` transfer to the fully symmetric `(π/π')₃ = (π'/π)₃` (between two *Eisenstein* primes) remains.
+**Status:** the **inert law `(π/q)₃ = χ(q)` is COMPLETE** (∅-axiom, PURE,
+`EisensteinCubicReciprocity.cubic_reciprocity_law`, `q` a rational prime `≡ 2 mod 3`), and the
+**split-split law has BOTH HALVES built** (PURE):
+- **mod `π'`**: `J̄^{s+1} ≡ χ̄(pr)·J^{s+1}` (`EisensteinSplitResidueSymbol.split_conj_residue_relation`),
+  i.e. `(π̄/π')₃ = χ̄(N(π'))·(π/π')₃`;
+- **mod `d` (`=π`)**: `χ_ω(N(π')) ≡ (π'/π)₃·(π̄'/π)₃` (`EisensteinCharNormSplit.chiOmega_norm_eq_symbol_product`).
+
+Only the **cross-modulus synthesis** of these two (combining the incompatible moduli `π`, `π'` to land
+the symmetric `(π/π')₃ = (π'/π)₃`) remains — the one step not decomposable into mechanical bricks, needing
+the classical argument (Ireland–Rosen ch. 9).  See "Split-prime arc (Phase B2f)" + "BOTH HALVES" below.
 Phase A (the Jacobi-sum core) is **COMPLETE** (∅-axiom): the cubic character on `𝔽_p`, the Jacobi sum,
 **`N(J)=p`** (`EisensteinJacobiNormLaw.jacobi_norm`), `J` prime (`jacobi_prime`), `p=J·J̄`
 (`jacobi_splits_p`), and the primary normalisation `J=π` (`jacobi_primary`, **carries `propext` — purify
@@ -292,3 +299,31 @@ remaining is **ℤ-Fermat → `conj z ≡ z^q` → exponent collapse → residue
     Then `g^{⋆q} ≡ Σ_t χ(t)^q · e_{tq%p} (mod q)`, `χ(t)^q = χ̄(t)` (μ₃ + `q≡2 mod 3`) and the `tq`
     reindex give `g^{⋆q} ≡ χ̄(q)·g (mod q)` — the Frobenius congruence.  The `ℤ[ω]` versions above
     are the faithful template; the convolution versions are the remaining work.
+
+## Split-prime arc (Phase B2f) — both halves of the law, ∅-axiom PURE
+
+For a second prime that is *split* (`pr = ‖π'‖² ≡ 1 mod 3`, `ℤ[ω]/(π') ≅ 𝔽_{p'}`), the parallel of the
+inert B2e arc, all PURE:
+
+- **`EisensteinSplitFermat.split_fermat`**: `z^{pr} ≡ z (mod π')` — Fermat in `𝔽_{p'}` (+ `modEq_descend`).
+- **`EisensteinCubicCharPow.chiOmega_pow_p`**: `χ(t)^{pr} = χ(t)` for `pr ≡ 1 mod 3` (identity, vs inert conj).
+- **`EisensteinConvGaussFrobenius.gauss_pow_modEq_char`** + the 4 reindex thms
+  (`EisensteinConvGaussReindex`): `g(χ)^{⋆pr}(k) ≡ χ̄(pr)·χ(k) (mod ofInt pr)` (split factored Frobenius).
+- **`EisensteinCharSumRange.chiOmega_sumRange_zero`** (`Σχ=0`), **`EisensteinYfunGauss.Yfun_conv_gauss`**
+  (`Yfun⋆g=p·g`), **`EisensteinSplitCube.gauss_convPow_split`** (`g^{⋆(3(s+1)+1)} = J^{s+1}·p^{s+1}·g`).
+- **`EisensteinSplitReciprocity`**: `split_reciprocity_congr` (`J^{s+1}·p^{s+1} ≡ χ̄(pr) mod ofInt pr`),
+  its all-Eisenstein form (`J^{2(s+1)}·J̄^{s+1} ≡ χ̄(pr)`), and the descent `split_reciprocity_congr_pi`
+  (`… mod π'`).
+- **`EisensteinSplitResidueSymbol`**: `split_residue_cube_one` (`J^{3(s+1)} ≡ 1 mod π'` ⟹ `(π/π')₃ = J^{s+1}`
+  μ₃-valued, via `split_fermat` + cancel `J` a unit mod `π'`), and **`split_conj_residue_relation`**
+  (the mod-`π'` half — the `J̄`-elimination done via the cube-root collapse, NOT an inert-Frobenius, which
+  has no split analog since `conj` maps `ℤ[ω]/(π') → ℤ[ω]/(π̄')`).
+- **`EisensteinCharNormSplit`**: `chiOmega_eq_eisChar` (`𝔽_p`-char = `ℤ[ω]`-char of the embedded integer),
+  `eisChar_norm_split` (`χ_d(N(π')) = χ_d(π')·χ_d(π̄')`), and **`chiOmega_norm_eq_symbol_product`** (the mod-`d`
+  half).
+
+**Cross-modulus synthesis (open):** both halves are concrete relations among μ₃ values, in the two prime
+moduli `π` and `π'`.  `χ̄(pr) = conj(chiOmega pr)` is a literal `{1,ω,ω²}` element common to both, but the
+two congruences live in incompatible fields.  Combining them to `(π/π')₃ = (π'/π)₃` is the classical
+cross-modulus argument (primary normalisation `jacobi_primary` now PURE; final `mu3_eq_of_modEq` reusable)
+— to be assembled from Ireland–Rosen ch. 9, NOT by analogy.
