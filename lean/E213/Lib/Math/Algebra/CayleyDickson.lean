@@ -104,6 +104,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvFourSwap
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussNormSq
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharSq
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSqZero
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConjConv
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
