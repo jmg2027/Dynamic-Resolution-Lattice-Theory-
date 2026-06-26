@@ -28,8 +28,9 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq refl symm trans)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinResidueFieldCubeRoots
   (omega_sq_cong ofInt_natMod_modEq)
-open E213.Lib.Math.NumberTheory.ModArith.CubicCharFp (cubicChar cubicChar_trichotomy)
+open E213.Lib.Math.NumberTheory.ModArith.CubicCharFp (cubicChar cubicChar_trichotomy cubicChar_mod)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDivStep (mul_conj_self)
+open E213.Meta.Nat.AddMod213 (mod_mod)
 
 /-- The `ℤ[ω]`-valued cubic character: `χ_ω(t) = 0` if `p ∣ t`, else the `μ₃`-element whose rational
     representative is `t^m % p ∈ {1, x, x²}`. -/
@@ -38,6 +39,13 @@ def chiOmega (p m x t : Nat) : ZOmega :=
   else if cubicChar p m t = 1 then ofInt 1
   else if cubicChar p m t = x % p then Omega
   else Omega * Omega
+
+/-- ★★ **`χ_ω` sees only `t mod p`** — `χ_ω(a % p) = χ_ω(a)`.  The zero-test (`mod_mod`) and the rational
+    character (`cubicChar_mod`) are both `mod p`-invariant. -/
+theorem chiOmega_mod (p m x a : Nat) :
+    chiOmega p m x (a % p) = chiOmega p m x a := by
+  unfold chiOmega
+  rw [mod_mod, cubicChar_mod]
 
 /-- ★★★ **`χ_ω` is `{0, 1, ω, ω²}`-valued.**  By construction the four `if`-branches. -/
 theorem chiOmega_value (p m x t : Nat) :
