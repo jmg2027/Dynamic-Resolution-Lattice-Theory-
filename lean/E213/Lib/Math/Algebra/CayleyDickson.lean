@@ -92,6 +92,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharDiv
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussShift
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinRangeTotatives
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinShiftTerm
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiagOne
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
