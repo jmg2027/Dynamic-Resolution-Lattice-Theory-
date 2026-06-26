@@ -2,7 +2,7 @@
 
 **Status**: Closed core (the cubic character `(·/π)₃` on `ℤ[ω]` + the Jacobi sum `J(χ,χ)` +
 `N(J) = p` + the primary normalisation `J = π`), with a recorded open frontier (the cubic
-reciprocity *law* itself, `research-notes/frontiers/cubic_reciprocity_law.md`).  ∅-axiom; the
+reciprocity *law* itself, still open).  ∅-axiom; the
 arithmetic core is PURE, a few capstones carry only `propext` (Lean-4 kernel base) from ℕ↔ℤ cast /
 divisibility-`decide` bookkeeping.
 
@@ -101,8 +101,7 @@ normalises with.
 
 ## Open frontier
 
-The **cubic reciprocity law `(π/π')₃ = (π'/π)₃`** itself is open and tracked at
-`research-notes/frontiers/cubic_reciprocity_law.md` (roadmap `higher_reciprocity_roadmap.md`).  The
+The **cubic reciprocity law `(π/π')₃ = (π'/π)₃`** itself is open.  The
 Gauss-sum cube `g(χ)³ = p·J` is done (`EisensteinGaussCube.gauss_cube`, PURE), and the **Frobenius
 engine** — the mod-`q` subsystem — is built coefficient-wise in `R[C_p]`: `q ∣ binom q t`
 (`BinomPrime.prime_dvd_binom`), the `ℤ[ω]` and group-ring binomial theorems and freshman's dreams

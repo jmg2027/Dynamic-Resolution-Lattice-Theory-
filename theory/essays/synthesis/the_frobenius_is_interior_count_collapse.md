@@ -70,7 +70,7 @@ discrete-log parity (`DiscreteLogParity`) are the same `kth_power ⟺ k ∣ dlog
 
 The cubic Frobenius congruence `g^{⋆q} ≡ χ̄(q)·g (mod q)` is not yet assembled — the interior collapse
 is proven (`convPow_add_pow_modEq_prime`), but the character-power `χ(t)^q = χ̄(t)` and the
-`t ↦ tq` reindex that finish it remain (`research-notes/frontiers/cubic_reciprocity_law.md`).  The
+`t ↦ tq` reindex that finish it remain open.  The
 unification "one collapse, three deployments" is a refactor target, not yet a single Lean lemma: a
 shared `Frobenius-from-interior-binomial-vanishing` over an arbitrary carrier would make the cubic,
 `p`-adic, and prime-counting uses literal corollaries of `prime_dvd_binom`.
