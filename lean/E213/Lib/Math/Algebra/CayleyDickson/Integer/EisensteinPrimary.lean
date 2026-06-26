@@ -1,6 +1,8 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmegaUnits
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConverse
 import E213.Meta.Int213.PolyIntMTactic
+import E213.Lib.Math.NumberTheory.PolyRoot.IntEuclid
+import E213.Lib.Math.NumberTheory.FourSquareSeed
 
 /-!
 # Primary Eisenstein primes — the unique associate `≡ 2 (mod 3)` (rung 4, ∅-axiom)
@@ -30,6 +32,8 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega units6)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConverse (int_small)
 open E213.Lib.Math.NumberTheory.ModArith.CenteredDivision (centered_div_int)
+open E213.Lib.Math.NumberTheory.PolyRoot (int_dvd_to_nat nat_dvd_to_int)
+open E213.Lib.Math.NumberTheory.FourSquareSeed (dvd_of_mod_zero mod_zero_of_dvd)
 
 /-! ## §1 — componentwise congruence mod 3 (reducible, so `decide` sees through) -/
 
@@ -129,6 +133,36 @@ theorem norm_dvd_of_residue (π : ZOmega) (ra rb : Int) (hcong : CongMod3 π ⟨
     ring_intZ
   rw [hsplit, hc1, hc2]; ring_intZ
 
+/-! ## §2½ — PURE divisibility-by-3 reflection (replaces the `propext`-tainted `Int`-`∣` `decide`)
+
+The `decide` instance for `(3 : Int) ∣ c` carries `propext`.  We reflect to `ℕ` instead: `(3 : Int) ∣ c`
+iff `c.natAbs % 3 = 0` (`int_dvd_to_nat`/`nat_dvd_to_int` + `dvd_of_mod_zero`/`mod_zero_of_dvd`, all
+PURE), and the `ℕ`-side `beq` test is decided purely.  Lifts to `IsPrimary` componentwise. -/
+
+/-- PURE `(3 : Int) ∣ c` from the `ℕ`-side test `c.natAbs % 3 == 0`. -/
+theorem dvd3_true {c : Int} (h : Nat.beq (c.natAbs % 3) 0 = true) : (3 : Int) ∣ c :=
+  nat_dvd_to_int 3 c (dvd_of_mod_zero c.natAbs 3 (Nat.eq_of_beq_eq_true h))
+
+/-- PURE `¬ ((3 : Int) ∣ c)` from `c.natAbs % 3 ≠ 0`. -/
+theorem dvd3_false {c : Int} (h : Nat.beq (c.natAbs % 3) 0 = false) :
+    ¬ ((3 : Int) ∣ c) := fun hd => by
+  have he : c.natAbs % 3 = 0 := mod_zero_of_dvd c.natAbs 3 (int_dvd_to_nat 3 c hd)
+  rw [he] at h; exact absurd h (by decide)
+
+/-- PURE `IsPrimary q` (`q ≡ 2 mod 3`) from the two `ℕ`-side component tests. -/
+private theorem isPrimary_of {q : ZOmega}
+    (h1 : Nat.beq ((q.re - 2).natAbs % 3) 0 = true)
+    (h2 : Nat.beq ((q.im - 0).natAbs % 3) 0 = true) : IsPrimary q :=
+  ⟨dvd3_true h1, dvd3_true h2⟩
+
+/-- PURE `¬ IsPrimary q` from the real-part test failing. -/
+private theorem not_isPrimary_re {q : ZOmega} (h1 : Nat.beq ((q.re - 2).natAbs % 3) 0 = false) :
+    ¬ IsPrimary q := fun hp => dvd3_false h1 hp.1
+
+/-- PURE `¬ IsPrimary q` from the imaginary-part test failing. -/
+private theorem not_isPrimary_im {q : ZOmega} (h2 : Nat.beq ((q.im - 0).natAbs % 3) 0 = false) :
+    ¬ IsPrimary q := fun hp => dvd3_false h2 hp.2
+
 /-! ## §3 — existence, uniqueness, and the canonical primary associate -/
 
 /-- The shared mod-3 reduction: `π ≡ ⟨ra,rb⟩` with balanced `ra, rb ∈ {-1,0,1}`. -/
@@ -150,25 +184,34 @@ private theorem residue_data (π : ZOmega) :
     residue classes one explicit unit witnesses primality (`decide` lifts via `cong_mul_left`); the
     three **non-unit** classes (`3 ∣ ‖ρ‖²`) are excluded by `3 ∤ ‖π‖²` (`norm_dvd_of_residue`).
     Uniqueness: any primary multiple, reduced mod `3` and split by `units6_or`, is forced to the
-    witness (the other five units fail `decide`).  No excluded middle.  (Carries `propext` solely from
-    the Lean-core divisibility-`decide` instance — "always allowed but not target" per
-    `STRICT_ZERO_AXIOM.md`; the seven supporting lemmas are all PURE.) -/
+    witness (the other five units fail `decide`).  No excluded middle.  ∅-axiom (PURE) — the `Int`-`∣`
+    `decide` (which carries `propext`) is reflected to the `ℕ`-side `beq` test (`dvd3_{true,false}`,
+    `isPrimary_of`, `not_isPrimary_{re,im}`); only Bool/ℕ `decide` remains. -/
 theorem exists_unique_primary (π : ZOmega) (hcop : ¬ ((3 : Int) ∣ π.normSq)) :
     ∃ u, units6.contains u = true ∧ IsPrimary (u * π) ∧
       (∀ u', units6.contains u' = true → IsPrimary (u' * π) → u' = u) := by
   obtain ⟨ra, rb, hcong, hra, hrb⟩ := residue_data π
   rcases hra with h | h | h <;> rcases hrb with h' | h' | h' <;> subst h <;> subst h' <;>
     (first
-      | refine ⟨⟨1, 0⟩, by decide, (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (by decide), ?_⟩
-      | refine ⟨⟨-1, 0⟩, by decide, (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (by decide), ?_⟩
-      | refine ⟨⟨0, 1⟩, by decide, (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (by decide), ?_⟩
-      | refine ⟨⟨0, -1⟩, by decide, (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (by decide), ?_⟩
-      | refine ⟨⟨1, 1⟩, by decide, (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (by decide), ?_⟩
-      | refine ⟨⟨-1, -1⟩, by decide, (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (by decide), ?_⟩
-      | exact absurd (norm_dvd_of_residue π _ _ hcong (by decide)) hcop) <;>
+      | refine ⟨⟨1, 0⟩, by decide,
+          (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (isPrimary_of (by decide) (by decide)), ?_⟩
+      | refine ⟨⟨-1, 0⟩, by decide,
+          (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (isPrimary_of (by decide) (by decide)), ?_⟩
+      | refine ⟨⟨0, 1⟩, by decide,
+          (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (isPrimary_of (by decide) (by decide)), ?_⟩
+      | refine ⟨⟨0, -1⟩, by decide,
+          (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (isPrimary_of (by decide) (by decide)), ?_⟩
+      | refine ⟨⟨1, 1⟩, by decide,
+          (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (isPrimary_of (by decide) (by decide)), ?_⟩
+      | refine ⟨⟨-1, -1⟩, by decide,
+          (primary_iff_of_cong (cong_mul_left _ hcong)).mpr (isPrimary_of (by decide) (by decide)), ?_⟩
+      | exact absurd (norm_dvd_of_residue π _ _ hcong (dvd3_true (by decide))) hcop) <;>
     (intro w' hcw hpw
      have hl := (primary_iff_of_cong (cong_mul_left w' hcong)).mp hpw
      rcases units6_or hcw with rfl | rfl | rfl | rfl | rfl | rfl <;>
-       first | rfl | exact absurd hl (by decide))
+       first
+         | rfl
+         | exact absurd hl (not_isPrimary_re (by decide))
+         | exact absurd hl (not_isPrimary_im (by decide)))
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
