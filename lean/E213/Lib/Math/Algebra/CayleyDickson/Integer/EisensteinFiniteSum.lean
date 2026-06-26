@@ -15,7 +15,7 @@ namespace E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega
 open E213.Meta.Algebra213.Ring213
-  (add_assoc add_comm add_zero zero_add add_4_swap_mid mul_add mul_zero)
+  (add_assoc add_comm add_zero zero_add add_4_swap_mid mul_add mul_zero add_mul)
 
 /-- `Σ_{k=0}^{n-1} f k` (left fold, `n = 0` empty). -/
 def sumRange (f : Nat → ZOmega) : Nat → ZOmega
@@ -58,6 +58,28 @@ theorem sum_congr {f g : Nat → ZOmega} (n : Nat) (h : ∀ k, k < n → f k = g
   | succ n ih =>
       rw [sumRange_succ, sumRange_succ, ih (fun k hk => h k (Nat.lt_succ_of_lt hk)),
           h n (Nat.lt_succ_self n)]
+
+/-- **Right scalar factor** — `Σ (f · c) = Σ f · c`. -/
+theorem sum_mul_right (c : ZOmega) (f : Nat → ZOmega) : ∀ (n : Nat),
+    sumRange (fun k => f k * c) n = sumRange f n * c
+  | 0 => by show (0 : ZOmega) = 0 * c; rw [E213.Meta.Algebra213.Ring213.zero_mul]
+  | n + 1 => by
+      show sumRange (fun k => f k * c) n + f n * c = (sumRange f n + f n) * c
+      rw [sum_mul_right c f n, add_mul]
+
+/-- ★★★ **Double-sum swap** — `Σ_{j<b} Σ_{i<a} F i j = Σ_{i<a} Σ_{j<b} F i j`.  Induction on `b`
+    (`sum_add` peels the top `j`-term).  ∅-axiom. -/
+theorem sum_swap (F : Nat → Nat → ZOmega) (a : Nat) : ∀ (b : Nat),
+    sumRange (fun j => sumRange (fun i => F i j) a) b
+      = sumRange (fun i => sumRange (fun j => F i j) b) a
+  | 0 => by
+      show (0 : ZOmega) = sumRange (fun i => sumRange (fun j => F i j) 0) a
+      rw [show (fun i => sumRange (fun j => F i j) 0) = (fun _ => (0 : ZOmega)) from rfl,
+          sum_zero_fun]
+  | b + 1 => by
+      show sumRange (fun j => sumRange (fun i => F i j) a) b + sumRange (fun i => F i b) a
+         = sumRange (fun i => sumRange (fun j => F i j) b + F i b) a
+      rw [sum_swap F a b, sum_add (fun i => sumRange (fun j => F i j) b) (fun i => F i b) a]
 
 /-- ★★★★ **Single-nonzero-index extraction** — if `f i = 0` for every `i < n` with `i ≠ i₀`
     (and `i₀ < n`), then `Σ_{i<n} f i = f i₀`.  Induction on `n`, splitting `i₀ = n` (the rest of the
