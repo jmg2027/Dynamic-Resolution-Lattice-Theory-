@@ -112,6 +112,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicSymbolRational
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinBinomial
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFreshman
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit

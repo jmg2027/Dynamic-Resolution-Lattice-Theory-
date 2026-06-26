@@ -77,7 +77,11 @@ mod-`q` reduction + Frobenius is the genuinely new part).
     over the finite sum (induction on `n`: each `succ` peels `f n`, applies `add_pow_modEq_prime`
     and the inductive congruence under `+`).  Helper `pow_zero_base_pos`.  This is the
     **coefficient-ring template** for the on-path target.
-  - **B2e — OPEN (the genuinely new large phase):** the **group-ring (convolution) Frobenius**.
+  - **B2e — IN PROGRESS (the genuinely new large phase):** the **group-ring (convolution) Frobenius**.
+    - **B2e.1 — DONE** (∅-axiom up to allowed `propext`): the convolution **identity + power**,
+      `EisensteinConvPow`.  `delta = e_0` (basis vector at `0`), `convPow p f n` (`n`-fold `⋆`-power,
+      `f^{⋆0}=e_0`), with `convPow_zero`, `convPow_succ`, the left identity law `convOne_left`
+      (`(e_0⋆f)(k)=f k` for `k<p`, via `sum_single` + `(k+p)%p=k`), and `convPow_one`.
     The Gauss-sum power `g^{⋆q}` lives in `R[C_p]` with convolution `⋆`, and equality there is
     **coefficient-wise** (no funext — `Quot`-backed function equality is forbidden).  So the binary
     + multinomial dreams must be **re-proved for `⋆`** (a parallel of B2b/B2c/B2d in the convolution
