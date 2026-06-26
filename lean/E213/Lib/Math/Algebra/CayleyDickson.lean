@@ -106,6 +106,7 @@ import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharSq
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSqZero
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConjConv
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiNormLaw
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiPrime
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinPrimary
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGcd
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinSplit
