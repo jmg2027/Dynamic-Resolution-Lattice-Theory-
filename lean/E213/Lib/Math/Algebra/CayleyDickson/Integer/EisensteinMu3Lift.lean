@@ -1,6 +1,8 @@
 import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinIntFermat
+import E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDvd
 import E213.Lib.Math.NumberTheory.PolyRoot.IntEuclid
 import E213.Lib.Math.NumberTheory.ModArith.CoprimeMultiplicative
+import E213.Meta.Tactic.Pow213
 
 /-!
 # The μ₃ lift — a `mod q` congruence between cube roots of unity **is** equality (∅-axiom)
@@ -30,6 +32,8 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinIntFermat
   (dvd_re_of_ofInt_dvd dvd_im_of_ofInt_dvd)
 open E213.Lib.Math.NumberTheory.PolyRoot (int_dvd_to_nat)
 open E213.Lib.Math.NumberTheory.ModArith.CoprimeMultiplicative (eq_one_of_dvd_one)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinDvd (normSq_dvd_of_dvd)
+open E213.Tactic.Pow213 (le_of_dvd_pos)
 
 /-- **A unit coordinate is divisible by no `q > 1`.**  If `c.natAbs = 1` then `↑q ∤ c` for `q > 1`:
     `int_dvd_to_nat` reflects `↑q ∣ c` to `q ∣ c.natAbs = 1`, so `q = 1` — absurd.  ∅-axiom. -/
@@ -54,5 +58,32 @@ theorem mu3_eq_of_modEq {q : Nat} (hq : 1 < q) {X Y : ZOmega}
       | rfl
       | exact absurd (dvd_re_of_ofInt_dvd h) (unit_not_dvd hq (by decide))
       | exact absurd (dvd_im_of_ofInt_dvd h) (unit_not_dvd hq (by decide))
+
+/-- **A μ₃ difference has norm `3`, divisible by no prime `> 3`.**  If `diff.normSq = 3` and `π' ∣ diff`
+    with `‖π'‖² = pr > 3`, then `pr ∣ 3` (norm respects divisibility), so `pr ≤ 3` — absurd.  ∅-axiom. -/
+private theorem norm3_absurd {pr : Nat} {π' diff : ZOmega} (hpr3 : 3 < pr)
+    (hπ'norm : π'.normSq = (pr : Int)) (hn : diff.normSq = 3) (hd : π' ∣ diff) : False := by
+  obtain ⟨c, hc⟩ := hd
+  have hnd : π'.normSq ∣ diff.normSq := normSq_dvd_of_dvd π' diff c hc
+  rw [hπ'norm, hn] at hnd
+  have hnat : pr ∣ (3 : Nat) := by
+    have h := int_dvd_to_nat pr 3 hnd
+    rwa [show (3 : Int).natAbs = 3 from rfl] at h
+  exact absurd (le_of_dvd_pos pr 3 (by decide) hnat) (Nat.not_le.mpr hpr3)
+
+/-- ★★★★★ **The μ₃ lift, Eisenstein-prime modulus** — a `mod π'` congruence between cube roots of unity
+    is an equality, for an Eisenstein prime `π'` of prime norm `pr > 3`.  Each distinct μ₃ difference has
+    norm `3` (`‖ω−1‖² = ‖ω²−1‖² = ‖ω²−ω‖² = 3`); `π' ∣ (X−Y)` forces `pr ∣ 3` — impossible for `pr > 3`.
+    The Eisenstein-modulus analog of `mu3_eq_of_modEq` (rational modulus) needed to pin the cross-modulus
+    cubic residue symbols `(π/π')₃`, `(π'/π)₃` to literal cube roots of unity.  ∅-axiom (PURE). -/
+theorem mu3_eq_of_modEq_pi {pr : Nat} {π' : ZOmega} (hpr3 : 3 < pr)
+    (hπ'norm : π'.normSq = (pr : Int)) {X Y : ZOmega}
+    (hX : X = ofInt 1 ∨ X = Omega ∨ X = Omega2)
+    (hY : Y = ofInt 1 ∨ Y = Omega ∨ Y = Omega2)
+    (h : ModEq π' X Y) : X = Y := by
+  rcases hX with rfl | rfl | rfl <;> rcases hY with rfl | rfl | rfl <;>
+    first
+      | rfl
+      | exact (norm3_absurd hpr3 hπ'norm (by decide) h).elim
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinMu3Lift
