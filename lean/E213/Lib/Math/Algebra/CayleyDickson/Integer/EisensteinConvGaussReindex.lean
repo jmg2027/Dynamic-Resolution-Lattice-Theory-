@@ -30,7 +30,8 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (ofInt conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvBasis (basis)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow (convPow convPow_succ convOne_left)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
+  (convPow convPow_succ convOne_left convPow_one convPow_scalar convPow_congr convPow_mul)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube (gauss_cube)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinJacobiSum (jacobiSum)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGroupRing (conv conv_scalar_left conv_congr)
@@ -38,12 +39,13 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvCongruence (conv_
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvComm (conv_comm)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussCube (gaussConj_eq_charConj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussOffDiagOne (gauss_conj_norm)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinNormConv (Yfun)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinNormConv (Yfun Yfun_conv)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinGaussSum (gauss gaussConj)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCongruence (ModEq mul_right)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussFrobenius (gauss_pow_modEq_conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum (sumRange sum_single)
-open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality (one mul_one)
+open E213.Lib.Math.Algebra.CayleyDickson.Integer.RootOfUnityOrthogonality
+  (one mul_one one_mul pow pow_zero pow_succ)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega (conj_mul conj_conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFp (chiOmega_mul_conj)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicCharFpMul (chiOmega_mul)
@@ -300,5 +302,82 @@ theorem gauss_convPow3 {d : ZOmega} {p m x : Nat} (hp : 1 < p) (hp3 : 3 < p)
   rw [conv_congr p k hpp (fun i hi => h2 i hi) (fun _ _ => rfl),
       conv_comm p (fun j => conv p (gauss p m x) (gauss p m x) j) (gauss p m x) hk]
   exact gauss_cube hp hp3 hpr h3m hm1 hdn hω hx hk
+
+/-! ## The μ₃ comparison — `J^{s+1}·p^s ≡ χ(q) (mod q)`, the cubic reciprocity congruence -/
+
+/-- ★★★★ **The `Yfun` convolution power** — `Yfun^{⋆(s+1)}(k) = p^s · Yfun(k)` for `k < p`.  `Yfun` is
+    idempotent up to `p` (`Yfun_conv`: `Yfun ⋆ Yfun = p·Yfun`); iterating gives the `p`-power.  Induction
+    on `s` via `conv_scalar_left` + `Yfun_conv`.  ∅-axiom. -/
+theorem Yfun_convPow (p : Nat) (hp : 1 ≤ p) :
+    ∀ (s : Nat) {k : Nat}, k < p →
+      convPow p (Yfun p) (s + 1) k = pow (ofInt ((p : Nat) : Int)) s * Yfun p k
+  | 0, k, hk => by rw [convPow_one p (Yfun p) hk, pow_zero, one_mul]
+  | s + 1, k, hk => by
+      rw [convPow_succ,
+          conv_congr p k hp (fun i hi => Yfun_convPow p hp s hi) (fun _ _ => rfl),
+          conv_scalar_left p (pow (ofInt ((p : Nat) : Int)) s) (Yfun p) (Yfun p) k,
+          Yfun_conv hp hk, ← mul_assoc, ← pow_succ]
+
+/-- ★★★★★ **The cubic Gauss-sum power, evaluated through the cube** — for `q + 1 = 3·(s+1)` and `k < p`,
+
+      `g(χ)^{⋆(q+1)}(k) = J^{s+1} · p^s · Yfun(k)`   (`J = jacobiSum`).
+
+    `convPow_mul` regroups `g^{⋆(3(s+1))} = (g^{⋆3})^{⋆(s+1)}`; `gauss_convPow3` (under `convPow_congr`)
+    replaces `g^{⋆3}` by `J·Yfun`; `convPow_scalar` pulls `J^{s+1}` out; `Yfun_convPow` evaluates the
+    `Yfun`-power as `p^s·Yfun`.  The **cube-side** closed form of `g^{⋆(q+1)}`.  ∅-axiom. -/
+theorem gauss_pow_succ_cube {d : ZOmega} {p m x q s : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hs : q + 1 = 3 * (s + 1)) {k : Nat} (hk : k < p) :
+    convPow p (gauss p m x) (q + 1) k
+      = pow (jacobiSum p m x) (s + 1) * (pow (ofInt ((p : Nat) : Int)) s * Yfun p k) := by
+  have hp0 : 0 < p := Nat.lt_of_le_of_lt (Nat.zero_le k) hk
+  have hp1 : 1 ≤ p := Nat.le_of_lt hp
+  rw [hs, convPow_mul p (gauss p m x) 3 (s + 1) hk,
+      convPow_congr p hp0
+        (fun i hi => gauss_convPow3 hp hp3 hpr h3m hm1 hdn hω hx hi) (s + 1) hk,
+      convPow_scalar p (jacobiSum p m x) (Yfun p) (s + 1) hk,
+      Yfun_convPow p hp1 s hk]
+
+/-- ★★★★★ **The cubic reciprocity congruence** — for a second rational prime `q ≡ 2 (mod 3)`
+    (`q + 1 = 3(s+1)`, unit mod `p`),
+
+      `J^{s+1} · p^s ≡ χ(q)   (mod q)`        (`J = jacobiSum`, `s+1 = (q+1)/3`).
+
+    Equates the two evaluations of `g(χ)^{⋆(q+1)}` at the coefficient `k = 1`: the **cube side**
+    `gauss_pow_succ_cube` (`= J^{s+1}·p^s·Yfun(1)`) and the **Frobenius side** `gauss_pow_succ_modEq_Yfun`
+    (`≡ χ(q)·Yfun(1) (mod q)`).  Since `Yfun(1) = −1` is a unit (`(−1)² = 1`), it cancels.  This is the
+    arithmetic heart of cubic reciprocity: it ties the Jacobi sum `J = π` to the cubic character value
+    `χ(q)` modulo the second prime.  ∅-axiom. -/
+theorem cubic_reciprocity_congr {d : ZOmega} {p m x q s : Nat} (hp : 1 < p) (hp3 : 3 < p)
+    (hpr : ∀ e, e ∣ p → e = 1 ∨ e = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hdn : d.normSq = (p : Int)) (hω : ModEq d (ZOmega.ZOmega.Omega) (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1)) (hq3 : q % 3 = 2) (hqr : ∀ e, e ∣ q → e = 1 ∨ e = q)
+    (hcop : gcd213 q p = 1) (hq1 : 0 < q) (hqlt : q < p) (hs : q + 1 = 3 * (s + 1)) :
+    ModEq (ofInt ((q : Nat) : Int))
+      (pow (jacobiSum p m x) (s + 1) * pow (ofInt ((p : Nat) : Int)) s) (chiOmega p m x q) := by
+  have h1lt : (1 : Nat) < p := hp
+  -- the two evaluations of g^{⋆(q+1)}(1) and Yfun 1 = ofInt (-1)
+  have hY1 : Yfun p 1 = ofInt (-1) := by
+    show (if (1 : Nat) = 0 then ofInt (((p - 1 : Nat)) : Int) else ofInt (-1)) = ofInt (-1)
+    rw [if_neg (by decide)]
+  have hcube := gauss_pow_succ_cube hp hp3 hpr h3m hm1 hdn hω hx hs h1lt
+  have hfrob := gauss_pow_succ_modEq_Yfun hp hp3 hpr h3m hm1 hdn hω hx hq3 hqr hcop hq1 hqlt h1lt
+  -- substitute the cube value into the Frobenius congruence's LHS
+  rw [hcube, hY1] at hfrob
+  -- hfrob : ModEq q (J^{s+1} * (p^s * ofInt(-1))) (χ(q) * ofInt(-1))
+  -- multiply both sides by ofInt(-1) and use (-1)·(-1) = 1
+  have hmul := mul_right hfrob (ofInt (-1))
+  have hnn : ofInt (-1) * ofInt (-1) = one := by decide
+  have hcollapse : pow (jacobiSum p m x) (s + 1) * (pow (ofInt ((p : Nat) : Int)) s * ofInt (-1))
+        * ofInt (-1)
+      = pow (jacobiSum p m x) (s + 1) * pow (ofInt ((p : Nat) : Int)) s := by
+    rw [mul_assoc (pow (jacobiSum p m x) (s + 1)) (pow (ofInt ((p : Nat) : Int)) s * ofInt (-1))
+          (ofInt (-1)),
+        mul_assoc (pow (ofInt ((p : Nat) : Int)) s) (ofInt (-1)) (ofInt (-1)), hnn, mul_one]
+  have hrhs : chiOmega p m x q * ofInt (-1) * ofInt (-1) = chiOmega p m x q := by
+    rw [mul_assoc (chiOmega p m x q) (ofInt (-1)) (ofInt (-1)), hnn, mul_one]
+  rw [hcollapse, hrhs] at hmul
+  exact hmul
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvGaussReindex

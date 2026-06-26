@@ -172,4 +172,34 @@ theorem convProd_mul_g (p : Nat) (f g : Nat → ZOmega) (j m : Nat) {k : Nat} (h
   rw [conv_assoc p (convPow p f j) (convPow p g m) g hk]
   exact conv_congr p k hp (fun _ _ => rfl) (fun _ _ => rfl)
 
+/-! ## The convolution power is a monoid homomorphism `(ℕ, +, ·) → (R[C_p], ⋆)` -/
+
+/-- ★★★★ **The convolution power respects addition** — `f^{⋆(m+n)}(k) = (f^{⋆m} ⋆ f^{⋆n})(k)` for
+    `k < p`.  Induction on `n`: `f^{⋆(m+0)} = f^{⋆m} = f^{⋆m} ⋆ e_0` (`convOne_right`), and
+    `f^{⋆(m+(n+1))} = f^{⋆((m+n)+1)} = f^{⋆(m+n)} ⋆ f = (f^{⋆m} ⋆ f^{⋆n}) ⋆ f = f^{⋆m} ⋆ (f^{⋆n} ⋆ f)
+    = f^{⋆m} ⋆ f^{⋆(n+1)}` (inductive `conv_congr` + `conv_assoc`).  The exponent law of the convolution
+    monoid.  ∅-axiom. -/
+theorem convPow_add (p : Nat) (f : Nat → ZOmega) (m : Nat) :
+    ∀ (n : Nat) {k : Nat}, k < p → convPow p f (m + n) k = conv p (convPow p f m) (convPow p f n) k
+  | 0, k, hk => by
+      rw [Nat.add_zero]
+      exact (convOne_right p (convPow p f m) hk).symm
+  | n + 1, k, hk => by
+      have hp : 0 < p := Nat.lt_of_le_of_lt (Nat.zero_le k) hk
+      rw [show m + (n + 1) = (m + n) + 1 from rfl, convPow_succ,
+          conv_congr p k hp (fun i hi => convPow_add p f m n hi) (fun _ _ => rfl)]
+      exact conv_assoc p (convPow p f m) (convPow p f n) f hk
+
+/-- ★★★★ **The convolution power respects multiplication** — `f^{⋆(a·b)}(k) = (f^{⋆a})^{⋆b}(k)` for
+    `k < p`.  Induction on `b` via `convPow_add` (`a·(b+1) = a·b + a`).  Lets a `⋆`-power be regrouped:
+    `g^{⋆(3s)} = (g^{⋆3})^{⋆s}`, the basis of computing `g^{⋆N}` through the cube `g^{⋆3} = J·Yfun`.
+    ∅-axiom. -/
+theorem convPow_mul (p : Nat) (f : Nat → ZOmega) (a : Nat) :
+    ∀ (b : Nat) {k : Nat}, k < p → convPow p f (a * b) k = convPow p (convPow p f a) b k
+  | 0, k, _ => by rw [Nat.mul_zero]; rfl
+  | b + 1, k, hk => by
+      have hp : 0 < p := Nat.lt_of_le_of_lt (Nat.zero_le k) hk
+      rw [Nat.mul_succ, convPow_add p f (a * b) a hk, convPow_succ]
+      exact conv_congr p k hp (fun i hi => convPow_mul p f a b hi) (fun _ _ => rfl)
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinConvPow
