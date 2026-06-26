@@ -31,6 +31,7 @@ open E213.Lib.Math.NumberTheory.EulerTheorem (aInv aInv_spec)
 open E213.Lib.Math.NumberTheory.ModArith.CubicCharFp (cubicChar)
 open E213.Tactic.NatHelper (gcd213)
 open E213.Meta.Nat.MulMod213 (mul_mod_right_pure)
+open E213.Meta.Nat.AddMod213 (add_mod_left)
 
 /-- ★★ **`χ_ω(1) = 1`** (for `1 < p`): `1 % p = 1 ≠ 0` and `cubicChar(1) = 1^m % p = 1`. -/
 theorem chiOmega_one {p m x : Nat} (hp : 1 < p) : chiOmega p m x 1 = ofInt 1 := by
@@ -75,5 +76,12 @@ theorem chiOmega_div {d : ZOmega} {p m x b c : Nat} (hp : 1 < p) (hp3 : 3 < p)
   -- assemble:  χ_ω(b)·conj χ_ω(c) = χ_ω(b)·χ_ω(c⁻¹) = χ_ω((b·c⁻¹)%p)
   rw [← hinv, chiOmega_mul hp hp3 hpr h3m hdn hω hx hb1 hblt hcIpos hcIlt,
       ← mul_mod_right_pure b (aInv c p) p]
+
+/-- ★★ **`(v+1)·w ≡ 1 + w (mod p)`** when `v·w ≡ 1` — the ratio `(v+1)/v = 1 + 1/v` at the index
+    level.  `(v+1)·w = v·w + w ≡ 1 + w`.  The per-term step turning `χ_ω(u/(u−1))` into
+    `χ_ω(1 + (u−1)⁻¹)` for the off-diagonal `C = −1`.  ∅-axiom. -/
+theorem mul_succ_inv {v w p : Nat} (hp : 0 < p) (h : (v * w) % p = 1 % p) :
+    ((v + 1) * w) % p = (1 + w) % p := by
+  rw [Nat.succ_mul, add_mod_left hp (v * w) w, h, ← add_mod_left hp 1 w]
 
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCharDiv
