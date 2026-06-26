@@ -23,7 +23,7 @@ open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega (ZOmega)
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.ZOmega.ZOmega
 open E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinFiniteSum
   (sumRange sum_add sum_mul_left sum_congr)
-open E213.Meta.Algebra213.Ring213 (mul_add)
+open E213.Meta.Algebra213.Ring213 (mul_add add_mul)
 
 /-- Convolution in the group ring `R[C_p]`: `(f ⋆ g)(k) = Σ_{i<p} f(i)·g((k − i) mod p)`.
     (`(k + p − i) % p = (k − i) mod p` for `i < p ≤ k + p`, stays in `ℕ`.) -/
@@ -39,6 +39,17 @@ theorem conv_add_right (p : Nat) (f g h : Nat → ZOmega) (k : Nat) :
        + sumRange (fun i => f i * h ((k + p - i) % p)) p
   rw [← sum_add]
   exact sum_congr p (fun i _ => mul_add (f i) (g ((k + p - i) % p)) (h ((k + p - i) % p)))
+
+/-- ★★★ **Left-additivity of convolution** — `(f + g) ⋆ h = f ⋆ h + g ⋆ h` (coefficientwise).
+    `add_mul` termwise, then `sum_add`.  The sibling of `conv_add_right`; together they give the
+    bilinearity used to expand `(A+B) ⋆ (A+B)` in the norm identity `N ⋆ N = p · N`. -/
+theorem conv_add_left (p : Nat) (f g h : Nat → ZOmega) (k : Nat) :
+    conv p (fun i => f i + g i) h k = conv p f h k + conv p g h k := by
+  show sumRange (fun i => (f i + g i) * h ((k + p - i) % p)) p
+     = sumRange (fun i => f i * h ((k + p - i) % p)) p
+       + sumRange (fun i => g i * h ((k + p - i) % p)) p
+  rw [← sum_add]
+  exact sum_congr p (fun i _ => add_mul (f i) (g i) (h ((k + p - i) % p)))
 
 /-- ★★★ **Left scalar pull** — `(c · f) ⋆ g = c · (f ⋆ g)` (coefficientwise).  `mul_assoc` termwise,
     then `sum_mul_left`. -/
