@@ -114,7 +114,7 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
     6. **`N(J)=p`** then `J=π` (A4); the law `(π/π')₃=(π'/π)₃` + transfer.
 - **A4.** `J` primary normalisation → `J = π`.
 
-### Phase B — the cubic law  *(open; scoped in `frontiers/cubic_reciprocity_law.md`)*
+### Phase B — the cubic law  *(CLOSED — `theory/math/numbertheory/cubic_reciprocity.md`; notes archived to `archive/cubic_reciprocity/`)*
 - **The cubic residue symbol `χ_d(α)=α^m` is COMPLETE** (μ₃-valued `cubic_char_value`, multiplicative
   `char_mul`, Euler both ways `cubic_residue_char_one`/`char_one_implies_cube`).
 - `(π/π')₃ = (π'/π)₃` from `J=π` (`jacobi_primary`, DONE) + the **Gauss-sum-mod-`q`** argument: `g(χ)³=p·J`
@@ -137,5 +137,16 @@ differing only in the value group `μ_n` and the carrier (`ℤ[ω]` vs `ℤ[i]`)
 - **A2 DONE** — the Jacobi sum `jacobiSum` as a concrete `sumRange` over `ℤ[ω]`
   (`EisensteinJacobiSum`).
 - **A3 `N(J)=p` COMPLETE** (∅-axiom, `EisensteinJacobiNormLaw.jacobi_norm`) — see A3 entry above.
-- **Next concrete step: A4** — `J` primary normalisation → `J = π` (the Jacobi sum is, up to the
-  primary unit, the prime `π` above `p`).  Then Phase B — the cubic law `(π/π')₃=(π'/π)₃` + transfer.
+- **A4 COMPLETE** — `J` primary normalisation `J = π` (`EisensteinJacobiPrimary.jacobi_primary`).
+- **Phase B — the cubic law `(π/π')₃ = (π'/π)₃` — COMPLETE (both cases, ∅-axiom).**  Promoted to
+  `theory/math/numbertheory/cubic_reciprocity.md`; capstones
+  `EisensteinCubicReciprocity.cubic_reciprocity_law` (inert) +
+  `EisensteinCubicReciprocitySplit.split_cubic_reciprocity` (split).
+
+### Open (cubic residue) — the residual extensions, not yet built
+- **Supplementary laws**: the residue symbols of the units `ω` and `1−ω` (the analogue of the quadratic
+  `(−1/p)`, `(2/p)` supplements).
+- **Uniform statement** spanning the inert + split cases as one theorem.
+- **Hypothesis reduction**: derive the explicit primary / coprimality / `¬ p∣pr` hypotheses of
+  `split_cubic_reciprocity` from primality alone.
+These home the "Open frontier" section of `theory/math/numbertheory/cubic_reciprocity.md`.

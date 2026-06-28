@@ -126,12 +126,14 @@ residue fields, are the *same* `μ₃` element.
 | **`split_cubic_reciprocity`** | `EisensteinCubicReciprocitySplit` | **split: `(π/π')₃ = (π'/π)₃`** |
 | `split_cubic_reciprocity_symbol` | `EisensteinCubicReciprocitySplit` | one common `μ₃` value `V` is both symbols |
 
-## Research-note provenance
+## Provenance
 
-- `research-notes/frontiers/cubic_reciprocity_law.md` — the working frontier through the inert finish.
-- `research-notes/frontiers/cubic_reciprocity_synthesis_from_IR.md` — the extracted Ireland–Rosen /
-  Xu REU argument, **with the corrected conjugate-law identity** and the closing derivation that this
-  chapter formalizes.
+The arc was developed as a frontier (now closed and archived): the inert finish, then the split-prime
+both-halves build, then the cross-modulus synthesis.  The synthesis follows Ireland–Rosen ch. 9 / the
+Xu REU 2021 §4 exposition — **with the conjugate-law identity corrected** (the source's
+`χ_π(ᾱ) = conj χ_π(α)` is garbled; the honest identity `χ_{conj d}(conj α) = conj(χ_d(α))` is
+`conj_modEq`).  The full closing derivation that this chapter formalizes is reproduced in the
+"Narrative" section above.
 
 ## Open frontier
 

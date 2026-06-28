@@ -57,9 +57,10 @@ These are the **first non-trivial witnesses** for the
 
   **Cubic / Eisenstein reciprocity — the cubic character `(·/d)₃ = α^m`** (`d` a norm-`p` prime,
   `p ≡ 1 mod 3`, `m = (p−1)/3`).  Complete cubic-character theory + Jacobi-sum substrate.  The
-  reciprocity *law* is largely built: the **inert law is complete** (`(π/q)₃ = χ(q)` for rational
-  `q ≡ 2 mod 3`) and the **split-split law has both halves** built; only the cross-modulus synthesis
-  is open (`research-notes/frontiers/cubic_reciprocity_law.md`).
+  reciprocity *law* is **complete** (both cases, ∅-axiom): the **inert law** `(π/q)₃ = χ(q)` for
+  rational `q ≡ 2 mod 3` (`EisensteinCubicReciprocity.cubic_reciprocity_law`) and the **split law**
+  `(π/π')₃ = (π'/π)₃` for two complex primes (`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`).
+  Narrative: `theory/math/numbertheory/cubic_reciprocity.md`.
   - `CubeRootsOfUnity.lean` — value group `μ₃ = {1,ω,ω²}` (`x³=1 ⟺ x∈μ₃`)
   - `EisensteinCongruence.lean` / `EisensteinResidue.lean` / `EisensteinResiduePrime.lean` —
     `α≡β (mod π)`, the reduction `ℤ[ω]/(d)=ℤ`-image, the residue prime for `p≡1 mod 3`

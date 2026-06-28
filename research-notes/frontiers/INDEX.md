@@ -253,17 +253,14 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
-- `cubic_reciprocity_law` (+ roadmap `higher_reciprocity_roadmap`) — **the cubic / Eisenstein
-  reciprocity law `(π/π')₃ = (π'/π)₃`.**  Phase A **CLOSED** ∅-axiom (the cubic character on `𝔽_p`,
-  the Jacobi sum, `N(J)=p` `EisensteinJacobiNormLaw.jacobi_norm`, `J` prime, `p=J·J̄`, the primary
-  normalisation `J=π`).  Phase B **in progress**: the law's Frobenius engine — `g(χ)³=p·J`
-  (`EisensteinGaussCube`), the mod-`q` subsystem (`BinomPrime.prime_dvd_binom`, the `ℤ[ω]` +
-  group-ring binomial theorems / freshman's dreams `EisensteinBinomial`/`EisensteinConvBinomial`/
-  `EisensteinConvFreshman`, basis convolution `EisensteinConvBasis`).  **Open**: assemble the
-  Frobenius congruence `g^{⋆q} ≡ χ̄(q)·g (mod q)` (`χ(t)^q=χ̄(t)` + the `tq`-reindex), then compare
-  `g^N` two ways for the law.  Status tracker = `cubic_reciprocity_law.md`; cross-domain links to the
-  main corpus (convolution algebra, Frobenius crux, two-squares norm, discrete-log ladder) in
-  `cubic_reciprocity_crossdomain.md`.
+- `cubic_reciprocity` — **CLOSED ∅-axiom (both cases), promoted.**  The cubic reciprocity law is
+  complete: inert `(π/q)₃ = χ(q)` (`EisensteinCubicReciprocity.cubic_reciprocity_law`) and split
+  `(π/π')₃ = (π'/π)₃` (`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`).  Narrative:
+  `theory/math/numbertheory/cubic_reciprocity.md` (+ foundations `cubic_residue_and_jacobi_sum.md`).
+  Working notes archived to `archive/cubic_reciprocity/`.  Cross-domain links to the main corpus
+  (convolution algebra, Frobenius crux, two-squares norm, discrete-log ladder) remain live in
+  `cubic_reciprocity_crossdomain.md`; the `higher_reciprocity_roadmap` (quartic / Eisenstein-reciprocity
+  next steps) stays open.
 - `foundations_corpus_crossdomain` — **5 cross-domain insights** linking this branch's foundational
   layer to the discipline corpus: the one-diagonal under the König/omniscience family; the descent leg
   re-rooting the number-theory marathon over `Nat213`; the schema as the CRT-LensIso/incidence-Fubini
