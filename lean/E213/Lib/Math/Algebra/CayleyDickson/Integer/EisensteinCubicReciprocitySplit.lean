@@ -236,4 +236,53 @@ theorem split_cubic_reciprocity {d d₂ : ZOmega} {p m x pr m₂ x₂ : Nat}
     combine_relation hp3 hdn hEμ3 hCμ3 hSμ3 hrelB hcnm₂ hSdef
   exact mu3_reciprocity_algebra hAμ3 hSμ3 hCμ3 hEμ3 hI hII
 
+/-- ★★★★★ **CUBIC RECIPROCITY — the split case, self-contained symbol form.**  There is a **single** cube
+    root of unity `V` that is **simultaneously** both residue symbols:
+
+      `(J/J₂)₃ ≡ V (mod d₂)`   and   `(J₂/J)₃ ≡ V (mod d)`,
+
+    i.e. `J^{m₂} ≡ V (mod d₂)` and `J₂^{m} ≡ V (mod d)` for the same `V ∈ {1, ω, ω²}`.  This is the
+    cleanest statement of `(J/J₂)₃ = (J₂/J)₃`: the two symbols, living in the two different residue fields
+    `𝔽_p = ℤ[ω]/(d)` and `𝔽_{pr} = ℤ[ω]/(d₂)`, are the *same* μ₃ element.  The symbols are produced
+    internally (`split_residue_symbol_exists{,_B}`) and identified by `split_cubic_reciprocity`.
+    ∅-axiom (PURE). -/
+theorem split_cubic_reciprocity_symbol {d d₂ : ZOmega} {p m x pr m₂ x₂ : Nat}
+    (hp : 1 < p) (hp3 : 3 < p) (hpr : ∀ k, k ∣ p → k = 1 ∨ k = p) (h3m : 3 * m = p - 1) (hm1 : 1 ≤ m)
+    (hp3mod : p % 3 = 1) (hdn : d.normSq = (p : Int)) (hω : ModEq d Omega (ofInt ((x : Nat) : Int)))
+    (hx : p ∣ (x * x + x + 1))
+    (hpr1 : 1 < pr) (hpr3 : 3 < pr) (hprr : ∀ k, k ∣ pr → k = 1 ∨ k = pr) (h3m₂ : 3 * m₂ = pr - 1)
+    (hm1₂ : 1 ≤ m₂) (hpr3mod : pr % 3 = 1) (hdn₂ : d₂.normSq = (pr : Int))
+    (hω₂ : ModEq d₂ Omega (ofInt ((x₂ : Nat) : Int))) (hx₂ : pr ∣ (x₂ * x₂ + x₂ + 1))
+    (hcopA : gcd213 pr p = 1) (hcopB : gcd213 p pr = 1) (hnppr : ¬ p ∣ pr) (hnprp : ¬ pr ∣ p) :
+    ∃ V, (V = ofInt 1 ∨ V = Omega ∨ V = Omega2)
+      ∧ ModEq d₂ (pow (jacobiSum p m x) m₂) V
+      ∧ ModEq d (pow (jacobiSum pr m₂ x₂) m) V := by
+  have hne : p ≠ pr := fun h => hnprp ⟨1, by rw [h]; exact (Nat.mul_one pr).symm⟩
+  have hprne : pr ≠ p := fun h => hnppr ⟨1, by rw [h]; exact (Nat.mul_one p).symm⟩
+  have hmB₂ : (m₂ - 1) + 1 = m₂ := sub_add_cancel hm1₂
+  have hsA : pr = 3 * ((m₂ - 1) + 1) + 1 := by
+    rw [hmB₂, h3m₂, sub_add_cancel (Nat.le_of_lt hpr1)]
+  -- (J/J₂)₃ as a literal A
+  have hAex : ∃ A, (A = ofInt 1 ∨ A = Omega ∨ A = Omega2) ∧ ModEq d₂ (pow (jacobiSum p m x) m₂) A := by
+    have h := split_residue_symbol_exists (d := d) (p := p) (m := m) (x := x) (pr := pr)
+      (s := m₂ - 1) (π' := d₂) (x' := ((x₂ : Nat) : Int))
+      hp hp3 hpr h3m hm1 hdn hω hx hprr hpr1 hprne hdn₂ hω₂ hsA
+    rw [hmB₂] at h
+    rcases h with h | h | h
+    · exact ⟨ofInt 1, Or.inl rfl, h⟩
+    · exact ⟨Omega, Or.inr (Or.inl rfl), h⟩
+    · exact ⟨Omega2, Or.inr (Or.inr rfl), h⟩
+  -- (J₂/J)₃ as a literal S
+  have hSex : ∃ S, (S = ofInt 1 ∨ S = Omega ∨ S = Omega2) ∧ ModEq d (pow (jacobiSum pr m₂ x₂) m) S := by
+    rcases split_residue_symbol_exists_B hp hpr h3m hm1 hdn hω hpr1 hpr3 hprr h3m₂ hm1₂ hdn₂ hω₂ hx₂ hne
+      with h | h | h
+    · exact ⟨ofInt 1, Or.inl rfl, h⟩
+    · exact ⟨Omega, Or.inr (Or.inl rfl), h⟩
+    · exact ⟨Omega2, Or.inr (Or.inr rfl), h⟩
+  obtain ⟨A, hAμ3, hAdef⟩ := hAex
+  obtain ⟨S, hSμ3, hSdef⟩ := hSex
+  have hAS : A = S := split_cubic_reciprocity hp hp3 hpr h3m hm1 hp3mod hdn hω hx hpr1 hpr3 hprr h3m₂
+    hm1₂ hpr3mod hdn₂ hω₂ hx₂ hcopA hcopB hnppr hnprp hAμ3 hAdef hSμ3 hSdef
+  exact ⟨A, hAμ3, hAdef, hAS ▸ hSdef⟩
+
 end E213.Lib.Math.Algebra.CayleyDickson.Integer.EisensteinCubicReciprocitySplit
