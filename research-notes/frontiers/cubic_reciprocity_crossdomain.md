@@ -61,8 +61,59 @@ shares the discrete-log-mod-`k`-class skeleton.
 **Actionable:** the `three_mul_dvd_iff` / `two_mul_dvd_iff` pair is one lemma at general `k` — a
 `kth_power_iff_k_dvd_dlog` would serve every higher-reciprocity character at once.
 
+## Phase B (the cross-modulus synthesis, now closed) — three more
+
+## 6. The μ₃ lift **is** residue separation by a coprime modulus — the count-Lens distinguishability dial
+
+`EisensteinMu3Lift.mu3_eq_of_modEq_pi`: two distinct cube roots of unity differ by an element of norm
+**3** (`‖ω−1‖²=‖ω²−1‖²=‖ω²−ω‖²=3`), so any prime `π` of norm coprime to 3 keeps them distinct mod `π` —
+a μ₃ *congruence* is forced to be an *equality*.  This is the **same** structure as the quadratic μ₂
+lift (distinct square roots differ by `2·unit`, separated by odd moduli) and, generically, as CRT
+residue separation: a finite value group `μ_k` injects into `ℤ[ω]/(π)` exactly when `N(π)` is coprime to
+the discriminant of the value group's difference set.  213-native: the modulus is a **resolution**, and
+"coprime to 3" means the resolution is fine enough to *distinguish* the three roots —
+`distinguishability_is_the_one_dial` at the value-group scale (the dual of the +-atom indistinguishability
+that collapses the *interior* counts in #2/#3).
+**Actionable:** one `muK_eq_of_modEq` lemma at general `k` — value group `μ_k`, difference-set
+discriminant `k` (resp. its odd part), separated by any modulus coprime to it — subsumes the μ₂ (Legendre)
+and μ₃ lifts and every higher one.
+
+## 7. The conjugate-modulus flip **is** the involution/Galois readout — Cayley–Dickson conjugation, Hodge ⋆⋆
+
+`EisensteinConjModEq.conj_modEq`: `A ≡ B (mod d) ⟹ conj A ≡ conj B (mod conj d)` — conjugation carries a
+congruence to the **conjugate** modulus; it does *not* fix the modulus.  This is the nontrivial element of
+`Gal(ℚ(ω)/ℚ)` permuting the two primes `π ↔ π̄` above `p`, and the load-bearing correction of the whole
+synthesis: a split prime's residue field `ℤ[ω]/(π') ≅ 𝔽_{p'}` is the **prime** field, which has *no*
+nontrivial automorphism — so conjugation must *leave* it (`ℤ[ω]/(π') → ℤ[ω]/(π̄')`), which is why the
+source's "conjugate law" `χ_π(ᾱ)=conj χ_π(α)` is false and the honest law flips the modulus.  The same
+involution `conj` is the **Cayley–Dickson conjugate** (`ZOmega.conj`, the disc−3 floor of the CD tower
+`math/cayley_dickson/`) and the abstract sibling of the **Hodge ⋆⋆=id** involution
+(`cohomology/hodge.md`): an involution on an ambient ring need not descend to a quotient — when it does
+(inert `q`: conj = the `q`-Frobenius of `𝔽_{q²}`) vs when it cannot (split `π'`: conj exits the field) is
+exactly the inert/split dichotomy.
+**Actionable:** state "an ambient involution descends to `R/(d)` iff `d` is `conj`-stable (associate of
+`conj d`)"; the inert/split cases of cubic reciprocity are the two branches, mirroring the
+ramified/split/inert trichotomy of `eisenstein_period_arithmetic.md`.
+
+## 8. Reciprocity collapses to a **finite abelian-group identity** — algebraic priority over continuity
+
+`EisensteinCubicReciprocitySplit.mu3_reciprocity_algebra`: the entire split law reduces to a `3⁴`-case
+identity in the group `μ₃` (`C=conj E·A² ∧ E=conj C·S² ⟹ A=S`, proven by `decide`).  No analysis, no
+limit — a finite check, the **algebraic-priority** thesis (`CLAUDE.md`: DRLT results come from counting,
+not continuous variation) made literal: a "deep" reciprocity law *is* a finite-group fact.  Same shape as
+**Zolotarev** (quadratic reciprocity = a permutation **sign**, `zolotarev.md`) — both reduce reciprocity
+to a finite-group invariant (sign in `S_n` / element of `μ₃`), forced by a **symmetry** of a paired
+construction (the swap `π ↔ π'` gives the two relations whose symmetric solution is `A=S`).  The
+Gauss-sum → Jacobi-sum → finite-`μ₃`-cancellation pipeline is the disc−3 instance of "transcendental-looking
+sum, finite-group answer."
+**Actionable:** the reciprocity symmetry is a fixed point of the prime-swap involution on the pair of
+relations; a general "symmetric pair of `μ_k` relations ⟹ equal symbols" closer would serve cubic, and
+(with `μ₄`) quartic, reciprocity.
+
 ---
 
 *Status: open cross-domain board.  None of these is a Lean theorem yet; each is a refactor/unification
-target.  The strongest convergence is #1 (one convolution algebra) and #2+#3 (one Frobenius crux,
-`prime_dvd_binom`, serving p-adic, cubic, and prime-counting deployments).*
+target.  Phase-A convergences: #1 (one convolution algebra), #2+#3 (one Frobenius crux `prime_dvd_binom`
+serving p-adic, cubic, prime-counting).  Phase-B convergences: #6 (one `μ_k` separation lemma), #7 (the
+involution-descends-iff-modulus-stable dichotomy = inert/split), #8 (reciprocity = a finite-group
+invariant, shared with Zolotarev's sign).*
