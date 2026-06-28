@@ -161,11 +161,15 @@ false); the honest derivation — corrected & verified — is in
 9. **B2q** `split_cubic_reciprocity` — the capstone (+ `chiOmega_unit_value_gen`, `combine_relation`,
    `mu3_conj`, `mu3_mul`).
 
-### Promotion candidate
-The whole cubic-reciprocity arc (inert `cubic_reciprocity_law` + split `split_cubic_reciprocity` + the
-Gauss-sum/Jacobi-sum Frobenius infrastructure) now **closes the frontier** and is a strong promotion
-candidate to `theory/` (`theory/PROMOTION_CRITERIA.md` H1–H4 + S1–S3).  Next session: assess promotion,
-write the narrative chapter, archive the `research-notes/frontiers/cubic_reciprocity_*` scratch.
+### Promoted to `theory/` (DONE)
+The cubic-reciprocity arc is **promoted**: `theory/math/numbertheory/cubic_reciprocity.md` (new chapter,
+both cases, ∅-axiom, full synthesis narrative + key-results table).  `cubic_residue_and_jacobi_sum.md`
+(foundations) status + open-frontier updated to point at the closed law; frontier notes
+`cubic_reciprocity_law.md` / `cubic_reciprocity_synthesis_from_IR.md` marked CLOSED; `theory/math/INDEX.md`
+numbertheory listing updated.  `split_cubic_reciprocity_symbol` (self-contained "single common μ₃ value"
+form) added (B2r).  Remaining tidy (optional, next session): the formal `process`-skill archive of the
+closed frontier notes to `research-notes/archive/`; STRICT_ZERO_AXIOM.md does not currently catalog the
+Eisenstein cluster (pre-existing — neither did the foundations chapter).
 
 ### (historical) the path, now closed
 **The combination closes — proven by Lean.**  The full derivation was worked out and the closing
