@@ -1,5 +1,10 @@
 # The cubic-reciprocity cross-modulus synthesis — extracted proof (Ireland–Rosen ch. 9 / Xu REU 2021)
 
+**Status: CLOSED** — the synthesis is formalized (`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`,
+∅-axiom) and promoted to `theory/math/numbertheory/cubic_reciprocity.md`.  The corrected combination
+derivation below (the source's "conjugate law" was garbled) is what the Lean capstone implements.
+
+
 Source: Nancy Xu, "Reciprocity Laws", UChicago REU 2021 §4 (follows Ireland–Rosen ch. 9).
 Found via deep research (no existing proof-assistant formalization of cubic reciprocity exists —
 Mathlib has Jacobi/Gauss-sum infrastructure + quadratic reciprocity only).

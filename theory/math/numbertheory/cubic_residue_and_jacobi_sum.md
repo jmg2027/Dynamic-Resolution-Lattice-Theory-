@@ -1,8 +1,8 @@
 # The cubic residue symbol and the Jacobi-sum norm law `N(J) = p`
 
 **Status**: Closed core (the cubic character `(·/π)₃` on `ℤ[ω]` + the Jacobi sum `J(χ,χ)` +
-`N(J) = p` + the primary normalisation `J = π`), with a recorded open frontier (the cubic
-reciprocity *law* itself, still open).  ∅-axiom; the
+`N(J) = p` + the primary normalisation `J = π`).  The reciprocity **law** built on this foundation is
+now also closed — see `cubic_reciprocity.md` (both inert and split cases, strict ∅-axiom).  ∅-axiom; the
 arithmetic core is PURE, a few capstones carry only `propext` (Lean-4 kernel base) from ℕ↔ℤ cast /
 divisibility-`decide` bookkeeping.
 
@@ -99,16 +99,18 @@ normalises with.
 | `EisensteinCubicWeld.char_one_iff_rational` | `(α/d)₃ = 1 ⟺ p ∣ (r^m − 1)` |
 | `EisensteinGaussSqZero.gauss_sq_full` | `g(χ)² = J·g(χ²)` (group ring) |
 
-## Open frontier
+## Reciprocity law — now closed
 
-The **cubic reciprocity law `(π/π')₃ = (π'/π)₃`** itself is open.  The
-Gauss-sum cube `g(χ)³ = p·J` is done (`EisensteinGaussCube.gauss_cube`, PURE), and the **Frobenius
-engine** — the mod-`q` subsystem — is built coefficient-wise in `R[C_p]`: `q ∣ binom q t`
-(`BinomPrime.prime_dvd_binom`), the `ℤ[ω]` and group-ring binomial theorems and freshman's dreams
-(`EisensteinBinomial`, `EisensteinConvBinomial`, `EisensteinFreshman`, `EisensteinConvFreshman`), and
-the basis convolution `e_t^{⋆q} = e_{tq%p}` (`EisensteinConvBasis`).  What remains: assemble the
-Frobenius congruence `g(χ)^{⋆q} ≡ χ̄(q)·g(χ) (mod q)` (`χ(t)^q = χ̄(t)` + the `tq`-reindex), then
-compare `g^N` two ways to land the law.
+The **cubic reciprocity law** built on this foundation is **closed** (both cases, strict ∅-axiom) and
+documented in the sibling chapter `cubic_reciprocity.md`:
+
+- inert `q ≡ 2 (mod 3)`: `(π/q)₃ = χ(q) = (q/π)₃` (`EisensteinCubicReciprocity.cubic_reciprocity_law`);
+- split `π, π'` both complex: `(π/π')₃ = (π'/π)₃` (`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`).
+
+The Gauss-sum cube `g(χ)³ = p·J` (`EisensteinGaussCube.gauss_cube`) and the Frobenius engine in `R[C_p]`
+(`EisensteinConvBasis` basis convolution, the binomial/freshman machinery) are the shared engine; the
+split case adds the cross-modulus synthesis (two symmetric Gauss-sum computations + a finite `μ₃`
+cancellation).  See `cubic_reciprocity.md` for the full account.
 
 ## How to verify
 

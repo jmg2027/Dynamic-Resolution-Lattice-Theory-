@@ -1,6 +1,11 @@
 # Frontier — the cubic reciprocity law `(π/π')₃ = (π'/π)₃` (Phase B)
 
-**Status:** the **inert law `(π/q)₃ = χ(q)` is COMPLETE** (∅-axiom, PURE,
+**Status: CLOSED** — both cases of the law are complete and PURE.  Promoted to
+`theory/math/numbertheory/cubic_reciprocity.md`.  This note is retained as the working frontier record
+(the cross-modulus synthesis below was the final step closed; capstone
+`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`).
+
+Historical summary: the **inert law `(π/q)₃ = χ(q)` is COMPLETE** (∅-axiom, PURE,
 `EisensteinCubicReciprocity.cubic_reciprocity_law`, `q` a rational prime `≡ 2 mod 3`), and the
 **split-split law has BOTH HALVES built** (PURE):
 - **mod `π'`**: `J̄^{s+1} ≡ χ̄(pr)·J^{s+1}` (`EisensteinSplitResidueSymbol.split_conj_residue_relation`),
