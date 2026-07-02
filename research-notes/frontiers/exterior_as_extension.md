@@ -231,12 +231,25 @@ never returns "0" has become a shield (§3, guard 3).
 
 ## §6 Pre-registered validation targets (V-series)
 
-  - **V1 (should progress)** — ζ(3) numerator integrality (`zeta3_wz/numerator_plan.md`,
-    the "no clean WZ certificate" wall).  P1–P2: decide whether the certifiability wall
-    is a genuine `0` or a P4-style interface defect (an existential consumed as data —
-    the same shape as Banach).  P3 candidate: reify the harmonic-kernel telescoping
-    certificate as a data-type.  A progress-or-sharp-verdict outcome within a few
-    sessions falsifiably tests the method.
+  - **V1 (should progress)** — ζ(3) numerator integrality — **EXECUTED, first round:
+    PROGRESS (verdict `∅`, not `0`), the method's prediction confirmed.**
+    P1: the wall localized as `ReachedByNoStage` over the *`b`-only certificate
+    language* `{rational(j,k)·b(j,k)}` (the plan's "no clean WZ certificate", re-read
+    as a **P6′ cap** for that family).  P2 verdict: **`∅` (absent extension), not `0`**
+    — because P3's probe found the reified carrier: the harmonic-kernel coefficient
+    `c(n,k)` has BOTH increments collapsing to rational multiples of the half-weight
+    carrier `√b = C(n,k)C(n+k,k)` (exact, all `n < 20`,
+    `zeta3_wz/verify_c_increments.py`): `Δₙc = (−1)^k·w/(n²(n−k))`,
+    `Δₖc = (−1)^{k−1}·w/(2k³)`, `w = 1/√b`.  The harmonic "mess" was the summation
+    *presentation*; as a difference-object `c` is finite rational data over `(b, √b)`.
+    Bonus: `k=0` of the cross-`n` law gives `1/n³` — one law unifies the plan's H₃/K
+    split (a strategic simplification of the marathon).  P4: the extension is
+    definitional (an ℕ-carrier + two binomial identities), no axiom.  **Remaining**
+    (the next round): the explicit certificate in `span{rational·b·c, rational·√b}`
+    (the naive one-term correction is messy — needs the multi-shift ansatz or the
+    classical hand derivation), then the ∅-axiom formalization of the two collapsing
+    laws (both `ring_nat`-shaped after clearing).  Updated:
+    `zeta3_wz/numerator_plan.md` §"RE-READ".
   - **V2 (should terminate at a wall-verdict)** — RH.  The method *predicts* P2 lands on
     `0` (signed cancellation has no count-Lens witness).  The honest output is a
     sharpened localization, not progress.  **If the protocol claims progress on RH, that

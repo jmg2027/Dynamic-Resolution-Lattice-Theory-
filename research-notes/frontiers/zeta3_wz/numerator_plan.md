@@ -40,7 +40,36 @@ Then `(n!)³A` satisfies the orbit recurrence (seeds `0,6`) ⟹ `zeta3Num=(n!)³
     **`heart_lcm`** (DONE).  Signs ⟹ pos/neg Nat split.  This is the Brick-2 §4
     ÷-free assembly (~400–600 lines).
 
-## ★ KEY FINDING — no clean WZ certificate
+## ★★ RE-READ (2026-07-02, extension-protocol V1 probe) — the wall is a CAP, and the language is named
+
+The KEY FINDING below ("no clean WZ certificate") is re-read by the extension protocol
+(`frontiers/exterior_as_extension.md` §5): it is a **cap for the `b`-only certificate
+language** `{rational(j,k)·b(j,k)}`, not a wall for the problem.  Verified exactly
+(`verify_c_increments.py`, Fractions, all `n < 20`):
+
+> **The c-increment collapsing laws.**  With the half-weight carrier
+> `w(n,k) = 1/(C(n,k)C(n+k,k))` (so `b·w = C(n,k)C(n+k,k) = √b`, an *integer*):
+>   (1) `c(n,k) − c(n−1,k) = (−1)^k · w(n,k) / (n²(n−k))`   (cross-`n` — THE collapse)
+>   (2) `c(n,k) − c(n,k−1) = (−1)^{k−1} · w(n,k) / (2k³)`   (cross-`k` — definitional)
+
+Consequences:
+  * **One law, both parts.**  `k=0` in (1) gives `1/n³` — the single increment law
+    covers the harmonic (`H₃`) and kernel (`κ`) parts *together*.  The H₃/K split of
+    this plan is a presentation choice, not a necessity: the A-recurrence can be
+    attacked directly on `Σ_k b(n,k)·c(n,k)` via Abel summation + (1)+(2), everything
+    rational over the carrier pair `(b, √b)`.
+  * **The certificate lives one language up.**  `F_A`'s c-difference terms are
+    `b·(rational·w) = rational·√b`; so the A/K certificate search belongs to
+    `span{rational·b·c, rational·√b}` — where Δ-calculus is fully rational.  (Checked:
+    the *naive* one-term correction `G_A = G_B·c(j,k) + √b·t` leaves `t` messy — the
+    extended certificate needs the multi-shift ansatz or the hand derivation; the
+    *language* is confirmed, the certificate is the next step.)
+  * **Formalization targets (both in reach of the existing `colrec`/`Wfac` machinery):**
+    (i) law (2) cleared — a binomial identity; (ii) law (1) cleared — the collapsing
+    lemma as a pure factorial/binomial identity (`ring_nat`-shaped after clearing);
+    then (iii) the Abel assembly of the A-recurrence over `(b, √b, c)`.
+
+## ★ KEY FINDING — no clean WZ certificate (re-read above: a cap for the b-only language)
 
 Unlike the denominator (clean `Ĝ(j,k)=−4k⁴(2j+3)(…)C(j+2,k)²C(j+k,k)²`), the
 numerator/kernel certificates `cert_A`, `cert_K` are **harmonic-kernel-laden**
