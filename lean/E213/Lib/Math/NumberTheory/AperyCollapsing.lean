@@ -43,8 +43,9 @@ All zero-axiom.
 namespace E213.Lib.Math.NumberTheory.AperyCollapsing
 
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose choose_succ_mul
-  choose_zero_right)
-open E213.Lib.Math.NumberTheory.AperyRecurrence (colrec lowrec)
+  choose_zero_right choose_self choose_one_right choose_symm_sum)
+open E213.Lib.Math.NumberTheory.AperyRecurrence (colrec lowrec colA colB colC colC1
+  G1a G1b aperyLead aperyLead_prod)
 open E213.Tactic.NatHelper (add_sub_of_le add_sub_cancel_right)
 
 /-- **The half-weight carrier** `√b(n,k) = C(n,k)·C(n+k,k)` — the integer whose
@@ -194,8 +195,8 @@ theorem b_weld_mid (n m : Nat) :
 
 /-- ★★★ **The `b`-welds, bundled** — the cleared ℕ-forms of the numerator
     residual's pieces 1–3, each a `sqw_shift_n` corollary.  Together with
-    `sqw_shift_k` (piece 4's `(k+1)`-ratio) and `AperyNumeratorWZ.rnum_reduced`
-    these are the step-(b) inputs of the round-4 assembly. -/
+    `gb_weld` (piece 4) and `AperyNumeratorWZ.rnum_reduced` these are the
+    step-(b) inputs of the round-4 assembly. -/
 theorem b_welds (n m : Nat) :
     ((n + 1 + m) * (sqw n m * sqw n m) = (n + 1 - m) * (sqw n m * sqw (n + 1) m))
     ∧ (((n + 1 + m) * (n + 2 + m)) * (sqw n m * sqw n m)
@@ -203,5 +204,173 @@ theorem b_welds (n m : Nat) :
     ∧ ((n + 2 + m) * (sqw (n + 1) m * sqw (n + 1) m)
         = (n + 2 - m) * (sqw (n + 1) m * sqw (n + 2) m)) :=
   ⟨b_weld_n1 n m, b_weld_n2 n m, b_weld_mid n m⟩
+
+/-- ★★★ **Weld for `u`-piece 4** (the `Ĝ`-piece's crossed reduction).  The
+    Abel term `−Ĝ(j,k+1)·Δₖc(j+2,k+1)` carries the three crossed binomials
+    `C(j+2,k+1)`, `C(j+k+1,k+1)²`, `C(j+k+3,k+1)`; they reduce against the
+    row-`j` carrier `√b(j,k)`:
+
+        (k+1)²(j+1−k)(j+k+2)(j+k+3) · C(j+2,k+1)·C(j+k+1,k+1)²
+          = (j+1)²(j+2)² (j+k+1) · √b(j,k)·C(j+k+3,k+1).
+
+    `G1a`+`G1b` clear the two `(k+1)`s, `colA` folds the row pair down to
+    `C(j,k)`, `colC` (at `k+1`) folds the upper pair down to `C(j+k+1,k+1)`. -/
+theorem gb_weld (j k : Nat) :
+    ((k + 1) * (k + 1)) * ((j + 1 - k) * ((j + k + 2) * (j + k + 3)))
+        * (choose (j + 2) (k + 1) * (choose (j + k + 1) (k + 1) * choose (j + k + 1) (k + 1)))
+    = ((j + 1) * (j + 1)) * (((j + 2) * (j + 2))
+        * ((j + k + 1) * (sqw j k * choose (j + k + 3) (k + 1)))) := by
+  have hG1a : (k + 1) * choose (j + 2) (k + 1) = (j + 2 - k) * choose (j + 2) k := G1a j k
+  have hG1b : (k + 1) * choose (j + k + 1) (k + 1) = (j + k + 1) * choose (j + k) k :=
+    G1b j k
+  have hcolC : (j + 1) * (j + 2) * choose (j + k + 3) (k + 1)
+      = (j + k + 2) * (j + k + 3) * choose (j + k + 1) (k + 1) := colC j (k + 1)
+  show _ = ((j + 1) * (j + 1)) * (((j + 2) * (j + 2))
+      * ((j + k + 1) * ((choose j k * choose (j + k) k) * choose (j + k + 3) (k + 1))))
+  calc ((k + 1) * (k + 1)) * ((j + 1 - k) * ((j + k + 2) * (j + k + 3)))
+          * (choose (j + 2) (k + 1) * (choose (j + k + 1) (k + 1) * choose (j + k + 1) (k + 1)))
+      = ((j + 1 - k) * ((j + k + 2) * (j + k + 3)))
+          * (((k + 1) * choose (j + 2) (k + 1))
+              * (((k + 1) * choose (j + k + 1) (k + 1)) * choose (j + k + 1) (k + 1))) := by
+        ring_nat
+    _ = ((j + 1 - k) * ((j + k + 2) * (j + k + 3)))
+          * (((j + 2 - k) * choose (j + 2) k)
+              * (((j + k + 1) * choose (j + k) k) * choose (j + k + 1) (k + 1))) := by
+        rw [hG1a, hG1b]
+    _ = ((j + k + 1) * choose (j + k) k)
+          * (((j + 1 - k) * (j + 2 - k) * choose (j + 2) k)
+              * ((j + k + 2) * (j + k + 3) * choose (j + k + 1) (k + 1))) := by
+        ring_nat
+    _ = ((j + k + 1) * choose (j + k) k)
+          * (((j + 1) * (j + 2) * choose j k)
+              * ((j + 1) * (j + 2) * choose (j + k + 3) (k + 1))) := by
+        rw [← colA, ← hcolC]
+    _ = ((j + 1) * (j + 1)) * (((j + 2) * (j + 2))
+          * ((j + k + 1) * ((choose j k * choose (j + k) k) * choose (j + k + 3) (k + 1)))) := by
+        ring_nat
+
+/-! ## §3 — the `k = j+1` boundary welds (`T1`'s two pieces)
+
+At the boundary column `k = j+1` the residual `U(j,j+1)` has exactly two
+surviving terms (`b(j,j+1) = 0`), and `T1 = U(j,j+1)·(−1)^{j+1}/√b(j,j)`
+splits as the aperyLead-piece plus the `Ĝ`-piece
+(`derive_numerator_certificate.py` R-BND block).  Each piece's evaluation is a
+cleared diagonal-binomial weld; the aperyLead-piece rides on the factorization
+`aperyLead j = (2j+3)·(17j²+51j+39)`.  Diagonal indices are written `j+j+…`
+(additive normal form). -/
+
+/-- `C(j+2,j+1) = j+2` — the near-diagonal column (symmetry + `C(n,1) = n`). -/
+theorem choose_succ_self_right (j : Nat) : choose (j + 2) (j + 1) = j + 2 := by
+  rw [choose_symm_sum (j + 2) (j + 1) 1 (by ring_nat), choose_one_right]
+
+/-- ★★ **Boundary weld, aperyLead-piece** (`aL(j)·b(j+1,j+1)·Δₙc(j+2,j+1)`):
+
+        (j+1) · aL(j) · √b(j+1,j+1)²
+          = 2(2j+1)(17j²+51j+39) · √b(j,j)·√b(j+2,j+1),
+
+    the cleared form of the piece's value `2(2j+1)(17j²+51j+39)/((j+1)(j+2)²)`
+    (·`(−1)^{j+1}√b(j,j)`).  Rides on `aperyLead j = (2j+3)(17j²+51j+39)` and
+    the diagonal steps `G1b`/`colB`/`colC1`. -/
+theorem t1_aL_weld (j : Nat) :
+    (j + 1) * (aperyLead j * (sqw (j + 1) (j + 1) * sqw (j + 1) (j + 1)))
+    = 2 * ((2 * j + 1)
+        * ((17 * (j * j) + 51 * j + 39) * (sqw j j * sqw (j + 2) (j + 1)))) := by
+  have hs1 : sqw (j + 1) (j + 1) = choose (j + j + 2) (j + 1) := by
+    show choose (j + 1) (j + 1) * choose (j + 1 + (j + 1)) (j + 1) = _
+    rw [choose_self, show j + 1 + (j + 1) = j + j + 2 from by ring_nat]
+    ring_nat
+  have hsjj : sqw j j = choose (j + j) j := by
+    show choose j j * choose (j + j) j = _
+    rw [choose_self]
+    ring_nat
+  have hs2 : sqw (j + 2) (j + 1) = (j + 2) * choose (j + j + 3) (j + 1) := by
+    show choose (j + 2) (j + 1) * choose (j + 2 + (j + 1)) (j + 1) = _
+    rw [choose_succ_self_right, show j + 2 + (j + 1) = j + j + 3 from by ring_nat]
+  have hA : (j + 1) * choose (j + 1 + j + 1) (j + 1)
+      = (j + 1 + j + 1) * choose (j + 1 + j) j := G1b (j + 1) j
+  rw [show j + 1 + j + 1 = j + j + 2 from by ring_nat,
+      show j + 1 + j = j + j + 1 from by ring_nat] at hA
+  -- hA : (j+1) · C(2j+2,j+1) = (2j+2) · C(2j+1,j)
+  have hB : (j + 1) * choose (j + j + 1) j = (j + j + 1) * choose (j + j) j := colB j j
+  have hD : (j + 2) * choose (j + j + 3) (j + 1)
+      = (j + j + 3) * choose (j + j + 2) (j + 1) := colC1 j (j + 1)
+  rw [hs1, hsjj, hs2, aperyLead_prod, hD]
+  calc (j + 1) * ((34 * (j * j * j) + 153 * (j * j) + 231 * j + 117)
+          * (choose (j + j + 2) (j + 1) * choose (j + j + 2) (j + 1)))
+      = (34 * (j * j * j) + 153 * (j * j) + 231 * j + 117)
+          * (choose (j + j + 2) (j + 1) * ((j + 1) * choose (j + j + 2) (j + 1))) := by
+        ring_nat
+    _ = (34 * (j * j * j) + 153 * (j * j) + 231 * j + 117)
+          * (choose (j + j + 2) (j + 1) * ((j + j + 2) * choose (j + j + 1) j)) := by
+        rw [hA]
+    _ = 2 * ((34 * (j * j * j) + 153 * (j * j) + 231 * j + 117)
+          * (choose (j + j + 2) (j + 1) * ((j + 1) * choose (j + j + 1) j))) := by
+        ring_nat
+    _ = 2 * ((34 * (j * j * j) + 153 * (j * j) + 231 * j + 117)
+          * (choose (j + j + 2) (j + 1) * ((j + j + 1) * choose (j + j) j))) := by
+        rw [hB]
+    _ = 2 * ((2 * j + 1) * ((17 * (j * j) + 51 * j + 39)
+          * (choose (j + j) j * ((j + j + 3) * choose (j + j + 2) (j + 1))))) := by
+        ring_nat
+
+/-- ★★ **Boundary weld, `Ĝ`-piece** (`−Ĝ(j,j+2)·Δₖc(j+2,j+2)`, where
+    `W(j,j+2) = C(2j+2,j+2)²` and `Q(j,j+2) = (j+2)(2j+3)`):
+
+        (j+2)²(2j+3) · C(2j+2,j+2)²
+          = (j+1)(j+2)(2j+1) · C(2j,j)·C(2j+4,j+2),
+
+    the cleared form of the piece's value `2(2j+1)(2j+3)/((j+1)(j+2))`
+    (·`(−1)^{j+1}√b(j,j)`).  Both sides reduce, by the diagonal `G1b` steps
+    (left) and the `colB` steps (right), to the common normal form
+    `2(j+2)(2j+3)(2j+1)·C(2j+2,j+2)·C(2j,j)`. -/
+theorem t1_ghat_weld (j : Nat) :
+    ((j + 2) * (j + 2)) * ((2 * j + 3)
+        * (choose (j + j + 2) (j + 2) * choose (j + j + 2) (j + 2)))
+    = (j + 1) * ((j + 2) * ((2 * j + 1)
+        * (choose (j + j) j * choose (j + j + 4) (j + 2)))) := by
+  have hE : (j + 2) * choose (j + j + 2) (j + 2)
+      = (j + j + 2) * choose (j + j + 1) (j + 1) := G1b j (j + 1)
+  have hF : (j + 1) * choose (j + j + 1) (j + 1) = (j + j + 1) * choose (j + j) j :=
+    G1b j j
+  have hG : (j + 2) * choose (j + 1 + (j + 2) + 1) (j + 2)
+      = (j + 1 + (j + 2) + 1) * choose (j + 1 + (j + 2)) (j + 2) := colB (j + 1) (j + 2)
+  rw [show j + 1 + (j + 2) + 1 = j + j + 4 from by ring_nat,
+      show j + 1 + (j + 2) = j + j + 3 from by ring_nat] at hG
+  -- hG : (j+2) · C(2j+4,j+2) = (2j+4) · C(2j+3,j+2)
+  have hH : (j + 1) * choose (j + j + 3) (j + 2)
+      = (j + j + 3) * choose (j + j + 2) (j + 2) := colB j (j + 2)
+  have hL : ((j + 2) * (j + 2)) * ((2 * j + 3)
+          * (choose (j + j + 2) (j + 2) * choose (j + j + 2) (j + 2)))
+      = 2 * ((j + 2) * ((2 * j + 3) * ((2 * j + 1)
+          * (choose (j + j + 2) (j + 2) * choose (j + j) j)))) := by
+    calc ((j + 2) * (j + 2)) * ((2 * j + 3)
+            * (choose (j + j + 2) (j + 2) * choose (j + j + 2) (j + 2)))
+        = (2 * j + 3) * (choose (j + j + 2) (j + 2)
+            * ((j + 2) * ((j + 2) * choose (j + j + 2) (j + 2)))) := by ring_nat
+      _ = (2 * j + 3) * (choose (j + j + 2) (j + 2)
+            * ((j + 2) * ((j + j + 2) * choose (j + j + 1) (j + 1)))) := by rw [hE]
+      _ = (2 * j + 3) * (choose (j + j + 2) (j + 2)
+            * ((j + 2) * (2 * ((j + 1) * choose (j + j + 1) (j + 1))))) := by ring_nat
+      _ = (2 * j + 3) * (choose (j + j + 2) (j + 2)
+            * ((j + 2) * (2 * ((j + j + 1) * choose (j + j) j)))) := by rw [hF]
+      _ = 2 * ((j + 2) * ((2 * j + 3) * ((2 * j + 1)
+            * (choose (j + j + 2) (j + 2) * choose (j + j) j)))) := by ring_nat
+  have hR : (j + 1) * ((j + 2) * ((2 * j + 1)
+          * (choose (j + j) j * choose (j + j + 4) (j + 2))))
+      = 2 * ((j + 2) * ((2 * j + 3) * ((2 * j + 1)
+          * (choose (j + j + 2) (j + 2) * choose (j + j) j)))) := by
+    calc (j + 1) * ((j + 2) * ((2 * j + 1)
+            * (choose (j + j) j * choose (j + j + 4) (j + 2))))
+        = (j + 1) * ((2 * j + 1) * (choose (j + j) j
+            * ((j + 2) * choose (j + j + 4) (j + 2)))) := by ring_nat
+      _ = (j + 1) * ((2 * j + 1) * (choose (j + j) j
+            * ((j + j + 4) * choose (j + j + 3) (j + 2)))) := by rw [hG]
+      _ = (j + j + 4) * ((2 * j + 1) * (choose (j + j) j
+            * ((j + 1) * choose (j + j + 3) (j + 2)))) := by ring_nat
+      _ = (j + j + 4) * ((2 * j + 1) * (choose (j + j) j
+            * ((j + j + 3) * choose (j + j + 2) (j + 2)))) := by rw [hH]
+      _ = 2 * ((j + 2) * ((2 * j + 3) * ((2 * j + 1)
+            * (choose (j + j + 2) (j + 2) * choose (j + j) j)))) := by ring_nat
+  exact hL.trans hR.symm
 
 end E213.Lib.Math.NumberTheory.AperyCollapsing

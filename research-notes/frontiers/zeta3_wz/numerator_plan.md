@@ -111,11 +111,14 @@ by `(−1)^k√b(j,k)`, with `φ := −k(2j+3)P₄/((j+1)(j+2)²(j−k+1)(j+k+1)
     `2(2j+1)(2j+3)/((j+1)(j+2))`) — the `k=j` edge;
   * **R-NIL** `U(j,j+2) ≡ 0` (`C(j+2,j+3)=0`).
 
-Lean order: (a) cleared collapsing laws; (b) contiguity reductions — **pieces 1–3 DONE** (`AperyCollapsing` §2 `b_welds`:
-`b_weld_n1/n2/mid` + `sqw_shift_n2`, the cleared ℕ-forms of the `b·w`-products, 5 new
-PURE), remaining: the Ĝ-piece's crossed reduction (`C(j+2,k+1)`/`C(j+k+1,k+1)`/
-`C(j+k+3,k+1)` against `√b(j,k)`, via `colA` + `choose_succ_mul`) and `T1`'s two boundary
-evaluations; **(c) DONE — R-NUM + R-BND are PURE
+Lean order: (a) cleared collapsing laws; **(b) DONE — all contiguity reductions PURE**
+(`AperyCollapsing`, 15/0): §2 `b_welds` (`b_weld_n1/n2/mid` + `sqw_shift_n2`, pieces 1–3)
++ `gb_weld` (piece 4, the Ĝ-piece's crossed reduction
+`(k+1)²(j+1−k)(j+k+2)(j+k+3)·C(j+2,k+1)C(j+k+1,k+1)² =
+(j+1)²(j+2)²(j+k+1)·√b(j,k)·C(j+k+3,k+1)`, via `G1a`+`G1b`+`colA`+`colC`), §3 `T1`'s
+two boundary evaluations (`t1_aL_weld` riding `aperyLead j = (2j+3)(17j²+51j+39)`;
+`t1_ghat_weld`, both sides reduced to `2(j+2)(2j+3)(2j+1)·C(2j+2,j+2)C(2j,j)`);
+**(c) DONE — R-NUM + R-BND are PURE
 Lean theorems** (`NumberTheory/AperyNumeratorWZ.lean`, 13 PURE incl. the
 machine-generated expansion/collection chain: R-NUM's single-`ring_nat` form exceeds the
 reflective normalizer, so six per-term expansions + a pairwise collection chain compose
