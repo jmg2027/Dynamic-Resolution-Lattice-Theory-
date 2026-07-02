@@ -97,11 +97,25 @@ Consequences:
    `ψ(j,j) + U(j,j) + U(j,j+1) + U(j,j+2) = 0`.
 
 ⟹ `Σ_k F_A = 0` — deliverable (I)'s recurrence — **by certificate verification**, the
-same mechanical shape as the denominator (`reduced_wz_identity` route).  The Lean
-targets are now: cleared forms of the collapsing laws + steps (3)/(4)/(5) as per-`k`
-ℕ-identities (`ring_nat`-shaped after clearing, on the `AperyCollapsing` bricks) +
-`sumTo` telescoping + the boundary identity.  The KEY FINDING below stands only as the
-**cap for the `b`-only language** — the extension language dissolves it.
+same mechanical shape as the denominator (`reduced_wz_identity` route).
+
+**The reduced identities (round-4 blueprint, each verified symbolically ≡ 0)** — dividing
+by `(−1)^k√b(j,k)`, with `φ := −k(2j+3)P₄/((j+1)(j+2)²(j−k+1)(j+k+1)(j+k+2))` and
+`ρ := √b(k+1)/√b(k) = (j−k)(j+k+1)/(k+1)²` (= `sqw_shift_k`):
+
+  * **R-NUM** `u + ρ·φ(k+1) + φ = 0` (common denominator
+    `(j+1)(j+2)²(k+1)(j−k+1)(j+k+1)(j+k+2)(j+k+3)`; cleared numerator ≡ 0) — the
+    numerator analogue of `reduced_wz_identity`, THE per-`k` Lean target;
+  * **R-BND** `φ(j,j) + u(j,j) − T1(j) = 0`, `T1 = 2(2j+1)(19j²+58j+45)/((j+1)(j+2)²)`
+    (piecewise: aL-piece `2(2j+1)(17j²+51j+39)/((j+1)(j+2)²)`, Ĝ-piece
+    `2(2j+1)(2j+3)/((j+1)(j+2))`) — the `k=j` edge;
+  * **R-NIL** `U(j,j+2) ≡ 0` (`C(j+2,j+3)=0`).
+
+Lean order: (a) cleared collapsing laws; (b) contiguity reductions of `u`'s four pieces
+and `T1`'s two (on the `AperyCollapsing` bricks); (c) R-NUM in additive `j=k+d` form by
+`ring_nat`; (d) `sumTo` telescoping + R-BND + R-NIL; (e) induct `zeta3Num=(n!)³A`.
+The KEY FINDING below stands only as the **cap for the `b`-only language** — the
+extension language dissolves it.
 
 ## ★ KEY FINDING — no clean WZ certificate (re-read above: a cap for the b-only language; DISSOLVED in the extended language)
 

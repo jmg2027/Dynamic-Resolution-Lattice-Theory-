@@ -130,3 +130,27 @@ for name, v in ok.items():
 assert all(ok.values())
 print(f"\nALL EXACT for j < {JMAX}: the numerator recurrence telescopes with the")
 print("explicit certificate psi in the extended (b, sqrt(b), c) language.")
+
+# ----------------------------------------------------------------------------
+# THE REDUCED IDENTITIES (round-4 blueprint; each verified symbolically == 0
+# with sympy, and numerically above).  Dividing everything by (-1)^k sqw(j,k):
+#
+#   phi(j,k) := -k(2j+3) P4(j,k) / ((j+1)(j+2)^2 (j-k+1)(j+k+1)(j+k+2))
+#   rho(j,k) := sqw(j,k+1)/sqw(j,k) = (j-k)(j+k+1)/(k+1)^2      [sqw_shift_k]
+#
+#   R-NUM :  u(j,k) + rho(j,k)*phi(j,k+1) + phi(j,k)  ==  0
+#            (common denominator (j+1)(j+2)^2(k+1)(j-k+1)(j+k+1)(j+k+2)(j+k+3);
+#             the cleared numerator is IDENTICALLY the zero polynomial)
+#   R-BND :  phi(j,j) + u(j,j) - T1(j)  ==  0
+#            T1(j)     = 2(2j+1)(19j^2+58j+45)/((j+1)(j+2)^2)
+#              [= U(j,j+1)*(-1)^(j+1)/sqw(j,j); piecewise:
+#               aL-piece  = 2(2j+1)(17j^2+51j+39)/((j+1)(j+2)^2),
+#               Ghat-piece = 2(2j+1)(2j+3)/((j+1)(j+2)) ]
+#   R-NIL :  U(j,j+2) == 0 identically (C(j+2,j+3)=0 kills Ghat; b's vanish)
+#
+# Lean plan (mirror of AperyRecurrence's REDID route): clear denominators,
+# substitute j = k+d (additive Nat form), prove by ring_nat on the
+# AperyCollapsing bricks (sqw_shift_n/k for the contiguity reductions of u and
+# T1's pieces); then sumTo telescoping + R-BND + R-NIL close Sum U = 0; with
+# the collapsing laws (cleared) and the Abel step this closes Sum F_A = 0.
+# ----------------------------------------------------------------------------
