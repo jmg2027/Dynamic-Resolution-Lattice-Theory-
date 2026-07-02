@@ -1,112 +1,87 @@
-# Session Handoff — 2026-07-02
+# Session Handoff — 2026-07-02 (session 2)
 
 ## Branch
-`claude/repo-research-context-3utd48` — NOT merged.  6 commits (`31e6aa6..e4c4317`).
-New Lean modules build clean; every new declaration **PURE** (`scan_axioms.py`: 15/0 in
-`ExteriorAsExtension`, 6/0 in `AperyCollapsing`).
+`claude/repo-research-context-handoff-vv7z39` — NOT merged.  Continues (fast-forwarded
+from) `claude/repo-research-context-3utd48`.  New commits this session:
+`f73bff5` (round 4(b) complete), `1bedac8` (round 4(a) algebra core), + plan/handoff.
+`lake build` clean; `AperyCollapsing` **18/0 PURE** (`scan_axioms.py`).
 
-## Headline — the exterior-as-extension arc (originator's conjecture, examined → theorems → live method)
+## Headline — ζ(3) numerator certificate: rounds 4(b) and 4(a)-core CLOSED
 
-The originator's conjecture — *the "exterior" of no-exterior IS residue-driven system
-extension* — was examined against the corpus, **amended, formalized, and converted into a
-working attack method** that immediately paid off on the ζ(3) numerator wall.
+The certificate-verification route (`numerator_plan.md` §"THE NUMERATOR CERTIFICATE")
+advanced two steps.  Status of the Lean order (a)–(e):
 
-1. **The amendment (the theory's honest form):** apparent exterior =
-   **(extension-capturable component) ⊕ (invariant core — the one wall)**.  Two tower
-   shapes proven distinct: progressing (diag towers — yesterday's exterior is today's
-   interior) vs fixed-core (`fun _ => true` uncaptured at every re-entry depth).  The
-   dynamic face of the no-walls tetrachotomy; §5.7 frozen/dynamic co-present.
-2. **Lean (`Lib/Math/Foundations/ExteriorAsExtension.lean`, 15 PURE):** E2 capture
-   theorem (`extend`/`tower`, `yesterday_exterior_today_interior`); E3 invariant core
-   (`undifferentiated_uncaptured` — stronger than non-fixedness: outside the whole image);
-   capstone `exterior_decomposition`; **E4 finite shadow** `height_axis_one_way`
-   (`coverTower` on Bool self-covers: no stage carries its own diagonal classifier, the
-   next stage does definitionally, the master-classifier wall re-occurs at every height —
-   `no_walls_seminar` R7's one-way height axis, cover-shape form, no arithmetization).
-3. **The extension protocol** (candidate archetype **A8 EXTEND**, `frontiers/
-   exterior_as_extension.md` §5): P1 localize wall as a *named residue* → P2 tetrachotomy
-   triage (`∅/0/1/many`) → P3 reify the witness as data → P4 falsifiability gate
-   (extension ≠ axiom) → P5 narrow (calibrated negatives are wins) → P6 fate diagnosis +
-   **P6′ extension-family cap theorem**.  V3 (Markov retro-diction): **PASS** — the
-   G191→G206 arc instantiates every step; amendments P1-generalization + P6′ extracted.
+- **(a) algebra core DONE** (`AperyCollapsing` §4): `collapsing_step` — the `m = k+1`
+  kernel-increment step of the ℚ-induction proving collapsing law (1), cleared over
+  the carrier triple `√b(n,k)√b(n,k+1)√b(n−1,k+1)`, additive (`n = k+e+1`), with
+  `sqw_shift_k_add`/`sqw_shift_n_add` (subtraction-free contiguities).  Remaining in
+  (a): the representation layer (see Round-5 blueprint below).
+- **(b) DONE** (`AperyCollapsing` §2–§3): `gb_weld` (u-piece 4 — the `Ĝ`-piece's
+  crossed reduction against `√b(j,k)`, via `G1a`+`G1b`+`colA`+`colC`);
+  `t1_aL_weld` (rides `aperyLead j = (2j+3)(17j²+51j+39)`), `t1_ghat_weld` — `T1`'s
+  two `k = j+1` boundary evaluations; `choose_succ_self_right` (`C(j+2,j+1) = j+2`).
+- **(c) DONE** (previous session): R-NUM + R-BND PURE (`AperyNumeratorWZ`, 13/0).
+- **(d)(e) open** — the mechanical frontier.
 
-## The V1 payoff — ζ(3) numerator wall re-opened
+**Proof-engineering lesson (recorded in plan):** the first `collapsing_step` attempt
+multiplied by `(k+1)⁴(2k+e+2)` → deg-9 `ring_nat` expansions → build timeout (>10 min).
+Choosing the mixed `√b(n,k)√b(n,k+1)`-basis with multiplier `(k+1)²(2k+e+2)` keeps
+every `ring_nat` ≤ deg 7 and the module builds in ~4 min.  Basis choice controls the
+normalizer budget; check the degree before writing the calc.
 
-- **The "no clean WZ certificate" wall is a CAP, not a wall** (P6′ for the `b`-only
-  certificate language).  Probe found + verified exact (`zeta3_wz/verify_c_increments.py`,
-  Fractions, `n<20`): **the c-increment collapsing laws** — both increments of
-  `c(n,k) = H₃(n)+κ(n,k)` are rational multiples of the half-weight carrier
-  `√b = C(n,k)C(n+k,k)`: `Δₙc = (−1)^k·w/(n²(n−k))` (k=0 gives `1/n³` — one law unifies
-  the H₃/K split), `Δₖc = (−1)^{k−1}·w/(2k³)`, `w=1/√b`.  Δ-calculus on `b·c` is fully
-  rational over `(b,√b)`; the A/K-recurrence certificate search moves to
-  `span{rational·b·c, rational·√b}`.
-- **Round 2 landed (`NumberTheory/AperyCollapsing.lean`, 6 PURE):** `sqw` (the reified
-  carrier), `sqw_shift_n` (two `colrec`s), `sqw_shift_k` (`lowrec`+`choose_succ_mul`),
-  `square_split` (`k²+(n+k)(n−k)=n²`), bundle `collapsing_core` — exactly the three
-  identities the ℚ-proof of the cross-`n` law reduces to (induction step = two lines).
-- propext-trap re-confirmed live: core `Nat.add_sub_cancel{,_left}`/`Nat.add_right_comm`
-  leak `propext`; NatHelper `add_sub_cancel_right` + `ring_nat` are the pure forms.
+## Round-5 blueprint (next session's main work) — the representation layer
 
-## Environment note (next session will hit this)
-The session-start hook's elan install **fails silently**: the proxy scopes github.com to
-the session repo (403 on release assets), and `releases.lean-lang.org` 302-redirects to
-github.com.  Workaround used: **Nix binary cache** — install nix manually
-(`releases.nixos.org/nix/nix-2.24.14/...`, `nix-store --load-db`), then
-`nix-store -r /nix/store/i9l687hfbmcs45xxy26m22j4ddsrlgnr-lean4-4.16.0`
-(Hydra build 290412171, exactly the pinned toolchain) with
-`NIX_SSL_CERT_FILE=/root/.ccr/ca-bundle.crt`, substituter `https://cache.nixos.org`.
-Then `PATH=/nix/store/i9l687...-lean4-4.16.0/bin:$PATH`.  Consider adding this fallback
-to `.claude/hooks/session-start.sh`.
+Canonical: `numerator_plan.md` §"Round-5 blueprint".  Key design points:
+1. **Kernel term** `kt N n k m` with `kt_mul_eq` (÷-free deposit), Nat by `heart_lcm`
+   (the `2`s of `2m³` and `2lcm³` cancel).
+2. **Parity-relative pair** `(A,B)` — `A n (k+1) = B n k + kt …(k+1)`, `B n (k+1) = A n k`
+   — gives **uniformly** `(−1)^k·κ(n,k) ~ B_k − A_k`, no parity conditionals.
+3. Cleared law (1) = two ℕ-statements (`k = 2t`/`2t+1`), induction step =
+   `collapsing_step`, harmonic part = `HL_step`/`cube_dvd_lcm_cube`, base = `sqw_zero`.
+4. Then (d): cleared `U` + `sumTo_shift_eq` + `rnum_reduced`/`rbnd_reduced`/`t1_*_weld`
+   + R-NIL (`choose_eq_zero_of_lt`) close `ΣU = 0`; (e) 2-step induction à la
+   `zeta3Den_eq`.
+
+All new welds were derived + grid-verified numerically FIRST
+(scratchpad scripts; the exact statements are in the theorem docstrings) — keep this
+verify-then-deposit discipline.
+
+## Environment note
+The session-start hook's elan install worked this session (`/root/.elan/bin/lake`
+present).  If it fails, see the previous handoff's Nix binary-cache workaround
+(preserved in git history at `36afdde`, HANDOFF.md §"Environment note").
 
 ## Open Problems (Priority Order)
 
-### 1. ζ(3) numerator — round 4: Lean-verify THE CERTIFICATE (found 2026-07-02!)
-**The numerator certificate is FOUND + verified exact** (`j<26`,
-`zeta3_wz/derive_numerator_certificate.py`; plan §"THE NUMERATOR CERTIFICATE"):
-`ψ(j,k) = −(−1)^k·k(2j+3)·P₄(j,k)·√b/((j+1)(j+2)²(j−k+1)(j+k+1)(j+k+2))` telescopes the
-residual `U = (−1)^k√b·u` (u explicit rational) after the top-row decomposition
-(collapsing laws) + Abel with the denominator `Ĝ`; one 3-term boundary identity at
-`k=j`.  The old "hand-derived kernel telescoping, hardest piece" verdict is
-**overturned** — the route is now denominator-shaped certificate verification.
-Lean targets, in order: (a) cleared collapsing laws (on the `AperyCollapsing` bricks);
-(b) contiguity reductions of `u`'s four pieces + `T1`'s two; **(c) DONE — R-NUM + R-BND
-are PURE** (`NumberTheory/AperyNumeratorWZ.lean`, 13 PURE; R-NUM needed a
-machine-generated split: six per-term expansion lemmas + a pairwise collection chain,
-since the single `ring_nat` exceeds the reflective normalizer's budget — reusable
-pattern); (d) `sumTo` telescoping + R-NIL + the `W`-factoring welds tying R-NUM to the
-actual binomial sums; (e) induct `zeta3Num = (n!)³·A`.
+### 1. ζ(3) numerator — round 5: the representation layer + ΣU = 0
+Blueprint above; all algebra bricks now PURE.  This is representation design +
+divisibility plumbing (heart_lcm applications), not new mathematics.
 
-### 3. E1 — the connecting maps (`∂²=0` seam)
+### 2. E1 — the connecting maps (`∂²=0` seam)
 Stage inclusions for the re-entry tower; `CapturedAt` decomposition as a theorem.
 Carried from `the_one_act.md`; design session.
 
-### 4. R7 weld
+### 3. R7 weld
 `height_axis_one_way` ↔ the height-`h` free-parameter fiber-order (no_walls seminar):
 is one-way-ness the `q=±1` escape/converge asymmetry on the strength axis, or new?
 
-### 5. V2 (RH) — the method's own falsifier
+### 4. V2 (RH) — the method's own falsifier
 Protocol predicts P2 lands on `0`.  If a run claims progress, that indicts the method.
 
 ## Three-tier state
-- **New frontier note:** `research-notes/frontiers/exterior_as_extension.md` (conjecture
-  examination + E-series status + protocol P1–P6′ + V-series log).  INDEX registered.
-- **Cross-refs updated:** `no_walls_seminar/INDEX.md` (R7 height-axis update),
-  `zeta3_wz/numerator_plan.md` (§RE-READ + round-2 landing).
-- **Promotion candidates:** none yet — `ExteriorAsExtension` + `AperyCollapsing` are
-  fresh; promote the exterior-as-extension arc to `theory/` once E1 closes (the tower
-  chapter would then be categorically complete per PROMOTION_CRITERIA).
+- `research-notes/frontiers/zeta3_wz/numerator_plan.md` — round-4 statuses + round-5
+  blueprint updated (this is the working document).
+- `research-notes/frontiers/exterior_as_extension.md` — unchanged this session.
+- **Promotion candidates:** none new — `AperyCollapsing`/`AperyNumeratorWZ` promote to
+  `theory/` together once the ζ(3) numerator arc closes; the exterior-as-extension arc
+  waits on E1.
 
 ## File Map
 ```
-NEW (Lean, all PURE):
-  lean/E213/Lib/Math/Foundations/ExteriorAsExtension.lean  ← E2/E3/capstone + E4 (15/0)
-  lean/E213/Lib/Math/NumberTheory/AperyCollapsing.lean     ← collapsing algebraic core (6/0)
-NEW (notes/tools):
-  research-notes/frontiers/exterior_as_extension.md        ← the arc's frontier note
-  research-notes/frontiers/zeta3_wz/verify_c_increments.py ← exact verification of the laws
-MODIFIED:
-  lean/E213/Lib/Math.lean                                  ← 2 aggregator imports
-  research-notes/frontiers/INDEX.md                        ← entry + status
-  research-notes/frontiers/no_walls_seminar/INDEX.md       ← R7 cross-ref
-  research-notes/frontiers/zeta3_wz/numerator_plan.md      ← RE-READ + round-2 landing
+MODIFIED (Lean):
+  lean/E213/Lib/Math/NumberTheory/AperyCollapsing.lean  ← §2 +gb_weld, §3 T1 welds,
+                                                          §4 collapsing_step (18/0)
+MODIFIED (notes):
+  research-notes/frontiers/zeta3_wz/numerator_plan.md   ← (a)(b) statuses + round-5
+  HANDOFF.md                                            ← this file
 ```

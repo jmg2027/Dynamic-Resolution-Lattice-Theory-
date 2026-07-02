@@ -137,6 +137,29 @@ it; R-BND direct); (d) `sumTo` telescoping + R-NIL + the `W`-factoring welds; (e
 The KEY FINDING below stands only as the **cap for the `b`-only language** — the
 extension language dissolves it.
 
+### Round-5 blueprint — the representation layer (designed 2026-07-02, not yet in Lean)
+
+The cleared signed `c`-sum, ÷-free and parity-clean:
+
+  * **Kernel term** `kt N n k m := lcmUpTo(N)³·√b(n,k) / (m³·C(n,m)·C(n+m,m))` — a Nat
+    for `1 ≤ m ≤ k ≤ n ≤ N` (`heart_lcm` + lcm-monotonicity; the global `2` of `2m³`
+    cancels against the `2` of `2lcm³`).  Deposit as `kt_mul_eq`
+    (`(m³·C(n,m)·C(n+m,m))·kt = lcm³·√b(n,k)`), not as `/`-arithmetic.
+  * **Parity-relative pair** (the alternation trick — NO parity conditionals):
+    `A n 0 = B n 0 = 0`; `A n (k+1) = B n k + kt … (k+1)`; `B n (k+1) = A n k`.
+    `A_k` = terms of `κ`'s partial sum with `m ≡ k (mod 2)`, `B_k` the others.  Then
+    **uniformly in `k`**: `(−1)^k·κ(n,k) = (B_k(n) − A_k(n)) / (lcm³·√b(n,k))` — i.e.
+    the cleared signed kernel is the pair-difference, no `if`.
+  * **Cleared law (1)** (`×2·lcm³·n²(n−k)·√b(n,k)√b(n−1,k)`-couple): the harmonic
+    `1/n³` keeps its own `(−1)^k`, so the law lands as **two** ℕ-statements
+    (`k = 2t` / `k = 2t+1`), each `sub`-free by cross-arrangement, both consuming
+    `collapsing_step` (§4) as the induction step and `HL_step`/`cube_dvd_lcm_cube` for
+    the harmonic part.  Base `k = 0`: `sqw_zero` + `HL_step`.
+  * Then (d): `U`'s cleared form = the same pair-representation at row `j+2` with the
+    `b_welds`/`gb_weld` reductions; `sumTo_shift_eq` telescoping + `rnum_reduced` +
+    `rbnd_reduced`/`t1_*_weld` + R-NIL (`choose_eq_zero_of_lt`) close `ΣU = 0`;
+    (e) 2-step induction à la `zeta3Den_eq`.
+
 ## ★ KEY FINDING — no clean WZ certificate (re-read above: a cap for the b-only language; DISSOLVED in the extended language)
 
 Unlike the denominator (clean `Ĝ(j,k)=−4k⁴(2j+3)(…)C(j+2,k)²C(j+k,k)²`), the
