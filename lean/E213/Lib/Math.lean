@@ -28,6 +28,7 @@ import E213.Lib.Math.Algebra.CayleyDickson
 import E213.Lib.Math.Algebra.CassiniUnimodular
 import E213.Lib.Math.Algebra.FiveFloorUnification
 import E213.Lib.Math.Foundations.ResidueForm
+import E213.Lib.Math.Foundations.ExteriorAsExtension
 import E213.Lib.Math.Foundations.CauchySchwarzGeneral
 import E213.Lib.Math.Foundations.SchurInequality
 import E213.Lib.Math.Foundations.NesbittInequality

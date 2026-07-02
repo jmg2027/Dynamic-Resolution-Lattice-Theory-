@@ -481,9 +481,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   *progressing* (bracket/modulus: yesterday's exterior is today's interior) vs *fixed-core*
   (`fun _ => true` uncaptured at every re-entry depth) — force the amendment **exterior =
   capturable extension ⊕ the invariant core (the one wall)**, the dynamic face of the
-  tetrachotomy; the three fates = the three fates of an extension step.  Formal targets E1–E4
-  (connecting maps / capture theorem / graded core-invariance / no-stage-decides-its-own-coker
-  = `no_walls_seminar` R7's Gödel-II question).  Plus the **extension protocol** (candidate
+  tetrachotomy; the three fates = the three fates of an extension step.  **E2 (capture
+  theorem) + E3 (graded core-invariance) + the decomposition capstone CLOSED ∅-axiom**
+  (`Lib/Math/Foundations/ExteriorAsExtension.lean`, 10 PURE: `extension_step`,
+  `yesterday_exterior_today_interior`, `undifferentiated_uncaptured`,
+  `exterior_decomposition`).  Open: E1 (connecting maps / `∂²=0` seam), E4
+  (no-stage-decides-its-own-coker = `no_walls_seminar` R7's Gödel-II question), the numeric
+  progressing-tower instance.  Plus the **extension protocol** (candidate
   archetype A8 EXTEND, P1–P6: localize non-surjection → tetrachotomy triage → reify witness as
   data → falsifiability gate → narrow → fate diagnosis) with pre-registered validation V1–V5
   (ζ(3) numerator, RH-as-the-method's-own-falsifier, Markov retro-diction, E1, historical

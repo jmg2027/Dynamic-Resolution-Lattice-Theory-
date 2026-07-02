@@ -126,26 +126,37 @@ becomes P6 of the protocol below.
 
 ## §4 Formal targets (the E-series)
 
-  - **E1 — the connecting maps** (upgrades `graded_residue_tower`).  Define the stage
-    inclusion / restriction between depths `n → n+1` and prove the decomposition of §2.2
-    as a theorem: `CapturedAt (n+1) := image(cover_{n+1}) \ image(cover_n)` vs the
-    invariant core, with the tower functorial.  This is the `∂² = 0` seam of
-    `ResidueReentry` §6 (carried from `the_one_act.md`), now with a stated payoff.
-  - **E2 — the capture theorem for a progressing tower.**  State "yesterday's exterior is
-    today's interior" literally on the bracket tower: the stage-`m` excluded band is
-    inside the stage-`m+1` certificate (`chebyshev_constant_interval` /
-    `strict_modulus_hierarchy` recast in capture form).  Mechanical; makes half of the
-    conjecture a named ∅-axiom theorem.
-  - **E3 — invariance of the core, graded.**  One theorem
-    `undifferentiated_uncaptured_at_every_depth : ∀ n, Object1 (predicateToRaw n (fun _ => true)) ≠ (fun _ => true)`
-    — already immediate from `reentry_undifferentiated_nonfixed`; state it as the
-    conjecture's counterexample-half, so the amendment is pinned in Lean, not prose.
-    (Cheap: assemble from existing lemmas.)
-  - **E4 — no stage decides its own coker** (the Gödel-II shadow, R7's question).
-    Relativize `master_classifier_is_the_wall` to stages: a depth-`n` classifier that
-    decides membership in the depth-`n` coker and is itself a row of the depth-`n` cover
-    is impossible.  This would close the height-axis one-way-freeness question in its
-    213-native form.
+  - **E1 — the connecting maps** (upgrades `graded_residue_tower`) — **OPEN**.  Define
+    the stage inclusion / restriction between depths `n → n+1` and prove the
+    decomposition of §2.2 as a theorem: `CapturedAt (n+1) := image(cover_{n+1}) \
+    image(cover_n)` vs the invariant core, with the tower functorial.  This is the
+    `∂² = 0` seam of `ResidueReentry` §6 (carried from `the_one_act.md`), now with a
+    stated payoff.
+  - **E2 — the capture theorem for a progressing tower** — **CLOSED ∅-axiom**
+    (`Lib/Math/Foundations/ExteriorAsExtension.lean`, 10 PURE).  The extension operator
+    `extend` reifies the diagonal escapee as stage `0`; `extend_captures` /
+    `extend_preserves` / `extend_still_escapes` (bundled `extension_step`) close one
+    step, and the iterated `tower` gives `yesterday_exterior_today_interior` uniformly
+    in the height `k`: the stage-`k` escapee escapes stage `k`, is stage `0` of stage
+    `k+1`, and stage `k+1` has a fresh escapee.  The Gödel/`Con(T)` ascent shape,
+    ∅-axiom, on the framework's own `diag`.  *Residual instance (open)*: the same
+    capture form recast on a **numeric** progressing tower
+    (`chebyshev_constant_interval` / `strict_modulus_hierarchy` — the stage-`m`
+    excluded band inside the stage-`m+1` certificate).
+  - **E3 — invariance of the core, graded** — **CLOSED ∅-axiom** (same file).
+    `undifferentiated_outside_every_image` (`fun _ => true` is outside `Object1`'s
+    image entirely — stronger than non-fixedness) and `undifferentiated_uncaptured`
+    (at every re-entry depth `n`, the re-pointing composite reaches it at no stage).
+    The conjecture's counterexample-half, pinned in Lean.
+  - **The decomposition capstone** — **CLOSED ∅-axiom** (same file):
+    `exterior_decomposition` states both halves in one theorem, uniformly in the tower
+    height `k` and the re-entry depth `n` — the §2.2 amendment as a theorem, not prose.
+  - **E4 — no stage decides its own coker** (the Gödel-II shadow, R7's question) —
+    **OPEN**.  Relativize `master_classifier_is_the_wall` to stages: a depth-`n`
+    classifier that decides membership in the depth-`n` coker and is itself a row of
+    the depth-`n` cover is impossible.  This would close the height-axis
+    one-way-freeness question in its 213-native form.  Needs its own design session
+    (the stage-relative carrier is not the naive `A → (A → Bool)` shape).
 
 ## §5 The methodology — the extension protocol (candidate archetype A8 EXTEND)
 
