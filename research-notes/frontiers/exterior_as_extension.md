@@ -244,11 +244,20 @@ never returns "0" has become a shield (§3, guard 3).
     *presentation*; as a difference-object `c` is finite rational data over `(b, √b)`.
     Bonus: `k=0` of the cross-`n` law gives `1/n³` — one law unifies the plan's H₃/K
     split (a strategic simplification of the marathon).  P4: the extension is
-    definitional (an ℕ-carrier + two binomial identities), no axiom.  **Remaining**
-    (the next round): the explicit certificate in `span{rational·b·c, rational·√b}`
-    (the naive one-term correction is messy — needs the multi-shift ansatz or the
-    classical hand derivation), then the ∅-axiom formalization of the two collapsing
-    laws (both `ring_nat`-shaped after clearing).  Updated:
+    definitional (an ℕ-carrier + two binomial identities), no axiom.
+    **Round 2 (executed)**: the algebraic core of the collapsing laws is formalized
+    ∅-axiom — `NumberTheory/AperyCollapsing.lean` (6 PURE): the reified carrier
+    `sqw = √b` as a Lean `def`, its two contiguities `sqw_shift_n` / `sqw_shift_k`,
+    and the recombination `square_split`, bundled as `collapsing_core` (the three
+    identities the ℚ-proof of the cross-`n` law reduces to; the induction step is two
+    lines given them).  Bonus deposit for the propext-trap catalog
+    (`pure_lean_calibration_synthesis`): core `Nat.add_sub_cancel{,_left}` /
+    `Nat.add_right_comm` leaked `propext` on first build; replaced with NatHelper's
+    `add_sub_cancel_right` + `ring_nat` — the known trap, re-confirmed live.
+    **Remaining** (round 3): the cleared signed-sum assembly of laws (1)–(2)
+    themselves (`HL`-style clearing + pos/neg split), then the explicit certificate in
+    `span{rational·b·c, rational·√b}` (the naive one-term correction is messy —
+    multi-shift ansatz or the classical hand derivation).  Updated:
     `zeta3_wz/numerator_plan.md` §"RE-READ".
   - **V2 (should terminate at a wall-verdict)** — RH.  The method *predicts* P2 lands on
     `0` (signed cancellation has no count-Lens witness).  The honest output is a

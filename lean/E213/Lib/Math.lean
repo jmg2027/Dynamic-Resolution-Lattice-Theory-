@@ -133,6 +133,7 @@ import E213.Lib.Math.NumberTheory.OddCentralBinom
 import E213.Lib.Math.NumberTheory.PrimePowFactorization
 import E213.Lib.Math.NumberTheory.Primorial
 import E213.Lib.Math.NumberTheory.Zeta3Numerator
+import E213.Lib.Math.NumberTheory.AperyCollapsing
 
 /-! Spec-as-code entry point for `E213.Lib.Math` — full 213 mathematics library.
 

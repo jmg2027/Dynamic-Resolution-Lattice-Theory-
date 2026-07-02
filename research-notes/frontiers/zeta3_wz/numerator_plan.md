@@ -64,10 +64,16 @@ Consequences:
     the *naive* one-term correction `G_A = G_B·c(j,k) + √b·t` leaves `t` messy — the
     extended certificate needs the multi-shift ansatz or the hand derivation; the
     *language* is confirmed, the certificate is the next step.)
-  * **Formalization targets (both in reach of the existing `colrec`/`Wfac` machinery):**
-    (i) law (2) cleared — a binomial identity; (ii) law (1) cleared — the collapsing
-    lemma as a pure factorial/binomial identity (`ring_nat`-shaped after clearing);
-    then (iii) the Abel assembly of the A-recurrence over `(b, √b, c)`.
+  * **Formalization — the algebraic core LANDED** (`NumberTheory/AperyCollapsing.lean`,
+    6 PURE / 0 dirty): the half-weight carrier `sqw n k := C(n,k)·C(n+k,k)` with its two
+    contiguities `sqw_shift_n` (`(n+1−m)·√b(n+1,m) = (n+1+m)·√b(n,m)`, two `colrec`s) and
+    `sqw_shift_k` (`(k+1)²·√b(n,k+1) = (n−k)(n+k+1)·√b(n,k)`, `lowrec` + `choose_succ_mul`),
+    plus the recombination `square_split` (`k² + (n+k)(n−k) = n²`), bundled as
+    `collapsing_core`.  These three are exactly what the ℚ-proof of law (1) reduces to
+    (the induction step is two lines given them).  **Remaining**: (iii) the cleared
+    signed-sum assembly of the laws themselves (`HL`-style clearing of `c` +
+    `cube_dvd_lcm_cube`/`heart_lcm` divisibilities + pos/neg split), then the Abel
+    assembly of the A-recurrence over `(b, √b, c)`.
 
 ## ★ KEY FINDING — no clean WZ certificate (re-read above: a cap for the b-only language)
 
