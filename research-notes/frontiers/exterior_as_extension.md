@@ -254,11 +254,22 @@ never returns "0" has become a shield (§3, guard 3).
     (`pure_lean_calibration_synthesis`): core `Nat.add_sub_cancel{,_left}` /
     `Nat.add_right_comm` leaked `propext` on first build; replaced with NatHelper's
     `add_sub_cancel_right` + `ring_nat` — the known trap, re-confirmed live.
-    **Remaining** (round 3): the cleared signed-sum assembly of laws (1)–(2)
-    themselves (`HL`-style clearing + pos/neg split), then the explicit certificate in
-    `span{rational·b·c, rational·√b}` (the naive one-term correction is messy —
-    multi-shift ansatz or the classical hand derivation).  Updated:
-    `zeta3_wz/numerator_plan.md` §"RE-READ".
+    **Round 3 (executed) — THE CERTIFICATE FOUND.**  The numerator recurrence
+    telescopes completely in the extended language: decompose `F_A` at the top row via
+    the collapsing laws, Abel with the known denominator `Ĝ`, and the residual
+    `U = (−1)^k·√b·u` (u an explicit rational, derived by contiguity reduction) has the
+    explicit Gosper certificate
+    `ψ = −(−1)^k·k(2j+3)·P₄·√b/((j+1)(j+2)²(j−k+1)(j+k+1)(j+k+2))` with a 3-term
+    boundary identity at the `k=j` edge.  **All verified exact for `j < 26`**
+    (`zeta3_wz/derive_numerator_certificate.py`).  The plan's "hand-derived kernel
+    telescoping, no CAS shortcut, hardest remaining piece" verdict is **overturned**:
+    the route to `zeta3Num = (n!)³·A` is now the same mechanical certificate-verification
+    shape as the denominator.  Protocol scorecard: P3 (reify `√b`, `c`-as-data) →
+    P5 (the wall converted to a computable certificate) — the extension protocol's
+    flagship win.  **Remaining** (round 4, Lean): cleared per-`k` ℕ-identities for the
+    collapsing laws + steps (3)/(4)/(5) on the `AperyCollapsing` bricks + `sumTo`
+    telescoping + the boundary identity.  Updated: `zeta3_wz/numerator_plan.md`
+    §"THE NUMERATOR CERTIFICATE".
   - **V2 (should terminate at a wall-verdict)** — RH.  The method *predicts* P2 lands on
     `0` (signed cancellation has no count-Lens witness).  The honest output is a
     sharpened localization, not progress.  **If the protocol claims progress on RH, that

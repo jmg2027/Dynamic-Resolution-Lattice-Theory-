@@ -75,7 +75,35 @@ Consequences:
     `cube_dvd_lcm_cube`/`heart_lcm` divisibilities + pos/neg split), then the Abel
     assembly of the A-recurrence over `(b, √b, c)`.
 
-## ★ KEY FINDING — no clean WZ certificate (re-read above: a cap for the b-only language)
+## ★★★ THE NUMERATOR CERTIFICATE — FOUND + VERIFIED (2026-07-02)
+
+**The hand-derived kernel telescoping is unnecessary.**  In the extended language over
+`(b, √b, c)` the numerator recurrence telescopes with an **explicit Gosper certificate**
+(derivation + exact verification, all `j < 26`: `derive_numerator_certificate.py`):
+
+1. Express `c` at the top row (collapsing law (1)):
+   `F_A = F_B·c(j+2,k) − (j+1)³b(j,k)[Dₙ(j+1,k)+Dₙ(j+2,k)] + aL·b(j+1,k)Dₙ(j+2,k)`.
+2. Abel on `Σ F_B·c(j+2,k)` with the known denominator certificate `Ĝ`.
+3. The residual `U(j,k) = (−1)^k·√b(j,k)·u(j,k)` with `u` an explicit rational function
+   (four contiguity-reduced pieces; see the script header).
+4. **The certificate** (found by `gosper_sum`, verified exactly):
+   ```
+   ψ(j,k) = −(−1)^k · k(2j+3) · P₄(j,k) · √b(j,k) / ((j+1)(j+2)²(j−k+1)(j+k+1)(j+k+2))
+   P₄ = 8j⁴+24j³k+48j³+31j²k²+107j²k+104j²+13jk³+86jk²+153jk+96j+18k³+60k²+70k+32
+   ```
+   with `U(j,k) = ψ(j,k+1) − ψ(j,k)` for `0 ≤ k ≤ j−1`, `ψ(j,0) = 0`.
+5. **Boundary** (the `k=j` edge — the certificate's `(j−k+1)`-pole compensates the
+   vanishing binomial, same phenomenon as the denominator's `k∈{j+1,j+2}` boundary):
+   `ψ(j,j) + U(j,j) + U(j,j+1) + U(j,j+2) = 0`.
+
+⟹ `Σ_k F_A = 0` — deliverable (I)'s recurrence — **by certificate verification**, the
+same mechanical shape as the denominator (`reduced_wz_identity` route).  The Lean
+targets are now: cleared forms of the collapsing laws + steps (3)/(4)/(5) as per-`k`
+ℕ-identities (`ring_nat`-shaped after clearing, on the `AperyCollapsing` bricks) +
+`sumTo` telescoping + the boundary identity.  The KEY FINDING below stands only as the
+**cap for the `b`-only language** — the extension language dissolves it.
+
+## ★ KEY FINDING — no clean WZ certificate (re-read above: a cap for the b-only language; DISSOLVED in the extended language)
 
 Unlike the denominator (clean `Ĝ(j,k)=−4k⁴(2j+3)(…)C(j+2,k)²C(j+k,k)²`), the
 numerator/kernel certificates `cert_A`, `cert_K` are **harmonic-kernel-laden**
