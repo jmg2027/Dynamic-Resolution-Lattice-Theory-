@@ -1,5 +1,6 @@
 import E213.Lib.Math.NumberTheory.AperyRecurrence
 import E213.Lib.Math.NumberTheory.AperyIntegrality
+import E213.Lib.Math.NumberTheory.AperyCollapsing
 
 /-!
 # Zeta3Numerator — the cleared harmonic part of the numerator recurrence
@@ -19,9 +20,12 @@ namespace E213.Lib.Math.NumberTheory.Zeta3Numerator
 
 open E213.Lib.Math.NumberTheory.AperyRecurrence (B aperyLead apery_recurrence)
 open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Sum (sumTo sumTo_succ)
+open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose)
 open E213.Meta.Nat.NatDiv213 (div_add_mod_pure mul_witness_iff_mod_eq_zero)
-open E213.Lib.Math.NumberTheory.AperyIntegrality (cube_dvd_lcm_cube)
-open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (lcmUpTo)
+open E213.Lib.Math.NumberTheory.AperyIntegrality (cube_dvd_lcm_cube heart_lcm)
+open E213.Lib.Math.NumberTheory.LcmGrowthChebyshev (lcmUpTo dvd_lcmUpTo lcmUpTo_dvd)
+open E213.Lib.Math.NumberTheory.AperyCollapsing (sqw)
+open E213.Tactic.NatHelper (add_sub_of_le)
 
 /-- `a ∣ b → a·(b/a) = b`, ∅-axiom. -/
 private theorem dvd_mul_div {a b : Nat} (h : a ∣ b) : a * (b / a) = b := by
@@ -76,7 +80,8 @@ private theorem pow_three_eq (x : Nat) : x ^ 3 = x * x * x := by
     chaining step that turns the abstract cleared-harmonic recurrence into the concrete
     one over the real Apéry clearing factor `lcm(1..N)³` — so `HL (lcm N ³) ·` is the
     genuine integral `lcm³·H₃`, the `H₃`-part contribution to `(n!)³ ∣ 2·lcm³·zeta3Num n`.
-    (The remaining open half is the *kernel* recurrence, which has no clean WZ certificate.) -/
+    (The kernel half proceeds by the extended-language certificate:
+    `numerator_plan.md` §"THE NUMERATOR CERTIFICATE".) -/
 theorem harmonic_recurrence_lcm (j N : Nat) (hjN : j + 2 ≤ N) :
     (j + 2) * (j + 2) * (j + 2) * HL (lcmUpTo N ^ 3) (j + 2) * B (j + 2)
       + ((j + 1) * (j + 1) * (j + 1) * HL (lcmUpTo N ^ 3) j * B j + lcmUpTo N ^ 3 * B j)
@@ -89,5 +94,69 @@ theorem harmonic_recurrence_lcm (j N : Nat) (hjN : j + 2 ≤ N) :
     have hd := cube_dvd_lcm_cube (j := j + 2) (n := N) (Nat.succ_le_succ (Nat.zero_le (j + 1))) hjN
     rwa [pow_three_eq] at hd
   exact harmonic_part_recurrence j (lcmUpTo N ^ 3) h1 h2
+
+/-! ## §kernel — the weighted cleared kernel term (round-5 representation layer)
+
+The kernel `κ(n,k) = Σ_{m=1}^k (−1)^{m−1}/(2m³·C(n,m)·C(n+m,m))` clears against
+`2·lcm(1..N)³·√b(n,k)` **term by term** (the `2`s cancel): the weighted cleared
+kernel term is
+
+    ktw N n k m  =  lcm(1..N)³·√b(n,k) / (m³·C(n,m)·C(n+m,m)),
+
+a genuine Nat for `1 ≤ m ≤ k ≤ n ≤ N` (`heart_lcm` + lcm-monotonicity), deposited
+÷-free as `ktw_mul_eq`.  The signed-sum representation over `ktw` (parity-split
+`sumTo`s) and the column reweighting
+`(k+1)²·ktw(k+1,m) = (n−k)(n+k+1)·ktw(k,m)` (a `sqw_shift_k` corollary by
+cancellation) are the recorded round-5 frontier
+(`zeta3_wz/numerator_plan.md` §"Round-5 blueprint"). -/
+
+/-- **The weighted cleared kernel term**
+    `ktw N n k m = lcm(1..N)³·√b(n,k) / (m³·C(n,m)·C(n+m,m))` — the `m`-th kernel
+    summand of `c(n,k)`, cleared by `2·lcm³·√b(n,k)` (the `2`s cancel). -/
+def ktw (N n k m : Nat) : Nat :=
+  lcmUpTo N ^ 3 * sqw n k / (m * m * m * (choose n m * choose (n + m) m))
+
+/-- The divisibility behind `ktw`: `m³·C(n,m)·C(n+m,m) ∣ lcm(1..N)³·√b(n,k)` for
+    `1 ≤ m ≤ k ≤ n ≤ N` — `heart_lcm` at `(a,b) = (n−k, k−m)` (additive
+    substitution), lifted from `lcm(1..n)` to `lcm(1..N)` by lcm-monotonicity. -/
+theorem ktw_dvd {N n k m : Nat} (hm : 1 ≤ m) (hmk : m ≤ k) (hkn : k ≤ n)
+    (hnN : n ≤ N) :
+    m * m * m * (choose n m * choose (n + m) m) ∣ lcmUpTo N ^ 3 * sqw n k := by
+  obtain ⟨b, rfl⟩ : ∃ b, k = m + b := ⟨k - m, (add_sub_of_le hmk).symm⟩
+  obtain ⟨a, rfl⟩ : ∃ a, n = m + b + a := ⟨n - (m + b), (add_sub_of_le hkn).symm⟩
+  show m * m * m * (choose (m + b + a) m * choose (m + b + a + m) m)
+      ∣ lcmUpTo N ^ 3
+        * (choose (m + b + a) (m + b) * choose (m + b + a + (m + b)) (m + b))
+  have h := heart_lcm (m := m) (a := a) (b := b) hm
+  rw [show m + a + b = m + b + a from by ring_nat,
+      show 2 * m + a + b = m + b + a + m from by ring_nat,
+      show 2 * m + a + 2 * b = m + b + a + (m + b) from by ring_nat,
+      pow_three_eq m, pow_three_eq (lcmUpTo (m + b + a))] at h
+  -- h : m·m·m·(C(n,m)·C(n+m,m)) ∣ lcm(1..n)·lcm·lcm·(C(n,k)·C(n+k,k))
+  rcases h with ⟨q, hq⟩
+  rcases lcmUpTo_dvd (fun j hj0 hjn => dvd_lcmUpTo hj0 (Nat.le_trans hjn hnN))
+    with ⟨c, hc⟩
+  -- hc : lcmUpTo N = lcmUpTo (m+b+a) * c
+  refine ⟨q * (c * c * c), ?_⟩
+  rw [pow_three_eq (lcmUpTo N), hc]
+  calc (lcmUpTo (m + b + a) * c) * (lcmUpTo (m + b + a) * c) * (lcmUpTo (m + b + a) * c)
+          * (choose (m + b + a) (m + b) * choose (m + b + a + (m + b)) (m + b))
+      = (lcmUpTo (m + b + a) * lcmUpTo (m + b + a) * lcmUpTo (m + b + a)
+          * (choose (m + b + a) (m + b) * choose (m + b + a + (m + b)) (m + b)))
+        * (c * c * c) := by ring_nat
+    _ = (m * m * m * (choose (m + b + a) m * choose (m + b + a + m) m) * q)
+        * (c * c * c) := by rw [hq]
+    _ = m * m * m * (choose (m + b + a) m * choose (m + b + a + m) m)
+        * (q * (c * c * c)) := by ring_nat
+
+/-- ★★ **The `ktw` characterization, ÷-free**:
+    `m³·C(n,m)·C(n+m,m) · ktw N n k m = lcm(1..N)³·√b(n,k)` for
+    `1 ≤ m ≤ k ≤ n ≤ N` — the term-level integrality of the cleared kernel,
+    the representation-layer bedrock of the ζ(3) numerator assembly. -/
+theorem ktw_mul_eq {N n k m : Nat} (hm : 1 ≤ m) (hmk : m ≤ k) (hkn : k ≤ n)
+    (hnN : n ≤ N) :
+    m * m * m * (choose n m * choose (n + m) m) * ktw N n k m
+    = lcmUpTo N ^ 3 * sqw n k :=
+  dvd_mul_div (ktw_dvd hm hmk hkn hnN)
 
 end E213.Lib.Math.NumberTheory.Zeta3Numerator

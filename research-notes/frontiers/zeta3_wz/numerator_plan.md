@@ -141,15 +141,25 @@ extension language dissolves it.
 
 The cleared signed `c`-sum, ÷-free and parity-clean:
 
-  * **Kernel term** `kt N n k m := lcmUpTo(N)³·√b(n,k) / (m³·C(n,m)·C(n+m,m))` — a Nat
-    for `1 ≤ m ≤ k ≤ n ≤ N` (`heart_lcm` + lcm-monotonicity; the global `2` of `2m³`
-    cancels against the `2` of `2lcm³`).  Deposit as `kt_mul_eq`
-    (`(m³·C(n,m)·C(n+m,m))·kt = lcm³·√b(n,k)`), not as `/`-arithmetic.
-  * **Parity-relative pair** (the alternation trick — NO parity conditionals):
-    `A n 0 = B n 0 = 0`; `A n (k+1) = B n k + kt … (k+1)`; `B n (k+1) = A n k`.
-    `A_k` = terms of `κ`'s partial sum with `m ≡ k (mod 2)`, `B_k` the others.  Then
-    **uniformly in `k`**: `(−1)^k·κ(n,k) = (B_k(n) − A_k(n)) / (lcm³·√b(n,k))` — i.e.
-    the cleared signed kernel is the pair-difference, no `if`.
+  * **Kernel term — LANDED** (`Zeta3Numerator` §kernel, 7/0 PURE): `ktw N n k m :=
+    lcmUpTo(N)³·√b(n,k) / (m³·C(n,m)·C(n+m,m))` — a Nat for `1 ≤ m ≤ k ≤ n ≤ N`
+    (`ktw_dvd` = `heart_lcm` at `(a,b) = (n−k,k−m)` + lcm-monotonicity; the global `2`
+    of `2m³` cancels against the `2` of `2lcm³`); ÷-free characterization
+    `ktw_mul_eq` (`(m³·C(n,m)·C(n+m,m))·ktw = lcm³·√b(n,k)`).
+    **propext-trap additions** (avoid; NatHelper candidates): `Nat.dvd_trans` and
+    `Nat.mul_assoc` leak `propext` in core — compose dvd-chains by explicit witness
+    construction + `ring_nat` instead.
+  * **Column reweighting** (next): `(k+1)²·ktw N n (k+1) m = (n−k)(n+k+1)·ktw N n k m`
+    — from `ktw_mul_eq` × `sqw_shift_k` + `mul_left_cancel_pos`; needs `choose_pos`
+    (`k ≤ n → 0 < C(n,k)`, a 3-line Pascal induction — belongs in `FLT/Binomial`).
+  * **Parity split with clean bounds** (the weight column moves with `k`, so the
+    parity-relative pair recursion must live at *fixed* weight column; simplest is
+    absolute parity with `sumTo` and explicit counts):
+    `kOdd N n k t := sumTo t (fun i => ktw N n k (2i+1))`, `kEven … (2i+2)`;
+    at `k = 2t` the kernel has counts `(t,t)`, at `k = 2t+1` counts `(t+1,t)`; the
+    `k`-induction alternates the two parity branches (two-step spiral), each step =
+    one new `ktw` term + the column reweighting of all previous terms
+    (`sumTo`-level: pointwise congruence + a `c·sumTo = sumTo (c·)` distribution).
   * **Cleared law (1)** (`×2·lcm³·n²(n−k)·√b(n,k)√b(n−1,k)`-couple): the harmonic
     `1/n³` keeps its own `(−1)^k`, so the law lands as **two** ℕ-statements
     (`k = 2t` / `k = 2t+1`), each `sub`-free by cross-arrangement, both consuming

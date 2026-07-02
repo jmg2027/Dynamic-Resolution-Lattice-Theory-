@@ -29,18 +29,26 @@ Choosing the mixed `√b(n,k)√b(n,k+1)`-basis with multiplier `(k+1)²(2k+e+2)
 every `ring_nat` ≤ deg 7 and the module builds in ~4 min.  Basis choice controls the
 normalizer budget; check the degree before writing the calc.
 
-## Round-5 blueprint (next session's main work) — the representation layer
+## Round-5 status — the representation layer (first brick LANDED)
 
-Canonical: `numerator_plan.md` §"Round-5 blueprint".  Key design points:
-1. **Kernel term** `kt N n k m` with `kt_mul_eq` (÷-free deposit), Nat by `heart_lcm`
-   (the `2`s of `2m³` and `2lcm³` cancel).
-2. **Parity-relative pair** `(A,B)` — `A n (k+1) = B n k + kt …(k+1)`, `B n (k+1) = A n k`
-   — gives **uniformly** `(−1)^k·κ(n,k) ~ B_k − A_k`, no parity conditionals.
-3. Cleared law (1) = two ℕ-statements (`k = 2t`/`2t+1`), induction step =
-   `collapsing_step`, harmonic part = `HL_step`/`cube_dvd_lcm_cube`, base = `sqw_zero`.
+Canonical: `numerator_plan.md` §"Round-5 blueprint".  Landed this session:
+**`ktw` + `ktw_dvd` + `ktw_mul_eq`** (`Zeta3Numerator` §kernel, module 7/0 PURE) —
+the weighted cleared kernel term `lcm(1..N)³·√b(n,k)/(m³·C(n,m)·C(n+m,m))`, ÷-free.
+Next steps (in order):
+1. `choose_pos` (`k ≤ n → 0 < C(n,k)`, Pascal induction) → `FLT/Binomial` (downstream
+   rebuild is large; batch it with other Binomial additions if any).
+2. **Column reweighting** `(k+1)²·ktw(k+1,m) = (n−k)(n+k+1)·ktw(k,m)` — `ktw_mul_eq`
+   × `sqw_shift_k` + `mul_left_cancel_pos` (needs 1).
+3. **Parity-split sums** `kOdd/kEven` (absolute parity, explicit counts `t`; the
+   weight column moves with `k`, so NO naive pair-recursion — see plan) + cleared
+   law (1) as two ℕ-statements, induction = `collapsing_step` + reweighting.
 4. Then (d): cleared `U` + `sumTo_shift_eq` + `rnum_reduced`/`rbnd_reduced`/`t1_*_weld`
    + R-NIL (`choose_eq_zero_of_lt`) close `ΣU = 0`; (e) 2-step induction à la
    `zeta3Den_eq`.
+
+**propext-trap additions (avoid in new proofs):** core `Nat.dvd_trans` and
+`Nat.mul_assoc` leak `propext` — compose dvd-chains by explicit witness construction
++ `ring_nat`.  (NatHelper replacement candidates, batch with the next NatHelper edit.)
 
 All new welds were derived + grid-verified numerically FIRST
 (scratchpad scripts; the exact statements are in the theorem docstrings) — keep this
