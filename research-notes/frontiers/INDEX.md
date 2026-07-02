@@ -474,6 +474,20 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   after the Phase-8 audit found these claimed-closed in prose with no Lean; the
   note bounds the frontier against the genuinely-closed 2/3/4-skeleton content and
   flags the smallest closable steps (`cohomology_higher_structure.md`).
+- `exterior_as_extension` — **★ the exterior as extension** (originator's conjecture, 2026-07-02):
+  the "exterior" of no-exterior IS residue-driven system extension — examined against the Lean.
+  Floor already proven (`residue_perpetually_reenters`, `ceilings_are_nonsurjectivity`,
+  `ascent_unbounded`; the §5.7 dynamic reading).  **Sharp finding**: two tower shapes —
+  *progressing* (bracket/modulus: yesterday's exterior is today's interior) vs *fixed-core*
+  (`fun _ => true` uncaptured at every re-entry depth) — force the amendment **exterior =
+  capturable extension ⊕ the invariant core (the one wall)**, the dynamic face of the
+  tetrachotomy; the three fates = the three fates of an extension step.  Formal targets E1–E4
+  (connecting maps / capture theorem / graded core-invariance / no-stage-decides-its-own-coker
+  = `no_walls_seminar` R7's Gödel-II question).  Plus the **extension protocol** (candidate
+  archetype A8 EXTEND, P1–P6: localize non-surjection → tetrachotomy triage → reify witness as
+  data → falsifiability gate → narrow → fate diagnosis) with pre-registered validation V1–V5
+  (ζ(3) numerator, RH-as-the-method's-own-falsifier, Markov retro-diction, E1, historical
+  calibration: Kummer / `i` / `Con(T)` / forcing / distributions / étale).
 - `the_genesis_seam` — **★ generation vs re-derivation, made measurable** (active
   overnight multi-agent research program).  The Round-1 5-perspective debate
   converged: the true purpose is to verify the founding intuition is *forced, not
