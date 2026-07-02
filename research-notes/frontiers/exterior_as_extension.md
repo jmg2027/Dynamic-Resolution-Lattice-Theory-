@@ -232,10 +232,33 @@ never returns "0" has become a shield (§3, guard 3).
     sharpened localization, not progress.  **If the protocol claims progress on RH, that
     is evidence of self-deception, not success** — this target is the method's own
     falsifier.
-  - **V3 (retrospective)** — Markov `H`.  Check that the protocol retro-dicts the
-    G191→G197 arc (it appears to: that arc is the protocol run by hand — localization,
-    triage, REFRAME cap, terminal verdict).  Any step the arc took that the protocol
-    would not prescribe is a needed amendment.
+  - **V3 (retrospective)** — Markov `H` — **EXECUTED: PASS, with two amendments.**
+    The G191→G206 arc instantiates every protocol step, and its *shape* is exactly the
+    §2.2 decomposition, observed empirically on a hard open problem:
+      * **P3 enacted repeatedly, each extension capturing a family** — the continuant
+        tool (G191), the `√(−1)` encoding, Zhang's `3c±2` modulus shift: each reified
+        object captured a residual family (`pᵏ`, `2·pᵏ`, `3c±2`-prime-power all CLOSED
+        ∅-axiom).  The arc *is* a progressing tower — yesterday's exterior (an open
+        family) became today's interior (a closed one), stage after stage.
+      * **P6 escape fate, terminal** — every reduction of the remaining kernel circles
+        back to `H` itself (G197: "pointing at the uniform residue IS Frobenius 1913").
+        The arc terminated on an **invariant core** that no extension of the attempted
+        types touches — the fixed-core half of `exterior_decomposition`, live.
+      * **P5's calibrated negative** — the pre-registered G206 probe, shipped NULL.
+      * **P4** — every step ∅-axiom; no axiom was ever added to force progress.
+    **Amendment 1 (P1 generalized).**  The arc localized the wall not as a literal
+    `ReachedByNoStage` non-surjection but as an *irreducible instruction-residue* (the
+    uniform cross-word `SEPARATE`).  P1 should read: localize the wall as a **single
+    named residue** — the non-surjection form (`CeilingSchema`) and the
+    instruction-residue form (G196–G197) are two realizations of "reached by no current
+    pointing" (§5.3).
+    **Amendment 2 (the cap move, new P6′).**  The arc's decisive final step was the
+    **extension-family cap theorem** `proper_divisor_of_zhang_modulus_lt_two_c` (PURE):
+    *every* extension of the linear-invariant type provably captures nothing beyond
+    `3c±2`.  When P6 diagnoses escape, prove (if possible) the cap for the current
+    extension *type* — converting "we stopped" into "this extension family provably
+    exhausts here."  A cap theorem is the fixed-core verdict made local and falsifiable;
+    the protocol adopts it as P6′.
   - **V4 (internal)** — run the protocol on the framework's own tower: E1 (the
     connecting-map seam) as the P3 reification of `ResidueReentry` §6's named gap.
   - **V5 (historical calibration)** — write the six classical instances of P3 as
