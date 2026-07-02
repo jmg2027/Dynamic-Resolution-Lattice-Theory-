@@ -1,4 +1,5 @@
 import E213.Lib.Math.Foundations.CeilingSchema
+import E213.Lib.Math.Logic.MasterClassifierNoGo
 import E213.Lens
 
 /-!
@@ -181,5 +182,91 @@ theorem exterior_decomposition (f : Nat → Nat → Nat) (k n : Nat) :
     ∧ ReachedByNoStage
         (fun P : Raw → Bool => Object1 (predicateToRaw n P)) (fun _ : Raw => true) :=
   ⟨yesterday_exterior_today_interior f k, undifferentiated_uncaptured n⟩
+
+/-! ## §4 — E4 (finite shadow): no stage carries its own diagonal; the next stage does
+
+§1 ran the extension move on `Nat`-valued enumerations.  Here it runs on **`Bool`
+self-covers** `f : Nat → (Nat → Bool)` — the wall carrier of the no-walls seminar
+(`MasterClassifierNoGo`), where the escapee is the **diagonal classifier**
+`diagClassifier f = fun a => ! (f a a)`, the cover's own canonical coker witness.
+
+The result is the height-axis one-way statement (`no_walls_seminar` R7's open
+question, in its finite-shadow form):
+
+  * **no stage carries its own diagonal** — at every height `k`, the stage-`k` cover's
+    diagonal classifier is realised by no row of stage `k`
+    (`no_stage_carries_own_diagonal`, from `diagClassifier_unreached`);
+  * **the next stage carries it** — the extension reifies it as row `0` of stage `k+1`
+    (`next_stage_carries_diagonal`, definitional);
+  * **the wall re-occurs at every stage** — stage `k+1` has its own uncarried diagonal,
+    and the master-classifier no-go holds per stage (`master_classifier_is_the_wall`
+    applied at height `k`).
+
+So the ascent is **free** (the capture is always available one stage up — nothing
+blocks the extension) while self-decision is **absent at every stage** (forced, not
+chosen): the height axis is one-way.  The classical resonance — a system does not
+carry its own consistency-witness, the extended system does, and the extension never
+terminates — is a *Reading* of this shape; what is proven here is the cover-shape
+statement on `Nat → (Nat → Bool)`, with no arithmetization and no claim beyond it.
+
+Scope note vs "decides its own coker": the *full* coker-decider (a classifier of ALL
+escaped sections) is the master classifier, impossible at every stage — that is the
+invariant core again, not a per-stage increment.  What ascends is the **canonical
+witness** (the diagonal); what never ascends is the wall.  The Bool tower thus carries
+both halves of `exterior_decomposition` on one carrier. -/
+
+open E213.Lib.Math.Logic.MasterClassifierNoGo
+  (diagClassifier diagClassifier_unreached master_classifier_is_the_wall)
+
+/-- **The extension operator for `Bool` self-covers.**  Prepend the stage's own
+    diagonal classifier — the canonical coker witness — as row `0`; every old row
+    persists one index up.  The §1 `extend`, on the wall carrier. -/
+def extendCover (f : Nat → Nat → Bool) : Nat → Nat → Bool
+  | 0 => diagClassifier f
+  | i + 1 => f i
+
+/-- **The cover tower.**  Iterate: stage `k+1` reifies stage `k`'s diagonal
+    classifier.  The §1 `tower`, on the wall carrier. -/
+def coverTower (f : Nat → Nat → Bool) : Nat → Nat → Nat → Bool
+  | 0 => f
+  | k + 1 => extendCover (coverTower f k)
+
+/-- ★★ **No stage carries its own diagonal.**  At every height `k`, the stage-`k`
+    cover's diagonal classifier is realised by no row of stage `k` — self-decision of
+    the canonical coker witness is absent at every stage, uniformly
+    (`diagClassifier_unreached` at height `k`). -/
+theorem no_stage_carries_own_diagonal (f : Nat → Nat → Bool) (k : Nat) :
+    ¬ ∃ i, coverTower f k i = diagClassifier (coverTower f k) :=
+  diagClassifier_unreached (coverTower f k)
+
+/-- ★★ **The next stage carries it.**  Stage `k`'s diagonal classifier — uncarried by
+    stage `k` — is row `0` of stage `k+1`.  The capture is definitional: the ascent is
+    free; nothing blocks reifying the witness one stage up. -/
+theorem next_stage_carries_diagonal (f : Nat → Nat → Bool) (k : Nat) :
+    ∃ i, coverTower f (k + 1) i = diagClassifier (coverTower f k) :=
+  ⟨0, rfl⟩
+
+/-- ★★★★ **E4, finite shadow: the height axis is one-way.**  Uniformly in the height
+    `k`, on the wall carrier:
+
+    1. stage `k` does **not** carry its own diagonal classifier (self-decision forced
+       absent — `no_stage_carries_own_diagonal`);
+    2. stage `k+1` **does** carry it (ascent free — `next_stage_carries_diagonal`);
+    3. the wall holds **at** stage `k`: no classifier is both the correct diagonal and
+       a row of the stage's own cover (`master_classifier_is_the_wall`).
+
+    Ascent free, self-decision forced absent, the wall re-occurring at every height —
+    the one-way height axis (`no_walls_seminar` R7), proven in its cover-shape finite
+    shadow.  The two §3 components on one carrier: the diagonal is the *capturable*
+    exterior (discharged one stage up, re-occupied), the master classifier is the
+    *invariant* one (impossible at every stage).  ∅-axiom. -/
+theorem height_axis_one_way (f : Nat → Nat → Bool) (k : Nat) :
+    (¬ ∃ i, coverTower f k i = diagClassifier (coverTower f k))
+    ∧ (∃ i, coverTower f (k + 1) i = diagClassifier (coverTower f k))
+    ∧ (¬ ∃ c : Nat → Bool,
+        (∀ a, c a = ! (coverTower f k a a)) ∧ (∃ i, coverTower f k i = c)) :=
+  ⟨no_stage_carries_own_diagonal f k,
+   next_stage_carries_diagonal f k,
+   master_classifier_is_the_wall (coverTower f k)⟩
 
 end E213.Lib.Math.Foundations.ExteriorAsExtension

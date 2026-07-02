@@ -482,11 +482,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   (`fun _ => true` uncaptured at every re-entry depth) — force the amendment **exterior =
   capturable extension ⊕ the invariant core (the one wall)**, the dynamic face of the
   tetrachotomy; the three fates = the three fates of an extension step.  **E2 (capture
-  theorem) + E3 (graded core-invariance) + the decomposition capstone CLOSED ∅-axiom**
-  (`Lib/Math/Foundations/ExteriorAsExtension.lean`, 10 PURE: `extension_step`,
-  `yesterday_exterior_today_interior`, `undifferentiated_uncaptured`,
-  `exterior_decomposition`).  Open: E1 (connecting maps / `∂²=0` seam), E4
-  (no-stage-decides-its-own-coker = `no_walls_seminar` R7's Gödel-II question), the numeric
+  theorem) + E3 (graded core-invariance) + the decomposition capstone + E4 finite-shadow
+  (height-axis one-way) CLOSED ∅-axiom** (`Lib/Math/Foundations/ExteriorAsExtension.lean`,
+  15 PURE: `extension_step`, `yesterday_exterior_today_interior`,
+  `undifferentiated_uncaptured`, `exterior_decomposition`, `height_axis_one_way` — no
+  stage carries its own diagonal classifier, the next stage does, the wall re-occurs at
+  every height).  Open: E1 (connecting maps / `∂²=0` seam), the R7 weld
+  (`height_axis_one_way` ↔ the height-`h` free-parameter fiber-order), the numeric
   progressing-tower instance.  Plus the **extension protocol** (candidate
   archetype A8 EXTEND, P1–P6: localize non-surjection → tetrachotomy triage → reify witness as
   data → falsifiability gate → narrow → fate diagnosis) with pre-registered validation V1–V5

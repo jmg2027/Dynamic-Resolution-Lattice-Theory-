@@ -82,3 +82,9 @@ fog (unfold every term or cite a theorem); no false witnesses; no forcible maps.
   the general idempotence theorem is ABSENT-by-self-grounding). Folded into `SYNTHESIS.md` §2 (xi).
 - **R7+ (open):** weld the base×fiber coupling into one parametric theorem (`fiber arity = NT`); a partial
   decidable `tagOf` below the wall (the buildable part); `GenericAsCut`.
+  **Height-axis update (2026-07-02):** the one-way-ness question's *finite-shadow core is now CLOSED
+  ∅-axiom* — `Lib/Math/Foundations/ExteriorAsExtension.height_axis_one_way` (no stage of the cover tower
+  carries its own diagonal classifier; the next stage does, definitionally; the master-classifier wall
+  re-occurs at every height).  Remaining here: the weld to the height-`h` free-parameter fiber-order
+  reading (is one-way-ness the escape/converge asymmetry on the strength axis, or a new fact?) — see
+  `frontiers/exterior_as_extension.md` §4 E4.

@@ -151,12 +151,22 @@ becomes P6 of the protocol below.
   - **The decomposition capstone** — **CLOSED ∅-axiom** (same file):
     `exterior_decomposition` states both halves in one theorem, uniformly in the tower
     height `k` and the re-entry depth `n` — the §2.2 amendment as a theorem, not prose.
-  - **E4 — no stage decides its own coker** (the Gödel-II shadow, R7's question) —
-    **OPEN**.  Relativize `master_classifier_is_the_wall` to stages: a depth-`n`
-    classifier that decides membership in the depth-`n` coker and is itself a row of
-    the depth-`n` cover is impossible.  This would close the height-axis
-    one-way-freeness question in its 213-native form.  Needs its own design session
-    (the stage-relative carrier is not the naive `A → (A → Bool)` shape).
+  - **E4 — no stage carries its own diagonal; the next stage does** (the height-axis
+    one-way statement, R7's question) — **finite-shadow core CLOSED ∅-axiom**
+    (`ExteriorAsExtension.lean` §4, on the wall carrier `Nat → (Nat → Bool)`).
+    `coverTower` iterates the extension move on `Bool` self-covers, reifying each
+    stage's **diagonal classifier** (the canonical coker witness) as the next stage's
+    row `0`.  `no_stage_carries_own_diagonal` (self-decision forced absent at every
+    height, via `diagClassifier_unreached`) + `next_stage_carries_diagonal` (ascent
+    free, definitional) + the per-stage wall (`master_classifier_is_the_wall` at every
+    height), bundled as **`height_axis_one_way`**.  The two decomposition components on
+    one carrier: the diagonal is the *capturable* exterior, the master classifier the
+    *invariant* one.  Honest scope: this is the cover-shape statement (no
+    arithmetization); the classical "a system does not carry its own
+    consistency-witness, the extended system does" is a Reading of the shape.
+    *Remaining open (the R7 weld)*: connect `height_axis_one_way` to the seminar's
+    height-`h` free-parameter classification (fiber-order) — is the one-way-ness the
+    `q = ±1` escape/converge asymmetry on the strength axis, or a new fact?
 
 ## §5 The methodology — the extension protocol (candidate archetype A8 EXTEND)
 
