@@ -112,8 +112,12 @@ by `(−1)^k√b(j,k)`, with `φ := −k(2j+3)P₄/((j+1)(j+2)²(j−k+1)(j+k+1)
   * **R-NIL** `U(j,j+2) ≡ 0` (`C(j+2,j+3)=0`).
 
 Lean order: (a) cleared collapsing laws; (b) contiguity reductions of `u`'s four pieces
-and `T1`'s two (on the `AperyCollapsing` bricks); (c) R-NUM in additive `j=k+d` form by
-`ring_nat`; (d) `sumTo` telescoping + R-BND + R-NIL; (e) induct `zeta3Num=(n!)³A`.
+and `T1`'s two (on the `AperyCollapsing` bricks); **(c) DONE — R-NUM + R-BND are PURE
+Lean theorems** (`NumberTheory/AperyNumeratorWZ.lean`, 13 PURE incl. the
+machine-generated expansion/collection chain: R-NUM's single-`ring_nat` form exceeds the
+reflective normalizer, so six per-term expansions + a pairwise collection chain compose
+it; R-BND direct); (d) `sumTo` telescoping + R-NIL + the `W`-factoring welds; (e) induct
+`zeta3Num=(n!)³A`.
 The KEY FINDING below stands only as the **cap for the `b`-only language** — the
 extension language dissolves it.
 

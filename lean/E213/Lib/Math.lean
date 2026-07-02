@@ -134,6 +134,7 @@ import E213.Lib.Math.NumberTheory.PrimePowFactorization
 import E213.Lib.Math.NumberTheory.Primorial
 import E213.Lib.Math.NumberTheory.Zeta3Numerator
 import E213.Lib.Math.NumberTheory.AperyCollapsing
+import E213.Lib.Math.NumberTheory.AperyNumeratorWZ
 
 /-! Spec-as-code entry point for `E213.Lib.Math` — full 213 mathematics library.
 
