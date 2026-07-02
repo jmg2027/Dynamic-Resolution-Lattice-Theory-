@@ -133,4 +133,75 @@ theorem collapsing_core (n k m : Nat) (h : k ≤ n) :
     ∧ (k * k + (n + k) * (n - k) = n * n) :=
   ⟨sqw_shift_n n m, sqw_shift_k n k, square_split h⟩
 
+/-! ## §2 — the `b`-welds (clearing the numerator-residual's pieces)
+
+The ζ(3) numerator residual `U = (−1)^k√b·u` has four pieces
+(`derive_numerator_certificate.py` step (3)); pieces 1–3 are `b(n',m)·w(n'',m)`
+products whose cleared ℕ-forms are one-step corollaries of `sqw_shift_n`:
+with `b = √b²`, the identity `b(j,m)·w(j+1,m) = √b(j,m)·(j+1−m)/(j+1+m)` clears
+to `(j+1+m)·b(j,m) = (j+1−m)·√b(j,m)·√b(j+1,m)`, and likewise for the double
+shift.  These welds are what step (b) of the round-4 plan
+(`numerator_plan.md` §"THE NUMERATOR CERTIFICATE") ties `rnum_reduced` to the
+actual binomial sums with. -/
+
+/-- ★★ **Double cross-`n` contiguity.**
+    `(n+1−m)(n+2−m)·√b(n+2,m) = (n+1+m)(n+2+m)·√b(n,m)` — two `sqw_shift_n`
+    steps composed; the clearing ratio of `w(j+2,k)` against `√b(j,k)`. -/
+theorem sqw_shift_n2 (n m : Nat) :
+    ((n + 1 - m) * (n + 2 - m)) * sqw (n + 2) m = ((n + 1 + m) * (n + 2 + m)) * sqw n m := by
+  have h1 : (n + 1 - m) * sqw (n + 1) m = (n + 1 + m) * sqw n m := sqw_shift_n n m
+  have h2 : (n + 1 + 1 - m) * sqw (n + 1 + 1) m = (n + 1 + 1 + m) * sqw (n + 1) m :=
+    sqw_shift_n (n + 1) m
+  calc ((n + 1 - m) * (n + 2 - m)) * sqw (n + 2) m
+      = (n + 1 - m) * ((n + 2 - m) * sqw (n + 2) m) := by ring_nat
+    _ = (n + 1 - m) * ((n + 2 + m) * sqw (n + 1) m) := by rw [show (n + 2 - m) * sqw (n + 2) m
+          = (n + 2 + m) * sqw (n + 1) m from h2]
+    _ = (n + 2 + m) * ((n + 1 - m) * sqw (n + 1) m) := by ring_nat
+    _ = (n + 2 + m) * ((n + 1 + m) * sqw n m) := by rw [h1]
+    _ = ((n + 1 + m) * (n + 2 + m)) * sqw n m := by ring_nat
+
+/-- ★★ **Weld for `u`-piece 1** (`b(n,m)·w(n+1,m)`):
+    `(n+1+m)·b(n,m) = (n+1−m)·√b(n,m)·√b(n+1,m)`. -/
+theorem b_weld_n1 (n m : Nat) :
+    (n + 1 + m) * (sqw n m * sqw n m) = (n + 1 - m) * (sqw n m * sqw (n + 1) m) := by
+  calc (n + 1 + m) * (sqw n m * sqw n m)
+      = ((n + 1 + m) * sqw n m) * sqw n m := by ring_nat
+    _ = ((n + 1 - m) * sqw (n + 1) m) * sqw n m := by rw [← sqw_shift_n]
+    _ = (n + 1 - m) * (sqw n m * sqw (n + 1) m) := by ring_nat
+
+/-- ★★ **Weld for `u`-piece 2** (`b(n,m)·w(n+2,m)`):
+    `(n+1+m)(n+2+m)·b(n,m) = (n+1−m)(n+2−m)·√b(n,m)·√b(n+2,m)`. -/
+theorem b_weld_n2 (n m : Nat) :
+    ((n + 1 + m) * (n + 2 + m)) * (sqw n m * sqw n m)
+      = ((n + 1 - m) * (n + 2 - m)) * (sqw n m * sqw (n + 2) m) := by
+  calc ((n + 1 + m) * (n + 2 + m)) * (sqw n m * sqw n m)
+      = (((n + 1 + m) * (n + 2 + m)) * sqw n m) * sqw n m := by ring_nat
+    _ = (((n + 1 - m) * (n + 2 - m)) * sqw (n + 2) m) * sqw n m := by rw [← sqw_shift_n2]
+    _ = ((n + 1 - m) * (n + 2 - m)) * (sqw n m * sqw (n + 2) m) := by ring_nat
+
+/-- ★★ **Weld for `u`-piece 3** (`b(n+1,m)·w(n+2,m)`):
+    `(n+2+m)·b(n+1,m) = (n+2−m)·√b(n+1,m)·√b(n+2,m)`. -/
+theorem b_weld_mid (n m : Nat) :
+    (n + 2 + m) * (sqw (n + 1) m * sqw (n + 1) m)
+      = (n + 2 - m) * (sqw (n + 1) m * sqw (n + 2) m) := by
+  have h2 : (n + 1 + 1 - m) * sqw (n + 1 + 1) m = (n + 1 + 1 + m) * sqw (n + 1) m :=
+    sqw_shift_n (n + 1) m
+  calc (n + 2 + m) * (sqw (n + 1) m * sqw (n + 1) m)
+      = ((n + 2 + m) * sqw (n + 1) m) * sqw (n + 1) m := by ring_nat
+    _ = ((n + 2 - m) * sqw (n + 2) m) * sqw (n + 1) m := by
+        rw [show (n + 2 + m) * sqw (n + 1) m = (n + 2 - m) * sqw (n + 2) m from h2.symm]
+    _ = (n + 2 - m) * (sqw (n + 1) m * sqw (n + 2) m) := by ring_nat
+
+/-- ★★★ **The `b`-welds, bundled** — the cleared ℕ-forms of the numerator
+    residual's pieces 1–3, each a `sqw_shift_n` corollary.  Together with
+    `sqw_shift_k` (piece 4's `(k+1)`-ratio) and `AperyNumeratorWZ.rnum_reduced`
+    these are the step-(b) inputs of the round-4 assembly. -/
+theorem b_welds (n m : Nat) :
+    ((n + 1 + m) * (sqw n m * sqw n m) = (n + 1 - m) * (sqw n m * sqw (n + 1) m))
+    ∧ (((n + 1 + m) * (n + 2 + m)) * (sqw n m * sqw n m)
+        = ((n + 1 - m) * (n + 2 - m)) * (sqw n m * sqw (n + 2) m))
+    ∧ ((n + 2 + m) * (sqw (n + 1) m * sqw (n + 1) m)
+        = (n + 2 - m) * (sqw (n + 1) m * sqw (n + 2) m)) :=
+  ⟨b_weld_n1 n m, b_weld_n2 n m, b_weld_mid n m⟩
+
 end E213.Lib.Math.NumberTheory.AperyCollapsing
