@@ -69,9 +69,12 @@ residual `U = (−1)^k√b·u` (u explicit rational) after the top-row decomposi
 `k=j`.  The old "hand-derived kernel telescoping, hardest piece" verdict is
 **overturned** — the route is now denominator-shaped certificate verification.
 Lean targets, in order: (a) cleared collapsing laws (on the `AperyCollapsing` bricks);
-(b) step-(3) closed-`u` per-`k` ℕ-identity; (c) step-(4) `U = Δψ` per-`k` ℕ-identity
-(`ring_nat` after clearing, mirror of `reduced_wz_identity`); (d) `sumTo` telescoping +
-the boundary identity; (e) induct `zeta3Num = (n!)³·A`.
+(b) contiguity reductions of `u`'s four pieces + `T1`'s two; **(c) DONE — R-NUM + R-BND
+are PURE** (`NumberTheory/AperyNumeratorWZ.lean`, 13 PURE; R-NUM needed a
+machine-generated split: six per-term expansion lemmas + a pairwise collection chain,
+since the single `ring_nat` exceeds the reflective normalizer's budget — reusable
+pattern); (d) `sumTo` telescoping + R-NIL + the `W`-factoring welds tying R-NUM to the
+actual binomial sums; (e) induct `zeta3Num = (n!)³·A`.
 
 ### 3. E1 — the connecting maps (`∂²=0` seam)
 Stage inclusions for the re-entry tower; `CapturedAt` decomposition as a theorem.
