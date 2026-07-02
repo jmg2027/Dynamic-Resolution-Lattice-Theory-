@@ -46,7 +46,7 @@ open E213.Lib.Math.NumberTheory.DyadicFSM.FLT.Binomial (choose choose_succ_mul
   choose_zero_right choose_self choose_one_right choose_symm_sum)
 open E213.Lib.Math.NumberTheory.AperyRecurrence (colrec lowrec colA colB colC colC1
   G1a G1b aperyLead aperyLead_prod)
-open E213.Tactic.NatHelper (add_sub_of_le add_sub_cancel_right)
+open E213.Tactic.NatHelper (add_sub_of_le add_sub_cancel_right mul_left_cancel_pos)
 
 /-- **The half-weight carrier** `√b(n,k) = C(n,k)·C(n+k,k)` — the integer whose
     square is the Apéry summand `b(n,k)` and whose reciprocal `w = 1/√b` carries
@@ -372,5 +372,158 @@ theorem t1_ghat_weld (j : Nat) :
       _ = 2 * ((j + 2) * ((2 * j + 3) * ((2 * j + 1)
             * (choose (j + j + 2) (j + 2) * choose (j + j) j)))) := by ring_nat
   exact hL.trans hR.symm
+
+/-! ## §4 — the collapsing law's induction step (cleared, additive)
+
+The ℚ-proof of the cross-`n` collapsing law (1) is an induction on `k`: the
+step adds the `m = k+1` kernel term to both `c(n,k)` and `c(n−1,k)`, i.e.
+
+    −w(n,k+1)/(n²(n−k−1)) = w(n,k)/(n²(n−k)) + [w(n,k+1) − w(n−1,k+1)]/(2(k+1)³)
+
+(after dividing by `(−1)^k`).  Cleared by `2(k+1)³·n²(n−k)(n−k−1)` times the
+carrier triple `√b(n,k)√b(n,k+1)√b(n−1,k+1)` and written additively
+(`n = k+e+1`, so `n−k = e+1`, `n−k−1 = e`, rows `k+e+1` / `k+e`), the step is
+the all-ℕ mixed-carrier identity `collapsing_step` below — the last algebraic
+gap of round-4 step (a); what remains for the law itself is only the
+representation layer (the cleared signed `c`-sums it steps through). -/
+
+/-- Cross-`k` contiguity at row `k+e+1`, subtraction-free:
+    `(k+1)²·√b(k+e+1,k+1) = (e+1)(2k+e+2)·√b(k+e+1,k)`. -/
+theorem sqw_shift_k_add (k e : Nat) :
+    ((k + 1) * (k + 1)) * sqw (k + e + 1) (k + 1)
+    = ((e + 1) * (2 * k + e + 2)) * sqw (k + e + 1) k := by
+  have hsubk : k + e + 1 - k = e + 1 := by
+    rw [show k + e + 1 = e + 1 + k from by ring_nat]
+    exact add_sub_cancel_right (e + 1) k
+  have h := sqw_shift_k (k + e + 1) k
+  rw [hsubk, show k + e + 1 + k + 1 = 2 * k + e + 2 from by ring_nat] at h
+  exact h
+
+/-- Cross-`n` contiguity in column `k+1`, subtraction-free:
+    `e·√b(k+e+1,k+1) = (2k+e+2)·√b(k+e,k+1)`. -/
+theorem sqw_shift_n_add (k e : Nat) :
+    e * sqw (k + e + 1) (k + 1) = (2 * k + e + 2) * sqw (k + e) (k + 1) := by
+  have hsube : k + e + 1 - (k + 1) = e := by
+    rw [show k + e + 1 = e + (k + 1) from by ring_nat]
+    exact add_sub_cancel_right e (k + 1)
+  have h := sqw_shift_n (k + e) (k + 1)
+  rw [hsube, show k + e + 1 + (k + 1) = 2 * k + e + 2 from by ring_nat] at h
+  exact h
+
+set_option maxRecDepth 40000 in
+set_option maxHeartbeats 16000000 in
+private theorem step_convert_B (k e : Nat) :
+    (((k + 1) * (k + 1)) * (2 * k + e + 2))
+        * (sqw (k + e + 1) (k + 1) * sqw (k + e) (k + 1))
+    = (e * ((e + 1) * (2 * k + e + 2)))
+        * (sqw (k + e + 1) k * sqw (k + e + 1) (k + 1)) := by
+  calc (((k + 1) * (k + 1)) * (2 * k + e + 2))
+          * (sqw (k + e + 1) (k + 1) * sqw (k + e) (k + 1))
+      = ((k + 1) * (k + 1))
+          * (sqw (k + e + 1) (k + 1) * ((2 * k + e + 2) * sqw (k + e) (k + 1))) := by
+        ring_nat
+    _ = ((k + 1) * (k + 1))
+          * (sqw (k + e + 1) (k + 1) * (e * sqw (k + e + 1) (k + 1))) := by
+        rw [← sqw_shift_n_add]
+    _ = e * ((((k + 1) * (k + 1)) * sqw (k + e + 1) (k + 1)) * sqw (k + e + 1) (k + 1)) := by
+        ring_nat
+    _ = e * ((((e + 1) * (2 * k + e + 2)) * sqw (k + e + 1) k) * sqw (k + e + 1) (k + 1)) := by
+        rw [sqw_shift_k_add]
+    _ = (e * ((e + 1) * (2 * k + e + 2)))
+          * (sqw (k + e + 1) k * sqw (k + e + 1) (k + 1)) := by ring_nat
+
+set_option maxRecDepth 40000 in
+set_option maxHeartbeats 16000000 in
+private theorem step_convert_C (k e : Nat) :
+    (((k + 1) * (k + 1)) * (2 * k + e + 2))
+        * (sqw (k + e + 1) k * sqw (k + e) (k + 1))
+    = (((k + 1) * (k + 1)) * e)
+        * (sqw (k + e + 1) k * sqw (k + e + 1) (k + 1)) := by
+  calc (((k + 1) * (k + 1)) * (2 * k + e + 2))
+          * (sqw (k + e + 1) k * sqw (k + e) (k + 1))
+      = ((k + 1) * (k + 1))
+          * (sqw (k + e + 1) k * ((2 * k + e + 2) * sqw (k + e) (k + 1))) := by
+        ring_nat
+    _ = ((k + 1) * (k + 1))
+          * (sqw (k + e + 1) k * (e * sqw (k + e + 1) (k + 1))) := by
+        rw [← sqw_shift_n_add]
+    _ = (((k + 1) * (k + 1)) * e)
+          * (sqw (k + e + 1) k * sqw (k + e + 1) (k + 1)) := by ring_nat
+
+set_option maxRecDepth 40000 in
+set_option maxHeartbeats 16000000 in
+/-- The scalar core of the induction step: the degree-7 polynomial identity
+    the `√b(n,k)√b(n,k+1)`-basis assembly reduces to (`square_split` in
+    disguise: dividing by `e(e+1)(k+1)²` leaves
+    `n²(2k+e+2) = 2(k+1)(e(2k+e+2) + (k+1)²) + n²·e`, i.e.
+    `n² = e(2k+e+2) + (k+1)²`). -/
+private theorem step_poly (k e : Nat) :
+    (((k + e + 1) * (k + e + 1)) * ((e + 1) * e)) * (((k + 1) * (k + 1)) * (2 * k + e + 2))
+    = (2 * ((k + 1) * (k + 1) * (k + 1)) * e) * (e * ((e + 1) * (2 * k + e + 2)))
+      + (2 * ((k + 1) * (k + 1) * (k + 1)) * (e + 1)
+          + ((k + e + 1) * (k + e + 1)) * ((e + 1) * e)) * (((k + 1) * (k + 1)) * e) := by
+  ring_nat
+
+set_option maxRecDepth 40000 in
+set_option maxHeartbeats 16000000 in
+/-- ★★★ **The collapsing law's induction step, cleared** (additive: rows
+    `n = k+e+1` / `n−1 = k+e`, columns `k` / `k+1`):
+
+        n²(n−k)(n−k−1) · √b(n,k)√b(n,k+1)
+          = 2(k+1)³(n−k−1) · √b(n,k+1)√b(n−1,k+1)
+            + [2(k+1)³(n−k) + n²(n−k)(n−k−1)] · √b(n,k)√b(n−1,k+1).
+
+    This is the `m = k+1` kernel-increment step of the ℚ-induction proving the
+    cross-`n` collapsing law — the cleared form of
+
+        −w(n,k+1)/(n²(n−k−1)) = w(n,k)/(n²(n−k)) + [w(n,k+1) − w(n−1,k+1)]/(2(k+1)³)
+
+    over the carrier triple `√b(n,k)√b(n,k+1)√b(n−1,k+1)`.  Proven by
+    cancelling `(k+1)²(2k+e+2)` after converting the two `√b(n−1,k+1)`-products
+    to the `√b(n,k)√b(n,k+1)`-basis via the additive contiguities; the residual
+    scalar identity `step_poly` is `square_split` in disguise. -/
+theorem collapsing_step (k e : Nat) :
+    ((k + e + 1) * (k + e + 1)) * (((e + 1) * e)
+        * (sqw (k + e + 1) k * sqw (k + e + 1) (k + 1)))
+    = (2 * ((k + 1) * (k + 1) * (k + 1)) * e)
+        * (sqw (k + e + 1) (k + 1) * sqw (k + e) (k + 1))
+      + (2 * ((k + 1) * (k + 1) * (k + 1)) * (e + 1)
+          + ((k + e + 1) * (k + e + 1)) * ((e + 1) * e))
+        * (sqw (k + e + 1) k * sqw (k + e) (k + 1)) := by
+  have h1 : 0 < (k + 1) * (k + 1) := Nat.mul_pos (Nat.succ_pos k) (Nat.succ_pos k)
+  have hpos : 0 < ((k + 1) * (k + 1)) * (2 * k + e + 2) :=
+    Nat.mul_pos h1 (Nat.succ_pos (2 * k + e + 1))
+  refine mul_left_cancel_pos hpos ?_
+  calc (((k + 1) * (k + 1)) * (2 * k + e + 2))
+          * (((k + e + 1) * (k + e + 1)) * (((e + 1) * e)
+              * (sqw (k + e + 1) k * sqw (k + e + 1) (k + 1))))
+      = ((((k + e + 1) * (k + e + 1)) * ((e + 1) * e))
+            * (((k + 1) * (k + 1)) * (2 * k + e + 2)))
+          * (sqw (k + e + 1) k * sqw (k + e + 1) (k + 1)) := by ring_nat
+    _ = ((2 * ((k + 1) * (k + 1) * (k + 1)) * e) * (e * ((e + 1) * (2 * k + e + 2)))
+          + (2 * ((k + 1) * (k + 1) * (k + 1)) * (e + 1)
+              + ((k + e + 1) * (k + e + 1)) * ((e + 1) * e)) * (((k + 1) * (k + 1)) * e))
+          * (sqw (k + e + 1) k * sqw (k + e + 1) (k + 1)) := by rw [step_poly]
+    _ = (2 * ((k + 1) * (k + 1) * (k + 1)) * e)
+          * ((e * ((e + 1) * (2 * k + e + 2)))
+              * (sqw (k + e + 1) k * sqw (k + e + 1) (k + 1)))
+        + (2 * ((k + 1) * (k + 1) * (k + 1)) * (e + 1)
+            + ((k + e + 1) * (k + e + 1)) * ((e + 1) * e))
+          * ((((k + 1) * (k + 1)) * e)
+              * (sqw (k + e + 1) k * sqw (k + e + 1) (k + 1))) := by ring_nat
+    _ = (2 * ((k + 1) * (k + 1) * (k + 1)) * e)
+          * ((((k + 1) * (k + 1)) * (2 * k + e + 2))
+              * (sqw (k + e + 1) (k + 1) * sqw (k + e) (k + 1)))
+        + (2 * ((k + 1) * (k + 1) * (k + 1)) * (e + 1)
+            + ((k + e + 1) * (k + e + 1)) * ((e + 1) * e))
+          * ((((k + 1) * (k + 1)) * (2 * k + e + 2))
+              * (sqw (k + e + 1) k * sqw (k + e) (k + 1))) := by
+        rw [step_convert_B, step_convert_C]
+    _ = (((k + 1) * (k + 1)) * (2 * k + e + 2))
+          * ((2 * ((k + 1) * (k + 1) * (k + 1)) * e)
+              * (sqw (k + e + 1) (k + 1) * sqw (k + e) (k + 1))
+            + (2 * ((k + 1) * (k + 1) * (k + 1)) * (e + 1)
+                + ((k + e + 1) * (k + e + 1)) * ((e + 1) * e))
+              * (sqw (k + e + 1) k * sqw (k + e) (k + 1))) := by ring_nat
 
 end E213.Lib.Math.NumberTheory.AperyCollapsing

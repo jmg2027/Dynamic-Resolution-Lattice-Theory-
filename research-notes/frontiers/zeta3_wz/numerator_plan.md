@@ -111,7 +111,17 @@ by `(−1)^k√b(j,k)`, with `φ := −k(2j+3)P₄/((j+1)(j+2)²(j−k+1)(j+k+1)
     `2(2j+1)(2j+3)/((j+1)(j+2))`) — the `k=j` edge;
   * **R-NIL** `U(j,j+2) ≡ 0` (`C(j+2,j+3)=0`).
 
-Lean order: (a) cleared collapsing laws; **(b) DONE — all contiguity reductions PURE**
+Lean order: (a) cleared collapsing laws — **algebra core DONE** (`AperyCollapsing` §4,
+18/0 PURE): `collapsing_step` = the `m = k+1` kernel-increment step of the ℚ-induction
+proving law (1), cleared over the carrier triple `√b(n,k)√b(n,k+1)√b(n−1,k+1)`, additive
+(`n = k+e+1`); proven by cancelling `(k+1)²(2k+e+2)` after converting to the
+`√b(n,k)√b(n,k+1)`-basis (`sqw_shift_k_add`/`sqw_shift_n_add`), scalar residue =
+`square_split` in disguise (keeping every `ring_nat` ≤ deg 7 — the deg-9 first attempt
+with multiplier `(k+1)⁴(2k+e+2)` exceeds the normalizer budget; basis choice matters).
+Remaining in (a): the *representation layer* — the cleared signed `c`-sum
+(`√b(n,k)·2lcm³·c(n,k)` split pos/neg by kernel-parity, `HL` + heart_lcm terms) and the
+`k`-induction assembling `collapsing_step` into the law statement.
+**(b) DONE — all contiguity reductions PURE**
 (`AperyCollapsing`, 15/0): §2 `b_welds` (`b_weld_n1/n2/mid` + `sqw_shift_n2`, pieces 1–3)
 + `gb_weld` (piece 4, the Ĝ-piece's crossed reduction
 `(k+1)²(j+1−k)(j+k+2)(j+k+3)·C(j+2,k+1)C(j+k+1,k+1)² =
