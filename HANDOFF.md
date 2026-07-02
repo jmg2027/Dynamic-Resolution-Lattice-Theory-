@@ -60,17 +60,18 @@ to `.claude/hooks/session-start.sh`.
 
 ## Open Problems (Priority Order)
 
-### 1. ζ(3) numerator — round 3 (the cleared signed-sum assembly)
-Formalize the collapsing laws (1)–(2) themselves over cleared sums (`HL`-style clearing
-factor ℓ, `cube_dvd_lcm_cube`/`heart_lcm` divisibilities, pos/neg split for `(−1)^k`),
-using `collapsing_core`.  Then the Abel assembly of the A-recurrence over `(b,√b,c)` —
-strategy simplification available: attack `Σ b·c` directly (the H₃/K split is optional).
-Plan: `zeta3_wz/numerator_plan.md` §"RE-READ".  ~400–600 lines, own marathon.
-
-### 2. Extended-language certificate search (V1 round 3b)
-Multi-shift ansatz fit for the A-recurrence certificate in
-`span{rational·b·c, rational·√b}` (naive one-term correction checked messy —
-`scratchpad probe`, reusable pattern in `zeta3_wz/find_certificate.py`).
+### 1. ζ(3) numerator — round 4: Lean-verify THE CERTIFICATE (found 2026-07-02!)
+**The numerator certificate is FOUND + verified exact** (`j<26`,
+`zeta3_wz/derive_numerator_certificate.py`; plan §"THE NUMERATOR CERTIFICATE"):
+`ψ(j,k) = −(−1)^k·k(2j+3)·P₄(j,k)·√b/((j+1)(j+2)²(j−k+1)(j+k+1)(j+k+2))` telescopes the
+residual `U = (−1)^k√b·u` (u explicit rational) after the top-row decomposition
+(collapsing laws) + Abel with the denominator `Ĝ`; one 3-term boundary identity at
+`k=j`.  The old "hand-derived kernel telescoping, hardest piece" verdict is
+**overturned** — the route is now denominator-shaped certificate verification.
+Lean targets, in order: (a) cleared collapsing laws (on the `AperyCollapsing` bricks);
+(b) step-(3) closed-`u` per-`k` ℕ-identity; (c) step-(4) `U = Δψ` per-`k` ℕ-identity
+(`ring_nat` after clearing, mirror of `reduced_wz_identity`); (d) `sumTo` telescoping +
+the boundary identity; (e) induct `zeta3Num = (n!)³·A`.
 
 ### 3. E1 — the connecting maps (`∂²=0` seam)
 Stage inclusions for the re-entry tower; `CapturedAt` decomposition as a theorem.
