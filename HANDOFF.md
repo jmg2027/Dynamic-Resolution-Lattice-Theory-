@@ -1,118 +1,108 @@
-# Session Handoff — 2026-06-28
+# Session Handoff — 2026-07-02
 
 ## Branch
-`claude/handoff-continuation-dqjw6i` — merged to `main` at session end (a merge-prep marathon).
-Full `lake build E213` clean (484 modules).  ∅-axiom standard: every theorem this session is **PURE**
-(`#print axioms → "does not depend on any axioms"`; 0 sorry / 0 external axiom / 0 native_decide /
-0 Classical / 0 Mathlib / **0 propext**).
+`claude/repo-research-context-3utd48` — NOT merged.  6 commits (`31e6aa6..e4c4317`).
+New Lean modules build clean; every new declaration **PURE** (`scan_axioms.py`: 15/0 in
+`ExteriorAsExtension`, 6/0 in `AperyCollapsing`).
 
-## Headline — CUBIC RECIPROCITY is complete (both cases, ∅-axiom)
+## Headline — the exterior-as-extension arc (originator's conjecture, examined → theorems → live method)
 
-The split case of the cubic reciprocity law was assembled and is PURE, closing the whole arc:
+The originator's conjecture — *the "exterior" of no-exterior IS residue-driven system
+extension* — was examined against the corpus, **amended, formalized, and converted into a
+working attack method** that immediately paid off on the ζ(3) numerator wall.
 
-**`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`** — for two distinct primary Eisenstein
-primes `J = jacobiSum p m x` (norm `p`) and `J₂ = jacobiSum pr m₂ x₂` (norm `pr`), both `≡ 1 (mod 3)`,
-the cubic residue symbols are equal: `(J/J₂)₃ = (J₂/J)₃` (i.e. `A = S` for `J^{m₂} ≡ A (mod d₂)`,
-`J₂^{m} ≡ S (mod d)`).  `split_cubic_reciprocity_symbol` is the self-contained form: one common `μ₃`
-value `V` is simultaneously both symbols.
+1. **The amendment (the theory's honest form):** apparent exterior =
+   **(extension-capturable component) ⊕ (invariant core — the one wall)**.  Two tower
+   shapes proven distinct: progressing (diag towers — yesterday's exterior is today's
+   interior) vs fixed-core (`fun _ => true` uncaptured at every re-entry depth).  The
+   dynamic face of the no-walls tetrachotomy; §5.7 frozen/dynamic co-present.
+2. **Lean (`Lib/Math/Foundations/ExteriorAsExtension.lean`, 15 PURE):** E2 capture
+   theorem (`extend`/`tower`, `yesterday_exterior_today_interior`); E3 invariant core
+   (`undifferentiated_uncaptured` — stronger than non-fixedness: outside the whole image);
+   capstone `exterior_decomposition`; **E4 finite shadow** `height_axis_one_way`
+   (`coverTower` on Bool self-covers: no stage carries its own diagonal classifier, the
+   next stage does definitionally, the master-classifier wall re-occurs at every height —
+   `no_walls_seminar` R7's one-way height axis, cover-shape form, no arithmetization).
+3. **The extension protocol** (candidate archetype **A8 EXTEND**, `frontiers/
+   exterior_as_extension.md` §5): P1 localize wall as a *named residue* → P2 tetrachotomy
+   triage (`∅/0/1/many`) → P3 reify the witness as data → P4 falsifiability gate
+   (extension ≠ axiom) → P5 narrow (calibrated negatives are wins) → P6 fate diagnosis +
+   **P6′ extension-family cap theorem**.  V3 (Markov retro-diction): **PASS** — the
+   G191→G206 arc instantiates every step; amendments P1-generalization + P6′ extracted.
 
-Together with the inert `EisensteinCubicReciprocity.cubic_reciprocity_law` (`(π/q)₃ = χ(q)` for rational
-`q ≡ 2 mod 3`), **both cases of cubic reciprocity are now formalized ∅-axiom**.  A deep-research survey
-found **no proof-assistant formalization of cubic reciprocity anywhere** (Mathlib has only Jacobi/Gauss
-infrastructure + quadratic reciprocity) — this is novel.
+## The V1 payoff — ζ(3) numerator wall re-opened
 
-## What Was Done This Session
+- **The "no clean WZ certificate" wall is a CAP, not a wall** (P6′ for the `b`-only
+  certificate language).  Probe found + verified exact (`zeta3_wz/verify_c_increments.py`,
+  Fractions, `n<20`): **the c-increment collapsing laws** — both increments of
+  `c(n,k) = H₃(n)+κ(n,k)` are rational multiples of the half-weight carrier
+  `√b = C(n,k)C(n+k,k)`: `Δₙc = (−1)^k·w/(n²(n−k))` (k=0 gives `1/n³` — one law unifies
+  the H₃/K split), `Δₖc = (−1)^{k−1}·w/(2k³)`, `w=1/√b`.  Δ-calculus on `b·c` is fully
+  rational over `(b,√b)`; the A/K-recurrence certificate search moves to
+  `span{rational·b·c, rational·√b}`.
+- **Round 2 landed (`NumberTheory/AperyCollapsing.lean`, 6 PURE):** `sqw` (the reified
+  carrier), `sqw_shift_n` (two `colrec`s), `sqw_shift_k` (`lowrec`+`choose_succ_mul`),
+  `square_split` (`k²+(n+k)(n−k)=n²`), bundle `collapsing_core` — exactly the three
+  identities the ℚ-proof of the cross-`n` law reduces to (induction step = two lines).
+- propext-trap re-confirmed live: core `Nat.add_sub_cancel{,_left}`/`Nat.add_right_comm`
+  leak `propext`; NatHelper `add_sub_cancel_right` + `ring_nat` are the pure forms.
 
-### 1. The split synthesis — 9 PURE bricks (B2h–B2r)
-- **B2h** relaxed the split arc from `pr < p` to `pr ≠ p / ¬ p ∣ q` (so relations A and B can coexist).
-- **B2i** `split_conj_residue_relation_B` — relation B (the same arc, primes swapped, mod `d`).
-- **B2j/B2k** `split_residue_symbol_exists{,_B}` — both residue symbols are μ₃-valued.
-- **B2l** `EisensteinMu3Lift.mu3_eq_of_modEq_pi` — a μ₃ congruence mod an Eisenstein prime of norm `>3`
-  is an equality (distinct μ₃ differ by a norm-3 element).
-- **B2m** `EisensteinConjModEq.conj_modEq` — the honest conjugate law `A≡B (mod d) ⟹ conj A≡conj B
-  (mod conj d)` (conjugation flips the modulus; corrects the source's garbled `χ_π(ᾱ)=conj χ_π(α)`).
-- **B2n** `mu3_reciprocity_algebra` — the finite closer `C=conj E·A² ∧ E=conj C·S² ⟹ A=S` (`3⁴`-`decide`).
-- **B2o** `EisensteinCharNormSplit.chiOmega_eq_eisChar_gen` — `χ_ω = χ_d` for any unit `¬ p ∣ t`.
-- **B2p** `char_norm_mult` — `χ_{d₂}(p) ≡ J^{m₂}·(conj J)^{m₂} (mod d₂)`.
-- **B2q/B2r** the capstone `split_cubic_reciprocity` + the self-contained symbol form.
-
-### 2. Promoted to `theory/` (the closed arc)
-- New chapter **`theory/math/numbertheory/cubic_reciprocity.md`** — both cases, ∅-axiom, full synthesis
-  narrative (incl. the corrected conjugate law) + key-results table.
-- Foundations chapter `cubic_residue_and_jacobi_sum.md` — its "Open frontier" (the law) repointed to the
-  new chapter.  `theory/math/INDEX.md` numbertheory listing updated.
-
-### 3. `/process` — tier discipline
-- Sink rule re-audited → **0 violations** (decoupled 3 permanent-tier citations of the frontier notes).
-- Archived the closed notes to `research-notes/archive/cubic_reciprocity/`; `frontiers/INDEX.md` marks the
-  topic CLOSED; `higher_reciprocity_roadmap.md` Phase B marked complete with the residual extensions
-  recorded as the live open frontier; promotion ledger row #118.
-
-### 4. Cross-domain insights + essay
-- `cubic_reciprocity_crossdomain.md` — 3 new Phase-B shared-engine links to the main corpus (μ₃ separation
-  ↔ count-Lens distinguishability; `conj_modEq` ↔ Cayley–Dickson/Hodge involution; `mu3_reciprocity_algebra`
-  ↔ Zolotarev's finite-group reciprocity).
-- New essay **`theory/essays/synthesis/conjugation_flips_the_modulus.md`** (ledger #119).
-
-### 5. Merge-prep audits (all green)
-`/org-audit` (corpus clean for this footprint), `/purity-check` (✅ PURE), `/ready-to-merge`
-(0 layer violations, full build clean, 0 sink leaks, ahead-only) — **READY TO MERGE**.
-
-## Current Precision Results
-No physics constants changed this session (pure-mathematics arc).  See `catalogs/physics-constants.md`
-for the standing precision table.
+## Environment note (next session will hit this)
+The session-start hook's elan install **fails silently**: the proxy scopes github.com to
+the session repo (403 on release assets), and `releases.lean-lang.org` 302-redirects to
+github.com.  Workaround used: **Nix binary cache** — install nix manually
+(`releases.nixos.org/nix/nix-2.24.14/...`, `nix-store --load-db`), then
+`nix-store -r /nix/store/i9l687hfbmcs45xxy26m22j4ddsrlgnr-lean4-4.16.0`
+(Hydra build 290412171, exactly the pinned toolchain) with
+`NIX_SSL_CERT_FILE=/root/.ccr/ca-bundle.crt`, substituter `https://cache.nixos.org`.
+Then `PATH=/nix/store/i9l687...-lean4-4.16.0/bin:$PATH`.  Consider adding this fallback
+to `.claude/hooks/session-start.sh`.
 
 ## Open Problems (Priority Order)
 
-### 1. Cubic reciprocity — residual extensions
-Supplementary laws (the units `ω`, `1−ω`), a single statement uniting the inert + split cases, and
-deriving the explicit primary/coprimality/`¬p∣pr` hypotheses of `split_cubic_reciprocity` from primality
-alone.  Frontier note: `research-notes/frontiers/higher_reciprocity_roadmap.md` ("Open (cubic residue)").
+### 1. ζ(3) numerator — round 3 (the cleared signed-sum assembly)
+Formalize the collapsing laws (1)–(2) themselves over cleared sums (`HL`-style clearing
+factor ℓ, `cube_dvd_lcm_cube`/`heart_lcm` divisibilities, pos/neg split for `(−1)^k`),
+using `collapsing_core`.  Then the Abel assembly of the A-recurrence over `(b,√b,c)` —
+strategy simplification available: attack `Σ b·c` directly (the H₃/K split is optional).
+Plan: `zeta3_wz/numerator_plan.md` §"RE-READ".  ~400–600 lines, own marathon.
 
-### 2. Higher reciprocity (quartic)
-The `μ₄` law over `ℤ[i]` (disc −4), reusing the now-proven cubic scaffold.  A general `muK_eq_of_modEq`
-(value group `μ_k` separated by any modulus coprime to its difference-set discriminant) and a general
-"symmetric pair of `μ_k` relations ⟹ equal symbols" closer would serve both cubic and quartic at once.
-Frontier note: `research-notes/frontiers/higher_reciprocity_roadmap.md`.
+### 2. Extended-language certificate search (V1 round 3b)
+Multi-shift ansatz fit for the A-recurrence certificate in
+`span{rational·b·c, rational·√b}` (naive one-term correction checked messy —
+`scratchpad probe`, reusable pattern in `zeta3_wz/find_certificate.py`).
 
-### 3. Cross-domain unifications (refactor targets, not gaps)
-The shared-engine convergences in `research-notes/frontiers/cubic_reciprocity_crossdomain.md`: one
-convolution algebra (`R[C_p]` ↔ generating functions), one Frobenius crux (`prime_dvd_binom` serving
-p-adic/cubic/prime-counting), one `μ_k` separation lemma, the involution-descends-iff-modulus-stable
-dichotomy.  Each is a unification target, none is a Lean theorem yet.
+### 3. E1 — the connecting maps (`∂²=0` seam)
+Stage inclusions for the re-entry tower; `CapturedAt` decomposition as a theorem.
+Carried from `the_one_act.md`; design session.
 
-## Unresolved from This Session
-None — the split synthesis closed cleanly.  The only mid-course correction was discovering the source
-REU note's "conjugate law" is garbled (an intra-field automorphism claim that would trivialize the
-character of the norm); the honest inter-modulus flip `conj_modEq` is what the capstone uses.
+### 4. R7 weld
+`height_axis_one_way` ↔ the height-`h` free-parameter fiber-order (no_walls seminar):
+is one-way-ness the `q=±1` escape/converge asymmetry on the strength axis, or new?
 
-## Next
-Quartic reciprocity over `ℤ[i]` (the cubic scaffold transfers), or the cubic supplementary laws — both
-scoped in `higher_reciprocity_roadmap.md`.  Alternatively, harvest the cross-domain refactor targets
-(one `μ_k` separation lemma; one Frobenius-from-binomial-vanishing lemma).
+### 5. V2 (RH) — the method's own falsifier
+Protocol predicts P2 lands on `0`.  If a run claims progress, that indicts the method.
 
-## Three-tier state (per `CLAUDE.md` "Three-tier discipline")
-- **Promotions this session**: `theory/math/numbertheory/cubic_reciprocity.md` ← the closed cubic
-  reciprocity law (ledger #118); essay `conjugation_flips_the_modulus.md` (#119).
-- **Promotion candidates**: none outstanding for this branch (the arc is fully promoted).
-- **Active scratchpad**: `frontiers/higher_reciprocity_roadmap.md` + `cubic_reciprocity_crossdomain.md`
-  stay live (residual extensions + cross-domain board).
+## Three-tier state
+- **New frontier note:** `research-notes/frontiers/exterior_as_extension.md` (conjecture
+  examination + E-series status + protocol P1–P6′ + V-series log).  INDEX registered.
+- **Cross-refs updated:** `no_walls_seminar/INDEX.md` (R7 height-axis update),
+  `zeta3_wz/numerator_plan.md` (§RE-READ + round-2 landing).
+- **Promotion candidates:** none yet — `ExteriorAsExtension` + `AperyCollapsing` are
+  fresh; promote the exterior-as-extension arc to `theory/` once E1 closes (the tower
+  chapter would then be categorically complete per PROMOTION_CRITERIA).
 
 ## File Map
 ```
 NEW (Lean, all PURE):
-  lean/.../CayleyDickson/Integer/EisensteinCubicReciprocitySplit.lean ← the split capstone + helpers
-  lean/.../CayleyDickson/Integer/EisensteinConjModEq.lean             ← conj_modEq (conjugate law)
-  lean/.../CayleyDickson/Integer/EisensteinCubicCharFpGen.lean        ← chiOmega_*_gen (any-unit relaxation)
-NEW (theory):
-  theory/math/numbertheory/cubic_reciprocity.md                      ← the law chapter (both cases)
-  theory/essays/synthesis/conjugation_flips_the_modulus.md           ← essay
-MODIFIED (Lean):
-  lean/.../Integer/EisensteinMu3Lift.lean                            ← + mu3_eq_of_modEq_pi
-  lean/.../Integer/EisensteinCharNormSplit.lean                      ← + chiOmega_eq_eisChar_gen
-  lean/.../Integer/EisensteinSplitResidueSymbol.lean                 ← relaxed to pr≠p; + symbol_exists
-  lean/.../Integer/EisensteinSplitReciprocity.lean / EisensteinConvGaussReindex.lean ← pr<p → pr≠p/¬p∣q
-  lean/E213/Lib/Math/Algebra/CayleyDickson.lean                      ← aggregator imports
-ARCHIVED:
-  research-notes/archive/cubic_reciprocity/{cubic_reciprocity_law,cubic_reciprocity_synthesis_from_IR}.md
+  lean/E213/Lib/Math/Foundations/ExteriorAsExtension.lean  ← E2/E3/capstone + E4 (15/0)
+  lean/E213/Lib/Math/NumberTheory/AperyCollapsing.lean     ← collapsing algebraic core (6/0)
+NEW (notes/tools):
+  research-notes/frontiers/exterior_as_extension.md        ← the arc's frontier note
+  research-notes/frontiers/zeta3_wz/verify_c_increments.py ← exact verification of the laws
+MODIFIED:
+  lean/E213/Lib/Math.lean                                  ← 2 aggregator imports
+  research-notes/frontiers/INDEX.md                        ← entry + status
+  research-notes/frontiers/no_walls_seminar/INDEX.md       ← R7 cross-ref
+  research-notes/frontiers/zeta3_wz/numerator_plan.md      ← RE-READ + round-2 landing
 ```
