@@ -9,6 +9,7 @@ Quot.sound, Classical.choice, …) is a contract violation.
 import Rederive.Tree
 import Rederive.Object1
 import Rederive.Grading
+import Rederive.EventPrimary
 
 namespace Rederive
 
@@ -83,5 +84,41 @@ namespace Rederive
 -- Grading.lean — positive half (level-≤2 zone)
 #print axioms Grading.height_is_rank_on_Z
 #print axioms Grading.rank_on_Z_unique
+
+-- EventPrimary.lean — Bool + Pole toolkit
+#print axioms FEv.band_split
+#print axioms FEv.band_join
+#print axioms FEv.Pole.beq_refl
+#print axioms FEv.Pole.eq_of_beq
+
+-- EventPrimary.lean — carrier (Design P)
+#print axioms FEv.Ev.beq_refl
+#print axioms FEv.Ev.eq_of_beq
+#print axioms FEv.D.prim
+
+-- EventPrimary.lean — translations
+#print axioms FEv.evToTree_node
+#print axioms FEv.cmp_pole_ev
+#print axioms FEv.evToTree_pe
+#print axioms FEv.ltEv_lt
+#print axioms FEv.treeToOperand_pole
+#print axioms FEv.evToTree_combine
+
+-- EventPrimary.lean — round-trips (the bijection on canonical fragments)
+#print axioms FEv.treeToOperand_evToTree
+#print axioms FEv.ltT_lt
+#print axioms FEv.ltT_of_lt
+#print axioms FEv.opToTree_treeToOperand
+
+-- EventPrimary.lean — faithfulness, image, composite
+#print axioms FEv.evToTree_injective
+#print axioms FEv.evToTree_ne
+#print axioms FEv.evToTree_composite
+#print axioms FEv.evToTree_canonB
+
+-- EventPrimary.lean — primordial element + event-primacy asymmetry (A1)
+#print axioms FEv.prim_subterm
+#print axioms FEv.prim_subterm_D
+#print axioms FEv.no_universal_atom
 
 end Rederive

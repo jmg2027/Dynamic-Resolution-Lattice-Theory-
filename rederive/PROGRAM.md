@@ -27,56 +27,60 @@ zero `sorry`, and `#print axioms` empty for every new theorem (extend
   `rank_on_Z_unique`. Statement-matching audited (driver): passed.
 - **Q3 universal grading** — proved (prose): `grading_obstruction.md` §6.
   "No scale; the order itself", non-tautological via Thm 6.3–6.7.
-- **Q4 duality** — DESIGN ONLY: `theory/event_primary_design.md`
-  (design P chosen, translations, equivalence conjecture, asymmetry
-  catalog). No Lean, no proof.
+- **Q4 duality** — CARRIER BIJECTION PROVED, equivalence still open:
+  `theory/event_primary_design.md` (design P, translations, conjecture,
+  asymmetry catalog) + `Rederive/EventPrimary.lean` (`Operand ≅ Tree`
+  retraction both ways, 24 theorems ∅-axiom). Causal-order equivalence
+  unproved.
+- **Refutation track (session 2)** — RAN: R1 (SPEC), R2 (Q1), R3 (Q2/Q3)
+  = **confirmed**; R5 (Q4) = **weakened**. Files
+  `theory/refutations/R{1,2,3,5}.md`. Verdicts mirrored in `REPORT.md`.
 - **Enumerator**: `enumerator/enumerate.py`, `RESULTS.md` (states/runs to
   k=14; OEIS A063894/A108225/A103410; witnesses).
 - **Lean package** `rederive/lean/`: `Tree.lean`, `Object1.lean`,
-  `Grading.lean`, `AxiomCheck.lean` — builds, 58 theorems ∅-axiom.
+  `Grading.lean`, `EventPrimary.lean`, `AxiomCheck.lean` — builds, **82
+  theorems ∅-axiom**.
 
 ---
 
 ## IN-FLIGHT / WEAKENED (must be resolved before any result is final)
 
-**W1 — the refutation track never ran (TOP PRIORITY).** Session 1 lost 4
-of 5 refuters + re-synthesis to credit exhaustion. Only the Lean
-statement-matching audit was done (by the driver). The following claims
-have had **no independent adversarial pass** and must not be treated as
-settled until they do:
-- Q1 (`order_invariance.md`): audit the persistence case analysis; the
-  "state = function of event set" step (adjacent-transposition vs
-  arbitrary permutation trap); the ω-fairness/limit argument; whether
-  **D** is well-defined independently of the invariance proof
-  (circularity check).
-- Q3 (`grading_obstruction.md` §6): independent tautology audit — is
-  `Grad(D)`'s morphism class rigged so **D** trivially wins? Re-derive
-  the §9-boundary "level 2" identification and check it is not chosen
-  after the fact (retrofit audit).
-- SPEC choice points C1–C5: is each pinned choice forced by the raw
-  text, or smuggled? Recompute Q1/Q2 under the strongest variant reading
-  (esp. C1 line-persistence: if lines vanish on resolve and re-linking is
-  allowed, do persistence/commutation survive?).
-- Q4: triviality attack — is F-ev a genuine dual or F-obj relabeled?
+**W1 — RESOLVED.** The refutation track ran (session 2). Q1, Q2, Q3
+survived independent adversarial attack (R1/R2/R3 confirmed, with
+recomputation and, for Q1, an independent re-implementation). The
+non-fatal fixes those verdicts demand are collected as milestone **M-F**
+below and are **not yet applied** to the underlying documents.
 
-**W2 — Q4 is design-stage.** The equivalence conjecture and asymmetry
-catalog are unproved and un-mechanized.
+**W2 — Q4 weakened (R5).** The duality is a genuine dual (one natural
+F-ev question, a real guard-fusion), not a relabeling — but: the Q4
+equivalence is unproved and, as stated, is equivalence to a *reachable-only
+restriction* of F-obj, not F-obj; the "A1 carrier off-by-two" is a trivial
+`Operand ≅ Tree` repackaging that was oversold; and event-primacy over
+ORIGIN_RAW §2 is *circumvented* (poles are constructionally prior to the
+difference), not honored. Corrections tracked in M-C.
 
 ---
 
 ## NEXT MILESTONES (self-contained task specs)
 
-### M-A (do first) — run the refutation track W1
-- **Goal.** An independent adversarial pass on Q1, Q3, SPEC C1–C5, Q4.
-- **Method.** One skeptic per target, prompted to *break*, not review;
-  default to skepticism; a claim is "confirmed" only after surviving.
-  Each recomputes at least one nontrivial case by hand. Deliverables:
-  `theory/refutations/R{1..5}.md` with an explicit verdict
-  (confirmed / weakened / refuted) and required fixes.
-- **Verification bar.** Every central theorem either survives or is
-  degraded in `REPORT.md` (which must mirror the verdicts). Fold findings
-  into `PROGRAM.md`.
-- **Expected size.** 5 focused analyses; some may demand prose fixes.
+### M-F (do first — cheap, closes session 2's open loop) — apply the confirmed-verdict fixes
+- **Goal.** Apply the non-fatal corrections the refuters demanded to the
+  underlying docs (they are honesty/framing fixes; the theorems stand).
+- **Punch-list.**
+  - `SPEC.md` C1: re-ground the rationale on §3 (difference-object
+    uniqueness), drop the §5 "not currently joined" clause (it reads
+    toward the C1-alt); note point=tree is entailed by C1+§8 (R1).
+  - `order_invariance.md`: §1.1 relabel "T1–T4 machine-checked" → "T1,T2
+    only; T3,T4 prose"; restrict Prop 6.8(⊇) constructivity to
+    `E_all`/decidable downsets (or mark classical); fix the
+    adjacent-transposition parenthetical to cite co-enabledness (R2).
+  - `grading_obstruction.md`: rewrite Remark 3.6 in the depth-downset
+    framing (max depth-complete stratifiable downset is `{δ≤2}=Z`; `ℓ*`
+    the first level-3 object breaks it) — the current λ-order wording
+    contradicts Thm 3.5(i); cash out the Thm 6.2 concession in §6.2 (R3).
+- **Verification bar.** Docs self-consistent; no theorem statement
+  changes; `REPORT.md` punch-list cleared.
+- **Expected size.** Small — prose edits only.
 
 ### M-B — mechanize the Q2 order-theory in Lean (currently only the finite fragment is formal)
 - **Goal.** Lift `Grading.lean` from the hand-picked 9-element fragment to
@@ -91,16 +95,23 @@ catalog are unproved and un-mechanized.
   fragment) as a corollary of Theorem 4.1 with `E*` reconstructed.
 - **Expected size.** Substantial — a new `Rederive/CausalOrder.lean`.
 
-### M-C — Q4: implement F-ev in Lean and settle the duality
-- **Goal.** `Rederive/EventPrimary.lean`: the design-P carrier, the
-  `opToTree`/`treeToOp` translations, mutual-inverse on the intended
-  fragments, and structure preservation. Then either prove the
-  equivalence at the causal-order level (SPEC Q4) or **prove an
-  asymmetry** from the catalog (a structural property one side has and
-  the other provably lacks) — an asymmetry is a first-class result.
-- **Verification bar.** ∅-axiom, no quotients; build stays clean.
-- **Expected size.** Medium; the design doc gives intended signatures
-  (§10).
+### M-C — Q4: settle the duality (carrier done; causal-order open) + fix R5 overclaims
+- **Done.** `Rederive/EventPrimary.lean` proves the carrier bijection
+  `Operand ≅ Tree` (retraction both ways), faithfulness, image
+  characterization — ∅-axiom, no quotients.
+- **Goal.** (1) Lift to the **causal-order** equivalence (SPEC Q4): build
+  the F-ev event system and prove its causal poset ≅ **D**, OR prove an
+  asymmetry from the catalog (first-class). (2) Apply R5's corrections to
+  `event_primary_design.md`: state the equivalence honestly as being to a
+  *reachable-only restriction* of F-obj (not F-obj); tone down the A1
+  carrier claim (it is `Operand ≅ Tree` on the nose, not a first-class
+  result); either honor ORIGIN_RAW §2 (poles must not be constructionally
+  prior to the difference) or concede that F-ev, like F-obj, needs two
+  primitive poles and drop the "atoms are not elements" boast; drop the
+  Design-S "dies without quotients" non-sequitur.
+- **Verification bar.** ∅-axiom, no quotients; build stays clean; the
+  design doc's claims match what is proved.
+- **Expected size.** Medium (causal-order half) + small (doc fixes).
 
 ### M-D — residue-shape classification (memo A2 hard half, continued)
 - **Goal.** Extend `Object1.lean`'s residue-shape theorem past step 1.
@@ -124,7 +135,7 @@ catalog are unproved and un-mechanized.
 - **Expected size.** Medium; a possible genuinely-new combinatorial
   result.
 
-### B1 (gated on Q1–Q3 surviving M-A) — the single physics bridge
+### B1 (gated on Q1–Q3, now cleared by session 2) — the single physics bridge
 - **Goal.** Test, don't assume, the one bridge the raw text licenses
   (`ORIGIN` §6–§7): spacetime = one run of the event system; one event =
   one distinction (1 bit); information invariance = one distinction per
@@ -141,7 +152,7 @@ catalog are unproved and un-mechanized.
   raw utterances contain no numbers; keep it that way as long as
   possible.
 - **Expected size.** Large; a multi-session arc of its own. Do NOT start
-  before M-A clears Q1–Q3.
+  before Q1–Q3 are secured (done: R1/R2/R3 confirmed).
 
 ---
 
