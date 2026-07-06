@@ -1,0 +1,140 @@
+{
+ "K_exhaustive": 14,
+ "states_per_k": [
+  1,
+  1,
+  1,
+  2,
+  3,
+  8,
+  19,
+  57,
+  186,
+  652,
+  2548,
+  10540,
+  46915,
+  222093,
+  1110042
+ ],
+ "runs_per_k": [
+  1,
+  1,
+  1,
+  2,
+  4,
+  12,
+  48,
+  228,
+  1380,
+  10068,
+  86556,
+  875448,
+  10244664,
+  137005344,
+  2078463456
+ ],
+ "random_trials": 1000,
+ "random_mismatches": 0,
+ "tree_counts": [
+  2,
+  1,
+  2,
+  4,
+  10,
+  25,
+  68,
+  187
+ ],
+ "d_stats": {
+  "1": [
+   0,
+   {}
+  ],
+  "2": [
+   2,
+   {
+    "0": 1,
+    "1": 1
+   }
+  ],
+  "3": [
+   6,
+   {
+    "0": 1,
+    "1": 1,
+    "2": 2,
+    "3": 2
+   }
+  ],
+  "4": [
+   14,
+   {
+    "0": 1,
+    "1": 1,
+    "2": 2,
+    "3": 2,
+    "4": 4,
+    "5": 4
+   }
+  ],
+  "5": [
+   34,
+   {
+    "0": 1,
+    "1": 1,
+    "2": 2,
+    "3": 2,
+    "4": 6,
+    "5": 6,
+    "6": 8,
+    "7": 8
+   }
+  ]
+ },
+ "lockstep_sizes": [
+  2,
+  3,
+  5,
+  12,
+  68,
+  2280
+ ],
+ "div_witness": "((ab)(a(ab)))  (size 5, depth 3, lockstep gen 3): first tree where folds diverge -- depth=3 had always co-occurred with size=4 on all earlier trees, here size=5",
+ "rf_stated": "link{(a(ab)),(ab)} at height 4 (composite ((ab)(a(ab)))); stated lower covers at heights [('resolve{a,b}', 1), ('resolve{(ab),a}', 3)]",
+ "rf_true": "link{(a(ab)),(a(b(ab)))} at height 6 (composite ((a(ab))(a(b(ab))))); true lower covers at heights [('resolve{(ab),a}', 3), ('resolve{(b(ab)),a}', 5)]",
+ "chord_note": "stated relation resolve{a,b} < link{(a(ab)),(ab)} is a chord: resolve{a,b} < resolve{(ab),a} < link{(a(ab)),(ab)}",
+ "reversal": "(a(a(a(ab)))) (depth 4, size 5) vs ((a(ab))(b(ab))) (depth 3, size 6)",
+ "oeis": {
+  "E1 states per k": {
+   "count": 0,
+   "hits": []
+  },
+  "E1 runs per k": {
+   "count": 0,
+   "hits": []
+  },
+  "trees by size": {
+   "count": 1,
+   "hits": [
+    [
+     "A063894",
+     "Start with x, y; then concatenate each word in turn with all preceding words, getting x y xy xxy yxy xxxy yxxy xyxxy ...; sequence gives number of words of length n. Also binary trees by degree: x y (x,y) (x,(x,y)) (y,(x,y)) (x,(x,(x,y))) (y,(x,(x,y))) ((x,y),(x,(x,y)))..."
+    ]
+   ]
+  },
+  "lockstep |G_k|": {
+   "count": 1,
+   "hits": [
+    [
+     "A108225",
+     "a(0) = 0, a(1) = 2; for n >= 2, a(n) = (a(n-1) + a(n-2))*(a(n-1) - a(n-2) + 1)/2."
+    ]
+   ]
+  },
+  "D_n node counts (n=1..5)": {
+   "count": 0,
+   "hits": []
+  }
+ }
+}
