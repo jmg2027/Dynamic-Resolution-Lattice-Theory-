@@ -133,13 +133,13 @@ theorem.
    `N = 4(−1)^m` — Cassini **is** a Galois-norm evaluation.
 4. **Gal = C₂**: any operation-preserving self-reading fixing the scalar slot
    sends `(0,1)` to a square root of `(5,0)`, and `(a,b)² = (5,0)` forces
-   `(a,b) = (0, ±1)` (small witness-form Diophantine: `ab = 0`, `a² + 5b² = 5`).
-   Hence exactly {id, conj}.
-5. **Fixed-field theorem** (quadratic case): `conj x = x ↔ x.2 = 0` — one line,
-   but it is *the* statement "the base = what all readings agree on".
+   `(a,b) = (0, ±1)` (witness-form Diophantine: `ab = 0`, `a² + 5b² = 5`) —
+   exactly {id, conj}.
+5. **Fixed-field theorem**: `conj x = x ↔ x.2 = 0` — one line, but it is *the*
+   statement "the base = what all readings agree on".
 
-Success: all PURE; Gal(ℚ(√5)/ℚ) ≅ C₂ and Gal(ℚ(i)/ℚ) ≅ C₂ as
-classification theorems on the carriers, no basis lemma anywhere.
+Success: Gal(ℚ(√5)/ℚ) ≅ C₂ and Gal(ℚ(i)/ℚ) ≅ C₂ as classification
+theorems on the carriers, no basis lemma anywhere, all PURE.
 
 ### Phase GB — the correspondence for ℚ(i, √5): C₂×C₂ ↔ subfield lattice
 
@@ -153,14 +153,14 @@ classification theorems on the carriers, no basis lemma anywhere.
 4. **The finite Galois correspondence**: subgroup poset (5 elements) ↔
    subfield poset (5 elements), `Fix` and `Inv` mutually inverse,
    order-reversing — a finite lattice isomorphism, closed by `decide` +
-   instantiation of `Order/GaloisConnection` (`gc_unit`, `gc_counit`, closure
-   = id on all elements since every subgroup is closed here).  The machinery
-   meets its namesake.
+   instantiation of `Order/GaloisConnection` (`gc_unit`, `gc_counit`,
+   closure = id since every subgroup is closed here).  The machinery meets
+   its namesake.
 5. Degree bookkeeping as counting: |subgroup| · |index| = 4 read as slot
-   dimensions (no `[L:K]` theory — the tuple arity is the degree).
+   dimensions — the tuple arity is the degree, no `[L:K]` theory.
 
-Success: one capstone theorem `galois_correspondence_biquadratic` bundling
-the bijection + order reversal + fixed-field computations, PURE.
+Success: one capstone `galois_correspondence_biquadratic` bundling the
+bijection + order reversal + fixed-field computations, PURE.
 
 ### Phase GC — 𝔽_p: Frobenius as the generator
 
@@ -176,11 +176,11 @@ the bijection + order reversal + fixed-field computations, PURE.
 3. **Fixed-field theorem**: `fp2Frob p x = x ↔ x.2 ≡ 0 (mod p)` for odd p
    (from `2b ≡ 0 → b ≡ 0`) — the fixed field of Frobenius is 𝔽_p.  Universal
    in p, PURE.
-4. Weld to the Eisenstein side: `EisensteinFrobeniusConj` (conj = q-Frobenius
-   on ℤ[ω]/(q) ≅ 𝔽_{q²}) re-cited as the same theorem in a second carrier.
+4. Weld: `EisensteinFrobeniusConj` (conj = q-Frobenius on ℤ[ω]/(q) ≅ 𝔽_{q²})
+   re-cited as the same theorem in a second carrier.
 
-Success: `fp2Frob` is no longer an ad-hoc map but *the* generator, with the
-fixed-field theorem universal in p.
+Success: `fp2Frob` becomes *the* generator, fixed-field theorem universal
+in p.
 
 ### Phase GD — the cyclotomic case ℚ(ζ₅): Gal ≅ (ℤ/5)^× ≅ C₄
 
@@ -243,19 +243,17 @@ entry point to any future Langlands-flavored reading).
 
 - **No splitting-field existence in general.**  Constructing a splitting
   field for an arbitrary polynomial needs quotient-ring/maximal-ideal
-  machinery (choice-adjacent, and axiom-dirty in known routes).  Everything
-  here is **explicit-polynomial, fixed-degree**: carriers are tuples with
-  hand-written multiplication tables for named polynomials
-  (`x²−5`, `x²+1`, `x²−x−1`, `x⁴+x³+x²+x+1`).  Universality is in
-  *parameters* (p, D), never in the polynomial.
+  machinery (choice-adjacent, axiom-dirty in known routes).  Everything here
+  is **explicit-polynomial, fixed-degree**: carriers are tuples with
+  hand-written multiplication tables for named polynomials (`x²−5`, `x²+1`,
+  `x²−x−1`, `x⁴+x³+x²+x+1`).  Universality is in *parameters* (p, D), never
+  in the polynomial.
 - **No general fundamental theorem.**  The correspondence is proven per fixed
   case as a finite lattice isomorphism (`decide` + the adjunction engine),
   not for arbitrary finite extensions.
-- **Solvability by radicals out of scope** (and general Sₙ Galois groups,
-  primitive-element, infinite Galois theory).  If a future frontier wants
-  them, that is a new blueprint, not scope creep here.
-- Transcendental-degree questions never arise: all carriers are finite tuples
-  of Int/Nat slots (no "Transcendental-as-exterior" bait).
+- **Solvability by radicals out of scope** (likewise general Sₙ Galois
+  groups, primitive-element, infinite Galois theory) — a future blueprint if
+  ever, not scope creep here.
 
 ## 7. Key Insights (★)
 
