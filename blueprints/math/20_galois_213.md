@@ -98,9 +98,9 @@ a finite lattice-isomorphism, `decide`-friendly.  The correspondence =
 Classically Gal(L/K) needs `[L:K]` and linear independence.  The tuple
 ontology sidesteps this: the carrier **is** the tuple type, automorphisms are
 defined on tuples, and cross-relations (e.g. `(0,1)·(0,1) = (5,0)`) are
-theorems about the carrier.  Irrationality (`Sqrt5IrrationalPure`) is
-available where the classical reading wants it, but the constructions never
-depend on a basis theorem.
+theorems about the carrier.  Irrationality (`Sqrt5IrrationalPure`) exists
+where the classical reading wants it, but nothing here depends on a basis
+theorem.
 
 ## 3. Building Blocks
 
@@ -266,11 +266,11 @@ root-pair the base cannot separate *is* the swap's existence proof.
 the action (descent iff conj-stable; = Frobenius when inert) before naming it.
 
 ★ **The correspondence is finite and decidable** at fixed small cases — the
-fundamental theorem as a 5-element lattice iso, the adjunction engine's
-closure collapsing to id.
+fundamental theorem as a 5-element lattice iso, the adjunction's closure
+collapsing to id.
 
-★ **Reciprocity = Frobenius bookkeeping**: the μ₂ and μ₃ symbol corpora are
-one picture, read through the seed.
+★ **Reciprocity = Frobenius bookkeeping** — the μ₂ and μ₃ symbol corpora
+become one picture.
 
 ## 8. First Marathon Command
 

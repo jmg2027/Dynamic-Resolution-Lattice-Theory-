@@ -79,10 +79,27 @@ None structural.  The program document is tier-1 volatile: topics taken up
 should get their own frontier notes; verdicts (especially W2/W3 filings)
 should flow back into the §0 triage table.
 
+## Also produced this session
+
+- **`research-notes/frontiers/divergence_conjecture_slate.md`** — eleven
+  sharp falsifiable conjectures with kill-tests (S1 crystallographic
+  reciprocity ceiling, S2 CLT = modulus-degree rung 2, S3 the ℚ-cup with
+  F₂ 2-torsion, S4 octet double-count isomorphism, S5 neutrino zero-dial
+  mass-floor falsifier, S6 sedenion census, S7 Frobenius-splitting schema,
+  S8 W1-completeness ledger, S9 three-distance/noble locus, S10 Kraft =
+  complete tree, S11 Ramanujan ladder).  Recommended first: S5 (one
+  session, adds an independent falsifier either way).
+- **Four Phase-H marathon blueprints** (`blueprints/math/INDEX.md` Phase H):
+  `18_finite_fourier_213.md`, `19_representation_213.md`,
+  `20_galois_213.md`, `21_probability_brackets_213.md` — ready for
+  `marathon-start`.
+
 ## Three-tier state
-- **New**: `research-notes/frontiers/research_program_year_horizon.md` (tier-1).
-- **Modified**: `research-notes/frontiers/INDEX.md` (registration),
-  `HANDOFF.md` (this file).
+- **New**: `research-notes/frontiers/research_program_year_horizon.md`,
+  `research-notes/frontiers/divergence_conjecture_slate.md` (tier-1);
+  `blueprints/math/{18,19,20,21}_*.md`.
+- **Modified**: `research-notes/frontiers/INDEX.md`,
+  `blueprints/math/INDEX.md` (registrations), `HANDOFF.md` (this file).
 - **Promotions**: none (no Lean closures this session).
 
 ## Next
