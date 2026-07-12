@@ -28,9 +28,18 @@ Laplacian eigenbasis.  The shared content is "**characters of the cyclic group a
 eigen-data**", a `213`-native unification of character theory (main) and spectral graph
 theory (branch).
 
-**Buildable next** (no new primitive): instantiate `km_eigenvalue` at `m = p` and name the
-mean-zero eigenspace as the additive-character space; the Lichnerowicz bound `λ₁ = p ≥ K`
-then reads "the spectral gap is the group order".
+**Built (p = 5, 2026-07-12)**: `Geometry/DiscreteCurvature/KpCharacterEigen.lean`
+(7 PURE / 0 DIRTY) — the quadratic character of `ℤ/5` (`chi5`, certified square/non-square
+halves + complete multiplicativity, all `Eq`-only `decide`) is mean-zero and hence a
+`λ = 5` eigenfunction of the `K₅` Laplacian (`quadratic_character_is_K5_eigenfunction`,
+via `km_meanzero_eigen`): main's multiplicative character sits inside branch's additive
+eigenspace at the atomic dimension `p = d = 5`.  **Open remainder**: the general-`p`
+transport (orbit-reindexing of `quadratic_orthogonality` from exponent sums to vertex
+sums — needs the generator-enumeration bijection), and the "additive-character space"
+naming (over ℤ only the quadratic character is honest; the full character space needs
+μ_p, blueprint 18).  Propext trap logged: the `Iff`+`∃` form of the character
+certification pulls `propext`/`Quot.sound` under `decide`; the `Eq`/`Ne` restatement is
+PURE (`pure_lean_calibration_synthesis.md` material).
 
 ## 2. The central DRLT lattice `K_{3,2}` carries BOTH a golden and a curvature signature
 

@@ -126,12 +126,27 @@ conjugate slot `e₉`).  Queued: the 15-row `aCount` kernel ledger
 (measured ~2 min/row, PURE — kept out of the always-built tree) and the
 PSL(2,7) orbit-transitivity identification.
 
+## Small brick #5 executed — the character↔spectrum weld at p = d = 5
+
+`Geometry/DiscreteCurvature/KpCharacterEigen.lean` (7 PURE / 0 DIRTY,
+aggregator + 60-module DiscreteCurvature build clean): the quadratic
+character of `ℤ/5` — certified by `Eq`-only decide (square half,
+non-square half, complete multiplicativity) — is mean-zero and hence a
+`λ = 5` eigenfunction of the `K₅` Laplacian
+(`quadratic_character_is_K5_eigenfunction`).  Bridge 1 of
+`curvature_spectrum_crossdomain.md` closed at the atomic dimension.
+**Propext trap logged**: the `Iff`+`∃` certification form pulls
+`propext`/`Quot.sound` under `decide`; `Eq`/`Ne` restatement is PURE —
+add to the `pure_lean_calibration_synthesis.md` catalog when built.
+Open remainder: general-`p` transport (generator-enumeration bijection).
+
 ## Open Problems (priority order)
 1. **Q1 of the program** — C8 finite Fourier → B2 generic `μ_k` engine →
    B5 Euclid-witness atlas → A4 escape-pole census → E7 honest K.
 2. **Residuals** — the 5.71 provenance; the J magnitude (E4); the `C₂`
    internal derivation (g−2 rung 2); the S5 Σm_ν √-bracket; the S6
-   15-row ledger + PSL(2,7) identification.
+   15-row ledger + PSL(2,7) identification; the general-`p`
+   character↔spectrum transport.
 3. Everything else: see the program document's tracks and sequencing.
 
 ## Unresolved from this session

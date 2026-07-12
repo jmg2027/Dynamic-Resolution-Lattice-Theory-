@@ -6,6 +6,7 @@ import E213.Lib.Math.Geometry.DiscreteCurvature.OllivierRicci
 import E213.Lib.Math.Geometry.DiscreteCurvature.BakryEmery
 import E213.Lib.Math.Geometry.DiscreteCurvature.BakryEmeryBipartite
 import E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteLichnerowicz
+import E213.Lib.Math.Geometry.DiscreteCurvature.KpCharacterEigen
 import E213.Lib.Math.Geometry.DiscreteCurvature.WeightedGreen
 import E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteGaussian
 import E213.Lib.Math.Geometry.DiscreteCurvature.DiscreteSurgery
@@ -39,6 +40,9 @@ import E213.Lib.Math.Geometry.DiscreteCurvature.RicciHomogeneous
     · `DiscreteLichnerowicz.lean`— curvature → spectrum: `K_m` Rayleigh identity,
                                    spectrum `{0,m}`, the Lichnerowicz `K ≤ λ`
                                    gap, gradient-semigroup commutation.
+    · `KpCharacterEigen.lean`    — the character↔spectrum weld at `p = d = 5`:
+                                   the quadratic character of `ℤ/5` is a
+                                   mean-zero `λ = 5` eigenfunction of `K₅`.
 
   ## Flows, heat kernel, surgery
 
