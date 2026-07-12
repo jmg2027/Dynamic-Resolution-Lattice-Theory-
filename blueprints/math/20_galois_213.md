@@ -51,13 +51,13 @@ tie them into one picture.
 ### 2.1 A field extension is a Lens refinement
 
 The base reading cannot separate the two roots of `x² − 5`: from ℚ's
-distinguishing, `√5` and `−√5` are one undifferentiated thing (the polynomial
-is the finest base-expressible pointing at them).  Adjoining `√5` is a **finer
-distinguishing of roots** — a Lens refinement (`Lens.refines`: kernel
-containment), not a new ontological layer.  Per the slot-arithmetic ontology
+distinguishing they are one undifferentiated thing (the polynomial is the
+finest base-expressible pointing at them).  Adjoining `√5` is a **finer
+distinguishing of roots** — a Lens refinement (`Lens.refines`), not a new
+ontological layer.  Per the slot-arithmetic ontology
 (`theory/math/numbersystems/slot_arithmetic.md` §1: **the tuple is the
 number**), the extension carrier is literally a tuple: `a + b√5` **is** the
-pair `(a, b)`, with hand-written multiplication.  `FP2 := Nat × Nat` in
+pair `(a, b)` with hand-written multiplication — `FP2 := Nat × Nat` in
 `FP2Sqrt5.lean` already does exactly this mod p.
 
 ### 2.2 The Galois group is the group of readings preserving the base
@@ -66,12 +66,12 @@ An automorphism is a **self-reading of the extension carrier that preserves
 the operations and fixes the base slot** — a reading, not a mysterious
 symmetry.  The group exists *because* the base cannot separate the root-pair:
 the swap `(a, b) ↦ (a, −b)` is invisible to every base-expressible relation.
-Conjugation = the **swap-Lens** on the root-pair.  The fixed field = what all
-readings agree on = the base distinguishing recovered.  This is the
-`⟨C|L⟩ ⊕ Residue` shape: the root-pair indistinguishability is the *residue of
-the base reading*, and the Galois group is that residue made into a group of
-readings (cf. `decomposition/practice/galois.md`: Fix/Inv as two
-order-reversing family-readings).
+Conjugation = the **swap-Lens**; the fixed field = what all readings agree on
+= the base distinguishing recovered.  This is the `⟨C|L⟩ ⊕ Residue` shape:
+the root-pair indistinguishability is the residue of the base reading, and
+the Galois group is that residue organized into a group of readings
+(cf. `decomposition/practice/galois.md`: Fix/Inv as two order-reversing
+family-readings).
 
 ### 2.3 Conjugation-flips-the-modulus is already the Galois action
 
@@ -87,10 +87,10 @@ Frobenius at p" is therefore a question the repo has already answered twice
 
 `Order/GaloisConnection.lean` has the full adjunction engine (unit, counit,
 triangle identities, closure `g∘f` extensive/monotone/idempotent) —
-relation-parametric, no typeclasses, PURE.  Its namesake instance — subgroup
-lattice ↔ subfield lattice — was never built.  For a fixed biquadratic case
-both lattices are **5-element finite posets**: the fundamental theorem becomes
-a finite lattice-isomorphism, `decide`-friendly.  The correspondence =
+relation-parametric, PURE — but its namesake instance, subgroup lattice ↔
+subfield lattice, was never built.  For a fixed biquadratic case both
+lattices are **5-element finite posets**: the fundamental theorem becomes a
+finite lattice-isomorphism, `decide`-friendly.  The correspondence =
 *closure collapses to id on the closed elements* — the residue vanishes there.
 
 ### 2.5 No basis-independence needed
@@ -197,11 +197,10 @@ in p.
 4. **A cyclic correspondence instance**: chain 1 ⊂ ⟨σ²⟩ ⊂ C₄ ↔
    ℚ(ζ₅) ⊃ ℚ(√5) ⊃ ℚ — a second, cyclic, finite lattice-isomorphism
    (3-element chains), same `GaloisConnection` instantiation as GB.
-5. Cross-domain payoff (cite `research-notes/frontiers/cp_crossdomain_insights.md`
-   Insight/bridge 3): the CP-phase **C₄** and the **golden modulus** 1/φ² are
-   this Galois group and this fixed field; the p-adic face is the Teichmüller
-   decomposition μ₄ × μ_{(p−1)/4} (`Padic/TeichmullerUnit`).  The physics
-   deployment's apex objects get their Galois names.
+5. Cross-domain payoff (`research-notes/frontiers/cp_crossdomain_insights.md`
+   bridge 3): the CP-phase **C₄** and **golden modulus** 1/φ² are this Galois
+   group and this fixed field; p-adic face = the Teichmüller decomposition
+   μ₄ × μ_{(p−1)/4} (`Padic/TeichmullerUnit`).
 
 Success: `gal_cyclotomic_five ≅ C₄` + the chain correspondence + the
 period-fixed-field theorem re-welded, PURE.
@@ -227,8 +226,8 @@ period-fixed-field theorem re-welded, PURE.
    the quadratic and cubic corpora into the single reading "a reciprocity law
    is a constraint on the Frobenius-assignment map", every citation PURE.
 
-Success: no new arithmetic — GE is pure re-reading; its value is that the
-reciprocity corpus, `fp2Frob`, and the Galois seed become **one** object.
+Success: no new arithmetic — GE is pure re-reading; the reciprocity corpus,
+`fp2Frob`, and the Galois seed become **one** object.
 
 ## 5. Connections to Other Tracks
 
