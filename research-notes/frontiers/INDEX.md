@@ -262,6 +262,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   representation theory, Galois, finite Fourier, probability brackets, game/information),
   a small-brick queue, four-quarter sequencing, and the standing do-not-attack wall list.
   Each entry: anchor + first Lean step + size + risk.
+- `divergence_conjecture_slate` — **companion conjecture slate (2026-07-12)**: eleven sharp
+  falsifiable conjectures staked against the program — crystallographic reciprocity ceiling
+  (`k∈{2,3,4,6}`), CLT = rung 2 of the modulus-degree ladder, the ℚ-cup with F₂-cup as its
+  2-torsion (the E1 forcing), the octet double-count isomorphism, the neutrino zero-dial
+  mass-floor falsifier (S-size, kills or confirms the Fibonacci ratio by arithmetic),
+  sedenion zero-divisor census, reciprocity-as-Frobenius-splitting, W1-completeness (the
+  triage table as empirical law), noble numbers = three-distance degeneracy, Kraft equality
+  = complete distinguishing tree, the Ramanujan ladder.  Each with a kill-test; a killed
+  conjecture files a verdict into the program's §0 table.
 - `cubic_reciprocity` — **CLOSED ∅-axiom (both cases), promoted.**  The cubic reciprocity law is
   complete: inert `(π/q)₃ = χ(q)` (`EisensteinCubicReciprocity.cubic_reciprocity_law`) and split
   `(π/π')₃ = (π'/π)₃` (`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`).  Narrative:
