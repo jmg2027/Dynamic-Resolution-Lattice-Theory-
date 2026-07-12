@@ -1055,7 +1055,7 @@ real ∅-axiom conquests.
   decay → P3 energy/Dirichlet → P4 Li–Yau → P5 Shi.  P1–P3 reachable; P4–P5 the
   real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.
 | `hall_general_induction.md` | Hall marriage general-n (Halmos–Vaughan induction); framework + n≤2 closed in `Combinatorics/HallMarriage` | open |
-| `analysis_modulus_pending.md` | Cesàro + limit-arithmetic sum DONE; product/squeeze still open | partial |
+| `analysis_modulus_pending.md` | Cesàro + limit-arithmetic sum/product/squeeze ALL DONE (`SqueezeProduct`, 22 PURE) — note is a closure record, archive candidate | closed |
 | `two_square_only_if.md` | CLOSED end-to-end incl. biconditional (`SumTwoSquaresBiconditional`) | closed |
 | `wilson_pm1_classification.md` | Gauss-Wilson ±1 value classification (core DONE in WilsonGeneralization; the n∈{1,2,4,pᵏ,2pᵏ} ⟺ −1 split open) | open |
 | `rearrangement_general_n.md` | rearrangement general-n reverse/permutation form (core + n=2,3 DONE in RearrangementInequality) | open |
