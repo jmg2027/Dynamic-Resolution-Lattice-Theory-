@@ -28,6 +28,7 @@ import E213.Lib.Physics.AlphaEM.PiFiveGap
 import E213.Lib.Physics.AlphaEM.ProjectionRatios
 import E213.Lib.Physics.AlphaEM.StructuralGap
 import E213.Lib.Physics.AlphaEM.MaxAlphaPowerBound
+import E213.Lib.Physics.AlphaEM.SchwingerMoment
 
 /-! Spec-as-code entry point for E213.Lib.Physics.AlphaEM.
 

@@ -81,10 +81,25 @@ nEDM decides regardless of which J is right), bundled in
 Remaining open: the J magnitude itself (the apex projection,
 `ckm_rho_eta_apex.md` — program Track E4).
 
+## E10 executed — first g−2 contact (Schwinger moment, PURE)
+
+`AlphaEM/SchwingerMoment.lean` (9 PURE / 0 DIRTY; `lake build` of the full
+381-module AlphaEM aggregator clean): `a_e^Schwinger = α/2π =
+1161409×10⁻⁹` as integer arithmetic on the typed inputs (`pi_e9`,
+`invAlpha_e9` — the `PiFiveGap` convention); the agreement with observed
+`a_e` bracketed at [0.1%, 0.2%] (`agreement_bracket`); the gap
+`1757×10⁻⁹` identified in the docstring as the shadow of the known QED
+`C₂ = −0.328…` term (matches to ~0.8%) — deriving `C₂ = 197/144 + π²/12
+− (π²ln2)/2 + 3ζ(3)/4` internally is the named next rung (ζ(3) machinery
+exists: `Real213/Zeta3Cut`).  Catalog-sync for `physics-constants.md`
+queued (new sector entry).
+
 ## Open Problems (priority order)
 1. **Q1 of the program** — C8 finite Fourier → B2 generic `μ_k` engine →
    B5 Euclid-witness atlas → A4 escape-pole census → E7 honest K.
-2. **S5/E0 residuals** — the 5.71 provenance; the J magnitude (E4).
+2. **S5/E0/E10 residuals** — the 5.71 provenance; the J magnitude (E4);
+   the `C₂` internal derivation (g−2 rung 2); catalog-sync for the
+   Schwinger entry.
 3. Everything else: see the program document's tracks and sequencing.
 
 ## Unresolved from this session
