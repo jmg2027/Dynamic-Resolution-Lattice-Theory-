@@ -88,6 +88,18 @@ constants have been closed:
 | Muon prefactor 192 | `muon_prefactor_falsifier` (F24) | `AtomicSuperCatalog.lean` |
 | m_t/m_c ≈ 137 | `quark_hierarchy_capstone` (F25) | `QuarkHierarchy.lean` |
 | η_B ≈ 6×10⁻¹⁰ | `eta_B_falsifier_bracket` (F26) | `EtaBFalsifier.lean` |
+| ν mass floor (m₁/m₂)² ∈ [0.038, 0.039] | `neutrino_mass_floor_falsifier_core` | `Mixing/NeutrinoMassFloor.lean` |
+| θ_QCD, J-typed (bound survives / window fails / next-gen decides) | `theta_QCD_J_typed_core` | `Couplings/ThetaQCD.lean` |
+| a_e Schwinger = α/2π, gap ∈ [0.1%, 0.2%] (= C₂ shadow) | `schwinger_first_contact` | `AlphaEM/SchwingerMoment.lean` |
 
 See `catalogs/falsifiers.md` F1–F26 for the complete falsifier
 registry.  23/23 paired — **100% coverage**.
+
+## Anomalous moments (g−2 sector, first contact)
+
+  a_e leading = α/2π = 1161409×10⁻⁹  (PURE integer arithmetic on
+    typed `pi_e9`/`invAlpha_e9`; agreement with observed a_e
+    bracketed [0.1%, 0.2%], `SchwingerMoment.agreement_bracket`)
+  gap 1757×10⁻⁹ = the C₂ = −0.328… second-order shadow (matches
+    ~0.8%); internal C₂ = 197/144 + π²/12 − (π²ln2)/2 + 3ζ(3)/4
+    is the named next rung (`Real213/Zeta3Cut` machinery exists)
