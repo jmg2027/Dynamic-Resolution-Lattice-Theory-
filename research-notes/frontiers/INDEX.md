@@ -253,6 +253,15 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `research_program_year_horizon` — **the year-horizon divergence pass (2026-07-12)**: a
+  single compiled research program for successor sessions — the W1–W4 kernel-triage
+  doctrine (unsigned-count / signed-cancellation / uniform-residue / interface-defect),
+  six tracks (foundations descent-leg spine; number theory after cubic reciprocity;
+  analysis moduli+brackets; algebra/cohomology above the closed skeleta; physics
+  identification-forcing incl. the θ_QCD falsifier repair; new-discipline rebuild seeds —
+  representation theory, Galois, finite Fourier, probability brackets, game/information),
+  a small-brick queue, four-quarter sequencing, and the standing do-not-attack wall list.
+  Each entry: anchor + first Lean step + size + risk.
 - `cubic_reciprocity` — **CLOSED ∅-axiom (both cases), promoted.**  The cubic reciprocity law is
   complete: inert `(π/q)₃ = χ(q)` (`EisensteinCubicReciprocity.cubic_reciprocity_law`) and split
   `(π/π')₃ = (π'/π)₃` (`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`).  Narrative:
