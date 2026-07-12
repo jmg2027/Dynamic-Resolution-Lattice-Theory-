@@ -103,9 +103,74 @@ statement, not a measured-precision result. -/
 /-- θ_QCD prediction window — the DRLT prediction literal 286·10⁻¹³
     lies in [251, 300]·10⁻¹³ (the next-gen nEDM discrimination window,
     2027-30).  This brackets the prediction, not a measurement; the
-    genuine falsifier is the bound comparison above.  PURE. -/
+    genuine falsifier is the bound comparison above.  PURE.
+
+    **Scope caveat (typed below)**: the 286 literal consumes the
+    *observed* J ≈ 3.08×10⁻⁵ — an import, not a derivation.  DRLT's own
+    CKM chain gives J_DRLT = 8.18×10⁻⁵ (×818/308 = ×2.66,
+    `Mixing/JarlskogApex`; frontier `ckm_rho_eta_apex.md`), under which
+    this window provably fails (`window_fails_with_native_J`). -/
 theorem theta_QCD_precision_bracket :
     251 ≤ theta_QCD_num ∧ theta_QCD_num ≤ 300 := by
   refine ⟨?_, ?_⟩ <;> decide
+
+/-! ## The J input, typed (the E0 repair)
+
+`theta_QCD_num = 286` uses J_obs ≈ 3.08×10⁻⁵ — an experimental import.
+DRLT's own chain (`s₁₃ = A·λ³`, apex `R_u = 1/φ²`, `δ = 90°`) currently
+over-predicts: J_DRLT/J_obs = 818/308 (`Mixing/JarlskogApex`, the ×2.66
+over-prediction; the missing apex projection is the open frontier
+`ckm_rho_eta_apex.md`).  The theorems below state what survives and what
+breaks under the *native* J — so the falsifier's J-dependence is a
+theorem, not a docstring assumption:
+
+  θ_native = 286 · (818/308) · 10⁻¹³ = 233948/308 · 10⁻¹³ ≈ 760 · 10⁻¹³.
+
+Survives: the nEDM bound comparison (factor 2–3 below, was ~6) and
+next-generation detectability (both J's exceed the ~10⁻¹² sensitivity —
+the 2027-30 run decides REGARDLESS of which J is right).
+Breaks: the [251, 300] prediction window (native value ≈ 760 is outside),
+proven below rather than asserted. -/
+
+/-- J_DRLT / J_obs numerator (8.18×10⁻⁵ = 818·10⁻⁷). -/
+def J_native_num : Nat := 818
+
+/-- J_DRLT / J_obs denominator (3.08×10⁻⁵ = 308·10⁻⁷). -/
+def J_obs_num : Nat := 308
+
+/-- ★ Native-J prediction still below the nEDM bound:
+    `286·(818/308) < 1800` (units 10⁻¹³), cross-multiplied.
+    The genuine falsifier SURVIVES the J repair. -/
+theorem native_J_below_bound :
+    theta_QCD_num * J_native_num < 1800 * J_obs_num := by decide
+
+/-- The surviving margin is factor 2–3 (was ~6 with the imported J). -/
+theorem native_J_margin :
+    2 * (theta_QCD_num * J_native_num) < 1800 * J_obs_num
+    ∧ 1800 * J_obs_num < 3 * (theta_QCD_num * J_native_num) := by
+  refine ⟨?_, ?_⟩ <;> decide
+
+/-- ★ The [251, 300] window FAILS under the native J:
+    `286·(818/308) > 300` (units 10⁻¹³), cross-multiplied.
+    The honest downgrade of `theta_QCD_precision_bracket`, as a theorem. -/
+theorem window_fails_with_native_J :
+    300 * J_obs_num < theta_QCD_num * J_native_num := by decide
+
+/-- ★ J-robust detectability — under EITHER J, the prediction exceeds
+    the next-gen nEDM sensitivity ~10⁻¹² = 10·10⁻¹³: the 2027-30 run
+    must see a signal or DRLT's θ_QCD reading is refuted, regardless of
+    how the Jarlskog frontier resolves. -/
+theorem detectable_next_gen_either_J :
+    10 < theta_QCD_num ∧ 10 * J_obs_num < theta_QCD_num * J_native_num := by
+  refine ⟨?_, ?_⟩ <;> decide
+
+/-- ★★ E0 capstone — the repaired falsifier core: survival (bound),
+    honest failure (window), and J-robust decidability, one bundle. -/
+theorem theta_QCD_J_typed_core :
+    (theta_QCD_num * J_native_num < 1800 * J_obs_num)
+    ∧ (300 * J_obs_num < theta_QCD_num * J_native_num)
+    ∧ (10 < theta_QCD_num ∧ 10 * J_obs_num < theta_QCD_num * J_native_num) :=
+  ⟨native_J_below_bound, window_fails_with_native_J,
+   detectable_next_gen_either_J⟩
 
 end E213.Lib.Physics.Couplings.ThetaQCD

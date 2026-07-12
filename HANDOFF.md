@@ -68,10 +68,23 @@ No Lean changes this session; the deliverable is a research-program document.
    theorem; completion-engine verdict "1 layer"; the `+`/`×` contest;
    form-agreement vs identity; residue as property vs noun).
 
+## E0 executed — θ_QCD falsifier repaired (typed J, PURE)
+
+`Couplings/ThetaQCD.lean` extended (17 PURE / 0 DIRTY, `lake build` of the
+module + closure clean): the J input is now typed —
+`native_J_below_bound` (the nEDM bound comparison survives DRLT's own
+J = 8.18×10⁻⁵ at factor 2–3), `window_fails_with_native_J` (the
+[251,300]·10⁻¹³ window provably fails under native J — the honest
+downgrade as a theorem), `detectable_next_gen_either_J` (J-robust: next-gen
+nEDM decides regardless of which J is right), bundled in
+`theta_QCD_J_typed_core`.  `catalogs/falsifiers.md` F4 rewritten to match.
+Remaining open: the J magnitude itself (the apex projection,
+`ckm_rho_eta_apex.md` — program Track E4).
+
 ## Open Problems (priority order)
-1. **E0** — θ_QCD falsifier repair (S-size, falsifiability hygiene, do first).
-2. **Q1 of the program** — C8 finite Fourier → B2 generic `μ_k` engine →
+1. **Q1 of the program** — C8 finite Fourier → B2 generic `μ_k` engine →
    B5 Euclid-witness atlas → A4 escape-pole census → E7 honest K.
+2. **S5/E0 residuals** — the 5.71 provenance; the J magnitude (E4).
 3. Everything else: see the program document's tracks and sequencing.
 
 ## Unresolved from this session
