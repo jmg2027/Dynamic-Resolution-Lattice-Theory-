@@ -181,9 +181,10 @@ current best fit — JUNO decides.  Bonus audit finding: F3's old anchor
 `NeutrinoRatioDerivation` never existed; `catalogs/falsifiers.md` F3
 corrected and now cites the new capstone.  Still open: provenance of the
 5.71 ratio itself (docstring-only), interval-hypothesis upgrade, Σ bracket.
-NOTE for next full build: only the new module was lake-built this session
-(it has zero imports); the routine full `lake build E213` re-verification
-is expected clean but was not run here.
+Full-build status: **`lake build E213` (519 modules) run at session end —
+clean**, with all six new/extended modules of this session included
+(NeutrinoMassFloor, ThetaQCD extension, SchwingerMoment, WeinbergAngle
+extension, SedenionZeroDivisorCensus, KpCharacterEigen).
 
 ## Three-tier state
 - **New**: `research-notes/frontiers/research_program_year_horizon.md`,
