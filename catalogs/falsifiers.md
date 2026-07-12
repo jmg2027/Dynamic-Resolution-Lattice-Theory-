@@ -26,10 +26,13 @@ the framework.
   no Lean derivation module exists for the ratio — the ordering half
   stands on `Mixing.NeutrinoMixing.PMNS_simplicial_pattern`)
   JUNO inverted ordering measurement → discard (~2030)
-  Sharpened zero-dial kill line: the ratio also requires
-  Δm²_21 ≤ Δm²_31 / 5.71² ≈ 7.70×10⁻⁵ eV² (currently ~1.4σ below;
-  JUNO's solar splitting decides), and implies Σm_ν ≈ 61 meV,
-  m_1 ≈ 1.7 meV — an independent cosmology falsifier.
+  Sharpened zero-dial kill line (PURE:
+  `Mixing.NeutrinoMassFloor.neutrino_mass_floor_falsifier_core`):
+  the ratio also requires Δm²_21 ≤ Δm²_31 / 5.71² = 7.70×10⁻⁵ eV²
+  (kill fires at 7.71; current best fit 7.41 is ~1.4σ below — JUNO's
+  solar splitting decides), pins (m_1/m_2)² ∈ [0.038, 0.039], and
+  implies Σm_ν ≈ 61 meV, m_1 ≈ 1.7 meV — an independent cosmology
+  falsifier.
 
 ### F4: θ_QCD ∈ [2.5, 3.0]×10⁻¹¹
   J·α^(d-1) atomic

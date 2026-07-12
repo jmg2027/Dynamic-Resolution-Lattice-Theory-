@@ -94,13 +94,34 @@ should flow back into the §0 triage table.
   `20_galois_213.md`, `21_probability_brackets_213.md` — ready for
   `marathon-start`.
 
+## S5 executed — first conjecture of the slate already decided (SURVIVES)
+
+`research-notes/frontiers/neutrino_mass_floor_falsifier.md` + **new Lean**
+`Lib/Physics/Mixing/NeutrinoMassFloor.lean` (13 PURE / 0 DIRTY, zero
+imports, `lake build` clean, registered in the `Mixing` aggregator):
+the zero-dial over-determination test survives —
+`(m₁/m₂)² ∈ [0.038, 0.039]`, predicting `Σm_ν ≈ 61 meV`, `m₁ ≈ 1.7 meV`;
+the kill line (`Δm²₂₁ ≥ 7.71×10⁻⁵ eV²` falsifies) sits ~1.4σ from the
+current best fit — JUNO decides.  Bonus audit finding: F3's old anchor
+`NeutrinoRatioDerivation` never existed; `catalogs/falsifiers.md` F3
+corrected and now cites the new capstone.  Still open: provenance of the
+5.71 ratio itself (docstring-only), interval-hypothesis upgrade, Σ bracket.
+NOTE for next full build: only the new module was lake-built this session
+(it has zero imports); the routine full `lake build E213` re-verification
+is expected clean but was not run here.
+
 ## Three-tier state
 - **New**: `research-notes/frontiers/research_program_year_horizon.md`,
-  `research-notes/frontiers/divergence_conjecture_slate.md` (tier-1);
-  `blueprints/math/{18,19,20,21}_*.md`.
+  `research-notes/frontiers/divergence_conjecture_slate.md`,
+  `research-notes/frontiers/neutrino_mass_floor_falsifier.md` (tier-1);
+  `blueprints/math/{18,19,20,21}_*.md`;
+  `lean/E213/Lib/Physics/Mixing/NeutrinoMassFloor.lean` (tier-2, PURE).
 - **Modified**: `research-notes/frontiers/INDEX.md`,
-  `blueprints/math/INDEX.md` (registrations), `HANDOFF.md` (this file).
-- **Promotions**: none (no Lean closures this session).
+  `blueprints/math/INDEX.md` (registrations), `catalogs/falsifiers.md`
+  (F3 corrected), `lean/E213/Lib/Physics/Mixing.lean` (aggregator),
+  `HANDOFF.md` (this file).
+- **Promotions**: none yet (the S5 core is a fresh closure; promotion per
+  `theory/PROMOTION_CRITERIA.md` once the open thirds land).
 
 ## Next
 Start Q1 (the sequencing section), or cherry-pick from the small-brick queue.

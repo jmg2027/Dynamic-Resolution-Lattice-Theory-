@@ -78,18 +78,32 @@ Lean, the falsifier tests a docstring, not the framework.**  The
 provenance repair is therefore not bookkeeping — it decides *what* JUNO
 would falsify.
 
-## Next steps (queued)
+## Lean closure (landed)
+
+**`Lib/Physics/Mixing/NeutrinoMassFloor.lean`** — 13 PURE / 0 DIRTY
+(`tools/scan_axioms.py`), zero imports, `lake build` clean:
+
+- `ratio_survives_current_fit` — the survival inequality `ρ ≥ r²`;
+- `x_bracket` — `(m₁/m₂)² ∈ [0.038, 0.039]` (cross-multiplied);
+- `kill_threshold` — `⌊Δm²₃₁·10⁴/r²num⌋ = 770` (units 10⁻⁷ eV²);
+- `kill_line_at_771` — a solar splitting of `7.71×10⁻⁵ eV²` falsifies;
+- `neutrino_mass_floor_falsifier_core` — the capstone bundle.
+
+Measured central values enter as quoted integers (the typed-input
+pattern); the theorems are the conditional arithmetic core.  Registered
+in the `Mixing` aggregator; `catalogs/falsifiers.md` F3 cites the
+capstone.  §0-table filing: **W1, closed** (rational inequalities on
+counts-squared — no cancellation, no limit).
+
+## Next steps (still open)
 
 1. **Pin the expression**: locate or reconstruct the φ-ratio derivation
    behind 5.71 (the `GoldenRatio.lean` docstring's "uses φ ratios"); if it
    cannot be reconstructed, F3's ratio clause should be demoted in
    `catalogs/falsifiers.md` (the ordering half of F3 stands on
    `PMNS_simplicial_pattern` regardless).
-2. **Lean conditional theorem** (PURE, rational arithmetic only):
-   `mass_floor_bracket : r² ≤ ρ_lo → x_interval ⊆ [x_lo, x_hi] →
-   Σ ∈ [Σ_lo, Σ_hi]` — the measured windows enter as *hypotheses*
-   (typed, per the E0 repair pattern), the bracket arithmetic is ∅-axiom.
-   Size S–M.
-3. File the outcome either way into the program's §0 table: this kernel is
-   **W1** (rational inequalities on counts-squared — no cancellation, no
-   limit).
+2. **Interval-hypothesis upgrade** (S): replace the quoted central values
+   with measured *windows* as explicit hypotheses and prove the bracket
+   for the whole window (same arithmetic, interval endpoints).
+3. **The Σm_ν bracket** (M): needs √-brackets for `m₂` — the
+   `Real213` cut machinery or a rational-square sandwich.
