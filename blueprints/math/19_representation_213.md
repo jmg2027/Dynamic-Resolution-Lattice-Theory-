@@ -52,21 +52,19 @@ A finite group in the corpus is concrete: `Fin n` addition (`Cyclic`),
 A representation `ρ : G → Mat d ℚ` with `ρ(gh) = ρ(g)·ρ(h)` is a
 Lens-arrow: it re-presents the group's distinguishing-composition as
 matrix composition.  Kernel of the Lens = what this reading cannot
-distinguish (the trivial representation distinguishes nothing; a faithful
-one loses nothing).  No abstract `Group`/`Module` typeclass tower —
-concrete carriers, concrete matrices, `decide`/`rfl`-scale proofs, exactly
-the `Algebra/Group/` paradigm.
+distinguish (trivial rep distinguishes nothing; faithful loses nothing).
+No abstract `Group`/`Module` typeclass tower — concrete carriers, concrete
+matrices, `decide`/`rfl`-scale proofs, the `Algebra/Group/` paradigm.
 
 ### 2.2 Character = trace count-Lens; orthogonality = double-count
 
-χ(g) = tr ρ(g) reads each group element as one integer (for the groups in
-scope, values land in ℤ).  The orthogonality sum
-`Σ_{g∈G} χᵢ(g)·χⱼ(g⁻¹) = |G|·δᵢⱼ` is a finite sum over an enumerated
-group — for S₃, six terms, closable by `decide`-scale computation.  The
-schema is already proven once: `ModArith/CharacterOrthogonality.
-charSumExp_eq_zero` and `quadratic_orthogonality` are character
-orthogonality for cyclic groups wearing number-theory clothes.  One
-schema, two instances (§ Phase RD).
+χ(g) = tr ρ(g) reads each group element as one integer (in-scope values
+land in ℤ).  The orthogonality sum `Σ_{g∈G} χᵢ(g)·χⱼ(g⁻¹) = |G|·δᵢⱼ` is a
+finite sum over an enumerated group — for S₃, six terms, `decide`-scale.
+The schema is already proven once:
+`ModArith/CharacterOrthogonality.charSumExp_eq_zero` and
+`quadratic_orthogonality` are character orthogonality for cyclic groups
+wearing number-theory clothes.  One schema, two instances (Phase RD).
 
 ### 2.3 Why ℚ/ℤ and not ℂ — the honest wall stated up front
 
@@ -83,31 +81,29 @@ exterior ruler.  What survives over ℚ, honestly:
 
 Cyclotomic values are not an escape hatch to ℂ: ℤ[ζₙ] is a finite
 ℤ-module, buildable the `CayleyDickson`/`ZSqrt` way (tuples with axes;
-the tuple is the number).  Where μₙ is forced, the DFT/cyclotomic
-machinery of **blueprint 18 (finite Fourier)** —
-`blueprints/math/18_finite_fourier_213.md` — is the shared substrate;
-this blueprint deliberately does not duplicate it.
+the tuple is the number).  Where μₙ is forced, the cyclotomic machinery
+of **blueprint 18 (finite Fourier)**,
+`blueprints/math/18_finite_fourier_213.md`, is the shared substrate —
+not duplicated here.
 
 ### 2.4 |G| = Σ dᵢ² as incidence double-count
 
-Classically this is the regular representation decomposing.  213-native:
-count the pairs of one finite incidence structure two ways — the
+Classically the regular representation decomposing.  213-native: count
+the pairs of one finite incidence structure two ways — the
 `Combinatorics/IncidenceFubini.genSwap` / `incidence_fubini_one_engine`
-pattern.  For S₃: `6 = 1² + 1² + 2²`, a `decide`-scale instance of a
-typed general statement.
+pattern.  For S₃: `6 = 1² + 1² + 2²`, `decide`-scale.
 
 ### 2.5 8 = 3²−1: adjoint = regular minus trivial
 
-For a 3-object system, the 3×3 matrix space has dimension 9 = 3²; the
-trace-Lens splits off 1 (the trivial/scalar line); the traceless
-remainder has dimension 8.  This is a *count with a typed carrier*
-(traceless 3×3 matrices over ℚ, buildable in `Linalg213`), replacing the
-current situation where `8` is: an 𝔽₂ count (`OctetModule`, `2·triv ⊕
-3·std`), a graph Betti number (`H1K`, `b₁ = E−V+1 = 8`), and a Unit-model
-cokernel (`OctetCokernel.octet_is_cokernel_of_zero_map`) — matched by the
-**number**, never yet by an object (the freezing line of
+For a 3-object system the 3×3 matrix space has dimension 9 = 3²; the
+trace-Lens splits off 1 (the scalar line); the traceless remainder has
+dimension 8.  A *count with a typed carrier* (traceless 3×3 over ℚ,
+buildable in `Linalg213`), where today `8` is only number-matched: an 𝔽₂
+count (`OctetModule`, `2·triv ⊕ 3·std`), a Betti number (`H1K`,
+`b₁ = E−V+1 = 8`), a Unit-model cokernel
+(`OctetCokernel.octet_is_cokernel_of_zero_map`).  Freezing line of
 `classical_input_gap_closure.md`: close the math, don't ontologize the
-physics).
+physics.
 
 ## 3. Building Blocks (already ∅-axiom in the corpus)
 
@@ -232,15 +228,14 @@ table + orthogonality + Maschke split + Σ dᵢ² + octet bridge in one
 ## 6. Open Problems (honest walls)
 
 - **No ℂ, no algebraic closure**: irreducibility over ℚ ≠ absolute
-  irreducibility.  In-scope groups (S₃, small Cₙ quadratic sector, sign
-  reps of Sₙ) dodge this; the general Schur theory does not — record the
-  wall, do not paper over it.
-- **Schur's lemma** in usable generality needs the endomorphism-ring
-  analysis over ℚ (division algebras can appear); out of seed scope.
+  irreducibility.  In-scope groups (S₃, Cₙ quadratic sector, sign reps of
+  Sₙ) dodge this; general Schur theory does not — record the wall.
+- **Schur's lemma** in generality needs endomorphism-ring analysis over ℚ
+  (division algebras can appear); out of seed scope.
 - **Character values are algebraic integers**: needs ℤ[ζₙ] integrality —
   blueprint 18 territory.
-- **Large Sₙ** (Young tableaux, hook lengths): a separate marathon after
-  the seed closes; the corpus's `perms n` enumeration is the entry point.
+- **Large Sₙ** (Young tableaux, hook lengths): a later marathon; the
+  corpus's `perms n` enumeration is the entry point.
 
 ## 7. Key Insights (★)
 

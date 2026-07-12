@@ -252,15 +252,14 @@ Closes `curvature_spectrum_crossdomain.md` bridge 1.
 
 ## 7. Open Problems
 
-- General-n μ_n with a single carrier: the free group ring `R[C_n]` gives
-  ζ as a basis vector but its `(ζ−1)`-regularity needs the cyclotomic-vs-
-  finite-field reconciliation flagged in `CyclicCharacterOrthogonality`
-  (§ residual) — the map `ℤ[ζ_n] → ℤ/p`, `ζ ↦ ω`.
+- General-n μ_n on one carrier: `R[C_n]` gives ζ as a basis vector, but
+  `(ζ−1)`-regularity needs the cyclotomic-vs-finite-field reconciliation
+  flagged in `CyclicCharacterOrthogonality` (the map `ℤ[ζ_n] → ℤ/p`, `ζ ↦ ω`).
 - The `1/√n`-unitary normalisation (physics convention) needs the ℚ-cup
   plus a `Real213` cut for `√n` — deferred; the multiply-through form is
   the calculable operand (limit-deified row: the bracket IS the math).
-- Fourier on (ℤ/n)^× (multiplicative group, non-prime n) — needs the
-  totient-indexed character family; `TotientPairing` is the seed.
+- Fourier on (ℤ/n)^× for non-prime n — needs the totient-indexed
+  character family; `TotientPairing` is the seed.
 
 ## 8. First Marathon Command
 
