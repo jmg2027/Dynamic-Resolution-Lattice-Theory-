@@ -102,8 +102,11 @@ counts-squared — no cancellation, no limit).
    cannot be reconstructed, F3's ratio clause should be demoted in
    `catalogs/falsifiers.md` (the ordering half of F3 stands on
    `PMNS_simplicial_pattern` regardless).
-2. **Interval-hypothesis upgrade** (S): replace the quoted central values
-   with measured *windows* as explicit hypotheses and prove the bracket
-   for the whole window (same arithmetic, interval endpoints).
+2. ~~Interval-hypothesis upgrade~~ **CLOSED** —
+   `survives_joint_one_sigma_box` (survival at the hardest 1σ corner:
+   solar high, atmospheric low) + `kill_fires_solar_two_sigma` (the kill
+   fires on the solar +2σ line even granting atmospheric +2σ): the
+   verdict is pinned between 1σ and 2σ of the solar splitting — exactly
+   JUNO's discrimination regime.
 3. **The Σm_ν bracket** (M): needs √-brackets for `m₂` — the
    `Real213` cut machinery or a rational-square sandwich.

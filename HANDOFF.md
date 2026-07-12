@@ -94,12 +94,30 @@ Remaining open: the J magnitude itself (the apex projection,
 exists: `Real213/Zeta3Cut`).  Catalog-sync for `physics-constants.md`
 queued (new sector entry).
 
+## E9 executed — the Weinberg 35 ppm claim made arithmetic (PURE)
+
+`YangMills/WeinbergAngle.lean` extended (15 PURE / 0 DIRTY, module +
+closure lake-built): the Class-B running-gap closure, previously
+docstring numerics, is now integer arithmetic on the typed `pi2_e10` —
+`v2_value_e7` (corrected sin²θ_W = 0.2312179 exactly),
+`v2_gap_ppm_bracket` (**the gap to observed is in [30, 35] ppm** — the
+35 ppm claim as a theorem), `v2_within_observed_window` (0.07σ) vs
+`bare_outside_observed_window` (bare excluded at >1σ), bundled in
+`weinberg_running_gap_typed_core`.
+
+## S5 interval upgrade — CLOSED
+
+`NeutrinoMassFloor.lean` + 2 theorems (15 PURE / 0 DIRTY):
+`survives_joint_one_sigma_box` (the reading survives the entire joint 1σ
+error box, hardest corner) + `kill_fires_solar_two_sigma` (the kill fires
+on the solar +2σ line even at atmospheric +2σ) — the verdict is pinned
+between 1σ and 2σ of the solar splitting, exactly JUNO's regime.
+
 ## Open Problems (priority order)
 1. **Q1 of the program** — C8 finite Fourier → B2 generic `μ_k` engine →
    B5 Euclid-witness atlas → A4 escape-pole census → E7 honest K.
-2. **S5/E0/E10 residuals** — the 5.71 provenance; the J magnitude (E4);
-   the `C₂` internal derivation (g−2 rung 2); catalog-sync for the
-   Schwinger entry.
+2. **Residuals** — the 5.71 provenance; the J magnitude (E4); the `C₂`
+   internal derivation (g−2 rung 2); the S5 Σm_ν √-bracket.
 3. Everything else: see the program document's tracks and sequencing.
 
 ## Unresolved from this session

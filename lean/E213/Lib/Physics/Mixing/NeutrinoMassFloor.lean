@@ -87,4 +87,25 @@ theorem neutrino_mass_floor_falsifier_core :
     ∧ (dm31 * rSqDen < 771 * rSqNum) :=
   ⟨ratio_survives_current_fit, x_bracket, kill_threshold, kill_line_at_771⟩
 
+/-! ## Interval-hypothesis upgrade (measured windows, not centrals)
+
+Quoted 1σ half-widths: `Δm²₂₁ ± 21`, `Δm²₃₁ ± 27` (same 10⁻⁷ eV²
+units).  The two theorems below place the verdict relative to the whole
+error box, conservatively in each direction: survival is checked at the
+*hardest* 1σ corner (solar high `741+21 = 762`, atmospheric low
+`25110−27 = 25083`), and the kill is checked on the solar +2σ line even
+granting the atmospheric its +2σ high (`25110+54 = 25164` vs
+`741+42 = 783`).  So: **the reading survives the entire joint 1σ box,
+and dies on the solar +2σ line regardless of the atmospheric value** —
+the falsifier sits between 1σ and 2σ of the solar splitting, exactly
+JUNO's discrimination regime. -/
+
+/-- ★ Survival across the joint 1σ box (hardest corner). -/
+theorem survives_joint_one_sigma_box : 762 * rSqNum ≤ 25083 * rSqDen := by
+  decide
+
+/-- ★ The kill fires on the solar +2σ line even at atmospheric +2σ. -/
+theorem kill_fires_solar_two_sigma : 25164 * rSqDen < 783 * rSqNum := by
+  decide
+
 end E213.Lib.Physics.Mixing.NeutrinoMassFloor
