@@ -271,6 +271,13 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
   triage table as empirical law), noble numbers = three-distance degeneracy, Kraft equality
   = complete distinguishing tree, the Ramanujan ladder.  Each with a kill-test; a killed
   conjecture files a verdict into the program's §0 table.
+- `neutrino_mass_floor_falsifier` — **S5 executed (numerical-only)**: the zero-dial
+  over-determination test — DRLT `m₃/m₂ = 5.71` + measured `Δm²₃₁/Δm²₂₁` solve
+  `(m₁/m₂)² = +0.039 ≥ 0` → the reading **survives** and predicts `Σm_ν ≈ 61 meV`,
+  `m₁ ≈ 1.7 meV` with 0 dials; sharp kill line `Δm²₂₁ ≤ Δm²₃₁/5.71²` sits ~1.4σ from
+  the current best fit (JUNO decides).  Audit finding: F3's cited Lean anchor
+  `NeutrinoRatioDerivation` **does not exist** — ratio is docstring-only; provenance
+  repair + the PURE conditional bracket theorem are the queued next steps (W1 kernel).
 - `cubic_reciprocity` — **CLOSED ∅-axiom (both cases), promoted.**  The cubic reciprocity law is
   complete: inert `(π/q)₃ = χ(q)` (`EisensteinCubicReciprocity.cubic_reciprocity_law`) and split
   `(π/π')₃ = (π'/π)₃` (`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`).  Narrative:
