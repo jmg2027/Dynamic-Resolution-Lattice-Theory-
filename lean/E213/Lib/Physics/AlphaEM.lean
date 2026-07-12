@@ -28,6 +28,7 @@ import E213.Lib.Physics.AlphaEM.PiFiveGap
 import E213.Lib.Physics.AlphaEM.ProjectionRatios
 import E213.Lib.Physics.AlphaEM.StructuralGap
 import E213.Lib.Physics.AlphaEM.MaxAlphaPowerBound
+import E213.Lib.Physics.AlphaEM.SchwingerMoment
 
 /-! Spec-as-code entry point for E213.Lib.Physics.AlphaEM.
 
@@ -78,6 +79,9 @@ import E213.Lib.Physics.AlphaEM.MaxAlphaPowerBound
                                   (60, 30, 25, 4, 45) from c, NS,
                                   NT, d.  STRICT ∅-AXIOM.
   * `StructuralGap.lean`        — open 5.4×10⁻⁴ falsifier target
+  * `SchwingerMoment.lean`      — g−2 first contact: a_e = α/2π =
+                                  1161409×10⁻⁹, agreement bracketed
+                                  [0.1%, 0.2%]; the gap is the C₂ shadow
 
   Importing this single module pulls in the whole cluster.
 -/

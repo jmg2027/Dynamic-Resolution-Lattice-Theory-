@@ -253,6 +253,33 @@ Closure record: `theory/math/analysis/{divergence_depth_characterization,cfinite
 
 ## Standalone frontiers (root of `frontiers/`)
 
+- `research_program_year_horizon` — **the year-horizon divergence pass (2026-07-12)**: a
+  single compiled research program for successor sessions — the W1–W4 kernel-triage
+  doctrine (unsigned-count / signed-cancellation / uniform-residue / interface-defect),
+  six tracks (foundations descent-leg spine; number theory after cubic reciprocity;
+  analysis moduli+brackets; algebra/cohomology above the closed skeleta; physics
+  identification-forcing incl. the θ_QCD falsifier repair; new-discipline rebuild seeds —
+  representation theory, Galois, finite Fourier, probability brackets, game/information),
+  a small-brick queue, four-quarter sequencing, and the standing do-not-attack wall list.
+  Each entry: anchor + first Lean step + size + risk.
+- `divergence_conjecture_slate` — **companion conjecture slate (2026-07-12)**: eleven sharp
+  falsifiable conjectures staked against the program — crystallographic reciprocity ceiling
+  (`k∈{2,3,4,6}`), CLT = rung 2 of the modulus-degree ladder, the ℚ-cup with F₂-cup as its
+  2-torsion (the E1 forcing), the octet double-count isomorphism, the neutrino zero-dial
+  mass-floor falsifier (S-size, kills or confirms the Fibonacci ratio by arithmetic),
+  sedenion zero-divisor census, reciprocity-as-Frobenius-splitting, W1-completeness (the
+  triage table as empirical law), noble numbers = three-distance degeneracy, Kraft equality
+  = complete distinguishing tree, the Ramanujan ladder.  Each with a kill-test; a killed
+  conjecture files a verdict into the program's §0 table.
+- `neutrino_mass_floor_falsifier` — **S5 executed; arithmetic core CLOSED ∅-axiom**: the
+  zero-dial over-determination test — DRLT `m₃/m₂ = 5.71` + measured `Δm²₃₁/Δm²₂₁` solve
+  `(m₁/m₂)² ∈ [0.038, 0.039] ≥ 0` → the reading **survives** and predicts `Σm_ν ≈ 61 meV`,
+  `m₁ ≈ 1.7 meV` with 0 dials; sharp kill line `Δm²₂₁ ≤ 7.70×10⁻⁵ eV²` sits ~1.4σ from
+  the current best fit (JUNO decides).  Lean:
+  `Mixing/NeutrinoMassFloor.neutrino_mass_floor_falsifier_core` (13 PURE / 0 DIRTY,
+  zero imports; quoted central values as typed inputs).  Audit finding folded in: F3's
+  previously-cited anchor `NeutrinoRatioDerivation` never existed — the 5.71 ratio itself
+  is still docstring-only; open: provenance of 5.71, interval-hypothesis upgrade, Σ bracket.
 - `cubic_reciprocity` — **CLOSED ∅-axiom (both cases), promoted.**  The cubic reciprocity law is
   complete: inert `(π/q)₃ = χ(q)` (`EisensteinCubicReciprocity.cubic_reciprocity_law`) and split
   `(π/π')₃ = (π'/π)₃` (`EisensteinCubicReciprocitySplit.split_cubic_reciprocity`).  Narrative:
@@ -1028,7 +1055,7 @@ real ∅-axiom conquests.
   decay → P3 energy/Dirichlet → P4 Li–Yau → P5 Shi.  P1–P3 reachable; P4–P5 the
   real depth.  Remaining wall = the smooth-manifold (chart/tensor) layer.
 | `hall_general_induction.md` | Hall marriage general-n (Halmos–Vaughan induction); framework + n≤2 closed in `Combinatorics/HallMarriage` | open |
-| `analysis_modulus_pending.md` | Cesàro + limit-arithmetic sum DONE; product/squeeze still open | partial |
+| `analysis_modulus_pending.md` | Cesàro + limit-arithmetic sum/product/squeeze ALL DONE (`SqueezeProduct`, 22 PURE) — note is a closure record, archive candidate | closed |
 | `two_square_only_if.md` | CLOSED end-to-end incl. biconditional (`SumTwoSquaresBiconditional`) | closed |
 | `wilson_pm1_classification.md` | Gauss-Wilson ±1 value classification (core DONE in WilsonGeneralization; the n∈{1,2,4,pᵏ,2pᵏ} ⟺ −1 split open) | open |
 | `rearrangement_general_n.md` | rearrangement general-n reverse/permutation form (core + n=2,3 DONE in RearrangementInequality) | open |

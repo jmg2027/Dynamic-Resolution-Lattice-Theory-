@@ -42,6 +42,14 @@ inflation skeptic) gave a range, reconciled below.
 **Honest range: K ≈ 3 (tight floor: N_gen, color-8, Koide) to K ≈ 7 (generous:
 + the three coupling skeletons, m_p/m_e skeleton, Cabibbo).**  Not 23.
 
+### Candidates added by the S5/E9/E10 closures (2026-07-12, honest status)
+
+| K# | Measured number | Status |
+|---|---|---|
+| K7? | solar/atmospheric splitting ratio `Δm²₃₁/Δm²₂₁ ≈ 33.9` | **candidate-independent**: a new measured number (not a `{3,6,8,12,24}` re-read) pinned by `m₃/m₂ = 5.71` with 0 dials (`NeutrinoMassFloor`, survives the joint 1σ box, dies at solar +2σ).  BLOCKED from tight-K until the 5.71 provenance is repaired (currently docstring-only — the pin tests a quoted literal, not a derivation). |
+| — | `sin²θ_W` at 35 ppm (`weinberg_running_gap_typed_core`) | **not independent-tight**: reuses the ζ(2)/α_GUT atoms AND the Class-B leak coefficient `k = NS` is a post-hoc simplest-atom selection, not forced — generous-K at best. |
+| — | `a_e` Schwinger agreement (`schwinger_first_contact`) | **not a DRLT falsifier**: `α/2π` is generic QED (any theory with α inherits it); counts as precision infrastructure, and the `C₂` gap is the future target, not a current pin. |
+
 ## The genuine over-determination engine (the strongest evidence)
 
 Beyond the raw count, the sharpest non-trivial piece is the **triple coupling**:

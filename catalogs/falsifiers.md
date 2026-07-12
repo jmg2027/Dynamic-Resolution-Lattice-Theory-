@@ -22,12 +22,30 @@ the framework.
   Collider 4th gen discovery → discard
 
 ### F3: Neutrino normal ordering
-  m_3/m_2 ≈ 5.71 (Phase 3 NeutrinoRatioDerivation)
+  m_3/m_2 ≈ 5.71 (docstring-level, `Foundations/DrltZeroParameters`;
+  no Lean derivation module exists for the ratio — the ordering half
+  stands on `Mixing.NeutrinoMixing.PMNS_simplicial_pattern`)
   JUNO inverted ordering measurement → discard (~2030)
+  Sharpened zero-dial kill line (PURE:
+  `Mixing.NeutrinoMassFloor.neutrino_mass_floor_falsifier_core`):
+  the ratio also requires Δm²_21 ≤ Δm²_31 / 5.71² = 7.70×10⁻⁵ eV²
+  (kill fires at 7.71; current best fit 7.41 is ~1.4σ below — JUNO's
+  solar splitting decides), pins (m_1/m_2)² ∈ [0.038, 0.039], and
+  implies Σm_ν ≈ 61 meV, m_1 ≈ 1.7 meV — an independent cosmology
+  falsifier.
 
-### F4: θ_QCD ∈ [2.5, 3.0]×10⁻¹¹
-  J·α^(d-1) atomic
-  nEDM next-generation outside → discard (~2027-30)
+### F4: θ_QCD = J·α_GUT^(d-1), detectable by next-gen nEDM
+  J·α^(d-1) atomic (exponent d−1 = 4, Dyson cofactor)
+  The J input is typed (`Couplings.ThetaQCD.theta_QCD_J_typed_core`,
+  PURE): with the observed J ≈ 3.08×10⁻⁵ the prediction is
+  2.86×10⁻¹¹ (window [2.51, 3.00]×10⁻¹¹); with DRLT's own
+  J = 8.18×10⁻⁵ (`Mixing/JarlskogApex`, ×2.66 over — open frontier
+  `ckm_rho_eta_apex.md`) it is ≈ 7.6×10⁻¹¹ and the window provably
+  fails (`window_fails_with_native_J`) while the nEDM bound
+  comparison survives at factor 2–3 (`native_J_below_bound`).
+  J-robust falsifier: under EITHER J the prediction exceeds the
+  ~10⁻¹² next-gen sensitivity — nEDM 2027-30 must see a signal
+  or the reading is discarded (`detectable_next_gen_either_J`).
 
 ### F5: cos²θ_W ∈ [0.75, 0.78]
   Future precision measurement outside → discard

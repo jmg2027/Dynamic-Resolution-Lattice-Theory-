@@ -75,6 +75,20 @@ illustrates the standard.
 |---|---|---|---|
 | 17 | **Reverse Mathematics 213** ✅ CORE CLOSED | `17_reverse_math_213.md` | ★★★ (omniscience / axiom-cost ledger — the legibility bridge to mathematical logic; Phases GA–GD, 74 PURE in `Lib/Math/Logic/`, book `books/math/reverse-math-213.md`) |
 
+### Phase H — Rebuild frontier (added 2026-07-12, from the year-horizon program)
+
+Four new-discipline seeds against the verified structural absences
+(`research-notes/frontiers/research_program_year_horizon.md` Track D/F;
+audit of 12 absent domains).  Each is count-Lens-first: the 213-native
+statement precedes the classical name.
+
+| # | Field | File | Priority |
+|---|---|---|---|
+| 18 | **Finite Fourier 213** (DFT on ℤ/n) | `18_finite_fourier_213.md` | ★★★ (program topic C8 — recommended first; consolidates 3 orthogonality engines, Gauss sums as Fourier coefficients, K_p Laplacian bridge) |
+| 19 | **Representation Theory 213** (S₃ seed) | `19_representation_213.md` | ★★★ (topic D6/E3 — character table, Maschke, `|G|=Σdᵢ²` double-count; payoff: typed octet `8 = 3²−1`) |
+| 20 | **Galois Theory 213** (fixed small fields) | `20_galois_213.md` | ★★ (topic D7 — conj swap-Lens on ℚ(√5)/ℚ(i), the C₂×C₂ correspondence as finite lattice iso, `fp2Frob` generator, reciprocity as Frobenius bookkeeping) |
+| 21 | **Probability Brackets 213** (count-ratio limit theorems) | `21_probability_brackets_213.md` | ★★★ (topic F1+F8 — bracketed de Moivre–Laplace via `central_binom`, Chernoff majorants, Kraft/entropy; conjecture S2: CLT = modulus-degree rung 2) |
+
 ---
 
 ## Completed (2026-04-27)
