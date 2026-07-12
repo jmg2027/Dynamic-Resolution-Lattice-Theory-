@@ -113,11 +113,25 @@ error box, hardest corner) + `kill_fires_solar_two_sigma` (the kill fires
 on the solar +2σ line even at atmospheric +2σ) — the verdict is pinned
 between 1σ and 2σ of the solar splitting, exactly JUNO's regime.
 
+## S6 executed — sedenion zero-divisor census core (PURE)
+
+`Levels/SedenionZeroDivisorCensus.lean` (10 PURE / 0 DIRTY, ~29 s build,
+registered in the CayleyDickson aggregator): the L4 associativity-loss
+census is fully rigid — **42 left pairs** (`a ∈ 1..7` octonion imaginary,
+`b ∈ 9..15`, `b ≠ a+8`) × **exactly 4 partners** = **168** ordered
+solutions (interpreter-verified full sweep; `168 = |PSL(2,7)|` recorded
+as a Lens tag).  Kernel-certified: basis weld to the existing witnesses,
+`pairCount(e₁+e₁₀) = 4`, and the three exclusions (octonion half, `e₈`,
+conjugate slot `e₉`).  Queued: the 15-row `aCount` kernel ledger
+(measured ~2 min/row, PURE — kept out of the always-built tree) and the
+PSL(2,7) orbit-transitivity identification.
+
 ## Open Problems (priority order)
 1. **Q1 of the program** — C8 finite Fourier → B2 generic `μ_k` engine →
    B5 Euclid-witness atlas → A4 escape-pole census → E7 honest K.
 2. **Residuals** — the 5.71 provenance; the J magnitude (E4); the `C₂`
-   internal derivation (g−2 rung 2); the S5 Σm_ν √-bracket.
+   internal derivation (g−2 rung 2); the S5 Σm_ν √-bracket; the S6
+   15-row ledger + PSL(2,7) identification.
 3. Everything else: see the program document's tracks and sequencing.
 
 ## Unresolved from this session
