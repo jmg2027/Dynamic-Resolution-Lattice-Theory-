@@ -50,3 +50,20 @@ in a hypothesis can leak propext where the term-mode `(eq).symm.trans h` does no
 needed): `Nat.mod_lt`, `Nat.mod_eq_of_lt`, `Nat.pow_two`, `Nat.succ_le_of_lt`,
 `Nat.le_antisymm`, `Nat.lt_or_ge`, `Nat.le_of_sub_eq_zero`, `add_sub_cancel_right`,
 `mod_add_mod`/`div_add_mod` (AddMod213).  Feeds the unbuilt `Meta/` propext-trap catalog.
+
+## propext-trap data point (2026-07-12, KpCharacterEigen)
+
+Confirmed by `scan_axioms` on `Geometry/DiscreteCurvature/KpCharacterEigen.lean`:
+**`decide` on a bounded-quantified `Iff` whose RHS contains `∃`**
+(`∀ x, x < 5 → (f x = 1 ↔ (x ≠ 0 ∧ ∃ y, y < 5 ∧ …))`) elaborates through
+`Decidable` instances that carry **`propext` + `Quot.sound`** into the term —
+even though every atom is decidable `Nat`/`Int` equality.  PURE replacement:
+split the `Iff` into two `Eq`/`Ne`-only bounded implications
+(`∀ y, y < 5 → y ≠ 0 → f (y*y%5) = 1` and
+`∀ x, x < 5 → f x = -1 → ∀ y, y < 5 → y*y%5 ≠ x`) — same mathematical
+content, `decide` stays axiom-free.  Rule of thumb for the catalog:
+**under `decide`, quantify over `Eq`/`Ne`/`<` atoms only; eliminate `Iff`
+and `∃` from the statement by splitting into directional implications with
+explicit witnesses.**  Second confirmed instance of the family after the
+`Nat.succ_ne_zero` bisection; the `Meta/` catalog now has two entries
+waiting and remains the right home.
