@@ -164,16 +164,16 @@ physics.
 ### Phase RD — Cyclic case unified with Dirichlet orthogonality (2-3 commits)
 
 1. State the character-orthogonality schema once (finite sum over an
-   enumerated group vanishes off the diagonal) and instantiate twice:
+   enumerated group vanishes off the diagonal), instantiate twice:
    (a) S₃ from Phase RA; (b) the existing
    `CharacterOrthogonality.quadratic_orthogonality` /
-   `charSumExp_eq_zero` for cyclic groups.  One Lens-arrow, two
-   readings — do not create parallel "group character" and "Dirichlet
-   character" objects (equivalence-pluralism failure mode).
+   `charSumExp_eq_zero` for cyclic groups.  One Lens-arrow, two readings
+   — no parallel "group character" and "Dirichlet character" objects
+   (equivalence-pluralism failure mode).
 2. Honest wall, stated in the file: Cₙ's full set of n 1-dim characters
    needs μₙ; over ℚ only the ±1-valued (quadratic) characters and the
-   φ(d)-block decomposition are available until blueprint 18's
-   cyclotomic carrier lands.  Cite `18_finite_fourier_213.md`.
+   φ(d)-block decomposition are available until blueprint 18's cyclotomic
+   carrier lands.  Cite `18_finite_fourier_213.md`.
 3. Success criterion: zero duplicated summation lemmas between
    `ModArith/CharacterOrthogonality` and the new files.
 
