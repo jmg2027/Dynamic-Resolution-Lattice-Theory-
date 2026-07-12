@@ -98,7 +98,24 @@ inequality, ∅-axiom once the bracket arithmetic is stated.
 **Kill-test.**  One session: state the bracket, plug the PDG windows,
 `decide`.
 
-## S6. Sedenion zero-divisor census is CD-forced [A]
+## S6. Sedenion zero-divisor census is CD-forced [A] — **EXECUTED, core landed**
+
+**Verdict (2026-07-12).**  The census is fully rigid in the repo's
+nested-CD encoding (interpreter-verified over the whole `15⁴·2` sweep;
+witness-row facts kernel-certified PURE in
+`Levels/SedenionZeroDivisorCensus.lean`):
+
+  * left pairs with partners = `(a, b)`, `a ∈ 1..7` (octonion imaginary),
+    `b ∈ 9..15`, `b ≠ a+8` — **42 pairs** (7×6);
+  * each has exactly **4** `(c<d, ±)` partners;  **total = 42·4 = 168**.
+
+`168 = |PSL(2,7)|` (Fano-plane automorphisms — the octonion table's own
+symmetry count) is the natural Lens tag; proving that identification
+(orbit-transitivity of the census under the table's automorphisms) is
+the remaining conjectural half, together with the 15-row kernel ledger
+(`aCount a = 24` measured ∅-axiom-certifiable at ~2 min/row; kept out of
+the always-built tree).  The finite signature of the L4 associativity
+loss is `(42, 4, 168)`.
 
 **Conjecture.**  The combinatorial skeleton of the sedenion zero-divisor
 locus (which basis-pair products vanish, over the ℤ-basis of the L4
