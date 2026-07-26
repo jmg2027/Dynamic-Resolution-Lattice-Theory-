@@ -1,0 +1,7 @@
+__pycache__/
+
+# Raw vendor data -- reproducible with `python3 fetch_data.py`.
+data/
+
+# Full daily series -- reproducible with `python3 backtest.py`, 3MB.
+out/daily.csv

@@ -1,0 +1,57 @@
+==============================================================================
+SPY long/short  |  1996-01-25 -> 2026-07-23  (7672 trading days)
+==============================================================================
+
+-- headline ------------------------------------------------------
+strategy (net)       sharpe=+0.089  ann_return=+0.006  ann_vol=+0.068  max_drawdown=-0.181  hit_rate=+0.490
+strategy (gross)     sharpe=+0.152  ann_return=+0.010  ann_vol=+0.068  max_drawdown=-0.168  hit_rate=+0.498
+no exec band (net)   sharpe=+0.060  ann_return=+0.005  ann_vol=+0.086  max_drawdown=-0.317  hit_rate=+0.490
+equal-weight combo   sharpe=+0.116  ann_return=+0.004  ann_vol=+0.032  max_drawdown=-0.153  hit_rate=+0.488
+SPY buy & hold       sharpe=+0.395  ann_return=+0.076  ann_vol=+0.192  max_drawdown=-0.679  hit_rate=+0.540
+positioning          avg=-0.04  avg|pos|=0.28  long 41% / short 59%  turnover=21.5x/yr
+execution band       halfwidth=0.28  holding horizon=4d  turnover 60x -> 21x/yr
+
+-- experts (each standalone, net) --------------------------------
+rev_1          sharpe=+0.315  ann_return=+0.013  max_drawdown=-0.069  hedge_w=0.048  active=62%
+tom            sharpe=+0.286  ann_return=+0.019  max_drawdown=-0.229  hedge_w=0.162  active=98%
+rev_5          sharpe=+0.223  ann_return=+0.026  max_drawdown=-0.254  hedge_w=0.404  active=100%
+vrp            sharpe=+0.105  ann_return=+0.008  max_drawdown=-0.293  hedge_w=0.039  active=61%
+trend_200      sharpe=+0.024  ann_return=+0.001  max_drawdown=-0.286  hedge_w=0.034  active=22%
+vix_spike      sharpe=-0.012  ann_return=-0.001  max_drawdown=-0.405  hedge_w=0.174  active=96%
+drawdown       sharpe=-0.031  ann_return=-0.002  max_drawdown=-0.428  hedge_w=0.055  active=63%
+mom_63         sharpe=-0.142  ann_return=-0.007  max_drawdown=-0.274  hedge_w=0.025  active=52%
+lowvol         sharpe=-0.149  ann_return=-0.010  max_drawdown=-0.395  hedge_w=0.032  active=36%
+mom_12_1       sharpe=-0.160  ann_return=-0.006  max_drawdown=-0.256  hedge_w=0.028  active=84%
+
+-- does it survive the statistics? -------------------------------
+stationary bootstrap Sharpe  +0.09  90% CI [-0.14, +0.32]  P(SR<=0)=0.253
+White reality check          best=expert:rev_1  stat=1.74  crit95=2.32  p=0.200  (M=12)
+deflated Sharpe (trials= 12)  SR=+0.09  E[max SR|H0]=+0.30  DSR=0.120
+deflated Sharpe (trials= 50)  SR=+0.09  E[max SR|H0]=+0.41  DSR=0.037
+deflated Sharpe (trials=200)  SR=+0.09  E[max SR|H0]=+0.50  DSR=0.011
+placebo (whole pipeline on   observed SR=+0.09  null mean=-0.08 sd=0.24  95th=+0.44
+  block-permuted returns)    p=0.193  (300 draws)
+PIT calibration              KS=0.0628  p=0.000  mean=0.518  tail mass(5%)=0.103 (want 0.100)
+Hedge regret vs best expert  39.4  bound sqrt(T lnN/2)=94.0  respected=True
+
+-- is it worth anything as an overlay on SPY? --------------------
+correlation to SPY  +0.376   alpha t-stat -0.40   beta +0.134
+  SPY +  0.00 x strategy   SR=+0.395  ann=+7.59%  dd=-67.9%
+  SPY +  0.25 x strategy   SR=+0.388  ann=+7.74%  dd=-68.8%
+  SPY +  0.50 x strategy   SR=+0.380  ann=+7.90%  dd=-69.7%
+  SPY +  1.00 x strategy   SR=+0.361  ann=+8.20%  dd=-71.7%
+
+-- subperiods (net vs buy & hold) --------------------------------
+1996-01-25..2000-01-01   SR=+0.36  ret=+1.9%  dd=-10.4%   |  B&H SR=+0.98  dd=-20.2%
+2000-01-01..2010-01-01   SR=+0.01  ret=+0.1%  dd=-15.4%   |  B&H SR=-0.15  dd=-67.9%
+2010-01-01..2020-01-01   SR=+0.10  ret=+0.6%  dd=-10.8%   |  B&H SR=+0.82  dd=-20.3%
+2020-01-01..2026-07-23   SR=+0.08  ret=+0.6%  dd=-10.0%   |  B&H SR=+0.55  dd=-35.8%
+
+-- cost sensitivity ----------------------------------------------
+ 0.0bps  SR=+0.15  ann=+1.04%
+ 1.0bps  SR=+0.12  ann=+0.82%
+ 2.0bps  SR=+0.09  ann=+0.61%
+ 5.0bps  SR=-0.01  ann=-0.04%
+10.0bps  SR=-0.16  ann=-1.11%
+20.0bps  SR=-0.47  ann=-3.26%
+
