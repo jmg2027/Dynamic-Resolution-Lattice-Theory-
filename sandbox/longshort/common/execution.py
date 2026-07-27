@@ -53,8 +53,33 @@ def causal_halflife(target: np.ndarray, min_obs: int = 252,
     return np.clip(np.nan_to_num(h, nan=floor), floor, cap)
 
 
+def implied_risk_aversion(alpha: np.ndarray, variance: np.ndarray,
+                          floor: float = 1e-9) -> np.ndarray:
+    """Back ``lambda`` out of the book instead of assuming it.
+
+    The band half-width ``w = lambda*c/(h*sigma^2)`` is only meaningful if
+    ``lambda`` is the risk aversion that actually produced the target.  For a
+    single asset that is the fractional-Kelly constant, because the position
+    *is* the whole risk budget.  For a portfolio it is not: each name carries a
+    fraction of the risk, and reusing the single-asset constant produces a band
+    tens of times wider than the positions themselves, which silently freezes
+    the book.
+
+    At a Kelly optimum ``p* = lambda * Sigma^-1 m``, so
+    ``alpha = m'p* = p*'Sigma p* / lambda = variance / lambda``.  Both sides are
+    observable -- the book's own forecast return and its forecast variance --
+    so ``lambda = variance / alpha`` is measured rather than assumed.  It also
+    stays correct when caps bind and the target is no longer an unconstrained
+    optimum, which is exactly when the assumed constant goes worst wrong.
+    """
+    with np.errstate(divide="ignore", invalid="ignore"):
+        lam = variance / alpha
+    return np.where(np.isfinite(lam) & (lam > 0), lam, floor)
+
+
 def no_trade_band(target: np.ndarray, sd: np.ndarray, halflife: np.ndarray,
-                  cost_bps: float, lam: float, cap: float) -> tuple[np.ndarray, np.ndarray]:
+                  cost_bps: float, lam: float | np.ndarray,
+                  cap: float) -> tuple[np.ndarray, np.ndarray]:
     """Walk the band forward.  Returns ``(position, band_halfwidth)``."""
     c = cost_bps / 1e4
     with np.errstate(divide="ignore", invalid="ignore"):

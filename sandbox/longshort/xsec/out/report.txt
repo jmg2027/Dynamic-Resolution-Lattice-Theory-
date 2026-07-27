@@ -1,0 +1,60 @@
+==============================================================================
+Cross-sectional ETF long/short  |  1999-03-17 -> 2026-07-23  (6880 days)
+56 ETFs, causal entry, median breadth 56 names   median gross exposure 0.94x
+==============================================================================
+
+-- headline ------------------------------------------------------
+strategy (net)       sharpe=+0.402  ann_return=+0.023  ann_vol=+0.058  max_drawdown=-0.175  hit_rate=+0.512
+strategy (gross)     sharpe=+0.717  ann_return=+0.042  ann_vol=+0.058  max_drawdown=-0.139  hit_rate=+0.519
+no exec band (net)   sharpe=-1.738  ann_return=-0.168  ann_vol=+0.097  max_drawdown=-0.995  hit_rate=+0.443
+equal-weight combo   sharpe=+0.399  ann_return=+0.020  ann_vol=+0.051  max_drawdown=-0.238  hit_rate=+0.501
+SPY buy & hold       sharpe=+0.318  ann_return=+0.061  ann_vol=+0.192  max_drawdown=-0.679  hit_rate=+0.541
+execution            band/position=6.46  lambda=0.1082  gross cap binds 23% of days  turnover 485x -> 37x/yr
+implementation lag   +0d SR=+1.765  +2d SR=-0.223   (headline uses +1d)
+
+-- experts (each standalone, net) --------------------------------
+                 sharpe  ann_ret    maxDD  hedge_w  active       IC    IC t
+rev_5            +0.380   +0.021   -0.217    0.781    100%  +0.0343   +9.33
+mom_21           +0.248   +0.009   -0.135    0.006     22%  -0.0145   -3.93
+mom_12_1         +0.218   +0.021   -0.242    0.008    100%  +0.0215   +5.37
+rev_1            +0.184   +0.005   -0.190    0.155    100%  +0.0508  +14.25
+mom_63           +0.109   +0.004   -0.142    0.017      9%  +0.0009   +0.24
+lowvol           -0.065   -0.004   -0.387    0.007     26%  -0.0228   -5.09
+trend_200        -0.068   -0.003   -0.284    0.017     25%  +0.0048   +1.22
+drawdown         -0.091   -0.005   -0.217    0.010     62%  -0.0165   -4.29
+
+-- does it survive the statistics? -------------------------------
+stationary bootstrap Sharpe  +0.40  90% CI [+0.14, +0.66]  P(SR<=0)=0.006
+White reality check          best=combo:hedge  stat=2.10  crit95=2.46  p=0.110  (M=10)
+deflated Sharpe (trials= 10)  SR=+0.40  E[max SR|H0]=+0.30  DSR=0.701
+deflated Sharpe (trials= 50)  SR=+0.40  E[max SR|H0]=+0.44  DSR=0.430
+deflated Sharpe (trials=200)  SR=+0.40  E[max SR|H0]=+0.53  DSR=0.253
+placebo, net   (200 draws)   observed SR=+0.40  null mean=-0.08 sd=0.24  95th=+0.32  p=0.010
+placebo, gross (200 draws)   observed SR=+0.72  null mean=+0.07 sd=0.21  95th=+0.43  p=0.000
+Hedge regret vs best expert  30.9  bound=84.6  respected=True
+
+-- as an overlay on SPY ------------------------------------------
+correlation to SPY  -0.048   alpha +2.42%/yr  t=+2.44   beta -0.014
+  SPY +  0.00 x strategy   SR=+0.318  ann=+6.12%  dd=-67.9%
+  SPY +  0.25 x strategy   SR=+0.349  ann=+6.70%  dd=-64.1%
+  SPY +  0.50 x strategy   SR=+0.377  ann=+7.29%  dd=-62.5%
+  SPY +  1.00 x strategy   SR=+0.426  ann=+8.46%  dd=-64.7%
+
+-- modern-era holdout (post-2010, 16.5 years) -----------------
+net SR +0.027  90% CI [-0.35, +0.43]  P(SR<=0)=0.463  ann=+0.11%
+
+-- subperiods ----------------------------------------------------
+1999-03-17..2005-01-01   SR=+1.07  ret=+9.3%  dd=-7.8%
+2005-01-01..2010-01-01   SR=+0.24  ret=+1.6%  dd=-13.7%
+2010-01-01..2015-01-01   SR=+0.12  ret=+0.5%  dd=-6.5%
+2015-01-01..2020-01-01   SR=-0.05  ret=-0.1%  dd=-7.0%
+2020-01-01..2026-07-23   SR=+0.00  ret=+0.0%  dd=-11.3%
+
+-- cost sensitivity ----------------------------------------------
+ 0.0bps  SR=+0.72  ann=+4.17%
+ 2.0bps  SR=+0.59  ann=+3.44%
+ 5.0bps  SR=+0.40  ann=+2.34%
+10.0bps  SR=+0.09  ann=+0.50%
+20.0bps  SR=-0.54  ann=-3.17%
+40.0bps  SR=-1.77  ann=-10.51%
+

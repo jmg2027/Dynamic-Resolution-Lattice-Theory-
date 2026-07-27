@@ -1,0 +1,8 @@
+__pycache__/
+
+# Raw vendor data -- reproducible with the per-project fetch script.
+*/data/
+
+# Full daily series -- reproducible by re-running the backtest, several MB.
+*/out/daily.csv
+*/out/panel.csv

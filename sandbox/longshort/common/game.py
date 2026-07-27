@@ -26,9 +26,41 @@ from __future__ import annotations
 import numpy as np
 
 
-def normalise_gains(pnl: np.ndarray, scale: float = 0.02) -> np.ndarray:
-    """Map per-day PnL into the ``[0,1]`` gain range Hedge's bound assumes."""
-    return np.clip(0.5 + pnl / (2.0 * scale), 0.0, 1.0)
+def causal_gain_scale(pnl: np.ndarray, halflife: float = 252.0,
+                      width: float = 3.0, floor: float = 1e-6) -> np.ndarray:
+    """Causal EWMA of mean absolute PnL across experts, times ``width``.
+
+    Hedge's regret bound is stated for gains in ``[0,1]``, so the PnL has to be
+    squashed into that range.  Doing it with a hardcoded constant is a trap: set
+    it too small and the clip saturates, at which point the exponential weights
+    stop seeing *how much* an expert won and Hedge silently degenerates into a
+    hit-rate contest that will happily crown a loser.  Scaling by the pool's own
+    realised PnL magnitude keeps the map in its unsaturated range at every point
+    in the sample, and removes the constant.
+    """
+    mean_abs = np.nanmean(np.abs(pnl), axis=1)
+    mean_abs = np.nan_to_num(mean_abs)
+    lam = 0.5 ** (1.0 / halflife)
+    acc = wsum = 0.0
+    out = np.empty(len(mean_abs))
+    for t, v in enumerate(mean_abs):
+        acc = lam * acc + (1 - lam) * v
+        wsum = lam * wsum + (1 - lam)
+        out[t] = acc / wsum if wsum > 0 else 0.0
+    return np.maximum(out * width, floor)
+
+
+def normalise_gains(pnl: np.ndarray, scale: float | np.ndarray = 0.02) -> np.ndarray:
+    """Map per-day PnL into the ``[0,1]`` gain range Hedge's bound assumes.
+
+    ``scale`` may be a constant or a causal per-day array from
+    :func:`causal_gain_scale`; prefer the latter whenever the PnL magnitude of
+    the expert pool is not known in advance.
+    """
+    s = np.asarray(scale, dtype=float)
+    if s.ndim == 1:
+        s = s[:, None]
+    return np.clip(0.5 + pnl / (2.0 * s), 0.0, 1.0)
 
 
 def hedge_weights(gains: np.ndarray, eta_scale: float = 1.0) -> np.ndarray:

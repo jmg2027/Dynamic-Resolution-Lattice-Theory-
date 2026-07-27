@@ -21,14 +21,21 @@ from __future__ import annotations
 import numpy as np
 
 
-def _causal_cumsum(v: np.ndarray) -> np.ndarray:
-    """Cumulative sum shifted so index ``t`` holds the total over ``s <= t-1``."""
+def _causal_cumsum(v: np.ndarray, lag: int = 1) -> np.ndarray:
+    """Cumulative sum shifted so index ``t`` holds the total over ``s <= t-lag``.
+
+    ``lag=1`` is the default because the pair ``(z[s], r_fwd[s])`` only becomes
+    observable at the close of ``s+1``.  When execution is delayed a further
+    ``L`` days, the payoff being learned from lands ``L`` days later still, so
+    the caller must pass ``lag = 1 + L`` or the fit quietly reads the future.
+    """
     c = np.cumsum(np.nan_to_num(v, nan=0.0))
-    return np.concatenate(([0.0], c[:-1]))
+    return np.concatenate((np.zeros(lag), c[:-lag]))
 
 
 def rolling_slope(z: np.ndarray, y: np.ndarray, min_obs: int = 504,
-                  kappa: float = 1.0) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+                  kappa: float = 1.0,
+                  lag: int = 1) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Expanding OLS slope of ``y`` on ``z`` (with intercept), causal.
 
     Returns ``(beta_hat, se, beta_robust)`` where ``beta_robust`` is the
@@ -38,12 +45,12 @@ def rolling_slope(z: np.ndarray, y: np.ndarray, min_obs: int = 504,
     zz = np.where(ok, z, 0.0)
     yy = np.where(ok, y, 0.0)
 
-    n = _causal_cumsum(ok.astype(float))
-    sx = _causal_cumsum(zz)
-    sy = _causal_cumsum(yy)
-    sxx = _causal_cumsum(zz * zz)
-    sxy = _causal_cumsum(zz * yy)
-    syy = _causal_cumsum(yy * yy)
+    n = _causal_cumsum(ok.astype(float), lag)
+    sx = _causal_cumsum(zz, lag)
+    sy = _causal_cumsum(yy, lag)
+    sxx = _causal_cumsum(zz * zz, lag)
+    sxy = _causal_cumsum(zz * yy, lag)
+    syy = _causal_cumsum(yy * yy, lag)
 
     with np.errstate(divide="ignore", invalid="ignore"):
         denom = sxx - sx * sx / n
@@ -59,6 +66,36 @@ def rolling_slope(z: np.ndarray, y: np.ndarray, min_obs: int = 504,
 
     shrunk = np.sign(beta) * np.maximum(np.abs(beta) - kappa * se, 0.0)
     return beta, se, shrunk
+
+
+def rolling_mean(y: np.ndarray, min_obs: int = 504, kappa: float = 1.0,
+                 lag: int = 1) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Expanding causal mean of ``y``, with the same minimax soft threshold.
+
+    The cross-sectional analogue of :func:`rolling_slope`: once an expert is a
+    zero-cost portfolio, its edge is just its own mean return, and the question
+    "is this distinguishable from zero?" is answered the same way -- shrink to
+    the endpoint of the confidence interval nearest zero, so an expert with no
+    support contributes exactly nothing.
+
+    Returns ``(mean_hat, se, mean_robust)``.
+    """
+    ok = np.isfinite(y)
+    yy = np.where(ok, y, 0.0)
+    n = _causal_cumsum(ok.astype(float), lag)
+    sy = _causal_cumsum(yy, lag)
+    syy = _causal_cumsum(yy * yy, lag)
+
+    with np.errstate(divide="ignore", invalid="ignore"):
+        mu = sy / n
+        var = (syy - sy * sy / n) / np.maximum(n - 1.0, 1.0)
+        se = np.sqrt(np.maximum(var, 0.0) / n)
+
+    valid = (n >= min_obs) & np.isfinite(mu) & np.isfinite(se)
+    mu = np.where(valid, mu, np.nan)
+    se = np.where(valid, se, np.nan)
+    shrunk = np.sign(mu) * np.maximum(np.abs(mu) - kappa * se, 0.0)
+    return mu, se, shrunk
 
 
 def ewma_vol(r: np.ndarray, halflife: float = 21.0,

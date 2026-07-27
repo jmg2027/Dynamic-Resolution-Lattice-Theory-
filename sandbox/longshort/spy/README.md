@@ -6,8 +6,8 @@ estimation with minimax shrinkage, Kelly sizing, a no-regret game against an
 adversarial market, a closed-form execution band, and a statistics layer whose
 entire job is to try to kill the result.
 
-Unrelated to the DRLT/213 work in the rest of this repository — this is a
-standalone sandbox project.  Data: SPY, ^VIX, ^IRX daily from Yahoo, 1993-2026.
+Part one of two — see [`../README.md`](../README.md) for how this leads into the
+cross-sectional study.  Data: SPY, ^VIX, ^IRX daily from Yahoo, 1993-2026.
 
 **The verdict is negative, and that is the deliverable.**  The strategy earns a
 net Sharpe of **+0.09** over 7,672 trading days.  The same pipeline, run on 300
@@ -193,12 +193,13 @@ time.
 
 ```bash
 pip install numpy pandas scipy matplotlib
-python3 fetch_data.py    # SPY, ^VIX, ^IRX -> data/*.csv
-python3 backtest.py      # ~90s incl. 300 placebo runs -> out/results.json, out/daily.csv
-python3 plots.py         # -> out/report.png
+cd sandbox/longshort
+python3 -m spy.fetch_data   # SPY, ^VIX, ^IRX -> spy/data/*.csv
+python3 -m spy.backtest     # ~90s incl. 300 placebo runs -> spy/out/
+python3 -m spy.plots        # -> spy/out/report.png
 ```
 
-`Config` in `backtest.py` holds every knob; `placebo_draws=0` skips the slow part.
+`Config` in `spy/backtest.py` holds every knob; `placebo_draws=0` skips the slow part.
 
 ## Timing contract
 

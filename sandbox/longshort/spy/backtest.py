@@ -18,12 +18,10 @@ from dataclasses import dataclass, asdict
 import numpy as np
 import pandas as pd
 
-import edge as edge_mod
-import execution
-import features
-import game
-import pit
-import stats as stats_mod
+from common import edge as edge_mod
+from common import execution, game, pit
+from common import stats as stats_mod
+from spy import features
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")

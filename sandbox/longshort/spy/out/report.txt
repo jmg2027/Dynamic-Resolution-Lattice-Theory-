@@ -5,7 +5,7 @@ SPY long/short  |  1996-01-25 -> 2026-07-23  (7672 trading days)
 -- headline ------------------------------------------------------
 strategy (net)       sharpe=+0.089  ann_return=+0.006  ann_vol=+0.068  max_drawdown=-0.181  hit_rate=+0.490
 strategy (gross)     sharpe=+0.152  ann_return=+0.010  ann_vol=+0.068  max_drawdown=-0.168  hit_rate=+0.498
-no exec band (net)   sharpe=+0.060  ann_return=+0.005  ann_vol=+0.086  max_drawdown=-0.317  hit_rate=+0.490
+no exec band (net)   sharpe=+0.060  ann_return=+0.005  ann_vol=+0.086  max_drawdown=-0.317  hit_rate=+0.489
 equal-weight combo   sharpe=+0.116  ann_return=+0.004  ann_vol=+0.032  max_drawdown=-0.153  hit_rate=+0.488
 SPY buy & hold       sharpe=+0.395  ann_return=+0.076  ann_vol=+0.192  max_drawdown=-0.679  hit_rate=+0.540
 positioning          avg=-0.04  avg|pos|=0.28  long 41% / short 59%  turnover=21.5x/yr
@@ -14,9 +14,9 @@ execution band       halfwidth=0.28  holding horizon=4d  turnover 60x -> 21x/yr
 -- experts (each standalone, net) --------------------------------
 rev_1          sharpe=+0.315  ann_return=+0.013  max_drawdown=-0.069  hedge_w=0.048  active=62%
 tom            sharpe=+0.286  ann_return=+0.019  max_drawdown=-0.229  hedge_w=0.162  active=98%
-rev_5          sharpe=+0.223  ann_return=+0.026  max_drawdown=-0.254  hedge_w=0.404  active=100%
+rev_5          sharpe=+0.224  ann_return=+0.026  max_drawdown=-0.254  hedge_w=0.404  active=100%
 vrp            sharpe=+0.105  ann_return=+0.008  max_drawdown=-0.293  hedge_w=0.039  active=61%
-trend_200      sharpe=+0.024  ann_return=+0.001  max_drawdown=-0.286  hedge_w=0.034  active=22%
+trend_200      sharpe=+0.024  ann_return=+0.001  max_drawdown=-0.285  hedge_w=0.034  active=22%
 vix_spike      sharpe=-0.012  ann_return=-0.001  max_drawdown=-0.405  hedge_w=0.174  active=96%
 drawdown       sharpe=-0.031  ann_return=-0.002  max_drawdown=-0.428  hedge_w=0.055  active=63%
 mom_63         sharpe=-0.142  ann_return=-0.007  max_drawdown=-0.274  hedge_w=0.025  active=52%
